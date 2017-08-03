@@ -1,0 +1,8 @@
+*.egg-info
+*.so
+*~
+/.emacs.desktop.lock
+/build/
+/emacs.desktop
+/env/
+__pycache__/
