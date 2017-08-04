@@ -14,7 +14,10 @@ from pycparser import c_ast, c_parser
 
 HEADER = """\
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Enums automatically extracted from %s @ %s
+# :Project:   pg_query -- DO NOT EDIT: automatically extracted from %s @ %s
+# :Author:    Lele Gaifax <lele@metapensiero.it>
+# :License:   GNU General Public License version 3 or later
+# :Copyright: © 2017 Lele Gaifax
 #
 
 import enum
