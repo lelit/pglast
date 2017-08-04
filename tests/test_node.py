@@ -84,8 +84,31 @@ def test_basic():
     assert x1.value == x2.value
 
 
+def test_nested_lists():
+    ptree = [{'Foo': {'bar': {'Bar': {'a': [
+        [{'B': {'x': 0, 'y': 0}}, None],
+        [{'B': {'x': 1, 'y': 1}}, None],
+    ]}}}}]
+
+    root = Node(ptree)
+    foo1 = root[0]
+    a = foo1.bar.a
+    assert isinstance(a, List)
+    assert isinstance(a[0], List)
+    a00 = a[0][0]
+    assert a00.node_tag == 'B'
+    assert a00.x.value == a00.y.value == 0
+    assert a00.attribute_name == (('a', 0), 0)
+    assert a00.parent_node[a00.attribute_name] == a00
+    a01 = a[0][1]
+    assert a01.value is None
+    assert a01.attribute_name == (('a', 0), 1)
+    assert a01.parent_node[a01.attribute_name] == a01
+
+
 def test_traverse():
     ptree = [{'Foo': {'bar': {'Bar': {'a': 1, 'b': 'b'}}}}]
+
     root = Node(ptree)
     assert tuple(root.traverse()) == (
         root[0],
@@ -115,4 +138,23 @@ def test_traverse():
         root[1].bar.c[1],
         root[1].bar.c[1].x,
         root[1].bar.c[1].y,
+    )
+
+    ptree = [{'Foo': {'bar': {'Bar': {'a': [
+        [{'B': {'x': 0, 'y': 0}}, None],
+        [{'B': {'x': 1, 'y': 1}}, None],
+    ]}}}}]
+
+    root = Node(ptree)
+    assert tuple(root.traverse()) == (
+        root[0],
+        root[0].bar,
+        root[0].bar.a[0][0],
+        root[0].bar.a[0][0].x,
+        root[0].bar.a[0][0].y,
+        root[0].bar.a[0][1],
+        root[0].bar.a[1][0],
+        root[0].bar.a[1][0].x,
+        root[0].bar.a[1][0].y,
+        root[0].bar.a[1][1],
     )

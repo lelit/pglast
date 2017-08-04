@@ -130,7 +130,7 @@ class Node(Base):
     def __getitem__(self, attr):
         if isinstance(attr, tuple):
             attr, index = attr
-            return getattr(self, attr)[index]
+            return self[attr][index]
         elif isinstance(attr, str):
             return getattr(self, attr)
         else:
