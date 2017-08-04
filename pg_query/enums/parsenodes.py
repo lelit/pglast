@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Enums automatically extracted from parsenodes.h @ 10-latest-0-g60de51e
+# :Project:   pg_query -- DO NOT EDIT: automatically extracted from parsenodes.h @ 10-latest-0-g60de51e
+# :Author:    Lele Gaifax <lele@metapensiero.it>
+# :License:   GNU General Public License version 3 or later
+# :Copyright: © 2017 Lele Gaifax
 #
 
 import enum
