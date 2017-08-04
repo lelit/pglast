@@ -125,10 +125,6 @@ def main():
     parser = ArgumentParser(description="PG enum extractor",
                             formatter_class=ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('-v', '--verbose', action='store_true', default=False,
-                        help="emit some noise in the process")
-    parser.add_argument('-n', '--dry-run', action='store_true', default=False,
-                        help="test run, just show what would happed")
     parser.add_argument('-I', '--include-directory', action='append', metavar='DIR',
                         help="add DIR to the list of include directories")
     parser.add_argument('header',
