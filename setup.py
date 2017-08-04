@@ -7,9 +7,10 @@
 #
 
 from pathlib import Path
+import subprocess
 
-from setuptools import setup, find_packages
-from distutils.extension import Extension
+from setuptools import Extension, setup, find_packages
+from setuptools.command.build_ext import build_ext
 try:
     from Cython.Build import cythonize
 except ImportError:
@@ -28,6 +29,15 @@ with (here / 'version.txt').open(encoding='utf-8') as f:
     VERSION = f.read().strip()
 
 
+LIBPG_QUERY_DIR = str(here / 'libpg_query')
+
+
+class BuildLibPgQueryFirst(build_ext):
+    def run(self):
+        subprocess.run(['make', '-s', '-C', LIBPG_QUERY_DIR, 'build'], check=True)
+        super().run()
+
+
 setup(
     name="pg_query",
     version=VERSION,
@@ -44,19 +54,18 @@ setup(
         "Development Status :: 2 - Pre-Alpha",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         ],
     keywords="",
 
-    packages=find_packages('pg_query'),
+    packages=find_packages('.'),
 
+    cmdclass = {'build_ext': BuildLibPgQueryFirst},
     ext_modules = cythonize([
         Extension('pg_query.parser', [extension_source],
                   libraries=['pg_query'],
-                  include_dirs=[str(here / 'libpg_query')],
-                  library_dirs=[str(here / 'libpg_query')]),
+                  include_dirs=[LIBPG_QUERY_DIR],
+                  library_dirs=[LIBPG_QUERY_DIR]),
     ]),
 
     install_requires=['setuptools'],

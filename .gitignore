@@ -1,10 +1,11 @@
 *.egg-info
 *.so
 *~
+/.cache/
+/.coverage
 /.emacs.desktop.lock
 /build/
+/dist/
 /emacs.desktop
 /env/
 __pycache__/
-/.cache/
-/.coverage

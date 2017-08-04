@@ -1,0 +1,15 @@
+exclude .git .gitmodules
+include *.cfg *.py *.rst *.txt Makefile*
+include tests/*.py
+include tools/*.py
+recursive-include pg_query *.py *.pyx
+exclude libpg_query/*
+include libpg_query/LICENSE libpg_query/Makefile libpg_query/pg_query.h
+recursive-include libpg_query/src *.c *.h
+prune libpg_query/examples
+prune libpg_query/patches
+prune libpg_query/scripts
+prune libpg_query/srcdata
+prune libpg_query/test
+prune libpg_query/testdata
+prune libpg_query/tmp
