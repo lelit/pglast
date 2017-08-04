@@ -54,6 +54,13 @@ $(PY_ENUMS_DIR)/primnodes.py: $(PG_INCLUDE_DIR)/nodes/primnodes.h
 $(PY_ENUMS_DIR)/parsenodes.py: $(PG_INCLUDE_DIR)/nodes/parsenodes.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@
 
+help::
+	@echo "check"
+	@echo "    run the test suite"
+
+.PHONY: check
+check: build
+	pytest tests/
 
 include Makefile.virtualenv
 include Makefile.release

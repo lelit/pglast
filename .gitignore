@@ -6,3 +6,5 @@
 /emacs.desktop
 /env/
 __pycache__/
+/.cache/
+/.coverage
