@@ -6,5 +6,5 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
-class Error(RuntimeError):
+class Error(Exception):
     "Top level error exception."
