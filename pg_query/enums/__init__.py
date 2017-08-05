@@ -6,6 +6,7 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
+from .lockoptions import *
 from .nodes import *
 from .parsenodes import *
 from .primnodes import *

@@ -41,7 +41,8 @@ help::
 	@echo "    extract Python enums from PG sources"
 
 PY_ENUMS_DIR := pg_query/enums
-PY_ENUMS := $(PY_ENUMS_DIR)/nodes.py $(PY_ENUMS_DIR)/parsenodes.py $(PY_ENUMS_DIR)/primnodes.py
+PY_ENUMS := $(PY_ENUMS_DIR)/lockoptions.py $(PY_ENUMS_DIR)/nodes.py \
+	    $(PY_ENUMS_DIR)/parsenodes.py $(PY_ENUMS_DIR)/primnodes.py
 PG_INCLUDE_DIR := libpg_query/src/postgres/include
 
 .PHONY: enums
