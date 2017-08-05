@@ -8,6 +8,7 @@
 
 from contextlib import contextmanager
 from io import StringIO
+from re import match
 
 from .error import Error
 from .node import Node, Scalar
@@ -136,6 +137,23 @@ class RawStream(OutputStream):
     def indent(self, amount=0, relative=True):
         "Do nothing, shall be overridden by the prettifier subclass."
 
+    def maybe_double_quote_name(self, scalar):
+        """Double-quote the given `scalar` if needed.
+
+        :param scalar: a :class:`~.node.Scalar` string instance
+        :return: the string value of the scalar, possibly double quoted
+
+        The `scalar` represent a name of a column/table/alias: when any of its characters
+        is not a lower case letter, a digit or underscore, it must be double quoted.
+        """
+
+        assert isinstance(scalar, Scalar) and isinstance(scalar.value, str)
+        s = scalar.value
+        if not match(r'[a-z_][a-z0-9_]*$', s):
+            return '"%s"' % s
+        else:
+            return s
+
     def newline(self):
         "Emit a single whitespace, shall be overridden by the prettifier subclass."
 
@@ -158,28 +176,31 @@ class RawStream(OutputStream):
         yield
         self.dedent()
 
-    def _print_items(self, items, sep, newline):
+    def _print_items(self, items, sep, newline, are_names=False):
         first = True
         for item in items:
             if first:
                 first = False
             else:
-                if newline:
-                    self.newline()
-                else:
-                    self.separator()
+                if not are_names:
+                    if newline:
+                        self.newline()
+                    else:
+                        self.separator()
                 self.write(sep)
-            self.separator()
-            self.print(item)
+            if not are_names:
+                self.separator()
+            self.print(item, is_name=are_names)
 
-    def _print_scalar(self, node):
-        self.write(str(node.value))
+    def _print_scalar(self, node, is_name):
+        value = self.maybe_double_quote_name(node) if is_name else str(node.value)
+        self.write(value)
 
-    def print(self, node):
+    def print(self, node, is_name=False):
         """Lookup the specific printer for the given `node` and execute it."""
 
         if isinstance(node, Scalar):
-            self._print_scalar(node)
+            self._print_scalar(node, is_name)
         else:
             printer = get_printer_for_node_tag(node.node_tag)
             printer(node, self)
@@ -202,7 +223,8 @@ class RawStream(OutputStream):
         if self.expression_level > 0:
             self.write(')')
 
-    def print_list(self, nodes, sep=', ', relative_indent=None, standalone_items=True):
+    def print_list(self, nodes, sep=', ', relative_indent=None, standalone_items=True,
+                   are_names=False):
         """Execute :meth:`print` on all the `items`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.node.Node` instances
@@ -217,7 +239,7 @@ class RawStream(OutputStream):
         if relative_indent is None:
             relative_indent = -len(sep)
         with self.push_indent(relative_indent):
-            self._print_items(nodes, sep, newline=standalone_items)
+            self._print_items(nodes, sep, standalone_items, are_names=are_names)
 
 
 class IndentedStream(RawStream):
@@ -285,7 +307,8 @@ class IndentedStream(RawStream):
         if self.expression_level > 0:
             self.write(')')
 
-    def print_list(self, nodes, sep=', ', relative_indent=None, standalone_items=True):
+    def print_list(self, nodes, sep=', ', relative_indent=None, standalone_items=True,
+                   are_names=False):
         """Execute :meth:`print` on all the `items`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.node.Node` instances
@@ -304,7 +327,7 @@ class IndentedStream(RawStream):
             self.write(' '*len(sep))
 
         with self.push_indent(relative_indent):
-            self._print_items(nodes, sep, newline=standalone_items)
+            self._print_items(nodes, sep, standalone_items, are_names=are_names)
 
     def write(self, s):
         """Write string `s` to the stream, adjusting the `current_column` accordingly.
