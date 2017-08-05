@@ -6,15 +6,27 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
+import enum
+
 import pytest
 
 from pg_query import Missing, Node
 from pg_query.node import List, Scalar
 
 
+class DummyEnum(str, enum.Enum):
+    A = 'a'
+    B = 'b'
+
+
+class DummyIntEnum(enum.IntEnum):
+    ZERO = 0
+    ONE = 1
+
+
 def test_basic():
-    ptree = [{'Foo': {'bar': {'Bar': {'a': 1, 'b': 'b'}}}},
-             {'Foo': {'bar': {'Bar': {'a': 0, 'c': [
+    ptree = [{'Foo': {'bar': {'Bar': {'a': 1, 'b': 'b', 'c': None, 'd': 0}}}},
+             {'Foo': {'bar': {'Bar': {'a': 0, 'f': False, 't': True, 'c': [
                  {'C': {'x': 0, 'y': 0}},
                  {'C': {'x': 0, 'y': 0}}
              ]}}}}]
@@ -32,7 +44,7 @@ def test_basic():
     foo1 = root[0]
     assert foo1 != root
     assert foo1.node_tag == 'Foo'
-    assert foo1.parse_tree == {'bar': {'Bar': {'a': 1, 'b': 'b'}}}
+    assert foo1.parse_tree == {'bar': {'Bar': {'a': 1, 'b': 'b', 'c': None, 'd': 0}}}
     assert foo1.parent_node is None
     assert foo1.attribute_name == (None, 0)
     assert repr(foo1) == '<Foo>'
@@ -49,11 +61,28 @@ def test_basic():
     assert bar1.node_tag == 'Bar'
     assert bar1.parent_node is foo1
     assert bar1.attribute_name == 'bar'
-    assert bar1.attribute_names == {'a', 'b'}
+    assert bar1.attribute_names == {'a', 'b', 'c', 'd'}
     assert foo1[bar1.attribute_name] == bar1
+
+    # __str__
     assert str(bar1) == 'bar=<Bar>'
     assert str(bar1.a) == 'a=1'
     assert str(bar1.b) == "b='b'"
+
+    # Scalar.__bool__
+    assert bar1.a
+    assert bar1.b
+    assert bar1.c.value is None
+    assert not bar1.c
+    assert bar1.d
+
+    # Scalar.__eq__
+    assert bar1.a == 1
+    assert bar1.a == DummyIntEnum.ONE
+    assert bar1.a != DummyIntEnum.ZERO
+    assert bar1.b == 'b'
+    assert bar1.b == DummyEnum.B
+    assert bar1.b != DummyEnum.A
 
     foo2 = root[1]
     assert foo2 != foo1
@@ -61,7 +90,11 @@ def test_basic():
     bar2 = foo2['bar']
     assert bar2 != bar1
     assert bar2.attribute_name == 'bar'
-    assert bar2.attribute_names == {'a', 'c'}
+    assert bar2.attribute_names == {'a', 'c', 'f', 't'}
+    assert bar2.a == DummyIntEnum.ZERO
+    assert bar2.a != DummyIntEnum.ONE
+    assert not bar2.f
+    assert bar2.t
 
     c = bar2.c
     assert isinstance(c, List)

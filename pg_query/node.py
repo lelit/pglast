@@ -6,6 +6,9 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
+from enum import Enum
+
+
 class Missing:
     def __bool__(self):
         return False
@@ -173,6 +176,21 @@ class Scalar(Base):
     def _init(self, value, parent, name):
         super()._init(parent, name)
         self._value = value
+
+    def __bool__(self):
+        if self.value is None:
+            return False
+        if isinstance(self.value, str):
+            return bool(self.value)
+        elif isinstance(self.value, bool):
+            return self.value
+        return True
+
+    def __eq__(self, other):
+        if isinstance(other, Enum) or type(other) is type(self.value):
+            return self.value == other
+        else:
+            return super().__eq__(other)
 
     def __repr__(self):
         return f'{self._value!r}'
