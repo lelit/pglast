@@ -78,8 +78,12 @@ class List(Base):
         return len(self._items)
 
     def __repr__(self):
+        # There's no guarantee that a list contains the same kind of objects,
+        # so picking the first is rather arbitrary but serves the purpose, as
+        # this is primarily an helper for investigating the internals of a tree.
+        count = len(self)
         pivot = self[0]
-        return f'[{pivot!r}]'
+        return f'[{count}*{pivot!r}]'
 
     def __iter__(self):
         pnode = self.parent_node

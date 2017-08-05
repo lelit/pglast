@@ -24,8 +24,8 @@ def test_basic():
     assert root.attribute_name is None
     assert isinstance(root, List)
     assert len(root) == 2
-    assert repr(root) == '[<Foo>]'
-    assert str(root) == 'None=[<Foo>]'
+    assert repr(root) == '[2*<Foo>]'
+    assert str(root) == 'None=[2*<Foo>]'
     with pytest.raises(AttributeError):
         root.not_there
 
@@ -65,8 +65,8 @@ def test_basic():
 
     c = bar2.c
     assert isinstance(c, List)
-    assert repr(c) == '[<C>]'
     assert len(c) == 2
+    assert repr(c) == '[2*<C>]'
 
     c1 = c[0]
     c2 = c[1]
