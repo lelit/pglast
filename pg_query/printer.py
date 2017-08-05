@@ -69,7 +69,7 @@ class OutputStream(StringIO):
         if not self.last_emitted_char.isspace():
             self.pending_separator = True
 
-    def write(self, s):
+    def write(self, s, *, _special_chars=set("""_*+/-"'=<>""")):
         """Emit string `s`.
 
         :param str s: the string to emit
@@ -83,11 +83,33 @@ class OutputStream(StringIO):
         count = 0
         if s:
             if self.pending_separator:
-                if s[0].isalnum():
+                if s[0].isalnum() or s[0] in _special_chars:
                     count = super().write(' ')
                 self.pending_separator = False
             count += super().write(s)
             self.last_emitted_char = s[-1]
+
+        return count
+
+    def writes(self, s):
+        "Shortcut for ``self.write(s); self.separator()``."
+
+        count = self.write(s)
+        self.separator()
+        return count
+
+    def swrite(self, s):
+        "Shortcut for ``self.separator(); self.write(s);``."
+
+        self.separator()
+        return self.write(s)
+
+    def swrites(self, s):
+        "Shortcut for ``self.separator(); self.write(s); self.separator()``."
+
+        self.separator()
+        count = self.write(s)
+        self.separator()
         return count
 
 
@@ -107,6 +129,9 @@ class RawStream(OutputStream):
             options['separate_statements'] = True
         self.options = options
         self.expression_level = 0
+        self.current_column = 0
+        self.current_indent = 0
+        self.indentation_stack = []
 
     def __call__(self, sql, plpgsql=False):
         """Main entry point: execute :meth:`print` on each statement in `sql`.
@@ -131,11 +156,24 @@ class RawStream(OutputStream):
             self.print(statement)
         return self.getvalue()
 
+    def concat_scalars(self, scalars, sep=' ', are_names=False):
+        substream = type(self)(**self.options)
+        substream.print_list(scalars, sep, are_names=are_names, standalone_items=False)
+        return substream.getvalue()
+
     def dedent(self):
-        "Do nothing, shall be overridden by the prettifier subclass."
+        "Pop the indentation level from the stack and set `current_indent` to that."
+
+        self.current_indent = self.indentation_stack.pop()
 
     def indent(self, amount=0, relative=True):
-        "Do nothing, shall be overridden by the prettifier subclass."
+        """Push current indentation level to the stack, then set it adding `amount` to the
+        `current_column` if `relative` is ``True`` otherwise to `current_indent`.
+        """
+
+        self.indentation_stack.append(self.current_indent)
+        base_indent = (self.current_column if relative else self.current_indent)
+        self.current_indent = base_indent + amount
 
     def maybe_double_quote_name(self, scalar):
         """Double-quote the given `scalar` if needed.
@@ -172,6 +210,10 @@ class RawStream(OutputStream):
               # code that emits something with the new indentation
         """
 
+        if self.pending_separator and relative:
+            amount += 1
+        if self.current_column == 0 and relative:
+            amount += self.current_indent
         self.indent(amount, relative)
         yield
         self.dedent()
@@ -185,11 +227,9 @@ class RawStream(OutputStream):
                 if not are_names:
                     if newline:
                         self.newline()
-                    else:
-                        self.separator()
                 self.write(sep)
-            if not are_names:
-                self.separator()
+                if not are_names:
+                    self.write(' ')
             self.print(item, is_name=are_names)
 
     def _print_scalar(self, node, is_name):
@@ -206,24 +246,17 @@ class RawStream(OutputStream):
             printer(node, self)
             self.separator()
 
-    def print_expression(self, nodes, operator):
-        """Emit a list of `items` between parens, using `operator` as separator.
-
-        :param nodes: a sequence :class:`~.node.Node` instances, the expression operands
-        :param operator: the operator between items
-        """
-
+    @contextmanager
+    def expression(self):
         self.expression_level += 1
         if self.expression_level > 1:
             self.write('(')
-
-        self._print_items(nodes, operator, True)
-
-        self.expression_level -= 1
-        if self.expression_level > 0:
+        yield
+        if self.expression_level > 1:
             self.write(')')
+        self.expression_level -= 1
 
-    def print_list(self, nodes, sep=', ', relative_indent=None, standalone_items=True,
+    def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
                    are_names=False):
         """Execute :meth:`print` on all the `items`, separating them with `sep`.
 
@@ -237,7 +270,12 @@ class RawStream(OutputStream):
         """
 
         if relative_indent is None:
-            relative_indent = -len(sep)
+            relative_indent = -(len(sep) + 1)
+
+        if standalone_items is None:
+            standalone_items = not all(isinstance(n, Node) and n.node_tag == 'A_Const'
+                                       for n in nodes)
+
         with self.push_indent(relative_indent):
             self._print_items(nodes, sep, standalone_items, are_names=are_names)
 
@@ -255,59 +293,13 @@ class IndentedStream(RawStream):
         if 'align_expression_operands' not in options:
             options['align_expression_operands'] = True
         super().__init__(**options)
-        self.current_column = 0
-        self.current_indent = 0
-        self.indentation_stack = []
-
-    def dedent(self):
-        "Pop the indentation level from the stack and set `current_indent` to that."
-
-        self.current_indent = self.indentation_stack.pop()
-
-    def indent(self, amount=0, relative=True):
-        """Push current indentation level to the stack, then set it adding `amount` to the
-        `current_column` if `relative` is ``True`` otherwise to `current_indent`.
-        """
-
-        self.indentation_stack.append(self.current_indent)
-        base_indent = (self.current_column if relative else self.current_indent)
-        self.current_indent = base_indent + amount
 
     def newline(self):
         "Emit a newline."
 
         self.write('\n')
 
-    def print_expression(self, nodes, operator):
-        """Emit a list of `items` between parens, using `operator` as separator.
-
-        :param nodes: a sequence :class:`~.node.Node` instances, the expression operands
-        :param operator: the operator between items
-
-        If `align_expression_operands` is ``True`` then the operands will be vertically
-        aligned.
-        """
-
-        self.expression_level += 1
-        if self.expression_level > 1:
-            if self.options['align_expression_operands'] and len(nodes) > 1:
-                oplen = len(operator)
-                self.write('(' + ' '*oplen)
-                indent = -oplen
-            else:
-                self.write('(')
-                indent = 0
-        else:
-            indent = -len(operator)
-
-        with self.push_indent(indent):
-            self._print_items(nodes, operator, True)
-
-        self.expression_level -= 1
-        if self.expression_level > 0:
-            self.write(')')
-
-    def print_list(self, nodes, sep=', ', relative_indent=None, standalone_items=True,
+    def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
                    are_names=False):
         """Execute :meth:`print` on all the `items`, separating them with `sep`.
 
@@ -320,14 +312,14 @@ class IndentedStream(RawStream):
                                  each item
         """
 
-        if relative_indent is None:
-            relative_indent = -len(sep)
+        if standalone_items is None:
+            standalone_items = not all(isinstance(n, Node) and n.node_tag == 'A_Const'
+                                       for n in nodes)
 
-        if len(nodes) > 1:
-            self.write(' '*len(sep))
+        if len(nodes) > 1 and len(sep) > 1 and relative_indent is None and standalone_items:
+            self.write(' '*(len(sep) + 1)) # separator added automatically
 
-        with self.push_indent(relative_indent):
-            self._print_items(nodes, sep, standalone_items, are_names=are_names)
+        super().print_list(nodes, sep, relative_indent, standalone_items, are_names)
 
     def write(self, s):
         """Write string `s` to the stream, adjusting the `current_column` accordingly.

@@ -38,14 +38,10 @@ def test_registry():
 
 def test_output_stream():
     output = printer.OutputStream()
-    output.write('SELECT *')
-    output.separator()
-    output.write(' FROM')
-    output.separator()
-    output.write('table ')
-    output.separator()
-    output.write('WHERE')
-    output.separator()
+    output.writes('SELECT *')
+    output.writes(' FROM')
+    output.writes('table ')
+    output.writes('WHERE')
     output.write('id = 1')
 
     assert output.getvalue() == 'SELECT * FROM table WHERE id = 1'
@@ -99,18 +95,18 @@ def test_raw_stream_basics():
             else:
                 if output.options.get('test_child_z_is_expression', True):
                     with output.push_indent(2, relative=False):
-                        output.print_expression(node.z, '+')
+                        output.print_list(node.z, '+')
                 else:
                     output.print_list(node.z, '/', standalone_items=False)
             output.write('}')
 
         output = printer.RawStream()
         result = output(root)
-        assert result == 'bar = a({x0, y0}*{x1,{x2, y2}+{x3,({x4, y4}+{x5, y5})}})'
+        assert result == 'bar = a({x0, y0} * {x1,{x2, y2} + {x3,{x4, y4} + {x5, y5}}})'
 
         output = printer.RawStream(test_child_z_is_expression=False)
         result = output(root)
-        assert result == 'bar = a({x0, y0}*{x1,{x2, y2}/{x3,{x4, y4}/{x5, y5}}})'
+        assert result == 'bar = a({x0, y0} * {x1,{x2, y2} / {x3,{x4, y4} / {x5, y5}}})'
     finally:
         printer.NODE_PRINTERS.pop('TestRoot', None)
         printer.NODE_PRINTERS.pop('TestChild', None)
@@ -173,39 +169,49 @@ def test_indented_stream_basics():
             output.write('{')
             output.write('x')
             output.print(node.x)
-            output.separator()
-            output.write(',')
-            output.separator()
+            output.swrites(',')
             if node.y:
                 output.write('y')
                 output.print(node.y)
             else:
                 if output.options.get('test_child_z_is_expression', True):
                     with output.push_indent(2, relative=False):
-                        output.print_expression(node.z, '+')
+                        output.print_list(node.z, '+')
                 else:
-                    output.print_list(node.z, '/', standalone_items=False)
+                    list_sep = output.options.get('test_child_z_list_sep', '/')
+                    output.print_list(node.z, list_sep, standalone_items=len(list_sep)==2)
             output.write('}')
 
         output = printer.IndentedStream()
         result = output(root)
-        assert result == ("bar = a( {x0, y0}\n"
-                          "        *{x1,{x2, y2}\n"
-                          "            +{x3,( {x4, y4}\n"
-                          "                  +{x5, y5})}})")
-
+        assert result == """\
+bar = a({x0, y0}
+      * {x1,{x2, y2}
+           + {x3,{x4, y4}
+                + {x5, y5}}})"""
 
         output = printer.IndentedStream(align_expression_operands=False)
         result = output(root)
-        assert result == ("bar = a( {x0, y0}\n"
-                          "        *{x1,{x2, y2}\n"
-                          "            +{x3,({x4, y4}\n"
-                          "                  +{x5, y5})}})")
+        assert result == """\
+bar = a({x0, y0}
+      * {x1,{x2, y2}
+           + {x3,{x4, y4}
+                + {x5, y5}}})"""
 
         output = printer.IndentedStream(test_child_z_is_expression=False)
         result = output(root)
-        assert result == ("bar = a( {x0, y0}\n"
-                          "        *{x1, {x2, y2}/{x3, {x4, y4}/{x5, y5}}})")
+        assert result == """\
+bar = a({x0, y0}
+      * {x1,{x2, y2} / {x3,{x4, y4} / {x5, y5}}})"""
+
+        output = printer.IndentedStream(test_child_z_is_expression=False,
+                                        test_child_z_list_sep='//')
+        result = output(root)
+        assert result == """\
+bar = a({x0, y0}
+      * {x1,   {x2, y2}
+            // {x3,   {x4, y4}
+                   // {x5, y5}}})"""
     finally:
         printer.NODE_PRINTERS.pop('TestRoot', None)
         printer.NODE_PRINTERS.pop('TestChild', None)
