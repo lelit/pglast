@@ -95,7 +95,6 @@ def determine_enum_type_and_value(enum):
     type = 'enum.IntEnum'
     value = int_enum_value_factory
 
-
     for item in enum.values.enumerators:
         if item.value:
             if isinstance(item.value, c_ast.Constant) and item.value.type == 'char':
