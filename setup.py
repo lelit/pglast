@@ -43,7 +43,7 @@ setup(
     version=VERSION,
     url="https://github.com/lelit/pg_query",
 
-    description="Pythonic wrapper around libpg_query",
+    description="Expose libpg_query PostgreSQL parser with Pythonic mood",
     long_description=README + '\n\n' + CHANGES,
 
     author="Lele Gaifax",
@@ -51,10 +51,15 @@ setup(
 
     license="GPLv3+",
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3",
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "Programming Language :: PL/SQL",
+        "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: SQL",
+        "Topic :: Database",
+        "Topic :: Utilities",
         ],
     keywords="",
 
