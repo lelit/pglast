@@ -18,14 +18,11 @@ libpg_query/LICENSE:
 	git submodule update --init
 
 help::
-	@echo
-	@echo "Build targets"
-	@echo "============="
-	@echo
+	@printf "\nBuild targets\n"
+	@printf   "=============\n\n"
 
 help::
-	@echo "build"
-	@echo "    build the module"
+	@printf "build\n\tbuild the module\n"
 
 .PHONY: build
 build: enums keywords libpg_query/libpg_query.a pg_query/parser.c
@@ -37,8 +34,7 @@ pg_query/parser.c: pg_query/parser.pyx
 	$(PYTHON) setup.py build_ext --inplace
 
 help::
-	@echo "enums"
-	@echo "    extract Python enums from PG sources"
+	@printf "enums\n\textract Python enums from PG sources\n"
 
 PY_ENUMS_DIR := pg_query/enums
 PY_ENUMS := $(PY_ENUMS_DIR)/lockoptions.py $(PY_ENUMS_DIR)/nodes.py \
@@ -52,8 +48,7 @@ $(PY_ENUMS_DIR)/%.py: $(PG_INCLUDE_DIR)/nodes/%.h tools/extract_enums.py
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@
 
 help::
-	@echo "keywords"
-	@echo "   extract Python keyword sets from PG sources"
+	@printf "keywords\n\textract Python keyword sets from PG sources\n"
 
 PY_KEYWORDS_DIR := pg_query
 PY_KEYWORDS := $(PY_KEYWORDS_DIR)/keywords.py
@@ -65,8 +60,7 @@ $(PY_KEYWORDS): $(PG_INCLUDE_DIR)/parser/kwlist.h tools/extract_keywords.py
 	$(PYTHON) tools/extract_keywords.py $< $@
 
 help::
-	@echo "check"
-	@echo "    run the test suite"
+	@printf "check\n\trun the test suite\n"
 
 .PHONY: check
 check: build

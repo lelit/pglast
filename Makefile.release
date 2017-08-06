@@ -13,7 +13,7 @@ VERSION = $(shell cat $(VERSION_TXT))
 
 help::
 	@printf "\nRelease management\n"
-	@printf "==================\n\n"
+	@printf   "==================\n\n"
 
 .PHONY: assert-clean-tree
 assert-clean-tree:

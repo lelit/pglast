@@ -12,14 +12,11 @@ REQUIREMENTS ?= requirements.txt
 REQUIREMENTS_TIMESTAMP := $(VENVDIR)/$(REQUIREMENTS).timestamp
 
 help::
-	@echo
-	@echo "Python virtualenv related targets"
-	@echo "================================="
-	@echo
+	@printf "\nPython virtualenv related targets\n"
+	@printf   "=================================\n\n"
 
 help::
-	@echo "virtualenv"
-	@echo "	   setup the Python virtualenv and install required packages"
+	@printf "virtualenv\n\tsetup the Python virtualenv and install required packages\n"
 
 .PHONY: virtualenv
 virtualenv: $(VENVDIR) requirements
@@ -30,8 +27,7 @@ $(VENVDIR):
 	@$(MAKE) upgrade-pip
 
 help::
-	@echo "upgrade-pip"
-	@echo "	   upgrade pip"
+	@printf "upgrade-pip\n\tupgrade pip\n"
 
 .PHONY: upgrade-pip
 upgrade-pip:
@@ -39,8 +35,7 @@ upgrade-pip:
 	@$(PIP) install --no-cache-dir --upgrade pip
 
 help::
-	@echo "requirements"
-	@echo "	   install/update required Python packages"
+	@printf "requirements\n\tinstall/update required Python packages\n"
 
 .PHONY: requirements
 requirements: $(REQUIREMENTS_TIMESTAMP)
