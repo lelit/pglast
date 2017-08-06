@@ -117,10 +117,15 @@ Examples of usage
    >>> print(range_var.parent_node)
    stmt=<SelectStmt>
 
-* Reformat a SQL from the comman line::
+* Reformat a SQL statement from the command line::
 
    $ echo "select a,b,c from sometable" | python -m pg_query
    SELECT a
         , b
         , c
    FROM sometable
+
+   $ echo 'update "table" set value=123 where value is null' | python -m pg_query
+   UPDATE "table"
+   SET value = 123
+   WHERE value IS NULL
