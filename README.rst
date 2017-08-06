@@ -116,3 +116,11 @@ Examples of usage
    dict_keys(['relname', 'inh', 'relpersistence', 'location'])
    >>> print(range_var.parent_node)
    stmt=<SelectStmt>
+
+* Reformat a SQL from the comman line::
+
+   $ echo "select a,b,c from sometable" | python -m pg_query
+   SELECT a
+        , b
+        , c
+   FROM sometable
