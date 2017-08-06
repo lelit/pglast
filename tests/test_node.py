@@ -33,7 +33,7 @@ def test_basic():
 
     root = Node(ptree)
     assert root.parent_node is None
-    assert root.attribute_name is None
+    assert root.parent_attribute is None
     assert isinstance(root, List)
     assert len(root) == 2
     assert repr(root) == '[2*<Foo>]'
@@ -46,7 +46,7 @@ def test_basic():
     assert foo1.node_tag == 'Foo'
     assert foo1.parse_tree == {'bar': {'Bar': {'a': 1, 'b': 'b', 'c': None, 'd': 0}}}
     assert foo1.parent_node is None
-    assert foo1.attribute_name == (None, 0)
+    assert foo1.parent_attribute == (None, 0)
     assert repr(foo1) == '<Foo>'
     assert str(foo1) == 'None[0]=<Foo>'
     assert foo1.attribute_names == {'bar'}
@@ -60,9 +60,9 @@ def test_basic():
     assert bar1 != foo1
     assert bar1.node_tag == 'Bar'
     assert bar1.parent_node is foo1
-    assert bar1.attribute_name == 'bar'
+    assert bar1.parent_attribute == 'bar'
     assert bar1.attribute_names == {'a', 'b', 'c', 'd'}
-    assert foo1[bar1.attribute_name] == bar1
+    assert foo1[bar1.parent_attribute] == bar1
 
     # __str__
     assert str(bar1) == 'bar=<Bar>'
@@ -89,7 +89,7 @@ def test_basic():
 
     bar2 = foo2['bar']
     assert bar2 != bar1
-    assert bar2.attribute_name == 'bar'
+    assert bar2.parent_attribute == 'bar'
     assert bar2.attribute_names == {'a', 'c', 'f', 't'}
     assert bar2.a == DummyIntEnum.ZERO
     assert bar2.a != DummyIntEnum.ONE
@@ -103,10 +103,10 @@ def test_basic():
 
     c1 = c[0]
     c2 = c[1]
-    assert c1.attribute_name == ('c', 0)
-    assert c2.attribute_name == ('c', 1)
+    assert c1.parent_attribute == ('c', 0)
+    assert c2.parent_attribute == ('c', 1)
     assert c1 != c2
-    assert c1.parent_node[c1.attribute_name] == c1
+    assert c1.parent_node[c1.parent_attribute] == c1
     assert str(c1) == 'c[0]=<C>'
     assert str(c2) == 'c[1]=<C>'
 
@@ -131,12 +131,12 @@ def test_nested_lists():
     a00 = a[0][0]
     assert a00.node_tag == 'B'
     assert a00.x.value == a00.y.value == 0
-    assert a00.attribute_name == (('a', 0), 0)
-    assert a00.parent_node[a00.attribute_name] == a00
+    assert a00.parent_attribute == (('a', 0), 0)
+    assert a00.parent_node[a00.parent_attribute] == a00
     a01 = a[0][1]
     assert a01.value is None
-    assert a01.attribute_name == (('a', 0), 1)
-    assert a01.parent_node[a01.attribute_name] == a01
+    assert a01.parent_attribute == (('a', 0), 1)
+    assert a01.parent_node[a01.parent_attribute] == a01
 
 
 def test_traverse():

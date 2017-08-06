@@ -29,7 +29,7 @@ class Base:
     a ``list`` produces a :class:`List` instance, everything else a :class:`Scalar` instance.
     """
 
-    __slots__ = ('_parent_node', '_attribute_name')
+    __slots__ = ('_parent_node', '_parent_attribute')
 
     def __new__(cls, details, parent=None, name=None):
         assert parent is None or isinstance(parent, Node)
@@ -45,7 +45,7 @@ class Base:
 
     def _init(self, parent, name):
         self._parent_node = parent
-        self._attribute_name = name
+        self._parent_attribute = name
 
     def __eq__(self, other):
         if type(self) is type(other):
@@ -53,7 +53,7 @@ class Base:
         return False
 
     def __str__(self):
-        aname = self._attribute_name
+        aname = self._parent_attribute
         if isinstance(aname, tuple):
             aname = '%s[%d]' % aname
         return f'{aname}={self!r}'
@@ -63,8 +63,8 @@ class Base:
         return self._parent_node
 
     @property
-    def attribute_name(self):
-        return self._attribute_name
+    def parent_attribute(self):
+        return self._parent_attribute
 
 
 class List(Base):
@@ -90,12 +90,12 @@ class List(Base):
 
     def __iter__(self):
         pnode = self.parent_node
-        aname = self.attribute_name
+        aname = self.parent_attribute
         for idx, item in enumerate(self._items):
             yield Base(item, pnode, (aname, idx))
 
     def __getitem__(self, index):
-        return Base(self._items[index], self.parent_node, (self.attribute_name, index))
+        return Base(self._items[index], self.parent_node, (self.parent_attribute, index))
 
     def traverse(self):
         for item in self:
