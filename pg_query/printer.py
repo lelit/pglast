@@ -12,6 +12,7 @@ from re import match
 
 from .error import Error
 from .node import Node, Scalar
+from .keywords import RESERVED_KEYWORDS
 from .parser import parse_plpgsql, parse_sql
 
 
@@ -187,7 +188,7 @@ class RawStream(OutputStream):
 
         assert isinstance(scalar, Scalar) and isinstance(scalar.value, str)
         s = scalar.value
-        if not match(r'[a-z_][a-z0-9_]*$', s):
+        if not match(r'[a-z_][a-z0-9_]*$', s) or s in RESERVED_KEYWORDS:
             return '"%s"' % s
         else:
             return s
