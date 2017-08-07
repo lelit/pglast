@@ -26,12 +26,21 @@ help::
 
 .PHONY: build
 build: virtualenv enums keywords libpg_query/libpg_query.a pg_query/parser.c
+	$(PYTHON) setup.py build_ext --inplace
 
 libpg_query/libpg_query.a: libpg_query/LICENSE
 	$(MAKE) -C libpg_query build
 
 pg_query/parser.c: pg_query/parser.pyx
 	$(PYTHON) setup.py build_ext --inplace
+
+help::
+	@printf "clean\n\tremove rebuildable stuff\n"
+
+.PHONY: clean
+clean:
+	$(MAKE) -C libpg_query clean
+	rm -f pg_query/*.so
 
 help::
 	@printf "enums\n\textract Python enums from PG sources\n"
