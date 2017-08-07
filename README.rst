@@ -18,7 +18,7 @@ Pythonic wrapper around libpg_query
  :license: GNU General Public License version 3 or later
 
 This is a Python 3.6+ implementation of a wrapper to `libpg_query`__, a C library that
-repackages the PostgreSQL__ language parser as a standalone static library.
+repackages the PostgreSQL__ languages parser as a standalone static library.
 
 It is similar to the more mature `psqlparse`__, but has different goals:
 
@@ -56,6 +56,33 @@ __ https://www.postgresql.org/about/news/1763/
 __ https://github.com/lfittl/libpg_query/tree/10-latest
 __ https://github.com/alculquicondor/psqlparse/issues/20
 
+Introduction
+------------
+
+At the lower level the module exposes two libpg_query functions, ``parse_sql()`` and
+``parse_plpgsql()``, that take respectively an ``SQL`` statement and a ``PLpgSQL`` statement
+and return a *parse tree* as a hierarchy of Python dictionaries, lists and scalar values.
+
+At a higher level that tree is represented by three Python classes, a ``Node`` that represents
+a single node, a ``List`` that wraps a sequence of nodes and a ``Scalar`` for plain values such
+a *strings*, *integers*, *booleans* or *none*.
+
+Every node is identified by a *tag*, a string label that characterize its content that is
+exposed as a set of *attributes* as well as with a dictionary-like interface (technically they
+implements both a ``__getattr__`` method and a ``__getitem__`` method). When asked for an
+attribute, the node returns an instance of the base classes, i.e. another ``Node``, or a
+``List`` or a ``Scalar``, depending on the data type of that item. When the node does not
+contain the requested attribute it returns a singleton ``Missing`` marker instance.
+
+A ``List`` wraps a plain Python ``list`` and may contains a sequence of ``Node`` instances, or
+in some cases other sub-lists, that can be accessed with the usual syntax, or iterated.
+
+Finally, a ``Scalar`` carries a single value of some type, accessible through its ``value``
+attribute.
+
+On top of that, the module implements two serializations, one that transforms a ``Node`` into a
+*raw* textual representation and another that returns a *prettified* representation. The latter
+is exposed by the ``__main__`` entry point of the package, see below for an example.
 
 Installation
 ------------
@@ -72,6 +99,14 @@ and install from there::
 
   $ pip install ./pg_query
 
+Development
+-----------
+
+There is a set of *makefiles* implementing the most common operations, a ``make help`` will
+show a brief table of contents. A comprehensive test suite, based on pytest__, covers 98% of
+the source lines.
+
+__ https://docs.pytest.org/en/latest/
 
 Examples of usage
 -----------------
