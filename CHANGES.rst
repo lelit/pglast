@@ -3,4 +3,7 @@
 Changes
 -------
 
-- Initial effort.
+0.1 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- First release
