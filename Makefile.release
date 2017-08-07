@@ -6,8 +6,7 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
-PYTHON := $(BINDIR)python
-BUMPER := $(BINDIR)bump_version
+BUMPER := $(VENVDIR)/bin/bump_version
 VERSION_TXT := version.txt
 VERSION = $(shell cat $(VERSION_TXT))
 
