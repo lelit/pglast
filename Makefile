@@ -25,9 +25,9 @@ help::
 	@printf "build\n\tbuild the module\n"
 
 .PHONY: build
-build: enums keywords libpg_query/libpg_query.a pg_query/parser.c
+build: virtualenv enums keywords libpg_query/libpg_query.a pg_query/parser.c
 
-libpg_query/libpg_query.a:
+libpg_query/libpg_query.a: libpg_query/LICENSE
 	$(MAKE) -C libpg_query build
 
 pg_query/parser.c: pg_query/parser.pyx
