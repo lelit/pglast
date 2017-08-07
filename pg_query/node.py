@@ -124,7 +124,7 @@ class Node(Base):
         (self._node_tag, self._parse_tree), *_ = details.items()
 
     def __repr__(self):
-        return f'<{self._node_tag}>'
+        return f'{{{self._node_tag}}}'
 
     def __getattr__(self, attr):
         try:
@@ -193,7 +193,7 @@ class Scalar(Base):
             return super().__eq__(other)
 
     def __repr__(self):
-        return f'{self._value!r}'
+        return f'<{self._value!r}>'
 
     def traverse(self):
         yield self

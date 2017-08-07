@@ -36,8 +36,8 @@ def test_basic():
     assert root.parent_attribute is None
     assert isinstance(root, List)
     assert len(root) == 2
-    assert repr(root) == '[2*<Foo>]'
-    assert str(root) == 'None=[2*<Foo>]'
+    assert repr(root) == '[2*{Foo}]'
+    assert str(root) == 'None=[2*{Foo}]'
     with pytest.raises(AttributeError):
         root.not_there
 
@@ -47,8 +47,8 @@ def test_basic():
     assert foo1.parse_tree == {'bar': {'Bar': {'a': 1, 'b': 'b', 'c': None, 'd': 0}}}
     assert foo1.parent_node is None
     assert foo1.parent_attribute == (None, 0)
-    assert repr(foo1) == '<Foo>'
-    assert str(foo1) == 'None[0]=<Foo>'
+    assert repr(foo1) == '{Foo}'
+    assert str(foo1) == 'None[0]={Foo}'
     assert foo1.attribute_names == {'bar'}
     assert foo1.not_there is Missing
     assert not foo1.not_there
@@ -63,11 +63,14 @@ def test_basic():
     assert bar1.parent_attribute == 'bar'
     assert bar1.attribute_names == {'a', 'b', 'c', 'd'}
     assert foo1[bar1.parent_attribute] == bar1
+    assert repr(bar1.a) == '<1>'
+    assert repr(bar1.b) == "<'b'>"
+    assert repr(bar1.c) == '<None>'
 
     # __str__
-    assert str(bar1) == 'bar=<Bar>'
-    assert str(bar1.a) == 'a=1'
-    assert str(bar1.b) == "b='b'"
+    assert str(bar1) == 'bar={Bar}'
+    assert str(bar1.a) == 'a=<1>'
+    assert str(bar1.b) == "b=<'b'>"
 
     # Scalar.__bool__
     assert bar1.a
@@ -95,11 +98,13 @@ def test_basic():
     assert bar2.a != DummyIntEnum.ONE
     assert not bar2.f
     assert bar2.t
+    assert repr(bar2.f) == '<False>'
+    assert repr(bar2.t) == '<True>'
 
     c = bar2.c
     assert isinstance(c, List)
     assert len(c) == 2
-    assert repr(c) == '[2*<C>]'
+    assert repr(c) == '[2*{C}]'
 
     c1 = c[0]
     c2 = c[1]
@@ -107,8 +112,8 @@ def test_basic():
     assert c2.parent_attribute == ('c', 1)
     assert c1 != c2
     assert c1.parent_node[c1.parent_attribute] == c1
-    assert str(c1) == 'c[0]=<C>'
-    assert str(c2) == 'c[1]=<C>'
+    assert str(c1) == 'c[0]={C}'
+    assert str(c2) == 'c[1]={C}'
 
     x1 = c1['x']
     x2 = c2['x']

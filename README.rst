@@ -115,32 +115,38 @@ Examples of usage
 
    >>> from pg_query import Node, parse_sql
    >>> root = Node(parse_sql('SELECT foo FROM bar'))
+   >>> print(root)
+   None=[1*{RawStmt}]
 
 * Recursively traverse the parse tree::
 
    >>> for node in root.traverse():
    ...   print(node)
    ...
-   None[0]=<RawStmt>
-   stmt=<SelectStmt>
-   fromClause[0]=<RangeVar>
-   inh=True
-   location=16
-   relname='bar'
-   relpersistence='p'
-   op=0
-   targetList[0]=<ResTarget>
-   location=7
-   val=<ColumnRef>
-   fields[0]=<String>
-   str='foo'
-   location=7
+   None[0]={RawStmt}
+   stmt={SelectStmt}
+   fromClause[0]={RangeVar}
+   inh=<True>
+   location=<16>
+   relname=<'bar'>
+   relpersistence=<'p'>
+   op=<0>
+   targetList[0]={ResTarget}
+   location=<7>
+   val={ColumnRef}
+   fields[0]={String}
+   str=<'foo'>
+   location=<7>
+
+  As you can see, the ``repr``\ esentation of each value is mnemonic: ``{some_tag}`` means a
+  ``Node`` with tag ``some_tag``, ``[X*{some_tag}]`` is a ``List`` containing `X` nodes of that
+  particular kind\ [*]_ and ``<value>`` is a ``Scalar``.
 
 * Get a particular node::
 
    >>> from_clause = root[0].stmt.fromClause
    >>> print(from_clause)
-   fromClause=[<RangeVar>]
+   fromClause=[1*{RangeVar}]
 
 * Obtain some information about a node::
 
@@ -150,7 +156,20 @@ Examples of usage
    >>> print(range_var.attribute_names)
    dict_keys(['relname', 'inh', 'relpersistence', 'location'])
    >>> print(range_var.parent_node)
-   stmt=<SelectStmt>
+   stmt={SelectStmt}
+
+* Iterate over nodes::
+
+   >>> for a in from_clause:
+   ...     print(a)
+   ...     for b in a:
+   ...         print(b)
+   ...
+   fromClause[0]={RangeVar}
+   inh=<True>
+   location=<16>
+   relname=<'bar'>
+   relpersistence=<'p'>
 
 * Reformat a SQL statement from the command line::
 
@@ -164,3 +183,7 @@ Examples of usage
    UPDATE "table"
    SET value = 123
    WHERE value IS NULL
+
+.. [*] This is an approximation, because in principle a list could contain different kinds of
+       nodes, or even sub-lists in some cases: the ``List`` representation arbitrarily shows
+       the tag of the first object.
