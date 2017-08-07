@@ -163,6 +163,14 @@ select name from sometable offset 3 fetch next 2 rows only
 ;;
 SELECT m.* FROM mytable m FOR UPDATE
 ;;
+SELECT m.* FROM mytable m FOR UPDATE NOWAIT
+;;
+SELECT m.* FROM mytable m FOR UPDATE SKIP LOCKED
+;;
+SELECT m.* FROM mytable m FOR KEY SHARE
+;;
+SELECT m.* FROM mytable m FOR NO KEY UPDATE
+;;
 SELECT m.* FROM mytable m FOR SHARE of m nowait
 ;;
 select case a.value when 0 then '1' else '2' end from sometable a

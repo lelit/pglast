@@ -394,9 +394,9 @@ def locking_clause(node, output):
         output.print_list(node.lockedRels)
     lwp = enums.LockWaitPolicy
     if node.waitPolicy == lwp.LockWaitSkip:
-        output.write('SKIP LOCKED')
+        output.swrite('SKIP LOCKED')
     elif node.waitPolicy == lwp.LockWaitError:
-        output.write('NOWAIT')
+        output.swrite('NOWAIT')
 
 
 @node_printer('MultiAssignRef')
