@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.3 (unreleased)
+0.3 (2017-08-07)
 ~~~~~~~~~~~~~~~~
 
 - Handle serialization of ``ParamRef`` nodes
