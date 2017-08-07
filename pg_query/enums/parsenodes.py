@@ -823,7 +823,7 @@ class SubLinkType(enum.IntEnum):
     ARRAY_SUBLINK = enum.auto()
     CTE_SUBLINK = enum.auto()
 
-class TableLikeOption(enum.IntEnum):
+class TableLikeOption(enum.IntFlag):
     CREATE_TABLE_LIKE_DEFAULTS = 1 << 0
     CREATE_TABLE_LIKE_CONSTRAINTS = 1 << 1
     CREATE_TABLE_LIKE_IDENTITY = 1 << 2
@@ -844,7 +844,7 @@ class TransactionStmtKind(enum.IntEnum):
     TRANS_STMT_COMMIT_PREPARED = enum.auto()
     TRANS_STMT_ROLLBACK_PREPARED = enum.auto()
 
-class VacuumOption(enum.IntEnum):
+class VacuumOption(enum.IntFlag):
     VACOPT_VACUUM = 1 << 0
     VACOPT_ANALYZE = 1 << 1
     VACOPT_VERBOSE = 1 << 2

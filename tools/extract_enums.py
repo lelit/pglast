@@ -101,6 +101,9 @@ def determine_enum_type_and_value(enum):
                 type = 'str, enum.Enum'
                 value = char_enum_value_factory
                 break
+            elif isinstance(item.value, c_ast.BinaryOp) and item.value.op == '<<':
+                type = 'enum.IntFlag'
+                break
 
     return type, value
 
