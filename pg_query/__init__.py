@@ -12,4 +12,22 @@ from .node import Missing, Node
 from .parser import parse_plpgsql, parse_sql
 
 
-__all__ = ('Error', 'Missing', 'Node', 'enums', 'parse_plpgsql', 'parse_sql')
+def prettify(statement, **options):
+    """Render given `statement` into a prettified format.
+
+    :param statement: either a string containing the statement(s) or a :class:`~.node.Node`
+                      instance
+    :param \*\*options: any keyword option accepted by :class:`~.printer.IndentedStream`
+                        constructor
+    :returns: a string with the equivalent prettified statement
+    """
+
+    # Intentional lazy imports, so the modules are loaded on demand
+
+    from .printer import IndentedStream
+    from .printers import sql
+
+    return IndentedStream(**options)(statement)
+
+
+__all__ = ('Error', 'Missing', 'Node', 'enums', 'parse_plpgsql', 'parse_sql', 'prettify')

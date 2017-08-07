@@ -9,9 +9,7 @@
 import argparse
 import sys
 
-from pg_query import Error, Node, parse_sql
-from pg_query.printer import IndentedStream
-from pg_query.printers import sql
+from pg_query import Error, prettify
 
 
 def workhorse(args):
@@ -20,17 +18,14 @@ def workhorse(args):
         statement = input.read()
 
     try:
-        ptree = parse_sql(statement)
+        prettified = prettify(statement)
     except Error as e:
         print()
         raise SystemExit(e)
 
-    root = Node(ptree)
-
     output = args.outfile or sys.stdout
     with output:
-        printer = IndentedStream()
-        output.write(printer(root))
+        output.write(prettified)
         output.write('\n')
 
 
