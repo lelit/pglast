@@ -11,7 +11,7 @@ import pytest
 from pg_query import Node
 from pg_query.parser import parse_sql
 from pg_query.printer import RawStream, IndentedStream
-from pg_query.printers import sql
+import pg_query.printers.sql
 
 
 def remove_location(d):
