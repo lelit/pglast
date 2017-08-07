@@ -42,11 +42,18 @@ It is similar to the more mature `psqlparse`__, but has different goals:
   nodes require that knowledge to determine their textual representation
 
 - it does not introduce arbitrary renames of tags and attributes, so what you read in
-  PostgreSQL documentation/sources is available without the hassle of guessing how a symbol has
-  been mapped
+  PostgreSQL documentation/sources\ [*]_ is available without the hassle of guessing how a
+  symbol has been mapped
 
 - not very important, but I guess it is much more performant, as basically it does not
   duplicates the original parse tree into every instance
+
+.. [*] Currently what you can find in the following headers:
+
+       - `nodes.h`__
+       - `primnodes.h`__
+       - `parsenodes.h`__
+       - `lockoptions.h`__
 
 __ https://github.com/lfittl/libpg_query
 __ https://www.postgresql.org/
@@ -55,13 +62,19 @@ __ https://docs.python.org/3/library/enum.html#enum.auto
 __ https://www.postgresql.org/about/news/1763/
 __ https://github.com/lfittl/libpg_query/tree/10-latest
 __ https://github.com/alculquicondor/psqlparse/issues/20
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/nodes.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/primnodes.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/parsenodes.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/lockoptions.h;hb=HEAD
 
 Introduction
 ------------
 
 At the lower level the module exposes two libpg_query functions, ``parse_sql()`` and
 ``parse_plpgsql()``, that take respectively an ``SQL`` statement and a ``PLpgSQL`` statement
-and return a *parse tree* as a hierarchy of Python dictionaries, lists and scalar values.
+and return a *parse tree* as a hierarchy of Python dictionaries, lists and scalar values. In
+some cases these scalars correspond to some C ``typedef enums``, that are automatically
+extracted from the PostgreSQL headers and are available as ``pg_query.enums``.
 
 At a higher level that tree is represented by three Python classes, a ``Node`` that represents
 a single node, a ``List`` that wraps a sequence of nodes and a ``Scalar`` for plain values such
@@ -171,7 +184,7 @@ Examples of usage
    relname=<'bar'>
    relpersistence=<'p'>
 
-* Reformat a SQL statement from the command line::
+* Reformat a SQL statement\ [*]_ from the command line::
 
    $ echo "select a,b,c from sometable" | python -m pg_query
    SELECT a
@@ -187,3 +200,7 @@ Examples of usage
 .. [*] This is an approximation, because in principle a list could contain different kinds of
        nodes, or even sub-lists in some cases: the ``List`` representation arbitrarily shows
        the tag of the first object.
+
+.. [*] Currently this covers most `DML` statements such as ``SELECT``\ s, ``INSERT``\ s,
+       ``DELETE``\ s and ``UPDATE``\ s, fulfilling my needs, but I'd like to extend it to
+       handle also `DDL` statements and, why not, `PLpgSQL` instructions too.
