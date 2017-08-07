@@ -34,7 +34,7 @@ def workhorse(args):
         output.write('\n')
 
 
-def main():
+def main(options):
     from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
     parser = ArgumentParser(description="PostgreSQL language prettifier",
@@ -46,10 +46,10 @@ def main():
     parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'),
                         help='where the result will be written, by default stdout')
 
-    args = parser.parse_args()
+    args = parser.parse_args(options)
 
     workhorse(args)
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == '__main__': #pragma: no cover
+    main(sys.argv[1:])
