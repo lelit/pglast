@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.1 (unreleased)
+0.1 (2017-08-07)
 ~~~~~~~~~~~~~~~~
 
-- First release
+- First release ("Hi daddy!", as my soul would tag it)
