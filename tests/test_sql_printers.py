@@ -281,6 +281,8 @@ SELECT true FROM sometable WHERE value NOT BETWEEN SYMMETRIC 5 and 1
 ;;
 SELECT user, session_user, current_catalog, current_schema
 ;;
+SELECT value FROM sometable WHERE id = $1
+;;
 SELECT
   pc.id,
   pc.person_id,
@@ -351,6 +353,8 @@ WHERE game = 1
 UPDATE extensions
 SET values[0] = '.gif'
 WHERE mime_type = 'image/gif'
+;;
+UPDATE extensions SET values[0] = $1 WHERE mime_type = $2
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in UPDATES.split('\n;;\n')))
@@ -377,6 +381,8 @@ WHERE id IN (SELECT id FROM acme_persons)
 ;;
 DELETE FROM films USING producers
 WHERE producer_id = producers.id AND producers.name = 'foo'
+;;
+DELETE FROM extensions WHERE values[0] = $1
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in DELETES.split('\n;;\n')))

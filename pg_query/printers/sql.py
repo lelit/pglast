@@ -416,6 +416,11 @@ def null_test(node, output):
     output.write(' NULL')
 
 
+@node_printer('ParamRef')
+def param_ref(node, output):
+    output.write('$%d' % node.number.value)
+
+
 @node_printer('OnConflictClause')
 def on_conflict_clause(node, output):
     oca = enums.OnConflictAction
