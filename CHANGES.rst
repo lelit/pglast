@@ -3,6 +3,14 @@
 Changes
 -------
 
+0.3 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Handle serialization of ``ParamRef`` nodes
+
+- Expose a ``prettify()`` helper function
+
+
 0.2 (2017-08-07)
 ~~~~~~~~~~~~~~~~
 
