@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.2 (unreleased)
+0.2 (2017-08-07)
 ~~~~~~~~~~~~~~~~
 
 - Test coverage at 99%
