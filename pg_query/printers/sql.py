@@ -112,7 +112,10 @@ def a_expr(node, output):
         output.print(node.lexpr)
         output.swrites('NOT BETWEEN SYMMETRIC')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
-    elif node.kind == aek.AEXPR_PAREN:
+    elif node.kind == aek.AEXPR_PAREN: #pragma: no cover
+        # FIXME: accordingly with the documentation of the A_Expr_Kind typedef, AEXPR_PAREN is
+        # a “nameless dummy node for parentheses”. What does that mean? I wasn't able to
+        # “produce” it in any way...
         raise NotImplementedError("Expression of kind %s not implemented yet" % aek.AEXPR_PAREN)
 
 
@@ -283,7 +286,7 @@ def func_call(node, output):
 def index_elem(node, output):
     if node.parent_node.node_tag == 'InferClause':
         output.print(node.name, is_name=True)
-    else:
+    else: #pragma: no cover
         raise NotImplementedError
 
 
@@ -447,6 +450,7 @@ def range_function(node, output):
             output.write(', ')
         output.print(fun)
         if cdefs:
+            # FIXME: find a way to pass here
             output.write(' AS ')
             output.print_list(cdefs)
     if node.is_rowsfrom:
@@ -650,20 +654,24 @@ def sql_value_function(node, output):
         output.write('CURRENT_DATE')
     elif node.op == svfo.SVFOP_CURRENT_TIME:
         output.write('CURRENT_TIME')
-    elif node.op == svfo.SVFOP_CURRENT_TIME_N:
-        output.write('CURRENT_TIME_N')
+    elif node.op == svfo.SVFOP_CURRENT_TIME_N: #pragma: no cover
+        # FIXME: understand the meaning of this
+        raise NotImplementedError('CURRENT_TIME_N')
     elif node.op == svfo.SVFOP_CURRENT_TIMESTAMP:
         output.write('CURRENT_TIMESTAMP')
-    elif node.op == svfo.SVFOP_CURRENT_TIMESTAMP_N:
-        output.write('CURRENT_TIMESTAMP_N')
+    elif node.op == svfo.SVFOP_CURRENT_TIMESTAMP_N: #pragma: no cover
+        # FIXME: understand the meaning of this
+        raise NotImplementedError('CURRENT_TIMESTAMP_N')
     elif node.op == svfo.SVFOP_LOCALTIME:
         output.write('LOCALTIME')
-    elif node.op == svfo.SVFOP_LOCALTIME_N:
-        output.write('LOCALTIME_N')
+    elif node.op == svfo.SVFOP_LOCALTIME_N: #pragma: no cover
+        # FIXME: understand the meaning of this
+        raise NotImplementedError('LOCALTIME_N')
     elif node.op == svfo.SVFOP_LOCALTIMESTAMP:
         output.write('LOCALTIMESTAMP')
-    elif node.op == svfo.SVFOP_LOCALTIMESTAMP_N:
-        output.write('LOCALTIMESTAMP_N')
+    elif node.op == svfo.SVFOP_LOCALTIMESTAMP_N: #pragma: no cover
+        # FIXME: understand the meaning of this
+        raise NotImplementedError('LOCALTIMESTAMP_N')
     elif node.op == svfo.SVFOP_CURRENT_ROLE:
         output.write('CURRENT_ROLE')
     elif node.op == svfo.SVFOP_CURRENT_USER:
@@ -707,12 +715,14 @@ def sub_link(node, output):
     elif node.subLinkType == slt.ANY_SUBLINK:
         output.print(node.testexpr)
         output.swrites('IN')
-    elif node.subLinkType == slt.ROWCOMPARE_SUBLINK:
+    elif node.subLinkType == slt.ROWCOMPARE_SUBLINK: #pragma: no cover
+        # FIXME: figure out how the get here
         raise NotImplementedError("SubLink of type %s not supported yet" % slt.ROWCOMPARE_SUBLINK)
     elif node.subLinkType == slt.EXPR_SUBLINK:
         pass
-    elif node.subLinkType == slt.MULTIEXPR_SUBLINK:
-        pass
+    elif node.subLinkType == slt.MULTIEXPR_SUBLINK: #pragma: no cover
+        # FIXME: figure out how the get here
+        raise NotImplementedError("SubLink of type %s not supported yet" % slt.MULTIEXPR_SUBLINK)
     elif node.subLinkType == slt.ARRAY_SUBLINK:
         output.write('ARRAY')
 
@@ -778,6 +788,7 @@ def window_def(node, output):
         output.print(node.refname, is_name=True)
         output.write(')')
         if not empty:
+            # FIXME: find a way to pass here
             output.write(' AS ')
     if not empty or (node.name is Missing and node.refname is Missing):
         output.write('(')
