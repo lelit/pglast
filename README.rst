@@ -197,6 +197,14 @@ Examples of usage
    SET value = 123
    WHERE value IS NULL
 
+* Programmatically reformat a SQL statement::
+
+   >>> from pg_query import prettify
+   >>> print(prettify('delete from sometable where value is null'))
+   DELETE FROM sometable
+   WHERE value IS NULL
+
+
 .. [*] This is an approximation, because in principle a list could contain different kinds of
        nodes, or even sub-lists in some cases: the ``List`` representation arbitrarily shows
        the tag of the first object.
