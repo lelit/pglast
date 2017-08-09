@@ -183,7 +183,7 @@ FROM SalesOrderHeader
 SELECT CustomerID,
        SUM(TotalDue) OVER(PARTITION BY CustomerID
                           ORDER BY OrderDate
-                          ROWS BETWEEN 1 FOLLOWING AND UNBOUND FOLLOWING)
+                          ROWS BETWEEN 1 FOLLOWING AND UNBOUNDED FOLLOWING)
 FROM SalesOrderHeader
 ;;
 SELECT CustomerID,
