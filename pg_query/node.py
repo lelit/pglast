@@ -18,7 +18,7 @@ class Missing:
 
 
 Missing = Missing()
-"Singleton return when trying to get a non-existing attribute out of a :class:`Node`."
+"Singleton returned when trying to get a non-existing attribute out of a :class:`Node`."
 
 
 class Base:
