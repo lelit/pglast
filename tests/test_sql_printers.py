@@ -26,6 +26,8 @@ def remove_location(d):
         for v in d.values():
             if v and isinstance(v, (dict, list)):
                 remove_location(v)
+# Make pyflakes happy
+pg_query.printers.sql
 
 
 def roundtrip(sql):
