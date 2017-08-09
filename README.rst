@@ -10,8 +10,8 @@
  pg_query
 ==========
 
-Pythonic wrapper around libpg_query
-===================================
+Pythonic wrapper around libpg_query and SQL prettifier
+======================================================
 
  :author: Lele Gaifax
  :contact: lele@metapensiero.it
@@ -20,15 +20,36 @@ Pythonic wrapper around libpg_query
 This is a Python 3.6+ implementation of a wrapper to `libpg_query`__, a C library that
 repackages the PostgreSQL__ languages parser as a standalone static library.
 
-It is similar to the more mature `psqlparse`__, but has different goals:
+__ https://github.com/lfittl/libpg_query
+__ https://www.postgresql.org/
 
-- it targets only Python 3 (more precisely, only 3.6 or higher, mainly because I'm lazy and the
+I needed a better SQL reformatter than the one implemented by `sqlparse`__, and was annoyed by
+a few glitches (subselects__ in particular) that ruins the otherwise excellent job it does,
+considering that it is a generic library that tries to swallow many different SQL dialects.
+
+__ https://pypi.org/project/sqlparse/
+__ https://github.com/andialbrecht/sqlparse/issues/334
+
+When I found `psqlparse`__ I decided to try implementing a PostgreSQL `focused tool`__: at the
+beginning it's been easier than I feared, but I quickly hit some shortcomings in that
+implementation, so I opted for writing my own solution restarting from scratch, with the
+following goals:
+
+__ https://github.com/alculquicondor/psqlparse
+__ https://github.com/alculquicondor/psqlparse/pull/22
+
+- target only Python 3 (more precisely, only 3.6 or higher, mainly because I'm lazy and the
   enums extraction code uses the `auto()`__ helper of the standard library ``enum`` module)
 
-- it aims to target PostgreSQL 10 (in `beta 2`__ as I'm writing this), taking advantage of a
+__ https://docs.python.org/3/library/enum.html#enum.auto
+
+- target PostgreSQL 10 (in `beta 2`__ as I'm writing this), taking advantage of a
   work-in-progress `branch`__ of the libpg_query library
 
-- it uses a more dynamic approach to represent the *parse tree*; this has a twofold advantage:
+__ https://www.postgresql.org/about/news/1763/
+__ https://github.com/lfittl/libpg_query/tree/10-latest
+
+- use a more dynamic approach to represent the *parse tree*, with a twofold advantage:
 
   1. it is much less boring to code, because there's no need to write one Python class for each
      PostgreSQL node tag
@@ -36,17 +57,17 @@ It is similar to the more mature `psqlparse`__, but has different goals:
   2. the representation is version agnostic, it can be adapted to newer/older Elephants in a
      snap
 
-- it allows to explore the parse tree in both directions, as each node carries a reference to
-  the node from which it stems: this is the main reason I started this project, because while
-  implementing the `pretty printing feature`__ for psqlparse I realized that some kinds of
+- allow exploration of parse tree in both directions, because I realized that some kinds of
   nodes require that knowledge to determine their textual representation
 
-- it does not introduce arbitrary renames of tags and attributes, so what you read in
-  PostgreSQL documentation/sources\ [*]_ is available without the hassle of guessing how a
-  symbol has been mapped
+- avoid introducing arbitrary renames of tags and attributes, so what you read in PostgreSQL
+  documentation/sources\ [*]_ is available without the hassle of guessing how a symbol has been
+  mapped
 
-- not very important, but I guess it is much more performant, as basically it does not
-  duplicates the original parse tree into every instance
+- use a `zero copy`__ approach, keeping the original parse tree returned from the underlying
+  libpg_query functions and have each node just borrow a reference to its own subtree
+
+__ https://en.wikipedia.org/wiki/Zero-copy
 
 .. [*] Currently what you can find in the following headers:
 
@@ -55,13 +76,6 @@ It is similar to the more mature `psqlparse`__, but has different goals:
        - `parsenodes.h`__
        - `lockoptions.h`__
 
-__ https://github.com/lfittl/libpg_query
-__ https://www.postgresql.org/
-__ https://pypi.python.org/pypi/psqlparse
-__ https://docs.python.org/3/library/enum.html#enum.auto
-__ https://www.postgresql.org/about/news/1763/
-__ https://github.com/lfittl/libpg_query/tree/10-latest
-__ https://github.com/alculquicondor/psqlparse/issues/20
 __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/nodes.h;hb=HEAD
 __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/primnodes.h;hb=HEAD
 __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/parsenodes.h;hb=HEAD
@@ -100,11 +114,11 @@ is exposed by the ``__main__`` entry point of the package, see below for an exam
 Installation
 ------------
 
-Once this is released to PyPI, the following command will do::
+As usual, the easiest way is with pip::
 
   $ pip install pg_query
 
-Until then, you have to clone the repository::
+Alternatively you can clone the repository::
 
   $ git clone https://github.com/lelit/pg_query.git --recursive
 

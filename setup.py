@@ -43,7 +43,7 @@ setup(
     version=VERSION,
     url="https://github.com/lelit/pg_query",
 
-    description="Expose libpg_query PostgreSQL parser with Pythonic mood",
+    description="Pythonic wrapper around libpg_query and SQL prettifier",
     long_description=README + '\n\n' + CHANGES,
 
     author="Lele Gaifax",
