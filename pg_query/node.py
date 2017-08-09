@@ -191,6 +191,13 @@ class Scalar(Base):
         super()._init(parent, name)
         self._value = value
 
+    def __and__(self, other):
+        if isinstance(self._value, int) and isinstance(other, int):
+            return self._value & other
+        else:
+            raise ValueError("Wrong operands for __and__: %r & %r"
+                             % (type(self._value), type(other)))
+
     def __bool__(self):
         if self.value is None:
             return False

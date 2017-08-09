@@ -75,6 +75,11 @@ def test_basic():
     assert repr(bar1.a) == '<1>'
     assert repr(bar1.b) == "<'b'>"
     assert repr(bar1.c) == '<None>'
+    assert bar1.a & 1
+    with pytest.raises(ValueError):
+        bar1.a & 'a'
+    with pytest.raises(ValueError):
+        bar1.b & 1
 
     # __str__
     assert str(bar1) == 'bar={Bar}'
