@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.4 (unreleased)
+0.4 (2017-08-09)
 ~~~~~~~~~~~~~~~~
 
 - Expose the actual PostgreSQL version the underlying libpg_query libray is built on thru a new
