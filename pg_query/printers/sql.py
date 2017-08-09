@@ -198,6 +198,13 @@ def case_when(node, output):
         output.print(node.result)
 
 
+@node_printer('CoalesceExpr')
+def coalesce_expr(node, output):
+    output.write('COALESCE(')
+    output.print_list(node.args)
+    output.write(')')
+
+
 @node_printer('ColumnRef')
 def column_ref(node, output):
     output.print_list(node.fields, '.', standalone_items=False, are_names=True)
@@ -400,6 +407,16 @@ def locking_clause(node, output):
         output.swrite('SKIP LOCKED')
     elif node.waitPolicy == lwp.LockWaitError:
         output.swrite('NOWAIT')
+
+
+@node_printer('MinMaxExpr')
+def min_max_expr(node, output):
+    if node.op == enums.MinMaxOp.IS_GREATEST:
+        output.write('GREATEST(')
+    else:
+        output.write('LEAST(')
+    output.print_list(node.args)
+    output.write(')')
 
 
 @node_printer('MultiAssignRef')

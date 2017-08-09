@@ -57,9 +57,16 @@ SELECT pc.id, pc.values[1] FROM ONLY ns.table
 ;;
 SELECT 'accbf276-705b-11e7-b8e4-0242ac120002'::UUID as "X"
 ;;
+SELECT CAST('accbf276-705b-11e7-b8e4-0242ac120002' AS uuid) as "X"
+;;
 SELECT pc.id as x, common.func(pc.name, ' ')
 FROM ns.table pc
 ORDER BY pc.name ASC NULLS LAST
+;;
+SELECT * FROM manufacturers
+ORDER BY EXTRACT('year' FROM deliver_date) ASC,
+         EXTRACT('month' FROM deliver_date) ASC,
+         EXTRACT('day' FROM deliver_date) ASC
 ;;
 select ((c.one + 1) * (c.two - 1)) / (c.three + 1) from sometable c
 ;;
@@ -307,6 +314,14 @@ JOIN risk.person_contract_kinds AS ck ON ck.id = pc.person_contract_kind_id
 WHERE pc.company_id = 'accbf276-705b-11e7-b8e4-0242ac120002'
   AND pc.validity @> CURRENT_DATE = true
 ORDER BY "Person"
+;;
+SELECT coalesce(deliver_date, today) from manufacturers
+;;
+SELECT nullif(deliver_date, today) from manufacturers
+;;
+SELECT greatest(deliver_date, today) from manufacturers
+;;
+SELECT least(deliver_date, today) from manufacturers
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in SELECTS.split('\n;;\n')))
