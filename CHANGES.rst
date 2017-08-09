@@ -3,6 +3,14 @@
 Changes
 -------
 
+0.5 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Handle some more cases when a name must be double-quoted
+
+- Complete the serialization of the WindowDef node, handling its frame options
+
+
 0.4 (2017-08-09)
 ~~~~~~~~~~~~~~~~
 
