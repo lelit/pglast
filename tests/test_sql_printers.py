@@ -150,6 +150,48 @@ FROM empsalary
 WINDOW x AS (PARTITION BY depname ORDER BY salary DESC),
        y as (order by salary)
 ;;
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
+FROM SalesOrderHeader
+;;
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING)
+FROM SalesOrderHeader
+;;
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
+FROM SalesOrderHeader
+;;
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          ROWS BETWEEN 0 PRECEDING AND 2 FOLLOWING)
+FROM SalesOrderHeader
+;;
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          ROWS BETWEEN 1 PRECEDING AND 2 PRECEDING)
+FROM SalesOrderHeader
+;;
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          ROWS BETWEEN 1 FOLLOWING AND UNBOUND FOLLOWING)
+FROM SalesOrderHeader
+;;
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+FROM SalesOrderHeader
+;;
 select a.id, b.value
 from sometable a join othertable b on b.id = a.id
 ;;

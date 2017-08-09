@@ -816,6 +816,46 @@ def window_def(node, output):
                     output.newline()
                 output.write('ORDER BY ')
                 output.print_list(node.orderClause)
+            if node.frameOptions & enums.FRAMEOPTION_NONDEFAULT:
+                if node.partitionClause or node.orderClause:
+                    output.newline()
+                fo = node.frameOptions
+                if fo & enums.FRAMEOPTION_RANGE:
+                    output.writes('RANGE')
+                elif fo & enums.FRAMEOPTION_ROWS:
+                    output.writes('ROWS')
+                if fo & enums.FRAMEOPTION_BETWEEN:
+                    output.writes('BETWEEN')
+                if fo & enums.FRAMEOPTION_START_UNBOUNDED_PRECEDING:
+                    output.writes('UNBOUNDED PRECEDING')
+                elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING: #pragma: no cover
+                    # Disallowed
+                    assert False
+                    output.writes('UNBOUNDED FOLLOWING')
+                elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
+                    output.writes('CURRENT ROW')
+                elif fo & enums.FRAMEOPTION_START_VALUE_PRECEDING:
+                    output.print(node.startOffset)
+                    output.swrites('PRECEDING')
+                elif fo & enums.FRAMEOPTION_START_VALUE_FOLLOWING:
+                    output.print(node.startOffset)
+                    output.swrites('FOLLOWING')
+                if fo & enums.FRAMEOPTION_BETWEEN:
+                    output.writes('AND')
+                if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING: #pragma: no cover
+                    # Disallowed
+                    assert False
+                    output.writes('UNBOUNDED PRECEDING')
+                elif fo & enums.FRAMEOPTION_END_UNBOUNDED_FOLLOWING:
+                    output.writes('UNBOUNDED FOLLOWING')
+                elif fo & enums.FRAMEOPTION_END_CURRENT_ROW:
+                    output.writes('CURRENT ROW')
+                elif fo & enums.FRAMEOPTION_END_VALUE_PRECEDING:
+                    output.print(node.endOffset)
+                    output.swrites('PRECEDING')
+                elif fo & enums.FRAMEOPTION_END_VALUE_FOLLOWING:
+                    output.print(node.endOffset)
+                    output.swrites('FOLLOWING')
         output.write(')')
 
 
