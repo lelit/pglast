@@ -472,7 +472,7 @@ def range_function(node, output):
             output.write(', ')
         output.print(fun)
         if cdefs:
-            # FIXME: find a way to pass here
+            # FIXME: find a way to get here
             output.write(' AS ')
             output.print_list(cdefs)
     if node.is_rowsfrom:
@@ -803,7 +803,7 @@ def window_def(node, output):
         output.print(node.refname, is_name=True)
         output.write(')')
         if not empty:
-            # FIXME: find a way to pass here
+            # FIXME: find a way to get here
             output.write(' AS ')
     if not empty or (node.name is Missing and node.refname is Missing):
         output.write('(')
