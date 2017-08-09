@@ -3,6 +3,17 @@
 Changes
 -------
 
+0.4 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Expose the actual PostgreSQL version the underlying libpg_query libray is built on thru a new
+  ``get_postgresql_version()`` function
+
+- New option `safety_belt` for the ``prettify()`` function, to protect the innocents
+
+- Handle serialization of ``CoalesceExpr`` and ``MinMaxExpr``
+
+
 0.3 (2017-08-07)
 ~~~~~~~~~~~~~~~~
 
