@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.5 (unreleased)
+0.5 (2017-08-09)
 ~~~~~~~~~~~~~~~~
 
 - Handle some more cases when a name must be double-quoted
