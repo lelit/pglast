@@ -59,6 +59,8 @@ SELECT 'accbf276-705b-11e7-b8e4-0242ac120002'::UUID as "X"
 ;;
 SELECT CAST('accbf276-705b-11e7-b8e4-0242ac120002' AS uuid) as "X"
 ;;
+SELECT CAST('accbf276-705b-11e7-b8e4-0242ac120002' AS "MySchema"."MyType") as "X"
+;;
 SELECT pc.id as x, common.func(pc.name, ' ')
 FROM ns.table pc
 ORDER BY pc.name ASC NULLS LAST
@@ -187,7 +189,7 @@ SELECT * FROM (VALUES (1),(2),(3)) v(r)
 SELECT i.q1, i.q2, ss.column1
 FROM int8_tbl i, LATERAL (VALUES (i.*::int8_tbl)) ss
 ;;
-SELECT * FROM (VALUES (1, 'one'), (2, 'two')) AS t (num, letter)
+SELECT * FROM (VALUES (1, 'one'), (2, 'two')) AS t (num, "English")
 ;;
 SELECT ARRAY(SELECT age FROM employees)
 ;;
@@ -197,13 +199,15 @@ FROM manufacturers m, LATERAL get_product_names(m.id) pname
 SELECT m.name AS mname, pname
 FROM manufacturers m LEFT JOIN LATERAL get_product_names(m.id) pname ON true
 ;;
-SELECT a.id, b.id
-FROM table_a RIGHT JOIN table_b ON a.id = b.id
+SELECT "A".id, "B".id
+FROM table_a AS "A" RIGHT JOIN table_b AS "B" ON "A".id = "B".id
 ;;
 SELECT a.id, b.id
 FROM table_a FULL JOIN table_b ON a.id = b.id
 ;;
 SELECT a.* FROM (my_table AS a JOIN your_table AS b ON a.value = b.value) AS c
+;;
+SELECT a.* FROM (my_table AS a JOIN your_table AS b ON a.value = b.value) AS "C"
 ;;
 SELECT m.name FROM manufacturers m
 WHERE (m.deliver_date = CURRENT_DATE
@@ -225,18 +229,27 @@ SELECT * FROM t
 UNION ALL
 SELECT * FROM t
 ;;
-WITH RECURSIVE employee_recursive(distance, employee_name, manager_name) AS (
+WITH "T" AS (
+    SELECT random() as x FROM generate_series(1, 3)
+  )
+SELECT * FROM "T"
+UNION ALL
+SELECT * FROM "T"
+;;
+WITH RECURSIVE employee_recursive("Distance", employee_name, manager_name) AS (
     SELECT 1, employee_name, manager_name
     FROM employee
     WHERE manager_name = 'Mary'
   UNION ALL
-    SELECT er.distance + 1, e.employee_name, e.manager_name
+    SELECT er."Distance" + 1, e.employee_name, e.manager_name
     FROM employee_recursive er, employee e
     WHERE er.employee_name = e.manager_name
   )
 SELECT distance, employee_name FROM employee_recursive
 ;;
 SELECT true FROM sometable WHERE value = ANY(ARRAY[1,2])
+;;
+SELECT true FROM sometable as "ST" WHERE "ST"."Value" = ANY(ARRAY[1,2])
 ;;
 SELECT true FROM sometable WHERE value != ALL(ARRAY[1,2])
 ;;
@@ -247,6 +260,8 @@ SELECT true FROM sometable WHERE id1 is not distinct from id2
 SELECT NULLIF(value, othervalue) FROM sometable
 ;;
 SELECT x, x IS OF (text) AS is_text FROM q
+;;
+SELECT x, x IS OF ("MyType") AS "IsMyType" FROM q
 ;;
 SELECT x, x IS NOT OF (text) AS is_not_text FROM q
 ;;

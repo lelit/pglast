@@ -146,10 +146,10 @@ def a_star(node, output):
 
 @node_printer('Alias')
 def alias(node, output):
-    output.print(node.aliasname)
+    output.print(node.aliasname, is_name=True)
     if node.colnames:
         output.swrite('(')
-        output.print_list(node.colnames)
+        output.print_list(node.colnames, are_names=True)
         output.write(')')
 
 
@@ -212,12 +212,12 @@ def column_ref(node, output):
 
 @node_printer('CommonTableExpr')
 def common_table_expr(node, output):
-    output.print(node.ctename)
+    output.print(node.ctename, is_name=True)
     if node.aliascolnames:
         output.write('(')
         if len(node.aliascolnames) > 1:
             output.write('  ')
-        output.print_list(node.aliascolnames)
+        output.print_list(node.aliascolnames, are_names=True)
         output.write(')')
         output.newline()
 
@@ -709,15 +709,8 @@ def sql_value_function(node, output):
 
 
 @node_printer('String')
-def string(node, output):
-    delimiter = ""
-    is_name = False
-    if node.parent_node.node_tag == 'ColumnRef':
-        is_name = True
-    elif node.parent_node.node_tag == 'A_Const':
-        delimiter = "'"
-        if node.parent_node.parent_node.node_tag in ('ResTarget',):
-            is_name = node.parent_node.parent_node.name == node.parent_node
+def string(node, output, is_name=None):
+    delimiter = "'" if node.parent_node.node_tag == 'A_Const' else ""
     output.write(delimiter)
     output.print(node.str, is_name=is_name)
     output.write(delimiter)

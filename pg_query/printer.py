@@ -244,7 +244,10 @@ class RawStream(OutputStream):
             self._print_scalar(node, is_name)
         else:
             printer = get_printer_for_node_tag(node.node_tag)
-            printer(node, self)
+            if is_name and node.node_tag == 'String':
+                printer(node, self, is_name=True)
+            else:
+                printer(node, self)
             self.separator()
 
     @contextmanager
