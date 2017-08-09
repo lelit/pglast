@@ -8,7 +8,7 @@
 
 import pytest
 
-from pg_query import Error, parse_plpgsql, parse_sql
+from pg_query import Error, get_postgresql_version, parse_plpgsql, parse_sql
 
 
 def test_basic():
@@ -58,3 +58,9 @@ def test_unicode():
     ptree = parse_sql('SELECT 1 AS "Naïve"')
     target =ptree[0]['RawStmt']['stmt']['SelectStmt']['targetList'][0]['ResTarget']
     assert target['name'] == "Naïve"
+
+
+def test_pg_version():
+    pg_version = get_postgresql_version()
+    assert isinstance(pg_version, tuple)
+    assert len(pg_version) == 3

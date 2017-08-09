@@ -30,4 +30,5 @@ def prettify(statement, **options):
     return IndentedStream(**options)(statement)
 
 
-__all__ = ('Error', 'Missing', 'Node', 'enums', 'parse_plpgsql', 'parse_sql', 'prettify')
+__all__ = ('Error', 'Missing', 'Node', 'enums', 'get_postgresql_version',
+           'parse_plpgsql', 'parse_sql', 'prettify')

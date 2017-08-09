@@ -26,6 +26,11 @@ class ParseError(Error):
         return f"{message}, at location {self.location}"
 
 
+cdef extern from "src/postgres/include/pg_config.h":
+
+    int PG_VERSION_NUM
+
+
 cdef extern from "pg_query.h":
 
     ctypedef struct PgQueryError:
@@ -46,6 +51,15 @@ cdef extern from "pg_query.h":
 
     PgQueryPlpgsqlParseResult pg_query_parse_plpgsql(const char* input)
     void pg_query_free_plpgsql_parse_result(PgQueryPlpgsqlParseResult result)
+
+
+def get_postgresql_version():
+    "Return the PostgreSQL version as a tuple (`major`, `minor`, `patch`)."
+
+    version = PG_VERSION_NUM
+    major, mp = divmod(version, 10_000)
+    minor, patch = divmod(mp, 100)
+    return (major, minor, patch)
 
 
 def parse_sql(str query):
