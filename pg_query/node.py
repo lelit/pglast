@@ -17,6 +17,9 @@ class Missing:
         return "MISSING"
 
 
+NoneType = type(None)
+
+
 Missing = Missing()
 "Singleton returned when trying to get a non-existing attribute out of a :class:`Node`."
 
@@ -32,8 +35,12 @@ class Base:
     __slots__ = ('_parent_node', '_parent_attribute')
 
     def __new__(cls, details, parent=None, name=None):
-        assert parent is None or isinstance(parent, Node)
-        assert name is None or isinstance(name, (str, tuple))
+        if not isinstance(parent, (Node, NoneType)):
+            raise ValueError("Unexpected value for 'parent', must be either None"
+                             " or a Node instance, got %r" % type(parent))
+        if not isinstance(name, (NoneType, str, tuple)):
+            raise ValueError("Unexpected value for 'name', must be either None,"
+                             " a string or a tuple, got %r" % type(name))
         if isinstance(details, list):
             self = super().__new__(List)
         elif isinstance(details, dict):
@@ -73,7 +80,9 @@ class List(Base):
     __slots__ = Base.__slots__ + ('_items',)
 
     def _init(self, items, parent, name):
-        assert isinstance(items, list) and items
+        if not isinstance(items, list) or not items:
+            raise ValueError("Unexpected value for 'items', must be a non empty"
+                             " list, got %r" % type(items))
         super()._init(parent, name)
         self._items = items
 
@@ -119,7 +128,9 @@ class Node(Base):
     __slots__ = Base.__slots__ + ('_node_tag', '_parse_tree')
 
     def _init(self, details, parent=None, name=None):
-        assert isinstance(details, dict) and len(details) == 1
+        if not isinstance(details, dict) or len(details) != 1:
+            raise ValueError("Unexpected value for 'details', must be a dict with"
+                             " exactly one key, got %r" % type(details))
         super()._init(parent, name)
         (self._node_tag, self._parse_tree), *_ = details.items()
 
@@ -174,6 +185,9 @@ class Scalar(Base):
     __slots__ = Base.__slots__ + ('_value',)
 
     def _init(self, value, parent, name):
+        if not isinstance(value, (NoneType, bool, float, int, str)):
+            raise ValueError("Unexpected value for 'value', must be either None or a"
+                             " bool|float|int|str instance, got %r" % type(value))
         super()._init(parent, name)
         self._value = value
 

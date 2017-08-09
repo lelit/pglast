@@ -11,7 +11,7 @@ import enum
 import pytest
 
 from pg_query import Missing, Node
-from pg_query.node import List, Scalar
+from pg_query.node import Base, List, Scalar
 
 
 class DummyEnum(str, enum.Enum):
@@ -22,6 +22,15 @@ class DummyEnum(str, enum.Enum):
 class DummyIntEnum(enum.IntEnum):
     ZERO = 0
     ONE = 1
+
+
+def test_bad_base_construction():
+    pytest.raises(ValueError, Base, {})
+    pytest.raises(ValueError, Base, [])
+    pytest.raises(ValueError, Base, {'Foo': 'bar', 'Bar': 'foo'})
+    pytest.raises(ValueError, Base, {'Foo': {'some': 'value'}}, parent=1.0)
+    pytest.raises(ValueError, Base, {'Foo': {'some': 'value'}}, name=1.0)
+    pytest.raises(ValueError, Base, set())
 
 
 def test_basic():
