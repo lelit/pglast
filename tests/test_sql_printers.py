@@ -70,6 +70,9 @@ ORDER BY EXTRACT('year' FROM deliver_date) ASC,
          EXTRACT('month' FROM deliver_date) ASC,
          EXTRACT('day' FROM deliver_date) ASC
 ;;
+SELECT (DATE '2001-02-16', DATE '2001-12-21') OVERLAPS
+       (DATE '2001-10-30', DATE '2002-10-30')
+;;
 select ((c.one + 1) * (c.two - 1)) / (c.three + 1) from sometable c
 ;;
 select true
