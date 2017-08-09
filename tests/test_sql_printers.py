@@ -8,38 +8,26 @@
 
 import pytest
 
-from pg_query import Node
+from pg_query import Node, _remove_location
 from pg_query.parser import parse_sql
 from pg_query.printer import RawStream, IndentedStream
 import pg_query.printers.sql
 
 
-def remove_location(d):
-    "Drop the node location, pointless for comparison between raw and pretty printed nodes."
-
-    if isinstance(d, list):
-        for v in d:
-            if v:
-                remove_location(v)
-    else:
-        d.pop('location', None)
-        for v in d.values():
-            if v and isinstance(v, (dict, list)):
-                remove_location(v)
 # Make pyflakes happy
 pg_query.printers.sql
 
 
 def roundtrip(sql):
     orig_ast = parse_sql(sql)
-    remove_location(orig_ast)
+    _remove_location(orig_ast)
 
     serialized = RawStream()(Node(orig_ast))
     try:
         serialized_ast = parse_sql(serialized)
     except:
         raise RuntimeError("Could not reparse %r" % serialized)
-    remove_location(serialized_ast)
+    _remove_location(serialized_ast)
     assert orig_ast == serialized_ast, "%r != %r" % (sql, serialized)
 
     indented = IndentedStream()(Node(orig_ast))
@@ -47,7 +35,7 @@ def roundtrip(sql):
         indented_ast = parse_sql(indented)
     except:
         raise RuntimeError("Could not reparse %r" % indented)
-    remove_location(indented_ast)
+    _remove_location(indented_ast)
     assert orig_ast == indented_ast, "%r != %r" % (sql, indented)
 
     # Run ``pytest -s tests/`` to see the following output
