@@ -456,3 +456,11 @@ class SetOpCmd(enum.IntEnum):
 class SetOpStrategy(enum.IntEnum):
     SETOP_SORTED = 0
     SETOP_HASHED = enum.auto()
+
+
+# #define-ed constants
+
+AGGSPLITOP_COMBINE = 0x01
+AGGSPLITOP_SKIPFINAL = 0x02
+AGGSPLITOP_SERIALIZE = 0x04
+AGGSPLITOP_DESERIALIZE = 0x08

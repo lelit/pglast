@@ -7,6 +7,7 @@
 #
 
 from os.path import basename
+from re import match
 import subprocess
 
 from pycparser import c_ast, c_parser
@@ -57,6 +58,14 @@ def extract_enums(source):
     parser = c_parser.CParser()
     for typedef in typedefs:
         yield parser.parse(''.join(typedef))
+
+
+def extract_defines(source):
+    for line in source.splitlines():
+        if line and line.startswith('#define '):
+            m = match(r'#define\s+([A-Z_]+)\s+\(?(\d+<<\d+|0x\d+)\)?', line)
+            if m:
+                yield m.group(1), m.group(2)
 
 
 def emit_constant(value):
@@ -122,6 +131,15 @@ def workhorse(args):
         output.write(HEADER % (basename(args.header), get_libpg_query_version()))
         for node in sorted(extract_enums(preprocessed), key=lambda x: x.ext[0].name):
             write_enum(node.ext[0].type.type, output)
+
+        separator_emitted = False
+        with open(args.header, encoding='utf-8') as header:
+            for constant, value in extract_defines(header.read()):
+                if not separator_emitted:
+                    output.write('\n\n')
+                    output.write('# #define-ed constants\n\n')
+                    separator_emitted = True
+                output.write('%s = %s\n' % (constant, value))
 
 
 def main():
