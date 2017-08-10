@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.8 (unreleased)
+0.8 (2017-08-10)
 ~~~~~~~~~~~~~~~~
 
 - Add enums subpackages to the documentation with references to their related headers
