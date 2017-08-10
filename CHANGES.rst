@@ -3,6 +3,17 @@
 Changes
 -------
 
+0.8 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Add enums subpackages to the documentation with references to their related headers
+
+- New ``compact_lists_margin`` option to produce a more compact representation when possible
+  (see `issue #1`__)
+
+__ https://github.com/lelit/pg_query/issues/1
+
+
 0.7 (2017-08-10)
 ~~~~~~~~~~~~~~~~
 
