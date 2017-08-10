@@ -7,9 +7,10 @@
 #
 
 import argparse
+import json
 import sys
 
-from pg_query import Error, prettify
+from pg_query import Error, parse_sql, prettify
 
 
 def workhorse(args):
@@ -17,16 +18,23 @@ def workhorse(args):
     with input:
         statement = input.read()
 
-    try:
-        prettified = prettify(statement)
-    except Error as e:
-        print()
-        raise SystemExit(e)
+    if args.parse_tree:
+        tree = parse_sql(statement)
+        output = args.outfile or sys.stdout
+        with output:
+            json.dump(tree, output, sort_keys=True, indent=2)
+            output.write('\n')
+    else:
+        try:
+            prettified = prettify(statement)
+        except Error as e:
+            print()
+            raise SystemExit(e)
 
-    output = args.outfile or sys.stdout
-    with output:
-        output.write(prettified)
-        output.write('\n')
+        output = args.outfile or sys.stdout
+        with output:
+            output.write(prettified)
+            output.write('\n')
 
 
 def main(options):
@@ -35,6 +43,8 @@ def main(options):
     parser = ArgumentParser(description="PostgreSQL language prettifier",
                             formatter_class=ArgumentDefaultsHelpFormatter)
 
+    parser.add_argument('-t', '--parse-tree', action='store_true', default=False,
+                        help='show just the parse tree of the statement')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'
                        ' by default stdin')
