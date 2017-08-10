@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.9 (unreleased)
+0.9 (2017-08-10)
 ~~~~~~~~~~~~~~~~
 
 - Fix spacing before the $ character
