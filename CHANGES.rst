@@ -3,6 +3,14 @@
 Changes
 -------
 
+0.6 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- New option ``--parse-tree`` on the command line tool to show just the parse tree
+
+- Sphinx documentation, available online
+
+
 0.5 (2017-08-09)
 ~~~~~~~~~~~~~~~~
 
