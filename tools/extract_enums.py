@@ -26,19 +26,51 @@ import enum
 """
 
 
-def get_libpg_query_version():
-    result = subprocess.check_output(['git', 'describe', '--all', '--long'],
-                                     cwd='libpg_query')
-    return result.decode('utf-8').strip().split('/')[1]
+def get_libpg_query_info():
+    "Return a tuple with (version, baseurl) of the libpg_query library."
+
+    version = subprocess.check_output(['git', 'describe', '--all', '--long'],
+                                      cwd='libpg_query')
+    version = version.decode('utf-8').strip().split('/')[1]
+    remote = subprocess.check_output(['git', 'remote', 'get-url', 'origin'],
+                                      cwd='libpg_query')
+    remote = remote.decode('utf-8')
+    baseurl = '%s/blob/%s/' % (remote[:-5], version[-7:])
+    return version, baseurl
 
 
 def preprocess(fname, cpp_args=[]):
+    "Preprocess the given header and return the result."
+
     result = subprocess.check_output(['cpp', '-E', *cpp_args, fname])
 
     return result.decode('utf-8')
 
 
-def extract_enums(source):
+def extract_toc(header):
+    "Extract the enums and defines with their position in the header."
+
+    toc = {}
+
+    with open(header, encoding='utf-8') as f:
+        content = f.read()
+
+    for lineno, line in enumerate(content.splitlines(), 1):
+        if line.startswith('typedef enum '):
+            m = match(r'typedef enum\s+([\w_]+)', line)
+            if m is not None:
+                toc[m.group(1)] = lineno
+        elif line.startswith('#define '):
+            m = match(r'#define\s+([A-Z_]+)', line)
+            if m is not None:
+                toc[m.group(1)] = lineno
+
+    return toc
+
+
+def extract_enums(toc, source):
+    "Yield all enum definitions belonging to the given header."
+
     typedefs = []
     in_typedef = False
     typedef = []
@@ -57,14 +89,18 @@ def extract_enums(source):
 
     parser = c_parser.CParser()
     for typedef in typedefs:
-        yield parser.parse(''.join(typedef))
+        td = parser.parse(''.join(typedef))
+        if td.ext[0].name in toc:
+            yield td
 
 
 def extract_defines(source):
+    "Yield all #defined constants in the given header."
+
     for line in source.splitlines():
         if line and line.startswith('#define '):
             m = match(r'#define\s+([A-Z_]+)\s+\(?(\d+<<\d+|0x\d+)\)?', line)
-            if m:
+            if m is not None:
                 yield m.group(1), m.group(2)
 
 
@@ -117,29 +153,38 @@ def determine_enum_type_and_value(enum):
     return type, value
 
 
-def write_enum(enum, output):
+def write_enum(enum, output, toc, url):
     enum_type, value_factory = determine_enum_type_and_value(enum)
     output.write('\n')
     output.write('class %s(%s):\n' % (enum.name, enum_type))
+    if enum.name in toc:
+        output.write('    "See `here for details <%s#L%d>`__."\n\n' % (url, toc[enum.name]))
     for index, item in enumerate(enum.values.enumerators):
         output.write('    %s = %s\n' % (item.name, value_factory(index, item)))
 
 
 def workhorse(args):
+    libpg_query_version, libpg_query_baseurl = get_libpg_query_info()
+    header_url = libpg_query_baseurl + args.header[12:]
+    toc = extract_toc(args.header)
     preprocessed = preprocess(args.header, ['-I%s' % idir for idir in args.include_directory])
     with open(args.output, 'w', encoding='utf-8') as output:
-        output.write(HEADER % (basename(args.header), get_libpg_query_version()))
-        for node in sorted(extract_enums(preprocessed), key=lambda x: x.ext[0].name):
-            write_enum(node.ext[0].type.type, output)
+        output.write(HEADER % (basename(args.header), libpg_query_version))
+        for node in sorted(extract_enums(toc, preprocessed),
+                           key=lambda x: x.ext[0].name):
+            write_enum(node.ext[0].type.type, output, toc, header_url)
 
         separator_emitted = False
         with open(args.header, encoding='utf-8') as header:
             for constant, value in extract_defines(header.read()):
                 if not separator_emitted:
                     output.write('\n\n')
-                    output.write('# #define-ed constants\n\n')
+                    output.write('# #define-ed constants\n')
                     separator_emitted = True
-                output.write('%s = %s\n' % (constant, value))
+                output.write('\n%s = %s\n' % (constant, value))
+                if constant in toc:
+                    output.write('"See `here for details <%s#L%d>`__."\n'
+                                 % (header_url, toc[constant]))
 
 
 def main():
