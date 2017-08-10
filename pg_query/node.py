@@ -27,6 +27,16 @@ Missing = Missing()
 class Base:
     """Common base class.
 
+    :type details: dict
+    :param details: the *parse tree*
+    :type parent: ``None`` or :class:`Node` instance
+    :param parent: ``None`` to indicate that the node is the *root* of the parse tree,
+                   otherwise it is the immediate parent of the new node
+    :type name: str or tuple
+    :param name: the name of the attribute in the `parent` node that *points* to this one;
+                 it may be a tuple (name, position) when ``parent[name]`` is actually a list of
+                 nodes
+
     Its main purpose is to create the right kind of instance, depending on the type of the
     `details` argument passed to the constructor: a ``dict`` produces a :class:`Node` instance,
     a ``list`` produces a :class:`List` instance, everything else a :class:`Scalar` instance.
@@ -67,15 +77,30 @@ class Base:
 
     @property
     def parent_node(self):
+        "The parent :class:`Node` of this element."
+
         return self._parent_node
 
     @property
     def parent_attribute(self):
+        "The *attribute* in the parent :class:`Node` referencing this element."
+
         return self._parent_attribute
 
 
 class List(Base):
-    "Represent a sequence of :class:`Node` instances."
+    """Represent a sequence of :class:`Node` instances.
+
+    :type items: list
+    :param items: a list of items, usually :class:`Node` instances
+    :type parent: ``None`` or :class:`Node` instance
+    :param parent: ``None`` to indicate that the node is the *root* of the parse tree,
+                   otherwise it is the immediate parent of the new node
+    :type name: str or tuple
+    :param name: the name of the attribute in the `parent` node that *points* to this one;
+                 it may be a tuple (name, position) when ``parent[name]`` is actually a list of
+                 nodes
+    """
 
     __slots__ = Base.__slots__ + ('_items',)
 
@@ -107,6 +132,8 @@ class List(Base):
         return Base(self._items[index], self.parent_node, (self.parent_attribute, index))
 
     def traverse(self):
+        "A generator that recursively traverse all the items in the list."
+
         for item in self:
             yield from item.traverse()
 
@@ -162,18 +189,26 @@ class Node(Base):
 
     @property
     def attribute_names(self):
+        "The names of the attribute present in the parse tree of the node."
+
         value = self._parse_tree
         return value.keys()
 
     @property
     def node_tag(self):
+        "The *tag* of the node."
+
         return self._node_tag
 
     @property
     def parse_tree(self):
+        "The *parse tree* of the node."
+
         return self._parse_tree
 
     def traverse(self):
+        "A generator that recursively traverse all attributes of the node."
+
         yield self
         for item in self:
             yield from item.traverse()

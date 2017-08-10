@@ -6,6 +6,7 @@
 /.emacs.desktop.lock
 /build/
 /dist/
+/docs/_build/
 /emacs.desktop
 /env/
 __pycache__/

@@ -120,8 +120,9 @@ class RawStream(OutputStream):
     :param separate_statements: a boolean, ``True`` by default, that tells whether multiple
                                 statements shall be separated by an empty line
 
-    This implements the basic machinery needed to serialize the *parse tree* produced by
-    :func:`~.parser.parse_sql()` back to a textual representation, without any adornment.
+    This augments :class:`OutputStream` and implements the basic machinery needed to serialize
+    the *parse tree* produced by :func:`~.parser.parse_sql()` back to a textual representation,
+    without any adornment.
     """
 
     def __init__(self, **options):
@@ -138,7 +139,7 @@ class RawStream(OutputStream):
         """Main entry point: execute :meth:`print` on each statement in `sql`.
 
         :param sql: either the source SQL in textual form, or a :class:`~.node.Node` instance
-        :param plpgsql: whether `sql` is really a ``plpgsql`` statement
+        :param bool plpgsql: whether `sql` is really a ``plpgsql`` statement
         :returns: a string with the equivalent SQL obtained by serializing the syntax tree
         """
 
@@ -158,6 +159,15 @@ class RawStream(OutputStream):
         return self.getvalue()
 
     def concat_scalars(self, scalars, sep=' ', are_names=False):
+        """Concatenate given `scalars`, using `sep` as the separator.
+
+        :param scalars: a sequence of nodes
+        :param str sep: the separator between them
+        :param bool are_names: whether the nodes are actually *names*, which possibly require
+                               to be enclosed between double-quotes
+        :returns: a string
+        """
+
         substream = type(self)(**self.options)
         substream.print_list(scalars, sep, are_names=are_names, standalone_items=False)
         return substream.getvalue()
@@ -265,12 +275,13 @@ class RawStream(OutputStream):
         """Execute :meth:`print` on all the `items`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.node.Node` instances
-        :param sep: the separator between them
-        :param relative_indent: if given, the relative amount of indentation to apply before
-                                the first item, by default computed automatically from the
-                                length of the separator `sep`
-        :param standalone_items: a boolean that tells whether a newline will be emitted before
-                                 each item
+        :param str sep: the separator between them
+        :param bool relative_indent: if given, the relative amount of indentation to apply
+                                     before the first item, by default computed automatically
+                                     from the length of the separator `sep`
+        :param bool standalone_items: whether a newline will be emitted before each item
+        :param bool are_names: whether the nodes are actually *names*, which possibly require
+                               to be enclosed between double-quotes
         """
 
         if relative_indent is None:
@@ -308,12 +319,13 @@ class IndentedStream(RawStream):
         """Execute :meth:`print` on all the `items`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.node.Node` instances
-        :param sep: the separator between them
-        :param relative_indent: if given, the relative amount of indentation to apply before
-                                the first item, by default computed automatically from the
-                                length of the separator `sep`
-        :param standalone_items: a boolean that tells whether a newline will be emitted before
-                                 each item
+        :param str sep: the separator between them
+        :param bool relative_indent: if given, the relative amount of indentation to apply
+                                     before the first item, by default computed automatically
+                                     from the length of the separator `sep`
+        :param bool standalone_items: whether a newline will be emitted before each item
+        :param bool are_names: whether the nodes are actually *names*, which possibly require
+                               to be enclosed between double-quotes
         """
 
         if standalone_items is None:
