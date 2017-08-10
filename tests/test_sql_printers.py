@@ -526,6 +526,73 @@ WHERE c BETWEEN 1 AND 2""",
     ),
     (
         """\
+select 'foo' as barname,b,c from sometable where c between 1 and 2""",
+        """\
+SELECT 'foo' AS barname, b, c
+FROM sometable
+WHERE c BETWEEN 1 AND 2""",
+        {'compact_lists_margin': 80}
+    ),
+    (
+        """\
+select 'foo' as barname,b,c,
+       (select somevalue
+        from othertable
+        where othertable.x = 1 and othertable.y = 2 and othertable.z = 3)
+from sometable where c between 1 and 2""",
+        """\
+SELECT 'foo' AS barname
+     , b
+     , c
+     , (SELECT somevalue
+        FROM othertable
+        WHERE (othertable.x = 1)
+          AND (othertable.y = 2)
+          AND (othertable.z = 3))
+FROM sometable
+WHERE c BETWEEN 1 AND 2""",
+        None
+    ),
+    (
+        """\
+select 'foo' as barname,b,c,
+       (select somevalue
+        from othertable
+        where othertable.x = 1 and othertable.y = 2 and othertable.z = 3)
+from sometable where c between 1 and 2""",
+        """\
+SELECT 'foo' AS barname
+     , b
+     , c
+     , (SELECT somevalue
+        FROM othertable
+        WHERE (othertable.x = 1) AND (othertable.y = 2) AND (othertable.z = 3))
+FROM sometable
+WHERE c BETWEEN 1 AND 2""",
+        {'compact_lists_margin': 80}
+    ),
+    (
+        """\
+select 'foo' as barname,b,c,
+       (select somevalue
+        from othertable
+        where othertable.x = 1 and othertable.y = 2 and othertable.z = 3)
+from sometable where c between 1 and 2""",
+        """\
+SELECT 'foo' AS barname
+     , b
+     , c
+     , (SELECT somevalue
+        FROM othertable
+        WHERE (othertable.x = 1)
+          AND (othertable.y = 2)
+          AND (othertable.z = 3))
+FROM sometable
+WHERE c BETWEEN 1 AND 2""",
+        {'compact_lists_margin': 75}
+    ),
+    (
+        """\
 select 'foo' as barname,b,c from sometable where c between 1 and c.threshold""",
         """\
 SELECT 'foo' AS barname
@@ -555,6 +622,25 @@ SET value = 'foo'
 WHERE (id = 'bar')
   AND (value <> 'foo')""",
         None
+    ),
+    (
+        """\
+update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'""",
+        """\
+UPDATE sometable
+SET value = 'foo', changed = now
+WHERE (id = 'bar') AND (value <> 'foo')""",
+        {'compact_lists_margin': 80}
+    ),
+    (
+        """\
+update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'""",
+        """\
+UPDATE sometable
+SET value = 'foo', changed = now
+WHERE (id = 'bar')
+  AND (value <> 'foo')""",
+        {'compact_lists_margin': 33}
     ),
 )
 @pytest.mark.parametrize('original, expected, options', EXAMPLES)

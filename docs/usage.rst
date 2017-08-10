@@ -87,8 +87,8 @@ Iterate over nodes
    relname=<'bar'>
    relpersistence=<'p'>
 
-Programmatically reformat a SQL statement
-=========================================
+Programmatically reformat a ``SQL`` statement
+=============================================
 
 .. doctest::
 
@@ -97,8 +97,8 @@ Programmatically reformat a SQL statement
    DELETE FROM sometable
    WHERE value IS NULL
 
-Reformat a SQL statement\ [*]_ from the command line
-====================================================
+Reformat a ``SQL`` statement\ [*]_ from the command line
+========================================================
 
 .. code-block:: shell
 
@@ -113,7 +113,28 @@ Reformat a SQL statement\ [*]_ from the command line
    SET value = 123
    WHERE value IS NULL
 
-Obtain the *parse tree* of a SQL statement from the command line
+Get a more compact representation
+=================================
+
+.. code-block:: shell
+
+   $ echo "select a,b,c from st where a='longvalue1' and b='longvalue2'" \
+          | python -m pg_query --compact 30
+   SELECT a, b, c
+   FROM st
+   WHERE (a = 'longvalue1')
+     AND (b = 'longvalue2')
+
+.. code-block:: shell
+
+   $ echo "select a,b,c from st where a='longvalue1' and b='longvalue2'" \
+          | python -m pg_query --compact 60
+   SELECT a, b, c
+   FROM st
+   WHERE (a = 'longvalue1') AND (b = 'longvalue2')
+
+Obtain the *parse tree* of a ``SQL`` statement from the command line
+====================================================================
 
 .. code-block:: shell
 

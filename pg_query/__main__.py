@@ -26,7 +26,7 @@ def workhorse(args):
             output.write('\n')
     else:
         try:
-            prettified = prettify(statement)
+            prettified = prettify(statement, compact_lists_margin=args.compact_lists_margin)
         except Error as e:
             print()
             raise SystemExit(e)
@@ -45,6 +45,8 @@ def main(options):
 
     parser.add_argument('-t', '--parse-tree', action='store_true', default=False,
                         help='show just the parse tree of the statement')
+    parser.add_argument('-m', '--compact-lists-margin', type=int, default=0,
+                        help='use compact form for lists not exceeding the given margin')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'
                        ' by default stdin')

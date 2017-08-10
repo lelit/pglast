@@ -117,20 +117,22 @@ class OutputStream(StringIO):
 class RawStream(OutputStream):
     """Basic SQL parse tree writer.
 
-    :param separate_statements: a boolean, ``True`` by default, that tells whether multiple
-                                statements shall be separated by an empty line
+    :param int expression_level: start the stream with the given expression level depth, 0 by
+                                 default
+    :param bool separate_statements: ``True`` by default, tells whether multiple
+                                     statements shall be separated by an empty line
 
     This augments :class:`OutputStream` and implements the basic machinery needed to serialize
     the *parse tree* produced by :func:`~.parser.parse_sql()` back to a textual representation,
     without any adornment.
     """
 
-    def __init__(self, **options):
+    def __init__(self, expression_level=0, **options):
         super().__init__()
         if 'separate_statements' not in options:
             options['separate_statements'] = True
         self.options = options
-        self.expression_level = 0
+        self.expression_level = expression_level
         self.current_column = 0
         self.current_indent = 0
         self.indentation_stack = []
@@ -301,7 +303,11 @@ class RawStream(OutputStream):
 class IndentedStream(RawStream):
     """Indented SQL parse tree writer.
 
-    :param align_expression_operands: whether to vertically align the operands of an expression
+    :param bool align_expression_operands: whether to vertically align the operands of an
+                                           expression
+    :param int compact_lists_margin: an integer value that, if given, is used to print
+                                     lists on a single line, when they do not exceed
+                                     the given margin on the right
     :param \*\*options: other options accepted by :class:`Serializer`
 
     This augments :class:`RawStream` to emit a prettified representation of a *parse tree*.
@@ -310,6 +316,8 @@ class IndentedStream(RawStream):
     def __init__(self, **options):
         if 'align_expression_operands' not in options:
             options['align_expression_operands'] = True
+        if 'compact_lists_margin' not in options:
+            options['compact_lists_margin'] = None
         super().__init__(**options)
 
     def newline(self):
@@ -332,6 +340,12 @@ class IndentedStream(RawStream):
         """
 
         if standalone_items is None:
+            if self.options['compact_lists_margin']:
+                rawlist = self.concat_nodes(nodes, sep, are_names)
+                if self.current_column + len(rawlist) < self.options['compact_lists_margin']:
+                    self.write(rawlist)
+                    return
+
             standalone_items = not all(isinstance(n, Node) and n.node_tag == 'A_Const'
                                        for n in nodes)
 
