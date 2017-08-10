@@ -1,5 +1,8 @@
 exclude .git .gitmodules
 include *.cfg *.py *.rst *.txt Makefile*
+include docs/Makefile
+include docs/*.rst
+include docs/*.py
 include tests/*.py
 include tools/*.py
 recursive-include pg_query *.py *.pyx
