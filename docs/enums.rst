@@ -19,12 +19,25 @@ subclasses.
 
 Currently they are collected by parsing the following headers:
 
-- `nodes.h`__
-- `primnodes.h`__
-- `parsenodes.h`__
 - `lockoptions.h`__
+- `nodes.h`__
+- `parsenodes.h`__
+- `primnodes.h`__
 
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/nodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/primnodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/parsenodes.h;hb=HEAD
 __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/lockoptions.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/nodes.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/parsenodes.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/primnodes.h;hb=HEAD
+
+
+.. automodule:: pg_query.enums.lockoptions
+   :members:
+
+.. automodule:: pg_query.enums.nodes
+   :members:
+
+.. automodule:: pg_query.enums.primnodes
+   :members:
+
+.. automodule:: pg_query.enums.parsenodes
+   :members:
