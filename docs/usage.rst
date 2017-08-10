@@ -10,99 +10,142 @@
  Examples of usage
 ===================
 
-* Parse an ``SQL`` statement and get its *AST* root node:
+Here are some example of how the module can be used.
 
-  .. doctest::
+Parse an ``SQL`` statement and get its *AST* root node
+======================================================
 
-     >>> from pg_query import Node, parse_sql
-     >>> root = Node(parse_sql('SELECT foo FROM bar'))
-     >>> print(root)
-     None=[1*{RawStmt}]
+.. doctest::
 
-* Recursively traverse the parse tree:
+   >>> from pg_query import Node, parse_sql
+   >>> root = Node(parse_sql('SELECT foo FROM bar'))
+   >>> print(root)
+   None=[1*{RawStmt}]
 
-  .. doctest::
+Recursively traverse the parse tree
+===================================
 
-     >>> for node in root.traverse():
-     ...   print(node)
-     ...
-     None[0]={RawStmt}
-     stmt={SelectStmt}
-     fromClause[0]={RangeVar}
-     inh=<True>
-     location=<16>
-     relname=<'bar'>
-     relpersistence=<'p'>
-     op=<0>
-     targetList[0]={ResTarget}
-     location=<7>
-     val={ColumnRef}
-     fields[0]={String}
-     str=<'foo'>
-     location=<7>
+.. doctest::
 
-  As you can see, the ``repr``\ esentation of each value is mnemonic: ``{some_tag}`` means a
-  ``Node`` with tag ``some_tag``, ``[X*{some_tag}]`` is a ``List`` containing `X` nodes of that
-  particular kind\ [*]_ and ``<value>`` is a ``Scalar``.
+   >>> for node in root.traverse():
+   ...   print(node)
+   ...
+   None[0]={RawStmt}
+   stmt={SelectStmt}
+   fromClause[0]={RangeVar}
+   inh=<True>
+   location=<16>
+   relname=<'bar'>
+   relpersistence=<'p'>
+   op=<0>
+   targetList[0]={ResTarget}
+   location=<7>
+   val={ColumnRef}
+   fields[0]={String}
+   str=<'foo'>
+   location=<7>
 
-* Get a particular node:
+As you can see, the ``repr``\ esentation of each value is mnemonic: ``{some_tag}`` means a
+``Node`` with tag ``some_tag``, ``[X*{some_tag}]`` is a ``List`` containing `X` nodes of that
+particular kind\ [*]_ and ``<value>`` is a ``Scalar``.
 
-  .. doctest::
+Get a particular node
+=====================
 
-     >>> from_clause = root[0].stmt.fromClause
-     >>> print(from_clause)
-     fromClause=[1*{RangeVar}]
+.. doctest::
 
-* Obtain some information about a node:
+   >>> from_clause = root[0].stmt.fromClause
+   >>> print(from_clause)
+   fromClause=[1*{RangeVar}]
 
-  .. doctest::
+Obtain some information about a node
+====================================
 
-     >>> range_var = from_clause[0]
-     >>> print(range_var.node_tag)
-     RangeVar
-     >>> print(range_var.attribute_names)
-     dict_keys(['relname', 'inh', 'relpersistence', 'location'])
-     >>> print(range_var.parent_node)
-     stmt={SelectStmt}
+.. doctest::
 
-* Iterate over nodes:
+   >>> range_var = from_clause[0]
+   >>> print(range_var.node_tag)
+   RangeVar
+   >>> print(range_var.attribute_names)
+   dict_keys(['relname', 'inh', 'relpersistence', 'location'])
+   >>> print(range_var.parent_node)
+   stmt={SelectStmt}
 
-  .. doctest::
+Iterate over nodes
+==================
 
-     >>> for a in from_clause:
-     ...     print(a)
-     ...     for b in a:
-     ...         print(b)
-     ...
-     fromClause[0]={RangeVar}
-     inh=<True>
-     location=<16>
-     relname=<'bar'>
-     relpersistence=<'p'>
+.. doctest::
 
-* Reformat a SQL statement\ [*]_ from the command line:
+   >>> for a in from_clause:
+   ...     print(a)
+   ...     for b in a:
+   ...         print(b)
+   ...
+   fromClause[0]={RangeVar}
+   inh=<True>
+   location=<16>
+   relname=<'bar'>
+   relpersistence=<'p'>
 
-  .. code-block:: shell
+Programmatically reformat a SQL statement
+=========================================
 
-     $ echo "select a,b,c from sometable" | python -m pg_query
-     SELECT a
-          , b
-          , c
-     FROM sometable
+.. doctest::
 
-     $ echo 'update "table" set value=123 where value is null' | python -m pg_query
-     UPDATE "table"
-     SET value = 123
-     WHERE value IS NULL
+   >>> from pg_query import prettify
+   >>> print(prettify('delete from sometable where value is null'))
+   DELETE FROM sometable
+   WHERE value IS NULL
 
-* Programmatically reformat a SQL statement:
+Reformat a SQL statement\ [*]_ from the command line
+====================================================
 
-  .. doctest::
+.. code-block:: shell
 
-     >>> from pg_query import prettify
-     >>> print(prettify('delete from sometable where value is null'))
-     DELETE FROM sometable
-     WHERE value IS NULL
+   $ echo "select a,b,c from sometable" | python -m pg_query
+   SELECT a
+        , b
+        , c
+   FROM sometable
+
+   $ echo 'update "table" set value=123 where value is null' | python -m pg_query
+   UPDATE "table"
+   SET value = 123
+   WHERE value IS NULL
+
+Obtain the *parse tree* of a SQL statement from the command line
+
+.. code-block:: shell
+
+   $ echo "select 1" | python -m pg_query --parse-tree
+   [
+     {
+       "RawStmt": {
+         "stmt": {
+           "SelectStmt": {
+             "op": 0,
+             "targetList": [
+               {
+                 "ResTarget": {
+                   "location": 7,
+                   "val": {
+                     "A_Const": {
+                       "location": 7,
+                       "val": {
+                         "Integer": {
+                           "ival": 1
+                         }
+                       }
+                     }
+                   }
+                 }
+               }
+             ]
+           }
+         }
+       }
+     }
+   ]
 
 
 ---
