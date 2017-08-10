@@ -28,20 +28,20 @@ def a_expr(node, output):
     aek = enums.A_Expr_Kind
 
     if node.kind == aek.AEXPR_OP:
-        op = output.concat_scalars(node.name)
+        op = output.concat_nodes(node.name)
         with output.expression():
             output.print(node.lexpr)
             output.write(' ' + op + ' ')
             output.print(node.rexpr)
     elif node.kind == aek.AEXPR_OP_ANY:
         output.print(node.lexpr)
-        output.swrites(output.concat_scalars(node.name))
+        output.swrites(output.concat_nodes(node.name))
         output.write('ANY (')
         output.print(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_OP_ALL:
         output.print(node.lexpr)
-        output.swrites(output.concat_scalars(node.name))
+        output.swrites(output.concat_nodes(node.name))
         output.write('ALL (')
         output.print(node.rexpr)
         output.write(')')

@@ -158,19 +158,22 @@ class RawStream(OutputStream):
             self.print(statement)
         return self.getvalue()
 
-    def concat_scalars(self, scalars, sep=' ', are_names=False):
-        """Concatenate given `scalars`, using `sep` as the separator.
+    def concat_nodes(self, nodes, sep=' ', are_names=False):
+        """Concatenate given `nodes`, using `sep` as the separator.
 
         :param scalars: a sequence of nodes
         :param str sep: the separator between them
         :param bool are_names: whether the nodes are actually *names*, which possibly require
                                to be enclosed between double-quotes
         :returns: a string
+
+        Use a temporary :class:`RawStream` instance to print the list of nodes and return the
+        result.
         """
 
-        substream = type(self)(**self.options)
-        substream.print_list(scalars, sep, are_names=are_names, standalone_items=False)
-        return substream.getvalue()
+        rawstream = RawStream(expression_level=self.expression_level)
+        rawstream.print_list(nodes, sep, are_names=are_names, standalone_items=False)
+        return rawstream.getvalue()
 
     def dedent(self):
         "Pop the indentation level from the stack and set `current_indent` to that."
