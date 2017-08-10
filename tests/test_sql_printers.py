@@ -221,6 +221,12 @@ select case a.value when 0 then '1' else '2' end from sometable a
 ;;
 select case when a.value = 0 then '1' else '2' end from sometable a
 ;;
+SELECT schedule[1:2][1:1] FROM sal_emp WHERE name = 'Bill'
+;;
+SELECT schedule[:2][2:] FROM sal_emp WHERE name = 'Bill'
+;;
+SELECT schedule[:][1:1] FROM sal_emp WHERE name = 'Bill'
+;;
 SELECT * FROM unnest(ARRAY['a','b','c','d','e','f']) WITH ORDINALITY
 ;;
 SELECT * FROM pg_ls_dir('.') WITH ORDINALITY AS t(ls,n)
