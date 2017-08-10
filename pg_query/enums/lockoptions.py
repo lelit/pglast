@@ -9,6 +9,8 @@ import enum
 
 
 class LockClauseStrength(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/lockoptions.h#L21>`__."
+
     LCS_NONE = 0
     LCS_FORKEYSHARE = enum.auto()
     LCS_FORSHARE = enum.auto()
@@ -16,6 +18,8 @@ class LockClauseStrength(enum.IntEnum):
     LCS_FORUPDATE = enum.auto()
 
 class LockWaitPolicy(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/lockoptions.h#L36>`__."
+
     LockWaitBlock = 0
     LockWaitSkip = enum.auto()
     LockWaitError = enum.auto()

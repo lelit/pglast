@@ -9,17 +9,23 @@ import enum
 
 
 class AggSplit(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L757>`__."
+
     AGGSPLIT_SIMPLE = 0
     AGGSPLIT_INITIAL_SERIAL = 0x02 | 0x04
     AGGSPLIT_FINAL_DESERIAL = 0x01 | 0x08
 
 class AggStrategy(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L735>`__."
+
     AGG_PLAIN = 0
     AGG_SORTED = enum.auto()
     AGG_HASHED = enum.auto()
     AGG_MIXED = enum.auto()
 
 class CmdType(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L649>`__."
+
     CMD_UNKNOWN = 0
     CMD_SELECT = enum.auto()
     CMD_UPDATE = enum.auto()
@@ -29,6 +35,8 @@ class CmdType(enum.IntEnum):
     CMD_NOTHING = enum.auto()
 
 class JoinType(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L673>`__."
+
     JOIN_INNER = 0
     JOIN_LEFT = enum.auto()
     JOIN_FULL = enum.auto()
@@ -39,6 +47,8 @@ class JoinType(enum.IntEnum):
     JOIN_UNIQUE_INNER = enum.auto()
 
 class NodeTag(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L26>`__."
+
     T_Invalid = 0
     T_IndexInfo = enum.auto()
     T_ExprContext = enum.auto()
@@ -443,17 +453,23 @@ class NodeTag(enum.IntEnum):
     T_ForeignKeyCacheInfo = enum.auto()
 
 class OnConflictAction(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L799>`__."
+
     ONCONFLICT_NONE = 0
     ONCONFLICT_NOTHING = enum.auto()
     ONCONFLICT_UPDATE = enum.auto()
 
 class SetOpCmd(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L779>`__."
+
     SETOPCMD_INTERSECT = 0
     SETOPCMD_INTERSECT_ALL = enum.auto()
     SETOPCMD_EXCEPT = enum.auto()
     SETOPCMD_EXCEPT_ALL = enum.auto()
 
 class SetOpStrategy(enum.IntEnum):
+    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L787>`__."
+
     SETOP_SORTED = 0
     SETOP_HASHED = enum.auto()
 
@@ -461,6 +477,13 @@ class SetOpStrategy(enum.IntEnum):
 # #define-ed constants
 
 AGGSPLITOP_COMBINE = 0x01
+"See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L751>`__."
+
 AGGSPLITOP_SKIPFINAL = 0x02
+"See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L752>`__."
+
 AGGSPLITOP_SERIALIZE = 0x04
+"See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L753>`__."
+
 AGGSPLITOP_DESERIALIZE = 0x08
+"See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L754>`__."
