@@ -3,6 +3,16 @@
 Changes
 -------
 
+0.9 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix spacing before the $ character
+
+- Handle type modifiers
+
+- New option ``--plpgsql`` on the command line tool, just for fun
+
+
 0.8 (2017-08-10)
 ~~~~~~~~~~~~~~~~
 
