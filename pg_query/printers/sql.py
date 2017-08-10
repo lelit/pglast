@@ -7,7 +7,7 @@
 #
 
 from .. import enums
-from ..node import Missing
+from ..node import Missing, Scalar
 from ..printer import node_printer
 
 
@@ -756,7 +756,25 @@ def type_cast(node, output):
 
 @node_printer('TypeName')
 def type_name(node, output):
+    if node.setof:
+        # FIXME: is this used only by plpgsql?
+        output.writes('SETOF')
     output.print_list(node.names, '.', standalone_items=False, are_names=True)
+    if node.pct_type:
+        # FIXME: is this used only by plpgsql?
+        output.write('%TYPE')
+    else:
+        if node.typmods:
+            output.write('(')
+            output.print_list(node.typmods, ',', standalone_items=False)
+            output.write(')')
+        if node.arrayBounds:
+            # FIXME: this is probably reachable only by CREATE TABLE/plpgsql
+            for ab in node.arrayBounds:
+                output.write('[')
+                if not isinstance(ab, Scalar) or ab.value >= 0:
+                    output.print(ab)
+                output.write(']')
 
 
 @node_printer('UpdateStmt')

@@ -348,6 +348,13 @@ SELECT value FROM sometable WHERE id = $1
 ;;
 SELECT value FROM sometable WHERE value like $1
 ;;
+SELECT concat_ws($1::VARCHAR, p.last_name, p.first_name) AS "Redactor"
+FROM procs AS sp
+WHERE sp.cid = $2::UUID AND sp.name ILIKE $3::VARCHAR(192)
+ORDER BY sp.name
+;;
+SELECT CAST(1.234 AS NUMERIC(5,2))
+;;
 SELECT
   pc.id,
   pc.person_id,
