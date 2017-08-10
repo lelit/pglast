@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.6 (unreleased)
+0.6 (2017-08-10)
 ~~~~~~~~~~~~~~~~
 
 - New option ``--parse-tree`` on the command line tool to show just the parse tree
