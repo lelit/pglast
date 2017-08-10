@@ -218,6 +218,13 @@ Examples of usage
    DELETE FROM sometable
    WHERE value IS NULL
 
+Documentation
+-------------
+
+Latest documentation is hosted by `Read the Docs`__ at http://pg-query.readthedocs.io/en/latest/
+
+__ https://readthedocs.org/
+
 
 .. [*] This is an approximation, because in principle a list could contain different kinds of
        nodes, or even sub-lists in some cases: the ``List`` representation arbitrarily shows
