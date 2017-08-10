@@ -70,7 +70,7 @@ class OutputStream(StringIO):
         if not self.last_emitted_char.isspace():
             self.pending_separator = True
 
-    def write(self, s, *, _special_chars=set("""_*+/-"'=<>""")):
+    def write(self, s, *, _special_chars=set("""_*+/-"'=<>$""")):
         """Emit string `s`.
 
         :param str s: the string to emit
