@@ -3,6 +3,12 @@
 Changes
 -------
 
+0.7 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix sdist including the Sphinx documentation
+
+
 0.6 (2017-08-10)
 ~~~~~~~~~~~~~~~~
 
