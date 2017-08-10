@@ -10,7 +10,7 @@ import argparse
 import json
 import sys
 
-from pg_query import Error, parse_sql, prettify
+from pg_query import Error, parse_plpgsql, parse_sql, prettify
 
 
 def workhorse(args):
@@ -18,8 +18,8 @@ def workhorse(args):
     with input:
         statement = input.read()
 
-    if args.parse_tree:
-        tree = parse_sql(statement)
+    if args.parse_tree or args.plpgsql:
+        tree = parse_plpgsql(statement) if args.plpgsql else parse_sql(statement)
         output = args.outfile or sys.stdout
         with output:
             json.dump(tree, output, sort_keys=True, indent=2)
@@ -43,6 +43,8 @@ def main(options):
     parser = ArgumentParser(description="PostgreSQL language prettifier",
                             formatter_class=ArgumentDefaultsHelpFormatter)
 
+    parser.add_argument('-p', '--plpgsql', action='store_true', default=False,
+                        help='use the plpgsql parser (and print just the resulting tree)')
     parser.add_argument('-t', '--parse-tree', action='store_true', default=False,
                         help='show just the parse tree of the statement')
     parser.add_argument('-m', '--compact-lists-margin', type=int, default=0,
