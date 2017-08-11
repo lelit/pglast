@@ -657,6 +657,51 @@ WHERE (id = 'bar')
   AND (value <> 'foo')""",
         {'compact_lists_margin': 33}
     ),
+    (
+        """\
+SELECT pe.id
+FROM table1 as pe
+INNER JOIN table2 AS pr ON pe.project_id = pr.id
+LEFT JOIN table3 AS cp ON cp.person_id = pe.id
+INNER JOIN table4 AS c ON cp.company_id = c.id""",
+        """\
+SELECT pe.id
+FROM table1 AS pe
+   INNER JOIN table2 AS pr ON pe.project_id = pr.id
+   LEFT JOIN table3 AS cp ON cp.person_id = pe.id
+   INNER JOIN table4 AS c ON cp.company_id = c.id""",
+        None
+    ),
+    (
+        """\
+SELECT pe.id
+FROM table1 as pe
+INNER JOIN table2 AS pr ON pe.project_id = pr.id
+LEFT JOIN (table3 AS cp INNER JOIN table4 AS c ON cp.company_id = c.id)  ON cp.person_id = pe.id""",
+        """\
+SELECT pe.id
+FROM table1 AS pe
+   INNER JOIN table2 AS pr ON pe.project_id = pr.id
+   LEFT JOIN table3 AS cp
+      INNER JOIN table4 AS c ON cp.company_id = c.id
+      ON cp.person_id = pe.id""",
+        None
+    ),
+    (
+        """\
+SELECT sum(salary) OVER (x), avg(salary) OVER y
+FROM empsalary
+WINDOW x AS (PARTITION BY depname ORDER BY salary DESC),
+       y as (order by salary)""",
+        """\
+SELECT sum(salary) OVER(x)
+     , avg(salary) OVER y
+FROM empsalary
+WINDOW x AS (PARTITION BY depname
+             ORDER BY salary DESC)
+     , y AS (ORDER BY salary)""",
+        None
+    ),
 )
 @pytest.mark.parametrize('original, expected, options', EXAMPLES)
 def test_prettification(original, expected, options):

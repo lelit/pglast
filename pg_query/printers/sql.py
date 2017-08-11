@@ -354,12 +354,13 @@ def insert_stmt(node, output):
 
 @node_printer('JoinExpr')
 def join_expr(node, output):
-    with output.push_indent(-3):
-        if node.alias:
-            output.write('(')
+    if node.alias:
+        output.write('(')
 
-        output.print(node.larg)
-        output.newline()
+    output.print(node.larg)
+    output.newline()
+
+    with output.push_indent():
         if node.isNatural:
             output.write('NATURAL ')
 
@@ -374,7 +375,14 @@ def join_expr(node, output):
             output.write('RIGHT')
 
         output.swrites('JOIN')
-        output.print(node.rarg)
+
+        if node.rarg.node_tag == 'JoinExpr':
+            output.indent(3, relative=False)
+            output.print(node.rarg)
+            output.newline()
+        else:
+            output.print(node.rarg)
+
         if node.usingClause:
             output.swrite('USING (')
             output.print_list(node.usingClause)
@@ -386,6 +394,9 @@ def join_expr(node, output):
         if node.alias:
             output.writes(') AS')
             output.print(node.alias)
+
+        if node.rarg.node_tag == 'JoinExpr':
+            output.dedent()
 
 
 @node_printer('LockingClause')
