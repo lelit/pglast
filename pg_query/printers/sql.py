@@ -566,17 +566,8 @@ def select_stmt(node, output):
             require_parens = node.parent_node.node_tag == 'RangeSubselect'
             if require_parens:
                 output.write('(')
-            output.write('VALUES (  ')
-            with output.push_indent(-5):
-                first = True
-                for values in node.valuesLists:
-                    if first:
-                        first = False
-                    else:
-                        output.newline()
-                        output.write(', (  ')
-                    output.print_list(values)
-                    output.write(')')
+            output.write('VALUES ')
+            output.print_lists(node.valuesLists)
             if require_parens:
                 output.write(')')
         elif node.targetList is Missing:

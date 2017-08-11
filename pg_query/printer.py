@@ -274,6 +274,42 @@ class RawStream(OutputStream):
         with self.push_indent(relative_indent):
             self._print_items(nodes, sep, standalone_items, are_names=are_names)
 
+    def print_lists(self, lists, sep=',', relative_indent=None, standalone_items=None,
+                    are_names=False, sublist_open='(', sublist_close=')', sublist_sep=',',
+                    sublist_relative_indent=None):
+        """Execute :meth:`print_list` on all the `lists` items.
+
+        :param lists: a sequence of sequences of :class:`~.node.Node` instances
+        :param str sep: passed as is to :meth:`print_list`
+        :param bool relative_indent: passed as is to :meth:`print_list`
+        :param bool standalone_items: passed as is to :meth:`print_list`
+        :param bool are_names: passed as is to :meth:`print_list`
+        :param sublist_open: the string that will be emitted before each sublist
+        :param sublist_close: the string that will be emitted after each sublist
+        :param str sublist_sep: the separator between them each sublist
+        :param bool sublist_relative_indent: if given, the relative amount of indentation to
+                                             apply before the first sublist, by default
+                                             computed automatically from the length of the
+                                             separator `sublist_sep`
+        """
+
+        if sublist_relative_indent is None:
+            sublist_relative_indent = -(len(sublist_sep) + 2)
+
+        self.write(sublist_open)
+        with self.push_indent(sublist_relative_indent):
+            first = True
+            for lst in lists:
+                if first:
+                    first = False
+                else:
+                    self.newline()
+                    self.write(sublist_sep)
+                    self.write(' ')
+                    self.write(sublist_open)
+                self.print_list(lst, sep, relative_indent, standalone_items, are_names)
+                self.write(sublist_close)
+
 
 class IndentedStream(RawStream):
     """Indented SQL parse tree writer.
