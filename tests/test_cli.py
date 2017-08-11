@@ -6,7 +6,30 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
-from contextlib import _RedirectStream, redirect_stdout
+try:
+    from contextlib import _RedirectStream, redirect_stdout
+except ImportError:
+    # Python 3.4
+    from contextlib import redirect_stdout
+    import sys
+
+    class redirect_stdin:
+        def __init__(self, new_target):
+            self._new_target = new_target
+            # We use a list of old targets to make this CM re-entrant
+            self._old_targets = []
+
+        def __enter__(self):
+            self._old_targets.append(sys.stdin)
+            sys.stdin = self._new_target
+            return self._new_target
+
+        def __exit__(self, exctype, excinst, exctb):
+            sys.stdin = self._old_targets.pop()
+else:
+    class redirect_stdin(_RedirectStream):
+        _stream = "stdin"
+
 from io import StringIO
 
 import pytest
@@ -17,9 +40,6 @@ from pg_query.__main__ import main
 class UnclosableStream(StringIO):
     def close(self):
         pass
-
-class redirect_stdin(_RedirectStream):
-    _stream = "stdin"
 
 
 def test_cli_workhorse():
