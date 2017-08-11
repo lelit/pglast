@@ -69,6 +69,13 @@ $(PY_KEYWORDS): $(PG_INCLUDE_DIR)/parser/kwlist.h tools/extract_keywords.py
 	$(PYTHON) tools/extract_keywords.py $< $@
 
 help::
+	@printf "doc\n\tbuild Sphinx documentation\n"
+
+.PHONY: doc
+doc:
+	$(MAKE) -C docs html
+
+help::
 	@printf "check\n\trun the test suite\n"
 
 .PHONY: check
