@@ -23,7 +23,7 @@ HEADER = """\
 
 try:
     from enum import Enum, IntEnum, IntFlag, auto
-except ImportError:
+except ImportError: #pragma: no cover
     # Python < 3.6
     from aenum import Enum, IntEnum, IntFlag, auto
 
