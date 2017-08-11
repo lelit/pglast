@@ -73,7 +73,7 @@ class Base:
         aname = self._parent_attribute
         if isinstance(aname, tuple):
             aname = '%s[%d]' % aname
-        return f'{aname}={self!r}'
+        return '%s=%r' % (aname, self)
 
     @property
     def parent_node(self):
@@ -120,7 +120,7 @@ class List(Base):
         # this is primarily an helper for investigating the internals of a tree.
         count = len(self)
         pivot = self[0]
-        return f'[{count}*{pivot!r}]'
+        return '[%d*%r]' % (count, pivot)
 
     def __iter__(self):
         pnode = self.parent_node
@@ -162,7 +162,7 @@ class Node(Base):
         (self._node_tag, self._parse_tree), *_ = details.items()
 
     def __repr__(self):
-        return f'{{{self._node_tag}}}'
+        return '{%s}' % self._node_tag
 
     def __getattr__(self, attr):
         try:
@@ -249,7 +249,7 @@ class Scalar(Base):
             return super().__eq__(other)
 
     def __repr__(self):
-        return f'<{self._value!r}>'
+        return '<%r>' % self._value
 
     def traverse(self):
         yield self
