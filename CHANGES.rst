@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.11 (unreleased)
+0.11 (2017-08-11)
 ~~~~~~~~~~~~~~~~~
 
 - Nicer indentation for JOINs, making OUTER JOINs stand out
