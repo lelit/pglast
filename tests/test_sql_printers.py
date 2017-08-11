@@ -434,7 +434,7 @@ UPDATE extensions
 SET values[0] = '.gif'
 WHERE mime_type = 'image/gif'
 ;;
-UPDATE extensions SET values[0] = $1 WHERE mime_type = $2
+UPDATE extensions SET values[0] = $1 WHERE mime_type = $2 Returning "Changed"
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in UPDATES.split('\n;;\n')))
@@ -481,8 +481,8 @@ INSERT INTO films DEFAULT VALUES
 ;;
 INSERT INTO films SELECT * FROM tmp_films WHERE date_prod < '2004-05-07'
 ;;
-INSERT INTO distributors (did, dname) VALUES (DEFAULT, 'XYZ Widgets')
-   RETURNING did
+INSERT INTO distributors ("Did", dname) VALUES (DEFAULT, 'XYZ Widgets')
+   RETURNING "Did", changed
 ;;
 INSERT INTO tictactoe (game, board[1:3][1:3])
     VALUES (1, '{{" "," "," "},{" "," "," "},{" "," "," "}}')

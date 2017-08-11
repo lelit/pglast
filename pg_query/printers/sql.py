@@ -149,7 +149,7 @@ def alias(node, output):
     output.print(node.aliasname, is_name=True)
     if node.colnames:
         output.swrite('(')
-        output.print_list(node.colnames, are_names=True)
+        output.print_list(node.colnames, sep=', ', are_names=True)
         output.write(')')
 
 
@@ -329,8 +329,8 @@ def insert_stmt(node, output):
         output.write('INSERT INTO ')
         output.print(node.relation)
         if node.cols:
-            output.write(' (  ')
-            output.print_list(node.cols)
+            output.write(' (')
+            output.print_list(node.cols, ', ', are_names=True)
             output.write(')')
         else:
             output.write(' ')
@@ -346,7 +346,7 @@ def insert_stmt(node, output):
         if node.returningList:
             output.newline()
             output.write('RETURNING ')
-            output.print_list(node.returningList)
+            output.print_list(node.returningList, ', ', are_names=True)
 
         if node.withClause:
             output.dedent()
@@ -794,7 +794,7 @@ def update_stmt(node, output):
         if node.returningList:
             output.newline()
             output.write('RETURNING ')
-            output.print_list(node.returningList)
+            output.print_list(node.returningList, ', ', are_names=True)
 
         if node.withClause:
             output.dedent()
