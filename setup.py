@@ -34,7 +34,7 @@ LIBPG_QUERY_DIR = str(here / 'libpg_query')
 
 class BuildLibPgQueryFirst(build_ext):
     def run(self):
-        subprocess.run(['make', '-s', '-C', LIBPG_QUERY_DIR, 'build'], check=True)
+        subprocess.check_call(['make', '-s', '-C', LIBPG_QUERY_DIR, 'build'])
         super().run()
 
 
