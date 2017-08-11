@@ -359,8 +359,9 @@ class IndentedStream(RawStream):
                     self.write(rawlist)
                     return
 
-            standalone_items = not all(isinstance(n, Node) and n.node_tag == 'A_Const'
-                                       for n in nodes)
+            standalone_items = not all(
+                isinstance(n, Node) and n.node_tag in ('A_Const', 'SetToDefault')
+                for n in nodes)
 
         if len(nodes) > 1 and len(sep) > 1 and relative_indent is None and standalone_items:
             self.write(' '*(len(sep) + 1)) # separator added automatically
