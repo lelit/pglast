@@ -73,7 +73,7 @@ help::
 
 .PHONY: check
 check: build
-	pytest tests/
+	tox || pytest ./tests
 	$(MAKE) -C docs doctest
 
 include Makefile.virtualenv
