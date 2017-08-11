@@ -17,8 +17,8 @@ Pythonic wrapper around libpg_query and SQL prettifier
  :contact: lele@metapensiero.it
  :license: GNU General Public License version 3 or later
 
-This is a Python 3.6+ implementation of a wrapper to `libpg_query`__, a C library that
-repackages the PostgreSQL__ languages parser as a standalone static library.
+This is a Python 3 implementation of a wrapper to `libpg_query`__, a C library that repackages
+the PostgreSQL__ languages parser as a standalone static library.
 
 __ https://github.com/lfittl/libpg_query
 __ https://www.postgresql.org/
@@ -38,10 +38,7 @@ following goals:
 __ https://github.com/alculquicondor/psqlparse
 __ https://github.com/alculquicondor/psqlparse/pull/22
 
-- target only Python 3 (more precisely, only 3.6 or higher, mainly because I'm lazy and the
-  enums extraction code uses the `auto()`__ helper of the standard library ``enum`` module)
-
-__ https://docs.python.org/3/library/enum.html#enum.auto
+- target only Python 3.4+
 
 - target PostgreSQL 10 (in `beta 2`__ as I'm writing this), taking advantage of a
   work-in-progress `branch`__ of the libpg_query library
