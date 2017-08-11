@@ -134,8 +134,6 @@ class RawStream(OutputStream):
         self.options = options
         self.expression_level = expression_level
         self.current_column = 0
-        self.current_indent = 0
-        self.indentation_stack = []
 
     def __call__(self, sql, plpgsql=False):
         """Main entry point: execute :meth:`print` on each statement in `sql`.
@@ -178,18 +176,10 @@ class RawStream(OutputStream):
         return rawstream.getvalue()
 
     def dedent(self):
-        "Pop the indentation level from the stack and set `current_indent` to that."
-
-        self.current_indent = self.indentation_stack.pop()
+        "Do nothing, shall be overridden by the prettifier subclass."
 
     def indent(self, amount=0, relative=True):
-        """Push current indentation level to the stack, then set it adding `amount` to the
-        `current_column` if `relative` is ``True`` otherwise to `current_indent`.
-        """
-
-        self.indentation_stack.append(self.current_indent)
-        base_indent = (self.current_column if relative else self.current_indent)
-        self.current_indent = base_indent + amount
+        "Do nothing, shall be overridden by the prettifier subclass."
 
     def maybe_double_quote_name(self, scalar):
         """Double-quote the given `scalar` if needed.
@@ -215,24 +205,9 @@ class RawStream(OutputStream):
 
     @contextmanager
     def push_indent(self, amount=0, relative=True):
-        """Create a context manager that calls :meth:`indent` and :meth:`dedent` around a block
-        of code.
+        "Create a no-op context manager, shall be overridden by the prettifier subclass."
 
-        This is just an helper to simplify code that adjust the indentation level:
-
-        .. code-block:: python
-
-          with output.push_indent(4):
-              # code that emits something with the new indentation
-        """
-
-        if self.pending_separator and relative:
-            amount += 1
-        if self.current_column == 0 and relative:
-            amount += self.current_indent
-        self.indent(amount, relative)
         yield
-        self.dedent()
 
     def _print_items(self, items, sep, newline, are_names=False):
         first = True
@@ -319,6 +294,44 @@ class IndentedStream(RawStream):
         if 'compact_lists_margin' not in options:
             options['compact_lists_margin'] = None
         super().__init__(**options)
+        self.current_indent = 0
+        self.indentation_stack = []
+
+    def dedent(self):
+        "Pop the indentation level from the stack and set `current_indent` to that."
+
+        self.current_indent = self.indentation_stack.pop()
+
+    def indent(self, amount=0, relative=True):
+        """Push current indentation level to the stack, then set it adding `amount` to the
+        `current_column` if `relative` is ``True`` otherwise to `current_indent`.
+        """
+
+        self.indentation_stack.append(self.current_indent)
+        base_indent = (self.current_column if relative else self.current_indent)
+        assert base_indent + amount >= 0
+        self.current_indent = base_indent + amount
+
+    @contextmanager
+    def push_indent(self, amount=0, relative=True):
+        """Create a context manager that calls :meth:`indent` and :meth:`dedent` around a block
+        of code.
+
+        This is just an helper to simplify code that adjust the indentation level:
+
+        .. code-block:: python
+
+          with output.push_indent(4):
+              # code that emits something with the new indentation
+        """
+
+        if self.pending_separator and relative:
+            amount += 1
+        if self.current_column == 0 and relative:
+            amount += self.current_indent
+        self.indent(amount, relative)
+        yield
+        self.dedent()
 
     def newline(self):
         "Emit a newline."
