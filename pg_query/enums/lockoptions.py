@@ -5,21 +5,25 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
-import enum
+try:
+    from enum import Enum, IntEnum, IntFlag, auto
+except ImportError:
+    # Python < 3.6
+    from aenum import Enum, IntEnum, IntFlag, auto
 
 
-class LockClauseStrength(enum.IntEnum):
+class LockClauseStrength(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/lockoptions.h#L21>`__."
 
     LCS_NONE = 0
-    LCS_FORKEYSHARE = enum.auto()
-    LCS_FORSHARE = enum.auto()
-    LCS_FORNOKEYUPDATE = enum.auto()
-    LCS_FORUPDATE = enum.auto()
+    LCS_FORKEYSHARE = auto()
+    LCS_FORSHARE = auto()
+    LCS_FORNOKEYUPDATE = auto()
+    LCS_FORUPDATE = auto()
 
-class LockWaitPolicy(enum.IntEnum):
+class LockWaitPolicy(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/lockoptions.h#L36>`__."
 
     LockWaitBlock = 0
-    LockWaitSkip = enum.auto()
-    LockWaitError = enum.auto()
+    LockWaitSkip = auto()
+    LockWaitError = auto()

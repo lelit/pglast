@@ -5,165 +5,169 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
-import enum
+try:
+    from enum import Enum, IntEnum, IntFlag, auto
+except ImportError:
+    # Python < 3.6
+    from aenum import Enum, IntEnum, IntFlag, auto
 
 
-class A_Expr_Kind(enum.IntEnum):
+class A_Expr_Kind(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L251>`__."
 
     AEXPR_OP = 0
-    AEXPR_OP_ANY = enum.auto()
-    AEXPR_OP_ALL = enum.auto()
-    AEXPR_DISTINCT = enum.auto()
-    AEXPR_NOT_DISTINCT = enum.auto()
-    AEXPR_NULLIF = enum.auto()
-    AEXPR_OF = enum.auto()
-    AEXPR_IN = enum.auto()
-    AEXPR_LIKE = enum.auto()
-    AEXPR_ILIKE = enum.auto()
-    AEXPR_SIMILAR = enum.auto()
-    AEXPR_BETWEEN = enum.auto()
-    AEXPR_NOT_BETWEEN = enum.auto()
-    AEXPR_BETWEEN_SYM = enum.auto()
-    AEXPR_NOT_BETWEEN_SYM = enum.auto()
-    AEXPR_PAREN = enum.auto()
+    AEXPR_OP_ANY = auto()
+    AEXPR_OP_ALL = auto()
+    AEXPR_DISTINCT = auto()
+    AEXPR_NOT_DISTINCT = auto()
+    AEXPR_NULLIF = auto()
+    AEXPR_OF = auto()
+    AEXPR_IN = auto()
+    AEXPR_LIKE = auto()
+    AEXPR_ILIKE = auto()
+    AEXPR_SIMILAR = auto()
+    AEXPR_BETWEEN = auto()
+    AEXPR_NOT_BETWEEN = auto()
+    AEXPR_BETWEEN_SYM = auto()
+    AEXPR_NOT_BETWEEN_SYM = auto()
+    AEXPR_PAREN = auto()
 
-class AlterSubscriptionType(enum.IntEnum):
+class AlterSubscriptionType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L3392>`__."
 
     ALTER_SUBSCRIPTION_OPTIONS = 0
-    ALTER_SUBSCRIPTION_CONNECTION = enum.auto()
-    ALTER_SUBSCRIPTION_PUBLICATION = enum.auto()
-    ALTER_SUBSCRIPTION_REFRESH = enum.auto()
-    ALTER_SUBSCRIPTION_ENABLED = enum.auto()
+    ALTER_SUBSCRIPTION_CONNECTION = auto()
+    ALTER_SUBSCRIPTION_PUBLICATION = auto()
+    ALTER_SUBSCRIPTION_REFRESH = auto()
+    ALTER_SUBSCRIPTION_ENABLED = auto()
 
-class AlterTSConfigType(enum.IntEnum):
+class AlterTSConfigType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L3333>`__."
 
     ALTER_TSCONFIG_ADD_MAPPING = 0
-    ALTER_TSCONFIG_ALTER_MAPPING_FOR_TOKEN = enum.auto()
-    ALTER_TSCONFIG_REPLACE_DICT = enum.auto()
-    ALTER_TSCONFIG_REPLACE_DICT_FOR_TOKEN = enum.auto()
-    ALTER_TSCONFIG_DROP_MAPPING = enum.auto()
+    ALTER_TSCONFIG_ALTER_MAPPING_FOR_TOKEN = auto()
+    ALTER_TSCONFIG_REPLACE_DICT = auto()
+    ALTER_TSCONFIG_REPLACE_DICT_FOR_TOKEN = auto()
+    ALTER_TSCONFIG_DROP_MAPPING = auto()
 
-class AlterTableType(enum.IntEnum):
+class AlterTableType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L1683>`__."
 
     AT_AddColumn = 0
-    AT_AddColumnRecurse = enum.auto()
-    AT_AddColumnToView = enum.auto()
-    AT_ColumnDefault = enum.auto()
-    AT_DropNotNull = enum.auto()
-    AT_SetNotNull = enum.auto()
-    AT_SetStatistics = enum.auto()
-    AT_SetOptions = enum.auto()
-    AT_ResetOptions = enum.auto()
-    AT_SetStorage = enum.auto()
-    AT_DropColumn = enum.auto()
-    AT_DropColumnRecurse = enum.auto()
-    AT_AddIndex = enum.auto()
-    AT_ReAddIndex = enum.auto()
-    AT_AddConstraint = enum.auto()
-    AT_AddConstraintRecurse = enum.auto()
-    AT_ReAddConstraint = enum.auto()
-    AT_AlterConstraint = enum.auto()
-    AT_ValidateConstraint = enum.auto()
-    AT_ValidateConstraintRecurse = enum.auto()
-    AT_ProcessedConstraint = enum.auto()
-    AT_AddIndexConstraint = enum.auto()
-    AT_DropConstraint = enum.auto()
-    AT_DropConstraintRecurse = enum.auto()
-    AT_ReAddComment = enum.auto()
-    AT_AlterColumnType = enum.auto()
-    AT_AlterColumnGenericOptions = enum.auto()
-    AT_ChangeOwner = enum.auto()
-    AT_ClusterOn = enum.auto()
-    AT_DropCluster = enum.auto()
-    AT_SetLogged = enum.auto()
-    AT_SetUnLogged = enum.auto()
-    AT_AddOids = enum.auto()
-    AT_AddOidsRecurse = enum.auto()
-    AT_DropOids = enum.auto()
-    AT_SetTableSpace = enum.auto()
-    AT_SetRelOptions = enum.auto()
-    AT_ResetRelOptions = enum.auto()
-    AT_ReplaceRelOptions = enum.auto()
-    AT_EnableTrig = enum.auto()
-    AT_EnableAlwaysTrig = enum.auto()
-    AT_EnableReplicaTrig = enum.auto()
-    AT_DisableTrig = enum.auto()
-    AT_EnableTrigAll = enum.auto()
-    AT_DisableTrigAll = enum.auto()
-    AT_EnableTrigUser = enum.auto()
-    AT_DisableTrigUser = enum.auto()
-    AT_EnableRule = enum.auto()
-    AT_EnableAlwaysRule = enum.auto()
-    AT_EnableReplicaRule = enum.auto()
-    AT_DisableRule = enum.auto()
-    AT_AddInherit = enum.auto()
-    AT_DropInherit = enum.auto()
-    AT_AddOf = enum.auto()
-    AT_DropOf = enum.auto()
-    AT_ReplicaIdentity = enum.auto()
-    AT_EnableRowSecurity = enum.auto()
-    AT_DisableRowSecurity = enum.auto()
-    AT_ForceRowSecurity = enum.auto()
-    AT_NoForceRowSecurity = enum.auto()
-    AT_GenericOptions = enum.auto()
-    AT_AttachPartition = enum.auto()
-    AT_DetachPartition = enum.auto()
-    AT_AddIdentity = enum.auto()
-    AT_SetIdentity = enum.auto()
-    AT_DropIdentity = enum.auto()
+    AT_AddColumnRecurse = auto()
+    AT_AddColumnToView = auto()
+    AT_ColumnDefault = auto()
+    AT_DropNotNull = auto()
+    AT_SetNotNull = auto()
+    AT_SetStatistics = auto()
+    AT_SetOptions = auto()
+    AT_ResetOptions = auto()
+    AT_SetStorage = auto()
+    AT_DropColumn = auto()
+    AT_DropColumnRecurse = auto()
+    AT_AddIndex = auto()
+    AT_ReAddIndex = auto()
+    AT_AddConstraint = auto()
+    AT_AddConstraintRecurse = auto()
+    AT_ReAddConstraint = auto()
+    AT_AlterConstraint = auto()
+    AT_ValidateConstraint = auto()
+    AT_ValidateConstraintRecurse = auto()
+    AT_ProcessedConstraint = auto()
+    AT_AddIndexConstraint = auto()
+    AT_DropConstraint = auto()
+    AT_DropConstraintRecurse = auto()
+    AT_ReAddComment = auto()
+    AT_AlterColumnType = auto()
+    AT_AlterColumnGenericOptions = auto()
+    AT_ChangeOwner = auto()
+    AT_ClusterOn = auto()
+    AT_DropCluster = auto()
+    AT_SetLogged = auto()
+    AT_SetUnLogged = auto()
+    AT_AddOids = auto()
+    AT_AddOidsRecurse = auto()
+    AT_DropOids = auto()
+    AT_SetTableSpace = auto()
+    AT_SetRelOptions = auto()
+    AT_ResetRelOptions = auto()
+    AT_ReplaceRelOptions = auto()
+    AT_EnableTrig = auto()
+    AT_EnableAlwaysTrig = auto()
+    AT_EnableReplicaTrig = auto()
+    AT_DisableTrig = auto()
+    AT_EnableTrigAll = auto()
+    AT_DisableTrigAll = auto()
+    AT_EnableTrigUser = auto()
+    AT_DisableTrigUser = auto()
+    AT_EnableRule = auto()
+    AT_EnableAlwaysRule = auto()
+    AT_EnableReplicaRule = auto()
+    AT_DisableRule = auto()
+    AT_AddInherit = auto()
+    AT_DropInherit = auto()
+    AT_AddOf = auto()
+    AT_DropOf = auto()
+    AT_ReplicaIdentity = auto()
+    AT_EnableRowSecurity = auto()
+    AT_DisableRowSecurity = auto()
+    AT_ForceRowSecurity = auto()
+    AT_NoForceRowSecurity = auto()
+    AT_GenericOptions = auto()
+    AT_AttachPartition = auto()
+    AT_DetachPartition = auto()
+    AT_AddIdentity = auto()
+    AT_SetIdentity = auto()
+    AT_DropIdentity = auto()
 
-class ConstrType(enum.IntEnum):
+class ConstrType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L2032>`__."
 
     CONSTR_NULL = 0
-    CONSTR_NOTNULL = enum.auto()
-    CONSTR_DEFAULT = enum.auto()
-    CONSTR_IDENTITY = enum.auto()
-    CONSTR_CHECK = enum.auto()
-    CONSTR_PRIMARY = enum.auto()
-    CONSTR_UNIQUE = enum.auto()
-    CONSTR_EXCLUSION = enum.auto()
-    CONSTR_FOREIGN = enum.auto()
-    CONSTR_ATTR_DEFERRABLE = enum.auto()
-    CONSTR_ATTR_NOT_DEFERRABLE = enum.auto()
-    CONSTR_ATTR_DEFERRED = enum.auto()
-    CONSTR_ATTR_IMMEDIATE = enum.auto()
+    CONSTR_NOTNULL = auto()
+    CONSTR_DEFAULT = auto()
+    CONSTR_IDENTITY = auto()
+    CONSTR_CHECK = auto()
+    CONSTR_PRIMARY = auto()
+    CONSTR_UNIQUE = auto()
+    CONSTR_EXCLUSION = auto()
+    CONSTR_FOREIGN = auto()
+    CONSTR_ATTR_DEFERRABLE = auto()
+    CONSTR_ATTR_NOT_DEFERRABLE = auto()
+    CONSTR_ATTR_DEFERRED = auto()
+    CONSTR_ATTR_IMMEDIATE = auto()
 
-class DefElemAction(enum.IntEnum):
+class DefElemAction(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L707>`__."
 
     DEFELEM_UNSPEC = 0
-    DEFELEM_SET = enum.auto()
-    DEFELEM_ADD = enum.auto()
-    DEFELEM_DROP = enum.auto()
+    DEFELEM_SET = auto()
+    DEFELEM_ADD = auto()
+    DEFELEM_DROP = auto()
 
-class DiscardMode(enum.IntEnum):
+class DiscardMode(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L3157>`__."
 
     DISCARD_ALL = 0
-    DISCARD_PLANS = enum.auto()
-    DISCARD_SEQUENCES = enum.auto()
-    DISCARD_TEMP = enum.auto()
+    DISCARD_PLANS = auto()
+    DISCARD_SEQUENCES = auto()
+    DISCARD_TEMP = auto()
 
-class DropBehavior(enum.IntEnum):
+class DropBehavior(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L1664>`__."
 
     DROP_RESTRICT = 0
-    DROP_CASCADE = enum.auto()
+    DROP_CASCADE = auto()
 
-class FetchDirection(enum.IntEnum):
+class FetchDirection(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L2648>`__."
 
     FETCH_FORWARD = 0
-    FETCH_BACKWARD = enum.auto()
-    FETCH_ABSOLUTE = enum.auto()
-    FETCH_RELATIVE = enum.auto()
+    FETCH_BACKWARD = auto()
+    FETCH_ABSOLUTE = auto()
+    FETCH_RELATIVE = auto()
 
-class FunctionParameterMode(str, enum.Enum):
+class FunctionParameterMode(str, Enum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L2733>`__."
 
     FUNC_PARAM_IN = 'i'
@@ -172,165 +176,165 @@ class FunctionParameterMode(str, enum.Enum):
     FUNC_PARAM_VARIADIC = 'v'
     FUNC_PARAM_TABLE = 't'
 
-class GrantObjectType(enum.IntEnum):
+class GrantObjectType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L1823>`__."
 
     ACL_OBJECT_COLUMN = 0
-    ACL_OBJECT_RELATION = enum.auto()
-    ACL_OBJECT_SEQUENCE = enum.auto()
-    ACL_OBJECT_DATABASE = enum.auto()
-    ACL_OBJECT_DOMAIN = enum.auto()
-    ACL_OBJECT_FDW = enum.auto()
-    ACL_OBJECT_FOREIGN_SERVER = enum.auto()
-    ACL_OBJECT_FUNCTION = enum.auto()
-    ACL_OBJECT_LANGUAGE = enum.auto()
-    ACL_OBJECT_LARGEOBJECT = enum.auto()
-    ACL_OBJECT_NAMESPACE = enum.auto()
-    ACL_OBJECT_TABLESPACE = enum.auto()
-    ACL_OBJECT_TYPE = enum.auto()
+    ACL_OBJECT_RELATION = auto()
+    ACL_OBJECT_SEQUENCE = auto()
+    ACL_OBJECT_DATABASE = auto()
+    ACL_OBJECT_DOMAIN = auto()
+    ACL_OBJECT_FDW = auto()
+    ACL_OBJECT_FOREIGN_SERVER = auto()
+    ACL_OBJECT_FUNCTION = auto()
+    ACL_OBJECT_LANGUAGE = auto()
+    ACL_OBJECT_LARGEOBJECT = auto()
+    ACL_OBJECT_NAMESPACE = auto()
+    ACL_OBJECT_TABLESPACE = auto()
+    ACL_OBJECT_TYPE = auto()
 
-class GrantTargetType(enum.IntEnum):
+class GrantTargetType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L1816>`__."
 
     ACL_TARGET_OBJECT = 0
-    ACL_TARGET_ALL_IN_SCHEMA = enum.auto()
-    ACL_TARGET_DEFAULTS = enum.auto()
+    ACL_TARGET_ALL_IN_SCHEMA = auto()
+    ACL_TARGET_DEFAULTS = auto()
 
-class ImportForeignSchemaType(enum.IntEnum):
+class ImportForeignSchemaType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L2271>`__."
 
     FDW_IMPORT_SCHEMA_ALL = 0
-    FDW_IMPORT_SCHEMA_LIMIT_TO = enum.auto()
-    FDW_IMPORT_SCHEMA_EXCEPT = enum.auto()
+    FDW_IMPORT_SCHEMA_LIMIT_TO = auto()
+    FDW_IMPORT_SCHEMA_EXCEPT = auto()
 
-class ObjectType(enum.IntEnum):
+class ObjectType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L1595>`__."
 
     OBJECT_ACCESS_METHOD = 0
-    OBJECT_AGGREGATE = enum.auto()
-    OBJECT_AMOP = enum.auto()
-    OBJECT_AMPROC = enum.auto()
-    OBJECT_ATTRIBUTE = enum.auto()
-    OBJECT_CAST = enum.auto()
-    OBJECT_COLUMN = enum.auto()
-    OBJECT_COLLATION = enum.auto()
-    OBJECT_CONVERSION = enum.auto()
-    OBJECT_DATABASE = enum.auto()
-    OBJECT_DEFAULT = enum.auto()
-    OBJECT_DEFACL = enum.auto()
-    OBJECT_DOMAIN = enum.auto()
-    OBJECT_DOMCONSTRAINT = enum.auto()
-    OBJECT_EVENT_TRIGGER = enum.auto()
-    OBJECT_EXTENSION = enum.auto()
-    OBJECT_FDW = enum.auto()
-    OBJECT_FOREIGN_SERVER = enum.auto()
-    OBJECT_FOREIGN_TABLE = enum.auto()
-    OBJECT_FUNCTION = enum.auto()
-    OBJECT_INDEX = enum.auto()
-    OBJECT_LANGUAGE = enum.auto()
-    OBJECT_LARGEOBJECT = enum.auto()
-    OBJECT_MATVIEW = enum.auto()
-    OBJECT_OPCLASS = enum.auto()
-    OBJECT_OPERATOR = enum.auto()
-    OBJECT_OPFAMILY = enum.auto()
-    OBJECT_POLICY = enum.auto()
-    OBJECT_PUBLICATION = enum.auto()
-    OBJECT_PUBLICATION_REL = enum.auto()
-    OBJECT_ROLE = enum.auto()
-    OBJECT_RULE = enum.auto()
-    OBJECT_SCHEMA = enum.auto()
-    OBJECT_SEQUENCE = enum.auto()
-    OBJECT_SUBSCRIPTION = enum.auto()
-    OBJECT_STATISTIC_EXT = enum.auto()
-    OBJECT_TABCONSTRAINT = enum.auto()
-    OBJECT_TABLE = enum.auto()
-    OBJECT_TABLESPACE = enum.auto()
-    OBJECT_TRANSFORM = enum.auto()
-    OBJECT_TRIGGER = enum.auto()
-    OBJECT_TSCONFIGURATION = enum.auto()
-    OBJECT_TSDICTIONARY = enum.auto()
-    OBJECT_TSPARSER = enum.auto()
-    OBJECT_TSTEMPLATE = enum.auto()
-    OBJECT_TYPE = enum.auto()
-    OBJECT_USER_MAPPING = enum.auto()
-    OBJECT_VIEW = enum.auto()
+    OBJECT_AGGREGATE = auto()
+    OBJECT_AMOP = auto()
+    OBJECT_AMPROC = auto()
+    OBJECT_ATTRIBUTE = auto()
+    OBJECT_CAST = auto()
+    OBJECT_COLUMN = auto()
+    OBJECT_COLLATION = auto()
+    OBJECT_CONVERSION = auto()
+    OBJECT_DATABASE = auto()
+    OBJECT_DEFAULT = auto()
+    OBJECT_DEFACL = auto()
+    OBJECT_DOMAIN = auto()
+    OBJECT_DOMCONSTRAINT = auto()
+    OBJECT_EVENT_TRIGGER = auto()
+    OBJECT_EXTENSION = auto()
+    OBJECT_FDW = auto()
+    OBJECT_FOREIGN_SERVER = auto()
+    OBJECT_FOREIGN_TABLE = auto()
+    OBJECT_FUNCTION = auto()
+    OBJECT_INDEX = auto()
+    OBJECT_LANGUAGE = auto()
+    OBJECT_LARGEOBJECT = auto()
+    OBJECT_MATVIEW = auto()
+    OBJECT_OPCLASS = auto()
+    OBJECT_OPERATOR = auto()
+    OBJECT_OPFAMILY = auto()
+    OBJECT_POLICY = auto()
+    OBJECT_PUBLICATION = auto()
+    OBJECT_PUBLICATION_REL = auto()
+    OBJECT_ROLE = auto()
+    OBJECT_RULE = auto()
+    OBJECT_SCHEMA = auto()
+    OBJECT_SEQUENCE = auto()
+    OBJECT_SUBSCRIPTION = auto()
+    OBJECT_STATISTIC_EXT = auto()
+    OBJECT_TABCONSTRAINT = auto()
+    OBJECT_TABLE = auto()
+    OBJECT_TABLESPACE = auto()
+    OBJECT_TRANSFORM = auto()
+    OBJECT_TRIGGER = auto()
+    OBJECT_TSCONFIGURATION = auto()
+    OBJECT_TSDICTIONARY = auto()
+    OBJECT_TSPARSER = auto()
+    OBJECT_TSTEMPLATE = auto()
+    OBJECT_TYPE = auto()
+    OBJECT_USER_MAPPING = auto()
+    OBJECT_VIEW = auto()
 
-class OverridingKind(enum.IntEnum):
+class OverridingKind(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L30>`__."
 
     OVERRIDING_NOT_SET = 0
-    OVERRIDING_USER_VALUE = enum.auto()
-    OVERRIDING_SYSTEM_VALUE = enum.auto()
+    OVERRIDING_USER_VALUE = auto()
+    OVERRIDING_SYSTEM_VALUE = auto()
 
-class QuerySource(enum.IntEnum):
+class QuerySource(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L38>`__."
 
     QSRC_ORIGINAL = 0
-    QSRC_PARSER = enum.auto()
-    QSRC_INSTEAD_RULE = enum.auto()
-    QSRC_QUAL_INSTEAD_RULE = enum.auto()
-    QSRC_NON_INSTEAD_RULE = enum.auto()
+    QSRC_PARSER = auto()
+    QSRC_INSTEAD_RULE = auto()
+    QSRC_QUAL_INSTEAD_RULE = auto()
+    QSRC_NON_INSTEAD_RULE = auto()
 
-class RTEKind(enum.IntEnum):
+class RTEKind(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L920>`__."
 
     RTE_RELATION = 0
-    RTE_SUBQUERY = enum.auto()
-    RTE_JOIN = enum.auto()
-    RTE_FUNCTION = enum.auto()
-    RTE_TABLEFUNC = enum.auto()
-    RTE_VALUES = enum.auto()
-    RTE_CTE = enum.auto()
-    RTE_NAMEDTUPLESTORE = enum.auto()
+    RTE_SUBQUERY = auto()
+    RTE_JOIN = auto()
+    RTE_FUNCTION = auto()
+    RTE_TABLEFUNC = auto()
+    RTE_VALUES = auto()
+    RTE_CTE = auto()
+    RTE_NAMEDTUPLESTORE = auto()
 
-class ReindexObjectType(enum.IntEnum):
+class ReindexObjectType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L3202>`__."
 
     REINDEX_OBJECT_INDEX = 0
-    REINDEX_OBJECT_TABLE = enum.auto()
-    REINDEX_OBJECT_SCHEMA = enum.auto()
-    REINDEX_OBJECT_SYSTEM = enum.auto()
-    REINDEX_OBJECT_DATABASE = enum.auto()
+    REINDEX_OBJECT_TABLE = auto()
+    REINDEX_OBJECT_SCHEMA = auto()
+    REINDEX_OBJECT_SYSTEM = auto()
+    REINDEX_OBJECT_DATABASE = auto()
 
-class RoleSpecType(enum.IntEnum):
+class RoleSpecType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L316>`__."
 
     ROLESPEC_CSTRING = 0
-    ROLESPEC_CURRENT_USER = enum.auto()
-    ROLESPEC_SESSION_USER = enum.auto()
-    ROLESPEC_PUBLIC = enum.auto()
+    ROLESPEC_CURRENT_USER = auto()
+    ROLESPEC_SESSION_USER = auto()
+    ROLESPEC_PUBLIC = auto()
 
-class RoleStmtType(enum.IntEnum):
+class RoleStmtType(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L2408>`__."
 
     ROLESTMT_ROLE = 0
-    ROLESTMT_USER = enum.auto()
-    ROLESTMT_GROUP = enum.auto()
+    ROLESTMT_USER = auto()
+    ROLESTMT_GROUP = auto()
 
-class SetOperation(enum.IntEnum):
+class SetOperation(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L1482>`__."
 
     SETOP_NONE = 0
-    SETOP_UNION = enum.auto()
-    SETOP_INTERSECT = enum.auto()
-    SETOP_EXCEPT = enum.auto()
+    SETOP_UNION = auto()
+    SETOP_INTERSECT = auto()
+    SETOP_EXCEPT = auto()
 
-class SortByDir(enum.IntEnum):
+class SortByDir(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L48>`__."
 
     SORTBY_DEFAULT = 0
-    SORTBY_ASC = enum.auto()
-    SORTBY_DESC = enum.auto()
-    SORTBY_USING = enum.auto()
+    SORTBY_ASC = auto()
+    SORTBY_DESC = auto()
+    SORTBY_USING = auto()
 
-class SortByNulls(enum.IntEnum):
+class SortByNulls(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L56>`__."
 
     SORTBY_NULLS_DEFAULT = 0
-    SORTBY_NULLS_FIRST = enum.auto()
-    SORTBY_NULLS_LAST = enum.auto()
+    SORTBY_NULLS_FIRST = auto()
+    SORTBY_NULLS_LAST = auto()
 
-class TableLikeOption(enum.IntFlag):
+class TableLikeOption(IntFlag):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L667>`__."
 
     CREATE_TABLE_LIKE_DEFAULTS = 1 << 0
@@ -341,21 +345,21 @@ class TableLikeOption(enum.IntFlag):
     CREATE_TABLE_LIKE_COMMENTS = 1 << 5
     CREATE_TABLE_LIKE_ALL = 0x7FFFFFFF
 
-class TransactionStmtKind(enum.IntEnum):
+class TransactionStmtKind(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L2901>`__."
 
     TRANS_STMT_BEGIN = 0
-    TRANS_STMT_START = enum.auto()
-    TRANS_STMT_COMMIT = enum.auto()
-    TRANS_STMT_ROLLBACK = enum.auto()
-    TRANS_STMT_SAVEPOINT = enum.auto()
-    TRANS_STMT_RELEASE = enum.auto()
-    TRANS_STMT_ROLLBACK_TO = enum.auto()
-    TRANS_STMT_PREPARE = enum.auto()
-    TRANS_STMT_COMMIT_PREPARED = enum.auto()
-    TRANS_STMT_ROLLBACK_PREPARED = enum.auto()
+    TRANS_STMT_START = auto()
+    TRANS_STMT_COMMIT = auto()
+    TRANS_STMT_ROLLBACK = auto()
+    TRANS_STMT_SAVEPOINT = auto()
+    TRANS_STMT_RELEASE = auto()
+    TRANS_STMT_ROLLBACK_TO = auto()
+    TRANS_STMT_PREPARE = auto()
+    TRANS_STMT_COMMIT_PREPARED = auto()
+    TRANS_STMT_ROLLBACK_PREPARED = auto()
 
-class VacuumOption(enum.IntFlag):
+class VacuumOption(IntFlag):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L3073>`__."
 
     VACOPT_VACUUM = 1 << 0
@@ -367,20 +371,20 @@ class VacuumOption(enum.IntFlag):
     VACOPT_SKIPTOAST = 1 << 6
     VACOPT_DISABLE_PAGE_SKIPPING = 1 << 7
 
-class ViewCheckOption(enum.IntEnum):
+class ViewCheckOption(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L2975>`__."
 
     NO_CHECK_OPTION = 0
-    LOCAL_CHECK_OPTION = enum.auto()
-    CASCADED_CHECK_OPTION = enum.auto()
+    LOCAL_CHECK_OPTION = auto()
+    CASCADED_CHECK_OPTION = auto()
 
-class WCOKind(enum.IntEnum):
+class WCOKind(IntEnum):
     "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L1097>`__."
 
     WCO_VIEW_CHECK = 0
-    WCO_RLS_INSERT_CHECK = enum.auto()
-    WCO_RLS_UPDATE_CHECK = enum.auto()
-    WCO_RLS_CONFLICT_CHECK = enum.auto()
+    WCO_RLS_INSERT_CHECK = auto()
+    WCO_RLS_UPDATE_CHECK = auto()
+    WCO_RLS_CONFLICT_CHECK = auto()
 
 
 # #define-ed constants
