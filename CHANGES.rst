@@ -3,6 +3,16 @@
 Changes
 -------
 
+0.11 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Nicer indentation for JOINs, making OUTER JOINs stand out
+
+- Minor tweaks to lists rendering, with less spurious whitespaces
+
+- New option ``--no-location`` on the command line tool
+
+
 0.10 (2017-08-11)
 ~~~~~~~~~~~~~~~~~
 
