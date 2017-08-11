@@ -4,7 +4,6 @@
 /.cache/
 /.coverage
 /.emacs.desktop.lock
-/.tox/
 /build/
 /dist/
 /docs/_build/
