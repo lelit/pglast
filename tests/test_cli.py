@@ -74,3 +74,9 @@ WHERE foo <> 0
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--parse-tree'])
             assert '"ival": 1' in output.getvalue()
+
+    with StringIO("Select 1") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--parse-tree', '--no-location'])
+            assert '"location":' not in output.getvalue()
