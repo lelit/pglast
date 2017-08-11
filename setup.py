@@ -54,7 +54,11 @@ setup(
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: SQL",
         #"Programming Language :: PL/SQL",
@@ -73,7 +77,10 @@ setup(
                   library_dirs=[LIBPG_QUERY_DIR]),
     ]),
 
-    install_requires=['setuptools'],
+    install_requires=[
+        'aenum; python_version < "3.6"',
+        'setuptools',
+    ],
     extras_require={
         'dev': [
             'cython',

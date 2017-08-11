@@ -5,6 +5,7 @@
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017 Lele Gaifax
 
+aenum==2.0.8; python_version < '3.6'
 coverage==4.4.1
 cython==0.26
 metapensiero.tool.bump_version==1.3

@@ -21,7 +21,11 @@ HEADER = """\
 # :Copyright: © 2017 Lele Gaifax
 #
 
-import enum
+try:
+    from enum import Enum, IntEnum, IntFlag, auto
+except ImportError:
+    # Python < 3.6
+    from aenum import Enum, IntEnum, IntFlag, auto
 
 """
 
@@ -118,7 +122,7 @@ def emit_binary_op(value):
 
 def int_enum_value_factory(index, enumerator):
     if enumerator.value is None:
-        return '0' if index==0 else 'enum.auto()'
+        return '0' if index==0 else 'auto()'
 
     if isinstance(enumerator.value, c_ast.BinaryOp):
         return emit_binary_op(enumerator.value)
@@ -137,17 +141,17 @@ def char_enum_value_factory(index, enumerator):
 
 
 def determine_enum_type_and_value(enum):
-    type = 'enum.IntEnum'
+    type = 'IntEnum'
     value = int_enum_value_factory
 
     for item in enum.values.enumerators:
         if item.value:
             if isinstance(item.value, c_ast.Constant) and item.value.type == 'char':
-                type = 'str, enum.Enum'
+                type = 'str, Enum'
                 value = char_enum_value_factory
                 break
             elif isinstance(item.value, c_ast.BinaryOp) and item.value.op == '<<':
-                type = 'enum.IntFlag'
+                type = 'IntFlag'
                 break
 
     return type, value
