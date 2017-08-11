@@ -661,4 +661,4 @@ WHERE (id = 'bar')
 @pytest.mark.parametrize('original, expected, options', EXAMPLES)
 def test_prettification(original, expected, options):
     prettified = IndentedStream(**(options or {}))(original)
-    assert prettified == expected, "%r != %r" % (prettified, expected)
+    assert expected == prettified, "%r != %r" % (expected, prettified)
