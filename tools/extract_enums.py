@@ -6,14 +6,14 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
-from os.path import basename
+from os.path import basename, splitext
 from re import match
 import subprocess
 
 from pycparser import c_ast, c_parser
 
 
-HEADER = """\
+PY_HEADER = """\
 # -*- coding: utf-8 -*-
 # :Project:   pg_query -- DO NOT EDIT: automatically extracted from %s @ %s
 # :Author:    Lele Gaifax <lele@metapensiero.it>
@@ -27,6 +27,23 @@ except ImportError: #pragma: no cover
     # Python < 3.6
     from aenum import Enum, IntEnum, IntFlag, auto
 
+"""
+
+RST_HEADER = """\
+.. -*- coding: utf-8 -*-
+.. :Project:   pg_query -- DO NOT EDIT: generated automatically
+.. :Author:    Lele Gaifax <lele@metapensiero.it>
+.. :License:   GNU General Public License version 3 or later
+.. :Copyright: © 2017 Lele Gaifax
+..
+
+==========================================================%(extra_decoration)s
+ :mod:`pg_query.enums.%(mod_name)s` --- Constants extracted from `%(header_fname)s`__
+==========================================================%(extra_decoration)s
+
+__ %(header_url)s
+
+.. module:: pg_query.enums.%(mod_name)s
 """
 
 
@@ -157,14 +174,21 @@ def determine_enum_type_and_value(enum):
     return type, value
 
 
-def write_enum(enum, output, toc, url):
+def write_enum(enum, output):
     enum_type, value_factory = determine_enum_type_and_value(enum)
     output.write('\n')
     output.write('class %s(%s):\n' % (enum.name, enum_type))
-    if enum.name in toc:
-        output.write('    "See `here for details <%s#L%d>`__."\n\n' % (url, toc[enum.name]))
     for index, item in enumerate(enum.values.enumerators):
         output.write('    %s = %s\n' % (item.name, value_factory(index, item)))
+
+
+def write_enum_doc(enum, output, toc, url, mod_name):
+    output.write('\n\n.. class:: pg_query.enums.%s.%s\n' % (mod_name, enum.name))
+    if enum.name in toc:
+        output.write('\n   Corresponds to the `%s enum <%s#L%d>`__.\n' %
+                     (enum.name, url, toc[enum.name]))
+    for index, item in enumerate(enum.values.enumerators):
+        output.write('\n   .. data:: %s\n' % item.name)
 
 
 def workhorse(args):
@@ -172,11 +196,20 @@ def workhorse(args):
     header_url = libpg_query_baseurl + args.header[12:]
     toc = extract_toc(args.header)
     preprocessed = preprocess(args.header, ['-I%s' % idir for idir in args.include_directory])
-    with open(args.output, 'w', encoding='utf-8') as output:
-        output.write(HEADER % (basename(args.header), libpg_query_version))
+    with open(args.output, 'w', encoding='utf-8') as output, \
+         open(args.rstdoc, 'w', encoding='utf-8') as rstdoc:
+        header_fname = basename(args.header)
+        mod_name = splitext(header_fname)[0]
+        output.write(PY_HEADER % (header_fname, libpg_query_version))
+        rstdoc.write(RST_HEADER % dict(
+            mod_name=mod_name, header_fname=header_fname,
+            extra_decoration='='*(len(mod_name) + len(header_fname)),
+            header_url=header_url))
+
         for node in sorted(extract_enums(toc, preprocessed),
                            key=lambda x: x.ext[0].name):
-            write_enum(node.ext[0].type.type, output, toc, header_url)
+            write_enum(node.ext[0].type.type, output)
+            write_enum_doc(node.ext[0].type.type, rstdoc, toc, header_url, mod_name)
 
         separator_emitted = False
         with open(args.header, encoding='utf-8') as header:
@@ -184,10 +217,12 @@ def workhorse(args):
                 if not separator_emitted:
                     output.write('\n\n')
                     output.write('# #define-ed constants\n')
+                    rstdoc.write('\n')
                     separator_emitted = True
                 output.write('\n%s = %s\n' % (constant, value))
+                rstdoc.write('\n.. data:: %s\n' % constant)
                 if constant in toc:
-                    output.write('"See `here for details <%s#L%d>`__."\n'
+                    rstdoc.write('\n   See `here for details <%s#L%d>`__.\n'
                                  % (header_url, toc[constant]))
 
 
@@ -203,6 +238,8 @@ def main():
                         help="source header to be processed")
     parser.add_argument('output',
                         help="Python source to be created")
+    parser.add_argument('rstdoc',
+                        help="reST documentation to be created")
 
     args = parser.parse_args()
 

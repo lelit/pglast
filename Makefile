@@ -54,7 +54,7 @@ PG_INCLUDE_DIR := libpg_query/src/postgres/include
 enums: $(PY_ENUMS)
 
 $(PY_ENUMS_DIR)/%.py: $(PG_INCLUDE_DIR)/nodes/%.h tools/extract_enums.py
-	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@
+	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 
 help::
 	@printf "keywords\n\textract Python keyword sets from PG sources\n"
