@@ -40,17 +40,24 @@ def workhorse(args):
 
 
 def main(options):
-    from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+    from argparse import ArgumentParser
+    from pkg_resources import get_distribution
+    from .parser import get_postgresql_version
 
-    parser = ArgumentParser(description="PostgreSQL language prettifier",
-                            formatter_class=ArgumentDefaultsHelpFormatter)
+    version = '%s, with PostgreSQL %s parser' % (
+        get_distribution('pg_query').version,
+        '.'.join(str(p) for p in get_postgresql_version()))
 
+    parser = ArgumentParser(prog='pg_query',
+                            description="PostgreSQL language prettifier")
+
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + version,)
     parser.add_argument('-p', '--plpgsql', action='store_true', default=False,
                         help='use the plpgsql parser (and print just the resulting tree)')
     parser.add_argument('-t', '--parse-tree', action='store_true', default=False,
                         help='show just the parse tree of the statement')
     parser.add_argument('-l', '--no-location', action='store_true', default=False,
-                        help='remove the location from the parse tree')
+                        help='remove the location of each node from the parse tree')
     parser.add_argument('-m', '--compact-lists-margin', type=int, default=0,
                         help='use compact form for lists not exceeding the given margin')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
