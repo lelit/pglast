@@ -13,23 +13,17 @@ except ImportError: #pragma: no cover
 
 
 class AggSplit(IntEnum):
-    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L757>`__."
-
     AGGSPLIT_SIMPLE = 0
     AGGSPLIT_INITIAL_SERIAL = 0x02 | 0x04
     AGGSPLIT_FINAL_DESERIAL = 0x01 | 0x08
 
 class AggStrategy(IntEnum):
-    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L735>`__."
-
     AGG_PLAIN = 0
     AGG_SORTED = auto()
     AGG_HASHED = auto()
     AGG_MIXED = auto()
 
 class CmdType(IntEnum):
-    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L649>`__."
-
     CMD_UNKNOWN = 0
     CMD_SELECT = auto()
     CMD_UPDATE = auto()
@@ -39,8 +33,6 @@ class CmdType(IntEnum):
     CMD_NOTHING = auto()
 
 class JoinType(IntEnum):
-    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L673>`__."
-
     JOIN_INNER = 0
     JOIN_LEFT = auto()
     JOIN_FULL = auto()
@@ -51,8 +43,6 @@ class JoinType(IntEnum):
     JOIN_UNIQUE_INNER = auto()
 
 class NodeTag(IntEnum):
-    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L26>`__."
-
     T_Invalid = 0
     T_IndexInfo = auto()
     T_ExprContext = auto()
@@ -457,23 +447,17 @@ class NodeTag(IntEnum):
     T_ForeignKeyCacheInfo = auto()
 
 class OnConflictAction(IntEnum):
-    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L799>`__."
-
     ONCONFLICT_NONE = 0
     ONCONFLICT_NOTHING = auto()
     ONCONFLICT_UPDATE = auto()
 
 class SetOpCmd(IntEnum):
-    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L779>`__."
-
     SETOPCMD_INTERSECT = 0
     SETOPCMD_INTERSECT_ALL = auto()
     SETOPCMD_EXCEPT = auto()
     SETOPCMD_EXCEPT_ALL = auto()
 
 class SetOpStrategy(IntEnum):
-    "See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L787>`__."
-
     SETOP_SORTED = 0
     SETOP_HASHED = auto()
 
@@ -481,13 +465,9 @@ class SetOpStrategy(IntEnum):
 # #define-ed constants
 
 AGGSPLITOP_COMBINE = 0x01
-"See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L751>`__."
 
 AGGSPLITOP_SKIPFINAL = 0x02
-"See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L752>`__."
 
 AGGSPLITOP_SERIALIZE = 0x04
-"See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L753>`__."
 
 AGGSPLITOP_DESERIALIZE = 0x08
-"See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L754>`__."

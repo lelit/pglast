@@ -11,33 +11,14 @@
 ================================================
 
 .. module:: pg_query.enums
-   :synopsis: The constants extracted automatically from PG headers
 
 This module contains all the constants that are used to give a meaning to some *scalar* values
-of the various kinds of nodes. Most of these constants are grouped in :class:`enum.Enum`
-subclasses.
-
-Currently they are collected by parsing the following headers:
-
-- `lockoptions.h`__
-- `nodes.h`__
-- `parsenodes.h`__
-- `primnodes.h`__
-
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/lockoptions.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/nodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/parsenodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/primnodes.h;hb=HEAD
+of the various kinds of nodes, extracted automatically from the PostgreSQL headers.
 
 
-.. automodule:: pg_query.enums.lockoptions
-   :members:
+.. toctree::
 
-.. automodule:: pg_query.enums.nodes
-   :members:
-
-.. automodule:: pg_query.enums.primnodes
-   :members:
-
-.. automodule:: pg_query.enums.parsenodes
-   :members:
+   lockoptions
+   nodes
+   primnodes
+   parsenodes
