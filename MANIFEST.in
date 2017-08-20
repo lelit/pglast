@@ -1,4 +1,4 @@
-exclude .git .gitmodules
+exclude .git .gitmodules .travis.yml
 include *.cfg *.py *.rst *.txt Makefile*
 include docs/Makefile
 include docs/*.rst
