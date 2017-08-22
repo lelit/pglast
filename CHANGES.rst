@@ -3,6 +3,16 @@
 Changes
 -------
 
+0.12 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- New option ``--version`` on the command line tool
+
+- Better enums documentation
+
+- Release the GIL while calling libpg_query functions
+
+
 0.11 (2017-08-11)
 ~~~~~~~~~~~~~~~~~
 
