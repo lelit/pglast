@@ -44,6 +44,14 @@ clean:
 	rm -f pg_query/*.so
 
 help::
+	@printf "distclean\n\tremove anything superfluous\n"
+
+.PHONY: distclean
+distclean:: clean
+	rm -rf build dist
+	git submodule deinit --all
+
+help::
 	@printf "enums\n\textract Python enums from PG sources\n"
 
 PY_ENUMS_DIR := pg_query/enums
