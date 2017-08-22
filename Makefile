@@ -71,17 +71,21 @@ $(PY_KEYWORDS): $(PG_INCLUDE_DIR)/parser/kwlist.h tools/extract_keywords.py
 help::
 	@printf "doc\n\tbuild Sphinx documentation\n"
 
+SPHINXBUILD := $(VENVDIR)/bin/sphinx-build
+
 .PHONY: doc
 doc:
-	$(MAKE) -C docs html
+	$(MAKE) -C docs SPHINXBUILD=$(SPHINXBUILD) html
 
 help::
 	@printf "check\n\trun the test suite\n"
 
+PYTEST = $(VENVDIR)/bin/pytest $(PYTEST_OPTIONS)
+
 .PHONY: check
 check: build
-	pytest tests/
-	$(MAKE) -C docs doctest
+	$(PYTEST) tests/
+	$(MAKE) -C docs SPHINXBUILD=$(SPHINXBUILD) doctest
 
 include Makefile.virtualenv
 include Makefile.release
