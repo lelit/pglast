@@ -31,7 +31,7 @@ cdef extern from "src/postgres/include/pg_config.h":
     int PG_VERSION_NUM
 
 
-cdef extern from "pg_query.h":
+cdef extern from "pg_query.h" nogil:
 
     ctypedef struct PgQueryError:
         char *message
@@ -64,31 +64,43 @@ def get_postgresql_version():
 
 def parse_sql(str query):
     cdef PgQueryParseResult parsed
+    cdef const char *cstring
 
-    parsed = pg_query_parse(query.encode('utf-8'))
+    utf8 = query.encode('utf-8')
+    cstring = utf8
+
+    with nogil:
+        parsed = pg_query_parse(cstring)
+
     try:
         if parsed.error:
             message = parsed.error.message.decode('utf8')
             cursorpos = parsed.error.cursorpos
             raise ParseError(message, cursorpos)
 
-        result = json.loads(parsed.parse_tree.decode('utf8'))
-        return result
+        return json.loads(parsed.parse_tree.decode('utf8'))
     finally:
-        pg_query_free_parse_result(parsed)
+        with nogil:
+            pg_query_free_parse_result(parsed)
 
 
 def parse_plpgsql(str query):
     cdef PgQueryPlpgsqlParseResult parsed
+    cdef const char *cstring
 
-    parsed = pg_query_parse_plpgsql(query.encode('utf-8'))
+    utf8 = query.encode('utf-8')
+    cstring = utf8
+
+    with nogil:
+        parsed = pg_query_parse_plpgsql(cstring)
+
     try:
         if parsed.error:
             message = parsed.error.message.decode('utf8')
             cursorpos = parsed.error.cursorpos
             raise ParseError(message, cursorpos)
 
-        result = json.loads(parsed.plpgsql_funcs.decode('utf8'))
-        return result
+        return json.loads(parsed.plpgsql_funcs.decode('utf8'))
     finally:
-        pg_query_free_plpgsql_parse_result(parsed)
+        with nogil:
+            pg_query_free_plpgsql_parse_result(parsed)
