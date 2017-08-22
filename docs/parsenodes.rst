@@ -677,6 +677,7 @@ __ https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes
 
    .. data:: WCO_RLS_CONFLICT_CHECK
 
+
 .. data:: ACL_INSERT
 
    See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/parsenodes.h#L72>`__.

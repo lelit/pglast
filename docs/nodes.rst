@@ -919,6 +919,7 @@ __ https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes
 
    .. data:: SETOP_HASHED
 
+
 .. data:: AGGSPLITOP_COMBINE
 
    See `here for details <https://github.com/lfittl/libpg_query/blob/1ec5c22/src/postgres/include/nodes/nodes.h#L751>`__.
