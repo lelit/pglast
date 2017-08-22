@@ -26,7 +26,7 @@ HEADER = """\
 def get_libpg_query_version():
     result = subprocess.check_output(['git', 'describe', '--all', '--long'],
                                      cwd='libpg_query')
-    return result.decode('utf-8').strip().split('/')[1]
+    return result.decode('utf-8').strip().split('/')[-1]
 
 
 def extract_keywords(source):

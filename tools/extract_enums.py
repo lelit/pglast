@@ -52,7 +52,7 @@ def get_libpg_query_info():
 
     version = subprocess.check_output(['git', 'describe', '--all', '--long'],
                                       cwd='libpg_query')
-    version = version.decode('utf-8').strip().split('/')[1]
+    version = version.decode('utf-8').strip().split('/')[-1]
     remote = subprocess.check_output(['git', 'remote', 'get-url', 'origin'],
                                       cwd='libpg_query')
     remote = remote.decode('utf-8')
