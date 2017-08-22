@@ -62,7 +62,8 @@ PG_INCLUDE_DIR := libpg_query/src/postgres/include
 .PHONY: enums
 enums: $(PY_ENUMS)
 
-$(PY_ENUMS_DIR)/%.py: $(PG_INCLUDE_DIR)/nodes/%.h tools/extract_enums.py
+$(PY_ENUMS): tools/extract_enums.py libpg_query/pg_query.h
+$(PY_ENUMS_DIR)/%.py: $(PG_INCLUDE_DIR)/nodes/%.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 
 help::
@@ -74,8 +75,9 @@ PY_KEYWORDS := $(PY_KEYWORDS_DIR)/keywords.py
 .PHONY: keywords
 keywords: $(PY_KEYWORDS)
 
-$(PY_KEYWORDS): $(PG_INCLUDE_DIR)/parser/kwlist.h tools/extract_keywords.py
-	$(PYTHON) tools/extract_keywords.py $< $@
+$(PY_KEYWORDS): tools/extract_keywords.py libpg_query/pg_query.h
+$(PY_KEYWORDS): $(PG_INCLUDE_DIR)/parser/kwlist.h
+	$(PYTHON) tools/extract_keywords.py $(PG_INCLUDE_DIR)/parser/kwlist.h $@
 
 help::
 	@printf "doc\n\tbuild Sphinx documentation\n"
