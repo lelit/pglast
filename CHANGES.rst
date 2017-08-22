@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.12 (unreleased)
+0.12 (2017-08-22)
 ~~~~~~~~~~~~~~~~~
 
 - New option ``--version`` on the command line tool
