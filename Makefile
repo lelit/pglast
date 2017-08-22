@@ -39,6 +39,7 @@ help::
 
 .PHONY: clean
 clean:
+	$(MAKE) -C docs SPHINXBUILD=$(SPHINXBUILD) clean
 	$(MAKE) -C libpg_query clean
 	rm -f pg_query/*.so
 
