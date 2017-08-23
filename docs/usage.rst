@@ -22,8 +22,8 @@ Parse an ``SQL`` statement and get its *AST* root node
    >>> print(root)
    None=[1*{RawStmt}]
 
-Recursively traverse the parse tree
-===================================
+Recursively :meth:`traverse <pg_query.node.Node.traverse>` the parse tree
+=========================================================================
 
 .. doctest::
 
@@ -87,8 +87,8 @@ Iterate over nodes
    relname=<'bar'>
    relpersistence=<'p'>
 
-Programmatically reformat a ``SQL`` statement
-=============================================
+Programmatically :func:`reformat <pg_query.prettify>` a ``SQL`` statement\ [*]_
+===============================================================================
 
 .. doctest::
 
@@ -97,8 +97,29 @@ Programmatically reformat a ``SQL`` statement
    DELETE FROM sometable
    WHERE value IS NULL
 
-Reformat a ``SQL`` statement\ [*]_ from the command line
-========================================================
+Customize a :func:`node printer <pg_query.printer.node_printer>`
+================================================================
+
+.. doctest::
+
+   >>> sql = 'update translations set italian=$2 where word=$1'
+   >>> print(prettify(sql))
+   UPDATE translations
+   SET italian = $2
+   WHERE word = $1
+   >>> from pg_query.printer import node_printer
+   >>> @node_printer('ParamRef', override=True)
+   ... def replace_param_ref(node, output):
+   ...     output.write(repr(args[node.number.value - 1]))
+   ...
+   >>> args = ['Hello', 'Ciao']
+   >>> print(prettify(sql, safety_belt=False))
+   UPDATE translations
+   SET italian = 'Ciao'
+   WHERE word = 'Hello'
+
+Reformat a ``SQL`` statement from the command line
+==================================================
 
 .. code-block:: shell
 
