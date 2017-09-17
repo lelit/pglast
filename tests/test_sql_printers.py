@@ -696,7 +696,7 @@ FROM empsalary
 WINDOW x AS (PARTITION BY depname ORDER BY salary DESC),
        y as (order by salary)""",
         """\
-SELECT sum(salary) OVER(x)
+SELECT sum(salary) OVER (x)
      , avg(salary) OVER y
 FROM empsalary
 WINDOW x AS (PARTITION BY depname

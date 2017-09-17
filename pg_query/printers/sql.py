@@ -285,7 +285,7 @@ def func_call(node, output):
         output.print(node.agg_filter)
         output.write(')')
     if node.over:
-        output.swrites('OVER')
+        output.swrite('OVER ')
         output.print(node.over)
 
 
@@ -498,7 +498,7 @@ def range_function(node, output):
 @node_printer('RangeSubselect')
 def range_subselect(node, output):
     if node.lateral:
-        output.write('LATERAL ')
+        output.write('LATERAL')
     output.write(' (')
     output.print(node.subquery)
     output.write(')')
@@ -725,15 +725,15 @@ def sub_link(node, output):
     slt = enums.SubLinkType
 
     if node.subLinkType == slt.EXISTS_SUBLINK:
-        output.write('EXISTS')
+        output.write('EXISTS ')
     elif node.subLinkType == slt.ALL_SUBLINK:
         output.print(node.testexpr)
         output.write(' ')
         output.print_list(node.operName, ' ', standalone_items=False)
-        output.swrite('ALL')
+        output.swrite('ALL ')
     elif node.subLinkType == slt.ANY_SUBLINK:
         output.print(node.testexpr)
-        output.swrites('IN')
+        output.swrite('IN ')
     elif node.subLinkType == slt.ROWCOMPARE_SUBLINK: #pragma: no cover
         # FIXME: figure out how the get here
         raise NotImplementedError("SubLink of type %s not supported yet" % slt.ROWCOMPARE_SUBLINK)
