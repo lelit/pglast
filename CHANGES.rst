@@ -3,6 +3,12 @@
 Changes
 -------
 
+0.13 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix representation of subselects requiring surrounding parens
+
+
 0.12 (2017-08-22)
 ~~~~~~~~~~~~~~~~~
 
