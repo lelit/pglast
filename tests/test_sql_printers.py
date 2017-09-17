@@ -201,6 +201,8 @@ from sometable a natural join othertable b
 select a.id, b.value
 from sometable a join othertable b using (id)
 ;;
+select a.* from a left join (select distinct id from b) as b on a.id = b.id
+;;
 select name from sometable limit 2 offset 3
 ;;
 select name from sometable offset 3 fetch next 2 rows only
