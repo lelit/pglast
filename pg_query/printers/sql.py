@@ -499,8 +499,10 @@ def range_function(node, output):
 def range_subselect(node, output):
     if node.lateral:
         output.write('LATERAL')
-    output.write(' (')
-    output.print(node.subquery)
+    output.maybe_write_space()
+    output.write('(')
+    with output.push_indent():
+        output.print(node.subquery)
     output.write(')')
     if node.alias:
         output.write(' AS ')

@@ -70,7 +70,22 @@ class OutputStream(StringIO):
         if not self.last_emitted_char.isspace():
             self.pending_separator = True
 
-    def write(self, s, *, _special_chars=set("""_*+/-"'=<>$@""")):
+    def maybe_write_space(self, nextc=None, _special_chars=set("""_*+/-"'=<>$@""")):
+        """Emit a space when needed.
+
+        :param nextc: either None or the next character that will be written
+        :return: the number of characters written to the stream
+
+        If the last character written was not a space, and `nextc` is either ``None`` or
+        a *special character*, then emit a single whitespace.
+        """
+
+        if not self.last_emitted_char.isspace():
+            if nextc is None or nextc.isalnum() or nextc in _special_chars:
+                return self.write(' ')
+        return 0
+
+    def write(self, s):
         """Emit string `s`.
 
         :param str s: the string to emit
@@ -84,8 +99,8 @@ class OutputStream(StringIO):
         count = 0
         if s:
             if self.pending_separator:
-                if s[0].isalnum() or s[0] in _special_chars:
-                    count = super().write(' ')
+                if s != ' ':
+                    count = self.maybe_write_space(s[0])
                 self.pending_separator = False
             count += super().write(s)
             self.last_emitted_char = s[-1]
@@ -100,16 +115,15 @@ class OutputStream(StringIO):
         return count
 
     def swrite(self, s):
-        "Shortcut for ``self.separator(); self.write(s);``."
+        "Shortcut for ``self.maybe_write_space(s[0]); self.write(s);``."
 
-        self.separator()
-        return self.write(s)
+        count = self.maybe_write_space(s[0])
+        return count + self.write(s)
 
     def swrites(self, s):
-        "Shortcut for ``self.separator(); self.write(s); self.separator()``."
+        "Shortcut for ``self.swrite(s); self.separator()``."
 
-        self.separator()
-        count = self.write(s)
+        count = self.swrite(s)
         self.separator()
         return count
 

@@ -704,6 +704,32 @@ WINDOW x AS (PARTITION BY depname
      , y AS (ORDER BY salary)""",
         None
     ),
+    (
+        """\
+select c_id
+from (select c_id, row_number() over (order by c_d_id) as rn,  count(*) over() max_rn
+      from customer where c_d_id=5) t
+where rn = (select floor(random()*(max_rn))+1)""",
+        """\
+SELECT c_id
+FROM (SELECT c_id
+           , row_number() OVER (ORDER BY c_d_id) AS rn
+           , count(*) OVER () AS max_rn
+      FROM customer
+      WHERE c_d_id = 5) AS t
+WHERE rn = (SELECT (floor((random() * max_rn)) + 1))""",
+        None
+    ),
+    (
+        """\
+select a.* from a left join (select distinct id from b) as b on a.id = b.id""",
+        """\
+SELECT a.*
+FROM a
+   LEFT JOIN (SELECT DISTINCT id
+              FROM b) AS b ON a.id = b.id""",
+        None
+    ),
 )
 @pytest.mark.parametrize('original, expected, options', EXAMPLES)
 def test_prettification(original, expected, options):
