@@ -74,7 +74,7 @@ class OutputStream(StringIO):
         """Emit string `s`.
 
         :param str s: the string to emit
-        :return: the number of character written to the stream
+        :return: the number of characters written to the stream
 
         When `s` is not empty and `pending_separator` is ``True`` and the first character of
         `s` is alphanumeric, emit a single whitespace before writing out `s` and then reset
@@ -412,7 +412,7 @@ class IndentedStream(RawStream):
         """Write string `s` to the stream, adjusting the `current_column` accordingly.
 
         :param str s: the string to emit
-        :return: the number of character written to the stream
+        :return: the number of characters written to the stream
 
         If `s` is a newline character (``\\n``) set `current_column` to 0. Otherwise when
         `current_column` is 0 and `current_indent` is not emit a number of whitespaces *before*
