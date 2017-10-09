@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- DO NOT EDIT: automatically extracted from nodes.h @ 10-latest-0-g1ec5c22
+# :Project:   pg_query -- DO NOT EDIT: automatically extracted from nodes.h @ 10-latest-0-gecde512
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017 Lele Gaifax
@@ -182,6 +182,7 @@ class NodeTag(IntEnum):
     T_CoerceToDomainValue = auto()
     T_SetToDefault = auto()
     T_CurrentOfExpr = auto()
+    T_NextValueExpr = auto()
     T_InferenceElem = auto()
     T_TargetEntry = auto()
     T_RangeTblRef = auto()
@@ -189,7 +190,6 @@ class NodeTag(IntEnum):
     T_FromExpr = auto()
     T_OnConflictExpr = auto()
     T_IntoClause = auto()
-    T_NextValueExpr = auto()
     T_ExprState = auto()
     T_AggrefExprState = auto()
     T_WindowFuncExprState = auto()

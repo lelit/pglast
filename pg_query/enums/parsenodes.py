@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- DO NOT EDIT: automatically extracted from parsenodes.h @ 10-latest-0-g1ec5c22
+# :Project:   pg_query -- DO NOT EDIT: automatically extracted from parsenodes.h @ 10-latest-0-gecde512
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017 Lele Gaifax
@@ -235,6 +235,11 @@ class OverridingKind(IntEnum):
     OVERRIDING_NOT_SET = 0
     OVERRIDING_USER_VALUE = auto()
     OVERRIDING_SYSTEM_VALUE = auto()
+
+class PartitionRangeDatumKind(IntEnum):
+    PARTITION_RANGE_DATUM_MINVALUE = -1
+    PARTITION_RANGE_DATUM_VALUE = 0
+    PARTITION_RANGE_DATUM_MAXVALUE = 1
 
 class QuerySource(IntEnum):
     QSRC_ORIGINAL = 0
