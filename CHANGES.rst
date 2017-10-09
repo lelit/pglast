@@ -3,6 +3,12 @@
 Changes
 -------
 
+0.14 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Update to latest libpg_query's 10-latest branch, targeting PostgreSQL 10.0 final
+
+
 0.13 (2017-09-17)
 ~~~~~~~~~~~~~~~~~
 
