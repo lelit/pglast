@@ -137,6 +137,10 @@ def emit_binary_op(value):
                          emit_constant(value.right))
 
 
+def emit_unary_op(value):
+    return '%s%s' % (value.op, emit_constant(value.expr))
+
+
 def int_enum_value_factory(index, enumerator):
     if enumerator.value is None:
         return '0' if index==0 else 'auto()'
@@ -145,6 +149,8 @@ def int_enum_value_factory(index, enumerator):
         return emit_binary_op(enumerator.value)
     elif isinstance(enumerator.value, c_ast.Constant):
         return emit_constant(enumerator.value)
+    elif isinstance(enumerator.value, c_ast.UnaryOp):
+        return emit_unary_op(enumerator.value)
     elif enumerator.value.name == 'PG_INT32_MAX':
         return '0x7FFFFFFF'
 
