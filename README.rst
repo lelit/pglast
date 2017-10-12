@@ -40,10 +40,9 @@ __ https://github.com/alculquicondor/psqlparse/pull/22
 
 - target only Python 3.4+
 
-- target PostgreSQL 10 (in `beta 2`__ as I'm writing this), taking advantage of a
-  work-in-progress `branch`__ of the libpg_query library
+- target PostgreSQL 10, taking advantage of a work-in-progress `branch`__ of the libpg_query
+  library
 
-__ https://www.postgresql.org/about/news/1763/
 __ https://github.com/lfittl/libpg_query/tree/10-latest
 
 - use a more dynamic approach to represent the *parse tree*, with a twofold advantage:
