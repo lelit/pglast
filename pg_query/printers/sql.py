@@ -158,13 +158,14 @@ def bool_expr(node, output):
     bet = enums.BoolExprType
     outer_exp_level = output.expression_level
     with output.expression():
+        in_res_target = node.parent_node.node_tag == 'ResTarget'
         if node.boolop == bet.AND_EXPR:
-            relindent = -4 if outer_exp_level == 0 else None
+            relindent = -4 if not in_res_target and outer_exp_level == 0 else None
             output.print_list(node.args, 'AND', relative_indent=relindent)
         elif node.boolop == bet.OR_EXPR:
             with output.expression():
-                relindent = -3 if outer_exp_level == 0 else None
-                output.print_list(node.args, 'OR')
+                relindent = -3 if not in_res_target and outer_exp_level == 0 else None
+                output.print_list(node.args, 'OR', relative_indent=relindent)
         else:
             output.writes('NOT')
             output.print(node.args[0])
