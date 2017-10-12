@@ -3,6 +3,14 @@
 Changes
 -------
 
+0.15 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix indentation of boolean expressions in SELECT's targets (`issue #3`__)
+
+__ https://github.com/lelit/pg_query/issues/3
+
+
 0.14 (2017-10-09)
 ~~~~~~~~~~~~~~~~~
 
