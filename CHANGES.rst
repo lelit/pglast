@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.15 (unreleased)
+0.15 (2017-10-12)
 ~~~~~~~~~~~~~~~~~
 
 - Fix indentation of boolean expressions in SELECT's targets (`issue #3`__)
