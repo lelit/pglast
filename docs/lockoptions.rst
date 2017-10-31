@@ -9,14 +9,14 @@
  :mod:`pg_query.enums.lockoptions` --- Constants extracted from `lockoptions.h`__
 ==================================================================================
 
-__ https://github.com/lfittl/libpg_query/blob/ecde512/src/postgres/include/nodes/lockoptions.h
+__ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/lockoptions.h
 
 .. module:: pg_query.enums.lockoptions
 
 
 .. class:: pg_query.enums.lockoptions.LockClauseStrength
 
-   Corresponds to the `LockClauseStrength enum <https://github.com/lfittl/libpg_query/blob/ecde512/src/postgres/include/nodes/lockoptions.h#L21>`__.
+   Corresponds to the `LockClauseStrength enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/lockoptions.h#L21>`__.
 
    .. data:: LCS_NONE
 
@@ -31,7 +31,7 @@ __ https://github.com/lfittl/libpg_query/blob/ecde512/src/postgres/include/nodes
 
 .. class:: pg_query.enums.lockoptions.LockWaitPolicy
 
-   Corresponds to the `LockWaitPolicy enum <https://github.com/lfittl/libpg_query/blob/ecde512/src/postgres/include/nodes/lockoptions.h#L36>`__.
+   Corresponds to the `LockWaitPolicy enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/lockoptions.h#L36>`__.
 
    .. data:: LockWaitBlock
 

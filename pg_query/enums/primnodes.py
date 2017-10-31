@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- DO NOT EDIT: automatically extracted from primnodes.h @ 10-latest-0-gecde512
+# :Project:   pg_query -- DO NOT EDIT: automatically extracted from primnodes.h @ 10-latest-0-g43ce2e8
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017 Lele Gaifax
