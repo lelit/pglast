@@ -26,12 +26,9 @@ class ParseError(Error):
         return f"{message}, at location {self.location}"
 
 
-cdef extern from "src/postgres/include/pg_config.h":
+cdef extern from "pg_query.h" nogil:
 
     int PG_VERSION_NUM
-
-
-cdef extern from "pg_query.h" nogil:
 
     ctypedef struct PgQueryError:
         char *message
