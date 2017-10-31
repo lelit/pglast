@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.16 (unreleased)
+0.16 (2017-10-31)
 ~~~~~~~~~~~~~~~~~
 
 - Update libpg_query to 10-1.0.0
