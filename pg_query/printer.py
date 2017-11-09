@@ -281,7 +281,9 @@ class RawStream(OutputStream):
             relative_indent = -(len(sep) + 1)
 
         if standalone_items is None:
-            standalone_items = not all(isinstance(n, Node) and n.node_tag == 'A_Const'
+            standalone_items = not all(isinstance(n, Node)
+                                       and n.node_tag in ('A_Const', 'ColumnRef',
+                                                          'SetToDefault', 'RangeVar')
                                        for n in nodes)
 
         with self.push_indent(relative_indent):
@@ -409,7 +411,8 @@ class IndentedStream(RawStream):
                     return
 
             standalone_items = not all(
-                isinstance(n, Node) and n.node_tag in ('A_Const', 'SetToDefault')
+                isinstance(n, Node) and n.node_tag in ('A_Const', 'ColumnRef', 'SetToDefault',
+                                                       'RangeVar')
                 for n in nodes)
 
         if ((len(nodes) > 1

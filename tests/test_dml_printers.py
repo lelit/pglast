@@ -616,8 +616,7 @@ SELECT 'foo' AS barname
      , b
      , c
 FROM sometable
-WHERE c BETWEEN 1
-            AND c.threshold""",
+WHERE c BETWEEN 1 AND c.threshold""",
         None
     ),
     (
