@@ -15,3 +15,9 @@
 
 This module implements the specialized functions that for any given *tag* define how the
 associated :class:`~.node.Node` will be serialized.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Printer functions
+
+   dml

@@ -87,6 +87,16 @@ $(PY_KEYWORDS): tools/extract_keywords.py libpg_query/pg_query.h
 $(PY_KEYWORDS): $(PG_INCLUDE_DIR)/parser/kwlist.h
 	$(PYTHON) tools/extract_keywords.py $(PG_INCLUDE_DIR)/parser/kwlist.h $@
 
+PG_NODES := $(PG_INCLUDE_DIR)/nodes/nodes.h $(PG_INCLUDE_DIR)/nodes/parsenodes.h \
+	    $(PG_INCLUDE_DIR)/nodes/primnodes.h $(PG_INCLUDE_DIR)/nodes/value.h
+
+.PHONY: printers-doc
+printers-doc: docs/dml.rst
+
+docs/dml.rst: $(PG_NODES) tools/extract_printers_doc.py
+docs/dml.rst: pg_query/printers/dml.py
+	$(PYTHON) tools/extract_printers_doc.py $< $@ $(PG_NODES)
+
 help::
 	@printf "doc\n\tbuild Sphinx documentation\n"
 
