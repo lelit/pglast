@@ -627,38 +627,6 @@ select somefunc(1, 2, 3)""",
 SELECT somefunc(1, 2, 3)""",
         None
     ),
-
-    ## UPDATEs
-    (
-        """\
-update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'""",
-        """\
-UPDATE sometable
-SET value = 'foo'
-  , changed = now
-WHERE (id = 'bar')
-  AND (value <> 'foo')""",
-        None
-    ),
-    (
-        """\
-update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'""",
-        """\
-UPDATE sometable
-SET value = 'foo', changed = now
-WHERE (id = 'bar') AND (value <> 'foo')""",
-        {'compact_lists_margin': 80}
-    ),
-    (
-        """\
-update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'""",
-        """\
-UPDATE sometable
-SET value = 'foo', changed = now
-WHERE (id = 'bar')
-  AND (value <> 'foo')""",
-        {'compact_lists_margin': 33}
-    ),
     (
         """\
 SELECT pe.id
@@ -748,6 +716,38 @@ WHERE ((    (NOT a.bool_flag2)
         AND a.something2 IS NULL)
     OR (a.other2 = 3))""",
         None
+    ),
+
+    ## UPDATEs
+    (
+        """\
+update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'""",
+        """\
+UPDATE sometable
+SET value = 'foo'
+  , changed = now
+WHERE (id = 'bar')
+  AND (value <> 'foo')""",
+        None
+    ),
+    (
+        """\
+update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'""",
+        """\
+UPDATE sometable
+SET value = 'foo', changed = now
+WHERE (id = 'bar') AND (value <> 'foo')""",
+        {'compact_lists_margin': 80}
+    ),
+    (
+        """\
+update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'""",
+        """\
+UPDATE sometable
+SET value = 'foo', changed = now
+WHERE (id = 'bar')
+  AND (value <> 'foo')""",
+        {'compact_lists_margin': 33}
     ),
 )
 @pytest.mark.parametrize('original, expected, options', EXAMPLES)
