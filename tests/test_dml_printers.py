@@ -717,6 +717,33 @@ WHERE ((    (NOT a.bool_flag2)
     OR (a.other2 = 3))""",
         None
     ),
+    (
+        """\
+select p.name, (select format('[%s] %s', count(*), r.name)
+                from c join r on r.contract_id = c.id
+                where c.person_id = p.id) as roles
+from persons as p
+where p.name like 'lele%' and ((select format('[%s] %s', count(*), r.name)
+                                from c join r on r.contract_id = c.id
+                                where c.person_id = p.id) ilike 'manager%')""",
+        """\
+SELECT p.name
+     , (SELECT format('[%s] %s'
+                    , count(*)
+                    , r.name)
+        FROM c
+           INNER JOIN r ON r.contract_id = c.id
+        WHERE c.person_id = p.id) AS roles
+FROM persons AS p
+WHERE p.name LIKE 'lele%'
+  AND (SELECT format('[%s] %s'
+                   , count(*)
+                   , r.name)
+       FROM c
+          INNER JOIN r ON (r.contract_id = c.id)
+       WHERE (c.person_id = p.id)) ILIKE 'manager%'""",
+        None
+    ),
 
     ## UPDATEs
     (

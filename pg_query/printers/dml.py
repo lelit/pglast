@@ -389,7 +389,7 @@ def join_expr(node, output):
             output.print_list(node.usingClause)
             output.write(')')
         elif node.quals:
-            output.swrites('ON')
+            output.swrite('ON ')
             output.print(node.quals)
 
         if node.alias:
