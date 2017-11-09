@@ -6,4 +6,4 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
-from . import sql
+from . import dml

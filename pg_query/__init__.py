@@ -33,7 +33,7 @@ def prettify(statement, safety_belt=True, **options):
 
     import warnings
     from .printer import IndentedStream
-    from .printers import sql
+    from . import printers
 
     orig_pt = parse_sql(statement)
     prettified = IndentedStream(**options)(Node(orig_pt))
