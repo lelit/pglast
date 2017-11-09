@@ -35,6 +35,14 @@ pg_query/parser.c: pg_query/parser.pyx
 	$(PYTHON) setup.py build_ext --inplace
 
 help::
+	@printf "recythonize\n\tforce retranslation of the pyx module\n"
+
+.PHONY: recythonize
+recythonize:
+	touch pg_query/parser.pyx
+	$(MAKE) build
+
+help::
 	@printf "clean\n\tremove rebuildable stuff\n"
 
 .PHONY: clean
