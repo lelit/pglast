@@ -33,14 +33,14 @@ def prettify(statement, safety_belt=True, **options):
 
     import warnings
     from .printer import IndentedStream
-    from . import printers
+    from . import printers  # noqa
 
     orig_pt = parse_sql(statement)
     prettified = IndentedStream(**options)(Node(orig_pt))
     if safety_belt:
         try:
             pretty_pt = parse_sql(prettified)
-        except Error as e: #pragma: no cover
+        except Error as e:  # pragma: no cover
             warnings.warn("Detected a bug in pg_query serialization, please report: %s"
                           % e, RuntimeWarning)
             return statement
@@ -48,7 +48,7 @@ def prettify(statement, safety_belt=True, **options):
         _remove_location(orig_pt)
         _remove_location(pretty_pt)
 
-        if pretty_pt != orig_pt: #pragma: no cover
+        if pretty_pt != orig_pt:  # pragma: no cover
             warnings.warn("Detected a non-cosmetic difference between original and"
                           " prettified statements, please report", RuntimeWarning)
             return statement

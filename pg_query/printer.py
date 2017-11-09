@@ -50,7 +50,6 @@ def node_printer(node_tag, override=False):
     return decorator
 
 
-
 class OutputStream(StringIO):
     "A stream that has a concept of a *pending separator* between consecutive writes."
 
@@ -413,12 +412,12 @@ class IndentedStream(RawStream):
                 isinstance(n, Node) and n.node_tag in ('A_Const', 'SetToDefault')
                 for n in nodes)
 
-        if (len(nodes) > 1
-            and len(sep) > 1
-            and relative_indent is None
-            and not are_names
-            and standalone_items):
-            self.write(' '*(len(sep) + 1)) # separator added automatically
+        if ((len(nodes) > 1
+             and len(sep) > 1
+             and relative_indent is None
+             and not are_names
+             and standalone_items)):
+            self.write(' '*(len(sep) + 1))  # separator added automatically
 
         super().print_list(nodes, sep, relative_indent, standalone_items, are_names)
 

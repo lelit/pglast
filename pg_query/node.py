@@ -243,7 +243,7 @@ class Scalar(Base):
         return True
 
     def __eq__(self, other):
-        if isinstance(other, Enum) or type(other) is type(self.value):
+        if isinstance(other, (Enum, type(self.value))):
             return self.value == other
         else:
             return super().__eq__(other)

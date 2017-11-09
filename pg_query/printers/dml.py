@@ -89,7 +89,8 @@ def a_expr(node, output):
         if node.name[0].str.value == '!~':
             output.swrites('NOT')
         output.swrites('SIMILAR TO')
-        assert node.rexpr.node_tag == 'FuncCall' and node.rexpr.funcname[1].str == 'similar_escape'
+        assert (node.rexpr.node_tag == 'FuncCall'
+                and node.rexpr.funcname[1].str == 'similar_escape')
         pattern = node.rexpr.args[0]
         escape = node.rexpr.args[1]
         output.print(pattern)
@@ -112,11 +113,12 @@ def a_expr(node, output):
         output.print(node.lexpr)
         output.swrites('NOT BETWEEN SYMMETRIC')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
-    elif node.kind == aek.AEXPR_PAREN: #pragma: no cover
+    elif node.kind == aek.AEXPR_PAREN:  # pragma: no cover
         # FIXME: accordingly with the documentation of the A_Expr_Kind typedef, AEXPR_PAREN is
         # a “nameless dummy node for parentheses”. What does that mean? I wasn't able to
         # “produce” it in any way...
-        raise NotImplementedError("Expression of kind %s not implemented yet" % aek.AEXPR_PAREN)
+        raise NotImplementedError("Expression of kind %s not implemented yet"
+                                  % aek.AEXPR_PAREN)
 
 
 @node_printer('A_Indices')
@@ -294,7 +296,7 @@ def func_call(node, output):
 def index_elem(node, output):
     if node.parent_node.node_tag == 'InferClause':
         output.print(node.name, is_name=True)
-    else: #pragma: no cover
+    else:  # pragma: no cover
         raise NotImplementedError
 
 
@@ -683,22 +685,22 @@ def sql_value_function(node, output):
         output.write('CURRENT_DATE')
     elif node.op == svfo.SVFOP_CURRENT_TIME:
         output.write('CURRENT_TIME')
-    elif node.op == svfo.SVFOP_CURRENT_TIME_N: #pragma: no cover
+    elif node.op == svfo.SVFOP_CURRENT_TIME_N:  # pragma: no cover
         # FIXME: understand the meaning of this
         raise NotImplementedError('CURRENT_TIME_N')
     elif node.op == svfo.SVFOP_CURRENT_TIMESTAMP:
         output.write('CURRENT_TIMESTAMP')
-    elif node.op == svfo.SVFOP_CURRENT_TIMESTAMP_N: #pragma: no cover
+    elif node.op == svfo.SVFOP_CURRENT_TIMESTAMP_N:  # pragma: no cover
         # FIXME: understand the meaning of this
         raise NotImplementedError('CURRENT_TIMESTAMP_N')
     elif node.op == svfo.SVFOP_LOCALTIME:
         output.write('LOCALTIME')
-    elif node.op == svfo.SVFOP_LOCALTIME_N: #pragma: no cover
+    elif node.op == svfo.SVFOP_LOCALTIME_N:  # pragma: no cover
         # FIXME: understand the meaning of this
         raise NotImplementedError('LOCALTIME_N')
     elif node.op == svfo.SVFOP_LOCALTIMESTAMP:
         output.write('LOCALTIMESTAMP')
-    elif node.op == svfo.SVFOP_LOCALTIMESTAMP_N: #pragma: no cover
+    elif node.op == svfo.SVFOP_LOCALTIMESTAMP_N:  # pragma: no cover
         # FIXME: understand the meaning of this
         raise NotImplementedError('LOCALTIMESTAMP_N')
     elif node.op == svfo.SVFOP_CURRENT_ROLE:
@@ -737,14 +739,16 @@ def sub_link(node, output):
     elif node.subLinkType == slt.ANY_SUBLINK:
         output.print(node.testexpr)
         output.swrite('IN ')
-    elif node.subLinkType == slt.ROWCOMPARE_SUBLINK: #pragma: no cover
+    elif node.subLinkType == slt.ROWCOMPARE_SUBLINK:  # pragma: no cover
         # FIXME: figure out how the get here
-        raise NotImplementedError("SubLink of type %s not supported yet" % slt.ROWCOMPARE_SUBLINK)
+        raise NotImplementedError("SubLink of type %s not supported yet"
+                                  % slt.ROWCOMPARE_SUBLINK)
     elif node.subLinkType == slt.EXPR_SUBLINK:
         pass
-    elif node.subLinkType == slt.MULTIEXPR_SUBLINK: #pragma: no cover
+    elif node.subLinkType == slt.MULTIEXPR_SUBLINK:  # pragma: no cover
         # FIXME: figure out how the get here
-        raise NotImplementedError("SubLink of type %s not supported yet" % slt.MULTIEXPR_SUBLINK)
+        raise NotImplementedError("SubLink of type %s not supported yet"
+                                  % slt.MULTIEXPR_SUBLINK)
     elif node.subLinkType == slt.ARRAY_SUBLINK:
         output.write('ARRAY')
 
@@ -853,7 +857,7 @@ def window_def(node, output):
                     output.writes('BETWEEN')
                 if fo & enums.FRAMEOPTION_START_UNBOUNDED_PRECEDING:
                     output.writes('UNBOUNDED PRECEDING')
-                elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING: #pragma: no cover
+                elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING:  # pragma: no cover
                     # Disallowed
                     assert False
                     output.writes('UNBOUNDED FOLLOWING')
@@ -867,7 +871,7 @@ def window_def(node, output):
                     output.swrites('FOLLOWING')
                 if fo & enums.FRAMEOPTION_BETWEEN:
                     output.writes('AND')
-                if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING: #pragma: no cover
+                if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING:  # pragma: no cover
                     # Disallowed
                     assert False
                     output.writes('UNBOUNDED PRECEDING')

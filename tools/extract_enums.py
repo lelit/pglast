@@ -54,7 +54,7 @@ def get_libpg_query_info():
                                       cwd='libpg_query')
     version = version.decode('utf-8').strip().split('/')[-1]
     remote = subprocess.check_output(['git', 'remote', 'get-url', 'origin'],
-                                      cwd='libpg_query')
+                                     cwd='libpg_query')
     remote = remote.decode('utf-8')
     baseurl = '%s/blob/%s/' % (remote[:-5], version[-7:])
     return version, baseurl
@@ -143,7 +143,7 @@ def emit_unary_op(value):
 
 def int_enum_value_factory(index, enumerator):
     if enumerator.value is None:
-        return '0' if index==0 else 'auto()'
+        return '0' if index == 0 else 'auto()'
 
     if isinstance(enumerator.value, c_ast.BinaryOp):
         return emit_binary_op(enumerator.value)
