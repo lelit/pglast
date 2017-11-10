@@ -41,8 +41,9 @@ def prettify(statement, safety_belt=True, **options):
         try:
             pretty_pt = parse_sql(prettified)
         except Error as e:  # pragma: no cover
-            warnings.warn("Detected a bug in pg_query serialization, please report: %s"
-                          % e, RuntimeWarning)
+            print(prettified)
+            warnings.warn("Detected a bug in pg_query serialization, please report: %s\n%s"
+                          % (e, prettified), RuntimeWarning)
             return statement
 
         _remove_location(orig_pt)
