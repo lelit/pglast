@@ -765,20 +765,79 @@ def type_cast(node, output):
     output.print(node.typeName)
 
 
+# Constants taken from PG's include/utils/datetime.h: seem safe to assume they won't change
+
+MONTH = 1 << 1
+YEAR = 1 << 2
+DAY = 1 << 3
+HOUR = 1 << 10
+MINUTE = 1 << 11
+SECOND = 1 << 12
+
+# Map interval's typmod to string representation
+interval_ranges = {
+    YEAR:                         "year",
+    MONTH:                        "month",
+    DAY:                          "day",
+    HOUR:                         "hour",
+    MINUTE:                       "minute",
+    SECOND:                       "second",
+    YEAR | MONTH:                 "year to month",
+    DAY | HOUR:                   "day to hour",
+    DAY | HOUR | MINUTE:          "day to minute",
+    DAY | HOUR | MINUTE | SECOND: "day to second",
+    HOUR | MINUTE:                "hour to minute",
+    HOUR | MINUTE | SECOND:       "hour to second",
+    MINUTE | SECOND:              "minute to second",
+}
+del MONTH, YEAR, DAY, HOUR, MINUTE, SECOND
+
+
+# Map system type name to generic one
+system_types = {
+    'pg_catalog.bool':        'boolean',
+    'pg_catalog.bpchar':      'char',
+    'pg_catalog.float4':      'real',
+    'pg_catalog.float8':      'double precision',
+    'pg_catalog.int2':        'smallint',
+    'pg_catalog.int4':        'integer',
+    'pg_catalog.int8':        'bigint',
+    'pg_catalog.interval':    'interval',
+    'pg_catalog.numeric':     'numeric',
+    'pg_catalog.time':        'time',
+    'pg_catalog.timestamp':   'timestamp',
+    'pg_catalog.timestamptz': 'timestamp with time zone',
+    'pg_catalog.timetz':      'time with time zone',
+    'pg_catalog.varchar':     'varchar',
+}
+
+
 @node_printer('TypeName')
 def type_name(node, output):
     if node.setof:
         # FIXME: is this used only by plpgsql?
         output.writes('SETOF')
-    output.print_list(node.names, '.', standalone_items=False, are_names=True)
+    name = '.'.join(n.str.value for n in node.names)
+    if name in system_types:
+        output.write(system_types[name])
+    else:
+        output.print_list(node.names, '.', standalone_items=False, are_names=True)
     if node.pct_type:
         # FIXME: is this used only by plpgsql?
         output.write('%TYPE')
     else:
         if node.typmods:
-            output.write('(')
-            output.print_list(node.typmods, ',', standalone_items=False)
-            output.write(')')
+            if name == 'pg_catalog.interval':
+                typmod = node.typmods[0].val.ival.value
+                output.swrite(interval_ranges[typmod])
+                if len(node.typmods) == 2:
+                    output.write(' (')
+                    output.print(node.typmods[1])
+                    output.write(')')
+            else:
+                output.write('(')
+                output.print_list(node.typmods, ',', standalone_items=False)
+                output.write(')')
         if node.arrayBounds:
             for ab in node.arrayBounds:
                 output.write('[')
