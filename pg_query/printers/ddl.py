@@ -92,7 +92,12 @@ def constraint(node, output):
 
 @node_printer('CreateStmt')
 def create_stmt(node, output):
-    output.writes('CREATE TABLE')
+    output.writes('CREATE')
+    if node.relation.relpersistence == 't':
+        output.writes('TEMPORARY')
+    elif node.relation.relpersistence == 'u':
+        output.writes('UNLOGGED')
+    output.writes('TABLE')
     if node.if_not_exists:
         output.writes('IF NOT EXISTS')
     output.print(node.relation)

@@ -29,6 +29,10 @@ create table a (id serial, value integer not null default 1)
 ;;
 create table if not exists a (id serial)
 ;;
+create temporary table if not exists a (id serial)
+;;
+create unlogged table if not exists a (id serial)
+;;
 create table a (value integer) inherits (b, c)
 ;;
 create table a (name text not null check (position('@' in name) = 0))
