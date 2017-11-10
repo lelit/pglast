@@ -7,7 +7,7 @@
 #
 
 from .. import enums
-from ..node import Missing, Scalar
+from ..node import Missing
 from ..printer import node_printer
 
 
@@ -780,10 +780,9 @@ def type_name(node, output):
             output.print_list(node.typmods, ',', standalone_items=False)
             output.write(')')
         if node.arrayBounds:
-            # FIXME: this is probably reachable only by CREATE TABLE/plpgsql
             for ab in node.arrayBounds:
                 output.write('[')
-                if not isinstance(ab, Scalar) or ab.value >= 0:
+                if ab.ival.value >= 0:
                     output.print(ab)
                 output.write(']')
 
