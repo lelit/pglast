@@ -59,7 +59,8 @@ def constraint(node, output):
         output.swrite('EXCLUDE USING ')
         if node.access_method:
             output.print(node.access_method)
-        output.swrite('(')
+            output.write(' ')
+        output.write('(')
         first = True
         for elem, clauses in node.exclusions:
             if first:
@@ -76,6 +77,33 @@ def constraint(node, output):
         output.write(' (')
         output.print_list(node.pk_attrs)
         output.write(')')
+        if node.fk_matchtype != 's':
+            output.write(' MATCH ')
+            if node.fk_matchtype == 'f':
+                output.write('FULL')
+            elif node.fk_matchtype == 'p':
+                output.write('PARTIAL')
+        if node.fk_del_action != 'a':
+            output.write(' ON DELETE ')
+            if node.fk_del_action == 'r':
+                output.write('RESTRICT')
+            elif node.fk_del_action == 'c':
+                output.write('CASCADE')
+            elif node.fk_del_action == 'n':
+                output.write('SET NULL')
+            elif node.fk_del_action == 'd':
+                output.write('SET DEFAULT')
+        if node.fk_upd_action != 'a':
+            output.write(' ON UPDATE ')
+            if node.fk_upd_action == 'r':
+                output.write('RESTRICT')
+            elif node.fk_upd_action == 'c':
+                output.write('CASCADE')
+            elif node.fk_upd_action == 'n':
+                output.write('SET NULL')
+            elif node.fk_upd_action == 'd':
+                output.write('SET DEFAULT')
+
     # Common to UNIQUE & PRIMARY_KEY
     if node.keys:
         output.write(' (')

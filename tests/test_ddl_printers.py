@@ -99,6 +99,16 @@ CREATE TABLE circles (
     EXCLUDE USING gist (c WITH &&)
 )
 ;;
+CREATE TABLE contracts (
+  id id_t NOT NULL,
+  company_id id_t NOT NULL,
+  company_contract_kind_id id_t NOT NULL
+    REFERENCES company_contract_kinds (id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+  validity period_t NOT NULL,
+  PRIMARY KEY (id),
+  EXCLUDE USING gist (cast(company_id AS text) WITH =, validity WITH &&)
+)
+;;
 CREATE TABLE cinemas (
         id serial,
         name text,

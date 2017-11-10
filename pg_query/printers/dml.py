@@ -302,7 +302,10 @@ def func_call(node, output):
 
 @node_printer('IndexElem')
 def index_elem(node, output):
-    output.print(node.name, is_name=True)
+    if node.name is not Missing:
+        output.print(node.name, is_name=True)
+    else:
+        output.print(node.expr)
     if node.ordering != enums.SortByDir.SORTBY_DEFAULT:
         if node.ordering == enums.SortByDir.SORTBY_ASC:
             output.swrite('ASC')
@@ -778,9 +781,16 @@ def sub_link(node, output):
 
 @node_printer('TypeCast')
 def type_cast(node, output):
-    output.print(node.arg)
-    output.write('::')
-    output.print(node.typeName)
+    if node.parent_node.node_tag == 'IndexElem':
+        output.write('CAST(')
+        output.print(node.arg)
+        output.write(' AS ')
+        output.print(node.typeName)
+        output.write(')')
+    else:
+        output.print(node.arg)
+        output.write('::')
+        output.print(node.typeName)
 
 
 # Constants taken from PG's include/utils/datetime.h: seem safe to assume they won't change
