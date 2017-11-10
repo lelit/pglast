@@ -8,6 +8,8 @@ Changes
 
 - Rename printers.sql to printers.dml (**backward incompatibility**)
 
+- List printer functions in the documentation, referencing the definition of related node type
+
 - Fix inconsistent spacing in JOIN condition inside a nested expression
 
 - Fix representation of unbound arrays
