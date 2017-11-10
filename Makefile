@@ -91,10 +91,10 @@ PG_NODES := $(PG_INCLUDE_DIR)/nodes/nodes.h $(PG_INCLUDE_DIR)/nodes/parsenodes.h
 	    $(PG_INCLUDE_DIR)/nodes/primnodes.h $(PG_INCLUDE_DIR)/nodes/value.h
 
 .PHONY: printers-doc
-printers-doc: docs/dml.rst
+printers-doc: docs/ddl.rst docs/dml.rst
 
-docs/dml.rst: $(PG_NODES) tools/extract_printers_doc.py
-docs/dml.rst: pg_query/printers/dml.py
+docs/ddl.rst docs/dml.rst: $(PG_NODES) tools/extract_printers_doc.py
+docs/%.rst: pg_query/printers/%.py
 	$(PYTHON) tools/extract_printers_doc.py $< $@ $(PG_NODES)
 
 help::

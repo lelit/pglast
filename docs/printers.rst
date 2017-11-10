@@ -20,4 +20,5 @@ associated :class:`~.node.Node` will be serialized.
    :maxdepth: 2
    :caption: Printer functions
 
+   ddl
    dml
