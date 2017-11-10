@@ -28,3 +28,33 @@
 .. function:: create_stmt(node, output)
 
    Pretty print a `node` of type `CreateStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L1997>`__ to the `output` stream.
+
+.. index:: DefElem
+
+.. function:: def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__ to the `output` stream.
+
+.. index:: PartitionBoundSpec
+
+.. function:: partition_bound_spec(node, output)
+
+   Pretty print a `node` of type `PartitionBoundSpec <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L795>`__ to the `output` stream.
+
+.. index:: PartitionElem
+
+.. function:: partition_elem(node, output)
+
+   Pretty print a `node` of type `PartitionElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L762>`__ to the `output` stream.
+
+.. index:: PartitionRangeDatum
+
+.. function:: partition_range_datum(node, output)
+
+   Pretty print a `node` of type `PartitionRangeDatum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L823>`__ to the `output` stream.
+
+.. index:: PartitionSpec
+
+.. function:: partition_spec(node, output)
+
+   Pretty print a `node` of type `PartitionSpec <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L777>`__ to the `output` stream.
