@@ -19,6 +19,8 @@ def column_def(node, output):
     else:
         if node.constraints:
             output.write('WITH OPTIONS ')
+    if node.collClause:
+        output.print(node.collClause)
     if node.is_not_null:
         # FIXME: find a way to get here
         output.swrite('NOT NULL')

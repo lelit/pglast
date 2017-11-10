@@ -37,6 +37,8 @@ create table a (value integer not null check (value < 10) no inherit)
 ;;
 create table a (id serial primary key, v integer references b(id))
 ;;
+CREATE TABLE a(t text collate "C")
+;;
 CREATE TABLE films (
     code        char(5) CONSTRAINT firstkey PRIMARY KEY,
     title       varchar(40) NOT NULL,

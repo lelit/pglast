@@ -399,6 +399,12 @@ SELECT nullif(deliver_date, today) from manufacturers
 SELECT greatest(deliver_date, today) from manufacturers
 ;;
 SELECT least(deliver_date, today) from manufacturers
+;;
+SELECT a < ('foo' COLLATE "fr_FR") FROM test1
+;;
+SELECT a < b COLLATE "de_DE" FROM test1
+;;
+SELECT * FROM test1 ORDER BY a || b COLLATE "fr_FR"
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in SELECTS.split('\n;;\n')))

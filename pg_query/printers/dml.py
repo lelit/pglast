@@ -208,6 +208,14 @@ def coalesce_expr(node, output):
     output.write(')')
 
 
+@node_printer('CollateClause')
+def collate_clause(node, output):
+    if node.arg:
+        output.print(node.arg)
+    output.swrite('COLLATE ')
+    output.print_list(node.collname, are_names=True)
+
+
 @node_printer('ColumnRef')
 def column_ref(node, output):
     output.print_list(node.fields, '.', standalone_items=False, are_names=True)

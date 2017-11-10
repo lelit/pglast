@@ -77,6 +77,12 @@
 
    Pretty print a `node` of type `CoalesceExpr <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/primnodes.h#L1042>`__ to the `output` stream.
 
+.. index:: CollateClause
+
+.. function:: collate_clause(node, output)
+
+   Pretty print a `node` of type `CollateClause <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L305>`__ to the `output` stream.
+
 .. index:: ColumnRef
 
 .. function:: column_ref(node, output)
