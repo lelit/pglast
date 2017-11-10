@@ -3,6 +3,20 @@
 Changes
 -------
 
+0.17 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Rename printers.sql to printers.dml (**backward incompatibility**)
+
+- Fix inconsistent spacing in JOIN condition inside a nested expression
+
+- Fix representation of unbound arrays
+
+- Fix representation of ``interval`` data type
+
+- Initial support for DDL statements
+
+
 0.16 (2017-10-31)
 ~~~~~~~~~~~~~~~~~
 
