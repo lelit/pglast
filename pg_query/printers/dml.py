@@ -294,10 +294,20 @@ def func_call(node, output):
 
 @node_printer('IndexElem')
 def index_elem(node, output):
-    if node.parent_node.node_tag == 'InferClause':
-        output.print(node.name, is_name=True)
-    else:  # pragma: no cover
-        raise NotImplementedError
+    output.print(node.name, is_name=True)
+    if node.ordering != enums.SortByDir.SORTBY_DEFAULT:
+        if node.ordering == enums.SortByDir.SORTBY_ASC:
+            output.swrite('ASC')
+        elif node.ordering == enums.SortByDir.SORTBY_ASC:
+            output.swrite('DESC')
+        elif node.ordering == enums.SortByDir.SORTBY_USING:
+            raise NotImplementedError
+    if node.nulls_ordering != enums.SortByNulls.SORTBY_NULLS_DEFAULT:
+        output.swrite('NULLS ')
+        if node.nulls_ordering != enums.SortByNulls.SORTBY_NULLS_LAST:
+            output.write('LAST')
+        else:
+            output.write('FIRST')
 
 
 @node_printer('InferClause')
