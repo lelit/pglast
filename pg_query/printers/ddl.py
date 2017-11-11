@@ -191,6 +191,8 @@ def index_stmt(node, output):
     if node.unique:
         output.write('UNIQUE ')
     output.write('INDEX ')
+    if node.concurrent:
+        output.write('CONCURRENTLY ')
     if node.if_not_exists:
         output.write('IF NOT EXISTS ')
     if node.idxname:
@@ -203,6 +205,13 @@ def index_stmt(node, output):
     output.write(' (')
     output.print_list(node.indexParams)
     output.write(')')
+    if node.options:
+        output.swrite('WITH (')
+        output.print_list(node.options)
+        output.write(')')
+    if node.tableSpace:
+        output.swrite('TABLESPACE ')
+        output.print(node.tableSpace, is_name=True)
     if node.whereClause:
         output.write(' WHERE ')
         output.print(node.whereClause)

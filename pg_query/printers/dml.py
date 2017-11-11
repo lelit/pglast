@@ -306,6 +306,12 @@ def index_elem(node, output):
         output.print(node.name, is_name=True)
     else:
         output.print(node.expr)
+    if node.collation:
+        output.swrite('COLLATE ')
+        output.print_list(node.collation, are_names=True, standalone_items=False)
+    if node.opclass:
+        output.write(' ')
+        output.print_list(node.opclass, are_names=True, standalone_items=False)
     if node.ordering != enums.SortByDir.SORTBY_DEFAULT:
         if node.ordering == enums.SortByDir.SORTBY_ASC:
             output.swrite('ASC')
