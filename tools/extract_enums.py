@@ -81,7 +81,7 @@ def extract_toc(header):
             m = match(r'typedef enum\s+([\w_]+)', line)
             if m is not None:
                 toc[m.group(1)] = lineno
-        elif line.startswith('#define '):
+        elif line.startswith('#define'):
             m = match(r'#define\s+([A-Z_]+)', line)
             if m is not None:
                 toc[m.group(1)] = lineno
@@ -119,8 +119,8 @@ def extract_defines(source):
     "Yield all #defined constants in the given header."
 
     for line in source.splitlines():
-        if line and line.startswith('#define '):
-            m = match(r'#define\s+([A-Z_]+)\s+\(?(\d+<<\d+|0x\d+)\)?', line)
+        if line and line.startswith('#define'):
+            m = match(r"#define\s+([A-Z_]+)\s+\(?(\d+<<\d+|0x\d+|'[a-zA-Z]')\)?", line)
             if m is not None:
                 yield m.group(1), m.group(2)
 

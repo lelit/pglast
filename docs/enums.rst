@@ -19,6 +19,8 @@ of the various kinds of nodes, extracted automatically from the PostgreSQL heade
 .. toctree::
 
    lockoptions
-   nodes
+   pg_class
+
    primnodes
+   nodes
    parsenodes

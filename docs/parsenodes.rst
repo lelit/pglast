@@ -793,6 +793,46 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
 
    See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L517>`__.
 
+.. data:: PARTITION_STRATEGY_LIST
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L786>`__.
+
+.. data:: PARTITION_STRATEGY_RANGE
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L787>`__.
+
+.. data:: FKCONSTR_ACTION_NOACTION
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2064>`__.
+
+.. data:: FKCONSTR_ACTION_RESTRICT
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2065>`__.
+
+.. data:: FKCONSTR_ACTION_CASCADE
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2066>`__.
+
+.. data:: FKCONSTR_ACTION_SETNULL
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2067>`__.
+
+.. data:: FKCONSTR_ACTION_SETDEFAULT
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2068>`__.
+
+.. data:: FKCONSTR_MATCH_FULL
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2071>`__.
+
+.. data:: FKCONSTR_MATCH_PARTIAL
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2072>`__.
+
+.. data:: FKCONSTR_MATCH_SIMPLE
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2073>`__.
+
 .. data:: CURSOR_OPT_BINARY
 
    See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2627>`__.

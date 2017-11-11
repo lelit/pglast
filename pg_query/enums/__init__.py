@@ -6,7 +6,9 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
-from .lockoptions import *
-from .nodes import *
-from .parsenodes import *
-from .primnodes import *
+from .lockoptions import *  # noqa
+from .pg_class import *     # noqa
+
+from .primnodes import *    # noqa
+from .nodes import *        # noqa
+from .parsenodes import *   # noqa
