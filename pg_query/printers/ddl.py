@@ -86,7 +86,8 @@ def constraint(node, output):
             output.write(' MATCH ')
             if node.fk_matchtype == enums.FKCONSTR_MATCH_FULL:
                 output.write('FULL')
-            elif node.fk_matchtype == enums.FKCONSTR_MATCH_PARTIAL:
+            elif node.fk_matchtype == enums.FKCONSTR_MATCH_PARTIAL:  # pragma: no cover
+                # MATCH PARTIAL not yet implemented
                 output.write('PARTIAL')
         if node.fk_del_action != enums.FKCONSTR_ACTION_NOACTION:
             output.write(' ON DELETE ')
