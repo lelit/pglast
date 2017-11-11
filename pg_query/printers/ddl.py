@@ -163,6 +163,14 @@ def create_stmt(node, output):
         output.swrite(' WITH (')
         output.print_list(node.options)
         output.write(')')
+    if node.oncommit != enums.OnCommitAction.ONCOMMIT_NOOP:
+        output.swrite('ON COMMIT ')
+        if node.oncommit == enums.OnCommitAction.ONCOMMIT_PRESERVE_ROWS:
+            output.write('PRESERVE ROWS')
+        elif node.oncommit == enums.OnCommitAction.ONCOMMIT_DELETE_ROWS:
+            output.write('DELETE ROWS')
+        elif node.oncommit == enums.OnCommitAction.ONCOMMIT_DROP:
+            output.write('DROP')
     if node.tablespacename:
         output.swrite('TABLESPACE ')
         output.print(node.tablespacename, is_name=True)
