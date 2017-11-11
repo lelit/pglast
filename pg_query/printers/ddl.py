@@ -72,6 +72,11 @@ def constraint(node, output):
             output.print_list(clauses)
         output.write(')')
     elif node.contype == ct.CONSTR_FOREIGN:
+        if node.fk_attrs:
+            output.swrite('FOREIGN KEY ')
+            output.write(' (')
+            output.print_list(node.fk_attrs)
+            output.write(')')
         output.swrite('REFERENCES ')
         output.print(node.pktable)
         output.write(' (')

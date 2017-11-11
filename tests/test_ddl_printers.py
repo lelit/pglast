@@ -109,6 +109,15 @@ CREATE TABLE contracts (
   EXCLUDE USING gist (cast(company_id AS text) WITH =, validity WITH &&)
 )
 ;;
+CREATE TABLE cities (
+  id id_t NOT NULL,
+  name text NOT NULL,
+  region_id id_t NOT NULL,
+  country_id id_t NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (region_id, country_id) REFERENCES regions (id, country_id) MATCH FULL
+)
+;;
 CREATE TABLE cinemas (
         id serial,
         name text,
