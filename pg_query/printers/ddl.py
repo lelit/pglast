@@ -77,31 +77,31 @@ def constraint(node, output):
         output.write(' (')
         output.print_list(node.pk_attrs)
         output.write(')')
-        if node.fk_matchtype != 's':
+        if node.fk_matchtype != enums.FKCONSTR_MATCH_SIMPLE:
             output.write(' MATCH ')
-            if node.fk_matchtype == 'f':
+            if node.fk_matchtype == enums.FKCONSTR_MATCH_FULL:
                 output.write('FULL')
-            elif node.fk_matchtype == 'p':
+            elif node.fk_matchtype == enums.FKCONSTR_MATCH_PARTIAL:
                 output.write('PARTIAL')
-        if node.fk_del_action != 'a':
+        if node.fk_del_action != enums.FKCONSTR_ACTION_NOACTION:
             output.write(' ON DELETE ')
-            if node.fk_del_action == 'r':
+            if node.fk_del_action == enums.FKCONSTR_ACTION_RESTRICT:
                 output.write('RESTRICT')
-            elif node.fk_del_action == 'c':
+            elif node.fk_del_action == enums.FKCONSTR_ACTION_CASCADE:
                 output.write('CASCADE')
-            elif node.fk_del_action == 'n':
+            elif node.fk_del_action == enums.FKCONSTR_ACTION_SETNULL:
                 output.write('SET NULL')
-            elif node.fk_del_action == 'd':
+            elif node.fk_del_action == enums.FKCONSTR_ACTION_SETDEFAULT:
                 output.write('SET DEFAULT')
-        if node.fk_upd_action != 'a':
+        if node.fk_upd_action != enums.FKCONSTR_ACTION_NOACTION:
             output.write(' ON UPDATE ')
-            if node.fk_upd_action == 'r':
+            if node.fk_upd_action == enums.FKCONSTR_ACTION_RESTRICT:
                 output.write('RESTRICT')
-            elif node.fk_upd_action == 'c':
+            elif node.fk_upd_action == enums.FKCONSTR_ACTION_CASCADE:
                 output.write('CASCADE')
-            elif node.fk_upd_action == 'n':
+            elif node.fk_upd_action == enums.FKCONSTR_ACTION_SETNULL:
                 output.write('SET NULL')
-            elif node.fk_upd_action == 'd':
+            elif node.fk_upd_action == enums.FKCONSTR_ACTION_SETDEFAULT:
                 output.write('SET DEFAULT')
 
     # Common to UNIQUE & PRIMARY_KEY
@@ -121,9 +121,9 @@ def constraint(node, output):
 @node_printer('CreateStmt')
 def create_stmt(node, output):
     output.writes('CREATE')
-    if node.relation.relpersistence == 't':
+    if node.relation.relpersistence == enums.RELPERSISTENCE_TEMP:
         output.writes('TEMPORARY')
-    elif node.relation.relpersistence == 'u':
+    elif node.relation.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
         output.writes('UNLOGGED')
     output.writes('TABLE')
     if node.if_not_exists:
@@ -173,7 +173,7 @@ def def_elem(node, output):
 
 @node_printer('PartitionBoundSpec')
 def partition_bound_spec(node, output):
-    if node.strategy.value == 'r':
+    if node.strategy.value == enums.PARTITION_STRATEGY_RANGE:
         output.swrite('FROM (')
         output.print_list(node.lowerdatums)
         output.write(') TO (')
