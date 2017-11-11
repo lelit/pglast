@@ -18,6 +18,24 @@ from test_dml_printers import roundtrip
 pg_query.printers
 
 
+CREATE_INDEXES = """\
+create index aidx on atbl (value)
+;;
+create index aidx on atbl using gin (value)
+;;
+create unique index if not exists aidx on atbl (value)
+;;
+create index aidx on atbl (value) where value is not null
+;;
+create index aidx on atbl (value1 asc nulls first, value2 desc nulls last)
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_INDEXES.split('\n;;\n')))
+def test_create_indexes(sql):
+    roundtrip(sql)
+
+
 CREATE_TABLES = """\
 create table a (id serial primary key, value integer)
 ;;
@@ -31,6 +49,12 @@ create table if not exists a (id serial)
 ;;
 create temporary table if not exists a (id serial)
 ;;
+create temporary table a (id serial) on commit drop
+;;
+create temporary table a (id serial) on commit delete rows
+;;
+create temporary table a (id serial) on commit preserve rows
+;;
 create unlogged table if not exists a (id serial)
 ;;
 create table a (value integer) inherits (b, c)
@@ -39,7 +63,25 @@ create table a (name text not null check (position('@' in name) = 0))
 ;;
 create table a (value integer not null check (value < 10) no inherit)
 ;;
-create table a (id serial primary key, v integer references b(id))
+create table a (
+  id serial primary key,
+  v integer references b(id) on delete cascade on update cascade
+)
+;;
+create table a (
+  id serial primary key,
+  v integer references b(id) on delete set default on update restrict
+)
+;;
+create table a (
+  id serial primary key,
+  v integer references b(id) on delete restrict on update set default
+)
+;;
+create table a (
+  id serial primary key,
+  v integer references b(id) on delete restrict on update set null
+)
 ;;
 CREATE TABLE a(t text collate "C")
 ;;
@@ -102,8 +144,8 @@ CREATE TABLE circles (
 CREATE TABLE contracts (
   id id_t NOT NULL,
   company_id id_t NOT NULL,
-  company_contract_kind_id id_t NOT NULL
-    REFERENCES company_contract_kinds (id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+  company_contract_kind_id id_t NULL
+    REFERENCES company_contract_kinds (id) ON DELETE SET NULL ON UPDATE CASCADE,
   validity period_t NOT NULL,
   PRIMARY KEY (id),
   EXCLUDE USING gist (cast(company_id AS text) WITH =, validity WITH &&)
@@ -116,6 +158,16 @@ CREATE TABLE cities (
   country_id id_t NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (region_id, country_id) REFERENCES regions (id, country_id) MATCH FULL
+)
+;;
+CREATE TABLE cities (
+  id id_t NOT NULL,
+  name text NOT NULL,
+  region_id id_t NOT NULL,
+  country_id id_t NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (region_id, country_id)
+    REFERENCES regions (id, country_id) MATCH SIMPLE ON DELETE RESTRICT ON UPDATE CASCADE
 )
 ;;
 CREATE TABLE cinemas (
@@ -154,7 +206,7 @@ CREATE TABLE measurement_y2016m07
 ;;
 CREATE TABLE measurement_ym_older
     PARTITION OF measurement_year_month
-    FOR VALUES FROM (MINVALUE, MINVALUE) TO (2016, 11)
+    FOR VALUES FROM (MINVALUE, MINVALUE) TO (2016, MAXVALUE)
 ;;
 CREATE TABLE cities_ab
     PARTITION OF cities (

@@ -177,6 +177,29 @@ def def_elem(node, output):
         raise NotImplementedError
 
 
+@node_printer('IndexStmt')
+def index_stmt(node, output):
+    output.write('CREATE ')
+    if node.unique:
+        output.write('UNIQUE ')
+    output.write('INDEX ')
+    if node.if_not_exists:
+        output.write('IF NOT EXISTS ')
+    if node.idxname:
+        output.print(node.idxname, is_name=True)
+    output.swrite('ON ')
+    output.print(node.relation)
+    if node.accessMethod != 'btree':
+        output.swrite('USING ')
+        output.print(node.accessMethod, is_name=True)
+    output.write(' (')
+    output.print_list(node.indexParams)
+    output.write(')')
+    if node.whereClause:
+        output.write(' WHERE ')
+        output.print(node.whereClause)
+
+
 @node_printer('PartitionBoundSpec')
 def partition_bound_spec(node, output):
     if node.strategy.value == enums.PARTITION_STRATEGY_RANGE:

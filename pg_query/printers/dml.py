@@ -309,13 +309,13 @@ def index_elem(node, output):
     if node.ordering != enums.SortByDir.SORTBY_DEFAULT:
         if node.ordering == enums.SortByDir.SORTBY_ASC:
             output.swrite('ASC')
-        elif node.ordering == enums.SortByDir.SORTBY_ASC:
+        elif node.ordering == enums.SortByDir.SORTBY_DESC:
             output.swrite('DESC')
         elif node.ordering == enums.SortByDir.SORTBY_USING:
             raise NotImplementedError
     if node.nulls_ordering != enums.SortByNulls.SORTBY_NULLS_DEFAULT:
         output.swrite('NULLS ')
-        if node.nulls_ordering != enums.SortByNulls.SORTBY_NULLS_LAST:
+        if node.nulls_ordering == enums.SortByNulls.SORTBY_NULLS_LAST:
             output.write('LAST')
         else:
             output.write('FIRST')

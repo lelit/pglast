@@ -35,6 +35,12 @@
 
    Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__ to the `output` stream.
 
+.. index:: IndexStmt
+
+.. function:: index_stmt(node, output)
+
+   Pretty print a `node` of type `IndexStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2693>`__ to the `output` stream.
+
 .. index:: PartitionBoundSpec
 
 .. function:: partition_bound_spec(node, output)
