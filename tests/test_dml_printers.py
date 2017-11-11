@@ -25,7 +25,7 @@ def roundtrip(sql):
     serialized = RawStream()(Node(orig_ast))
     try:
         serialized_ast = parse_sql(serialized)
-    except:
+    except:  # noqa
         raise RuntimeError("Could not reparse %r" % serialized)
     _remove_location(serialized_ast)
     assert orig_ast == serialized_ast, "%r != %r" % (sql, serialized)
@@ -33,7 +33,7 @@ def roundtrip(sql):
     indented = IndentedStream()(Node(orig_ast))
     try:
         indented_ast = parse_sql(indented)
-    except:
+    except:  # noqa
         raise RuntimeError("Could not reparse %r" % indented)
     _remove_location(indented_ast)
     assert orig_ast == indented_ast, "%r != %r" % (sql, indented)
@@ -407,6 +407,7 @@ SELECT a < b COLLATE "de_DE" FROM test1
 SELECT * FROM test1 ORDER BY a || b COLLATE "fr_FR"
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in SELECTS.split('\n;;\n')))
 def test_selects(sql):
     roundtrip(sql)
@@ -445,6 +446,7 @@ WHERE mime_type = 'image/gif'
 UPDATE extensions SET values[0] = $1 WHERE mime_type = $2 Returning "Changed"
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in UPDATES.split('\n;;\n')))
 def test_updates(sql):
     roundtrip(sql)
@@ -472,6 +474,7 @@ WHERE producer_id = producers.id AND producers.name = 'foo'
 ;;
 DELETE FROM extensions WHERE values[0] = $1
 """
+
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in DELETES.split('\n;;\n')))
 def test_deletes(sql):
@@ -529,9 +532,10 @@ def test_inserts(sql):
 
 EXAMPLES = (
     ## SELECTs
-    ( """\
+    (
+        """\
 select * from sometable""",
-      """\
+        """\
 SELECT *
 FROM sometable""",
         None
@@ -652,7 +656,8 @@ FROM table1 AS pe
 SELECT pe.id
 FROM table1 as pe
 INNER JOIN table2 AS pr ON pe.project_id = pr.id
-LEFT JOIN (table3 AS cp INNER JOIN table4 AS c ON cp.company_id = c.id)  ON cp.person_id = pe.id""",
+LEFT JOIN (table3 AS cp INNER JOIN table4 AS c ON cp.company_id = c.id)
+       ON cp.person_id = pe.id""",
         """\
 SELECT pe.id
 FROM table1 AS pe
@@ -782,6 +787,8 @@ WHERE (id = 'bar')
         {'compact_lists_margin': 33}
     ),
 )
+
+
 @pytest.mark.parametrize('original, expected, options', EXAMPLES)
 def test_prettification(original, expected, options):
     prettified = IndentedStream(**(options or {}))(original)
