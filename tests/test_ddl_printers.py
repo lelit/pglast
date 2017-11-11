@@ -85,6 +85,26 @@ create table a (
 ;;
 CREATE TABLE a(t text collate "C")
 ;;
+CREATE TABLE ages (
+  id integer primary key,
+  age1 interval year,
+  age2 interval month,
+  age3 interval day,
+  age4 interval hour,
+  age5 interval minute,
+  age6a interval second,
+  age6b interval second (5),
+  age7 interval year to month,
+  age8 interval day to hour,
+  age9 interval day to minute,
+  age10a interval day to second,
+  age10b interval day to second (5),
+  age11 interval hour to minute,
+  age11 interval hour to second,
+  age11a interval minute to second,
+  age11b interval minute to second (5)
+)
+;;
 CREATE TABLE films (
     code        char(5) CONSTRAINT firstkey PRIMARY KEY,
     title       varchar(40) NOT NULL,
