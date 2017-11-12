@@ -180,6 +180,12 @@ CREATE TABLE contracts (
   EXCLUDE USING gist (cast(company_id AS text) WITH =, validity WITH &&)
 )
 ;;
+CREATE TABLE contracts (
+  company_id id_t NOT NULL,
+  validity period_t NOT NULL,
+  EXCLUDE USING gist ((company_id::text) WITH =, validity WITH &&)
+)
+;;
 CREATE TABLE cities (
   id id_t NOT NULL,
   name text NOT NULL,

@@ -305,7 +305,9 @@ def index_elem(node, output):
     if node.name is not Missing:
         output.print(node.name, is_name=True)
     else:
+        output.write('(')
         output.print(node.expr)
+        output.write(')')
     if node.collation:
         output.swrite('COLLATE ')
         output.print_list(node.collation, are_names=True, standalone_items=False)
@@ -787,16 +789,9 @@ def sub_link(node, output):
 
 @node_printer('TypeCast')
 def type_cast(node, output):
-    if node.parent_node.node_tag == 'IndexElem':
-        output.write('CAST(')
-        output.print(node.arg)
-        output.write(' AS ')
-        output.print(node.typeName)
-        output.write(')')
-    else:
-        output.print(node.arg)
-        output.write('::')
-        output.print(node.typeName)
+    output.print(node.arg)
+    output.write('::')
+    output.print(node.typeName)
 
 
 # Constants taken from PG's include/utils/datetime.h: seem safe to assume they won't change
