@@ -781,6 +781,14 @@ SELECT E'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX'
         'WXYZ\\n1234567890'""",
         {'split_string_literals_threshold': 50}
     ),
+    (
+        """\
+SELECT '1234567890\\abcdefghi'""",
+        """\
+SELECT '1234567890\\a'
+       'bcdefghi'""",
+        {'split_string_literals_threshold': 11}
+    ),
 
     ## UPDATEs
     (

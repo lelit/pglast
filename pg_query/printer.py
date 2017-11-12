@@ -451,12 +451,17 @@ class IndentedStream(RawStream):
                 self.write('E')
             with self.push_indent():
                 while True:
-                    chunk = s[:sslt].replace("'", "''")
+                    chunk = s[:sslt]
+                    s = s[sslt:]
+                    # Avoid splitting on backslash
+                    while chunk.endswith("\\"):
+                        chunk += s[0]
+                        s = s[1:]
+                    chunk = chunk.replace("'", "''")
                     if multiline:
                         chunk = chunk.replace("\\", "\\\\")
                         chunk = chunk.replace("\n", "\\n")
                     self.write("'%s'" % chunk)
-                    s = s[sslt:]
                     if s:
                         self.newline()
                     else:
