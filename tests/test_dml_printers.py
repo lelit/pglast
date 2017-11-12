@@ -762,11 +762,23 @@ WHERE p.name LIKE 'lele%'
         """\
 SELECT
 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl'
-'mnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'""",
+'mnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'""",
         """\
 SELECT 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX'
        'YZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUV'
-       'WXYZ'""",
+       'WXYZ1234567890'""",
+        {'split_string_literals_threshold': 50}
+    ),
+    (
+        """\
+SELECT
+'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl'
+'mnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+1234567890'""",
+        """\
+SELECT E'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX'
+        'YZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUV'
+        'WXYZ\\n1234567890'""",
         {'split_string_literals_threshold': 50}
     ),
 
