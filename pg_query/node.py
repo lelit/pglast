@@ -139,7 +139,8 @@ class List(Base):
 
 
 class Node(Base):
-    """Represent a single entry in a *parse tree* returned by :func:`~.parser.parse()`.
+    """Represent a single entry in a *parse tree* returned by :func:`~.parser.parse_sql()`
+    (or :func:`~.parser.parse_plpgsql()`).
 
     :type details: dict
     :param details: the *parse tree* of the node
