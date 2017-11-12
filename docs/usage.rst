@@ -134,6 +134,15 @@ Reformat a ``SQL`` statement from the command line
    SET value = 123
    WHERE value IS NULL
 
+   $ echo "
+   insert into t (id, description)
+   values (1, 'this is short enough'),
+          (2, 'this is too long, and will be splitted')" | python -m pg_query -s 20
+   INSERT INTO t (id, description)
+   VALUES (1, 'this is short enough')
+        , (2, 'this is too long, an'
+              'd will be splitted')
+
 Get a more compact representation
 =================================
 
