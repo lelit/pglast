@@ -114,7 +114,7 @@ class OutputStream(StringIO):
         return count
 
     def swrite(self, s):
-        "Shortcut for ``self.maybe_write_space(s[0]); self.write(s);``."
+        "Shortcut for ``self.maybe_write_space(s[0]); self.write(s)``."
 
         count = self.maybe_write_space(s[0])
         return count + self.write(s)
@@ -130,10 +130,11 @@ class OutputStream(StringIO):
 class RawStream(OutputStream):
     """Basic SQL parse tree writer.
 
-    :param int expression_level: start the stream with the given expression level depth, 0 by
-                                 default
-    :param bool separate_statements: ``True`` by default, tells whether multiple
-                                     statements shall be separated by an empty line
+    :param int expression_level:
+           start the stream with the given expression level depth, 0 by default
+    :param bool separate_statements:
+           ``True`` by default, tells whether multiple statements shall be separated by an
+           empty line
 
     This augments :class:`OutputStream` and implements the basic machinery needed to serialize
     the *parse tree* produced by :func:`~.parser.parse_sql()` back to a textual representation,
@@ -176,8 +177,9 @@ class RawStream(OutputStream):
 
         :param scalars: a sequence of nodes
         :param str sep: the separator between them
-        :param bool are_names: whether the nodes are actually *names*, which possibly require
-                               to be enclosed between double-quotes
+        :param bool are_names:
+               whether the nodes are actually *names*, which possibly require to be enclosed
+               between double-quotes
         :returns: a string
 
         Use a temporary :class:`RawStream` instance to print the list of nodes and return the
@@ -272,12 +274,13 @@ class RawStream(OutputStream):
 
         :param nodes: a sequence of :class:`~.node.Node` instances
         :param str sep: the separator between them
-        :param bool relative_indent: if given, the relative amount of indentation to apply
-                                     before the first item, by default computed automatically
-                                     from the length of the separator `sep`
+        :param bool relative_indent:
+               if given, the relative amount of indentation to apply before the first item, by
+               default computed automatically from the length of the separator `sep`
         :param bool standalone_items: whether a newline will be emitted before each item
-        :param bool are_names: whether the nodes are actually *names*, which possibly require
-                               to be enclosed between double-quotes
+        :param bool are_names:
+               whether the nodes are actually *names*, which possibly require to be enclosed
+               between double-quotes
         """
 
         if relative_indent is None:
@@ -302,13 +305,12 @@ class RawStream(OutputStream):
         :param bool relative_indent: passed as is to :meth:`print_list`
         :param bool standalone_items: passed as is to :meth:`print_list`
         :param bool are_names: passed as is to :meth:`print_list`
-        :param sublist_open: the string that will be emitted before each sublist
-        :param sublist_close: the string that will be emitted after each sublist
+        :param str sublist_open: the string that will be emitted before each sublist
+        :param str sublist_close: the string that will be emitted after each sublist
         :param str sublist_sep: the separator between them each sublist
-        :param bool sublist_relative_indent: if given, the relative amount of indentation to
-                                             apply before the first sublist, by default
-                                             computed automatically from the length of the
-                                             separator `sublist_sep`
+        :param bool sublist_relative_indent:
+               if given, the relative amount of indentation to apply before the first sublist,
+               by default computed automatically from the length of the separator `sublist_sep`
         """
 
         if sublist_relative_indent is None:
@@ -332,14 +334,14 @@ class RawStream(OutputStream):
 class IndentedStream(RawStream):
     """Indented SQL parse tree writer.
 
-    :param bool align_expression_operands: whether to vertically align the operands of an
-                                           expression
-    :param int compact_lists_margin: an integer value that, if given, is used to print
-                                     lists on a single line, when they do not exceed
-                                     the given margin on the right
-    :param int split_string_literals_threshold: an integer value that, if given, is used as the
-                                                threshold beyond that a string literal gets
-                                                splitted in successive chunks of that length
+    :param bool align_expression_operands:
+           whether to vertically align the operands of an expression
+    :param int compact_lists_margin:
+           an integer value that, if given, is used to print lists on a single line, when they
+           do not exceed the given margin on the right
+    :param int split_string_literals_threshold:
+           an integer value that, if given, is used as the threshold beyond that a string
+           literal gets splitted in successive chunks of that length
     :param \*\*options: other options accepted by :class:`RawStream`
 
     This augments :class:`RawStream` to emit a prettified representation of a *parse tree*.
@@ -403,12 +405,13 @@ class IndentedStream(RawStream):
 
         :param nodes: a sequence of :class:`~.node.Node` instances
         :param str sep: the separator between them
-        :param bool relative_indent: if given, the relative amount of indentation to apply
-                                     before the first item, by default computed automatically
-                                     from the length of the separator `sep`
+        :param bool relative_indent:
+               if given, the relative amount of indentation to apply before the first item, by
+               default computed automatically from the length of the separator `sep`
         :param bool standalone_items: whether a newline will be emitted before each item
-        :param bool are_names: whether the nodes are actually *names*, which possibly require
-                               to be enclosed between double-quotes
+        :param bool are_names:
+               whether the nodes are actually *names*, which possibly require to be enclosed
+               between double-quotes
         """
 
         if standalone_items is None:
