@@ -62,7 +62,7 @@ def main(options):
                         help='use compact form for lists not exceeding the given margin')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'
-                       ' by default stdin')
+                        ' by default stdin')
     parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'),
                         help='where the result will be written, by default stdout')
 
@@ -71,5 +71,5 @@ def main(options):
     workhorse(args)
 
 
-if __name__ == '__main__': #pragma: no cover
+if __name__ == '__main__':  # pragma: no cover
     main(sys.argv[1:])
