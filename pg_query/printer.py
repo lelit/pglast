@@ -337,7 +337,10 @@ class IndentedStream(RawStream):
     :param int compact_lists_margin: an integer value that, if given, is used to print
                                      lists on a single line, when they do not exceed
                                      the given margin on the right
-    :param \*\*options: other options accepted by :class:`Serializer`
+    :param int split_string_literals_threshold: an integer value that, if given, is used as the
+                                                threshold beyond that a string literal gets
+                                                splitted in successive chunks of that length
+    :param \*\*options: other options accepted by :class:`RawStream`
 
     This augments :class:`RawStream` to emit a prettified representation of a *parse tree*.
     """
