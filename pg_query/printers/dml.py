@@ -748,10 +748,7 @@ def sql_value_function(node, output):
 
 @node_printer('String')
 def string(node, output, is_name=None):
-    delimiter = "'" if node.parent_node.node_tag == 'A_Const' else ""
-    output.write(delimiter)
     output.print(node.str, is_name=is_name)
-    output.write(delimiter)
 
 
 @node_printer('SubLink')

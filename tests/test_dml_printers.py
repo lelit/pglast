@@ -51,11 +51,15 @@ WHERE (m.deliver_date = CURRENT_DATE
    AND m.who = CURRENT_USER
    AND m.role = CURRENT_ROLE
 ;;
-SELECT 'a', 123, 3.14159
+SELECT 'a', 123, 3.14159, $$this is a "complex" string containing apostrophe (')
+and newline (\n)$$, U&'Euro symbol: \20ac', 'Naïve',
+'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 ;;
 SELECT pc.id, pc.values[1] FROM ONLY ns.table
 ;;
 SELECT 'accbf276-705b-11e7-b8e4-0242ac120002'::UUID as "X"
+;;
+SELECT 'foo' as "Naïve"
 ;;
 SELECT CAST('accbf276-705b-11e7-b8e4-0242ac120002' AS uuid) as "X"
 ;;
@@ -753,6 +757,17 @@ WHERE p.name LIKE 'lele%'
           INNER JOIN r ON (r.contract_id = c.id)
        WHERE (c.person_id = p.id)) ILIKE 'manager%'""",
         None
+    ),
+    (
+        """\
+SELECT
+'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl'
+'mnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'""",
+        """\
+SELECT 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX'
+       'YZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUV'
+       'WXYZ'""",
+        {'split_string_literals_threshold': 50}
     ),
 
     ## UPDATEs

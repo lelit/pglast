@@ -194,23 +194,6 @@ class RawStream(OutputStream):
     def indent(self, amount=0, relative=True):
         "Do nothing, shall be overridden by the prettifier subclass."
 
-    def maybe_double_quote_name(self, scalar):
-        """Double-quote the given `scalar` if needed.
-
-        :param scalar: a :class:`~.node.Scalar` string instance
-        :return: the string value of the scalar, possibly double quoted
-
-        The `scalar` represent a name of a column/table/alias: when any of its characters
-        is not a lower case letter, a digit or underscore, it must be double quoted.
-        """
-
-        assert isinstance(scalar, Scalar) and isinstance(scalar.value, str)
-        s = scalar.value
-        if not match(r'[a-z_][a-z0-9_]*$', s) or s in RESERVED_KEYWORDS:
-            return '"%s"' % s
-        else:
-            return s
-
     def newline(self):
         "Emit a single whitespace, shall be overridden by the prettifier subclass."
 
@@ -236,9 +219,29 @@ class RawStream(OutputStream):
                     self.write(' ')
             self.print(item, is_name=are_names)
 
+    def _write_quoted_string(self, s):
+        "Emit the `s` as a quoted literal constant."
+
+        self.write("'%s'" % s.replace("'", "''"))
+
     def _print_scalar(self, node, is_name):
-        value = self.maybe_double_quote_name(node) if is_name else str(node.value)
-        self.write(value)
+        "Print the scalar `node`, special-casing string literals."
+
+        value = node.value
+        if is_name:
+            # The `scalar` represent a name of a column/table/alias: when any of its
+            # characters is not a lower case letter, a digit or underscore, it must be
+            # double quoted
+            if not match(r'[a-z_][a-z0-9_]*$', value) or value in RESERVED_KEYWORDS:
+                value = '"%s"' % value
+            self.write(value)
+        elif node.parent_node.node_tag == 'String':
+            if node.parent_node.parent_node.node_tag == 'A_Const':
+                self._write_quoted_string(value)
+            else:
+                self.write(value)
+        else:
+            self.write(str(value))
 
     def print(self, node, is_name=False):
         """Lookup the specific printer for the given `node` and execute it."""
@@ -344,6 +347,8 @@ class IndentedStream(RawStream):
             options['align_expression_operands'] = True
         if 'compact_lists_margin' not in options:
             options['compact_lists_margin'] = None
+        if 'split_string_literals_threshold' not in options:
+            options['split_string_literals_threshold'] = None
         super().__init__(**options)
         self.current_indent = 0
         self.indentation_stack = []
@@ -423,6 +428,33 @@ class IndentedStream(RawStream):
             self.write(' '*(len(sep) + 1))  # separator added automatically
 
         super().print_list(nodes, sep, relative_indent, standalone_items, are_names)
+
+    def _write_quoted_string(self, s):
+        """Possibly split `s` string in successive chunks.
+
+        When the ``split_string_literals_threshold`` option is not ``None`` and the length of
+        `s` exceeds that value, split the string into multiple chunks.
+        """
+
+        sslt = self.options['split_string_literals_threshold']
+        if sslt is None:
+            super()._write_quoted_string(s)
+        else:
+            multiline = '\n' in s
+            if multiline:
+                self.write('E')
+            with self.push_indent():
+                while True:
+                    chunk = s[:sslt].replace("'", "''")
+                    if multiline:
+                        chunk = chunk.replace("\\", "\\\\")
+                        chunk = chunk.replace("\n", "\\n")
+                    self.write("'%s'" % chunk)
+                    s = s[sslt:]
+                    if s:
+                        self.newline()
+                    else:
+                        break
 
     def write(self, s):
         """Write string `s` to the stream, adjusting the `current_column` accordingly.

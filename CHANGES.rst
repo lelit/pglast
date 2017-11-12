@@ -18,6 +18,8 @@ Changes
 
 - Initial support for DDL statements
 
+- Fix representation of string literals containing single quotes
+
 
 0.16 (2017-10-31)
 ~~~~~~~~~~~~~~~~~
