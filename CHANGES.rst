@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.17 (unreleased)
+0.17 (2017-11-12)
 ~~~~~~~~~~~~~~~~~
 
 - Rename printers.sql to printers.dml (**backward incompatibility**)
