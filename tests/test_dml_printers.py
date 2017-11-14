@@ -542,7 +542,6 @@ select * from sometable""",
         """\
 SELECT *
 FROM sometable""",
-        None
     ),
     (
         """\
@@ -553,7 +552,6 @@ SELECT 'foo' AS barname
      , c
 FROM sometable
 WHERE c BETWEEN 1 AND 2""",
-        None
     ),
     (
         """\
@@ -582,7 +580,6 @@ SELECT 'foo' AS barname
           AND (othertable.z = 3))
 FROM sometable
 WHERE c BETWEEN 1 AND 2""",
-        None
     ),
     (
         """\
@@ -631,14 +628,12 @@ SELECT 'foo' AS barname
      , c
 FROM sometable
 WHERE c BETWEEN 1 AND c.threshold""",
-        None
     ),
     (
         """\
 select somefunc(1, 2, 3)""",
         """\
 SELECT somefunc(1, 2, 3)""",
-        None
     ),
     (
         """\
@@ -653,7 +648,6 @@ FROM table1 AS pe
    INNER JOIN table2 AS pr ON pe.project_id = pr.id
    LEFT JOIN table3 AS cp ON cp.person_id = pe.id
    INNER JOIN table4 AS c ON cp.company_id = c.id""",
-        None
     ),
     (
         """\
@@ -669,7 +663,6 @@ FROM table1 AS pe
    LEFT JOIN table3 AS cp
       INNER JOIN table4 AS c ON cp.company_id = c.id
       ON cp.person_id = pe.id""",
-        None
     ),
     (
         """\
@@ -684,7 +677,6 @@ FROM empsalary
 WINDOW x AS (PARTITION BY depname
              ORDER BY salary DESC)
      , y AS (ORDER BY salary)""",
-        None
     ),
     (
         """\
@@ -700,7 +692,6 @@ FROM (SELECT c_id
       FROM customer
       WHERE c_d_id = 5) AS t
 WHERE rn = (SELECT (floor((random() * max_rn)) + 1))""",
-        None
     ),
     (
         """\
@@ -710,7 +701,6 @@ SELECT a.*
 FROM a
    LEFT JOIN (SELECT DISTINCT id
               FROM b) AS b ON a.id = b.id""",
-        None
     ),
     (
         """\
@@ -729,7 +719,6 @@ FROM sometable AS a
 WHERE ((    (NOT a.bool_flag2)
         AND a.something2 IS NULL)
     OR (a.other2 = 3))""",
-        None
     ),
     (
         """\
@@ -756,7 +745,6 @@ WHERE p.name LIKE 'lele%'
        FROM c
           INNER JOIN r ON (r.contract_id = c.id)
        WHERE (c.person_id = p.id)) ILIKE 'manager%'""",
-        None
     ),
     (
         """\
@@ -800,7 +788,6 @@ SET value = 'foo'
   , changed = now
 WHERE (id = 'bar')
   AND (value <> 'foo')""",
-        None
     ),
     (
         """\
@@ -824,7 +811,12 @@ WHERE (id = 'bar')
 )
 
 
-@pytest.mark.parametrize('original, expected, options', EXAMPLES)
-def test_prettification(original, expected, options):
+@pytest.mark.parametrize('example', EXAMPLES)
+def test_prettification(example):
+    if len(example) == 3:
+        original, expected, options = example
+    else:
+        original, expected = example
+        options = {}
     prettified = IndentedStream(**(options or {}))(original)
     assert expected == prettified, "%r != %r" % (expected, prettified)

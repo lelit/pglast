@@ -265,7 +265,6 @@ CREATE TABLE a (
     id serial PRIMARY KEY
   , value integer
 )""",
-        None
     ),
     (
         """\
@@ -288,12 +287,16 @@ CREATE TABLE films (
   , len interval hour to second (3)
   , CONSTRAINT code_title PRIMARY KEY (code, title)
 )""",
-        None
     ),
 )
 
 
-@pytest.mark.parametrize('original, expected, options', EXAMPLES)
-def test_prettification(original, expected, options):
+@pytest.mark.parametrize('example', EXAMPLES)
+def test_prettification(example):
+    if len(example) == 3:
+        original, expected, options = example
+    else:
+        original, expected = example
+        options = {}
     prettified = IndentedStream(**(options or {}))(original)
     assert expected == prettified, "%r != %r" % (expected, prettified)
