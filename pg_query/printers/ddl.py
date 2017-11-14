@@ -197,24 +197,29 @@ def index_stmt(node, output):
         output.write('IF NOT EXISTS ')
     if node.idxname:
         output.print(node.idxname, is_name=True)
-    output.swrite('ON ')
-    output.print(node.relation)
-    if node.accessMethod != 'btree':
-        output.swrite('USING ')
-        output.print(node.accessMethod, is_name=True)
-    output.write(' (')
-    output.print_list(node.indexParams)
-    output.write(')')
-    if node.options:
-        output.swrite('WITH (')
-        output.print_list(node.options)
+    output.newline()
+    with output.push_indent(2):
+        output.write('ON ')
+        output.print(node.relation)
+        if node.accessMethod != 'btree':
+            output.write('USING ')
+            output.print(node.accessMethod, is_name=True)
+        output.write(' (')
+        output.print_list(node.indexParams)
         output.write(')')
-    if node.tableSpace:
-        output.swrite('TABLESPACE ')
-        output.print(node.tableSpace, is_name=True)
-    if node.whereClause:
-        output.write(' WHERE ')
-        output.print(node.whereClause)
+        if node.options:
+            output.newline()
+            output.write('WITH (')
+            output.print_list(node.options)
+            output.write(')')
+        if node.tableSpace:
+            output.newline()
+            output.write('TABLESPACE ')
+            output.print(node.tableSpace, is_name=True)
+        if node.whereClause:
+            output.newline()
+            output.write('WHERE ')
+            output.print(node.whereClause)
 
 
 @node_printer('PartitionBoundSpec')
