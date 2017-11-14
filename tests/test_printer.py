@@ -27,7 +27,7 @@ def test_registry():
             def tag2(node, output):
                 pass
 
-        @printer.node_printer('test_tag1', override=True)
+        @printer.node_printer('test_tag1', override=True)  # noqa
         def tag2(node, output):
             pass
 
@@ -93,7 +93,7 @@ def test_raw_stream_basics():
                 output.write('y')
                 output.print(node.y)
             else:
-                if output.options.get('test_child_z_is_expression', True):
+                if output.test_child_z_is_expression:
                     with output.push_indent(2, relative=False):
                         output.print_list(node.z, '+')
                 else:
@@ -101,10 +101,12 @@ def test_raw_stream_basics():
             output.write('}')
 
         output = printer.RawStream()
+        output.test_child_z_is_expression = True
         result = output(root)
         assert result == 'bar = a({x0, y0} * {x1,{x2, y2} + {x3,{x4, y4} + {x5, y5}}})'
 
-        output = printer.RawStream(test_child_z_is_expression=False)
+        output = printer.RawStream()
+        output.test_child_z_is_expression = False
         result = output(root)
         assert result == 'bar = a({x0, y0} * {x1,{x2, y2} / {x3,{x4, y4} / {x5, y5}}})'
     finally:
@@ -174,15 +176,17 @@ def test_indented_stream_basics():
                 output.write('y')
                 output.print(node.y)
             else:
-                if output.options.get('test_child_z_is_expression', True):
+                if output.test_child_z_is_expression:
                     with output.push_indent(2, relative=False):
                         output.print_list(node.z, '+')
                 else:
-                    list_sep = output.options.get('test_child_z_list_sep', '/')
-                    output.print_list(node.z, list_sep, standalone_items=len(list_sep)==2)
+                    list_sep = output.test_child_z_list_sep
+                    output.print_list(node.z, list_sep, standalone_items=len(list_sep) == 2)
             output.write('}')
 
         output = printer.IndentedStream()
+        output.test_child_z_is_expression = True
+        output.test_child_z_list_sep = '/'
         result = output(root)
         assert result == """\
 bar = a({x0, y0}
@@ -190,22 +194,17 @@ bar = a({x0, y0}
            + {x3,{x4, y4}
                 + {x5, y5}}})"""
 
-        output = printer.IndentedStream(align_expression_operands=False)
-        result = output(root)
-        assert result == """\
-bar = a({x0, y0}
-      * {x1,{x2, y2}
-           + {x3,{x4, y4}
-                + {x5, y5}}})"""
-
-        output = printer.IndentedStream(test_child_z_is_expression=False)
+        output = printer.IndentedStream()
+        output.test_child_z_is_expression = False
+        output.test_child_z_list_sep = '/'
         result = output(root)
         assert result == """\
 bar = a({x0, y0}
       * {x1,{x2, y2} / {x3,{x4, y4} / {x5, y5}}})"""
 
-        output = printer.IndentedStream(test_child_z_is_expression=False,
-                                        test_child_z_list_sep='//')
+        output = printer.IndentedStream()
+        output.test_child_z_is_expression = False
+        output.test_child_z_list_sep = '//'
         result = output(root)
         assert result == """\
 bar = a({x0, y0}

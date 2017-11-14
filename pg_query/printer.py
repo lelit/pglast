@@ -141,12 +141,10 @@ class RawStream(OutputStream):
     without any adornment.
     """
 
-    def __init__(self, expression_level=0, **options):
+    def __init__(self, expression_level=0, separate_statements=True):
         super().__init__()
-        if 'separate_statements' not in options:
-            options['separate_statements'] = True
-        self.options = options
         self.expression_level = expression_level
+        self.separate_statements = separate_statements
         self.current_column = 0
 
     def __call__(self, sql, plpgsql=False):
@@ -167,7 +165,7 @@ class RawStream(OutputStream):
             else:
                 self.write(';')
                 self.newline()
-                if self.options['separate_statements']:
+                if self.separate_statements:
                     self.newline()
             self.print(statement)
         return self.getvalue()
@@ -334,8 +332,6 @@ class RawStream(OutputStream):
 class IndentedStream(RawStream):
     """Indented SQL parse tree writer.
 
-    :param bool align_expression_operands:
-           whether to vertically align the operands of an expression
     :param int compact_lists_margin:
            an integer value that, if given, is used to print lists on a single line, when they
            do not exceed the given margin on the right
@@ -347,14 +343,11 @@ class IndentedStream(RawStream):
     This augments :class:`RawStream` to emit a prettified representation of a *parse tree*.
     """
 
-    def __init__(self, **options):
-        if 'align_expression_operands' not in options:
-            options['align_expression_operands'] = True
-        if 'compact_lists_margin' not in options:
-            options['compact_lists_margin'] = None
-        if 'split_string_literals_threshold' not in options:
-            options['split_string_literals_threshold'] = None
+    def __init__(self, compact_lists_margin=None, split_string_literals_threshold=None,
+                 **options):
         super().__init__(**options)
+        self.compact_lists_margin = compact_lists_margin
+        self.split_string_literals_threshold = split_string_literals_threshold
         self.current_indent = 0
         self.indentation_stack = []
 
@@ -415,9 +408,10 @@ class IndentedStream(RawStream):
         """
 
         if standalone_items is None:
-            if self.options['compact_lists_margin']:
+            clm = self.compact_lists_margin
+            if clm is not None and clm > 0:
                 rawlist = self.concat_nodes(nodes, sep, are_names)
-                if self.current_column + len(rawlist) < self.options['compact_lists_margin']:
+                if self.current_column + len(rawlist) < clm:
                     self.write(rawlist)
                     return
 
@@ -438,12 +432,12 @@ class IndentedStream(RawStream):
     def _write_quoted_string(self, s):
         """Possibly split `s` string in successive chunks.
 
-        When the ``split_string_literals_threshold`` option is not ``None`` and the length of
+        When the ``split_string_literals_threshold`` option is greater than 0 and the length of
         `s` exceeds that value, split the string into multiple chunks.
         """
 
-        sslt = self.options['split_string_literals_threshold']
-        if sslt is None:
+        sslt = self.split_string_literals_threshold
+        if sslt is None or sslt <= 0:
             super()._write_quoted_string(s)
         else:
             multiline = '\n' in s
