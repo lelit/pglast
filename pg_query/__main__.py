@@ -42,7 +42,7 @@ def workhorse(args):
             output.write('\n')
 
 
-def main(options):
+def main(options=None):
     from argparse import ArgumentParser
     from pkg_resources import get_distribution
     from .parser import get_postgresql_version
@@ -51,8 +51,7 @@ def main(options):
         get_distribution('pg_query').version,
         '.'.join(str(p) for p in get_postgresql_version()))
 
-    parser = ArgumentParser(prog='pg_query',
-                            description="PostgreSQL language prettifier")
+    parser = ArgumentParser(description="PostgreSQL language prettifier")
 
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + version,)
     parser.add_argument('-p', '--plpgsql', action='store_true', default=False,
@@ -71,10 +70,10 @@ def main(options):
     parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'),
                         help='where the result will be written, by default stdout')
 
-    args = parser.parse_args(options)
+    args = parser.parse_args(options if options is not None else sys.argv[1:])
 
     workhorse(args)
 
 
 if __name__ == '__main__':  # pragma: no cover
-    main(sys.argv[1:])
+    main()

@@ -123,13 +123,13 @@ Reformat a ``SQL`` statement from the command line
 
 .. code-block:: shell
 
-   $ echo "select a,b,c from sometable" | python -m pg_query
+   $ echo "select a,b,c from sometable" | pgpp
    SELECT a
         , b
         , c
    FROM sometable
 
-   $ echo 'update "table" set value=123 where value is null' | python -m pg_query
+   $ echo 'update "table" set value=123 where value is null' | pgpp
    UPDATE "table"
    SET value = 123
    WHERE value IS NULL
@@ -137,7 +137,7 @@ Reformat a ``SQL`` statement from the command line
    $ echo "
    insert into t (id, description)
    values (1, 'this is short enough'),
-          (2, 'this is too long, and will be splitted')" | python -m pg_query -s 20
+          (2, 'this is too long, and will be splitted')" | pgpp -s 20
    INSERT INTO t (id, description)
    VALUES (1, 'this is short enough')
         , (2, 'this is too long, an'
@@ -149,7 +149,7 @@ Get a more compact representation
 .. code-block:: shell
 
    $ echo "select a,b,c from st where a='longvalue1' and b='longvalue2'" \
-          | python -m pg_query --compact 30
+          | pgpp --compact 30
    SELECT a, b, c
    FROM st
    WHERE (a = 'longvalue1')
@@ -158,7 +158,7 @@ Get a more compact representation
 .. code-block:: shell
 
    $ echo "select a,b,c from st where a='longvalue1' and b='longvalue2'" \
-          | python -m pg_query --compact 60
+          | pgpp --compact 60
    SELECT a, b, c
    FROM st
    WHERE (a = 'longvalue1') AND (b = 'longvalue2')
@@ -168,7 +168,7 @@ Obtain the *parse tree* of a ``SQL`` statement from the command line
 
 .. code-block:: shell
 
-   $ echo "select 1" | python -m pg_query --parse-tree
+   $ echo "select 1" | pgpp --parse-tree
    [
      {
        "RawStmt": {

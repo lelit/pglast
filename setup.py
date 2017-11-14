@@ -89,4 +89,8 @@ setup(
             'readme_renderer',
         ]
     },
+    entry_points="""\
+    [console_scripts]
+    pgpp = pg_query.__main__:main
+    """,
 )

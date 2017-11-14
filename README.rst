@@ -196,13 +196,13 @@ Examples of usage
 
 * Reformat a SQL statement\ [*]_ from the command line::
 
-   $ echo "select a,b,c from sometable" | python -m pg_query
+   $ echo "select a,b,c from sometable" | pgpp
    SELECT a
         , b
         , c
    FROM sometable
 
-   $ echo 'update "table" set value=123 where value is null' | python -m pg_query
+   $ echo 'update "table" set value=123 where value is null' | pgpp
    UPDATE "table"
    SET value = 123
    WHERE value IS NULL
@@ -210,7 +210,7 @@ Examples of usage
    $ echo "
    insert into t (id, description)
    values (1, 'this is short enough'),
-          (2, 'this is too long, and will be splitted')" | python -m pg_query -s 20
+          (2, 'this is too long, and will be splitted')" | pgpp -s 20
    INSERT INTO t (id, description)
    VALUES (1, 'this is short enough')
         , (2, 'this is too long, an'
