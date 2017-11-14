@@ -3,6 +3,14 @@
 Changes
 -------
 
+0.18 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix endless loop due to sloppy conversion of command line option
+
+- Install the command line tool as ``pgpp``
+
+
 0.17 (2017-11-12)
 ~~~~~~~~~~~~~~~~~
 
