@@ -61,7 +61,7 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: SQL",
-        #"Programming Language :: PL/SQL",
+        # "Programming Language :: PL/SQL",
         "Topic :: Database",
         "Topic :: Utilities",
         ],
@@ -69,8 +69,8 @@ setup(
 
     packages=find_packages('.'),
 
-    cmdclass = {'build_ext': BuildLibPgQueryFirst},
-    ext_modules = cythonize([
+    cmdclass={'build_ext': BuildLibPgQueryFirst},
+    ext_modules=cythonize([
         Extension('pg_query.parser', [extension_source],
                   libraries=['pg_query'],
                   include_dirs=[LIBPG_QUERY_DIR],
