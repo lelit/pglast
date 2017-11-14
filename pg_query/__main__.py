@@ -31,7 +31,7 @@ def workhorse(args):
             prettified = prettify(
                 statement,
                 compact_lists_margin=args.compact_lists_margin,
-                split_string_literals_threshold=args.split_string_literals_threshold)
+                split_string_literals_threshold=args.split_string_literals)
         except Error as e:
             print()
             raise SystemExit(e)
@@ -62,7 +62,7 @@ def main(options=None):
                         help='remove the location of each node from the parse tree')
     parser.add_argument('-m', '--compact-lists-margin', type=int, default=0,
                         help='use compact form for lists not exceeding the given margin')
-    parser.add_argument('-s', '--split-string-literals-threshold', type=int, default=0,
+    parser.add_argument('-s', '--split-string-literals', type=int, default=0,
                         help='split string literals longer than given value')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'

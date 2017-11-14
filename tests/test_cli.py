@@ -80,3 +80,18 @@ WHERE foo <> 0
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--parse-tree', '--no-location'])
             assert '"location":' not in output.getvalue()
+
+    with StringIO("Select 'abcdef'") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--split-string-literals', '0'])
+            assert output.getvalue() == "SELECT 'abcdef'\n"
+
+    with StringIO("Select 'abcdef'") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--split-string-literals', '3'])
+            assert output.getvalue() == """\
+SELECT 'abc'
+       'def'
+"""
