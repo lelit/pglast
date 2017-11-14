@@ -422,8 +422,8 @@ class IndentedStream(RawStream):
                     return
 
             standalone_items = not all(
-                isinstance(n, Node) and n.node_tag in ('A_Const', 'ColumnRef', 'SetToDefault',
-                                                       'RangeVar')
+                (isinstance(n, Node)
+                 and n.node_tag in ('A_Const', 'ColumnRef', 'SetToDefault', 'RangeVar'))
                 for n in nodes)
 
         if ((len(nodes) > 1
