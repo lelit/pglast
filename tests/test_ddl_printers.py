@@ -161,7 +161,7 @@ CREATE TABLE films (
 CREATE TABLE distributors (
     did     integer,
     name    varchar(40),
-    UNIQUE(name) WITH (fillfactor=70)
+    UNIQUE(name) WITH (fillfactor=70) USING INDEX TABLESPACE indexes
 )
 WITH (fillfactor=70)
 ;;
@@ -299,6 +299,42 @@ CREATE TABLE films (
   , len interval hour to second (3)
   , CONSTRAINT code_title PRIMARY KEY (code, title)
 )""",
+    ),
+    (
+        """\
+create temporary table a (id serial) on commit drop""",
+        """\
+CREATE TEMPORARY TABLE a (
+    id serial
+) ON COMMIT DROP"""
+    ),
+    (
+        """\
+CREATE TABLE distributors (
+    did     integer,
+    name    varchar(40),
+    UNIQUE(name) WITH (fillfactor=70) USING INDEX TABLESPACE indexes
+)
+WITH (fillfactor=70)""",
+        """\
+CREATE TABLE distributors (
+    did integer
+  , name varchar(40)
+  , UNIQUE (name) WITH (fillfactor=70)
+                  USING INDEX TABLESPACE indexes
+) WITH (fillfactor=70)""",
+    ),
+    (
+        """\
+CREATE TABLE measurement_y2016m07
+    PARTITION OF measurement (
+    unitsales DEFAULT 0
+) FOR VALUES FROM ('2016-07-01') TO ('2016-08-01') TABLESPACE olddata""",
+        """\
+CREATE TABLE measurement_y2016m07 PARTITION OF measurement (
+    unitsales WITH OPTIONS DEFAULT 0
+) FOR VALUES FROM ('2016-07-01') TO ('2016-08-01')
+  TABLESPACE olddata"""
     ),
 )
 

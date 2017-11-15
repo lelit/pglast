@@ -115,13 +115,20 @@ def constraint(node, output):
         output.write(' (')
         output.print_list(node.keys, ', ', are_names=True)
         output.write(')')
-    if node.options:
-        output.swrite('WITH (')
-        output.print_list(node.options)
-        output.write(')')
-    if node.indexspace:
-        output.swrite('USING INDEX TABLESPACE ')
-        output.print_node(node.indexspace, is_name=True)
+    with output.push_indent():
+        first = True
+        if node.options:
+            output.write(' WITH (')
+            output.print_list(node.options)
+            output.write(')')
+            first = False
+        if node.indexspace:
+            if first:
+                first = False
+            else:
+                output.newline()
+            output.write(' USING INDEX TABLESPACE ')
+            output.print_node(node.indexspace, is_name=True)
 
 
 @node_printer('CreateStmt')
@@ -149,31 +156,54 @@ def create_stmt(node, output):
             output.print_list(node.tableElts)
         output.newline()
         output.write(')')
-    if node.inhRelations and not node.partbound:
-        output.write(' INHERITS (')
-        output.print_list(node.inhRelations)
-        output.write(')')
-    if node.partbound:
-        output.swrite('FOR VALUES ')
-        output.print_node(node.partbound)
-    if node.partspec:
-        output.write(' PARTITION BY ')
-        output.print_node(node.partspec)
-    if node.options:
-        output.swrite(' WITH (')
-        output.print_list(node.options)
-        output.write(')')
-    if node.oncommit != enums.OnCommitAction.ONCOMMIT_NOOP:
-        output.swrite('ON COMMIT ')
-        if node.oncommit == enums.OnCommitAction.ONCOMMIT_PRESERVE_ROWS:
-            output.write('PRESERVE ROWS')
-        elif node.oncommit == enums.OnCommitAction.ONCOMMIT_DELETE_ROWS:
-            output.write('DELETE ROWS')
-        elif node.oncommit == enums.OnCommitAction.ONCOMMIT_DROP:
-            output.write('DROP')
-    if node.tablespacename:
-        output.swrite('TABLESPACE ')
-        output.print_node(node.tablespacename, is_name=True)
+    with output.push_indent():
+        first = True
+        if node.inhRelations and not node.partbound:
+            output.write(' INHERITS (')
+            output.print_list(node.inhRelations)
+            output.write(')')
+            first = False
+        if node.partbound:
+            if first:
+                first = False
+            else:
+                output.newline()
+            output.write(' FOR VALUES ')
+            output.print_node(node.partbound)
+        if node.partspec:
+            if first:
+                first = False
+            else:
+                output.newline()
+            output.write(' PARTITION BY ')
+            output.print_node(node.partspec)
+        if node.options:
+            if first:
+                first = False
+            else:
+                output.newline()
+            output.write(' WITH (')
+            output.print_list(node.options)
+            output.write(')')
+        if node.oncommit != enums.OnCommitAction.ONCOMMIT_NOOP:
+            if first:
+                first = False
+            else:
+                output.newline()
+            output.write(' ON COMMIT ')
+            if node.oncommit == enums.OnCommitAction.ONCOMMIT_PRESERVE_ROWS:
+                output.write('PRESERVE ROWS')
+            elif node.oncommit == enums.OnCommitAction.ONCOMMIT_DELETE_ROWS:
+                output.write('DELETE ROWS')
+            elif node.oncommit == enums.OnCommitAction.ONCOMMIT_DROP:
+                output.write('DROP')
+        if node.tablespacename:
+            if first:
+                first = False
+            else:
+                output.newline()
+            output.write(' TABLESPACE ')
+            output.print_node(node.tablespacename, is_name=True)
 
 
 @node_printer('DefElem')
