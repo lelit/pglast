@@ -205,20 +205,6 @@ class RawStream(OutputStream):
 
         yield
 
-    def _print_items(self, items, sep, newline, are_names=False):
-        first = True
-        for item in items:
-            if first:
-                first = False
-            else:
-                if not are_names:
-                    if newline:
-                        self.newline()
-                self.write(sep)
-                if not are_names:
-                    self.write(' ')
-            self.print_node(item, is_name=are_names)
-
     def _write_quoted_string(self, s):
         "Emit the `s` as a quoted literal constant."
 
@@ -265,6 +251,20 @@ class RawStream(OutputStream):
         if self.expression_level > 1:
             self.write(')')
         self.expression_level -= 1
+
+    def _print_items(self, items, sep, newline, are_names=False):
+        first = True
+        for item in items:
+            if first:
+                first = False
+            else:
+                if not are_names:
+                    if newline:
+                        self.newline()
+                self.write(sep)
+                if not are_names:
+                    self.write(' ')
+            self.print_node(item, is_name=are_names)
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
                    are_names=False):
