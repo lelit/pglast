@@ -12,15 +12,15 @@ from ..printer import node_printer
 
 @node_printer('ColumnDef')
 def column_def(node, output):
-    output.print(node.colname, is_name=True)
+    output.print_node(node.colname, is_name=True)
     output.write(' ')
     if node.typeName:
-        output.print(node.typeName, is_name=True)
+        output.print_node(node.typeName, is_name=True)
     else:
         if node.constraints:
             output.write('WITH OPTIONS ')
     if node.collClause:
-        output.print(node.collClause)
+        output.print_node(node.collClause)
     if node.is_not_null:
         # FIXME: find a way to get here
         output.swrite('NOT NULL')
@@ -32,7 +32,7 @@ def column_def(node, output):
 def constraint(node, output):
     if node.conname:
         output.swrite('CONSTRAINT ')
-        output.print(node.conname, is_name=True)
+        output.print_node(node.conname, is_name=True)
     ct = enums.ConstrType
     if node.contype == ct.CONSTR_NULL:
         output.swrite('NULL')
@@ -42,12 +42,12 @@ def constraint(node, output):
         # we may have the expression in either "raw" form [...]  or "cooked" form [...]
         # should never have both in the same node!
         # """
-        output.print(node.raw_expr or node.cooked_expr)
+        output.print_node(node.raw_expr or node.cooked_expr)
     elif node.contype == ct.CONSTR_NOTNULL:
         output.swrite('NOT NULL')
     elif node.contype == ct.CONSTR_CHECK:
         output.swrite('CHECK (')
-        output.print(node.raw_expr or node.cooked_expr)
+        output.print_node(node.raw_expr or node.cooked_expr)
         output.write(')')
         if node.is_no_inherit:
             output.swrite('NO INHERIT')
@@ -58,7 +58,7 @@ def constraint(node, output):
     elif node.contype == ct.CONSTR_EXCLUSION:
         output.swrite('EXCLUDE USING ')
         if node.access_method:
-            output.print(node.access_method)
+            output.print_node(node.access_method)
             output.write(' ')
         output.write('(')
         first = True
@@ -67,7 +67,7 @@ def constraint(node, output):
                 first = False
             else:
                 output.write(', ')
-            output.print(elem)
+            output.print_node(elem)
             output.swrite('WITH ')
             output.print_list(clauses)
         output.write(')')
@@ -78,7 +78,7 @@ def constraint(node, output):
             output.print_list(node.fk_attrs)
             output.write(')')
         output.swrite('REFERENCES ')
-        output.print(node.pktable)
+        output.print_node(node.pktable)
         output.write(' (')
         output.print_list(node.pk_attrs)
         output.write(')')
@@ -121,7 +121,7 @@ def constraint(node, output):
         output.write(')')
     if node.indexspace:
         output.swrite('USING INDEX TABLESPACE ')
-        output.print(node.indexspace, is_name=True)
+        output.print_node(node.indexspace, is_name=True)
 
 
 @node_printer('CreateStmt')
@@ -134,10 +134,10 @@ def create_stmt(node, output):
     output.writes('TABLE')
     if node.if_not_exists:
         output.writes('IF NOT EXISTS')
-    output.print(node.relation)
+    output.print_node(node.relation)
     if node.ofTypename:
         output.write(' OF ')
-        output.print(node.ofTypename, is_name=True)
+        output.print_node(node.ofTypename, is_name=True)
     if node.partbound:
         output.write(' PARTITION OF ')
         output.print_list(node.inhRelations)
@@ -155,10 +155,10 @@ def create_stmt(node, output):
         output.write(')')
     if node.partbound:
         output.swrite('FOR VALUES ')
-        output.print(node.partbound)
+        output.print_node(node.partbound)
     if node.partspec:
         output.write(' PARTITION BY ')
-        output.print(node.partspec)
+        output.print_node(node.partspec)
     if node.options:
         output.swrite(' WITH (')
         output.print_list(node.options)
@@ -173,14 +173,14 @@ def create_stmt(node, output):
             output.write('DROP')
     if node.tablespacename:
         output.swrite('TABLESPACE ')
-        output.print(node.tablespacename, is_name=True)
+        output.print_node(node.tablespacename, is_name=True)
 
 
 @node_printer('DefElem')
 def def_elem(node, output):
-    output.print(node.defname)
+    output.print_node(node.defname)
     output.write('=')
-    output.print(node.arg)
+    output.print_node(node.arg)
     if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:
         raise NotImplementedError
 
@@ -196,14 +196,14 @@ def index_stmt(node, output):
     if node.if_not_exists:
         output.write('IF NOT EXISTS ')
     if node.idxname:
-        output.print(node.idxname, is_name=True)
+        output.print_node(node.idxname, is_name=True)
     output.newline()
     with output.push_indent(2):
         output.write('ON ')
-        output.print(node.relation)
+        output.print_node(node.relation)
         if node.accessMethod != 'btree':
             output.write('USING ')
-            output.print(node.accessMethod, is_name=True)
+            output.print_node(node.accessMethod, is_name=True)
         output.write(' (')
         output.print_list(node.indexParams)
         output.write(')')
@@ -215,11 +215,11 @@ def index_stmt(node, output):
         if node.tableSpace:
             output.newline()
             output.write('TABLESPACE ')
-            output.print(node.tableSpace, is_name=True)
+            output.print_node(node.tableSpace, is_name=True)
         if node.whereClause:
             output.newline()
             output.write('WHERE ')
-            output.print(node.whereClause)
+            output.print_node(node.whereClause)
 
 
 @node_printer('PartitionBoundSpec')
@@ -239,9 +239,9 @@ def partition_bound_spec(node, output):
 @node_printer('PartitionElem')
 def partition_elem(node, output):
     if node.name:
-        output.print(node.name, is_name=True)
+        output.print_node(node.name, is_name=True)
     elif node.expr:
-        output.print(node.expr)
+        output.print_node(node.expr)
     if node.collation or node.opclass:
         raise NotImplementedError
 
@@ -253,12 +253,12 @@ def partition_range_datum(node, output):
     elif node.kind == enums.PartitionRangeDatumKind.PARTITION_RANGE_DATUM_MAXVALUE:
         output.write('MAXVALUE')
     else:
-        output.print(node.value)
+        output.print_node(node.value)
 
 
 @node_printer('PartitionSpec')
 def partition_spec(node, output):
-    output.print(node.strategy)
+    output.print_node(node.strategy)
     output.write(' (')
     output.print_list(node.partParams)
     output.write(')')

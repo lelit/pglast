@@ -20,7 +20,7 @@ def a_array_expr(node, output):
 
 @node_printer('A_Const')
 def a_const(node, output):
-    output.print(node.val)
+    output.print_node(node.val)
 
 
 @node_printer('A_Expr')
@@ -30,35 +30,35 @@ def a_expr(node, output):
     if node.kind == aek.AEXPR_OP:
         op = output.concat_nodes(node.name)
         with output.expression():
-            output.print(node.lexpr)
+            output.print_node(node.lexpr)
             output.write(' ' + op + ' ')
-            output.print(node.rexpr)
+            output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_OP_ANY:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         output.swrites(output.concat_nodes(node.name))
         output.write('ANY (')
-        output.print(node.rexpr)
+        output.print_node(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_OP_ALL:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         output.swrites(output.concat_nodes(node.name))
         output.write('ALL (')
-        output.print(node.rexpr)
+        output.print_node(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_DISTINCT:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         output.swrites('IS DISTINCT FROM')
-        output.print(node.rexpr)
+        output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_NOT_DISTINCT:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         output.swrites('IS NOT DISTINCT FROM')
-        output.print(node.rexpr)
+        output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_NULLIF:
         output.write('NULLIF(')
         output.print_list((node.lexpr, node.rexpr))
         output.write(')')
     elif node.kind == aek.AEXPR_OF:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         output.swrites('IS')
         if node.name[0].str.value == '<>':
             output.writes('NOT')
@@ -66,26 +66,26 @@ def a_expr(node, output):
         output.print_list(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_IN:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         if node.name[0].str.value == '<>':
             output.swrites('NOT')
         output.swrite('IN (')
         output.print_list(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_LIKE:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         if node.name[0].str.value == '!~~':
             output.swrites('NOT')
         output.swrites('LIKE')
-        output.print(node.rexpr)
+        output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_ILIKE:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         if node.name[0].str.value == '!~~*':
             output.swrites('NOT')
         output.swrites('ILIKE')
-        output.print(node.rexpr)
+        output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_SIMILAR:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         if node.name[0].str.value == '!~':
             output.swrites('NOT')
         output.swrites('SIMILAR TO')
@@ -93,24 +93,24 @@ def a_expr(node, output):
                 and node.rexpr.funcname[1].str == 'similar_escape')
         pattern = node.rexpr.args[0]
         escape = node.rexpr.args[1]
-        output.print(pattern)
+        output.print_node(pattern)
         if escape.val.node_tag != 'Null':
             output.swrites('ESCAPE')
-            output.print(escape)
+            output.print_node(escape)
     elif node.kind == aek.AEXPR_BETWEEN:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         output.swrites('BETWEEN')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
     elif node.kind == aek.AEXPR_NOT_BETWEEN:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         output.swrites('NOT BETWEEN')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
     elif node.kind == aek.AEXPR_BETWEEN_SYM:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         output.swrites('BETWEEN SYMMETRIC')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
     elif node.kind == aek.AEXPR_NOT_BETWEEN_SYM:
-        output.print(node.lexpr)
+        output.print_node(node.lexpr)
         output.swrites('NOT BETWEEN SYMMETRIC')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
     elif node.kind == aek.AEXPR_PAREN:  # pragma: no cover
@@ -126,18 +126,18 @@ def a_indices(node, output):
     output.write('[')
     if node.is_slice:
         if node.lidx:
-            output.print(node.lidx)
+            output.print_node(node.lidx)
         output.write(':')
         if node.uidx:
-            output.print(node.uidx)
+            output.print_node(node.uidx)
     else:
-        output.print(node.uidx)
+        output.print_node(node.uidx)
     output.write(']')
 
 
 @node_printer('A_Indirection')
 def a_indirection(node, output):
-    output.print(node.arg)
+    output.print_node(node.arg)
     output.print_list(node.indirection, '', standalone_items=False)
 
 
@@ -148,7 +148,7 @@ def a_star(node, output):
 
 @node_printer('Alias')
 def alias(node, output):
-    output.print(node.aliasname, is_name=True)
+    output.print_node(node.aliasname, is_name=True)
     if node.colnames:
         output.swrite('(')
         output.print_list(node.colnames, sep=', ', are_names=True)
@@ -170,7 +170,7 @@ def bool_expr(node, output):
                 output.print_list(node.args, 'OR', relative_indent=relindent)
         else:
             output.writes('NOT')
-            output.print(node.args[0])
+            output.print_node(node.args[0])
 
 
 @node_printer('CaseExpr')
@@ -178,7 +178,7 @@ def case_expr(node, output):
     with output.push_indent():
         output.writes('CASE')
         if node.arg:
-            output.print(node.arg)
+            output.print_node(node.arg)
         output.newline()
         output.write('  ')
         with output.push_indent():
@@ -186,7 +186,7 @@ def case_expr(node, output):
             if node.defresult:
                 output.newline()
                 output.writes('ELSE')
-                output.print(node.defresult)
+                output.print_node(node.defresult)
         output.newline()
         output.write('END')
 
@@ -195,10 +195,10 @@ def case_expr(node, output):
 def case_when(node, output):
     output.writes('WHEN')
     with output.push_indent(-3):
-        output.print(node.expr)
+        output.print_node(node.expr)
         output.newline()
         output.writes('THEN')
-        output.print(node.result)
+        output.print_node(node.result)
 
 
 @node_printer('CoalesceExpr')
@@ -211,7 +211,7 @@ def coalesce_expr(node, output):
 @node_printer('CollateClause')
 def collate_clause(node, output):
     if node.arg:
-        output.print(node.arg)
+        output.print_node(node.arg)
     output.swrite('COLLATE ')
     output.print_list(node.collname, are_names=True)
 
@@ -223,7 +223,7 @@ def column_ref(node, output):
 
 @node_printer('CommonTableExpr')
 def common_table_expr(node, output):
-    output.print(node.ctename, is_name=True)
+    output.print_node(node.ctename, is_name=True)
     if node.aliascolnames:
         output.write('(')
         if len(node.aliascolnames) > 1:
@@ -233,7 +233,7 @@ def common_table_expr(node, output):
         output.newline()
 
     output.swrite('AS (')
-    output.print(node.ctequery)
+    output.print_node(node.ctequery)
     output.write(')')
     output.newline()
 
@@ -243,13 +243,13 @@ def delete_stmt(node, output):
     with output.push_indent():
         if node.withClause:
             output.write('WITH ')
-            output.print(node.withClause)
+            output.print_node(node.withClause)
             output.newline()
             output.write('  ')
             output.indent()
 
         output.write('DELETE FROM ')
-        output.print(node.relation)
+        output.print_node(node.relation)
         if node.usingClause:
             output.newline()
             output.write('USING ')
@@ -257,7 +257,7 @@ def delete_stmt(node, output):
         if node.whereClause:
             output.newline()
             output.write('WHERE ')
-            output.print(node.whereClause)
+            output.print_node(node.whereClause)
         if node.returningList:
             output.newline()
             output.write('RETURNING ')
@@ -269,7 +269,7 @@ def delete_stmt(node, output):
 
 @node_printer('Float')
 def float(node, output):
-    output.print(node.str)
+    output.print_node(node.str)
 
 
 @node_printer('FuncCall')
@@ -293,20 +293,20 @@ def func_call(node, output):
     output.write(')')
     if node.agg_filter:
         output.swrites('FILTER (WHERE')
-        output.print(node.agg_filter)
+        output.print_node(node.agg_filter)
         output.write(')')
     if node.over:
         output.swrite('OVER ')
-        output.print(node.over)
+        output.print_node(node.over)
 
 
 @node_printer('IndexElem')
 def index_elem(node, output):
     if node.name is not Missing:
-        output.print(node.name, is_name=True)
+        output.print_node(node.name, is_name=True)
     else:
         output.write('(')
-        output.print(node.expr)
+        output.print_node(node.expr)
         output.write(')')
     if node.collation:
         output.swrite('COLLATE ')
@@ -333,19 +333,19 @@ def index_elem(node, output):
 def infer_clause(node, output):
     if node.conname:
         output.swrite('ON CONSTRAINT ')
-        output.print(node.conname, is_name=True)
+        output.print_node(node.conname, is_name=True)
     if node.indexElems:
         output.swrite('(')
         output.print_list(node.indexElems)
         output.write(')')
     if node.whereClause:
         output.swrite('WHERE ')
-        output.print(node.whereClause)
+        output.print_node(node.whereClause)
 
 
 @node_printer('Integer')
 def integer(node, output):
-    output.print(node.ival)
+    output.print_node(node.ival)
 
 
 @node_printer('InsertStmt')
@@ -353,13 +353,13 @@ def insert_stmt(node, output):
     with output.push_indent():
         if node.withClause:
             output.write('WITH ')
-            output.print(node.withClause)
+            output.print_node(node.withClause)
             output.newline()
             output.write('  ')
             output.indent()
 
         output.write('INSERT INTO ')
-        output.print(node.relation)
+        output.print_node(node.relation)
         if node.cols:
             output.write(' (')
             output.print_list(node.cols, ', ', are_names=True)
@@ -368,13 +368,13 @@ def insert_stmt(node, output):
             output.write(' ')
         if node.selectStmt:
             output.newline()
-            output.print(node.selectStmt)
+            output.print_node(node.selectStmt)
         else:
             output.write('DEFAULT VALUES')
         if node.onConflictClause:
             output.newline()
             output.write('ON CONFLICT ')
-            output.print(node.onConflictClause)
+            output.print_node(node.onConflictClause)
         if node.returningList:
             output.newline()
             output.write('RETURNING ')
@@ -389,7 +389,7 @@ def join_expr(node, output):
     if node.alias:
         output.write('(')
 
-    output.print(node.larg)
+    output.print_node(node.larg)
     output.newline()
 
     with output.push_indent():
@@ -410,10 +410,10 @@ def join_expr(node, output):
 
         if node.rarg.node_tag == 'JoinExpr':
             output.indent(3, relative=False)
-            output.print(node.rarg)
+            output.print_node(node.rarg)
             output.newline()
         else:
-            output.print(node.rarg)
+            output.print_node(node.rarg)
 
         if node.usingClause:
             output.swrite('USING (')
@@ -421,11 +421,11 @@ def join_expr(node, output):
             output.write(')')
         elif node.quals:
             output.swrite('ON ')
-            output.print(node.quals)
+            output.print_node(node.quals)
 
         if node.alias:
             output.writes(') AS')
-            output.print(node.alias)
+            output.print_node(node.alias)
 
         if node.rarg.node_tag == 'JoinExpr':
             output.dedent()
@@ -464,12 +464,12 @@ def min_max_expr(node, output):
 
 @node_printer('MultiAssignRef')
 def multi_assign_ref(node, output):
-    output.print(node.source)
+    output.print_node(node.source)
 
 
 @node_printer('NullTest')
 def null_test(node, output):
-    output.print(node.arg)
+    output.print_node(node.arg)
     output.write(' IS')
     if node.nulltesttype == enums.NullTestType.IS_NOT_NULL:
         output.write(' NOT')
@@ -485,7 +485,7 @@ def param_ref(node, output):
 def on_conflict_clause(node, output):
     oca = enums.OnConflictAction
     if node.infer:
-        output.print(node.infer)
+        output.print_node(node.infer)
     if node.action == oca.ONCONFLICT_NOTHING:
         output.write('DO NOTHING')
     elif node.action == oca.ONCONFLICT_UPDATE:
@@ -498,7 +498,7 @@ def on_conflict_clause(node, output):
             if node.whereClause:
                 output.newline()
                 output.write('   WHERE ')
-                output.print(node.whereClause)
+                output.print_node(node.whereClause)
 
 
 @node_printer('RangeFunction')
@@ -513,7 +513,7 @@ def range_function(node, output):
             first = False
         else:
             output.write(', ')
-        output.print(fun)
+        output.print_node(fun)
         if cdefs:
             # FIXME: find a way to get here
             output.write(' AS ')
@@ -524,7 +524,7 @@ def range_function(node, output):
         output.write(' WITH ORDINALITY')
     if node.alias:
         output.write(' AS ')
-        output.print(node.alias)
+        output.print_node(node.alias)
 
 
 @node_printer('RangeSubselect')
@@ -534,11 +534,11 @@ def range_subselect(node, output):
     output.maybe_write_space()
     output.write('(')
     with output.push_indent():
-        output.print(node.subquery)
+        output.print_node(node.subquery)
     output.write(')')
     if node.alias:
         output.write(' AS ')
-        output.print(node.alias, is_name=True)
+        output.print_node(node.alias, is_name=True)
 
 
 @node_printer('RangeVar')
@@ -546,18 +546,18 @@ def range_var(node, output):
     if not node.inh or not node.inh.value:
         output.write('ONLY ')
     if node.schemaname:
-        output.print(node.schemaname, is_name=True)
+        output.print_node(node.schemaname, is_name=True)
         output.write('.')
-    output.print(node.relname, is_name=True)
+    output.print_node(node.relname, is_name=True)
     alias = node.alias
     if alias:
         output.write(' AS ')
-        output.print(alias, is_name=True)
+        output.print_node(alias, is_name=True)
 
 
 @node_printer('RawStmt')
 def raw_stmt(node, output):
-    output.print(node.stmt)
+    output.print_node(node.stmt)
 
 
 @node_printer('ResTarget')
@@ -567,26 +567,26 @@ def res_target(node, output):
             if node.val.colno == 1:
                 output.write('(  ')
                 output.indent(-2)
-            output.print(node.name, is_name=True)
+            output.print_node(node.name, is_name=True)
             if node.val.colno.value == node.val.ncolumns.value:
                 output.dedent()
                 output.write(') = ')
-                output.print(node.val)
+                output.print_node(node.val)
         else:
             if node.name:
-                output.print(node.name, is_name=True)
+                output.print_node(node.name, is_name=True)
                 if node.indirection:
                     output.print_list(node.indirection, '', standalone_items=False)
                 output.write(' = ')
-            output.print(node.val)
+            output.print_node(node.val)
     else:
         if node.val:
-            output.print(node.val)
+            output.print_node(node.val)
             if node.name:
                 output.write(' AS ')
-                output.print(node.name, is_name=True)
+                output.print_node(node.name, is_name=True)
         else:
-            output.print(node.name, is_name=True)
+            output.print_node(node.name, is_name=True)
         if node.indirection:
             output.print_list(node.indirection, '', standalone_items=False)
 
@@ -603,7 +603,7 @@ def select_stmt(node, output):
     with output.push_indent():
         if node.withClause:
             output.write('WITH ')
-            output.print(node.withClause)
+            output.print_node(node.withClause)
             output.newline()
             output.write('  ')
             output.indent()
@@ -619,7 +619,7 @@ def select_stmt(node, output):
                 output.write(')')
         elif node.targetList is Missing:
             with output.push_indent():
-                output.print(node.larg)
+                output.print_node(node.larg)
                 output.newline()
                 output.newline()
                 so = enums.SetOperation
@@ -633,7 +633,7 @@ def select_stmt(node, output):
                     output.write(' ALL')
                 output.newline()
                 output.newline()
-                output.print(node.rarg)
+                output.print_node(node.rarg)
         else:
             output.write('SELECT')
             if node.distinctClause:
@@ -651,7 +651,7 @@ def select_stmt(node, output):
             if node.whereClause:
                 output.newline()
                 output.write('WHERE ')
-                output.print(node.whereClause)
+                output.print_node(node.whereClause)
             if node.groupClause:
                 output.newline()
                 output.write('GROUP BY ')
@@ -659,7 +659,7 @@ def select_stmt(node, output):
             if node.havingClause:
                 output.newline()
                 output.write('HAVING ')
-                output.print(node.havingClause)
+                output.print_node(node.havingClause)
             if node.windowClause:
                 output.newline()
                 output.write('WINDOW ')
@@ -671,11 +671,11 @@ def select_stmt(node, output):
             if node.limitCount:
                 output.newline()
                 output.write('LIMIT ')
-                output.print(node.limitCount)
+                output.print_node(node.limitCount)
             if node.limitOffset:
                 output.newline()
                 output.write('OFFSET ')
-                output.print(node.limitOffset)
+                output.print_node(node.limitOffset)
             if node.lockingClause:
                 output.newline()
                 output.write('FOR ')
@@ -692,7 +692,7 @@ def set_to_default(node, output):
 
 @node_printer('SortBy')
 def sort_by(node, output):
-    output.print(node.node)
+    output.print_node(node.node)
     sbd = enums.SortByDir
     if node.sortby_dir == sbd.SORTBY_ASC:
         output.swrite('ASC')
@@ -748,7 +748,7 @@ def sql_value_function(node, output):
 
 @node_printer('String')
 def string(node, output, is_name=None):
-    output.print(node.str, is_name=is_name)
+    output.print_node(node.str, is_name=is_name)
 
 
 @node_printer('SubLink')
@@ -758,12 +758,12 @@ def sub_link(node, output):
     if node.subLinkType == slt.EXISTS_SUBLINK:
         output.write('EXISTS ')
     elif node.subLinkType == slt.ALL_SUBLINK:
-        output.print(node.testexpr)
+        output.print_node(node.testexpr)
         output.write(' ')
         output.print_list(node.operName, ' ', standalone_items=False)
         output.swrite('ALL ')
     elif node.subLinkType == slt.ANY_SUBLINK:
-        output.print(node.testexpr)
+        output.print_node(node.testexpr)
         output.swrite('IN ')
     elif node.subLinkType == slt.ROWCOMPARE_SUBLINK:  # pragma: no cover
         # FIXME: figure out how the get here
@@ -780,15 +780,15 @@ def sub_link(node, output):
 
     output.write('(')
     with output.push_indent():
-        output.print(node.subselect)
+        output.print_node(node.subselect)
     output.write(')')
 
 
 @node_printer('TypeCast')
 def type_cast(node, output):
-    output.print(node.arg)
+    output.print_node(node.arg)
     output.write('::')
-    output.print(node.typeName)
+    output.print_node(node.typeName)
 
 
 # Constants taken from PG's include/utils/datetime.h: seem safe to assume they won't change
@@ -858,7 +858,7 @@ def type_name(node, output):
                 output.swrite(interval_ranges[typmod])
                 if len(node.typmods) == 2:
                     output.write(' (')
-                    output.print(node.typmods[1])
+                    output.print_node(node.typmods[1])
                     output.write(')')
             else:
                 output.write('(')
@@ -868,7 +868,7 @@ def type_name(node, output):
             for ab in node.arrayBounds:
                 output.write('[')
                 if ab.ival.value >= 0:
-                    output.print(ab)
+                    output.print_node(ab)
                 output.write(']')
 
 
@@ -877,13 +877,13 @@ def update_stmt(node, output):
     with output.push_indent():
         if node.withClause:
             output.write('WITH ')
-            output.print(node.withClause)
+            output.print_node(node.withClause)
             output.newline()
             output.write('  ')
             output.indent()
 
         output.write('UPDATE ')
-        output.print(node.relation)
+        output.print_node(node.relation)
         output.newline()
         output.write('SET ')
         output.print_list(node.targetList)
@@ -894,7 +894,7 @@ def update_stmt(node, output):
         if node.whereClause:
             output.newline()
             output.write('WHERE ')
-            output.print(node.whereClause)
+            output.print_node(node.whereClause)
         if node.returningList:
             output.newline()
             output.write('RETURNING ')
@@ -908,12 +908,12 @@ def update_stmt(node, output):
 def window_def(node, output):
     empty = node.partitionClause is Missing and node.orderClause is Missing
     if node.name:
-        output.print(node.name, is_name=True)
+        output.print_node(node.name, is_name=True)
         if not empty:
             output.write(' AS ')
     if node.refname:
         output.write('(')
-        output.print(node.refname, is_name=True)
+        output.print_node(node.refname, is_name=True)
         output.write(')')
         if not empty:
             # FIXME: find a way to get here
@@ -948,10 +948,10 @@ def window_def(node, output):
                 elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
                     output.writes('CURRENT ROW')
                 elif fo & enums.FRAMEOPTION_START_VALUE_PRECEDING:
-                    output.print(node.startOffset)
+                    output.print_node(node.startOffset)
                     output.swrites('PRECEDING')
                 elif fo & enums.FRAMEOPTION_START_VALUE_FOLLOWING:
-                    output.print(node.startOffset)
+                    output.print_node(node.startOffset)
                     output.swrites('FOLLOWING')
                 if fo & enums.FRAMEOPTION_BETWEEN:
                     output.writes('AND')
@@ -964,10 +964,10 @@ def window_def(node, output):
                 elif fo & enums.FRAMEOPTION_END_CURRENT_ROW:
                     output.writes('CURRENT ROW')
                 elif fo & enums.FRAMEOPTION_END_VALUE_PRECEDING:
-                    output.print(node.endOffset)
+                    output.print_node(node.endOffset)
                     output.swrites('PRECEDING')
                 elif fo & enums.FRAMEOPTION_END_VALUE_FOLLOWING:
-                    output.print(node.endOffset)
+                    output.print_node(node.endOffset)
                     output.swrites('FOLLOWING')
         output.write(')')
 

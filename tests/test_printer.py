@@ -72,7 +72,7 @@ def test_raw_stream_basics():
         @printer.node_printer('TestRoot')
         def test_root(node, output):
             output.write('bar = ')
-            output.print(node.bar)
+            output.print_node(node.bar)
 
         @printer.node_printer('TestChild')
         def test_child(node, output):
@@ -85,13 +85,13 @@ def test_raw_stream_basics():
         def test_niece(node, output):
             output.write('{')
             output.write('x')
-            output.print(node.x)
+            output.print_node(node.x)
             output.separator()
             output.write(',')
             output.separator()
             if node.y:
                 output.write('y')
-                output.print(node.y)
+                output.print_node(node.y)
             else:
                 if output.test_child_z_is_expression:
                     with output.push_indent(2, relative=False):
@@ -157,7 +157,7 @@ def test_indented_stream_basics():
         @printer.node_printer('TestRoot')
         def test_root(node, output):
             output.write('bar = ')
-            output.print(node.bar)
+            output.print_node(node.bar)
 
         @printer.node_printer('TestChild')
         def test_child(node, output):
@@ -170,11 +170,11 @@ def test_indented_stream_basics():
         def test_niece(node, output):
             output.write('{')
             output.write('x')
-            output.print(node.x)
+            output.print_node(node.x)
             output.swrites(',')
             if node.y:
                 output.write('y')
-                output.print(node.y)
+                output.print_node(node.y)
             else:
                 if output.test_child_z_is_expression:
                     with output.push_indent(2, relative=False):

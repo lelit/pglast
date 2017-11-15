@@ -148,7 +148,7 @@ class RawStream(OutputStream):
         self.current_column = 0
 
     def __call__(self, sql, plpgsql=False):
-        """Main entry point: execute :meth:`print` on each statement in `sql`.
+        """Main entry point: execute :meth:`print_node` on each statement in `sql`.
 
         :param sql: either the source SQL in textual form, or a :class:`~.node.Node` instance
         :param bool plpgsql: whether `sql` is really a ``plpgsql`` statement
@@ -167,7 +167,7 @@ class RawStream(OutputStream):
                 self.newline()
                 if self.separate_statements:
                     self.newline()
-            self.print(statement)
+            self.print_node(statement)
         return self.getvalue()
 
     def concat_nodes(self, nodes, sep=' ', are_names=False):
@@ -217,7 +217,7 @@ class RawStream(OutputStream):
                 self.write(sep)
                 if not are_names:
                     self.write(' ')
-            self.print(item, is_name=are_names)
+            self.print_node(item, is_name=are_names)
 
     def _write_quoted_string(self, s):
         "Emit the `s` as a quoted literal constant."
@@ -243,7 +243,7 @@ class RawStream(OutputStream):
         else:
             self.write(str(value))
 
-    def print(self, node, is_name=False):
+    def print_node(self, node, is_name=False):
         """Lookup the specific printer for the given `node` and execute it."""
 
         if isinstance(node, Scalar):
@@ -268,7 +268,7 @@ class RawStream(OutputStream):
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
                    are_names=False):
-        """Execute :meth:`print` on all the `items`, separating them with `sep`.
+        """Execute :meth:`print_node` on all the `items`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.node.Node` instances
         :param str sep: the separator between them
@@ -394,7 +394,7 @@ class IndentedStream(RawStream):
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
                    are_names=False):
-        """Execute :meth:`print` on all the `items`, separating them with `sep`.
+        """Execute :meth:`print_node` on all the `items`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.node.Node` instances
         :param str sep: the separator between them
