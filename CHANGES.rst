@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.19 (unreleased)
+0.19 (2017-11-16)
 ~~~~~~~~~~~~~~~~~
 
 - Fix serialization of column labels containing double quotes
