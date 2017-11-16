@@ -131,6 +131,18 @@ def constraint(node, output):
             output.print_node(node.indexspace, is_name=True)
 
 
+@node_printer('CreateDomainStmt')
+def create_domain_stmt(node, output):
+    output.write('CREATE DOMAIN ')
+    output.print_list(node.domainname, '.', are_names=True)
+    output.write(' AS ')
+    output.print_node(node.typeName)
+    if node.collClause:
+        output.print_node(node.collClause)
+    if node.constraints:
+        output.print_list(node.constraints, '', standalone_items=False)
+
+
 @node_printer('CreateStmt')
 def create_stmt(node, output):
     output.writes('CREATE')
