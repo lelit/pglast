@@ -72,6 +72,8 @@ create table a (name text not null check (position('@' in name) = 0))
 ;;
 create table a (value integer not null check (value < 10) no inherit)
 ;;
+create table "Someschema"."Sometable" (a integer primary key)
+;;
 create table a (
   id serial primary key,
   v integer references b(id) on delete cascade on update cascade
