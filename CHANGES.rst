@@ -3,6 +3,14 @@
 Changes
 -------
 
+0.19 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix serialization of column labels containing double quotes
+
+- Fix corner issues surfaced implementing some more DDL statement printers
+
+
 0.18 (2017-11-14)
 ~~~~~~~~~~~~~~~~~
 
