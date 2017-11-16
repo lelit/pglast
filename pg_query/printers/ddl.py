@@ -206,6 +206,16 @@ def create_stmt(node, output):
             output.print_node(node.tablespacename, is_name=True)
 
 
+@node_printer('CreatedbStmt')
+def createdb_stmt(node, output):
+    output.write('CREATE DATABASE ')
+    output.print_node(node.dbname, is_name=True)
+    if node.options:
+        output.newline()
+        output.write('  WITH ')
+        output.print_list(node.options, '')
+
+
 @node_printer('DefElem')
 def def_elem(node, output):
     output.print_node(node.defname)

@@ -256,6 +256,22 @@ def test_create_tables(sql):
 
 
 EXAMPLES = (
+    ## CREATE DATABASE
+    (
+        """\
+CREATE DATABASE "NewDB"
+    WITH ENCODING = 'UTF8'
+         TEMPLATE = 'template0'
+         LC_COLLATE = 'it_IT.UTF-8'
+         LC_CTYPE = 'it_IT.UTF-8'""",
+        """\
+CREATE DATABASE "NewDB"
+  WITH encoding = 'UTF8'
+       template = 'template0'
+       lc_collate = 'it_IT.UTF-8'
+       lc_ctype = 'it_IT.UTF-8'"""
+    ),
+
     ## CREATE INDEX
     (
         """\
