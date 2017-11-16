@@ -222,10 +222,7 @@ class RawStream(OutputStream):
                 value = '"%s"' % value.replace('"', '""')
             self.write(value)
         elif node.parent_node.node_tag == 'String':
-            if node.parent_node.parent_node.node_tag == 'A_Const':
-                self._write_quoted_string(value)
-            else:
-                self.write(value)
+            self._write_quoted_string(value)
         else:
             self.write(str(value))
 
