@@ -206,7 +206,7 @@ class RawStream(OutputStream):
         yield
 
     def _write_quoted_string(self, s):
-        "Emit the `s` as a quoted literal constant."
+        "Emit the `s` as a single-quoted literal constant."
 
         self.write("'%s'" % s.replace("'", "''"))
 
@@ -219,7 +219,7 @@ class RawStream(OutputStream):
             # characters is not a lower case letter, a digit or underscore, it must be
             # double quoted
             if not match(r'[a-z_][a-z0-9_]*$', value) or value in RESERVED_KEYWORDS:
-                value = '"%s"' % value
+                value = '"%s"' % value.replace('"', '""')
             self.write(value)
         elif node.parent_node.node_tag == 'String':
             if node.parent_node.parent_node.node_tag == 'A_Const':

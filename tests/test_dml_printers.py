@@ -43,7 +43,7 @@ def roundtrip(sql):
     print(indented)
 
 
-SELECTS = """
+SELECTS = '''
 SELECT m.name FROM manufacturers m
 WHERE (m.deliver_date = CURRENT_DATE
        OR m.deliver_time = CURRENT_TIME
@@ -60,6 +60,8 @@ SELECT pc.id, pc.values[1] FROM ONLY ns.table
 SELECT 'accbf276-705b-11e7-b8e4-0242ac120002'::UUID as "X"
 ;;
 SELECT 'foo' as "Naïve"
+;;
+SELECT 'foo' as """DoubleQuoted"""
 ;;
 SELECT CAST('accbf276-705b-11e7-b8e4-0242ac120002' AS uuid) as "X"
 ;;
@@ -409,7 +411,7 @@ SELECT a < ('foo' COLLATE "fr_FR") FROM test1
 SELECT a < b COLLATE "de_DE" FROM test1
 ;;
 SELECT * FROM test1 ORDER BY a || b COLLATE "fr_FR"
-"""
+'''
 
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in SELECTS.split('\n;;\n')))
