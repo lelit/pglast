@@ -209,7 +209,7 @@ def create_stmt(node, output):
 @node_printer('DefElem')
 def def_elem(node, output):
     output.print_node(node.defname)
-    output.write('=')
+    output.write(' = ')
     output.print_node(node.arg)
     if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:
         raise NotImplementedError

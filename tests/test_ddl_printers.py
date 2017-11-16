@@ -264,8 +264,8 @@ with (fastupdate = ON, gin_pending_list_limit = 100)""",
         """\
 CREATE INDEX CONCURRENTLY aidx
   ON atbl USING gin (value)
-  WITH (fastupdate=on
-      , gin_pending_list_limit=100)"""
+  WITH (fastupdate = 'on'
+      , gin_pending_list_limit = 100)"""
     ),
 
     ## CREATE TABLE
@@ -320,9 +320,9 @@ WITH (fillfactor=70)""",
 CREATE TABLE distributors (
     did integer
   , name varchar(40)
-  , UNIQUE (name) WITH (fillfactor=70)
+  , UNIQUE (name) WITH (fillfactor = 70)
                   USING INDEX TABLESPACE indexes
-) WITH (fillfactor=70)""",
+) WITH (fillfactor = 70)""",
     ),
     (
         """\
