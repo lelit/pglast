@@ -143,6 +143,23 @@ def create_domain_stmt(node, output):
         output.print_list(node.constraints, '', standalone_items=False)
 
 
+@node_printer('CreateSchemaStmt')
+def create_schema_stmt(node, output):
+    output.write('CREATE SCHEMA ')
+    if node.if_not_exists:
+        output.write('IF NOT EXISTS ')
+    if node.schemaname:
+        output.print_node(node.schemaname, is_name=True)
+    if node.authrole:
+        output.swrite('AUTHORIZATION ')
+        output.print_node(node.authrole)
+    if node.schemaElts:
+        output.newline()
+        output.write('  ')
+        with output.push_indent():
+            output.print_list(node.schemaElts, '', standalone_items=True)
+
+
 @node_printer('CreateStmt')
 def create_stmt(node, output):
     output.writes('CREATE')
@@ -314,3 +331,15 @@ def partition_spec(node, output):
     output.write(' (')
     output.print_list(node.partParams)
     output.write(')')
+
+
+@node_printer('RoleSpec')
+def role_spec(node, output):
+    if node.roletype == enums.RoleSpecType.ROLESPEC_CURRENT_USER:
+        output.write('CURRENT_USER')
+    elif node.roletype == enums.RoleSpecType.ROLESPEC_SESSION_USER:
+        output.write('SESSION_USER')
+    elif node.roletype == enums.RoleSpecType.ROLESPEC_PUBLIC:
+        output.write('PUBLIC')
+    else:
+        output.print_node(node.rolename, is_name=True)

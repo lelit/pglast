@@ -45,6 +45,22 @@ def test_create_indexes(sql):
     roundtrip(sql)
 
 
+CREATE_SCHEMAS = """\
+create schema myschema
+;;
+create schema authorization joe
+;;
+create schema if not exists test authorization joe
+;;
+create schema test authorization public
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_SCHEMAS.split('\n;;\n')))
+def test_create_schemas(sql):
+    roundtrip(sql)
+
+
 CREATE_TABLES = """\
 create table a (id serial primary key, value integer)
 ;;
@@ -310,6 +326,23 @@ CREATE INDEX CONCURRENTLY aidx
   ON atbl USING gin (value)
   WITH (fastupdate = 'on'
       , gin_pending_list_limit = 100)"""
+    ),
+
+    ## CREATE SCHEMA
+    (
+        """\
+CREATE SCHEMA hollywood
+       CREATE TABLE films (title text, release date, awards text[])
+       CREATE INDEX by_release ON films (release)""",
+        """\
+CREATE SCHEMA hollywood
+  CREATE TABLE films (
+      title text
+    , release date
+    , awards text[]
+  )
+  CREATE INDEX by_release
+    ON films (release)"""
     ),
 
     ## CREATE TABLE
