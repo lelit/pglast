@@ -259,7 +259,7 @@ class RawStream(OutputStream):
                     if newline:
                         self.newline()
                 self.write(sep)
-                if not are_names:
+                if not are_names and sep:
                     self.write(' ')
             self.print_node(item, is_name=are_names)
 
@@ -279,7 +279,7 @@ class RawStream(OutputStream):
         """
 
         if relative_indent is None:
-            relative_indent = -(len(sep) + 1)
+            relative_indent = -(len(sep) + 1) if sep else 0
 
         if standalone_items is None:
             standalone_items = not all(isinstance(n, Node)
