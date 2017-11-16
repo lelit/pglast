@@ -142,8 +142,8 @@ SELECT salary, sum(salary) OVER () FROM empsalary
 ;;
 SELECT salary, sum(salary) OVER (ORDER BY salary) FROM empsalary
 ;;
-SELECT depname, empno, salary, enroll_date,
-      rank() OVER (PARTITION BY depname ORDER BY salary DESC, empno) AS pos
+SELECT "Depname", "Empno", "Salary", enroll_date,
+      rank() OVER (PARTITION BY "Depname" ORDER BY "Salary" DESC, "Empno") AS pos
 FROM empsalary
 ;;
 SELECT sum(salary) OVER "X", avg(salary) OVER y
@@ -192,9 +192,9 @@ SELECT CustomerID,
                           ROWS BETWEEN 1 FOLLOWING AND UNBOUNDED FOLLOWING)
 FROM SalesOrderHeader
 ;;
-SELECT CustomerID,
-       SUM(TotalDue) OVER(PARTITION BY CustomerID
-                          ORDER BY OrderDate
+SELECT "CustomerID",
+       SUM(TotalDue) OVER(PARTITION BY "CustomerID"
+                          ORDER BY "OrderDate"
                           RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
 FROM SalesOrderHeader
 ;;
@@ -204,10 +204,10 @@ from sometable a join othertable b on b.id = a.id
 select a.id, b.value
 from sometable a natural join othertable b
 ;;
-select a.id, b.value
-from sometable a join othertable b using (id)
+select a."Id", b.value
+from sometable a join othertable b using ("Id")
 ;;
-select a.* from a left join (select distinct id from b) as b on a.id = b.id
+select a.* from a left join (select distinct id from b) as b on a."Id" = b."Id"
 ;;
 select name from sometable limit 2 offset 3
 ;;

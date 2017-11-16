@@ -420,7 +420,7 @@ def join_expr(node, output):
 
         if node.usingClause:
             output.swrite('USING (')
-            output.print_list(node.usingClause)
+            output.print_list(node.usingClause, are_names=True)
             output.write(')')
         elif node.quals:
             output.swrite('ON ')
@@ -428,7 +428,7 @@ def join_expr(node, output):
 
         if node.alias:
             output.writes(') AS')
-            output.print_node(node.alias)
+            output.print_node(node.alias, is_name=True)
 
         if node.rarg.node_tag == 'JoinExpr':
             output.dedent()

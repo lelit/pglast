@@ -75,12 +75,12 @@ def constraint(node, output):
         if node.fk_attrs:
             output.swrite('FOREIGN KEY ')
             output.write(' (')
-            output.print_list(node.fk_attrs)
+            output.print_list(node.fk_attrs, are_names=True)
             output.write(')')
         output.swrite('REFERENCES ')
-        output.print_node(node.pktable)
+        output.print_node(node.pktable, is_name=True)
         output.write(' (')
-        output.print_list(node.pk_attrs)
+        output.print_list(node.pk_attrs, are_names=True)
         output.write(')')
         if node.fk_matchtype != enums.FKCONSTR_MATCH_SIMPLE:
             output.write(' MATCH ')
