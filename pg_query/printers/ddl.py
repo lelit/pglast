@@ -7,6 +7,7 @@
 #
 
 from .. import enums
+from ..node import Missing
 from ..printer import node_printer
 
 
@@ -160,6 +161,25 @@ def create_schema_stmt(node, output):
             output.print_list(node.schemaElts, '', standalone_items=True)
 
 
+@node_printer('CreateSeqStmt')
+def create_seq_stmt(node, output):
+    output.write('CREATE ')
+    if node.sequence.relpersistence == enums.RELPERSISTENCE_TEMP:
+        output.writes('TEMPORARY')
+    output.writes('SEQUENCE')
+    if node.if_not_exists:
+        output.writes('IF NOT EXISTS')
+    if node.sequence.schemaname is not Missing:
+        output.print_node(node.sequence.schemaname, is_name=True)
+        output.write('.')
+    output.print_node(node.sequence.relname, is_name=True)
+    if node.options:
+        output.newline()
+        output.write('  ')
+        with output.push_indent():
+            output.print_list(node.options, '')
+
+
 @node_printer('CreateStmt')
 def create_stmt(node, output):
     output.writes('CREATE')
@@ -247,9 +267,32 @@ def createdb_stmt(node, output):
 
 @node_printer('DefElem')
 def def_elem(node, output):
-    output.print_node(node.defname)
-    output.write(' = ')
-    output.print_node(node.arg)
+    if node.parent_node.node_tag == 'CreateSeqStmt':
+        option = node.defname.value
+        if option == 'cycle':
+            if node.arg.ival.value == 0:
+                output.write('NO ')
+            output.write('CYCLE')
+        elif option == 'increment':
+            output.write('INCREMENT BY ')
+            output.print_node(node.arg)
+        elif option == 'owned_by':
+            output.write('OWNED BY ')
+            output.print_list(node.arg, '.', are_names=True)
+        elif option == 'start':
+            output.write('START WITH ')
+            output.print_node(node.arg)
+        else:
+            if node.arg is Missing:
+                output.write('NO ')
+            output.write(option.upper())
+            if node.arg is not Missing:
+                output.write(' ')
+                output.print_node(node.arg)
+    else:
+        output.print_node(node.defname)
+        output.write(' = ')
+        output.print_node(node.arg)
     if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:
         raise NotImplementedError
 

@@ -47,6 +47,26 @@ def test_create_indexes(sql):
     roundtrip(sql)
 
 
+CREATE_SEQUENCES = """\
+CREATE SEQUENCE serial START 101
+
+CREATE TEMP SEQUENCE serial
+
+CREATE SEQUENCE IF NOT EXISTS "SomeSchema"."SomeSerial" as smallint
+
+CREATE TEMP SEQUENCE serial INCREMENT 2 MINVALUE 5 NO MAXVALUE
+
+CREATE TEMP SEQUENCE serial INCREMENT 2 MINVALUE 5 MAXVALUE 15 START WITH 7 CYCLE
+
+CREATE SEQUENCE serial OWNED BY "SomeSchema"."SomeTable"."SomeColumn"
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_SEQUENCES.split('\n\n')))
+def test_create_sequences(sql):
+    roundtrip(sql)
+
+
 CREATE_SCHEMAS = """\
 create schema myschema
 
@@ -329,6 +349,15 @@ CREATE SCHEMA hollywood
   )
   CREATE INDEX by_release
     ON films (release)
+
+CREATE TEMP SEQUENCE serial INCREMENT 2 MINVALUE 5 MAXVALUE 15 START WITH 7 CYCLE
+=
+CREATE TEMPORARY SEQUENCE serial
+  INCREMENT BY 2
+  MINVALUE 5
+  MAXVALUE 15
+  START WITH 7
+  CYCLE
 
 create table a (id serial primary key, value integer)
 =
