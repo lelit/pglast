@@ -69,7 +69,7 @@ def constraint(node, output):
                 output.write(', ')
             output.print_node(elem)
             output.swrite('WITH ')
-            output.print_list(clauses)
+            output.write(clauses.string_value)
         output.write(')')
     elif node.contype == ct.CONSTR_FOREIGN:
         if node.fk_attrs:

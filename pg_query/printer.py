@@ -170,7 +170,7 @@ class RawStream(OutputStream):
             self.print_node(statement)
         return self.getvalue()
 
-    def concat_nodes(self, nodes, sep=' ', are_names=False):
+    def _concat_nodes(self, nodes, sep=' ', are_names=False):
         """Concatenate given `nodes`, using `sep` as the separator.
 
         :param scalars: a sequence of nodes
@@ -410,7 +410,7 @@ class IndentedStream(RawStream):
         if standalone_items is None:
             clm = self.compact_lists_margin
             if clm is not None and clm > 0:
-                rawlist = self.concat_nodes(nodes, sep, are_names)
+                rawlist = self._concat_nodes(nodes, sep, are_names)
                 if self.current_column + len(rawlist) < clm:
                     self.write(rawlist)
                     return

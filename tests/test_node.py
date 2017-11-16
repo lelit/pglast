@@ -136,6 +136,24 @@ def test_basic():
     assert x1.value == x2.value
 
 
+def test_string_value():
+    ptree = [{'Foo': {'ok': {'String': {'str': 'foo'}},
+                      'ko': {'Float': {'float': 3.14159}}}},
+             {'Bar': {'ok': [{'String': {'str': 'bar'}}],
+                      'ko': [{'String': {'str': 'bar1'}},
+                             {'String': {'str': 'bar2'}}]}},
+             {'Foo': {'ko': [{'Float': {'float': 3.14159}}]}}]
+    root = Node(ptree)
+    assert root[0].ok.string_value == 'foo'
+    assert root[1].ok.string_value == 'bar'
+    with pytest.raises(TypeError):
+        root[0].ko.string_value
+    with pytest.raises(TypeError):
+        root[1].ko.string_value
+    with pytest.raises(TypeError):
+        root[2].ko.string_value
+
+
 def test_nested_lists():
     ptree = [{'Foo': {'bar': {'Bar': {'a': [
         [{'B': {'x': 0, 'y': 0}}, None],

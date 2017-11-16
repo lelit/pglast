@@ -131,6 +131,15 @@ class List(Base):
     def __getitem__(self, index):
         return Base(self._items[index], self.parent_node, (self.parent_attribute, index))
 
+    @property
+    def string_value(self):
+        if len(self) != 1:
+            raise TypeError('%r does not contain a single String node' % self)
+        node = self[0]
+        if node.node_tag != 'String':
+            raise TypeError('%r does not contain a single String node' % self)
+        return node.str.value
+
     def traverse(self):
         "A generator that recursively traverse all the items in the list."
 
@@ -206,6 +215,12 @@ class Node(Base):
         "The *parse tree* of the node."
 
         return self._parse_tree
+
+    @property
+    def string_value(self):
+        if self.node_tag != 'String':
+            raise TypeError('%r is not a String node' % self)
+        return self.str.value
 
     def traverse(self):
         "A generator that recursively traverse all attributes of the node."

@@ -28,20 +28,23 @@ def a_expr(node, output):
     aek = enums.A_Expr_Kind
 
     if node.kind == aek.AEXPR_OP:
-        op = output.concat_nodes(node.name)
         with output.expression():
             output.print_node(node.lexpr)
-            output.write(' ' + op + ' ')
+            output.write(' ')
+            output.write(node.name.string_value)
+            output.write(' ')
             output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_OP_ANY:
         output.print_node(node.lexpr)
-        output.swrites(output.concat_nodes(node.name))
+        output.write(' ')
+        output.write(node.name.string_value)
         output.write('ANY (')
         output.print_node(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_OP_ALL:
         output.print_node(node.lexpr)
-        output.swrites(output.concat_nodes(node.name))
+        output.write(' ')
+        output.write(node.name.string_value)
         output.write('ALL (')
         output.print_node(node.rexpr)
         output.write(')')
@@ -60,33 +63,33 @@ def a_expr(node, output):
     elif node.kind == aek.AEXPR_OF:
         output.print_node(node.lexpr)
         output.swrites('IS')
-        if node.name[0].str.value == '<>':
+        if node.name.string_value == '<>':
             output.writes('NOT')
         output.write('OF (')
         output.print_list(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_IN:
         output.print_node(node.lexpr)
-        if node.name[0].str.value == '<>':
+        if node.name.string_value == '<>':
             output.swrites('NOT')
         output.swrite('IN (')
         output.print_list(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_LIKE:
         output.print_node(node.lexpr)
-        if node.name[0].str.value == '!~~':
+        if node.name.string_value == '!~~':
             output.swrites('NOT')
         output.swrites('LIKE')
         output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_ILIKE:
         output.print_node(node.lexpr)
-        if node.name[0].str.value == '!~~*':
+        if node.name.string_value == '!~~*':
             output.swrites('NOT')
         output.swrites('ILIKE')
         output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_SIMILAR:
         output.print_node(node.lexpr)
-        if node.name[0].str.value == '!~':
+        if node.name.string_value == '!~':
             output.swrites('NOT')
         output.swrites('SIMILAR TO')
         assert (node.rexpr.node_tag == 'FuncCall'
@@ -700,7 +703,7 @@ def sort_by(node, output):
         output.swrite('DESC')
     elif node.sortby_dir == sbd.SORTBY_USING:
         output.swrites('USING')
-        output.print_list(node.useOp)
+        output.write(node.useOp.string_value)
     sbn = enums.SortByNulls
     if node.sortby_nulls != sbn.SORTBY_NULLS_DEFAULT:
         output.swrites('NULLS')
@@ -760,11 +763,11 @@ def sub_link(node, output):
     elif node.subLinkType == slt.ALL_SUBLINK:
         output.print_node(node.testexpr)
         output.write(' ')
-        output.print_list(node.operName, ' ', standalone_items=False)
-        output.swrite('ALL ')
+        output.writes(node.operName.string_value)
+        output.write(' ALL ')
     elif node.subLinkType == slt.ANY_SUBLINK:
         output.print_node(node.testexpr)
-        output.swrite('IN ')
+        output.write(' IN ')
     elif node.subLinkType == slt.ROWCOMPARE_SUBLINK:  # pragma: no cover
         # FIXME: figure out how the get here
         raise NotImplementedError("SubLink of type %s not supported yet"
