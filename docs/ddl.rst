@@ -53,6 +53,12 @@
 
    Pretty print a `node` of type `CreateStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L1997>`__ to the `output` stream.
 
+.. index:: CreateTableAsStmt
+
+.. function:: create_table_as_stmt(node, output)
+
+   Pretty print a `node` of type `CreateTableAsStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L3134>`__ to the `output` stream.
+
 .. index:: CreatedbStmt
 
 .. function:: createdb_stmt(node, output)
