@@ -43,7 +43,7 @@ setup(
     version=VERSION,
     url="https://github.com/lelit/pg_query",
 
-    description="Pythonic wrapper around libpg_query and SQL prettifier",
+    description="Pythonic wrapper around libpg_query and PostgreSQL prettifier",
     long_description=README + '\n\n' + CHANGES,
 
     author="Lele Gaifax",
@@ -65,7 +65,7 @@ setup(
         "Topic :: Database",
         "Topic :: Utilities",
         ],
-    keywords="",
+    keywords="postgresql parser sql prettifier",
 
     packages=find_packages('.'),
 

@@ -10,15 +10,15 @@
  pg_query
 ==========
 
-Pythonic wrapper around libpg_query and SQL prettifier
-======================================================
+Pythonic wrapper around libpg_query and PostgreSQL prettifier
+=============================================================
 
  :author: Lele Gaifax
  :contact: lele@metapensiero.it
  :license: GNU General Public License version 3 or later
 
 This is a Python 3 implementation of a wrapper to `libpg_query`__, a C library that repackages
-the PostgreSQL__ languages parser as a standalone static library.
+the PostgreSQL__ language parser as a standalone static library.
 
 __ https://github.com/lfittl/libpg_query
 __ https://www.postgresql.org/
@@ -40,10 +40,7 @@ __ https://github.com/alculquicondor/psqlparse/pull/22
 
 - target only Python 3.4+
 
-- target PostgreSQL 10, taking advantage of a work-in-progress `branch`__ of the libpg_query
-  library
-
-__ https://github.com/lfittl/libpg_query/tree/10-latest
+- target PostgreSQL 10
 
 - use a more dynamic approach to represent the *parse tree*, with a twofold advantage:
 
@@ -105,7 +102,7 @@ attribute.
 
 On top of that, the module implements two serializations, one that transforms a ``Node`` into a
 *raw* textual representation and another that returns a *prettified* representation. The latter
-is exposed by the ``__main__`` entry point of the package, see below for an example.
+is exposed by the ``pgpp`` CLI tool, see below for an example.
 
 Installation
 ------------
