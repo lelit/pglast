@@ -299,6 +299,32 @@ def test_create_tables(sql):
     roundtrip(sql)
 
 
+CREATE_TABLES_AS = """\
+CREATE TABLE films2 AS TABLE films
+
+CREATE TABLE films2 AS TABLE films WITH NO DATA
+
+CREATE TABLE films2 WITH OIDS AS TABLE films
+
+CREATE TABLE films2 WITHOUT OIDS AS TABLE films
+
+CREATE TABLE films2 AS VALUES (1,2)
+
+CREATE TABLE films2 ON COMMIT DELETE ROWS TABLESPACE "Foo" AS TABLE films
+
+CREATE UNLOGGED TABLE IF NOT EXISTS "SomeSchema".films2 (id, title) AS
+  SELECT id, title FROM films
+
+CREATE TABLE films_recent AS
+  SELECT * FROM films WHERE date_prod >= '2002-01-01'
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_TABLES_AS.split('\n\n')))
+def test_create_tables_as(sql):
+    roundtrip(sql)
+
+
 # Prettification samples: each sample may be composed by either two or three parts,
 # respectively the original statement, the expected outcome and an optional options
 # dictionary. The original and the expected statements are separated by a standalone "=",

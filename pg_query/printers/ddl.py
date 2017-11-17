@@ -289,6 +289,64 @@ def create_stmt(node, output):
             output.print_node(node.tablespacename, is_name=True)
 
 
+@node_printer('CreateTableAsStmt')
+def create_table_as_stmt(node, output):
+    output.writes('CREATE')
+    into = node.into
+    rel = into.rel
+    if rel.relpersistence == enums.RELPERSISTENCE_TEMP:
+        output.writes('TEMPORARY')
+    elif rel.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
+        output.writes('UNLOGGED')
+    output.writes('TABLE')
+    if node.if_not_exists:
+        output.writes('IF NOT EXISTS')
+    output.print_node(rel)
+    if into.colNames:
+        output.write(' (')
+        output.print_list(into.colNames, are_names=True)
+        output.write(')')
+    output.newline()
+    if into.options:
+        if len(into.options) == 1 and into.options[0].defname == 'oids':
+            output.write('  WITH')
+            if into.options[0].arg.ival.value == 0:
+                output.write
+                output.write('OUT')
+            output.write(' OIDS')
+        else:
+            output.write('  WITH (')
+            output.print_list(into.options)
+            output.write(')')
+        output.newline()
+    if into.onCommit != enums.OnCommitAction.ONCOMMIT_NOOP:
+        output.write('  ON COMMIT ')
+        if into.onCommit == enums.OnCommitAction.ONCOMMIT_PRESERVE_ROWS:
+            output.write('PRESERVE ROWS')
+        elif into.onCommit == enums.OnCommitAction.ONCOMMIT_DELETE_ROWS:
+            output.write('DELETE ROWS')
+        elif into.onCommit == enums.OnCommitAction.ONCOMMIT_DROP:
+            output.write('DROP')
+        output.newline()
+    if into.tableSpaceName:
+        output.write('  TABLESPACE ')
+        output.print_node(into.tableSpaceName, is_name=True)
+        output.newline()
+    output.write('  AS ')
+    if ((node.query.targetList is not Missing
+         and node.query.whereClause is Missing
+         and len(node.query.targetList[0].val.fields) == 1
+         and node.query.targetList[0].val.fields[0].node_tag == 'A_Star')):
+        output.write('TABLE ')
+        output.print_list(node.query.fromClause)
+    else:
+        with output.push_indent():
+            output.print_node(node.query)
+    if node.into.skipData:
+        output.newline()
+        output.write('  WITH NO DATA')
+
+
 @node_printer('CreatedbStmt')
 def createdb_stmt(node, output):
     output.write('CREATE DATABASE ')
