@@ -258,9 +258,16 @@ def create_stmt(node, output):
                 first = False
             else:
                 output.newline()
-            output.write(' WITH (')
-            output.print_list(node.options)
-            output.write(')')
+            if len(node.options) == 1 and node.options[0].defname == 'oids':
+                output.write(' WITH')
+                if node.options[0].arg.ival.value == 0:
+                    output.write
+                    output.write('OUT')
+                output.write(' OIDS')
+            else:
+                output.write(' WITH (')
+                output.print_list(node.options)
+                output.write(')')
         if node.oncommit != enums.OnCommitAction.ONCOMMIT_NOOP:
             if first:
                 first = False
