@@ -35,6 +35,18 @@
 
    Pretty print a `node` of type `CreateSchemaStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L1668>`__ to the `output` stream.
 
+.. index:: CreateSeqStmt
+
+.. function:: create_seq_stmt(node, output)
+
+   Pretty print a `node` of type `CreateSeqStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2464>`__ to the `output` stream.
+
+.. index:: DefElem
+
+.. function:: create_seq_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreateSeqStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2464>`__, to the `output` stream.
+
 .. index:: CreateStmt
 
 .. function:: create_stmt(node, output)

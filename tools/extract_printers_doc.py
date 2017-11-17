@@ -6,6 +6,7 @@
 # :Copyright: © 2017 Lele Gaifax
 #
 
+from ast import literal_eval
 from os.path import basename, splitext
 from re import match
 import subprocess
@@ -73,11 +74,16 @@ def extract_printers(source):
     while lines:
         line = lines.pop(0)
         if line.startswith('@node_printer('):
-            m = match(r'''@node_printer\(['"]([\w_]+)['"]\)''', line)
-            node = m.group(1)
+            m = match(r'''@node_printer\((.*,\s)?['"]([\w_]+)['"]\)''', line)
+            scope = m.group(1)
+            if scope:
+                scope = literal_eval(scope.rstrip(', '))
+                if isinstance(scope, str):
+                    scope = (scope,)
+            node = m.group(2)
             line = lines.pop(0)
             funcname = line[4:].split('(', 1)[0]
-            printers.append((node, funcname))
+            printers.append((scope, node, funcname))
 
     return printers
 
@@ -92,13 +98,26 @@ def workhorse(args):
         rstdoc.write(RST_HEADER % dict(
             mod_name=mod_name, mod_nick_name=mod_name.upper(),
             extra_decoration='='*(len(mod_name) * 2)))
-        for node, funcname in printers:
+        for scope, node, funcname in printers:
+            if scope:
+                scoped = ", when it is inside "
+                snode = scope[0]
+                header, lineno = toc[snode]
+                header_url = libpg_query_baseurl + header[12:]
+                scoped += "a `%s <%s#L%d>`__" % (snode, header_url, lineno)
+                for snode in scope[1:]:
+                    header, lineno = toc[snode]
+                    header_url = libpg_query_baseurl + header[12:]
+                    scoped += " or a `%s <%s#L%d>`__" % (snode, header_url, lineno)
+                scoped += ','
+            else:
+                scoped = ''
             header, lineno = toc[node]
             header_url = libpg_query_baseurl + header[12:]
             rstdoc.write('\n.. index:: %s\n' % node)
             rstdoc.write('\n.. function:: %s(node, output)\n' % funcname)
-            rstdoc.write('\n   Pretty print a `node` of type `%s <%s#L%d>`__ to the `output`'
-                         ' stream.\n' % (node, header_url, lineno))
+            rstdoc.write('\n   Pretty print a `node` of type `%s <%s#L%d>`__%s to the `output`'
+                         ' stream.\n' % (node, header_url, lineno, scoped))
 
 
 def main():

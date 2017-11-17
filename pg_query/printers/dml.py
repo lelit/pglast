@@ -565,33 +565,15 @@ def raw_stmt(node, output):
 
 @node_printer('ResTarget')
 def res_target(node, output):
-    if node.parent_node.node_tag in ('OnConflictClause', 'UpdateStmt'):
-        if node.val.node_tag == 'MultiAssignRef':
-            if node.val.colno == 1:
-                output.write('(  ')
-                output.indent(-2)
+    if node.val:
+        output.print_node(node.val)
+        if node.name:
+            output.write(' AS ')
             output.print_node(node.name, is_name=True)
-            if node.val.colno.value == node.val.ncolumns.value:
-                output.dedent()
-                output.write(') = ')
-                output.print_node(node.val)
-        else:
-            if node.name:
-                output.print_node(node.name, is_name=True)
-                if node.indirection:
-                    output.print_list(node.indirection, '', standalone_items=False)
-                output.write(' = ')
-            output.print_node(node.val)
     else:
-        if node.val:
-            output.print_node(node.val)
-            if node.name:
-                output.write(' AS ')
-                output.print_node(node.name, is_name=True)
-        else:
-            output.print_node(node.name, is_name=True)
-        if node.indirection:
-            output.print_list(node.indirection, '', standalone_items=False)
+        output.print_node(node.name, is_name=True)
+    if node.indirection:
+        output.print_list(node.indirection, '', standalone_items=False)
 
 
 @node_printer('RowExpr')
@@ -905,6 +887,26 @@ def update_stmt(node, output):
 
         if node.withClause:
             output.dedent()
+
+
+@node_printer(('OnConflictClause', 'UpdateStmt'), 'ResTarget')
+def update_stmt_res_target(node, output):
+    if node.val.node_tag == 'MultiAssignRef':
+        if node.val.colno == 1:
+            output.write('(  ')
+            output.indent(-2)
+        output.print_node(node.name, is_name=True)
+        if node.val.colno.value == node.val.ncolumns.value:
+            output.dedent()
+            output.write(') = ')
+            output.print_node(node.val)
+    else:
+        if node.name:
+            output.print_node(node.name, is_name=True)
+            if node.indirection:
+                output.print_list(node.indirection, '', standalone_items=False)
+            output.write(' = ')
+        output.print_node(node.val)
 
 
 @node_printer('WindowDef')

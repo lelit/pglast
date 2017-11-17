@@ -13,14 +13,14 @@ from pg_query import Node, printer
 
 def test_registry():
     with pytest.raises(NotImplementedError):
-        printer.get_printer_for_node_tag('non_existing')
+        printer.get_printer_for_node_tag(None, 'non_existing')
 
     try:
         @printer.node_printer('test_tag1')
         def tag1(node, output):
             pass
 
-        assert printer.get_printer_for_node_tag('test_tag1') is tag1
+        assert printer.get_printer_for_node_tag(None, 'test_tag1') is tag1
 
         with pytest.raises(printer.PrinterAlreadyPresentError):
             @printer.node_printer('test_tag1')
@@ -31,7 +31,25 @@ def test_registry():
         def tag2(node, output):
             pass
 
-        assert printer.get_printer_for_node_tag('test_tag1') is tag2
+        assert printer.get_printer_for_node_tag(None, 'test_tag1') is tag2
+
+        @printer.node_printer('test_tag_3')
+        def generic_tag3(node, output):
+            pass
+
+        @printer.node_printer('test_tag_1', 'test_tag_3')
+        def specific_tag3(node, output):
+            pass
+
+        @printer.node_printer(('test_tag_a', 'test_tag_b'), 'test_tag_3')
+        def specific_tag4(node, output):
+            pass
+
+        assert printer.get_printer_for_node_tag(None, 'test_tag_3') is generic_tag3
+        assert printer.get_printer_for_node_tag('Foo', 'test_tag_3') is generic_tag3
+        assert printer.get_printer_for_node_tag('test_tag_1', 'test_tag_3') is specific_tag3
+        assert printer.get_printer_for_node_tag('test_tag_a', 'test_tag_3') is specific_tag4
+        assert printer.get_printer_for_node_tag('test_tag_b', 'test_tag_3') is specific_tag4
     finally:
         printer.NODE_PRINTERS.pop('test_tag1', None)
 

@@ -24,28 +24,52 @@ class PrinterAlreadyPresentError(Error):
     "Exception raised trying to register another function for a tag already present."
 
 
-def get_printer_for_node_tag(node_tag):
-    "Get specific printer implementation for given `node_tag`."
+def get_printer_for_node_tag(parent_node_tag, node_tag):
+    """Get specific printer implementation for given `node_tag`.
+
+    If there is a more specific printer for it, when it's inside a particular
+    `parent_node_tag`, return that instead.
+    """
 
     try:
-        return NODE_PRINTERS[node_tag]
+        return NODE_PRINTERS[(parent_node_tag, node_tag)]
     except KeyError:
-        raise NotImplementedError("Printer for node %r is not implemented yet"
-                                  % node_tag)
+        try:
+            return NODE_PRINTERS[node_tag]
+        except KeyError:
+            raise NotImplementedError("Printer for node %r is not implemented yet"
+                                      % node_tag)
 
 
-def node_printer(node_tag, override=False):
+def node_printer(*node_tags, override=False):
     """Decorator to register a specific printer implementation for given `node_tag`.
 
-    :param str node_tag: the node tag
+    :param \*node_tags: one or two node tags
     :param bool override: when ``True`` the function will be registered even if already present
+
+    When `node_tags` contains a single item then the decorated function is the *generic* one,
+    and it will be registered in :data:`NODE_PRINTERS` with that key alone. Otherwise it must
+    contain two elements: the first may be either a scalar value or a sequence of parent tags,
+    and the function will be registered under the key ``(parent_tag, tag)``.
     """
 
     def decorator(impl):
-        if not override and node_tag in NODE_PRINTERS:
-            raise PrinterAlreadyPresentError("A printer is already registered for tag %r"
-                                             % node_tag)
-        NODE_PRINTERS[node_tag] = impl
+        if len(node_tags) == 1:
+            parent_tags = (None,)
+            tag = node_tags[0]
+        elif len(node_tags) == 2:
+            parent_tags, tag = node_tags
+            if not isinstance(parent_tags, (list, tuple)):
+                parent_tags = (parent_tags,)
+        else:
+            raise ValueError("Must specify one or two tags, got %d instead" % len(node_tags))
+
+        for parent_tag in parent_tags:
+            t = tag if parent_tag is None else (parent_tag, tag)
+            if not override and t in NODE_PRINTERS:
+                raise PrinterAlreadyPresentError("A printer is already registered for tag %r"
+                                                 % t)
+            NODE_PRINTERS[t] = impl
         return impl
     return decorator
 
@@ -232,7 +256,8 @@ class RawStream(OutputStream):
         if isinstance(node, Scalar):
             self._print_scalar(node, is_name)
         else:
-            printer = get_printer_for_node_tag(node.node_tag)
+            parent_node_tag = node.parent_node and node.parent_node.node_tag
+            printer = get_printer_for_node_tag(parent_node_tag, node.node_tag)
             if is_name and node.node_tag == 'String':
                 printer(node, self, is_name=True)
             else:

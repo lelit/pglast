@@ -269,6 +269,12 @@
 
    Pretty print a `node` of type `UpdateStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L1471>`__ to the `output` stream.
 
+.. index:: ResTarget
+
+.. function:: update_stmt_res_target(node, output)
+
+   Pretty print a `node` of type `ResTarget <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L436>`__, when it is inside a `OnConflictClause <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L1348>`__ or a `UpdateStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L1471>`__, to the `output` stream.
+
 .. index:: WindowDef
 
 .. function:: window_def(node, output)
