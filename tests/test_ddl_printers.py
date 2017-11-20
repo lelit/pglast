@@ -458,5 +458,5 @@ def test_prettification(sample):
         options = literal_eval(parts[1])
     else:
         options = {}
-    prettified = IndentedStream(**(options or {}))(original)
+    prettified = IndentedStream(**options)(original)
     assert expected == prettified, "%r != %r" % (expected, prettified)
