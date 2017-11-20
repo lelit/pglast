@@ -543,7 +543,7 @@ def test_inserts(sql):
 # dictionary. The original and the expected statements are separated by a standalone "=",
 # while the options dictionary is introduced by a standalone ":".
 
-SAMPLES = """\
+SAMPLES = r"""
 select * from sometable
 =
 SELECT *
@@ -744,7 +744,7 @@ SELECT
 =
 SELECT E'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX'
         'YZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUV'
-        'WXYZ\\n1234567890'
+        'WXYZ\n1234567890'
 :
 {'split_string_literals_threshold': 50}
 

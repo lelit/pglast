@@ -330,7 +330,7 @@ def test_create_tables_as(sql):
 # dictionary. The original and the expected statements are separated by a standalone "=",
 # while the options dictionary is introduced by a standalone ":".
 
-SAMPLES = """\
+SAMPLES = r"""
 CREATE DATABASE "NewDB"
     WITH ENCODING = 'UTF8'
          TEMPLATE = 'template0'
