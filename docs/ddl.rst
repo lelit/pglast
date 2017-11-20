@@ -23,6 +23,12 @@
 
    Pretty print a `node` of type `Constraint <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2075>`__ to the `output` stream.
 
+.. index:: CreateAmStmt
+
+.. function:: create_am_stmt(node, output)
+
+   Pretty print a `node` of type `CreateAmStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2336>`__ to the `output` stream.
+
 .. index:: CreateDomainStmt
 
 .. function:: create_domain_stmt(node, output)

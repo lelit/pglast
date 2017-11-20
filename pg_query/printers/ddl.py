@@ -132,6 +132,17 @@ def constraint(node, output):
             output.print_node(node.indexspace, is_name=True)
 
 
+@node_printer('CreateAmStmt')
+def create_am_stmt(node, output):
+    output.write('CREATE ACCESS METHOD ')
+    output.print_node(node.amname, is_name=True)
+    if node.amtype == 'i':
+        output.write(' TYPE INDEX HANDLER ')
+        output.print_list(node.handler_name, '.', are_names=True)
+    else:  # pragma: nocover
+        raise NotImplementedError
+
+
 @node_printer('CreateDomainStmt')
 def create_domain_stmt(node, output):
     output.write('CREATE DOMAIN ')

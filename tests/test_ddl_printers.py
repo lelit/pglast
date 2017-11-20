@@ -20,6 +20,18 @@ from test_dml_printers import roundtrip
 pg_query.printers
 
 
+CREATE_ACCESS_METHODS = """\
+CREATE ACCESS METHOD heptree TYPE INDEX HANDLER heptree_handler
+
+CREATE ACCESS METHOD "Heptree" TYPE INDEX HANDLER "MySchema"."MyHandler"
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_ACCESS_METHODS.split('\n\n')))
+def test_create_access_methods(sql):
+    roundtrip(sql)
+
+
 CREATE_INDEXES = """\
 create index aidx on atbl (value)
 
