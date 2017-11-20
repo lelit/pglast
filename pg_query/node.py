@@ -199,7 +199,7 @@ class Node(Base):
 
     @property
     def attribute_names(self):
-        "The names of the attribute present in the parse tree of the node."
+        "The names of the attributes present in the parse tree of the node."
 
         value = self._parse_tree
         return value.keys()
