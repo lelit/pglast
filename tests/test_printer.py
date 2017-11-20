@@ -15,6 +15,16 @@ def test_registry():
     with pytest.raises(NotImplementedError):
         printer.get_printer_for_node_tag(None, 'non_existing')
 
+    with pytest.raises(ValueError):
+        @printer.node_printer()
+        def tag(node, output):
+            pass
+
+    with pytest.raises(ValueError):
+        @printer.node_printer('one', 'two', 'three')
+        def tag(node, output):
+            pass
+
     try:
         @printer.node_printer('test_tag1')
         def tag1(node, output):

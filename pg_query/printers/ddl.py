@@ -214,7 +214,7 @@ def create_seq_stmt_def_elem(node, output):
         if node.arg is not Missing:
             output.write(' ')
             output.print_node(node.arg)
-    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:
+    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
         raise NotImplementedError
 
 
@@ -253,14 +253,14 @@ def create_stmt(node, output):
         if node.partbound:
             if first:
                 first = False
-            else:
+            else:  # pragma: nocover
                 output.newline()
             output.write(' FOR VALUES ')
             output.print_node(node.partbound)
         if node.partspec:
             if first:
                 first = False
-            else:
+            else:  # pragma: nocover
                 output.newline()
             output.write(' PARTITION BY ')
             output.print_node(node.partspec)
@@ -373,7 +373,7 @@ def def_elem(node, output):
     output.print_node(node.defname)
     output.write(' = ')
     output.print_node(node.arg)
-    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:
+    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
         raise NotImplementedError
 
 
@@ -434,7 +434,7 @@ def partition_elem(node, output):
         output.print_node(node.name, is_name=True)
     elif node.expr:
         output.print_node(node.expr)
-    if node.collation or node.opclass:
+    if node.collation or node.opclass:  # pragma: nocover
         raise NotImplementedError
 
 

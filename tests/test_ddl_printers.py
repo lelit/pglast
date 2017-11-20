@@ -64,6 +64,8 @@ CREATE SEQUENCE serial START 101
 
 CREATE TEMP SEQUENCE serial
 
+CREATE TEMP SEQUENCE serial NO CYCLE
+
 CREATE SEQUENCE IF NOT EXISTS "SomeSchema"."SomeSerial" as smallint
 
 CREATE TEMP SEQUENCE serial INCREMENT 2 MINVALUE 5 NO MAXVALUE
@@ -87,6 +89,10 @@ create schema authorization joe
 create schema if not exists test authorization joe
 
 create schema test authorization public
+
+create schema test authorization current_user
+
+create schema test authorization session_user
 """
 
 
@@ -113,6 +119,8 @@ create temporary table a (id serial) on commit drop
 create temporary table a (id serial) on commit delete rows
 
 create temporary table a (id serial) on commit preserve rows
+
+create temporary table a (id serial) inherits ("BaseTable") on commit preserve rows
 
 create unlogged table if not exists a (id serial)
 
@@ -217,9 +225,20 @@ CREATE TABLE films (
 CREATE TABLE distributors (
     did     integer,
     name    varchar(40),
+    UNIQUE(name) USING INDEX TABLESPACE indexes
+)
+
+CREATE TABLE distributors (
+    did     integer,
+    name    varchar(40),
     UNIQUE(name) WITH (fillfactor=70) USING INDEX TABLESPACE indexes
 )
 WITH (fillfactor=70)
+
+CREATE TABLE distributors (
+    did     integer,
+    name    varchar(40)
+) INHERITS ("BaseTable") WITH (fillfactor=70)
 
 CREATE TABLE circles (
     c circle,
@@ -295,6 +314,16 @@ CREATE TABLE measurement_y2016m07
     unitsales DEFAULT 0
 ) FOR VALUES FROM ('2016-07-01') TO ('2016-08-01')
 
+CREATE TABLE measurement_y2016m07
+    PARTITION OF measurement (
+    unitsales DEFAULT 0
+) FOR VALUES FROM ('2016-07-01') TO ('2016-08-01')
+
+CREATE TABLE measurement_y2016m07
+    PARTITION OF measurement (
+    unitsales DEFAULT 0
+) FOR VALUES FROM ('2016-07-01') TO ('2016-08-01')
+
 CREATE TABLE measurement_ym_older
     PARTITION OF measurement_year_month
     FOR VALUES FROM (MINVALUE, MINVALUE) TO (2016, MAXVALUE)
@@ -322,7 +351,13 @@ CREATE TABLE films2 WITHOUT OIDS AS TABLE films
 
 CREATE TABLE films2 AS VALUES (1,2)
 
+CREATE TEMPORARY TABLE films2 AS VALUES (1,2)
+
+CREATE TABLE films2 WITH (fillfactor=70) ON COMMIT PRESERVE ROWS AS VALUES (1,2)
+
 CREATE TABLE films2 ON COMMIT DELETE ROWS TABLESPACE "Foo" AS TABLE films
+
+CREATE TABLE films2 ON COMMIT DROP AS TABLE films
 
 CREATE UNLOGGED TABLE IF NOT EXISTS "SomeSchema".films2 (id, title) AS
   SELECT id, title FROM films
