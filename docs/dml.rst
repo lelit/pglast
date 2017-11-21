@@ -41,6 +41,34 @@
 
    Pretty print a `node` of type `A_Indirection <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L401>`__ to the `output` stream.
 
+.. index::
+   pair: A_Indirection;A_Star
+
+.. function:: a_indirection_a_star(node, output)
+
+   Pretty print a `node` of type `A_Star <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L367>`__, when it is inside a `A_Indirection <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L401>`__, to the `output` stream.
+
+.. index::
+   pair: A_Indirection;ColumnRef
+
+.. function:: a_indirection_column_ref(node, output)
+
+   Pretty print a `node` of type `ColumnRef <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L231>`__, when it is inside a `A_Indirection <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L401>`__, to the `output` stream.
+
+.. index::
+   pair: A_Indirection;FuncCall
+
+.. function:: a_indirection_func_call(node, output)
+
+   Pretty print a `node` of type `FuncCall <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L346>`__, when it is inside a `A_Indirection <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L401>`__, to the `output` stream.
+
+.. index::
+   pair: A_Indirection;String
+
+.. function:: a_indirection_field(node, output)
+
+   Pretty print a `node` of type `String <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/value.h#L42>`__, when it is inside a `A_Indirection <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L401>`__, to the `output` stream.
+
 .. index:: A_Star
 
 .. function:: a_star(node, output)
@@ -269,7 +297,11 @@
 
    Pretty print a `node` of type `UpdateStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L1471>`__ to the `output` stream.
 
-.. index:: ResTarget
+.. index::
+   pair: OnConflictClause;ResTarget
+
+.. index::
+   pair: UpdateStmt;ResTarget
 
 .. function:: update_stmt_res_target(node, output)
 

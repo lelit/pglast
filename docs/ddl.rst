@@ -47,7 +47,8 @@
 
    Pretty print a `node` of type `CreateSeqStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2464>`__ to the `output` stream.
 
-.. index:: DefElem
+.. index::
+   pair: CreateSeqStmt;DefElem
 
 .. function:: create_seq_stmt_def_elem(node, output)
 
