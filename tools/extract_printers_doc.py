@@ -114,7 +114,11 @@ def workhorse(args):
                 scoped = ''
             header, lineno = toc[node]
             header_url = libpg_query_baseurl + header[12:]
-            rstdoc.write('\n.. index:: %s\n' % node)
+            if scope:
+                for snode in scope:
+                    rstdoc.write('\n.. index::\n   pair: %s;%s\n' % (snode, node))
+            else:
+                rstdoc.write('\n.. index:: %s\n' % node)
             rstdoc.write('\n.. function:: %s(node, output)\n' % funcname)
             rstdoc.write('\n   Pretty print a `node` of type `%s <%s#L%d>`__%s to the `output`'
                          ' stream.\n' % (node, header_url, lineno, scoped))
