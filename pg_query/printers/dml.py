@@ -144,6 +144,33 @@ def a_indirection(node, output):
     output.print_list(node.indirection, '', standalone_items=False)
 
 
+@node_printer('A_Indirection', 'A_Star')
+def a_indirection_a_star(node, output):
+    output.pending_separator = False
+    output.write('.')
+    a_star(node, output)
+
+
+@node_printer('A_Indirection', 'ColumnRef')
+def a_indirection_column_ref(node, output):
+    output.write('(')
+    column_ref(node, output)
+    output.write(')')
+
+
+@node_printer('A_Indirection', 'FuncCall')
+def a_indirection_func_call(node, output):
+    output.write('(')
+    func_call(node, output)
+    output.write(')')
+
+
+@node_printer('A_Indirection', 'String')
+def a_indirection_field(node, output):
+    output.write('.')
+    string(node, output, is_name=True)
+
+
 @node_printer('A_Star')
 def a_star(node, output):
     output.write('*')

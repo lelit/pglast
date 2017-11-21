@@ -237,6 +237,18 @@ SELECT schedule[:2][2:] FROM sal_emp WHERE name = 'Bill'
 
 SELECT schedule[:][1:1] FROM sal_emp WHERE name = 'Bill'
 
+SELECT (arrayfunction($1,$2))[42]
+
+SELECT (arrayfunction(1)).field1[42][7]."Field2"
+
+SELECT (myfunc(x)).* FROM some_table
+
+SELECT (myfunc(x)).a, (myfunc(x)).b, (myfunc(x)).c FROM some_table
+
+SELECT (compositecol).a FROM sometable
+
+SELECT ("Sometable"."CompositeCol")."A" FROM sometable
+
 SELECT * FROM unnest(ARRAY['a','b','c','d','e','f']) WITH ORDINALITY
 
 SELECT * FROM pg_ls_dir('.') WITH ORDINALITY AS t(ls,n)
