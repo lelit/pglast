@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.20 (unreleased)
+0.20 (2017-11-21)
 ~~~~~~~~~~~~~~~~~
 
 - Handle special de-reference (``A_Indirection``) cases
