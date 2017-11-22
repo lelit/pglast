@@ -15,6 +15,7 @@
 
 .. autodata:: NODE_PRINTERS
 
+.. autodata:: SPECIAL_FUNCTIONS
 
 .. autoexception:: PrinterAlreadyPresentError
 
@@ -22,6 +23,7 @@
 
 .. autofunction:: node_printer
 
+.. autofunction:: special_function
 
 .. autoclass:: OutputStream
    :members:

@@ -771,6 +771,56 @@ SELECT '1234567890\a'
 :
 {'split_string_literals_threshold': 11}
 
+SELECT TIMESTAMP '2001-02-16 20:38:40' AT TIME ZONE 'MST'
+=
+SELECT pg_catalog.timezone('MST'
+                         , '2001-02-16 20:38:40'::timestamp)
+
+SELECT TIMESTAMP '2001-02-16 20:38:40' AT TIME ZONE 'MST'
+=
+SELECT '2001-02-16 20:38:40'::timestamp AT TIME ZONE 'MST'
+:
+{'special_functions': True}
+
+SELECT * FROM manufacturers
+ORDER BY EXTRACT('year' FROM deliver_date) ASC,
+         EXTRACT('month' FROM deliver_date) ASC,
+         EXTRACT('day' FROM deliver_date) ASC
+=
+SELECT *
+FROM manufacturers
+ORDER BY pg_catalog.date_part('year', deliver_date) ASC
+       , pg_catalog.date_part('month', deliver_date) ASC
+       , pg_catalog.date_part('day', deliver_date) ASC
+
+SELECT * FROM manufacturers
+ORDER BY EXTRACT('year' FROM deliver_date) ASC,
+         EXTRACT(month FROM deliver_date) ASC,
+         EXTRACT('day' FROM deliver_date) ASC
+=
+SELECT *
+FROM manufacturers
+ORDER BY EXTRACT(YEAR FROM deliver_date) ASC
+       , EXTRACT(MONTH FROM deliver_date) ASC
+       , EXTRACT(DAY FROM deliver_date) ASC
+:
+{'special_functions': True}
+
+SELECT (DATE '2001-02-16', DATE '2001-12-21') OVERLAPS
+       (DATE '2001-10-30', DATE '2002-10-30')
+=
+SELECT pg_catalog.overlaps('2001-02-16'::date
+                         , '2001-12-21'::date
+                         , '2001-10-30'::date
+                         , '2002-10-30'::date)
+
+SELECT (DATE '2001-02-16', DATE '2001-12-21') OVERLAPS
+       (DATE '2001-10-30', DATE '2002-10-30')
+=
+SELECT ('2001-02-16'::date, '2001-12-21'::date) OVERLAPS ('2001-10-30'::date, '2002-10-30'::date)
+:
+{'special_functions': True}
+
 update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'
 =
 UPDATE sometable

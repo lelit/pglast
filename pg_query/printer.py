@@ -20,6 +20,10 @@ NODE_PRINTERS = {}
 "Registry of specialized printers, keyed by their `tag`."
 
 
+SPECIAL_FUNCTIONS = {}
+"Registry of specialized function printers, keyed by their qualified name."
+
+
 class PrinterAlreadyPresentError(Error):
     "Exception raised trying to register another function for a tag already present."
 
@@ -45,7 +49,9 @@ def node_printer(*node_tags, override=False):
     """Decorator to register a specific printer implementation for given `node_tag`.
 
     :param \*node_tags: one or two node tags
-    :param bool override: when ``True`` the function will be registered even if already present
+    :param bool override:
+           when ``True`` the function will be registered even if already present in the
+           :data:`NODE_PRINTERS` registry
 
     When `node_tags` contains a single item then the decorated function is the *generic* one,
     and it will be registered in :data:`NODE_PRINTERS` with that key alone. Otherwise it must
@@ -70,6 +76,24 @@ def node_printer(*node_tags, override=False):
                 raise PrinterAlreadyPresentError("A printer is already registered for tag %r"
                                                  % t)
             NODE_PRINTERS[t] = impl
+        return impl
+    return decorator
+
+
+def special_function(name, override=False):
+    """Decorator to declare a particular PostgreSQL function `name` as *special*, with a
+    specific printer.
+
+    :param: str name: the qualified name of the PG function
+    :param bool override: when ``True`` the function will be registered even if already
+                          present in the :data:`SPECIAL_FUNCTIONS` registry
+    """
+
+    def decorator(impl):
+        if not override and name in SPECIAL_FUNCTIONS:
+            raise PrinterAlreadyPresentError("A printer is already registered for function %r"
+                                             % name)
+        SPECIAL_FUNCTIONS[name] = impl
         return impl
     return decorator
 
@@ -159,16 +183,20 @@ class RawStream(OutputStream):
     :param bool separate_statements:
            ``True`` by default, tells whether multiple statements shall be separated by an
            empty line
+    :param bool special_functions:
+           ``False`` by default, when ``True`` some functions are treated in a special way and
+           emitted as equivalent constructs
 
     This augments :class:`OutputStream` and implements the basic machinery needed to serialize
     the *parse tree* produced by :func:`~.parser.parse_sql()` back to a textual representation,
     without any adornment.
     """
 
-    def __init__(self, expression_level=0, separate_statements=True):
+    def __init__(self, expression_level=0, separate_statements=True, special_functions=False):
         super().__init__()
         self.expression_level = expression_level
         self.separate_statements = separate_statements
+        self.special_functions = special_functions
         self.current_column = 0
 
     def __call__(self, sql, plpgsql=False):
@@ -349,6 +377,19 @@ class RawStream(OutputStream):
                     self.write(sublist_open)
                 self.print_list(lst, sep, relative_indent, standalone_items, are_names)
                 self.write(sublist_close)
+
+    def get_printer_for_function(self, name):
+        """Look for a specific printer for function `name` in :data:`SPECIAL_FUNCTIONS`.
+
+        :param str name: the qualified name of the function
+        :returns: either ``None`` or a callable
+
+        When the option `special_functions` is ``True``, return the printer function associated
+        with `name`, if present. In all other cases return ``None``.
+        """
+
+        if self.special_functions:
+            return SPECIAL_FUNCTIONS.get(name)
 
 
 class IndentedStream(RawStream):

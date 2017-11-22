@@ -25,3 +25,4 @@ This chapter briefly explains some implementation detail.
    node
    printer
    printers
+   sfuncs

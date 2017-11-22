@@ -304,6 +304,12 @@ def float(node, output):
 
 @node_printer('FuncCall')
 def func_call(node, output):
+    name = '.'.join(n.str.value for n in node.funcname)
+    special_printer = output.get_printer_for_function(name)
+    if special_printer is not None:
+        special_printer(node, output)
+        return
+
     output.print_list(node.funcname, '.', standalone_items=False, are_names=True)
     output.write('(')
     if node.agg_distinct:
