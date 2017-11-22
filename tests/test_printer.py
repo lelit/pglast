@@ -264,3 +264,30 @@ def test_indented_stream_with_sql():
             printer.NODE_PRINTERS['RawStmt'] = raw_stmt_printer
         else:
             printer.NODE_PRINTERS.pop('RawStmt', None)
+
+
+def test_special_function():
+    output = printer.RawStream(special_functions=True)
+
+    assert output.get_printer_for_function('foo.test_function') is None
+
+    try:
+        @printer.special_function('foo.test_function')
+        def test(node, output):
+            pass
+
+        assert output.get_printer_for_function('foo.test_function') is test
+
+        with pytest.raises(printer.PrinterAlreadyPresentError):
+            @printer.special_function('foo.test_function')
+            def test1(node, output):
+                pass
+
+        @printer.special_function('foo.test_function', override=True)
+        def test_function(node, output):
+            output.print_list(node.args, '-')
+
+        result = output('SELECT foo.test_function(x, "Y") FROM sometable')
+        assert result == 'SELECT x - "Y" FROM sometable'
+    finally:
+        printer.SPECIAL_FUNCTIONS.pop('foo.test_function')
