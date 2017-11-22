@@ -189,6 +189,12 @@
 
    Pretty print a `node` of type `MultiAssignRef <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L454>`__ to the `output` stream.
 
+.. index:: NamedArgExpr
+
+.. function:: named_arg_expr(node, output)
+
+   Pretty print a `node` of type `NamedArgExpr <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/primnodes.h#L475>`__ to the `output` stream.
+
 .. index:: NullTest
 
 .. function:: null_test(node, output)

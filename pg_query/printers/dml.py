@@ -497,6 +497,13 @@ def multi_assign_ref(node, output):
     output.print_node(node.source)
 
 
+@node_printer('NamedArgExpr')
+def named_arg_expr(node, output):
+    output.print_node(node.name, is_name=True)
+    output.write(' => ')
+    output.print_node(node.arg)
+
+
 @node_printer('NullTest')
 def null_test(node, output):
     output.print_node(node.arg)

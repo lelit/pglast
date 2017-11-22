@@ -237,6 +237,10 @@ SELECT schedule[:2][2:] FROM sal_emp WHERE name = 'Bill'
 
 SELECT schedule[:][1:1] FROM sal_emp WHERE name = 'Bill'
 
+SELECT concat_lower_or_upper(a => 'Hello', b => 'World')
+
+SELECT concat_lower_or_upper('Hello', 'World', "UpperCase" => true)
+
 SELECT (arrayfunction($1,$2))[42]
 
 SELECT (arrayfunction(1)).field1[42][7]."Field2"
