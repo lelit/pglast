@@ -22,7 +22,7 @@ def test_registry():
 
     with pytest.raises(ValueError):
         @printer.node_printer('one', 'two', 'three')
-        def tag(node, output):
+        def tag2(node, output):
             pass
 
     try:
@@ -34,7 +34,7 @@ def test_registry():
 
         with pytest.raises(printer.PrinterAlreadyPresentError):
             @printer.node_printer('test_tag1')
-            def tag2(node, output):
+            def tag3(node, output):
                 pass
 
         @printer.node_printer('test_tag1', override=True)  # noqa
