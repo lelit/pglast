@@ -13,25 +13,15 @@
 .. module:: pg_query.printer
    :synopsis: The serialization machinery
 
-.. data:: NODE_PRINTERS
+.. autodata:: NODE_PRINTERS
 
-   Registry of specialized printers, keyed by their `tag`.
 
-.. exception:: PrinterAlreadyPresentError
+.. autoexception:: PrinterAlreadyPresentError
 
-   Exception raised trying to register another function for a tag already present.
+.. autofunction:: get_printer_for_node_tag
 
-.. function:: get_printer_for_node_tag(node_tag)
+.. autofunction:: node_printer
 
-   Get specific printer implementation for given `node_tag`.
-
-.. function:: node_printer(node_tag, override=False)
-
-   Decorator to register a specific printer implementation for given `node_tag`.
-
-   :param str node_tag: the node tag
-   :param bool override: when ``True`` the function will be registered even if already
-                         present
 
 .. autoclass:: OutputStream
    :members:
