@@ -3,6 +3,17 @@
 Changes
 -------
 
+0.21 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Implement ``NamedArgExpr`` printer
+
+- New alternative printers for a set of *special functions*, activated by a new
+  ``--special-functions`` option on ``pgpp`` (`issue #2`__)
+
+__ https://github.com/lelit/pg_query/issues/2
+
+
 0.20 (2017-11-21)
 ~~~~~~~~~~~~~~~~~
 
