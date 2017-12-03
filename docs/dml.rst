@@ -285,6 +285,19 @@
 
    Pretty print a `node` of type `SubLink <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/primnodes.h#L631>`__ to the `output` stream.
 
+.. index:: TransactionStmt
+
+.. function:: transaction_stmt(node, output)
+
+   Pretty print a `node` of type `TransactionStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2928>`__ to the `output` stream.
+
+.. index::
+   pair: TransactionStmt;DefElem
+
+.. function:: transaction_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `TransactionStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2928>`__, to the `output` stream.
+
 .. index:: TypeCast
 
 .. function:: type_cast(node, output)
