@@ -809,6 +809,48 @@ def sub_link(node, output):
     output.write(')')
 
 
+@node_printer('TransactionStmt')
+def transaction_stmt(node, output):
+    tsk = enums.TransactionStmtKind
+    output.write({
+        tsk.TRANS_STMT_BEGIN: "BEGIN",
+        tsk.TRANS_STMT_START: "START TRANSACTION",
+        tsk.TRANS_STMT_COMMIT: "COMMIT",
+        tsk.TRANS_STMT_ROLLBACK: "ROLLBACK",
+        tsk.TRANS_STMT_SAVEPOINT: "SAVEPOINT",
+        tsk.TRANS_STMT_RELEASE: "RELEASE",
+        tsk.TRANS_STMT_ROLLBACK_TO: "ROLLBACK TO",
+        tsk.TRANS_STMT_PREPARE: "PREPARE TRANSACTION",
+        tsk.TRANS_STMT_COMMIT_PREPARED: "COMMIT PREPARED",
+        tsk.TRANS_STMT_ROLLBACK_PREPARED: "ROLLBACK PREPARED",
+    }[node.kind.value])
+    if node.options:
+        output.write(' ')
+        output.print_list(node.options)
+    if node.gid:
+        output.write(" '%s'" % node.gid.value)
+
+
+@node_printer('TransactionStmt', 'DefElem')
+def transaction_stmt_def_elem(node, output):
+    value = node.defname.value
+    if value == 'transaction_isolation':
+        output.write('ISOLATION LEVEL ')
+        output.write(node.arg.val.str.value.upper())
+    elif value == 'transaction_read_only':
+        output.write('READ ')
+        if node.arg.val.ival == 0:
+            output.write('WRITE')
+        else:
+            output.write('ONLY')
+    elif value == 'transaction_deferrable':
+        if node.arg.val.ival == 0:
+            output.write('NOT ')
+        output.write('DEFERRABLE')
+    else:
+        output.print_node(node.arg, is_name=True)
+
+
 @node_printer('TypeCast')
 def type_cast(node, output):
     output.print_node(node.arg)

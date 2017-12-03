@@ -554,6 +554,40 @@ def test_inserts(sql):
     roundtrip(sql)
 
 
+TRANSACTIONS = """\
+ABORT
+
+BEGIN
+
+COMMIT
+
+COMMIT PREPARED 'foobar'
+
+PREPARE TRANSACTION 'foobar'
+
+RELEASE SAVEPOINT my_savepoint
+
+ROLLBACK
+
+ROLLBACK PREPARED 'foobar'
+
+ROLLBACK TO SAVEPOINT my_savepoint
+
+SAVEPOINT my_savepoint
+
+START TRANSACTION ISOLATION LEVEL SERIALIZABLE
+
+START TRANSACTION ISOLATION LEVEL SERIALIZABLE, READ ONLY, DEFERRABLE
+
+START TRANSACTION ISOLATION LEVEL READ COMMITTED, READ WRITE, NOT DEFERRABLE
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in TRANSACTIONS.split('\n\n')))
+def test_transactions(sql):
+    roundtrip(sql)
+
+
 # Prettification samples: each sample may be composed by either two or three parts,
 # respectively the original statement, the expected outcome and an optional options
 # dictionary. The original and the expected statements are separated by a standalone "=",
