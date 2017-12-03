@@ -16,3 +16,8 @@ show a brief table of contents. A comprehensive test suite, based on pytest__, c
 the source lines.
 
 __ https://docs.pytest.org/en/latest/
+
+.. toctree::
+   :maxdepth: 2
+
+   changes
