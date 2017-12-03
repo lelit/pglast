@@ -11,6 +11,7 @@
 ================================================
 
 .. module:: pg_query.enums
+   :synopsis: Enumerated constants
 
 This module contains all the constants that are used to give a meaning to some *scalar* values
 of the various kinds of nodes, extracted automatically from the PostgreSQL headers.

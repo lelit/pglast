@@ -12,6 +12,7 @@
 __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h
 
 .. module:: pg_query.enums.parsenodes
+   :synopsis: Constants extracted from parsenodes.h
 
 
 .. class:: pg_query.enums.parsenodes.A_Expr_Kind

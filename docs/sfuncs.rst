@@ -19,4 +19,5 @@ used when the option `special_functions` of the :class:`output stream <.printer.
 set to ``True``.
 
 .. automodule:: pg_query.printers.sfuncs
+   :synopsis: Special function printers
    :members:

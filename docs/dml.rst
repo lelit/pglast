@@ -10,6 +10,7 @@
 ========================================================
 
 .. module:: pg_query.printers.dml
+   :synopsis: DML printer functions
 
 .. index:: A_ArrayExpr
 

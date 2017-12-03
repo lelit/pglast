@@ -25,6 +25,7 @@ RST_HEADER = """\
 ==================================================%(extra_decoration)s
 
 .. module:: pg_query.printers.%(mod_name)s
+   :synopsis: %(mod_nick_name)s printer functions
 """
 
 

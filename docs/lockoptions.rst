@@ -12,6 +12,7 @@
 __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/lockoptions.h
 
 .. module:: pg_query.enums.lockoptions
+   :synopsis: Constants extracted from lockoptions.h
 
 
 .. class:: pg_query.enums.lockoptions.LockClauseStrength

@@ -10,6 +10,7 @@
 ========================================================
 
 .. module:: pg_query.printers.ddl
+   :synopsis: DDL printer functions
 
 .. index:: ColumnDef
 

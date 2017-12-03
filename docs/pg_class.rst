@@ -12,6 +12,7 @@
 __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/catalog/pg_class.h
 
 .. module:: pg_query.enums.pg_class
+   :synopsis: Constants extracted from pg_class.h
 
 
 .. data:: RELKIND_RELATION

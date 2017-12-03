@@ -12,6 +12,7 @@
 __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h
 
 .. module:: pg_query.enums.nodes
+   :synopsis: Constants extracted from nodes.h
 
 
 .. class:: pg_query.enums.nodes.AggSplit

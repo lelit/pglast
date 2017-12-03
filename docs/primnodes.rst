@@ -12,6 +12,7 @@
 __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/primnodes.h
 
 .. module:: pg_query.enums.primnodes
+   :synopsis: Constants extracted from primnodes.h
 
 
 .. class:: pg_query.enums.primnodes.BoolExprType

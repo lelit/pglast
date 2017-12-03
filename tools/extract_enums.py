@@ -44,6 +44,7 @@ RST_HEADER = """\
 __ %(header_url)s
 
 .. module:: pg_query.enums.%(mod_name)s
+   :synopsis: Constants extracted from %(header_fname)s
 """
 
 
