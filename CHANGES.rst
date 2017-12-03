@@ -3,6 +3,12 @@
 Changes
 -------
 
+0.22 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Implement ``TransactionStmt`` and almost all ``DROP xxx`` printers
+
+
 0.21 (2017-11-22)
 ~~~~~~~~~~~~~~~~~
 
