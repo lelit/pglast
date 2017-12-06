@@ -18,6 +18,12 @@
 
    Pretty print a `node` of type `ColumnDef <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L636>`__ to the `output` stream.
 
+.. index:: CommentStmt
+
+.. function:: comment_stmt(node, output)
+
+   Pretty print a `node` of type `CommentStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2598>`__ to the `output` stream.
+
 .. index:: Constraint
 
 .. function:: constraint(node, output)

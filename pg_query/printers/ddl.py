@@ -29,6 +29,102 @@ def column_def(node, output):
         output.print_list(node.constraints, '', standalone_items=False)
 
 
+OBJECT_NAMES = {
+    enums.ObjectType.OBJECT_ACCESS_METHOD: 'ACCESS METHOD',
+    enums.ObjectType.OBJECT_AGGREGATE: 'AGGREGATE',
+    enums.ObjectType.OBJECT_AMOP: 'AMOP',
+    enums.ObjectType.OBJECT_AMPROC: 'AMPROC',
+    enums.ObjectType.OBJECT_ATTRIBUTE: 'ATTRIBUTE',
+    enums.ObjectType.OBJECT_CAST: 'CAST',
+    enums.ObjectType.OBJECT_COLUMN: 'COLUMN',
+    enums.ObjectType.OBJECT_COLLATION: 'COLLATION',
+    enums.ObjectType.OBJECT_CONVERSION: 'CONVERSION',
+    enums.ObjectType.OBJECT_DATABASE: 'DATABASE',
+    enums.ObjectType.OBJECT_DEFAULT: 'DEFAULT',
+    enums.ObjectType.OBJECT_DEFACL: 'DEFACL',
+    enums.ObjectType.OBJECT_DOMAIN: 'DOMAIN',
+    enums.ObjectType.OBJECT_DOMCONSTRAINT: 'CONSTRAINT',
+    enums.ObjectType.OBJECT_EVENT_TRIGGER: 'EVENT TRIGGER',
+    enums.ObjectType.OBJECT_EXTENSION: 'EXTENSION',
+    enums.ObjectType.OBJECT_FDW: 'FOREIGN DATA WRAPPER',
+    enums.ObjectType.OBJECT_FOREIGN_SERVER: 'SERVER',
+    enums.ObjectType.OBJECT_FOREIGN_TABLE: 'FOREIGN TABLE',
+    enums.ObjectType.OBJECT_FUNCTION: 'FUNCTION',
+    enums.ObjectType.OBJECT_INDEX: 'INDEX',
+    enums.ObjectType.OBJECT_LANGUAGE: 'LANGUAGE',
+    enums.ObjectType.OBJECT_LARGEOBJECT: 'LARGE OBJECT',
+    enums.ObjectType.OBJECT_MATVIEW: 'MATERIALIZED VIEW',
+    enums.ObjectType.OBJECT_OPCLASS: 'OPERATOR CLASS',
+    enums.ObjectType.OBJECT_OPERATOR: 'OPERATOR',
+    enums.ObjectType.OBJECT_OPFAMILY: 'OPERATOR FAMILY',
+    enums.ObjectType.OBJECT_POLICY: 'POLICY',
+    enums.ObjectType.OBJECT_PUBLICATION: 'PUBLICATION',
+    enums.ObjectType.OBJECT_PUBLICATION_REL: 'PUBLICATION_REL',
+    enums.ObjectType.OBJECT_ROLE: 'ROLE',
+    enums.ObjectType.OBJECT_RULE: 'RULE',
+    enums.ObjectType.OBJECT_SCHEMA: 'SCHEMA',
+    enums.ObjectType.OBJECT_SEQUENCE: 'SEQUENCE',
+    enums.ObjectType.OBJECT_SUBSCRIPTION: 'SUBSCRIPTION',
+    enums.ObjectType.OBJECT_STATISTIC_EXT: 'STATISTICS',
+    enums.ObjectType.OBJECT_TABCONSTRAINT: 'CONSTRAINT',
+    enums.ObjectType.OBJECT_TABLE: 'TABLE',
+    enums.ObjectType.OBJECT_TABLESPACE: 'TABLESPACE',
+    enums.ObjectType.OBJECT_TRANSFORM: 'TRANSFORM',
+    enums.ObjectType.OBJECT_TRIGGER: 'TRIGGER',
+    enums.ObjectType.OBJECT_TSCONFIGURATION: 'TEXT SEARCH CONFIGURATION',
+    enums.ObjectType.OBJECT_TSDICTIONARY: 'TEXT SEARCH DICTIONARY',
+    enums.ObjectType.OBJECT_TSPARSER: 'TEXT SEARCH PARSER',
+    enums.ObjectType.OBJECT_TSTEMPLATE: 'TEXT SEARCH TEMPLATE',
+    enums.ObjectType.OBJECT_TYPE: 'TYPE',
+    enums.ObjectType.OBJECT_USER_MAPPING: 'USER_MAPPING',
+    enums.ObjectType.OBJECT_VIEW: 'VIEW',
+}
+
+
+@node_printer('CommentStmt')
+def comment_stmt(node, output):
+    otypes = enums.ObjectType
+    output.write('COMMENT ')
+    output.write('ON ')
+    output.writes(OBJECT_NAMES[node.objtype.value])
+    if node.objtype in (otypes.OBJECT_OPCLASS, otypes.OBJECT_OPFAMILY):
+        nodes = list(node.object)
+        using = nodes.pop(0)
+        output.print_list(nodes, '.', standalone_items=False, are_names=True)
+        output.write(' USING ')
+        output.print_node(using, is_name=True)
+    elif node.objtype in (otypes.OBJECT_TABCONSTRAINT, otypes.OBJECT_POLICY,
+                          otypes.OBJECT_RULE, otypes.OBJECT_TRIGGER):
+        nodes = list(node.object)
+        output.print_node(nodes.pop(), is_name=True)
+        output.write(' ON ')
+        output.print_list(nodes, '.', standalone_items=False, are_names=True)
+    elif node.objtype == otypes.OBJECT_DOMCONSTRAINT:
+        nodes = list(node.object)
+        output.print_node(nodes.pop(), is_name=True)
+        output.write(' ON DOMAIN ')
+        output.print_list(nodes, '.', standalone_items=False, are_names=True)
+    elif node.objtype == otypes.OBJECT_TRANSFORM:
+        nodes = list(node.object)
+        output.write('FOR ')
+        output.print_node(nodes.pop(0), is_name=True)
+        output.write(' LANGUAGE ')
+        output.print_list(nodes, '.', standalone_items=False, are_names=True)
+    elif isinstance(node.object, List):
+        if node.object[0].node_tag != 'String':
+            output.write(' (')
+            output.print_list(node.object, ' AS ', standalone_items=False)
+            output.write(')')
+        else:
+            output.print_list(node.object, '.', standalone_items=False, are_names=True)
+    else:
+        output.print_node(node.object, is_name=True)
+    output.newline()
+    output.write('  IS ')
+    with output.push_indent():
+        output._write_quoted_string(node.comment.value)
+
+
 @node_printer('Constraint')
 def constraint(node, output):
     if node.conname:
@@ -409,56 +505,7 @@ def drop_role_stmt(node, output):
 def drop_stmt(node, output):
     otypes = enums.ObjectType
     output.write('DROP ')
-    output.writes({
-        otypes.OBJECT_ACCESS_METHOD: 'ACCESS METHOD',
-        otypes.OBJECT_AGGREGATE: 'AGGREGATE',
-        otypes.OBJECT_AMOP: 'AMOP',
-        otypes.OBJECT_AMPROC: 'AMPROC',
-        otypes.OBJECT_ATTRIBUTE: 'ATTRIBUTE',
-        otypes.OBJECT_CAST: 'CAST',
-        otypes.OBJECT_COLUMN: 'COLUMN',
-        otypes.OBJECT_COLLATION: 'COLLATION',
-        otypes.OBJECT_CONVERSION: 'CONVERSION',
-        otypes.OBJECT_DATABASE: 'DATABASE',
-        otypes.OBJECT_DEFAULT: 'DEFAULT',
-        otypes.OBJECT_DEFACL: 'DEFACL',
-        otypes.OBJECT_DOMAIN: 'DOMAIN',
-        otypes.OBJECT_DOMCONSTRAINT: 'DOMCONSTRAINT',
-        otypes.OBJECT_EVENT_TRIGGER: 'EVENT TRIGGER',
-        otypes.OBJECT_EXTENSION: 'EXTENSION',
-        otypes.OBJECT_FDW: 'FOREIGN DATA WRAPPER',
-        otypes.OBJECT_FOREIGN_SERVER: 'SERVER',
-        otypes.OBJECT_FOREIGN_TABLE: 'FOREIGN TABLE',
-        otypes.OBJECT_FUNCTION: 'FUNCTION',
-        otypes.OBJECT_INDEX: 'INDEX',
-        otypes.OBJECT_LANGUAGE: 'LANGUAGE',
-        otypes.OBJECT_LARGEOBJECT: 'LARGEOBJECT',
-        otypes.OBJECT_MATVIEW: 'MATERIALIZED VIEW',
-        otypes.OBJECT_OPCLASS: 'OPERATOR CLASS',
-        otypes.OBJECT_OPERATOR: 'OPERATOR',
-        otypes.OBJECT_OPFAMILY: 'OPERATOR FAMILY',
-        otypes.OBJECT_POLICY: 'POLICY',
-        otypes.OBJECT_PUBLICATION: 'PUBLICATION',
-        otypes.OBJECT_PUBLICATION_REL: 'PUBLICATION_REL',
-        otypes.OBJECT_ROLE: 'ROLE',
-        otypes.OBJECT_RULE: 'RULE',
-        otypes.OBJECT_SCHEMA: 'SCHEMA',
-        otypes.OBJECT_SEQUENCE: 'SEQUENCE',
-        otypes.OBJECT_SUBSCRIPTION: 'SUBSCRIPTION',
-        otypes.OBJECT_STATISTIC_EXT: 'STATISTICS',
-        otypes.OBJECT_TABCONSTRAINT: 'TABCONSTRAINT',
-        otypes.OBJECT_TABLE: 'TABLE',
-        otypes.OBJECT_TABLESPACE: 'TABLESPACE',
-        otypes.OBJECT_TRANSFORM: 'TRANSFORM',
-        otypes.OBJECT_TRIGGER: 'TRIGGER',
-        otypes.OBJECT_TSCONFIGURATION: 'TEXT SEARCH CONFIGURATION',
-        otypes.OBJECT_TSDICTIONARY: 'TEXT SEARCH DICTIONARY',
-        otypes.OBJECT_TSPARSER: 'TEXT SEARCH PARSER',
-        otypes.OBJECT_TSTEMPLATE: 'TEXT SEARCH TEMPLATE',
-        otypes.OBJECT_TYPE: 'TYPE',
-        otypes.OBJECT_USER_MAPPING: 'USER_MAPPING',
-        otypes.OBJECT_VIEW: 'VIEW',
-    }[node.removeType.value])
+    output.writes(OBJECT_NAMES[node.removeType.value])
     if node.removeType == otypes.OBJECT_INDEX:
         if node.concurrent:
             output.write(' CONCURRENTLY')
@@ -573,7 +620,9 @@ def index_stmt(node, output):
 
 @node_printer('ObjectWithArgs')
 def object_with_args(node, output):
-    if node.parent_node.removeType == enums.ObjectType.OBJECT_OPERATOR:
+    # Special treatment for OPERATOR object inside DROP or COMMENT
+    if (((node.parent_node.removeType or node.parent_node.objtype)
+         == enums.ObjectType.OBJECT_OPERATOR)):
         output.write(node.objname.string_value)
         if not node.args_unspecified:
             output.write(' ')
