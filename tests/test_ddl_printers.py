@@ -223,6 +223,42 @@ def test_create_indexes(sql):
     roundtrip(sql)
 
 
+CREATE_OPERATORS = """\
+CREATE OPERATOR "MySchema".+ (
+    LEFTARG = box,
+    RIGHTARG = box,
+    PROCEDURE = area_sum_procedure
+)
+
+CREATE OPERATOR === (
+    LEFTARG = box,
+    RIGHTARG = box,
+    PROCEDURE = area_equal_procedure,
+    COMMUTATOR = ===,
+    NEGATOR = !==,
+    RESTRICT = area_restriction_procedure,
+    JOIN = area_join_procedure,
+    HASHES, MERGES
+)
+
+CREATE OPERATOR === (
+    LEFTARG = box,
+    RIGHTARG = box,
+    PROCEDURE = area_equal_procedure,
+    COMMUTATOR = OPERATOR("MySchema".===),
+    NEGATOR = !==,
+    RESTRICT = area_restriction_procedure,
+    JOIN = area_join_procedure,
+    HASHES, MERGES
+)
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_OPERATORS.split('\n\n')))
+def test_create_operators(sql):
+    roundtrip(sql)
+
+
 CREATE_SEQUENCES = """\
 CREATE SEQUENCE serial START 101
 

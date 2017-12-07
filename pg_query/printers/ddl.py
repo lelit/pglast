@@ -468,19 +468,24 @@ def createdb_stmt(node, output):
 def define_stmt(node, output):
     output.write('CREATE ')
     output.writes(OBJECT_NAMES[node.kind.value])
-    output.print_list(node.defnames, standalone_items=False, are_names=True)
-    output.write(' (')
-    # args is actually a tuple (list-of-nodes, integer): the integer value, if different from
-    # -1, is the number of nodes representing the actual arguments, remaining are ORDER BY
-    args, count = node.args
-    count = count.ival.value
-    if count == -1:
-        output.print_list(args, standalone_items=False)
-    else:
-        output.print_list(args[:count], standalone_items=False)
-        output.write(' ORDER BY ')
-        output.print_list(args[count:], standalone_items=False)
-    output.write(') (')
+    output.print_list(node.defnames, '.', standalone_items=False, are_names=True,
+                      is_operator=node.kind == enums.ObjectType.OBJECT_OPERATOR)
+    output.write(' ')
+    if node.args is not Missing:
+        output.write('(')
+        # args is actually a tuple (list-of-nodes, integer): the integer value, if different
+        # from -1, is the number of nodes representing the actual arguments, remaining are
+        # ORDER BY
+        args, count = node.args
+        count = count.ival.value
+        if count == -1:
+            output.print_list(args, standalone_items=False)
+        else:
+            output.print_list(args[:count], standalone_items=False)
+            output.write(' ORDER BY ')
+            output.print_list(args[count:], standalone_items=False)
+        output.write(') ')
+    output.write('(')
     output.newline()
     output.write('    ')
     with output.push_indent(2):
@@ -494,7 +499,29 @@ def def_elem(node, output):
     output.print_node(node.defname)
     if node.arg is not Missing:
         output.write(' = ')
-        output.print_node(node.arg)
+        if isinstance(node.arg, List):
+            output.write(node.arg.string_value)
+        else:
+            output.print_node(node.arg)
+    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
+        raise NotImplementedError
+
+
+@node_printer('DefineStmt', 'DefElem')
+def def_define_stmt_elem(node, output):
+    output.print_node(node.defname)
+    if node.arg is not Missing:
+        output.write(' = ')
+        if isinstance(node.arg, List):
+            is_operator = node.defname in ('commutator', 'negator')
+            if is_operator and len(node.arg) > 1:
+                output.write('OPERATOR(')
+                output.print_list(node.arg, '.', are_names=True, is_operator=is_operator)
+                output.write(')')
+            else:
+                output.print_list(node.arg, '.', are_names=True, is_operator=is_operator)
+        else:
+            output.print_node(node.arg)
     if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
         raise NotImplementedError
 
