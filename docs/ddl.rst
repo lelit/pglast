@@ -79,6 +79,12 @@
 
    Pretty print a `node` of type `CreatedbStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L3020>`__ to the `output` stream.
 
+.. index:: DefineStmt
+
+.. function:: define_stmt(node, output)
+
+   Pretty print a `node` of type `DefineStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2487>`__ to the `output` stream.
+
 .. index:: DefElem
 
 .. function:: def_elem(node, output)
@@ -126,6 +132,12 @@
 .. function:: drop_user_mapping_stmt(node, output)
 
    Pretty print a `node` of type `DropUserMappingStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2271>`__ to the `output` stream.
+
+.. index:: FunctionParameter
+
+.. function:: function_parameter(node, output)
+
+   Pretty print a `node` of type `FunctionParameter <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2756>`__ to the `output` stream.
 
 .. index:: IndexStmt
 

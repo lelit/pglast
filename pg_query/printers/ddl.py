@@ -464,11 +464,37 @@ def createdb_stmt(node, output):
         output.print_list(node.options, '')
 
 
+@node_printer('DefineStmt')
+def define_stmt(node, output):
+    output.write('CREATE ')
+    output.writes(OBJECT_NAMES[node.kind.value])
+    output.print_list(node.defnames, standalone_items=False, are_names=True)
+    output.write(' (')
+    # args is actually a tuple (list-of-nodes, integer): the integer value, if different from
+    # -1, is the number of nodes representing the actual arguments, remaining are ORDER BY
+    args, count = node.args
+    count = count.ival.value
+    if count == -1:
+        output.print_list(args, standalone_items=False)
+    else:
+        output.print_list(args[:count], standalone_items=False)
+        output.write(' ORDER BY ')
+        output.print_list(args[count:], standalone_items=False)
+    output.write(') (')
+    output.newline()
+    output.write('    ')
+    with output.push_indent(2):
+        output.print_list(node.definition)
+    output.newline()
+    output.write(')')
+
+
 @node_printer('DefElem')
 def def_elem(node, output):
     output.print_node(node.defname)
-    output.write(' = ')
-    output.print_node(node.arg)
+    if node.arg is not Missing:
+        output.write(' = ')
+        output.print_node(node.arg)
     if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
         raise NotImplementedError
 
@@ -579,6 +605,29 @@ def drop_user_mapping_stmt(node, output):
     output.print_node(node.user)
     output.write(' SERVER ')
     output.print_node(node.servername, is_name=True)
+
+
+@node_printer('FunctionParameter')
+def function_parameter(node, output):
+    if node.mode is not Missing:
+        pm = enums.FunctionParameterMode
+        if node.mode == pm.FUNC_PARAM_IN:
+            pass  # omit the default, output.write('IN ')
+        elif node.mode == pm.FUNC_PARAM_OUT:
+            output.write('OUT ')
+        elif node.mode == pm.FUNC_PARAM_INOUT:
+            output.write('INOUT ')
+        elif node.mode == pm.FUNC_PARAM_VARIADIC:
+            output.write('VARIADIC ')
+        else:
+            raise NotImplementedError
+    if node.name:
+        output.print_node(node.name, is_name=True)
+        output.write(' ')
+    output.print_node(node.argType)
+    if node.defexpr is not Missing:
+        output.write(' = ')
+        output.print_node(node.defexpr)
 
 
 @node_printer('IndexStmt')
