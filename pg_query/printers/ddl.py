@@ -13,10 +13,10 @@ from ..printer import node_printer
 
 @node_printer('ColumnDef')
 def column_def(node, output):
-    output.print_node(node.colname, is_name=True)
+    output.print_name(node.colname)
     output.write(' ')
     if node.typeName:
-        output.print_node(node.typeName, is_name=True)
+        output.print_name(node.typeName)
     else:
         if node.constraints:
             output.write('WITH OPTIONS ')
@@ -90,35 +90,35 @@ def comment_stmt(node, output):
     if node.objtype in (otypes.OBJECT_OPCLASS, otypes.OBJECT_OPFAMILY):
         nodes = list(node.object)
         using = nodes.pop(0)
-        output.print_list(nodes, '.', standalone_items=False, are_names=True)
+        output.print_name(nodes)
         output.write(' USING ')
-        output.print_node(using, is_name=True)
+        output.print_name(using)
     elif node.objtype in (otypes.OBJECT_TABCONSTRAINT, otypes.OBJECT_POLICY,
                           otypes.OBJECT_RULE, otypes.OBJECT_TRIGGER):
         nodes = list(node.object)
-        output.print_node(nodes.pop(), is_name=True)
+        output.print_name(nodes.pop())
         output.write(' ON ')
-        output.print_list(nodes, '.', standalone_items=False, are_names=True)
+        output.print_name(nodes)
     elif node.objtype == otypes.OBJECT_DOMCONSTRAINT:
         nodes = list(node.object)
-        output.print_node(nodes.pop(), is_name=True)
+        output.print_name(nodes.pop())
         output.write(' ON DOMAIN ')
-        output.print_list(nodes, '.', standalone_items=False, are_names=True)
+        output.print_name(nodes)
     elif node.objtype == otypes.OBJECT_TRANSFORM:
         nodes = list(node.object)
         output.write('FOR ')
-        output.print_node(nodes.pop(0), is_name=True)
+        output.print_name(nodes.pop(0))
         output.write(' LANGUAGE ')
-        output.print_list(nodes, '.', standalone_items=False, are_names=True)
+        output.print_name(nodes)
     elif isinstance(node.object, List):
         if node.object[0].node_tag != 'String':
             output.write(' (')
             output.print_list(node.object, ' AS ', standalone_items=False)
             output.write(')')
         else:
-            output.print_list(node.object, '.', standalone_items=False, are_names=True)
+            output.print_name(node.object)
     else:
-        output.print_node(node.object, is_name=True)
+        output.print_name(node.object)
     output.newline()
     output.write('  IS ')
     with output.push_indent():
@@ -129,7 +129,7 @@ def comment_stmt(node, output):
 def constraint(node, output):
     if node.conname:
         output.swrite('CONSTRAINT ')
-        output.print_node(node.conname, is_name=True)
+        output.print_name(node.conname)
     ct = enums.ConstrType
     if node.contype == ct.CONSTR_NULL:
         output.swrite('NULL')
@@ -172,12 +172,12 @@ def constraint(node, output):
         if node.fk_attrs:
             output.swrite('FOREIGN KEY ')
             output.write(' (')
-            output.print_list(node.fk_attrs, are_names=True)
+            output.print_name(node.fk_attrs, ',')
             output.write(')')
         output.swrite('REFERENCES ')
-        output.print_node(node.pktable, is_name=True)
+        output.print_name(node.pktable)
         output.write(' (')
-        output.print_list(node.pk_attrs, are_names=True)
+        output.print_name(node.pk_attrs, ',')
         output.write(')')
         if node.fk_matchtype != enums.FKCONSTR_MATCH_SIMPLE:
             output.write(' MATCH ')
@@ -210,7 +210,7 @@ def constraint(node, output):
     # Common to UNIQUE & PRIMARY_KEY
     if node.keys:
         output.write(' (')
-        output.print_list(node.keys, ', ', are_names=True)
+        output.print_name(node.keys, ',')
         output.write(')')
     with output.push_indent():
         first = True
@@ -225,16 +225,16 @@ def constraint(node, output):
             else:
                 output.newline()
             output.write(' USING INDEX TABLESPACE ')
-            output.print_node(node.indexspace, is_name=True)
+            output.print_name(node.indexspace)
 
 
 @node_printer('CreateAmStmt')
 def create_am_stmt(node, output):
     output.write('CREATE ACCESS METHOD ')
-    output.print_node(node.amname, is_name=True)
+    output.print_name(node.amname)
     if node.amtype == 'i':
         output.write(' TYPE INDEX HANDLER ')
-        output.print_list(node.handler_name, '.', are_names=True)
+        output.print_name(node.handler_name)
     else:  # pragma: nocover
         raise NotImplementedError
 
@@ -242,7 +242,7 @@ def create_am_stmt(node, output):
 @node_printer('CreateDomainStmt')
 def create_domain_stmt(node, output):
     output.write('CREATE DOMAIN ')
-    output.print_list(node.domainname, '.', are_names=True)
+    output.print_name(node.domainname)
     output.write(' AS ')
     output.print_node(node.typeName)
     if node.collClause:
@@ -257,7 +257,7 @@ def create_schema_stmt(node, output):
     if node.if_not_exists:
         output.write('IF NOT EXISTS ')
     if node.schemaname:
-        output.print_node(node.schemaname, is_name=True)
+        output.print_name(node.schemaname)
     if node.authrole:
         output.swrite('AUTHORIZATION ')
         output.print_node(node.authrole)
@@ -277,9 +277,9 @@ def create_seq_stmt(node, output):
     if node.if_not_exists:
         output.writes('IF NOT EXISTS')
     if node.sequence.schemaname is not Missing:
-        output.print_node(node.sequence.schemaname, is_name=True)
+        output.print_name(node.sequence.schemaname)
         output.write('.')
-    output.print_node(node.sequence.relname, is_name=True)
+    output.print_name(node.sequence.relname)
     if node.options:
         output.newline()
         output.write('  ')
@@ -299,7 +299,7 @@ def create_seq_stmt_def_elem(node, output):
         output.print_node(node.arg)
     elif option == 'owned_by':
         output.write('OWNED BY ')
-        output.print_list(node.arg, '.', are_names=True)
+        output.print_name(node.arg)
     elif option == 'start':
         output.write('START WITH ')
         output.print_node(node.arg)
@@ -327,7 +327,7 @@ def create_stmt(node, output):
     output.print_node(node.relation)
     if node.ofTypename:
         output.write(' OF ')
-        output.print_node(node.ofTypename, is_name=True)
+        output.print_name(node.ofTypename)
     if node.partbound:
         output.write(' PARTITION OF ')
         output.print_list(node.inhRelations)
@@ -393,7 +393,7 @@ def create_stmt(node, output):
             else:
                 output.newline()
             output.write(' TABLESPACE ')
-            output.print_node(node.tablespacename, is_name=True)
+            output.print_name(node.tablespacename)
 
 
 @node_printer('CreateTableAsStmt')
@@ -411,7 +411,7 @@ def create_table_as_stmt(node, output):
     output.print_node(rel)
     if into.colNames:
         output.write(' (')
-        output.print_list(into.colNames, are_names=True)
+        output.print_name(into.colNames, ',')
         output.write(')')
     output.newline()
     if into.options:
@@ -437,7 +437,7 @@ def create_table_as_stmt(node, output):
         output.newline()
     if into.tableSpaceName:
         output.write('  TABLESPACE ')
-        output.print_node(into.tableSpaceName, is_name=True)
+        output.print_name(into.tableSpaceName)
         output.newline()
     output.write('  AS ')
     if ((node.query.targetList is not Missing
@@ -457,7 +457,7 @@ def create_table_as_stmt(node, output):
 @node_printer('CreatedbStmt')
 def createdb_stmt(node, output):
     output.write('CREATE DATABASE ')
-    output.print_node(node.dbname, is_name=True)
+    output.print_name(node.dbname)
     if node.options:
         output.newline()
         output.write('  WITH ')
@@ -469,7 +469,7 @@ def define_stmt(node, output):
     output.write('CREATE ')
     output.writes(OBJECT_NAMES[node.kind.value])
     output.print_list(node.defnames, '.', standalone_items=False, are_names=True,
-                      is_operator=node.kind == enums.ObjectType.OBJECT_OPERATOR)
+                      is_symbol=node.kind == enums.ObjectType.OBJECT_OPERATOR)
     output.write(' ')
     if node.args is not Missing:
         output.write('(')
@@ -513,13 +513,13 @@ def define_stmt_def_elem(node, output):
     if node.arg is not Missing:
         output.write(' = ')
         if isinstance(node.arg, List):
-            is_operator = node.defname in ('commutator', 'negator')
-            if is_operator and len(node.arg) > 1:
+            is_symbol = node.defname in ('commutator', 'negator')
+            if is_symbol and len(node.arg) > 1:
                 output.write('OPERATOR(')
-                output.print_list(node.arg, '.', are_names=True, is_operator=is_operator)
+                output.print_symbol(node.arg)
                 output.write(')')
             else:
-                output.print_list(node.arg, '.', are_names=True, is_operator=is_operator)
+                output.print_symbol(node.arg)
         else:
             output.print_node(node.arg)
     if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
@@ -532,7 +532,7 @@ def drop_db_stmt(node, output):
     if node.missing_ok:
         output.write(' IF EXISTS')
     output.write(' ')
-    output.print_node(node.dbname, is_name=True)
+    output.print_name(node.dbname)
 
 
 @node_printer('DropOwnedStmt')
@@ -569,23 +569,23 @@ def drop_stmt(node, output):
         if node.removeType in (otypes.OBJECT_OPCLASS, otypes.OBJECT_OPFAMILY):
             nodes = list(node.objects[0])
             using = nodes.pop(0)
-            output.print_list(nodes, '.', standalone_items=False, are_names=True)
+            output.print_name(nodes)
             output.write(' USING ')
-            output.print_node(using, is_name=True)
+            output.print_name(using)
         elif node.removeType == otypes.OBJECT_TRANSFORM:
             nodes = list(node.objects[0])
             output.write('FOR ')
-            output.print_node(nodes.pop(0), is_name=True)
+            output.print_name(nodes.pop(0))
             output.write(' LANGUAGE ')
-            output.print_list(nodes, '.', standalone_items=False, are_names=True)
+            output.print_name(nodes)
         elif node.removeType in (otypes.OBJECT_POLICY,
                                  otypes.OBJECT_RULE,
                                  otypes.OBJECT_TRIGGER):
             nodes = list(node.objects[0])
             on = nodes.pop(0)
-            output.print_list(nodes, '.', standalone_items=False, are_names=True)
+            output.print_name(nodes)
             output.write(' ON ')
-            output.print_node(on, is_name=True)
+            output.print_name(on)
         elif isinstance(node.objects[0], List):
             if node.objects[0][0].node_tag != 'String':
                 output.print_lists(node.objects, ' AS ', standalone_items=False,
@@ -607,7 +607,7 @@ def drop_subscription_stmt(node, output):
     if node.missing_ok:
         output.write(' IF EXISTS')
     output.write(' ')
-    output.print_node(node.subname, is_name=True)
+    output.print_name(node.subname)
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
         output.write(' CASCADE')
     elif node.behavior == enums.DropBehavior.DROP_RESTRICT:
@@ -620,7 +620,7 @@ def drop_table_space_stmt(node, output):
     if node.missing_ok:
         output.write(' IF EXISTS')
     output.write(' ')
-    output.print_node(node.tablespacename, is_name=True)
+    output.print_name(node.tablespacename)
 
 
 @node_printer('DropUserMappingStmt')
@@ -631,7 +631,7 @@ def drop_user_mapping_stmt(node, output):
     output.write(' FOR ')
     output.print_node(node.user)
     output.write(' SERVER ')
-    output.print_node(node.servername, is_name=True)
+    output.print_name(node.servername)
 
 
 @node_printer('FunctionParameter')
@@ -649,7 +649,7 @@ def function_parameter(node, output):
         else:
             raise NotImplementedError
     if node.name:
-        output.print_node(node.name, is_name=True)
+        output.print_name(node.name)
         output.write(' ')
     output.print_node(node.argType)
     if node.defexpr is not Missing:
@@ -668,14 +668,14 @@ def index_stmt(node, output):
     if node.if_not_exists:
         output.write('IF NOT EXISTS ')
     if node.idxname:
-        output.print_node(node.idxname, is_name=True)
+        output.print_name(node.idxname)
     output.newline()
     with output.push_indent(2):
         output.write('ON ')
         output.print_node(node.relation)
         if node.accessMethod != 'btree':
             output.write('USING ')
-            output.print_node(node.accessMethod, is_name=True)
+            output.print_name(node.accessMethod)
         output.write(' (')
         output.print_list(node.indexParams)
         output.write(')')
@@ -687,7 +687,7 @@ def index_stmt(node, output):
         if node.tableSpace:
             output.newline()
             output.write('TABLESPACE ')
-            output.print_node(node.tableSpace, is_name=True)
+            output.print_name(node.tableSpace)
         if node.whereClause:
             output.newline()
             output.write('WHERE ')
@@ -703,7 +703,7 @@ def object_with_args(node, output):
         if not node.args_unspecified:
             output.write(' ')
     else:
-        output.print_list(node.objname, '.', standalone_items=False, are_names=True)
+        output.print_name(node.objname)
     if not node.args_unspecified:
         output.write('(')
         output.print_list(node.objargs, ',', standalone_items=False)
@@ -727,7 +727,7 @@ def partition_bound_spec(node, output):
 @node_printer('PartitionElem')
 def partition_elem(node, output):
     if node.name:
-        output.print_node(node.name, is_name=True)
+        output.print_name(node.name)
     elif node.expr:
         output.print_node(node.expr)
     if node.collation or node.opclass:  # pragma: nocover
@@ -761,4 +761,4 @@ def role_spec(node, output):
     elif node.roletype == enums.RoleSpecType.ROLESPEC_PUBLIC:
         output.write('PUBLIC')
     else:
-        output.print_node(node.rolename, is_name=True)
+        output.print_name(node.rolename)

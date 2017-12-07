@@ -178,10 +178,10 @@ def a_star(node, output):
 
 @node_printer('Alias')
 def alias(node, output):
-    output.print_node(node.aliasname, is_name=True)
+    output.print_name(node.aliasname)
     if node.colnames:
         output.swrite('(')
-        output.print_list(node.colnames, sep=', ', are_names=True)
+        output.print_name(node.colnames, sep=',')
         output.write(')')
 
 
@@ -243,22 +243,22 @@ def collate_clause(node, output):
     if node.arg:
         output.print_node(node.arg)
     output.swrite('COLLATE ')
-    output.print_list(node.collname, are_names=True)
+    output.print_name(node.collname, ',')
 
 
 @node_printer('ColumnRef')
 def column_ref(node, output):
-    output.print_list(node.fields, '.', standalone_items=False, are_names=True)
+    output.print_name(node.fields)
 
 
 @node_printer('CommonTableExpr')
 def common_table_expr(node, output):
-    output.print_node(node.ctename, is_name=True)
+    output.print_name(node.ctename)
     if node.aliascolnames:
         output.write('(')
         if len(node.aliascolnames) > 1:
             output.write('  ')
-        output.print_list(node.aliascolnames, are_names=True)
+        output.print_name(node.aliascolnames, ',')
         output.write(')')
         output.newline()
 
@@ -310,7 +310,7 @@ def func_call(node, output):
         special_printer(node, output)
         return
 
-    output.print_list(node.funcname, '.', standalone_items=False, are_names=True)
+    output.print_name(node.funcname)
     output.write('(')
     if node.agg_distinct:
         output.writes('DISTINCT')
@@ -339,17 +339,17 @@ def func_call(node, output):
 @node_printer('IndexElem')
 def index_elem(node, output):
     if node.name is not Missing:
-        output.print_node(node.name, is_name=True)
+        output.print_name(node.name)
     else:
         output.write('(')
         output.print_node(node.expr)
         output.write(')')
     if node.collation:
         output.swrite('COLLATE ')
-        output.print_list(node.collation, are_names=True, standalone_items=False)
+        output.print_name(node.collation, ',')
     if node.opclass:
         output.write(' ')
-        output.print_list(node.opclass, are_names=True, standalone_items=False)
+        output.print_name(node.opclass, ',')
     if node.ordering != enums.SortByDir.SORTBY_DEFAULT:
         if node.ordering == enums.SortByDir.SORTBY_ASC:
             output.swrite('ASC')
@@ -369,7 +369,7 @@ def index_elem(node, output):
 def infer_clause(node, output):
     if node.conname:
         output.swrite('ON CONSTRAINT ')
-        output.print_node(node.conname, is_name=True)
+        output.print_name(node.conname)
     if node.indexElems:
         output.swrite('(')
         output.print_list(node.indexElems)
@@ -398,7 +398,7 @@ def insert_stmt(node, output):
         output.print_node(node.relation)
         if node.cols:
             output.write(' (')
-            output.print_list(node.cols, ', ', are_names=True)
+            output.print_name(node.cols, ',')
             output.write(')')
         else:
             output.write(' ')
@@ -414,7 +414,7 @@ def insert_stmt(node, output):
         if node.returningList:
             output.newline()
             output.write('RETURNING ')
-            output.print_list(node.returningList, ', ', are_names=True)
+            output.print_name(node.returningList, ',')
 
         if node.withClause:
             output.dedent()
@@ -453,7 +453,7 @@ def join_expr(node, output):
 
         if node.usingClause:
             output.swrite('USING (')
-            output.print_list(node.usingClause, are_names=True)
+            output.print_name(node.usingClause, ',')
             output.write(')')
         elif node.quals:
             output.swrite('ON ')
@@ -461,7 +461,7 @@ def join_expr(node, output):
 
         if node.alias:
             output.writes(') AS')
-            output.print_node(node.alias, is_name=True)
+            output.print_name(node.alias)
 
         if node.rarg.node_tag == 'JoinExpr':
             output.dedent()
@@ -505,7 +505,7 @@ def multi_assign_ref(node, output):
 
 @node_printer('NamedArgExpr')
 def named_arg_expr(node, output):
-    output.print_node(node.name, is_name=True)
+    output.print_name(node.name)
     output.write(' => ')
     output.print_node(node.arg)
 
@@ -581,7 +581,7 @@ def range_subselect(node, output):
     output.write(')')
     if node.alias:
         output.write(' AS ')
-        output.print_node(node.alias, is_name=True)
+        output.print_name(node.alias)
 
 
 @node_printer('RangeVar')
@@ -589,13 +589,13 @@ def range_var(node, output):
     if not node.inh or not node.inh.value:
         output.write('ONLY ')
     if node.schemaname:
-        output.print_node(node.schemaname, is_name=True)
+        output.print_name(node.schemaname)
         output.write('.')
-    output.print_node(node.relname, is_name=True)
+    output.print_name(node.relname)
     alias = node.alias
     if alias:
         output.write(' AS ')
-        output.print_node(alias, is_name=True)
+        output.print_name(alias)
 
 
 @node_printer('RawStmt')
@@ -609,9 +609,9 @@ def res_target(node, output):
         output.print_node(node.val)
         if node.name:
             output.write(' AS ')
-            output.print_node(node.name, is_name=True)
+            output.print_name(node.name)
     else:
-        output.print_node(node.name, is_name=True)
+        output.print_name(node.name)
     if node.indirection:
         output.print_list(node.indirection, '', standalone_items=False)
 
@@ -772,8 +772,8 @@ def sql_value_function(node, output):
 
 
 @node_printer('String')
-def string(node, output, is_name=False, is_operator=False):
-    output.print_node(node.str, is_name=is_name, is_operator=is_operator)
+def string(node, output, is_name=False, is_symbol=False):
+    output.print_node(node.str, is_name=is_name, is_symbol=is_symbol)
 
 
 @node_printer('SubLink')
@@ -848,7 +848,7 @@ def transaction_stmt_def_elem(node, output):
             output.write('NOT ')
         output.write('DEFERRABLE')
     else:
-        output.print_node(node.arg, is_name=True)
+        output.print_name(node.arg)
 
 
 @node_printer('TypeCast')
@@ -914,7 +914,7 @@ def type_name(node, output):
     if name in system_types:
         output.write(system_types[name])
     else:
-        output.print_list(node.names, '.', standalone_items=False, are_names=True)
+        output.print_name(node.names)
     if node.pct_type:
         # FIXME: is this used only by plpgsql?
         output.write('%TYPE')
@@ -965,7 +965,7 @@ def update_stmt(node, output):
         if node.returningList:
             output.newline()
             output.write('RETURNING ')
-            output.print_list(node.returningList, ', ', are_names=True)
+            output.print_name(node.returningList, ',')
 
         if node.withClause:
             output.dedent()
@@ -977,14 +977,14 @@ def update_stmt_res_target(node, output):
         if node.val.colno == 1:
             output.write('(  ')
             output.indent(-2)
-        output.print_node(node.name, is_name=True)
+        output.print_name(node.name)
         if node.val.colno.value == node.val.ncolumns.value:
             output.dedent()
             output.write(') = ')
             output.print_node(node.val)
     else:
         if node.name:
-            output.print_node(node.name, is_name=True)
+            output.print_name(node.name)
             if node.indirection:
                 output.print_list(node.indirection, '', standalone_items=False)
             output.write(' = ')
@@ -995,12 +995,12 @@ def update_stmt_res_target(node, output):
 def window_def(node, output):
     empty = node.partitionClause is Missing and node.orderClause is Missing
     if node.name:
-        output.print_node(node.name, is_name=True)
+        output.print_name(node.name)
         if not empty:
             output.write(' AS ')
     if node.refname:
         output.write('(')
-        output.print_node(node.refname, is_name=True)
+        output.print_name(node.refname)
         output.write(')')
         if not empty:
             # FIXME: find a way to get here
