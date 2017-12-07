@@ -259,7 +259,14 @@ class Scalar(Base):
         return True
 
     def __eq__(self, other):
-        if isinstance(other, (Enum, type(self.value))):
+        if isinstance(other, Enum):
+            # Handle the FunctionParameterMode case, when the value is an integer while the
+            # enum is actually a character
+            if isinstance(self.value, int) and isinstance(other.value, str):
+                assert len(other.value) == 1
+                return self.value == ord(other.value)
+            return self.value == other
+        elif isinstance(other, type(self.value)):
             return self.value == other
         else:
             return super().__eq__(other)
