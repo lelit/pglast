@@ -222,6 +222,48 @@ class RawStream(OutputStream):
             self.print_node(statement)
         return self.getvalue()
 
+    def dedent(self):
+        "Do nothing, shall be overridden by the prettifier subclass."
+
+    def get_printer_for_function(self, name):
+        """Look for a specific printer for function `name` in :data:`SPECIAL_FUNCTIONS`.
+
+        :param str name: the qualified name of the function
+        :returns: either ``None`` or a callable
+
+        When the option `special_functions` is ``True``, return the printer function associated
+        with `name`, if present. In all other cases return ``None``.
+        """
+
+        if self.special_functions:
+            return SPECIAL_FUNCTIONS.get(name)
+
+    def indent(self, amount=0, relative=True):
+        "Do nothing, shall be overridden by the prettifier subclass."
+
+    def newline(self):
+        "Emit a single whitespace, shall be overridden by the prettifier subclass."
+
+        self.separator()
+
+    @contextmanager
+    def push_indent(self, amount=0, relative=True):
+        "Create a no-op context manager, shall be overridden by the prettifier subclass."
+
+        yield
+
+    @contextmanager
+    def expression(self):
+        "Create a context manager that will wrap subexpressions within parentheses."
+
+        self.expression_level += 1
+        if self.expression_level > 1:
+            self.write('(')
+        yield
+        if self.expression_level > 1:
+            self.write(')')
+        self.expression_level -= 1
+
     def _concat_nodes(self, nodes, sep=' ', are_names=False):
         """Concatenate given `nodes`, using `sep` as the separator.
 
@@ -239,23 +281,6 @@ class RawStream(OutputStream):
         rawstream = RawStream(expression_level=self.expression_level)
         rawstream.print_list(nodes, sep, are_names=are_names, standalone_items=False)
         return rawstream.getvalue()
-
-    def dedent(self):
-        "Do nothing, shall be overridden by the prettifier subclass."
-
-    def indent(self, amount=0, relative=True):
-        "Do nothing, shall be overridden by the prettifier subclass."
-
-    def newline(self):
-        "Emit a single whitespace, shall be overridden by the prettifier subclass."
-
-        self.separator()
-
-    @contextmanager
-    def push_indent(self, amount=0, relative=True):
-        "Create a no-op context manager, shall be overridden by the prettifier subclass."
-
-        yield
 
     def _write_quoted_string(self, s):
         "Emit the `s` as a single-quoted literal constant."
@@ -293,16 +318,6 @@ class RawStream(OutputStream):
             else:
                 printer(node, self)
             self.separator()
-
-    @contextmanager
-    def expression(self):
-        self.expression_level += 1
-        if self.expression_level > 1:
-            self.write('(')
-        yield
-        if self.expression_level > 1:
-            self.write(')')
-        self.expression_level -= 1
 
     def _print_items(self, items, sep, newline, are_names=False, is_operator=False):
         last = len(items) - 1
@@ -381,19 +396,6 @@ class RawStream(OutputStream):
                     self.write(sublist_open)
                 self.print_list(lst, sep, relative_indent, standalone_items, are_names)
                 self.write(sublist_close)
-
-    def get_printer_for_function(self, name):
-        """Look for a specific printer for function `name` in :data:`SPECIAL_FUNCTIONS`.
-
-        :param str name: the qualified name of the function
-        :returns: either ``None`` or a callable
-
-        When the option `special_functions` is ``True``, return the printer function associated
-        with `name`, if present. In all other cases return ``None``.
-        """
-
-        if self.special_functions:
-            return SPECIAL_FUNCTIONS.get(name)
 
 
 class IndentedStream(RawStream):
