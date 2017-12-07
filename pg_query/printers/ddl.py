@@ -508,7 +508,7 @@ def def_elem(node, output):
 
 
 @node_printer('DefineStmt', 'DefElem')
-def def_define_stmt_elem(node, output):
+def define_stmt_def_elem(node, output):
     output.print_node(node.defname)
     if node.arg is not Missing:
         output.write(' = ')
