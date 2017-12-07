@@ -772,8 +772,8 @@ def sql_value_function(node, output):
 
 
 @node_printer('String')
-def string(node, output, is_name=None):
-    output.print_node(node.str, is_name=is_name)
+def string(node, output, is_name=False, is_operator=False):
+    output.print_node(node.str, is_name=is_name, is_operator=is_operator)
 
 
 @node_printer('SubLink')

@@ -262,11 +262,13 @@ class RawStream(OutputStream):
 
         self.write("'%s'" % s.replace("'", "''"))
 
-    def _print_scalar(self, node, is_name):
+    def _print_scalar(self, node, is_name, is_operator):
         "Print the scalar `node`, special-casing string literals."
 
         value = node.value
-        if is_name:
+        if is_operator:
+            self.write(value)
+        elif is_name:
             # The `scalar` represent a name of a column/table/alias: when any of its
             # characters is not a lower case letter, a digit or underscore, it must be
             # double quoted
@@ -278,16 +280,16 @@ class RawStream(OutputStream):
         else:
             self.write(str(value))
 
-    def print_node(self, node, is_name=False):
+    def print_node(self, node, is_name=False, is_operator=False):
         """Lookup the specific printer for the given `node` and execute it."""
 
         if isinstance(node, Scalar):
-            self._print_scalar(node, is_name)
+            self._print_scalar(node, is_name, is_operator)
         else:
             parent_node_tag = node.parent_node and node.parent_node.node_tag
             printer = get_printer_for_node_tag(parent_node_tag, node.node_tag)
             if is_name and node.node_tag == 'String':
-                printer(node, self, is_name=True)
+                printer(node, self, is_name=is_name, is_operator=is_operator)
             else:
                 printer(node, self)
             self.separator()
@@ -302,22 +304,20 @@ class RawStream(OutputStream):
             self.write(')')
         self.expression_level -= 1
 
-    def _print_items(self, items, sep, newline, are_names=False):
-        first = True
-        for item in items:
-            if first:
-                first = False
-            else:
+    def _print_items(self, items, sep, newline, are_names=False, is_operator=False):
+        last = len(items) - 1
+        for idx, item in enumerate(items):
+            if idx > 0:
                 if not are_names:
                     if newline:
                         self.newline()
                 self.write(sep)
                 if not are_names and sep:
                     self.write(' ')
-            self.print_node(item, is_name=are_names)
+            self.print_node(item, is_name=are_names, is_operator=is_operator and idx == last)
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
-                   are_names=False):
+                   are_names=False, is_operator=False):
         """Execute :meth:`print_node` on all the `items`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.node.Node` instances
@@ -329,6 +329,9 @@ class RawStream(OutputStream):
         :param bool are_names:
                whether the nodes are actually *names*, which possibly require to be enclosed
                between double-quotes
+        :param bool is_operator:
+               whether the nodes are actually an *operator name*, in which case the last one
+               must be printed verbatim (such as ``"MySchema".===``)
         """
 
         if relative_indent is None:
@@ -341,7 +344,8 @@ class RawStream(OutputStream):
                                        for n in nodes)
 
         with self.push_indent(relative_indent):
-            self._print_items(nodes, sep, standalone_items, are_names=are_names)
+            self._print_items(nodes, sep, standalone_items, are_names=are_names,
+                              is_operator=is_operator)
 
     def print_lists(self, lists, sep=',', relative_indent=None, standalone_items=None,
                     are_names=False, sublist_open='(', sublist_close=')', sublist_sep=',',
@@ -456,7 +460,7 @@ class IndentedStream(RawStream):
         self.write('\n')
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
-                   are_names=False):
+                   are_names=False, is_operator=False):
         """Execute :meth:`print_node` on all the `items`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.node.Node` instances
@@ -468,6 +472,9 @@ class IndentedStream(RawStream):
         :param bool are_names:
                whether the nodes are actually *names*, which possibly require to be enclosed
                between double-quotes
+        :param bool is_operator:
+               whether the nodes are actually an *operator name*, in which case the last one
+               must be printed verbatim (such as ``"MySchema".===``)
         """
 
         if standalone_items is None:
@@ -490,7 +497,8 @@ class IndentedStream(RawStream):
              and standalone_items)):
             self.write(' '*(len(sep) + 1))  # separator added automatically
 
-        super().print_list(nodes, sep, relative_indent, standalone_items, are_names)
+        super().print_list(nodes, sep, relative_indent, standalone_items, are_names,
+                           is_operator)
 
     def _write_quoted_string(self, s):
         """Possibly split `s` string in successive chunks.
