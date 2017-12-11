@@ -309,6 +309,39 @@ def create_event_trig_stmt_def_elem(node, output):
     output.write(')')
 
 
+@node_printer('CreateExtensionStmt')
+def create_extension_stmt(node, output):
+    output.write('CREATE EXTENSION ')
+    if node.if_not_exists:
+        output.write('IF NOT EXISTS ')
+    output.print_name(node.extname)
+    if node.options:
+        output.newline()
+        output.write('  WITH ')
+        output.print_list(node.options, '')
+
+
+@node_printer('CreateExtensionStmt', 'DefElem')
+def create_extension_stmt_def_elem(node, output):
+    option = node.defname.value
+    if option == 'cascade':
+        if node.arg.ival == 1:
+            output.write('CASCADE')
+    elif option == 'old_version':
+        output.write('from ')
+        output.print_node(node.arg)
+    elif option == 'new_version':
+        output.write('version ')
+        output.print_node(node.arg)
+    else:
+        output.write(option)
+        output.write(' ')
+        if option == 'schema':
+            output.print_name(node.arg)
+        else:
+            output.print_node(node.arg)
+
+
 @node_printer('CreateSchemaStmt')
 def create_schema_stmt(node, output):
     output.write('CREATE SCHEMA ')

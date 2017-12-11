@@ -67,6 +67,19 @@
 
    Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreateEventTrigStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2375>`__, to the `output` stream.
 
+.. index:: CreateExtensionStmt
+
+.. function:: create_extension_stmt(node, output)
+
+   Pretty print a `node` of type `CreateExtensionStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2166>`__ to the `output` stream.
+
+.. index::
+   pair: CreateExtensionStmt;DefElem
+
+.. function:: create_extension_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreateExtensionStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2166>`__, to the `output` stream.
+
 .. index:: CreateSchemaStmt
 
 .. function:: create_schema_stmt(node, output)

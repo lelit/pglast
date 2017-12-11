@@ -796,6 +796,22 @@ CREATE EVENT TRIGGER abort_ddl ON ddl_command_start
    AND tag IN ('other')
   EXECUTE PROCEDURE a()
 
+CREATE EXTENSION IF NOT EXISTS hstore
+=
+CREATE EXTENSION IF NOT EXISTS hstore
+
+CREATE EXTENSION "Foobar" VERSION '1' CASCADE
+=
+CREATE EXTENSION "Foobar"
+  WITH version '1'
+       CASCADE
+
+CREATE EXTENSION hstore SCHEMA public FROM unpackaged
+=
+CREATE EXTENSION hstore
+  WITH schema public
+       from 'unpackaged'
+
 create index concurrently aidx on atbl using gin (value)
 with (fastupdate = ON, gin_pending_list_limit = 100)
 =
