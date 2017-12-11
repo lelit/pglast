@@ -851,6 +851,16 @@ def transaction_stmt_def_elem(node, output):
         output.print_name(node.arg)
 
 
+@node_printer('TruncateStmt')
+def truncate_stmt(node, output):
+    output.write('TRUNCATE TABLE ')
+    output.print_list(node.relations)
+    if node.restart_seqs:
+        output.write(' RESTART IDENTITY')
+    if node.behavior == enums.DropBehavior.DROP_CASCADE:
+        output.write(' CASCADE')
+
+
 @node_printer('TypeCast')
 def type_cast(node, output):
     output.print_node(node.arg)
