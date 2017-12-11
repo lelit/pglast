@@ -64,15 +64,17 @@ __ https://en.wikipedia.org/wiki/Zero-copy
 
 .. [*] Currently what you can find in the following headers:
 
-       - `nodes.h`__
-       - `primnodes.h`__
-       - `parsenodes.h`__
        - `lockoptions.h`__
+       - `nodes.h`__
+       - `parsenodes.h`__
+       - `pg_class.h`__
+       - `primnodes.h`__
 
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/nodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/primnodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/parsenodes.h;hb=HEAD
 __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/lockoptions.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/nodes.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/parsenodes.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/catalog/pg_class.h;hb=HEAD
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/primnodes.h;hb=HEAD
 
 Introduction
 ------------
@@ -81,7 +83,7 @@ At the lower level the module exposes two libpg_query functions, ``parse_sql()``
 ``parse_plpgsql()``, that take respectively an ``SQL`` statement and a ``PLpgSQL`` statement
 and return a *parse tree* as a hierarchy of Python dictionaries, lists and scalar values. In
 some cases these scalars correspond to some C ``typedef enums``, that are automatically
-extracted from the PostgreSQL headers and are available as ``pg_query.enums``.
+extracted from the PostgreSQL headers mentioned above and are available as ``pg_query.enums``.
 
 At a higher level that tree is represented by three Python classes, a ``Node`` that represents
 a single node, a ``List`` that wraps a sequence of nodes and a ``Scalar`` for plain values such
