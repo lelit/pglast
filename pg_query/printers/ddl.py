@@ -488,6 +488,8 @@ def createdb_stmt(node, output):
 def define_stmt(node, output):
     output.write('CREATE ')
     output.writes(OBJECT_NAMES[node.kind.value])
+    if node.if_not_exists:
+        output.write('IF NOT EXISTS ')
     output.print_list(node.defnames, '.', standalone_items=False, are_names=True,
                       is_symbol=node.kind == enums.ObjectType.OBJECT_OPERATOR)
     output.write(' ')
@@ -505,13 +507,19 @@ def define_stmt(node, output):
             output.write(' ORDER BY ')
             output.print_list(args[count:], standalone_items=False)
         output.write(') ')
-    output.write('(')
-    output.newline()
-    output.write('    ')
-    with output.push_indent(2):
-        output.print_list(node.definition)
-    output.newline()
-    output.write(')')
+    if ((node.kind == enums.ObjectType.OBJECT_COLLATION
+         and len(node.definition) == 1
+         and node.definition[0].defname == 'from')):
+        output.write('FROM ')
+        output.print_name(node.definition[0].arg)
+    else:
+        output.write('(')
+        output.newline()
+        output.write('    ')
+        with output.push_indent(2):
+            output.print_list(node.definition)
+        output.newline()
+        output.write(')')
 
 
 @node_printer('DefElem')
