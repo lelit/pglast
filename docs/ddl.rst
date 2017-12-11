@@ -91,6 +91,13 @@
 
    Pretty print a `node` of type `CreatedbStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L3020>`__ to the `output` stream.
 
+.. index::
+   pair: CreatedbStmt;DefElem
+
+.. function:: create_db_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreatedbStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L3020>`__, to the `output` stream.
+
 .. index:: DefineStmt
 
 .. function:: define_stmt(node, output)

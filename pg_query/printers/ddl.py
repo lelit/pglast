@@ -497,6 +497,21 @@ def createdb_stmt(node, output):
         output.print_list(node.options, '')
 
 
+@node_printer('CreatedbStmt', 'DefElem')
+def create_db_stmt_def_elem(node, output):
+    option = node.defname.value
+    if option == 'connection_limit':
+        output.write('connection limit')
+    else:
+        output.print_node(node.defname)
+    if node.arg is not Missing:
+        output.write(' = ')
+        if isinstance(node.arg, List) or option in ('allow_connections', 'is_template'):
+            output.write(node.arg.string_value)
+        else:
+            output.print_node(node.arg)
+
+
 @node_printer('DefineStmt')
 def define_stmt(node, output):
     output.write('CREATE ')
