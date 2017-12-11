@@ -238,6 +238,18 @@ def test_create_collations(sql):
     roundtrip(sql)
 
 
+CREATE_CONVERSIONS = """\
+CREATE CONVERSION myconv FOR 'UTF8' TO 'LATIN1' FROM myfunc
+
+CREATE DEFAULT CONVERSION myconv FOR 'UTF8' TO 'LATIN1' FROM myfunc
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_CONVERSIONS.split('\n\n')))
+def test_create_conversions(sql):
+    roundtrip(sql)
+
+
 CREATE_INDEXES = """\
 create index aidx on atbl (value)
 

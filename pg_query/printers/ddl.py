@@ -259,6 +259,19 @@ def create_cast_stmt(node, output):
         output.write(' AS IMPLICIT')
 
 
+@node_printer('CreateConversionStmt')
+def create_conversion_stmt(node, output):
+    output.write('CREATE ')
+    if node['def']:
+        output.write('DEFAULT ')
+    output.write('CONVERSION ')
+    output.print_name(node.conversion_name)
+    output.write(" FOR '%s' TO '%s'" % (node.for_encoding_name.value,
+                                        node.to_encoding_name.value))
+    output.write(' FROM ')
+    output.print_name(node.func_name)
+
+
 @node_printer('CreateDomainStmt')
 def create_domain_stmt(node, output):
     output.write('CREATE DOMAIN ')
