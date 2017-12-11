@@ -284,6 +284,31 @@ def create_domain_stmt(node, output):
         output.print_list(node.constraints, '', standalone_items=False)
 
 
+@node_printer('CreateEventTrigStmt')
+def create_event_trig_stmt(node, output):
+    output.write('CREATE EVENT TRIGGER ')
+    output.print_name(node.trigname)
+    output.write(' ON ')
+    output.print_name(node.eventname)
+    output.newline()
+    with output.push_indent(2):
+        if node.whenclause:
+            output.write('WHEN ')
+            output.print_list(node.whenclause, 'AND', relative_indent=-4)
+            output.newline()
+        output.write('EXECUTE PROCEDURE ')
+        output.print_name(node.funcname)
+        output.write('()')
+
+
+@node_printer('CreateEventTrigStmt', 'DefElem')
+def create_event_trig_stmt_def_elem(node, output):
+    output.print_name(node.defname)
+    output.write(' IN (')
+    output.print_list(node.arg, standalone_items=False)
+    output.write(')')
+
+
 @node_printer('CreateSchemaStmt')
 def create_schema_stmt(node, output):
     output.write('CREATE SCHEMA ')

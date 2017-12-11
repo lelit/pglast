@@ -776,6 +776,26 @@ CREATE DOMAIN foo varchar(10) collate "it_IT" default 'null'
 =
 CREATE DOMAIN foo AS varchar(10) COLLATE "it_IT" DEFAULT 'null'
 
+CREATE EVENT TRIGGER abort_ddl ON ddl_command_start EXECUTE PROCEDURE abort_any_command()
+=
+CREATE EVENT TRIGGER abort_ddl ON ddl_command_start
+  EXECUTE PROCEDURE abort_any_command()
+
+create event trigger abort_ddl on ddl_command_start
+when tag in ('foo', 'bar') execute procedure a()
+=
+CREATE EVENT TRIGGER abort_ddl ON ddl_command_start
+  WHEN tag IN ('foo', 'bar')
+  EXECUTE PROCEDURE a()
+
+create event trigger abort_ddl on ddl_command_start
+when tag in ('foo', 'bar') and tag in ('other') execute procedure a()
+=
+CREATE EVENT TRIGGER abort_ddl ON ddl_command_start
+  WHEN tag IN ('foo', 'bar')
+   AND tag IN ('other')
+  EXECUTE PROCEDURE a()
+
 create index concurrently aidx on atbl using gin (value)
 with (fastupdate = ON, gin_pending_list_limit = 100)
 =
