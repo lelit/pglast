@@ -196,6 +196,28 @@ def test_create_aggregates(sql):
     roundtrip(sql)
 
 
+CREATE_CASTS = """\
+CREATE CAST (bigint AS int4) WITH FUNCTION int4(bigint) AS ASSIGNMENT
+
+CREATE CAST (varchar AS citext) WITHOUT FUNCTION AS ASSIGNMENT
+
+CREATE CAST (citext AS varchar) WITHOUT FUNCTION AS IMPLICIT
+
+CREATE CAST (text AS casttesttype) WITHOUT FUNCTION
+
+CREATE CAST (text AS casttesttype) WITHOUT FUNCTION AS IMPLICIT
+
+CREATE CAST (int4 AS casttesttype) WITH INOUT
+
+CREATE CAST (int4 AS casttesttype) WITH FUNCTION int4_casttesttype(int4) AS IMPLICIT
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_CASTS.split('\n\n')))
+def test_create_casts(sql):
+    roundtrip(sql)
+
+
 CREATE_INDEXES = """\
 create index aidx on atbl (value)
 

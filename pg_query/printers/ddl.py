@@ -239,6 +239,26 @@ def create_am_stmt(node, output):
         raise NotImplementedError
 
 
+@node_printer('CreateCastStmt')
+def create_cast_stmt(node, output):
+    output.write('CREATE CAST (')
+    output.print_node(node.sourcetype)
+    output.write(' AS ')
+    output.print_node(node.targettype)
+    output.write(') ')
+    if node.func:
+        output.write('WITH FUNCTION ')
+        output.print_node(node.func)
+    elif node.inout:
+        output.write('WITH INOUT')
+    else:
+        output.write('WITHOUT FUNCTION')
+    if node.context == enums.CoercionContext.COERCION_ASSIGNMENT:
+        output.write(' AS ASSIGNMENT')
+    elif node.context == enums.CoercionContext.COERCION_IMPLICIT:
+        output.write(' AS IMPLICIT')
+
+
 @node_printer('CreateDomainStmt')
 def create_domain_stmt(node, output):
     output.write('CREATE DOMAIN ')
