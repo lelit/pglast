@@ -36,6 +36,18 @@
 
    Pretty print a `node` of type `CreateAmStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2336>`__ to the `output` stream.
 
+.. index:: CreateCastStmt
+
+.. function:: create_cast_stmt(node, output)
+
+   Pretty print a `node` of type `CreateCastStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L3252>`__ to the `output` stream.
+
+.. index:: CreateConversionStmt
+
+.. function:: create_conversion_stmt(node, output)
+
+   Pretty print a `node` of type `CreateConversionStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L3238>`__ to the `output` stream.
+
 .. index:: CreateDomainStmt
 
 .. function:: create_domain_stmt(node, output)
@@ -90,6 +102,13 @@
 .. function:: def_elem(node, output)
 
    Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__ to the `output` stream.
+
+.. index::
+   pair: DefineStmt;DefElem
+
+.. function:: define_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `DefineStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2487>`__, to the `output` stream.
 
 .. index:: DropdbStmt
 
