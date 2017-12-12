@@ -291,3 +291,50 @@ def test_special_function():
         assert result == 'SELECT x - "Y" FROM sometable'
     finally:
         printer.SPECIAL_FUNCTIONS.pop('foo.test_function')
+
+
+def test_names_and_symbols():
+    ptree = [{'TestRoot': {
+        'a': {
+            "String": {
+                "str": "Sum"
+            }},
+        'b': [{
+            "String": {
+                "str": "foo"
+            }}],
+        'c': [{
+            "String": {
+                "str": "table"
+            }
+        }, {
+            "String": {
+                "str": "bar"
+            }}],
+        'd': [{
+            "String": {
+                "str": "Schema"
+            }
+        }, {
+            "String": {
+                "str": "="
+            }
+        }],
+    }}]
+
+    first_node = Node(ptree)[0]
+
+    def do(meth, node):
+        output = printer.RawStream()
+        getattr(output, meth)(node)
+        return output.getvalue()
+
+    assert do('print_name', first_node.a) == '"Sum"'
+    assert do('print_name', first_node.b) == 'foo'
+    assert do('print_name', first_node.c) == '"table".bar'
+    assert do('print_name', first_node.d) == '"Schema"."="'
+
+    assert do('print_symbol', first_node.a) == 'Sum'
+    assert do('print_symbol', first_node.b) == 'foo'
+    assert do('print_symbol', first_node.c) == '"table".bar'
+    assert do('print_symbol', first_node.d) == '"Schema".='
