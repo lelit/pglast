@@ -14,7 +14,7 @@ from ..printer import node_printer
 @node_printer('ColumnDef')
 def column_def(node, output):
     output.print_name(node.colname)
-    output.write(' ')
+    output.space()
     if node.typeName:
         output.print_name(node.typeName)
     else:
@@ -120,7 +120,8 @@ def comment_stmt(node, output):
     else:
         output.print_name(node.object)
     output.newline()
-    output.write('  IS ')
+    output.space(2)
+    output.write('IS ')
     with output.push_indent():
         output._write_quoted_string(node.comment.value)
 
@@ -317,7 +318,8 @@ def create_extension_stmt(node, output):
     output.print_name(node.extname)
     if node.options:
         output.newline()
-        output.write('  WITH ')
+        output.space(2)
+        output.write('WITH ')
         output.print_list(node.options, '')
 
 
@@ -348,7 +350,7 @@ def create_fdw_stmt(node, output):
     output.print_name(node.fdwname)
     if node.func_options:
         output.newline()
-        output.write('  ')
+        output.space(2)
         with output.push_indent():
             output.print_list(node.func_options, '')
     if node.options:
@@ -406,7 +408,7 @@ def create_schema_stmt(node, output):
         output.print_node(node.authrole)
     if node.schemaElts:
         output.newline()
-        output.write('  ')
+        output.space(2)
         with output.push_indent():
             output.print_list(node.schemaElts, '', standalone_items=True)
 
@@ -425,7 +427,7 @@ def create_seq_stmt(node, output):
     output.print_name(node.sequence.relname)
     if node.options:
         output.newline()
-        output.write('  ')
+        output.space(2)
         with output.push_indent():
             output.print_list(node.options, '')
 
@@ -480,7 +482,7 @@ def create_stmt(node, output):
     if node.tableElts:
         output.write(' (')
         output.newline()
-        output.write('    ')
+        output.space(4)
         with output.push_indent(2):
             output.print_list(node.tableElts)
         output.newline()
@@ -565,18 +567,21 @@ def create_table_as_stmt(node, output):
     output.newline()
     if into.options:
         if len(into.options) == 1 and into.options[0].defname == 'oids':
-            output.write('  WITH')
+            output.space(2)
+            output.write('WITH')
             if into.options[0].arg.ival.value == 0:
                 output.write
                 output.write('OUT')
             output.write(' OIDS')
         else:
-            output.write('  WITH (')
+            output.space(2)
+            output.write('WITH (')
             output.print_list(into.options)
             output.write(')')
         output.newline()
     if into.onCommit != enums.OnCommitAction.ONCOMMIT_NOOP:
-        output.write('  ON COMMIT ')
+        output.space(2)
+        output.write('ON COMMIT ')
         if into.onCommit == enums.OnCommitAction.ONCOMMIT_PRESERVE_ROWS:
             output.write('PRESERVE ROWS')
         elif into.onCommit == enums.OnCommitAction.ONCOMMIT_DELETE_ROWS:
@@ -585,10 +590,12 @@ def create_table_as_stmt(node, output):
             output.write('DROP')
         output.newline()
     if into.tableSpaceName:
-        output.write('  TABLESPACE ')
+        output.space(2)
+        output.write('TABLESPACE ')
         output.print_name(into.tableSpaceName)
         output.newline()
-    output.write('  AS ')
+    output.space(2)
+    output.write('AS ')
     if ((node.query.targetList is not Missing
          and node.query.whereClause is Missing
          and len(node.query.targetList[0].val.fields) == 1
@@ -600,7 +607,8 @@ def create_table_as_stmt(node, output):
             output.print_node(node.query)
     if node.into.skipData:
         output.newline()
-        output.write('  WITH NO DATA')
+        output.space(2)
+        output.write('WITH NO DATA')
 
 
 @node_printer('CreatedbStmt')
@@ -609,7 +617,8 @@ def createdb_stmt(node, output):
     output.print_name(node.dbname)
     if node.options:
         output.newline()
-        output.write('  WITH ')
+        output.space(2)
+        output.write('WITH ')
         output.print_list(node.options, '')
 
 
@@ -659,7 +668,7 @@ def define_stmt(node, output):
     else:
         output.write('(')
         output.newline()
-        output.write('    ')
+        output.space(4)
         with output.push_indent(2):
             output.print_list(node.definition)
         output.newline()

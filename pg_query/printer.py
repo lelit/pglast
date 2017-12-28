@@ -246,6 +246,11 @@ class RawStream(OutputStream):
 
         self.separator()
 
+    def space(self, count=1):
+        "Emit a single whitespace, shall be overridden by the prettifier subclass."
+
+        self.separator()
+
     @contextmanager
     def push_indent(self, amount=0, relative=True):
         "Create a no-op context manager, shall be overridden by the prettifier subclass."
@@ -484,6 +489,11 @@ class IndentedStream(RawStream):
         "Emit a newline."
 
         self.write('\n')
+
+    def space(self, count=1):
+        "Emit consecutive spaces."
+
+        self.write(' '*count)
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
                    are_names=False, is_symbol=False):

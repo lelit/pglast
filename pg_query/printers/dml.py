@@ -210,7 +210,7 @@ def case_expr(node, output):
         if node.arg:
             output.print_node(node.arg)
         output.newline()
-        output.write('  ')
+        output.space(2)
         with output.push_indent():
             output.print_list(node.args, '')
             if node.defresult:
@@ -257,7 +257,7 @@ def common_table_expr(node, output):
     if node.aliascolnames:
         output.write('(')
         if len(node.aliascolnames) > 1:
-            output.write('  ')
+            output.space(2)
         output.print_name(node.aliascolnames, ',')
         output.write(')')
         output.newline()
@@ -275,7 +275,7 @@ def delete_stmt(node, output):
             output.write('WITH ')
             output.print_node(node.withClause)
             output.newline()
-            output.write('  ')
+            output.space(2)
             output.indent()
 
         output.write('DELETE FROM ')
@@ -391,7 +391,7 @@ def insert_stmt(node, output):
             output.write('WITH ')
             output.print_node(node.withClause)
             output.newline()
-            output.write('  ')
+            output.space(2)
             output.indent()
 
         output.write('INSERT INTO ')
@@ -536,11 +536,13 @@ def on_conflict_clause(node, output):
         with output.push_indent(3):
             output.write('DO UPDATE')
             output.newline()
-            output.write('   SET ')
+            output.space(2)
+            output.write('SET ')
             output.print_list(node.targetList)
             if node.whereClause:
                 output.newline()
-                output.write('   WHERE ')
+                output.space(2)
+                output.write('WHERE ')
                 output.print_node(node.whereClause)
 
 
@@ -630,7 +632,7 @@ def select_stmt(node, output):
             output.write('WITH ')
             output.print_node(node.withClause)
             output.newline()
-            output.write('  ')
+            output.space(2)
             output.indent()
 
         if node.valuesLists:
@@ -956,7 +958,7 @@ def update_stmt(node, output):
             output.write('WITH ')
             output.print_node(node.withClause)
             output.newline()
-            output.write('  ')
+            output.space(2)
             output.indent()
 
         output.write('UPDATE ')
