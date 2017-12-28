@@ -348,13 +348,14 @@ def create_fdw_stmt(node, output):
     output.print_name(node.fdwname)
     if node.func_options:
         output.newline()
-        with output.push_indent(2):
+        output.write('  ')
+        with output.push_indent():
             output.print_list(node.func_options, '')
     if node.options:
         output.newline()
         with output.push_indent(2):
             output.write('OPTIONS (')
-            output.print_list(node.options, '')
+            output.print_list(node.options)
             output.write(')')
 
 
@@ -378,6 +379,19 @@ def create_foreign_table_stmt(node, output):
         output.write(' ')
     output.write(' SERVER ')
     output.print_name(node.servername)
+    if node.options:
+        output.newline()
+        with output.push_indent(2):
+            output.write('OPTIONS (')
+            output.print_list(node.options)
+            output.write(')')
+
+
+@node_printer('CreateForeignTableStmt', 'DefElem')
+def create_foreign_table_stmt_def_elem(node, output):
+    output.write(node.defname.value)
+    output.write(' ')
+    output.print_node(node.arg)
 
 
 @node_printer('CreateSchemaStmt')
