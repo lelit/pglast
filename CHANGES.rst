@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.23 (unreleased)
+0.23 (2017-12-28)
 ~~~~~~~~~~~~~~~~~
 
 - Implement some other DDL statements printers
