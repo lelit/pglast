@@ -32,7 +32,8 @@ def workhorse(args):
                 statement,
                 compact_lists_margin=args.compact_lists_margin,
                 split_string_literals_threshold=args.split_string_literals,
-                special_functions=args.special_functions)
+                special_functions=args.special_functions,
+                comma_at_eoln=args.comma_at_eoln)
         except Error as e:
             print()
             raise SystemExit(e)
@@ -67,6 +68,9 @@ def main(options=None):
                         help='split string literals longer than given value')
     parser.add_argument('-f', '--special-functions', action='store_true', default=False,
                         help='activate special functions handling')
+    parser.add_argument('-c', '--comma-at-eoln', action='store_true', default=False,
+                        help='use alternative style to print lists, putting the comma right'
+                        ' after each item')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'
                         ' by default stdin')

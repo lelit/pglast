@@ -201,6 +201,12 @@ Examples of usage
         , c
    FROM sometable
 
+   $ echo "select a,b,c from sometable" | pgpp -c
+   SELECT a,
+          b,
+          c
+   FROM sometable
+
    $ echo 'update "table" set value=123 where value is null' | pgpp
    UPDATE "table"
    SET value = 123

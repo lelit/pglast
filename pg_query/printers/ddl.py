@@ -482,9 +482,8 @@ def create_stmt(node, output):
     if node.tableElts:
         output.write(' (')
         output.newline()
-        output.space(4)
-        with output.push_indent(2):
-            output.print_list(node.tableElts)
+        output.space(2 if output.comma_at_eoln or len(node.tableElts) == 1 else 4)
+        output.print_list(node.tableElts)
         output.newline()
         output.write(')')
     elif node.partbound:
@@ -668,9 +667,8 @@ def define_stmt(node, output):
     else:
         output.write('(')
         output.newline()
-        output.space(4)
-        with output.push_indent(2):
-            output.print_list(node.definition)
+        output.space(2 if output.comma_at_eoln or len(node.definition) == 1 else 4)
+        output.print_list(node.definition)
         output.newline()
         output.write(')')
 

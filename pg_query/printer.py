@@ -186,17 +186,22 @@ class RawStream(OutputStream):
     :param bool special_functions:
            ``False`` by default, when ``True`` some functions are treated in a special way and
            emitted as equivalent constructs
+    :param bool comma_at_eoln:
+           ``False`` by default, when ``True`` put the comma right after each item instead of
+           at the beginning of the *next* item line
 
     This augments :class:`OutputStream` and implements the basic machinery needed to serialize
     the *parse tree* produced by :func:`~.parser.parse_sql()` back to a textual representation,
     without any adornment.
     """
 
-    def __init__(self, expression_level=0, separate_statements=True, special_functions=False):
+    def __init__(self, expression_level=0, separate_statements=True, special_functions=False,
+                 comma_at_eoln=False):
         super().__init__()
         self.expression_level = expression_level
         self.separate_statements = separate_statements
         self.special_functions = special_functions
+        self.comma_at_eoln = comma_at_eoln
         self.current_column = 0
 
     def __call__(self, sql, plpgsql=False):
@@ -351,13 +356,20 @@ class RawStream(OutputStream):
         last = len(items) - 1
         for idx, item in enumerate(items):
             if idx > 0:
-                if not are_names:
+                if sep == ',' and self.comma_at_eoln:
+                    self.write(sep)
                     if newline:
                         self.newline()
-                if sep:
-                    self.write(sep)
-                    if sep != '.':
+                    else:
                         self.write(' ')
+                else:
+                    if not are_names:
+                        if newline:
+                            self.newline()
+                    if sep:
+                        self.write(sep)
+                        if sep != '.':
+                            self.write(' ')
             self.print_node(item, is_name=are_names, is_symbol=is_symbol and idx == last)
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
@@ -379,7 +391,12 @@ class RawStream(OutputStream):
         """
 
         if relative_indent is None:
-            relative_indent = -(len(sep) + 1) if sep else 0
+            if are_names or is_symbol:
+                relative_indent = 0
+            else:
+                relative_indent = (-(len(sep) + 1)
+                                   if sep and (sep != ',' or not self.comma_at_eoln)
+                                   else 0)
 
         if standalone_items is None:
             standalone_items = not all(isinstance(n, Node)
@@ -410,19 +427,27 @@ class RawStream(OutputStream):
         """
 
         if sublist_relative_indent is None:
-            sublist_relative_indent = -(len(sublist_sep) + 2)
+            sublist_relative_indent = (-(len(sublist_sep) + 1)
+                                       if sublist_sep and (sublist_sep != ','
+                                                           or not self.comma_at_eoln)
+                                       else 0)
 
-        self.write(sublist_open)
         with self.push_indent(sublist_relative_indent):
+            self.write(sublist_open)
             first = True
             for lst in lists:
                 if first:
                     first = False
                 else:
-                    self.newline()
-                    self.write(sublist_sep)
-                    self.write(' ')
-                    self.write(sublist_open)
+                    if self.comma_at_eoln:
+                        self.write(sublist_sep)
+                        self.newline()
+                        self.write(sublist_open)
+                    else:
+                        self.newline()
+                        self.write(sublist_sep)
+                        self.write(' ')
+                        self.write(sublist_open)
                 self.print_list(lst, sep, relative_indent, standalone_items, are_names)
                 self.write(sublist_close)
 
@@ -526,10 +551,12 @@ class IndentedStream(RawStream):
                  and n.node_tag in ('A_Const', 'ColumnRef', 'SetToDefault', 'RangeVar'))
                 for n in nodes)
 
-        if ((len(nodes) > 1
+        if (((sep != ',' or not self.comma_at_eoln)
+             and len(nodes) > 1
              and len(sep) > 1
              and relative_indent is None
              and not are_names
+             and not is_symbol
              and standalone_items)):
             self.write(' '*(len(sep) + 1))  # separator added automatically
 

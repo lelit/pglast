@@ -668,6 +668,25 @@ WHERE c BETWEEN 1 AND 2
 :
 {'compact_lists_margin': 75}
 
+select 'foo' as barname,b,c,
+       (select somevalue
+        from othertable
+        where othertable.x = 1 and othertable.y = 2 and othertable.z = 3)
+from sometable where c between 1 and 2
+=
+SELECT 'foo' AS barname,
+       b,
+       c,
+       (SELECT somevalue
+        FROM othertable
+        WHERE (othertable.x = 1)
+          AND (othertable.y = 2)
+          AND (othertable.z = 3))
+FROM sometable
+WHERE c BETWEEN 1 AND 2
+:
+{'comma_at_eoln': True}
+
 select 'foo' as barname,b,c from sometable where c between 1 and c.threshold
 =
 SELECT 'foo' AS barname
@@ -751,7 +770,7 @@ SELECT a.one
 FROM sometable AS a
 WHERE ((    (NOT a.bool_flag2)
         AND a.something2 IS NULL)
-    OR (a.other2 = 3))
+   OR (a.other2 = 3))
 
 select p.name, (select format('[%s] %s', count(*), r.name)
                 from c join r on r.contract_id = c.id
@@ -879,6 +898,32 @@ WHERE (id = 'bar')
   AND (value <> 'foo')
 :
 {'compact_lists_margin': 33}
+
+insert into t (id, description)
+values (1, 'this is short enough'), (2, 'this is too long, and will be splitted')
+=
+INSERT INTO t (id, description)
+VALUES (1, 'this is short enough')
+     , (2, 'this is too long, and will be splitted')
+
+insert into t (id, description)
+values (1, 'this is short enough'), (2, 'this is too long, and will be splitted')
+=
+INSERT INTO t (id, description)
+VALUES (1, 'this is short enough')
+     , (2, 'this is too long, an'
+           'd will be splitted')
+:
+{'split_string_literals_threshold': 20}
+
+insert into t (id, description)
+values (1, 'this is short enough'), (2, 'this is too long, and will be splitted')
+=
+INSERT INTO t (id, description)
+VALUES (1, 'this is short enough'),
+       (2, 'this is too long, and will be splitted')
+:
+{'comma_at_eoln': True}
 
 truncate sometable cascade
 =

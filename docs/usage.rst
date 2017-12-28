@@ -97,6 +97,27 @@ Programmatically :func:`reformat <pg_query.prettify>` a ``SQL`` statement\ [*]_
    DELETE FROM sometable
    WHERE value IS NULL
 
+.. doctest::
+
+   >>> print(prettify('select a,b,c from sometable where value is null'))
+   SELECT a
+        , b
+        , c
+   FROM sometable
+   WHERE value IS NULL
+
+.. doctest::
+
+   >>> print(prettify('select a,b,c from sometable'
+   ...                ' where value is null or value = 1',
+   ...                comma_at_eoln=True))
+   SELECT a,
+          b,
+          c
+   FROM sometable
+   WHERE (value IS NULL
+      OR (value = 1))
+
 Customize a :func:`node printer <pg_query.printer.node_printer>`
 ================================================================
 

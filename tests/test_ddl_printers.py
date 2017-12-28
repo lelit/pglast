@@ -904,7 +904,7 @@ CREATE TABLE films (
 create temporary table a (id serial) on commit drop
 =
 CREATE TEMPORARY TABLE a (
-    id serial
+  id serial
 ) ON COMMIT DROP
 
 CREATE TABLE distributors (
@@ -921,13 +921,29 @@ CREATE TABLE distributors (
                   USING INDEX TABLESPACE indexes
 ) WITH (fillfactor = 70)
 
+CREATE TABLE distributors (
+    did     integer,
+    name    varchar(40),
+    UNIQUE(name) WITH (fillfactor=70) USING INDEX TABLESPACE indexes
+)
+WITH (fillfactor=70)
+=
+CREATE TABLE distributors (
+  did integer,
+  name varchar(40),
+  UNIQUE (name) WITH (fillfactor = 70)
+                USING INDEX TABLESPACE indexes
+) WITH (fillfactor = 70)
+:
+{'comma_at_eoln': True}
+
 CREATE TABLE measurement_y2016m07
     PARTITION OF measurement (
     unitsales DEFAULT 0
 ) FOR VALUES FROM ('2016-07-01') TO ('2016-08-01') TABLESPACE olddata
 =
 CREATE TABLE measurement_y2016m07 PARTITION OF measurement (
-    unitsales WITH OPTIONS DEFAULT 0
+  unitsales WITH OPTIONS DEFAULT 0
 ) FOR VALUES FROM ('2016-07-01') TO ('2016-08-01')
   TABLESPACE olddata
 
@@ -958,6 +974,23 @@ CREATE AGGREGATE percentile_disc (float8 ORDER BY anyelement) (
   , finalfunc = percentile_disc_final
   , finalfunc_extra
 )
+
+CREATE AGGREGATE percentile_disc (float8 ORDER BY anyelement)
+(
+    sfunc = ordered_set_transition,
+    stype = internal,
+    finalfunc = percentile_disc_final,
+    finalfunc_extra
+)
+=
+CREATE AGGREGATE percentile_disc (float8 ORDER BY anyelement) (
+  sfunc = ordered_set_transition,
+  stype = internal,
+  finalfunc = percentile_disc_final,
+  finalfunc_extra
+)
+:
+{'comma_at_eoln': True}
 
 CREATE FOREIGN DATA WRAPPER mywrapper validator myvalf OPTIONS (debug 'true', foo 'bar')
 =
