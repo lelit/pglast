@@ -80,6 +80,32 @@
 
    Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreateExtensionStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2166>`__, to the `output` stream.
 
+.. index:: CreateFdwStmt
+
+.. function:: create_fdw_stmt(node, output)
+
+   Pretty print a `node` of type `CreateFdwStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2196>`__ to the `output` stream.
+
+.. index::
+   pair: CreateFdwStmt;DefElem
+
+.. function:: create_fdw_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreateFdwStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2196>`__, to the `output` stream.
+
+.. index:: CreateForeignTableStmt
+
+.. function:: create_foreign_table_stmt(node, output)
+
+   Pretty print a `node` of type `CreateForeignTableStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2242>`__ to the `output` stream.
+
+.. index::
+   pair: CreateForeignTableStmt;DefElem
+
+.. function:: create_foreign_table_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreateForeignTableStmt <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/parsenodes.h#L2242>`__, to the `output` stream.
+
 .. index:: CreateSchemaStmt
 
 .. function:: create_schema_stmt(node, output)
