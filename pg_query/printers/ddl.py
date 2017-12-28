@@ -370,6 +370,16 @@ def create_fdw_stmt_def_elem(node, output):
         output.print_name(node.arg)
 
 
+@node_printer('CreateForeignTableStmt')
+def create_foreign_table_stmt(node, output):
+    output.print_node(node.base)
+    if not node.base.tableElts:
+        output.newline()
+        output.write(' ')
+    output.write(' SERVER ')
+    output.print_name(node.servername)
+
+
 @node_printer('CreateSchemaStmt')
 def create_schema_stmt(node, output):
     output.write('CREATE SCHEMA ')
@@ -436,10 +446,13 @@ def create_seq_stmt_def_elem(node, output):
 @node_printer('CreateStmt')
 def create_stmt(node, output):
     output.writes('CREATE')
-    if node.relation.relpersistence == enums.RELPERSISTENCE_TEMP:
-        output.writes('TEMPORARY')
-    elif node.relation.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
-        output.writes('UNLOGGED')
+    if node.parent_node.node_tag == 'CreateForeignTableStmt':
+        output.writes('FOREIGN')
+    else:
+        if node.relation.relpersistence == enums.RELPERSISTENCE_TEMP:
+            output.writes('TEMPORARY')
+        elif node.relation.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
+            output.writes('UNLOGGED')
     output.writes('TABLE')
     if node.if_not_exists:
         output.writes('IF NOT EXISTS')
@@ -458,6 +471,9 @@ def create_stmt(node, output):
             output.print_list(node.tableElts)
         output.newline()
         output.write(')')
+    elif node.partbound:
+        output.newline()
+        output.write(' ')
     with output.push_indent():
         first = True
         if node.inhRelations and not node.partbound:
