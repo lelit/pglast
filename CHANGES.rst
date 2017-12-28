@@ -3,6 +3,15 @@
 Changes
 -------
 
+0.23 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Implement some other DDL statements printers
+
+- New alternative style to print *comma-separated-values* lists, activated by a new
+  ``--comma-at-eoln`` option on ``pgpp``
+
+
 0.22 (2017-12-03)
 ~~~~~~~~~~~~~~~~~
 
