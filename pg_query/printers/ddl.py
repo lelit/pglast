@@ -342,6 +342,34 @@ def create_extension_stmt_def_elem(node, output):
             output.print_node(node.arg)
 
 
+@node_printer('CreateFdwStmt')
+def create_fdw_stmt(node, output):
+    output.write('CREATE FOREIGN DATA WRAPPER ')
+    output.print_name(node.fdwname)
+    if node.func_options:
+        output.newline()
+        with output.push_indent(2):
+            output.print_list(node.func_options, '')
+    if node.options:
+        output.newline()
+        with output.push_indent(2):
+            output.write('OPTIONS (')
+            output.print_list(node.options, '')
+            output.write(')')
+
+
+@node_printer('CreateFdwStmt', 'DefElem')
+def create_fdw_stmt_def_elem(node, output):
+    if node.parent_attribute[0] == 'options':
+        output.write(node.defname.value)
+        output.write(' ')
+        output.print_node(node.arg)
+    else:
+        output.write(node.defname.value.upper())
+        output.write(' ')
+        output.print_name(node.arg)
+
+
 @node_printer('CreateSchemaStmt')
 def create_schema_stmt(node, output):
     output.write('CREATE SCHEMA ')

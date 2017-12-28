@@ -250,6 +250,38 @@ def test_create_conversions(sql):
     roundtrip(sql)
 
 
+CREATE_DATABASES = """\
+CREATE DATABASE sales OWNER salesapp TABLESPACE salesspace
+
+CREATE DATABASE music LC_COLLATE 'sv_SE.utf8' LC_CTYPE 'sv_SE.utf8' TEMPLATE template0
+
+CREATE DATABASE music2
+    LC_COLLATE 'sv_SE.iso885915' LC_CTYPE 'sv_SE.iso885915'
+    ENCODING LATIN9
+    TEMPLATE template0
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_DATABASES.split('\n\n')))
+def test_create_databases(sql):
+    roundtrip(sql)
+
+
+CREATE_FOREIGN_DATA_WRAPPERS = """\
+CREATE FOREIGN DATA WRAPPER dummy
+
+CREATE FOREIGN DATA WRAPPER file HANDLER file_fdw_handler
+
+CREATE FOREIGN DATA WRAPPER mywrapper OPTIONS (debug 'true')
+"""
+
+
+@pytest.mark.parametrize('sql', (sql.strip()
+                                 for sql in CREATE_FOREIGN_DATA_WRAPPERS.split('\n\n')))
+def test_create_foreign_data_wrappers(sql):
+    roundtrip(sql)
+
+
 CREATE_INDEXES = """\
 create index aidx on atbl (value)
 
@@ -926,6 +958,12 @@ CREATE AGGREGATE percentile_disc (float8 ORDER BY anyelement) (
   , finalfunc = percentile_disc_final
   , finalfunc_extra
 )
+
+CREATE FOREIGN DATA WRAPPER mywrapper validator myvalf OPTIONS (debug 'true')
+=
+CREATE FOREIGN DATA WRAPPER mywrapper
+  VALIDATOR myvalf
+  OPTIONS (debug 'true')
 """
 
 
