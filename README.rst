@@ -13,9 +13,18 @@
 Pythonic wrapper around libpg_query and PostgreSQL prettifier
 =============================================================
 
- :author: Lele Gaifax
- :contact: lele@metapensiero.it
- :license: GNU General Public License version 3 or later
+:Author: Lele Gaifax
+:Contact: lele@metapensiero.it
+:License: `GNU General Public License version 3 or later`__
+:Status: |build| |doc|
+
+__ https://www.gnu.org/licenses/gpl.html
+.. |build| image:: https://travis-ci.org/lelit/pg_query.svg?branch=master
+   :target: https://travis-ci.org/lelit/pg_query
+   :alt: Build status
+.. |doc| image:: https://readthedocs.org/projects/pg-query/badge/?version=latest
+   :target: https://readthedocs.org/projects/pg-query/builds/
+   :alt: Documentation status
 
 This is a Python 3 implementation of a wrapper to `libpg_query`__, a C library that repackages
 the PostgreSQL__ language parser as a standalone static library.
