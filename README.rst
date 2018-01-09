@@ -13,10 +13,10 @@
 Pythonic wrapper around libpg_query and PostgreSQL prettifier
 =============================================================
 
-:Author: Lele Gaifax
-:Contact: lele@metapensiero.it
-:License: `GNU General Public License version 3 or later`__
-:Status: |build| |doc|
+ :Author: Lele Gaifax
+ :Contact: lele@metapensiero.it
+ :License: `GNU General Public License version 3 or later`__
+ :Status: |build| |doc|
 
 __ https://www.gnu.org/licenses/gpl.html
 .. |build| image:: https://travis-ci.org/lelit/pg_query.svg?branch=master
