@@ -26,7 +26,7 @@ env:
 install: pip install -r requirements-test.txt
 
 script:
-  - pip install cibuildwheel==0.6.0
+  - pip install cibuildwheel==0.7.0
   - cibuildwheel --output-dir wheelhouse
   - |
     if [[ $TRAVIS_TAG ]]; then
