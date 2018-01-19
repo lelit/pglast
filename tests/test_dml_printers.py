@@ -3,7 +3,7 @@
 # :Created:   ven 28 lug 2017 13:42:05 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 from ast import literal_eval
