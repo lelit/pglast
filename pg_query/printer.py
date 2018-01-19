@@ -147,9 +147,9 @@ class OutputStream(StringIO):
         if s:
             if self.pending_separator:
                 if s != ' ':
-                    count = self.maybe_write_space(s[0])
+                    self.maybe_write_space(s[0])
                 self.pending_separator = False
-            count += super().write(s)
+            count = super().write(s)
             self.last_emitted_char = s[-1]
 
         return count

@@ -874,6 +874,13 @@ SELECT ('2001-02-16'::date, '2001-12-21'::date) OVERLAPS ('2001-10-30'::date, '2
 :
 {'special_functions': True}
 
+select email from subscribed where email not in (select email from tracks)
+=
+SELECT email
+FROM subscribed
+WHERE NOT email IN (SELECT email
+                    FROM tracks)
+
 update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'
 =
 UPDATE sometable
