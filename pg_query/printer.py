@@ -601,8 +601,8 @@ class IndentedStream(RawStream):
         :return: the number of characters written to the stream
 
         If `s` is a newline character (``\\n``) set `current_column` to 0. Otherwise when
-        `current_column` is 0 and `current_indent` is not emit a number of whitespaces *before*
-        emitting `s`, to indent it as expected.
+        `current_column` is 0 and `current_indent` is greater than 0 emit a number of
+        whitespaces *before* emitting `s`, to indent it as expected.
         """
 
         if s and s != '\n' and self.current_column == 0 and self.current_indent > 0:
