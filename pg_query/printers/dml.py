@@ -510,6 +510,11 @@ def named_arg_expr(node, output):
     output.print_node(node.arg)
 
 
+@node_printer('Null')
+def null(node, output):
+    output.write('NULL')
+
+
 @node_printer('NullTest')
 def null_test(node, output):
     output.print_node(node.arg)

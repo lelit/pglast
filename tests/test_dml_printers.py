@@ -889,6 +889,11 @@ SET value = 'foo'
 WHERE (id = 'bar')
   AND (value <> 'foo')
 
+update sometable set value=null
+=
+UPDATE sometable
+SET value = NULL
+
 update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'
 =
 UPDATE sometable

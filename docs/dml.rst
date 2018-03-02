@@ -196,6 +196,12 @@
 
    Pretty print a `node` of type `NamedArgExpr <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/primnodes.h#L475>`__ to the `output` stream.
 
+.. index:: Null
+
+.. function:: null(node, output)
+
+   Pretty print a `node` of type `Null <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/value.h#L42>`__ to the `output` stream.
+
 .. index:: NullTest
 
 .. function:: null_test(node, output)
