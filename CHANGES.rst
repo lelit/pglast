@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.24 (unreleased)
+0.24 (2018-03-02)
 ~~~~~~~~~~~~~~~~~
 
 - Implement ``Null`` printer
