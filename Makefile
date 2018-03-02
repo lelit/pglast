@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:52:45 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 export TOPDIR := $(CURDIR)

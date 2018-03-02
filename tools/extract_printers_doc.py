@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 12:56:35 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 from ast import literal_eval
@@ -17,7 +17,7 @@ RST_HEADER = """\
 .. :Project:   pg_query -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
 ==================================================%(extra_decoration)s
