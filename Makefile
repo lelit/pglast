@@ -90,6 +90,9 @@ $(PY_KEYWORDS): tools/extract_keywords.py libpg_query/pg_query.h
 $(PY_KEYWORDS): $(PG_INCLUDE_DIR)/parser/kwlist.h
 	$(PYTHON) tools/extract_keywords.py $(PG_INCLUDE_DIR)/parser/kwlist.h $@
 
+help::
+	@printf "printers-doc\n\tupdate printers documentation\n"
+
 PG_NODES := $(PG_INCLUDE_DIR)/nodes/nodes.h $(PG_INCLUDE_DIR)/nodes/parsenodes.h \
 	    $(PG_INCLUDE_DIR)/nodes/primnodes.h $(PG_INCLUDE_DIR)/nodes/value.h
 
