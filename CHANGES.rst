@@ -3,6 +3,14 @@
 Changes
 -------
 
+0.25 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix issue in the safety belt check performed by ``pgpp`` (`issue #4`__)
+
+__ https://github.com/lelit/pg_query/issues/4
+
+
 0.24 (2018-03-02)
 ~~~~~~~~~~~~~~~~~
 
