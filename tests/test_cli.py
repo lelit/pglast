@@ -81,6 +81,18 @@ WHERE foo <> 0
                 main(['--parse-tree', '--no-location'])
             assert '"location":' not in output.getvalue()
 
+    with StringIO("Select 1") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main([])
+            assert output.getvalue() == "SELECT 1\n"
+
+    with StringIO("Select 1;") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main([])
+            assert output.getvalue() == "SELECT 1\n"
+
     with StringIO("Select 'abcdef'") as input:
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):

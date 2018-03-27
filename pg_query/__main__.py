@@ -10,7 +10,7 @@ import argparse
 import json
 import sys
 
-from pg_query import Error, parse_plpgsql, parse_sql, prettify, _remove_location
+from pg_query import Error, parse_plpgsql, parse_sql, prettify, _remove_stmt_len_and_location
 
 
 def workhorse(args):
@@ -21,7 +21,7 @@ def workhorse(args):
     if args.parse_tree or args.plpgsql:
         tree = parse_plpgsql(statement) if args.plpgsql else parse_sql(statement)
         if args.no_location:
-            _remove_location(tree)
+            _remove_stmt_len_and_location(tree)
         output = args.outfile or sys.stdout
         with output:
             json.dump(tree, output, sort_keys=True, indent=2)

@@ -10,7 +10,7 @@ from ast import literal_eval
 
 import pytest
 
-from pg_query import Node, _remove_location
+from pg_query import Node, _remove_stmt_len_and_location
 from pg_query.parser import parse_sql
 from pg_query.printer import RawStream, IndentedStream
 import pg_query.printers
@@ -22,14 +22,14 @@ pg_query.printers
 
 def roundtrip(sql):
     orig_ast = parse_sql(sql)
-    _remove_location(orig_ast)
+    _remove_stmt_len_and_location(orig_ast)
 
     serialized = RawStream()(Node(orig_ast))
     try:
         serialized_ast = parse_sql(serialized)
     except:  # noqa
         raise RuntimeError("Could not reparse %r" % serialized)
-    _remove_location(serialized_ast)
+    _remove_stmt_len_and_location(serialized_ast)
     assert orig_ast == serialized_ast, "%r != %r" % (sql, serialized)
 
     indented = IndentedStream()(Node(orig_ast))
@@ -37,7 +37,7 @@ def roundtrip(sql):
         indented_ast = parse_sql(indented)
     except:  # noqa
         raise RuntimeError("Could not reparse %r" % indented)
-    _remove_location(indented_ast)
+    _remove_stmt_len_and_location(indented_ast)
     assert orig_ast == indented_ast, "%r != %r" % (sql, indented)
 
     # Run ``pytest -s tests/`` to see the following output

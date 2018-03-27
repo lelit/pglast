@@ -46,8 +46,8 @@ def prettify(statement, safety_belt=True, **options):
                           % (e, prettified), RuntimeWarning)
             return statement
 
-        _remove_location(orig_pt)
-        _remove_location(pretty_pt)
+        _remove_stmt_len_and_location(orig_pt)
+        _remove_stmt_len_and_location(pretty_pt)
 
         if pretty_pt != orig_pt:  # pragma: no cover
             warnings.warn("Detected a non-cosmetic difference between original and"
@@ -57,18 +57,26 @@ def prettify(statement, safety_belt=True, **options):
     return prettified
 
 
-def _remove_location(parse_tree):
-    "Drop the node location, pointless for comparison between raw and pretty printed nodes."
+def _remove_stmt_len_and_location(parse_tree):
+    """Drop ``RawStmt`` `stmt_len`__ and all nodes `location`, pointless for comparison between
+    raw and pretty printed nodes.
+
+    __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/\
+       parsenodes.h;h=ecb6cd0249861bf48863a5c35d525d1d73ff89f0;\
+       hb=65c6b53991e1c56f6a0700ae26928962ddf2b9fe#l1420
+    """
 
     if isinstance(parse_tree, list):
         for v in parse_tree:
             if v:
-                _remove_location(v)
+                _remove_stmt_len_and_location(v)
     else:
         parse_tree.pop('location', None)
-        for v in parse_tree.values():
+        for k, v in parse_tree.items():
+            if k == 'RawStmt':
+                v.pop('stmt_len', None)
             if v and isinstance(v, (dict, list)):
-                _remove_location(v)
+                _remove_stmt_len_and_location(v)
 
 
 __all__ = ('Error', 'Missing', 'Node', 'enums', 'get_postgresql_version',
