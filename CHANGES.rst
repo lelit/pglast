@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.25 (unreleased)
+0.25 (2018-03-31)
 ~~~~~~~~~~~~~~~~~
 
 - Fix issue in the safety belt check performed by ``pgpp`` (`issue #4`__)
