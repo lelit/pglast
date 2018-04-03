@@ -870,9 +870,16 @@ def truncate_stmt(node, output):
 
 @node_printer('TypeCast')
 def type_cast(node, output):
-    output.print_node(node.arg)
-    output.write('::')
-    output.print_node(node.typeName)
+    # Special case for boolean constants
+    if ((node.arg.node_tag == 'A_Const'
+         and node.arg.val.node_tag == 'String'
+         and node.arg.val.str.value in ('t', 'f')
+         and '.'.join(n.str.value for n in node.typeName.names) == 'pg_catalog.bool')):
+        output.write('true' if node.arg.val.str == 't' else 'false')
+    else:
+        output.print_node(node.arg)
+        output.write('::')
+        output.print_node(node.typeName)
 
 
 # Constants taken from PG's include/utils/datetime.h: seem safe to assume they won't change
