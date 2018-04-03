@@ -324,11 +324,7 @@ WITH RECURSIVE employee_recursive("Distance", employee_name, manager_name) AS (
   )
 SELECT distance, employee_name FROM employee_recursive
 
-SELECT true FROM sometable WHERE value = ANY(ARRAY[1,2])
-
 SELECT true FROM sometable as "ST" WHERE "ST"."Value" = ANY(ARRAY[1,2])
-
-SELECT true FROM sometable WHERE value != ALL(ARRAY[1,2])
 
 SELECT true FROM sometable WHERE id1 is distinct from id2
 
@@ -880,6 +876,18 @@ SELECT email
 FROM subscribed
 WHERE NOT email IN (SELECT email
                     FROM tracks)
+
+SELECT true FROM sometable WHERE value = ANY(ARRAY[1,2])
+=
+SELECT true
+FROM sometable
+WHERE value = ANY(ARRAY[1, 2])
+
+SELECT false FROM sometable WHERE value != ALL(ARRAY[1,2])
+=
+SELECT false
+FROM sometable
+WHERE value <> ALL(ARRAY[1, 2])
 
 update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'
 =

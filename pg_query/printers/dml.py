@@ -38,14 +38,14 @@ def a_expr(node, output):
         output.print_node(node.lexpr)
         output.write(' ')
         output.write(node.name.string_value)
-        output.write('ANY (')
+        output.write(' ANY(')
         output.print_node(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_OP_ALL:
         output.print_node(node.lexpr)
         output.write(' ')
         output.write(node.name.string_value)
-        output.write('ALL (')
+        output.write(' ALL(')
         output.print_node(node.rexpr)
         output.write(')')
     elif node.kind == aek.AEXPR_DISTINCT:
