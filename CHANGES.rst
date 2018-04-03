@@ -3,6 +3,12 @@
 Changes
 -------
 
+0.26 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix cosmetic issue with ANY() and ALL()
+
+
 0.25 (2018-03-31)
 ~~~~~~~~~~~~~~~~~
 
