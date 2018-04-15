@@ -425,10 +425,10 @@ def join_expr(node, output):
     if node.alias:
         output.write('(')
 
-    output.print_node(node.larg)
-    output.newline()
-
     with output.push_indent():
+        output.print_node(node.larg)
+        output.newline()
+
         if node.isNatural:
             output.write('NATURAL ')
 

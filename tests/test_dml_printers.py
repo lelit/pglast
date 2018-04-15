@@ -703,9 +703,9 @@ INNER JOIN table4 AS c ON cp.company_id = c.id
 =
 SELECT pe.id
 FROM table1 AS pe
-   INNER JOIN table2 AS pr ON pe.project_id = pr.id
-   LEFT JOIN table3 AS cp ON cp.person_id = pe.id
-   INNER JOIN table4 AS c ON cp.company_id = c.id
+     INNER JOIN table2 AS pr ON pe.project_id = pr.id
+     LEFT JOIN table3 AS cp ON cp.person_id = pe.id
+     INNER JOIN table4 AS c ON cp.company_id = c.id
 
 SELECT pe.id
 FROM table1 as pe
@@ -715,10 +715,10 @@ LEFT JOIN (table3 AS cp INNER JOIN table4 AS c ON cp.company_id = c.id)
 =
 SELECT pe.id
 FROM table1 AS pe
-   INNER JOIN table2 AS pr ON pe.project_id = pr.id
-   LEFT JOIN table3 AS cp
-      INNER JOIN table4 AS c ON cp.company_id = c.id
-      ON cp.person_id = pe.id
+     INNER JOIN table2 AS pr ON pe.project_id = pr.id
+     LEFT JOIN table3 AS cp
+               INNER JOIN table4 AS c ON cp.company_id = c.id
+        ON cp.person_id = pe.id
 
 SELECT sum(salary) OVER (x), avg(salary) OVER y
 FROM empsalary
@@ -749,8 +749,8 @@ select a.* from a left join (select distinct id from b) as b on a.id = b.id
 =
 SELECT a.*
 FROM a
-   LEFT JOIN (SELECT DISTINCT id
-              FROM b) AS b ON a.id = b.id
+     LEFT JOIN (SELECT DISTINCT id
+                FROM b) AS b ON a.id = b.id
 
 select a.one,
        not a.bool_flag and a.something is null or a.other = 3 as foo,
@@ -781,7 +781,7 @@ SELECT p.name
                     , count(*)
                     , r.name)
         FROM c
-           INNER JOIN r ON r.contract_id = c.id
+             INNER JOIN r ON r.contract_id = c.id
         WHERE c.person_id = p.id) AS roles
 FROM persons AS p
 WHERE p.name LIKE 'lele%'
@@ -789,7 +789,7 @@ WHERE p.name LIKE 'lele%'
                    , count(*)
                    , r.name)
        FROM c
-          INNER JOIN r ON (r.contract_id = c.id)
+            INNER JOIN r ON (r.contract_id = c.id)
        WHERE (c.person_id = p.id)) ILIKE 'manager%'
 
 SELECT
@@ -888,6 +888,22 @@ SELECT false FROM sometable WHERE value != ALL(ARRAY[1,2])
 SELECT false
 FROM sometable
 WHERE value <> ALL(ARRAY[1, 2])
+
+select c.name from table_a a, table_b b join table_c c on c.b_id = b.id where a.code = b.code
+=
+SELECT c.name
+FROM table_a AS a
+   , table_b AS b
+     INNER JOIN table_c AS c ON c.b_id = b.id
+WHERE a.code = b.code
+
+select c.name from table_b b join table_c c on c.b_id = b.id, table_a a where a.code = b.code
+=
+SELECT c.name
+FROM table_b AS b
+     INNER JOIN table_c AS c ON c.b_id = b.id
+   , table_a AS a
+WHERE a.code = b.code
 
 update sometable set value='foo', changed=NOW where id='bar' and value<>'foo'
 =
