@@ -3,7 +3,7 @@
 Changes
 -------
 
-0.27 (unreleased)
+0.27 (2018-04-15)
 ~~~~~~~~~~~~~~~~~
 
 - Prettier JOINs representation, aligning them with the starting relation
