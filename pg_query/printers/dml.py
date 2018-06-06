@@ -526,7 +526,12 @@ def null_test(node, output):
 
 @node_printer('ParamRef')
 def param_ref(node, output):
-    output.write('$%d' % node.number.value)
+    if node.number is Missing:
+        # NB: standard PG does not allow "?"-style param placeholders, this is a minor
+        # deviation introduced by libpg_query
+        output.write('?')
+    else:
+        output.write('$%d' % node.number.value)
 
 
 @node_printer('OnConflictClause')
