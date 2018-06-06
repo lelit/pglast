@@ -3,6 +3,16 @@
 Changes
 -------
 
+0.28 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Update libpg_query to 10-1.0.2
+
+- Support the '?'-style parameter placeholder variant allowed by libpg_query (details__)
+
+__ https://github.com/lfittl/libpg_query/issues/45
+
+
 0.27 (2018-04-15)
 ~~~~~~~~~~~~~~~~~
 
