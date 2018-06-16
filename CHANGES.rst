@@ -3,6 +3,21 @@
 Changes
 -------
 
+1.0 (2018-06-16)
+~~~~~~~~~~~~~~~~
+
+.. important:: The name of the package has been changed from ``pg_query`` to ``pglast``, to
+               satisfy the request made by the author of ``libpg_query`` in `issue #9`__.
+
+               This affects both the main repository on GitHub, that from now on is
+               ``https://github.com/lelit/pglast``, and the ReadTheDocs project that hosts the
+               documentation, ``http://pglast.readthedocs.io/en/latest/``.
+
+               I'm sorry for any inconvenience this may cause.
+
+__ https://github.com/lelit/pglast/issues/9
+
+
 0.28 (2018-06-06)
 ~~~~~~~~~~~~~~~~~
 
