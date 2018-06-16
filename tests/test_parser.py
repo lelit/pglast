@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Test the parser.pyx module
+# :Project:   pglast -- Test the parser.pyx module
 # :Created:   ven 04 ago 2017 08:37:10 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 import pytest
 
-from pg_query import Error, get_postgresql_version, parse_plpgsql, parse_sql
+from pglast import Error, get_postgresql_version, parse_plpgsql, parse_sql
 
 
 def test_basic():

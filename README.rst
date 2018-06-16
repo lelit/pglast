@@ -1,17 +1,17 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- Pythonic wrapper around libpg_query
+.. :Project:   pglast -- PostgreSQL Languages AST
 .. :Created:   mer 02 ago 2017 14:49:24 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
 .. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
-==========
- pg_query
-==========
+========
+ pglast
+========
 
-Pythonic wrapper around libpg_query and PostgreSQL prettifier
-=============================================================
+PostgreSQL Languages AST and statements prettifier
+==================================================
 
  :Author: Lele Gaifax
  :Contact: lele@metapensiero.it
@@ -19,18 +19,19 @@ Pythonic wrapper around libpg_query and PostgreSQL prettifier
  :Status: |build| |doc|
 
 __ https://www.gnu.org/licenses/gpl.html
-.. |build| image:: https://travis-ci.org/lelit/pg_query.svg?branch=master
-   :target: https://travis-ci.org/lelit/pg_query
+.. |build| image:: https://travis-ci.org/lelit/pglast.svg?branch=master
+   :target: https://travis-ci.org/lelit/pglast
    :alt: Build status
-.. |doc| image:: https://readthedocs.org/projects/pg-query/badge/?version=latest
-   :target: https://readthedocs.org/projects/pg-query/builds/
+.. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=latest
+   :target: https://readthedocs.org/projects/pglast/builds/
    :alt: Documentation status
 
-This is a Python 3 implementation of a wrapper to `libpg_query`__, a C library that repackages
-the PostgreSQL__ language parser as a standalone static library.
+This is a Python 3 module that exposes the *parse tree* of a PostgreSQL__ statement (extracted
+by the almost standard PG parser repackaged as a standalone static library by `libpg_query`__)
+as set of interconnected *nodes*, usually called an *abstract syntax tree*.
 
-__ https://github.com/lfittl/libpg_query
 __ https://www.postgresql.org/
+__ https://github.com/lfittl/libpg_query
 
 I needed a better SQL reformatter than the one implemented by `sqlparse`__, and was annoyed by
 a few glitches (subselects__ in particular) that ruins the otherwise excellent job it does,
@@ -92,7 +93,7 @@ At the lower level the module exposes two libpg_query functions, ``parse_sql()``
 ``parse_plpgsql()``, that take respectively an ``SQL`` statement and a ``PLpgSQL`` statement
 and return a *parse tree* as a hierarchy of Python dictionaries, lists and scalar values. In
 some cases these scalars correspond to some C ``typedef enums``, that are automatically
-extracted from the PostgreSQL headers mentioned above and are available as ``pg_query.enums``.
+extracted from the PostgreSQL headers mentioned above and are available as ``pglast.enums``.
 
 At a higher level that tree is represented by three Python classes, a ``Node`` that represents
 a single node, a ``List`` that wraps a sequence of nodes and a ``Scalar`` for plain values such
@@ -120,15 +121,15 @@ Installation
 
 As usual, the easiest way is with pip::
 
-  $ pip install pg_query
+  $ pip install pglast
 
 Alternatively you can clone the repository::
 
-  $ git clone https://github.com/lelit/pg_query.git --recursive
+  $ git clone https://github.com/lelit/pglast.git --recursive
 
 and install from there::
 
-  $ pip install ./pg_query
+  $ pip install ./pglast
 
 Development
 -----------
@@ -144,7 +145,7 @@ Examples of usage
 
 * Parse an ``SQL`` statement and get its *AST* root node::
 
-   >>> from pg_query import Node, parse_sql
+   >>> from pglast import Node, parse_sql
    >>> root = Node(parse_sql('SELECT foo FROM bar'))
    >>> print(root)
    None=[1*{RawStmt}]
@@ -232,7 +233,7 @@ Examples of usage
 
 * Programmatically reformat a SQL statement::
 
-   >>> from pg_query import prettify
+   >>> from pglast import prettify
    >>> print(prettify('delete from sometable where value is null'))
    DELETE FROM sometable
    WHERE value IS NULL
@@ -240,7 +241,7 @@ Examples of usage
 Documentation
 -------------
 
-Latest documentation is hosted by `Read the Docs`__ at http://pg-query.readthedocs.io/en/latest/
+Latest documentation is hosted by `Read the Docs`__ at http://pglast.readthedocs.io/en/latest/
 
 __ https://readthedocs.org/
 

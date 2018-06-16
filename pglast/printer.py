@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Serialization logic
+# :Project:   pglast -- Serialization logic
 # :Created:   mer 02 ago 2017 15:46:11 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later

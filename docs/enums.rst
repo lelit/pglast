@@ -1,16 +1,16 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- Enums documentation
+.. :Project:   pglast -- Enums documentation
 .. :Created:   gio 10 ago 2017 12:44:33 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
 ================================================
- :mod:`pg_query.enums` --- Enumerated constants
+ :mod:`pglast.enums` --- Enumerated constants
 ================================================
 
-.. module:: pg_query.enums
+.. module:: pglast.enums
    :synopsis: Enumerated constants
 
 This module contains all the constants that are used to give a meaning to some *scalar* values

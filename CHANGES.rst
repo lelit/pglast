@@ -30,7 +30,7 @@ __ https://github.com/lfittl/libpg_query/issues/45
 
 - Fix issue in the safety belt check performed by ``pgpp`` (`issue #4`__)
 
-__ https://github.com/lelit/pg_query/issues/4
+__ https://github.com/lelit/pglast/issues/4
 
 
 0.24 (2018-03-02)
@@ -62,7 +62,7 @@ __ https://github.com/lelit/pg_query/issues/4
 - New alternative printers for a set of *special functions*, activated by a new
   ``--special-functions`` option on ``pgpp`` (`issue #2`__)
 
-__ https://github.com/lelit/pg_query/issues/2
+__ https://github.com/lelit/pglast/issues/2
 
 
 0.20 (2017-11-21)
@@ -116,7 +116,7 @@ __ https://github.com/lelit/pg_query/issues/2
 
 - Fix indentation of boolean expressions in SELECT's targets (`issue #3`__)
 
-__ https://github.com/lelit/pg_query/issues/3
+__ https://github.com/lelit/pglast/issues/3
 
 
 0.14 (2017-10-09)
@@ -175,7 +175,7 @@ __ https://github.com/lelit/pg_query/issues/3
 - New ``compact_lists_margin`` option to produce a more compact representation when possible
   (see `issue #1`__)
 
-__ https://github.com/lelit/pg_query/issues/1
+__ https://github.com/lelit/pglast/issues/1
 
 
 0.7 (2017-08-10)

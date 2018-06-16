@@ -15,12 +15,12 @@
         "library_dirs": [
             "/home/lele/wip/pg_query/libpg_query"
         ],
-        "name": "pg_query.parser",
+        "name": "pglast.parser",
         "sources": [
-            "pg_query/parser.pyx"
+            "pglast/parser.pyx"
         ]
     },
-    "module_name": "pg_query.parser"
+    "module_name": "pglast.parser"
 }
 END: Cython Metadata */
 
@@ -582,8 +582,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__pg_query__parser
-#define __PYX_HAVE_API__pg_query__parser
+#define __PYX_HAVE__pglast__parser
+#define __PYX_HAVE_API__pglast__parser
 /* Early includes */
 #include "pg_query.h"
 #ifdef _OPENMP
@@ -789,7 +789,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pg_query/parser.pyx",
+  "pglast/parser.pyx",
 };
 /* NoFastGil.proto */
 #define __Pyx_PyGILState_Ensure PyGILState_Ensure
@@ -1235,12 +1235,12 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pg_query.parser' */
-#define __Pyx_MODULE_NAME "pg_query.parser"
-extern int __pyx_module_is_main_pg_query__parser;
-int __pyx_module_is_main_pg_query__parser = 0;
+/* Module declarations from 'pglast.parser' */
+#define __Pyx_MODULE_NAME "pglast.parser"
+extern int __pyx_module_is_main_pglast__parser;
+int __pyx_module_is_main_pglast__parser = 0;
 
-/* Implementation of 'pg_query.parser' */
+/* Implementation of 'pglast.parser' */
 static PyObject *__pyx_builtin_super;
 static const char __pyx_k_[] = "";
 static const char __pyx_k_mp[] = "mp";
@@ -1275,11 +1275,11 @@ static const char __pyx_k_parse_sql[] = "parse_sql";
 static const char __pyx_k_ParseError[] = "ParseError";
 static const char __pyx_k_at_location[] = ", at location ";
 static const char __pyx_k_parse_plpgsql[] = "parse_plpgsql";
-static const char __pyx_k_pg_query_parser[] = "pg_query.parser";
+static const char __pyx_k_pglast_parser[] = "pglast.parser";
 static const char __pyx_k_ParseError___str[] = "ParseError.__str__";
 static const char __pyx_k_ParseError___init[] = "ParseError.__init__";
+static const char __pyx_k_pglast_parser_pyx[] = "pglast/parser.pyx";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_pg_query_parser_pyx[] = "pg_query/parser.pyx";
 static const char __pyx_k_get_postgresql_version[] = "get_postgresql_version";
 static const char __pyx_k_Exception_representing_the_error[] = "Exception representing the error state returned by the PG parser.";
 static PyObject *__pyx_n_s_;
@@ -1311,8 +1311,8 @@ static PyObject *__pyx_n_s_parse_plpgsql;
 static PyObject *__pyx_n_s_parse_sql;
 static PyObject *__pyx_n_s_parsed;
 static PyObject *__pyx_n_s_patch;
-static PyObject *__pyx_n_s_pg_query_parser;
-static PyObject *__pyx_kp_s_pg_query_parser_pyx;
+static PyObject *__pyx_n_s_pglast_parser;
+static PyObject *__pyx_kp_s_pglast_parser_pyx;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_query;
@@ -1322,11 +1322,11 @@ static PyObject *__pyx_n_s_super;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_utf8;
 static PyObject *__pyx_n_s_version;
-static PyObject *__pyx_pf_8pg_query_6parser_10ParseError___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_message, PyObject *__pyx_v_location); /* proto */
-static PyObject *__pyx_pf_8pg_query_6parser_10ParseError_2__str__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
-static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
+static PyObject *__pyx_pf_6pglast_6parser_10ParseError___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_message, PyObject *__pyx_v_location); /* proto */
+static PyObject *__pyx_pf_6pglast_6parser_10ParseError_2__str__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pglast_6parser_get_postgresql_version(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
+static PyObject *__pyx_pf_6pglast_6parser_4parse_plpgsql(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
 static PyObject *__pyx_int_100;
 static PyObject *__pyx_int_10000;
 static PyObject *__pyx_tuple__2;
@@ -1341,7 +1341,7 @@ static PyObject *__pyx_codeobj__9;
 static PyObject *__pyx_codeobj__11;
 /* Late includes */
 
-/* "pg_query/parser.pyx":20
+/* "pglast/parser.pyx":20
  *     "Exception representing the error state returned by the PG parser."
  * 
  *     def __init__(self, message, location):             # <<<<<<<<<<<<<<
@@ -1350,9 +1350,9 @@ static PyObject *__pyx_codeobj__11;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8pg_query_6parser_10ParseError_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_8pg_query_6parser_10ParseError_1__init__ = {"__init__", (PyCFunction)__pyx_pw_8pg_query_6parser_10ParseError_1__init__, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_8pg_query_6parser_10ParseError_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pglast_6parser_10ParseError_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_6pglast_6parser_10ParseError_1__init__ = {"__init__", (PyCFunction)__pyx_pw_6pglast_6parser_10ParseError_1__init__, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6pglast_6parser_10ParseError_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_message = 0;
   PyObject *__pyx_v_location = 0;
@@ -1411,18 +1411,18 @@ static PyObject *__pyx_pw_8pg_query_6parser_10ParseError_1__init__(PyObject *__p
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pg_query.parser.ParseError.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pglast.parser.ParseError.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8pg_query_6parser_10ParseError___init__(__pyx_self, __pyx_v_self, __pyx_v_message, __pyx_v_location);
+  __pyx_r = __pyx_pf_6pglast_6parser_10ParseError___init__(__pyx_self, __pyx_v_self, __pyx_v_message, __pyx_v_location);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8pg_query_6parser_10ParseError___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_message, PyObject *__pyx_v_location) {
+static PyObject *__pyx_pf_6pglast_6parser_10ParseError___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_message, PyObject *__pyx_v_location) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1431,7 +1431,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError___init__(CYTHON_UNUSED 
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pg_query/parser.pyx":21
+  /* "pglast/parser.pyx":21
  * 
  *     def __init__(self, message, location):
  *         super().__init__(message)             # <<<<<<<<<<<<<<
@@ -1500,7 +1500,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError___init__(CYTHON_UNUSED 
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pg_query/parser.pyx":22
+  /* "pglast/parser.pyx":22
  *     def __init__(self, message, location):
  *         super().__init__(message)
  *         self.location = location             # <<<<<<<<<<<<<<
@@ -1509,7 +1509,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError___init__(CYTHON_UNUSED 
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_location, __pyx_v_location) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
 
-  /* "pg_query/parser.pyx":20
+  /* "pglast/parser.pyx":20
  *     "Exception representing the error state returned by the PG parser."
  * 
  *     def __init__(self, message, location):             # <<<<<<<<<<<<<<
@@ -1525,7 +1525,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError___init__(CYTHON_UNUSED 
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pg_query.parser.ParseError.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pglast.parser.ParseError.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1533,7 +1533,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError___init__(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "pg_query/parser.pyx":24
+/* "pglast/parser.pyx":24
  *         self.location = location
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -1542,20 +1542,20 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError___init__(CYTHON_UNUSED 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8pg_query_6parser_10ParseError_3__str__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_8pg_query_6parser_10ParseError_3__str__ = {"__str__", (PyCFunction)__pyx_pw_8pg_query_6parser_10ParseError_3__str__, METH_O, 0};
-static PyObject *__pyx_pw_8pg_query_6parser_10ParseError_3__str__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6pglast_6parser_10ParseError_3__str__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_6pglast_6parser_10ParseError_3__str__ = {"__str__", (PyCFunction)__pyx_pw_6pglast_6parser_10ParseError_3__str__, METH_O, 0};
+static PyObject *__pyx_pw_6pglast_6parser_10ParseError_3__str__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__str__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_8pg_query_6parser_10ParseError_2__str__(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pglast_6parser_10ParseError_2__str__(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8pg_query_6parser_10ParseError_2__str__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_6pglast_6parser_10ParseError_2__str__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_message = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -1566,7 +1566,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError_2__str__(CYTHON_UNUSED 
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("__str__", 0);
 
-  /* "pg_query/parser.pyx":25
+  /* "pglast/parser.pyx":25
  * 
  *     def __str__(self):
  *         message = self.args[0]             # <<<<<<<<<<<<<<
@@ -1581,7 +1581,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError_2__str__(CYTHON_UNUSED 
   __pyx_v_message = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pg_query/parser.pyx":26
+  /* "pglast/parser.pyx":26
  *     def __str__(self):
  *         message = self.args[0]
  *         return f"{message}, at location {self.location}"             # <<<<<<<<<<<<<<
@@ -1621,7 +1621,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError_2__str__(CYTHON_UNUSED 
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "pg_query/parser.pyx":24
+  /* "pglast/parser.pyx":24
  *         self.location = location
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -1634,7 +1634,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError_2__str__(CYTHON_UNUSED 
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pg_query.parser.ParseError.__str__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pglast.parser.ParseError.__str__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_message);
@@ -1643,7 +1643,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError_2__str__(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "pg_query/parser.pyx":53
+/* "pglast/parser.pyx":53
  * 
  * 
  * def get_postgresql_version():             # <<<<<<<<<<<<<<
@@ -1652,21 +1652,21 @@ static PyObject *__pyx_pf_8pg_query_6parser_10ParseError_2__str__(CYTHON_UNUSED 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8pg_query_6parser_1get_postgresql_version(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_8pg_query_6parser_get_postgresql_version[] = "Return the PostgreSQL version as a tuple (`major`, `minor`, `patch`).";
-static PyMethodDef __pyx_mdef_8pg_query_6parser_1get_postgresql_version = {"get_postgresql_version", (PyCFunction)__pyx_pw_8pg_query_6parser_1get_postgresql_version, METH_NOARGS, __pyx_doc_8pg_query_6parser_get_postgresql_version};
-static PyObject *__pyx_pw_8pg_query_6parser_1get_postgresql_version(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pglast_6parser_1get_postgresql_version(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pglast_6parser_get_postgresql_version[] = "Return the PostgreSQL version as a tuple (`major`, `minor`, `patch`).";
+static PyMethodDef __pyx_mdef_6pglast_6parser_1get_postgresql_version = {"get_postgresql_version", (PyCFunction)__pyx_pw_6pglast_6parser_1get_postgresql_version, METH_NOARGS, __pyx_doc_6pglast_6parser_get_postgresql_version};
+static PyObject *__pyx_pw_6pglast_6parser_1get_postgresql_version(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_postgresql_version (wrapper)", 0);
-  __pyx_r = __pyx_pf_8pg_query_6parser_get_postgresql_version(__pyx_self);
+  __pyx_r = __pyx_pf_6pglast_6parser_get_postgresql_version(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_6pglast_6parser_get_postgresql_version(CYTHON_UNUSED PyObject *__pyx_self) {
   int __pyx_v_version;
   PyObject *__pyx_v_major = NULL;
   PyObject *__pyx_v_mp = NULL;
@@ -1681,7 +1681,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED
   PyObject *(*__pyx_t_5)(PyObject *);
   __Pyx_RefNannySetupContext("get_postgresql_version", 0);
 
-  /* "pg_query/parser.pyx":56
+  /* "pglast/parser.pyx":56
  *     "Return the PostgreSQL version as a tuple (`major`, `minor`, `patch`)."
  * 
  *     version = PG_VERSION_NUM             # <<<<<<<<<<<<<<
@@ -1690,7 +1690,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED
  */
   __pyx_v_version = PG_VERSION_NUM;
 
-  /* "pg_query/parser.pyx":57
+  /* "pglast/parser.pyx":57
  * 
  *     version = PG_VERSION_NUM
  *     major, mp = divmod(version, 10_000)             # <<<<<<<<<<<<<<
@@ -1753,7 +1753,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED
   __pyx_v_mp = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pg_query/parser.pyx":58
+  /* "pglast/parser.pyx":58
  *     version = PG_VERSION_NUM
  *     major, mp = divmod(version, 10_000)
  *     minor, patch = divmod(mp, 100)             # <<<<<<<<<<<<<<
@@ -1813,7 +1813,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED
   __pyx_v_patch = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pg_query/parser.pyx":59
+  /* "pglast/parser.pyx":59
  *     major, mp = divmod(version, 10_000)
  *     minor, patch = divmod(mp, 100)
  *     return (major, minor, patch)             # <<<<<<<<<<<<<<
@@ -1836,7 +1836,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pg_query/parser.pyx":53
+  /* "pglast/parser.pyx":53
  * 
  * 
  * def get_postgresql_version():             # <<<<<<<<<<<<<<
@@ -1850,7 +1850,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pg_query.parser.get_postgresql_version", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pglast.parser.get_postgresql_version", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_major);
@@ -1862,7 +1862,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED
   return __pyx_r;
 }
 
-/* "pg_query/parser.pyx":62
+/* "pglast/parser.pyx":62
  * 
  * 
  * def parse_sql(str query):             # <<<<<<<<<<<<<<
@@ -1871,14 +1871,14 @@ static PyObject *__pyx_pf_8pg_query_6parser_get_postgresql_version(CYTHON_UNUSED
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8pg_query_6parser_3parse_sql(PyObject *__pyx_self, PyObject *__pyx_v_query); /*proto*/
-static PyMethodDef __pyx_mdef_8pg_query_6parser_3parse_sql = {"parse_sql", (PyCFunction)__pyx_pw_8pg_query_6parser_3parse_sql, METH_O, 0};
-static PyObject *__pyx_pw_8pg_query_6parser_3parse_sql(PyObject *__pyx_self, PyObject *__pyx_v_query) {
+static PyObject *__pyx_pw_6pglast_6parser_3parse_sql(PyObject *__pyx_self, PyObject *__pyx_v_query); /*proto*/
+static PyMethodDef __pyx_mdef_6pglast_6parser_3parse_sql = {"parse_sql", (PyCFunction)__pyx_pw_6pglast_6parser_3parse_sql, METH_O, 0};
+static PyObject *__pyx_pw_6pglast_6parser_3parse_sql(PyObject *__pyx_self, PyObject *__pyx_v_query) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("parse_sql (wrapper)", 0);
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(0, 62, __pyx_L1_error)
-  __pyx_r = __pyx_pf_8pg_query_6parser_2parse_sql(__pyx_self, ((PyObject*)__pyx_v_query));
+  __pyx_r = __pyx_pf_6pglast_6parser_2parse_sql(__pyx_self, ((PyObject*)__pyx_v_query));
 
   /* function exit code */
   goto __pyx_L0;
@@ -1889,7 +1889,7 @@ static PyObject *__pyx_pw_8pg_query_6parser_3parse_sql(PyObject *__pyx_self, PyO
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query) {
+static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query) {
   PgQueryParseResult __pyx_v_parsed;
   char const *__pyx_v_cstring;
   PyObject *__pyx_v_utf8 = NULL;
@@ -1916,7 +1916,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
   PyObject *__pyx_t_17 = NULL;
   __Pyx_RefNannySetupContext("parse_sql", 0);
 
-  /* "pg_query/parser.pyx":66
+  /* "pglast/parser.pyx":66
  *     cdef const char *cstring
  * 
  *     utf8 = query.encode('utf-8')             # <<<<<<<<<<<<<<
@@ -1932,7 +1932,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
   __pyx_v_utf8 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pg_query/parser.pyx":67
+  /* "pglast/parser.pyx":67
  * 
  *     utf8 = query.encode('utf-8')
  *     cstring = utf8             # <<<<<<<<<<<<<<
@@ -1942,7 +1942,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(0, 67, __pyx_L1_error)
   __pyx_v_cstring = __pyx_t_2;
 
-  /* "pg_query/parser.pyx":69
+  /* "pglast/parser.pyx":69
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -1957,7 +1957,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
       #endif
       /*try:*/ {
 
-        /* "pg_query/parser.pyx":70
+        /* "pglast/parser.pyx":70
  * 
  *     with nogil:
  *         parsed = pg_query_parse(cstring)             # <<<<<<<<<<<<<<
@@ -1967,7 +1967,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
         __pyx_v_parsed = pg_query_parse(__pyx_v_cstring);
       }
 
-      /* "pg_query/parser.pyx":69
+      /* "pglast/parser.pyx":69
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -1986,7 +1986,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
       }
   }
 
-  /* "pg_query/parser.pyx":72
+  /* "pglast/parser.pyx":72
  *         parsed = pg_query_parse(cstring)
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -1995,7 +1995,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
  */
   /*try:*/ {
 
-    /* "pg_query/parser.pyx":73
+    /* "pglast/parser.pyx":73
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -2005,7 +2005,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
     __pyx_t_3 = (__pyx_v_parsed.error != 0);
     if (unlikely(__pyx_t_3)) {
 
-      /* "pg_query/parser.pyx":74
+      /* "pglast/parser.pyx":74
  *     try:
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')             # <<<<<<<<<<<<<<
@@ -2019,7 +2019,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
       __pyx_v_message = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pg_query/parser.pyx":75
+      /* "pglast/parser.pyx":75
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos             # <<<<<<<<<<<<<<
@@ -2029,7 +2029,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
       __pyx_t_5 = __pyx_v_parsed.error->cursorpos;
       __pyx_v_cursorpos = __pyx_t_5;
 
-      /* "pg_query/parser.pyx":76
+      /* "pglast/parser.pyx":76
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos
  *             raise ParseError(message, cursorpos)             # <<<<<<<<<<<<<<
@@ -2091,7 +2091,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __PYX_ERR(0, 76, __pyx_L7_error)
 
-      /* "pg_query/parser.pyx":73
+      /* "pglast/parser.pyx":73
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -2100,7 +2100,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
  */
     }
 
-    /* "pg_query/parser.pyx":78
+    /* "pglast/parser.pyx":78
  *             raise ParseError(message, cursorpos)
  * 
  *         return json.loads(parsed.parse_tree.decode('utf8'))             # <<<<<<<<<<<<<<
@@ -2168,7 +2168,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
     goto __pyx_L6_return;
   }
 
-  /* "pg_query/parser.pyx":80
+  /* "pglast/parser.pyx":80
  *         return json.loads(parsed.parse_tree.decode('utf8'))
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -2204,7 +2204,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
             #endif
             /*try:*/ {
 
-              /* "pg_query/parser.pyx":81
+              /* "pglast/parser.pyx":81
  *     finally:
  *         with nogil:
  *             pg_query_free_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -2214,7 +2214,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
               pg_query_free_parse_result(__pyx_v_parsed);
             }
 
-            /* "pg_query/parser.pyx":80
+            /* "pglast/parser.pyx":80
  *         return json.loads(parsed.parse_tree.decode('utf8'))
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -2258,7 +2258,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
           #endif
           /*try:*/ {
 
-            /* "pg_query/parser.pyx":81
+            /* "pglast/parser.pyx":81
  *     finally:
  *         with nogil:
  *             pg_query_free_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -2268,7 +2268,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
             pg_query_free_parse_result(__pyx_v_parsed);
           }
 
-          /* "pg_query/parser.pyx":80
+          /* "pglast/parser.pyx":80
  *         return json.loads(parsed.parse_tree.decode('utf8'))
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -2292,7 +2292,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
     }
   }
 
-  /* "pg_query/parser.pyx":62
+  /* "pglast/parser.pyx":62
  * 
  * 
  * def parse_sql(str query):             # <<<<<<<<<<<<<<
@@ -2307,7 +2307,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("pg_query.parser.parse_sql", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pglast.parser.parse_sql", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_utf8);
@@ -2317,7 +2317,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "pg_query/parser.pyx":84
+/* "pglast/parser.pyx":84
  * 
  * 
  * def parse_plpgsql(str query):             # <<<<<<<<<<<<<<
@@ -2326,14 +2326,14 @@ static PyObject *__pyx_pf_8pg_query_6parser_2parse_sql(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8pg_query_6parser_5parse_plpgsql(PyObject *__pyx_self, PyObject *__pyx_v_query); /*proto*/
-static PyMethodDef __pyx_mdef_8pg_query_6parser_5parse_plpgsql = {"parse_plpgsql", (PyCFunction)__pyx_pw_8pg_query_6parser_5parse_plpgsql, METH_O, 0};
-static PyObject *__pyx_pw_8pg_query_6parser_5parse_plpgsql(PyObject *__pyx_self, PyObject *__pyx_v_query) {
+static PyObject *__pyx_pw_6pglast_6parser_5parse_plpgsql(PyObject *__pyx_self, PyObject *__pyx_v_query); /*proto*/
+static PyMethodDef __pyx_mdef_6pglast_6parser_5parse_plpgsql = {"parse_plpgsql", (PyCFunction)__pyx_pw_6pglast_6parser_5parse_plpgsql, METH_O, 0};
+static PyObject *__pyx_pw_6pglast_6parser_5parse_plpgsql(PyObject *__pyx_self, PyObject *__pyx_v_query) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("parse_plpgsql (wrapper)", 0);
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(0, 84, __pyx_L1_error)
-  __pyx_r = __pyx_pf_8pg_query_6parser_4parse_plpgsql(__pyx_self, ((PyObject*)__pyx_v_query));
+  __pyx_r = __pyx_pf_6pglast_6parser_4parse_plpgsql(__pyx_self, ((PyObject*)__pyx_v_query));
 
   /* function exit code */
   goto __pyx_L0;
@@ -2344,7 +2344,7 @@ static PyObject *__pyx_pw_8pg_query_6parser_5parse_plpgsql(PyObject *__pyx_self,
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query) {
+static PyObject *__pyx_pf_6pglast_6parser_4parse_plpgsql(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query) {
   PgQueryPlpgsqlParseResult __pyx_v_parsed;
   char const *__pyx_v_cstring;
   PyObject *__pyx_v_utf8 = NULL;
@@ -2371,7 +2371,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
   PyObject *__pyx_t_17 = NULL;
   __Pyx_RefNannySetupContext("parse_plpgsql", 0);
 
-  /* "pg_query/parser.pyx":88
+  /* "pglast/parser.pyx":88
  *     cdef const char *cstring
  * 
  *     utf8 = query.encode('utf-8')             # <<<<<<<<<<<<<<
@@ -2387,7 +2387,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
   __pyx_v_utf8 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pg_query/parser.pyx":89
+  /* "pglast/parser.pyx":89
  * 
  *     utf8 = query.encode('utf-8')
  *     cstring = utf8             # <<<<<<<<<<<<<<
@@ -2397,7 +2397,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
   __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L1_error)
   __pyx_v_cstring = __pyx_t_2;
 
-  /* "pg_query/parser.pyx":91
+  /* "pglast/parser.pyx":91
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -2412,7 +2412,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
       #endif
       /*try:*/ {
 
-        /* "pg_query/parser.pyx":92
+        /* "pglast/parser.pyx":92
  * 
  *     with nogil:
  *         parsed = pg_query_parse_plpgsql(cstring)             # <<<<<<<<<<<<<<
@@ -2422,7 +2422,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
         __pyx_v_parsed = pg_query_parse_plpgsql(__pyx_v_cstring);
       }
 
-      /* "pg_query/parser.pyx":91
+      /* "pglast/parser.pyx":91
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -2441,7 +2441,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
       }
   }
 
-  /* "pg_query/parser.pyx":94
+  /* "pglast/parser.pyx":94
  *         parsed = pg_query_parse_plpgsql(cstring)
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -2450,7 +2450,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
  */
   /*try:*/ {
 
-    /* "pg_query/parser.pyx":95
+    /* "pglast/parser.pyx":95
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -2460,7 +2460,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
     __pyx_t_3 = (__pyx_v_parsed.error != 0);
     if (unlikely(__pyx_t_3)) {
 
-      /* "pg_query/parser.pyx":96
+      /* "pglast/parser.pyx":96
  *     try:
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')             # <<<<<<<<<<<<<<
@@ -2474,7 +2474,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
       __pyx_v_message = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pg_query/parser.pyx":97
+      /* "pglast/parser.pyx":97
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos             # <<<<<<<<<<<<<<
@@ -2484,7 +2484,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
       __pyx_t_5 = __pyx_v_parsed.error->cursorpos;
       __pyx_v_cursorpos = __pyx_t_5;
 
-      /* "pg_query/parser.pyx":98
+      /* "pglast/parser.pyx":98
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos
  *             raise ParseError(message, cursorpos)             # <<<<<<<<<<<<<<
@@ -2546,7 +2546,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __PYX_ERR(0, 98, __pyx_L7_error)
 
-      /* "pg_query/parser.pyx":95
+      /* "pglast/parser.pyx":95
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -2555,7 +2555,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
  */
     }
 
-    /* "pg_query/parser.pyx":100
+    /* "pglast/parser.pyx":100
  *             raise ParseError(message, cursorpos)
  * 
  *         return json.loads(parsed.plpgsql_funcs.decode('utf8'))             # <<<<<<<<<<<<<<
@@ -2623,7 +2623,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
     goto __pyx_L6_return;
   }
 
-  /* "pg_query/parser.pyx":102
+  /* "pglast/parser.pyx":102
  *         return json.loads(parsed.plpgsql_funcs.decode('utf8'))
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -2658,7 +2658,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
             #endif
             /*try:*/ {
 
-              /* "pg_query/parser.pyx":103
+              /* "pglast/parser.pyx":103
  *     finally:
  *         with nogil:
  *             pg_query_free_plpgsql_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -2666,7 +2666,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
               pg_query_free_plpgsql_parse_result(__pyx_v_parsed);
             }
 
-            /* "pg_query/parser.pyx":102
+            /* "pglast/parser.pyx":102
  *         return json.loads(parsed.plpgsql_funcs.decode('utf8'))
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -2709,7 +2709,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
           #endif
           /*try:*/ {
 
-            /* "pg_query/parser.pyx":103
+            /* "pglast/parser.pyx":103
  *     finally:
  *         with nogil:
  *             pg_query_free_plpgsql_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -2717,7 +2717,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
             pg_query_free_plpgsql_parse_result(__pyx_v_parsed);
           }
 
-          /* "pg_query/parser.pyx":102
+          /* "pglast/parser.pyx":102
  *         return json.loads(parsed.plpgsql_funcs.decode('utf8'))
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -2740,7 +2740,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
     }
   }
 
-  /* "pg_query/parser.pyx":84
+  /* "pglast/parser.pyx":84
  * 
  * 
  * def parse_plpgsql(str query):             # <<<<<<<<<<<<<<
@@ -2755,7 +2755,7 @@ static PyObject *__pyx_pf_8pg_query_6parser_4parse_plpgsql(CYTHON_UNUSED PyObjec
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("pg_query.parser.parse_plpgsql", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pglast.parser.parse_plpgsql", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_utf8);
@@ -2831,8 +2831,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_parse_sql, __pyx_k_parse_sql, sizeof(__pyx_k_parse_sql), 0, 0, 1, 1},
   {&__pyx_n_s_parsed, __pyx_k_parsed, sizeof(__pyx_k_parsed), 0, 0, 1, 1},
   {&__pyx_n_s_patch, __pyx_k_patch, sizeof(__pyx_k_patch), 0, 0, 1, 1},
-  {&__pyx_n_s_pg_query_parser, __pyx_k_pg_query_parser, sizeof(__pyx_k_pg_query_parser), 0, 0, 1, 1},
-  {&__pyx_kp_s_pg_query_parser_pyx, __pyx_k_pg_query_parser_pyx, sizeof(__pyx_k_pg_query_parser_pyx), 0, 0, 1, 0},
+  {&__pyx_n_s_pglast_parser, __pyx_k_pglast_parser, sizeof(__pyx_k_pglast_parser), 0, 0, 1, 1},
+  {&__pyx_kp_s_pglast_parser_pyx, __pyx_k_pglast_parser_pyx, sizeof(__pyx_k_pglast_parser_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_query, __pyx_k_query, sizeof(__pyx_k_query), 0, 0, 1, 1},
@@ -2855,7 +2855,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pg_query/parser.pyx":20
+  /* "pglast/parser.pyx":20
  *     "Exception representing the error state returned by the PG parser."
  * 
  *     def __init__(self, message, location):             # <<<<<<<<<<<<<<
@@ -2865,9 +2865,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__2 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_message, __pyx_n_s_location); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
-  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pg_query_parser_pyx, __pyx_n_s_init, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_init, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 20, __pyx_L1_error)
 
-  /* "pg_query/parser.pyx":24
+  /* "pglast/parser.pyx":24
  *         self.location = location
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -2877,9 +2877,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__4 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_message); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
-  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pg_query_parser_pyx, __pyx_n_s_str, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_str, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 24, __pyx_L1_error)
 
-  /* "pg_query/parser.pyx":53
+  /* "pglast/parser.pyx":53
  * 
  * 
  * def get_postgresql_version():             # <<<<<<<<<<<<<<
@@ -2889,9 +2889,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__6 = PyTuple_Pack(5, __pyx_n_s_version, __pyx_n_s_major, __pyx_n_s_mp, __pyx_n_s_minor, __pyx_n_s_patch); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
-  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pg_query_parser_pyx, __pyx_n_s_get_postgresql_version, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_get_postgresql_version, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 53, __pyx_L1_error)
 
-  /* "pg_query/parser.pyx":62
+  /* "pglast/parser.pyx":62
  * 
  * 
  * def parse_sql(str query):             # <<<<<<<<<<<<<<
@@ -2901,9 +2901,9 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__8 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pg_query_parser_pyx, __pyx_n_s_parse_sql, 62, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_sql, 62, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 62, __pyx_L1_error)
 
-  /* "pg_query/parser.pyx":84
+  /* "pglast/parser.pyx":84
  * 
  * 
  * def parse_plpgsql(str query):             # <<<<<<<<<<<<<<
@@ -2913,7 +2913,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__10 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pg_query_parser_pyx, __pyx_n_s_parse_plpgsql, 84, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_plpgsql, 84, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3143,14 +3143,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_pg_query__parser) {
+  if (__pyx_module_is_main_pglast__parser) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pg_query.parser")) {
-      if (unlikely(PyDict_SetItemString(modules, "pg_query.parser", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pglast.parser")) {
+      if (unlikely(PyDict_SetItemString(modules, "pglast.parser", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -3171,7 +3171,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pg_query/parser.pyx":12
+  /* "pglast/parser.pyx":12
  * 
  * 
  * import json             # <<<<<<<<<<<<<<
@@ -3183,7 +3183,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_json, __pyx_t_1) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pg_query/parser.pyx":14
+  /* "pglast/parser.pyx":14
  * import json
  * 
  * from . import Error             # <<<<<<<<<<<<<<
@@ -3204,7 +3204,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pg_query/parser.pyx":17
+  /* "pglast/parser.pyx":17
  * 
  * 
  * class ParseError(Error):             # <<<<<<<<<<<<<<
@@ -3220,19 +3220,19 @@ if (!__Pyx_RefNanny) {
   __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_ParseError, __pyx_n_s_ParseError, (PyObject *) NULL, __pyx_n_s_pg_query_parser, __pyx_kp_s_Exception_representing_the_error); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_ParseError, __pyx_n_s_ParseError, (PyObject *) NULL, __pyx_n_s_pglast_parser, __pyx_kp_s_Exception_representing_the_error); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "pg_query/parser.pyx":20
+  /* "pglast/parser.pyx":20
  *     "Exception representing the error state returned by the PG parser."
  * 
  *     def __init__(self, message, location):             # <<<<<<<<<<<<<<
  *         super().__init__(message)
  *         self.location = location
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_8pg_query_6parser_10ParseError_1__init__, 0, __pyx_n_s_ParseError___init, NULL, __pyx_n_s_pg_query_parser, __pyx_d, ((PyObject *)__pyx_codeobj__3)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6pglast_6parser_10ParseError_1__init__, 0, __pyx_n_s_ParseError___init, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__3)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF(__pyx_t_5);
   PyList_Append(__pyx_t_4, __pyx_t_5);
@@ -3240,19 +3240,19 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_5) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pg_query/parser.pyx":24
+  /* "pglast/parser.pyx":24
  *         self.location = location
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
  *         message = self.args[0]
  *         return f"{message}, at location {self.location}"
  */
-  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_8pg_query_6parser_10ParseError_3__str__, 0, __pyx_n_s_ParseError___str, NULL, __pyx_n_s_pg_query_parser, __pyx_d, ((PyObject *)__pyx_codeobj__5)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_NewEx(&__pyx_mdef_6pglast_6parser_10ParseError_3__str__, 0, __pyx_n_s_ParseError___str, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__5)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_str, __pyx_t_5) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pg_query/parser.pyx":17
+  /* "pglast/parser.pyx":17
  * 
  * 
  * class ParseError(Error):             # <<<<<<<<<<<<<<
@@ -3269,45 +3269,45 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pg_query/parser.pyx":53
+  /* "pglast/parser.pyx":53
  * 
  * 
  * def get_postgresql_version():             # <<<<<<<<<<<<<<
  *     "Return the PostgreSQL version as a tuple (`major`, `minor`, `patch`)."
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_8pg_query_6parser_1get_postgresql_version, NULL, __pyx_n_s_pg_query_parser); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pglast_6parser_1get_postgresql_version, NULL, __pyx_n_s_pglast_parser); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_postgresql_version, __pyx_t_1) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pg_query/parser.pyx":62
+  /* "pglast/parser.pyx":62
  * 
  * 
  * def parse_sql(str query):             # <<<<<<<<<<<<<<
  *     cdef PgQueryParseResult parsed
  *     cdef const char *cstring
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_8pg_query_6parser_3parse_sql, NULL, __pyx_n_s_pg_query_parser); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pglast_6parser_3parse_sql, NULL, __pyx_n_s_pglast_parser); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_sql, __pyx_t_1) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pg_query/parser.pyx":84
+  /* "pglast/parser.pyx":84
  * 
  * 
  * def parse_plpgsql(str query):             # <<<<<<<<<<<<<<
  *     cdef PgQueryPlpgsqlParseResult parsed
  *     cdef const char *cstring
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_8pg_query_6parser_5parse_plpgsql, NULL, __pyx_n_s_pg_query_parser); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pglast_6parser_5parse_plpgsql, NULL, __pyx_n_s_pglast_parser); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_plpgsql, __pyx_t_1) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pg_query/parser.pyx":1
+  /* "pglast/parser.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
- * # :Project:   pg_query -- Cython interface with libpg_query
+ * # :Project:   pglast -- Cython interface with libpg_query
  * # :Created:   mer 02 ago 2017 15:12:49 CEST
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -3326,11 +3326,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_5);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pg_query.parser", 0, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pglast.parser", 0, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pg_query.parser");
+    PyErr_SetString(PyExc_ImportError, "init pglast.parser");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

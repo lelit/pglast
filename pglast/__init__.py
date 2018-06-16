@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Pythonic wrapper around libpg_query
+# :Project:   pglast -- PostgreSQL Languages AST
 # :Created:   mer 02 ago 2017 15:11:02 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
@@ -17,7 +17,7 @@ def prettify(statement, safety_belt=True, **options):
 
     :param statement: either a string containing the statement(s) or a :class:`~.node.Node`
                       instance
-    :param bool safety_belt: whether to perform a safe check against bugs in pg_query's
+    :param bool safety_belt: whether to perform a safe check against bugs in pglast's
                              serialization
     :param \*\*options: any keyword option accepted by :class:`~.printer.IndentedStream`
                         constructor
@@ -42,7 +42,7 @@ def prettify(statement, safety_belt=True, **options):
             pretty_pt = parse_sql(prettified)
         except Error as e:  # pragma: no cover
             print(prettified)
-            warnings.warn("Detected a bug in pg_query serialization, please report: %s\n%s"
+            warnings.warn("Detected a bug in pglast serialization, please report: %s\n%s"
                           % (e, prettified), RuntimeWarning)
             return statement
 

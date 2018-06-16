@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Test for the printers/ddl.py module
+# :Project:   pglast -- Test for the printers/ddl.py module
 # :Created:   gio 09 nov 2017 10:57:55 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 from ast import literal_eval
 
 import pytest
 
-from pg_query.printer import IndentedStream
-import pg_query.printers
+from pglast.printer import IndentedStream
+import pglast.printers
 
 from test_dml_printers import roundtrip
 
 
 # Make pyflakes happy
-pg_query.printers
+pglast.printers
 
 
 COMMENTS = """\

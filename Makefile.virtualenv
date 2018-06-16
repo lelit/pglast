@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Virtualenv targets
+# :Project:   pglast -- Virtualenv targets
 # :Created:   gio 03 ago 2017 16:55:55 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 ACTIVATE_SCRIPT := $(VENVDIR)/bin/activate

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Printer function for SQL DDL nodes
+# :Project:   pglast -- Printer function for SQL DDL nodes
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 from .. import enums

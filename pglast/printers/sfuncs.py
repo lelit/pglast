@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Special functions
+# :Project:   pglast -- Special functions
 # :Created:   mer 22 nov 2017 08:34:34 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 from ..printer import special_function

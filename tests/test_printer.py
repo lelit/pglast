@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Tests on the printer.py module
+# :Project:   pglast -- Tests on the printer.py module
 # :Created:   sab 05 ago 2017 10:31:23 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 import pytest
 
-from pg_query import Node, printer
+from pglast import Node, printer
 
 
 def test_registry():

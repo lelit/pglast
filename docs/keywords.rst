@@ -1,16 +1,16 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- PG keywords
+.. :Project:   pglast -- PG keywords
 .. :Created:   gio 10 ago 2017 13:16:54 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
 ===================================================================
- :mod:`pg_query.keywords` --- Various kinds of PostgreSQL keywords
+ :mod:`pglast.keywords` --- Various kinds of PostgreSQL keywords
 ===================================================================
 
-.. module:: pg_query.keywords
+.. module:: pglast.keywords
    :synopsis: Various kinds of PostgreSQL keywords
 
 This module contains the set of PostgreSQL keywords grouped by their characteristic.

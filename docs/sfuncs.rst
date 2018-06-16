@@ -1,13 +1,13 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- Special functions documentation
+.. :Project:   pglast -- Special functions documentation
 .. :Created:   mer 22 nov 2017 09:04:18 CET
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
 ===============================================================
- :mod:`pg_query.printers.sfuncs` --- Special function printers
+ :mod:`pglast.printers.sfuncs` --- Special function printers
 ===============================================================
 
 The PostgreSQL parser *translates* some ``SQL`` constructs into function calls, for example the
@@ -18,6 +18,6 @@ This module declares some of those equivalences, implementing alternative printe
 used when the option `special_functions` of the :class:`output stream <.printer.RawStream>` is
 set to ``True``.
 
-.. automodule:: pg_query.printers.sfuncs
+.. automodule:: pglast.printers.sfuncs
    :synopsis: Special function printers
    :members:

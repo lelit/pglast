@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Extract keywords from PostgreSQL header
+# :Project:   pglast -- Extract keywords from PostgreSQL header
 # :Created:   dom 06 ago 2017 23:34:53 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 from collections import defaultdict
@@ -15,7 +15,7 @@ import subprocess
 
 HEADER = """\
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- DO NOT EDIT: automatically extracted from %s @ %s
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from %s @ %s
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017 Lele Gaifax

@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Test the node.py module
+# :Project:   pglast -- Test the node.py module
 # :Created:   ven 04 ago 2017 09:31:57 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 import enum
 
 import pytest
 
-from pg_query import Missing, Node
-from pg_query.node import Base, List, Scalar
+from pglast import Missing, Node
+from pglast.node import Base, List, Scalar
 
 
 class DummyEnum(str, enum.Enum):

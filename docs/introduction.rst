@@ -1,9 +1,9 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- Introduction
+.. :Project:   pglast -- Introduction
 .. :Created:   gio 10 ago 2017 10:03:30 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
 ==============
@@ -14,7 +14,7 @@ At the lower level the module exposes two libpg_query functions, ``parse_sql()``
 ``parse_plpgsql()``, that take respectively an ``SQL`` statement and a ``PLpgSQL`` statement
 and return a *parse tree* as a hierarchy of Python dictionaries, lists and scalar values. In
 some cases these scalars correspond to some C ``typedef enums``, that are automatically
-extracted from the PostgreSQL headers and are available as ``pg_query.enums``.
+extracted from the PostgreSQL headers and are available as ``pglast.enums``.
 
 At a higher level that tree is represented by three Python classes, a ``Node`` that represents
 a single node, a ``List`` that wraps a sequence of nodes and a ``Scalar`` for plain values such

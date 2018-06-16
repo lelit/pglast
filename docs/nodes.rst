@@ -1,23 +1,23 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- DO NOT EDIT: generated automatically
+.. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
 .. :Copyright: © 2017 Lele Gaifax
 ..
 
 ======================================================================
- :mod:`pg_query.enums.nodes` --- Constants extracted from `nodes.h`__
+ :mod:`pglast.enums.nodes` --- Constants extracted from `nodes.h`__
 ======================================================================
 
-__ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h
+__ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h
 
-.. module:: pg_query.enums.nodes
+.. module:: pglast.enums.nodes
    :synopsis: Constants extracted from nodes.h
 
 
-.. class:: pg_query.enums.nodes.AggSplit
+.. class:: pglast.enums.nodes.AggSplit
 
-   Corresponds to the `AggSplit enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L757>`__.
+   Corresponds to the `AggSplit enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L757>`__.
 
    .. data:: AGGSPLIT_SIMPLE
 
@@ -26,9 +26,9 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
    .. data:: AGGSPLIT_FINAL_DESERIAL
 
 
-.. class:: pg_query.enums.nodes.AggStrategy
+.. class:: pglast.enums.nodes.AggStrategy
 
-   Corresponds to the `AggStrategy enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L735>`__.
+   Corresponds to the `AggStrategy enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L735>`__.
 
    .. data:: AGG_PLAIN
 
@@ -39,9 +39,9 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
    .. data:: AGG_MIXED
 
 
-.. class:: pg_query.enums.nodes.CmdType
+.. class:: pglast.enums.nodes.CmdType
 
-   Corresponds to the `CmdType enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L649>`__.
+   Corresponds to the `CmdType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L649>`__.
 
    .. data:: CMD_UNKNOWN
 
@@ -58,9 +58,9 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
    .. data:: CMD_NOTHING
 
 
-.. class:: pg_query.enums.nodes.JoinType
+.. class:: pglast.enums.nodes.JoinType
 
-   Corresponds to the `JoinType enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L673>`__.
+   Corresponds to the `JoinType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L673>`__.
 
    .. data:: JOIN_INNER
 
@@ -79,9 +79,9 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
    .. data:: JOIN_UNIQUE_INNER
 
 
-.. class:: pg_query.enums.nodes.NodeTag
+.. class:: pglast.enums.nodes.NodeTag
 
-   Corresponds to the `NodeTag enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L26>`__.
+   Corresponds to the `NodeTag enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L26>`__.
 
    .. data:: T_Invalid
 
@@ -888,9 +888,9 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
    .. data:: T_ForeignKeyCacheInfo
 
 
-.. class:: pg_query.enums.nodes.OnConflictAction
+.. class:: pglast.enums.nodes.OnConflictAction
 
-   Corresponds to the `OnConflictAction enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L799>`__.
+   Corresponds to the `OnConflictAction enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L799>`__.
 
    .. data:: ONCONFLICT_NONE
 
@@ -899,9 +899,9 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
    .. data:: ONCONFLICT_UPDATE
 
 
-.. class:: pg_query.enums.nodes.SetOpCmd
+.. class:: pglast.enums.nodes.SetOpCmd
 
-   Corresponds to the `SetOpCmd enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L779>`__.
+   Corresponds to the `SetOpCmd enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L779>`__.
 
    .. data:: SETOPCMD_INTERSECT
 
@@ -912,9 +912,9 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
    .. data:: SETOPCMD_EXCEPT_ALL
 
 
-.. class:: pg_query.enums.nodes.SetOpStrategy
+.. class:: pglast.enums.nodes.SetOpStrategy
 
-   Corresponds to the `SetOpStrategy enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L787>`__.
+   Corresponds to the `SetOpStrategy enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L787>`__.
 
    .. data:: SETOP_SORTED
 
@@ -923,16 +923,16 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
 
 .. data:: AGGSPLITOP_COMBINE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L751>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L751>`__.
 
 .. data:: AGGSPLITOP_SKIPFINAL
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L752>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L752>`__.
 
 .. data:: AGGSPLITOP_SERIALIZE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L753>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L753>`__.
 
 .. data:: AGGSPLITOP_DESERIALIZE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/nodes.h#L754>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L754>`__.

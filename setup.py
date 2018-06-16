@@ -1,9 +1,9 @@
 # -*- coding: utf-8; mode: python -*-
-# :Project:   pg_query -- Pythonic wrapper around libpg_query
+# :Project:   pglast -- PostgreSQL Languages AST
 # :Created:   mer 02 ago 2017 15:20:43 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 from pathlib import Path
@@ -15,9 +15,9 @@ try:
     from Cython.Build import cythonize
 except ImportError:
     cythonize = lambda e: e
-    extension_source = 'pg_query/parser.c'
+    extension_source = 'pglast/parser.c'
 else:
-    extension_source = 'pg_query/parser.pyx'
+    extension_source = 'pglast/parser.pyx'
 
 
 here = Path(__file__).absolute().parent
@@ -39,11 +39,11 @@ class BuildLibPgQueryFirst(build_ext):
 
 
 setup(
-    name="pg_query",
+    name="pglast",
     version=VERSION,
-    url="https://github.com/lelit/pg_query",
+    url="https://github.com/lelit/pglast",
 
-    description="Pythonic wrapper around libpg_query and PostgreSQL prettifier",
+    description="PostgreSQL Languages AST and statements prettifier",
     long_description=README + '\n\n' + CHANGES,
 
     author="Lele Gaifax",
@@ -71,7 +71,7 @@ setup(
 
     cmdclass={'build_ext': BuildLibPgQueryFirst},
     ext_modules=cythonize([
-        Extension('pg_query.parser', [extension_source],
+        Extension('pglast.parser', [extension_source],
                   libraries=['pg_query'],
                   include_dirs=[LIBPG_QUERY_DIR],
                   library_dirs=[LIBPG_QUERY_DIR]),
@@ -91,6 +91,6 @@ setup(
     },
     entry_points="""\
     [console_scripts]
-    pgpp = pg_query.__main__:main
+    pgpp = pglast.__main__:main
     """,
 )

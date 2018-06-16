@@ -5,9 +5,9 @@ include docs/*.rst
 include docs/*.py
 include tests/*.py
 include tools/*.py
-recursive-include pg_query *.py *.pyx
+recursive-include pglast *.py *.pyx
 exclude libpg_query/*
-include libpg_query/LICENSE libpg_query/Makefile libpg_query/pg_query.h
+include libpglast/LICENSE libpg_query/Makefile libpg_query/pg_query.h
 recursive-include libpg_query/src *.c *.h
 prune libpg_query/examples
 prune libpg_query/patches

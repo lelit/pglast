@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Cython interface with libpg_query
+# :Project:   pglast -- Cython interface with libpg_query
 # :Created:   mer 02 ago 2017 15:12:49 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 #cython: language_level=3

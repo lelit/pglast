@@ -1,9 +1,9 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- Usage
+.. :Project:   pglast -- Usage
 .. :Created:   gio 10 ago 2017 10:06:38 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
 ===================
@@ -17,12 +17,12 @@ Parse an ``SQL`` statement and get its *AST* root node
 
 .. doctest::
 
-   >>> from pg_query import Node, parse_sql
+   >>> from pglast import Node, parse_sql
    >>> root = Node(parse_sql('SELECT foo FROM bar'))
    >>> print(root)
    None=[1*{RawStmt}]
 
-Recursively :meth:`traverse <pg_query.node.Node.traverse>` the parse tree
+Recursively :meth:`traverse <pglast.node.Node.traverse>` the parse tree
 =========================================================================
 
 .. doctest::
@@ -87,12 +87,12 @@ Iterate over nodes
    relname=<'bar'>
    relpersistence=<'p'>
 
-Programmatically :func:`reformat <pg_query.prettify>` a ``SQL`` statement\ [*]_
+Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement\ [*]_
 ===============================================================================
 
 .. doctest::
 
-   >>> from pg_query import prettify
+   >>> from pglast import prettify
    >>> print(prettify('delete from sometable where value is null'))
    DELETE FROM sometable
    WHERE value IS NULL
@@ -118,7 +118,7 @@ Programmatically :func:`reformat <pg_query.prettify>` a ``SQL`` statement\ [*]_
    WHERE (value IS NULL
       OR (value = 1))
 
-Customize a :func:`node printer <pg_query.printer.node_printer>`
+Customize a :func:`node printer <pglast.printer.node_printer>`
 ================================================================
 
 .. doctest::
@@ -128,7 +128,7 @@ Customize a :func:`node printer <pg_query.printer.node_printer>`
    UPDATE translations
    SET italian = $2
    WHERE word = $1
-   >>> from pg_query.printer import node_printer
+   >>> from pglast.printer import node_printer
    >>> @node_printer('ParamRef', override=True)
    ... def replace_param_ref(node, output):
    ...     output.write(repr(args[node.number.value - 1]))

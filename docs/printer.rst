@@ -1,16 +1,16 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- Printer documentation
+.. :Project:   pglast -- Printer documentation
 .. :Created:   gio 10 ago 2017 10:58:06 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
 =========================================================
- :mod:`pg_query.printer` --- The serialization machinery
+ :mod:`pglast.printer` --- The serialization machinery
 =========================================================
 
-.. module:: pg_query.printer
+.. module:: pglast.printer
    :synopsis: The serialization machinery
 
 .. autodata:: NODE_PRINTERS

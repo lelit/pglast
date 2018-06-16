@@ -1,15 +1,15 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- DO NOT EDIT: generated automatically
+.. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
 .. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
 ========================================================
- :mod:`pg_query.printers.dml` --- DML printer functions
+ :mod:`pglast.printers.dml` --- DML printer functions
 ========================================================
 
-.. module:: pg_query.printers.dml
+.. module:: pglast.printers.dml
    :synopsis: DML printer functions
 
 .. index:: A_ArrayExpr

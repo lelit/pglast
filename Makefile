@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Development Makefile
+# :Project:   pglast -- Development Makefile
 # :Created:   gio 03 ago 2017 14:52:45 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
@@ -25,13 +25,13 @@ help::
 	@printf "build\n\tbuild the module\n"
 
 .PHONY: build
-build: virtualenv enums keywords libpg_query/libpg_query.a pg_query/parser.c
+build: virtualenv enums keywords libpg_query/libpg_query.a pglast/parser.c
 	$(PYTHON) setup.py build_ext --inplace
 
 libpg_query/libpg_query.a: libpg_query/LICENSE
 	$(MAKE) -C libpg_query build
 
-pg_query/parser.c: pg_query/parser.pyx
+pglast/parser.c: pglast/parser.pyx
 	$(PYTHON) setup.py build_ext --inplace
 
 help::
@@ -39,7 +39,7 @@ help::
 
 .PHONY: recythonize
 recythonize:
-	touch pg_query/parser.pyx
+	touch pglast/parser.pyx
 	$(MAKE) build
 
 help::
@@ -49,7 +49,7 @@ help::
 clean:
 	$(MAKE) -C docs SPHINXBUILD=$(SPHINXBUILD) clean
 	$(MAKE) -C libpg_query clean
-	rm -f pg_query/*.so
+	rm -f pglast/*.so
 
 help::
 	@printf "distclean\n\tremove anything superfluous\n"
@@ -62,7 +62,7 @@ distclean:: clean
 help::
 	@printf "enums\n\textract Python enums from PG sources\n"
 
-PY_ENUMS_DIR := pg_query/enums
+PY_ENUMS_DIR := pglast/enums
 PY_ENUMS := $(PY_ENUMS_DIR)/lockoptions.py $(PY_ENUMS_DIR)/nodes.py \
 	    $(PY_ENUMS_DIR)/parsenodes.py $(PY_ENUMS_DIR)/primnodes.py \
 	    $(PY_ENUMS_DIR)/pg_class.py
@@ -80,7 +80,7 @@ $(PY_ENUMS_DIR)/pg_class.py: $(PG_INCLUDE_DIR)/catalog/pg_class.h
 help::
 	@printf "keywords\n\textract Python keyword sets from PG sources\n"
 
-PY_KEYWORDS_DIR := pg_query
+PY_KEYWORDS_DIR := pglast
 PY_KEYWORDS := $(PY_KEYWORDS_DIR)/keywords.py
 
 .PHONY: keywords
@@ -100,7 +100,7 @@ PG_NODES := $(PG_INCLUDE_DIR)/nodes/nodes.h $(PG_INCLUDE_DIR)/nodes/parsenodes.h
 printers-doc: docs/ddl.rst docs/dml.rst
 
 docs/ddl.rst docs/dml.rst: $(PG_NODES) tools/extract_printers_doc.py
-docs/%.rst: pg_query/printers/%.py
+docs/%.rst: pglast/printers/%.py
 	$(PYTHON) tools/extract_printers_doc.py $< $@ $(PG_NODES)
 
 help::

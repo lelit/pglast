@@ -1,9 +1,9 @@
 # -*- mode: makefile-gmake; coding: utf-8 -*-
-# :Project:   pg_query -- Release targets
+# :Project:   pglast -- Release targets
 # :Created:   gio 03 ago 2017 14:53:18 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 BUMPER := $(VENVDIR)/bin/bump_version

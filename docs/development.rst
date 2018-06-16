@@ -1,9 +1,9 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- Development
+.. :Project:   pglast -- Development
 .. :Created:   gio 10 ago 2017 10:04:43 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
 =============

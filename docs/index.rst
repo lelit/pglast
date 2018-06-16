@@ -1,27 +1,28 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- Documentation
+.. :Project:   pglast -- Documentation
 .. :Created:   gio 10 ago 2017 09:56:59 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017, 2018 Lele Gaifax
 ..
 
-==========
- pg_query
-==========
+========
+ pglast
+========
 
-Pythonic wrapper around libpg_query and SQL prettifier
-======================================================
+PostgreSQL Languages AST and statements prettifier
+==================================================
 
  :author: Lele Gaifax
  :contact: lele@metapensiero.it
  :license: GNU General Public License version 3 or later
 
-This is a Python 3 implementation of a wrapper to `libpg_query`__, a C library that repackages
-the PostgreSQL__ languages parser as a standalone static library.
+This is a Python 3 module that exposes the *parse tree* of a PostgreSQL__ statement (extracted
+by the almost standard PG parser repackaged as a standalone static library by `libpg_query`__)
+as set of interconnected *nodes*, usually called an *abstract syntax tree*.
 
-__ https://github.com/lfittl/libpg_query
 __ https://www.postgresql.org/
+__ https://github.com/lfittl/libpg_query
 
 I needed a better SQL reformatter than the one implemented by `sqlparse`__, and was annoyed by
 a few glitches (subselects__ in particular) that ruins the otherwise excellent job it does,

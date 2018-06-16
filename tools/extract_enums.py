@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Extract enums from PostgreSQL headers
+# :Project:   pglast -- Extract enums from PostgreSQL headers
 # :Created:   gio 03 ago 2017 14:54:39 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017, 2018 Lele Gaifax
 #
 
 from os.path import basename, splitext
@@ -15,7 +15,7 @@ from pycparser import c_ast, c_parser
 
 PY_HEADER = """\
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- DO NOT EDIT: automatically extracted from %s @ %s
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from %s @ %s
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017 Lele Gaifax
@@ -31,19 +31,19 @@ except ImportError: #pragma: no cover
 
 RST_HEADER = """\
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- DO NOT EDIT: generated automatically
+.. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
 .. :Copyright: © 2017 Lele Gaifax
 ..
 
 ==========================================================%(extra_decoration)s
- :mod:`pg_query.enums.%(mod_name)s` --- Constants extracted from `%(header_fname)s`__
+ :mod:`pglast.enums.%(mod_name)s` --- Constants extracted from `%(header_fname)s`__
 ==========================================================%(extra_decoration)s
 
 __ %(header_url)s
 
-.. module:: pg_query.enums.%(mod_name)s
+.. module:: pglast.enums.%(mod_name)s
    :synopsis: Constants extracted from %(header_fname)s
 """
 
@@ -190,7 +190,7 @@ def write_enum(enum, output):
 
 
 def write_enum_doc(enum, output, toc, url, mod_name):
-    output.write('\n\n.. class:: pg_query.enums.%s.%s\n' % (mod_name, enum.name))
+    output.write('\n\n.. class:: pglast.enums.%s.%s\n' % (mod_name, enum.name))
     if enum.name in toc:
         output.write('\n   Corresponds to the `%s enum <%s#L%d>`__.\n' %
                      (enum.name, url, toc[enum.name]))

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Test for the printers/dml.py module
+# :Project:   pglast -- Test for the printers/dml.py module
 # :Created:   ven 28 lug 2017 13:42:05 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
@@ -10,14 +10,14 @@ from ast import literal_eval
 
 import pytest
 
-from pg_query import Node, _remove_stmt_len_and_location
-from pg_query.parser import parse_sql
-from pg_query.printer import RawStream, IndentedStream
-import pg_query.printers
+from pglast import Node, _remove_stmt_len_and_location
+from pglast.parser import parse_sql
+from pglast.printer import RawStream, IndentedStream
+import pglast.printers
 
 
 # Make pyflakes happy
-pg_query.printers
+pglast.printers
 
 
 def roundtrip(sql):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Simple frontend to the pretty reformatter
+# :Project:   pglast -- Simple frontend to the pretty reformatter
 # :Created:   dom 06 ago 2017 23:09:23 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
@@ -10,7 +10,7 @@ import argparse
 import json
 import sys
 
-from pg_query import Error, parse_plpgsql, parse_sql, prettify, _remove_stmt_len_and_location
+from pglast import Error, parse_plpgsql, parse_sql, prettify, _remove_stmt_len_and_location
 
 
 def workhorse(args):
@@ -50,7 +50,7 @@ def main(options=None):
     from .parser import get_postgresql_version
 
     version = '%s, with PostgreSQL %s parser' % (
-        get_distribution('pg_query').version,
+        get_distribution('pglast').version,
         '.'.join(str(p) for p in get_postgresql_version()))
 
     parser = ArgumentParser(description="PostgreSQL language prettifier")

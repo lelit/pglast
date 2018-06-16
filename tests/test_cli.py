@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pg_query -- Test the __main__.py module
+# :Project:   pglast -- Test the __main__.py module
 # :Created:   lun 07 ago 2017 12:50:37 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
@@ -34,7 +34,7 @@ from io import StringIO
 
 import pytest
 
-from pg_query.__main__ import main
+from pglast.__main__ import main
 
 
 class UnclosableStream(StringIO):

@@ -1,23 +1,23 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pg_query -- DO NOT EDIT: generated automatically
+.. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
 .. :Copyright: © 2017 Lele Gaifax
 ..
 
 ==================================================================================
- :mod:`pg_query.enums.lockoptions` --- Constants extracted from `lockoptions.h`__
+ :mod:`pglast.enums.lockoptions` --- Constants extracted from `lockoptions.h`__
 ==================================================================================
 
-__ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/lockoptions.h
+__ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/lockoptions.h
 
-.. module:: pg_query.enums.lockoptions
+.. module:: pglast.enums.lockoptions
    :synopsis: Constants extracted from lockoptions.h
 
 
-.. class:: pg_query.enums.lockoptions.LockClauseStrength
+.. class:: pglast.enums.lockoptions.LockClauseStrength
 
-   Corresponds to the `LockClauseStrength enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/lockoptions.h#L21>`__.
+   Corresponds to the `LockClauseStrength enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/lockoptions.h#L21>`__.
 
    .. data:: LCS_NONE
 
@@ -30,9 +30,9 @@ __ https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes
    .. data:: LCS_FORUPDATE
 
 
-.. class:: pg_query.enums.lockoptions.LockWaitPolicy
+.. class:: pglast.enums.lockoptions.LockWaitPolicy
 
-   Corresponds to the `LockWaitPolicy enum <https://github.com/lfittl/libpg_query/blob/43ce2e8/src/postgres/include/nodes/lockoptions.h#L36>`__.
+   Corresponds to the `LockWaitPolicy enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/lockoptions.h#L36>`__.
 
    .. data:: LockWaitBlock
 
