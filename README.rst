@@ -99,7 +99,7 @@ At a higher level that tree is represented by three Python classes, a ``Node`` t
 a single node, a ``List`` that wraps a sequence of nodes and a ``Scalar`` for plain values such
 a *strings*, *integers*, *booleans* or *none*.
 
-Every node is identified by a *tag*, a string label that characterize its content that is
+Every node is identified by a *tag*, a string label that characterizes its content that is
 exposed as a set of *attributes* as well as with a dictionary-like interface (technically they
 implements both a ``__getattr__`` method and a ``__getitem__`` method). When asked for an
 attribute, the node returns an instance of the base classes, i.e. another ``Node``, or a
