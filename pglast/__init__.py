@@ -75,6 +75,7 @@ def _remove_stmt_len_and_location(parse_tree):
         for k, v in parse_tree.items():
             if k == 'RawStmt':
                 v.pop('stmt_len', None)
+                v.pop('stmt_location', None)
             if v and isinstance(v, (dict, list)):
                 _remove_stmt_len_and_location(v)
 

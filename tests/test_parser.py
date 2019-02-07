@@ -8,7 +8,13 @@
 
 import pytest
 
-from pglast import Error, get_postgresql_version, parse_plpgsql, parse_sql
+from pglast import (
+    Error,
+    get_postgresql_version,
+    parse_plpgsql,
+    parse_sql,
+    _remove_stmt_len_and_location
+)
 
 
 def test_basic():
@@ -64,3 +70,12 @@ def test_pg_version():
     pg_version = get_postgresql_version()
     assert isinstance(pg_version, tuple)
     assert len(pg_version) == 3
+
+
+def test_multiple_statement_safety_belt():
+    sql1 = parse_sql('select a from x; select b from y')
+    sql2 = parse_sql('select a from x;\n\nselect b from y')
+    assert sql1 != sql2
+    _remove_stmt_len_and_location(sql1)
+    _remove_stmt_len_and_location(sql2)
+    assert sql1 == sql2
