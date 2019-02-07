@@ -3,7 +3,7 @@
 .. :Created:   mer 02 ago 2017 14:49:24 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019 Lele Gaifax
 ..
 
 ========
@@ -13,10 +13,10 @@
 PostgreSQL Languages AST and statements prettifier
 ==================================================
 
- :Author: Lele Gaifax
- :Contact: lele@metapensiero.it
- :License: `GNU General Public License version 3 or later`__
- :Status: |build| |doc|
+:Author: Lele Gaifax
+:Contact: lele@metapensiero.it
+:License: `GNU General Public License version 3 or later`__
+:Status: |build| |doc|
 
 __ https://www.gnu.org/licenses/gpl.html
 .. |build| image:: https://travis-ci.org/lelit/pglast.svg?branch=master
