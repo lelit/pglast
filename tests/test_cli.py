@@ -3,7 +3,7 @@
 # :Created:   lun 07 ago 2017 12:50:37 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 try:
@@ -92,6 +92,12 @@ WHERE foo <> 0
             with redirect_stdin(input), redirect_stdout(output):
                 main([])
             assert output.getvalue() == "SELECT 1\n"
+
+    with StringIO("Select 1; Select 2") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main([])
+            assert output.getvalue() == "SELECT 1;\n\nSELECT 2\n"
 
     with StringIO("Select 'abcdef'") as input:
         with UnclosableStream() as output:
