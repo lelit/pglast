@@ -3,7 +3,7 @@
 # :Created:   ven 04 ago 2017 08:37:10 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 import pytest
@@ -72,7 +72,7 @@ def test_pg_version():
     assert len(pg_version) == 3
 
 
-def test_multiple_statement_safety_belt():
+def test_pointless_attributes_remotion():
     sql1 = parse_sql('select a from x; select b from y')
     sql2 = parse_sql('select a from x;\n\nselect b from y')
     assert sql1 != sql2
