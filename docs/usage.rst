@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:06:38 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019 Lele Gaifax
 ..
 
 ===================
@@ -138,6 +138,18 @@ Customize a :func:`node printer <pglast.printer.node_printer>`
    UPDATE translations
    SET italian = 'Ciao'
    WHERE word = 'Hello'
+
+:func:`Iterate <pglast.split>` over each statement
+==================================================
+
+.. doctest::
+
+   >>> from pglast import split
+   >>> for statement in split('select 1; select 2'):
+   ...     print(statement)
+   ...
+   SELECT 1
+   SELECT 2
 
 Reformat a ``SQL`` statement from the command line
 ==================================================

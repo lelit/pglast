@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:11:02 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 from . import enums
@@ -15,13 +15,12 @@ from .parser import get_postgresql_version, parse_plpgsql, parse_sql
 def prettify(statement, safety_belt=True, **options):
     """Render given `statement` into a prettified format.
 
-    :param statement: either a string containing the statement(s) or a :class:`~.node.Node`
-                      instance
+    :param str statement: the SQL statement(s)
     :param bool safety_belt: whether to perform a safe check against bugs in pglast's
                              serialization
     :param \*\*options: any keyword option accepted by :class:`~.printer.IndentedStream`
                         constructor
-    :returns: a string with the equivalent prettified statement
+    :returns: a string with the equivalent prettified statement(s)
 
     When `safety_belt` is ``True``, the resulting statement is parsed again and its *AST*
     compared with the original statement: if they don't match, a warning is emitted and the
@@ -57,6 +56,44 @@ def prettify(statement, safety_belt=True, **options):
     return prettified
 
 
+def split(statements, safety_belt=True, stream_class=None, **options):
+    """Split given `statements` and yield one statement at a time.
+
+    :param str statements: the SQL statement(s)
+    :param bool safety_belt: whether to perform a safe check against bugs in pglast's
+                             serialization
+    :param stream_class: the subclass of :class:`~.printer.OutputStream` that shall be
+                         used to render each statement, defaults to
+                         :class:`~.printer.RawStream`
+    :param \*\*options: any keyword option accepted by the `stream_class` constructor
+    :returns: a generator that will yield one statement at a time
+
+    When `safety_belt` is ``True``, the resulting statement is parsed again and its *AST*
+    compared with the original statement: if they don't match, an :class:`~.error.Error` is
+    raised. This is a transient protection against possible bugs in the serialization machinery
+    that may disappear before 1.0.
+    """
+
+    from . import printers  # noqa
+
+    if stream_class is None:
+        from .printer import RawStream
+        stream_class = RawStream
+
+    for orig_pt in parse_sql(statements):
+        printed = stream_class(**options)(Node(orig_pt))
+        if safety_belt:
+            printed_pt = parse_sql(printed)[0]
+
+            _remove_stmt_len_and_location(orig_pt)
+            _remove_stmt_len_and_location(printed_pt)
+
+            if printed_pt != orig_pt:  # pragma: no cover
+                raise Error("Detected a non-cosmetic difference between original and"
+                            " printed statement")
+        yield printed
+
+
 def _remove_stmt_len_and_location(parse_tree):
     """Drop ``RawStmt`` `stmt_len`__ and all nodes `location`, pointless for comparison between
     raw and pretty printed nodes.
@@ -81,4 +118,4 @@ def _remove_stmt_len_and_location(parse_tree):
 
 
 __all__ = ('Error', 'Missing', 'Node', 'enums', 'get_postgresql_version',
-           'parse_plpgsql', 'parse_sql', 'prettify')
+           'parse_plpgsql', 'parse_sql', 'prettify', 'split')
