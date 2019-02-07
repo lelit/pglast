@@ -3,7 +3,7 @@
 # :Created:   ven 28 lug 2017 13:42:05 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 from ast import literal_eval
@@ -989,3 +989,14 @@ def test_prettification(sample):
         options = {}
     prettified = IndentedStream(**options)(original)
     assert expected == prettified, "%r != %r" % (expected, prettified)
+
+
+def test_stream_call_with_single_node():
+    # See https://github.com/lelit/pglast/pull/10
+    parsed = parse_sql('select a from x; select b from y')
+    node = Node(parsed[0])
+    result = RawStream()(node)
+    assert result == 'SELECT a FROM x'
+    node = Node(parsed[1])
+    result = RawStream()(node)
+    assert result == 'SELECT b FROM y'

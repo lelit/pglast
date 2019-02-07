@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:46:11 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 from contextlib import contextmanager
@@ -214,6 +214,11 @@ class RawStream(OutputStream):
 
         if isinstance(sql, str):
             sql = Node(parse_plpgsql(sql) if plpgsql else parse_sql(sql))
+        elif isinstance(sql, Node):
+            sql = [sql]
+        elif not isinstance(sql, List):
+            raise ValueError("Unexpected value for 'sql', must be either a string,"
+                             " a Node instance or a List instance, got %r" % type(sql))
 
         first = True
         for statement in sql:
