@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.2 (unreleased)
+1.2 (2019-02-13)
 ~~~~~~~~~~~~~~~~
 
 - Implement new `split()` function (see `PR #10`__)
