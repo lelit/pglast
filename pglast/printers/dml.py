@@ -203,6 +203,25 @@ def bool_expr(node, output):
             output.print_node(node.args[0])
 
 
+@node_printer('BooleanTest')
+def boolean_test(node, output):
+    btt = enums.BoolTestType
+    output.print_node(node.arg)
+    output.write(' IS ')
+    if node.booltesttype == btt.IS_TRUE:
+        output.write('TRUE')
+    elif node.booltesttype == btt.IS_NOT_TRUE:
+        output.write('NOT TRUE')
+    elif node.booltesttype == btt.IS_FALSE:
+        output.write('FALSE')
+    elif node.booltesttype == btt.IS_NOT_FALSE:
+        output.write('NOT FALSE')
+    elif node.booltesttype == btt.IS_UNKNOWN:
+        output.write('UNKNOWN')
+    elif node.booltesttype == btt.IS_NOT_UNKNOWN:
+        output.write('NOT UNKNOWN')
+
+
 @node_printer('CaseExpr')
 def case_expr(node, output):
     with output.push_indent():

@@ -297,6 +297,18 @@ SELECT m.id FROM manufacturers m WHERE m.deliver_date IS NULL
 
 SELECT m.id FROM manufacturers m WHERE m.deliver_date IS NOT NULL
 
+SELECT true IS true
+
+SELECT true IS NOT true
+
+SELECT true IS false
+
+SELECT true IS NOT false
+
+SELECT true IS unknown
+
+SELECT true IS NOT unknown
+
 SELECT m.id FROM manufacturers m WHERE ROW(m.hours, m.minutes) < ROW(10, 20)
 
 WITH t AS (

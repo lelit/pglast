@@ -88,6 +88,12 @@
 
    Pretty print a `node` of type `BoolExpr <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L559>`__ to the `output` stream.
 
+.. index:: BooleanTest
+
+.. function:: boolean_test(node, output)
+
+   Pretty print a `node` of type `BooleanTest <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L1200>`__ to the `output` stream.
+
 .. index:: CaseExpr
 
 .. function:: case_expr(node, output)
