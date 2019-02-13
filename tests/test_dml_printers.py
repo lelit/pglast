@@ -881,13 +881,13 @@ WHERE NOT email IN (SELECT email
 
 SELECT true FROM sometable WHERE value = ANY(ARRAY[1,2])
 =
-SELECT true
+SELECT TRUE
 FROM sometable
 WHERE value = ANY(ARRAY[1, 2])
 
 SELECT false FROM sometable WHERE value != ALL(ARRAY[1,2])
 =
-SELECT false
+SELECT FALSE
 FROM sometable
 WHERE value <> ALL(ARRAY[1, 2])
 

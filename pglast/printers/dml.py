@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 from .. import enums
@@ -880,7 +880,7 @@ def type_cast(node, output):
          and node.arg.val.node_tag == 'String'
          and node.arg.val.str.value in ('t', 'f')
          and '.'.join(n.str.value for n in node.typeName.names) == 'pg_catalog.bool')):
-        output.write('true' if node.arg.val.str == 't' else 'false')
+        output.write('TRUE' if node.arg.val.str == 't' else 'FALSE')
     else:
         output.print_node(node.arg)
         output.write('::')
