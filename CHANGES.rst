@@ -3,6 +3,18 @@
 Changes
 -------
 
+1.2 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Implement new `split()` function (see `PR #10`__)
+
+  __ https://github.com/lelit/pglast/pull/10
+
+- Implement ``BooleanTest`` printer (`issue #11`__)
+
+  __ https://github.com/lelit/pglast/issues/11
+
+
 1.1 (2018-07-20)
 ~~~~~~~~~~~~~~~~
 
