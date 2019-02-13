@@ -160,6 +160,11 @@ def test_raw_stream_with_sql():
             printer.NODE_PRINTERS.pop('RawStmt', None)
 
 
+def test_raw_stream_invalid_call():
+    with pytest.raises(ValueError) as exc:
+        printer.RawStream()(1)
+
+
 def test_indented_stream_basics():
     ptree = [{'TestRoot': {'bar': {'TestChild': {'a': [
         {'TestNiece': {'x': 0, 'y': 0}},
