@@ -130,6 +130,8 @@ SELECT 1 OPERATOR(pg_catalog.>) 0
 
 SELECT (a + b)::int
 
+SELECT (a, b, c) = (d, e, f)
+
 SELECT array_agg(a ORDER BY b DESC) FROM sometable
 
 SELECT count(*) AS a, count(*) FILTER (WHERE i < 5 or i > 10) AS b

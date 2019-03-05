@@ -656,9 +656,18 @@ def res_target(node, output):
 
 @node_printer('RowExpr')
 def row_expr(node, output):
-    output.write('ROW(')
-    output.print_list(node.args)
-    output.write(')')
+    coerciontype = enums.CoercionForm(node.row_format.value)
+    if coerciontype == enums.CoercionForm.COERCE_EXPLICIT_CALL:
+        output.write('ROW(')
+        output.print_list(node.args)
+        output.write(')')
+    elif coerciontype == enums.CoercionForm.COERCE_IMPLICIT_CAST:
+        output.write('(')
+        output.print_list(node.args)
+        output.write(')')
+    else:
+        raise NotImplementedError('Coercion type not implemented: %s' %
+                                  coerciontype)
 
 
 @node_printer('SelectStmt')
