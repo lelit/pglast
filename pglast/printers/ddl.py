@@ -32,6 +32,15 @@ def to_dollar_literal(code):
     return "$%s$%s$%s$" % (delimiter, code, delimiter)
 
 
+@node_printer('AlterOwnerStmt')
+def alterowner(node, output):
+    output.write("ALTER %s " %
+                 OBJECT_NAMES[enums.ObjectType(node.objectType.value)])
+    output.print_name(node.object)
+    output.write('OWNER TO ')
+    output.print_node(node.newowner)
+
+
 @node_printer('ColumnDef')
 def column_def(node, output):
     if node.colname:

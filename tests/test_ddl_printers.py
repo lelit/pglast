@@ -20,6 +20,19 @@ from test_dml_printers import roundtrip
 pglast.printers
 
 
+ALTER_OWNERS = """
+ALTER FUNCTION fonction1() OWNER TO rol1
+
+ALTER VIEW v1 OWNER TO rol2
+
+ALTER TABLE t1 OWNER TO rol3
+
+ALTER SCHEMA schema1 OWNER TO rol4
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in ALTER_OWNERS.split('\n\n')))
+def test_alter_owners(sql):
+    roundtrip(sql)
 
 
 ALTER_TABLES = """
