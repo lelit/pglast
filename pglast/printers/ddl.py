@@ -196,6 +196,10 @@ def constraint(node, output):
             output.swrite('WITH ')
             output.write(clauses.string_value)
         output.write(')')
+    elif node.contype == ct.CONSTR_ATTR_DEFERRABLE:
+        output.swrite("DEFERRABLE ")
+    elif node.contype == ct.CONSTR_ATTR_DEFERRED:
+        output.swrite("INITIALLY DEFERRED")
     elif node.contype == ct.CONSTR_FOREIGN:
         if node.fk_attrs:
             output.swrite('FOREIGN KEY ')
@@ -204,9 +208,10 @@ def constraint(node, output):
             output.write(')')
         output.swrite('REFERENCES ')
         output.print_name(node.pktable)
-        output.write(' (')
-        output.print_name(node.pk_attrs, ',')
-        output.write(')')
+        if node.pk_attrs:
+            output.write(' (')
+            output.print_name(node.pk_attrs, ',')
+            output.write(')')
         if node.fk_matchtype != enums.FKCONSTR_MATCH_SIMPLE:
             output.write(' MATCH ')
             if node.fk_matchtype == enums.FKCONSTR_MATCH_FULL:
@@ -234,7 +239,14 @@ def constraint(node, output):
                 output.write('SET NULL')
             elif node.fk_upd_action == enums.FKCONSTR_ACTION_SETDEFAULT:
                 output.write('SET DEFAULT')
+        if node.deferrable:
+            output.write(" DEFERRABLE ")
+            if node.initdeferred:
+                output.write(" INITIALLY DEFERRED")
 
+    if node.indexname:
+        output.write(' USING INDEX ')
+        output.print_name(node.indexname)
     # Common to UNIQUE & PRIMARY_KEY
     if node.keys:
         output.write(' (')
@@ -254,6 +266,8 @@ def constraint(node, output):
                 output.newline()
             output.write(' USING INDEX TABLESPACE ')
             output.print_name(node.indexspace)
+        if node.skip_validation:
+            output.write(' NOT VALID ')
 
 
 @node_printer('CreateAmStmt')
