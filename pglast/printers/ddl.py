@@ -37,50 +37,6 @@ def access_priv(node, output):
     output.write(node.priv_name.value)
 
 
-@node_printer('AlterEnumStmt')
-def alter_enum(node, output):
-    output.write("ALTER TYPE ")
-    output.print_name(node.typeName)
-    if node.newVal:
-        output.write("ADD VALUE ")
-        if node.skipIfNewValExists:
-            output.write("IF NOT EXISTS ")
-        output._write_quoted_string(node.newVal.value)
-    if node.newValNeighbor:
-        if node.newValIsAfter:
-            output.write(" AFTER ")
-        else:
-            output.write(" BEFORE ")
-        output._write_quoted_string(node.newValNeighbor.value)
-
-
-@node_printer('AlterOwnerStmt')
-def alterowner(node, output):
-    output.write("ALTER %s " %
-                 OBJECT_NAMES[enums.ObjectType(node.objectType.value)])
-    output.print_name(node.object)
-    output.write('OWNER TO ')
-    output.print_node(node.newowner)
-
-
-@node_printer('AlterSeqStmt')
-def alterseqstmt(node, output):
-    output.write("ALTER SEQUENCE ")
-    output.print_node(node.sequence)
-
-    if node.options:
-        output.print_list(node.options, '')
-
-
-@node_printer('CreateEnumStmt')
-def createenum(node, output):
-    output.write("CREATE TYPE ")
-    output.print_name(node.typeName)
-    output.write('AS ENUM (')
-    output.print_list(node.vals)
-    output.write(')')
-
-
 @node_printer('ColumnDef')
 def column_def(node, output):
     if node.colname:
@@ -166,6 +122,45 @@ GRANT_OBJECT_TYPES_NAMES = {
     enums.GrantObjectType.ACL_OBJECT_TABLESPACE: 'TABLESPACE',
     enums.GrantObjectType.ACL_OBJECT_TYPE: 'TYPE'
 }
+
+
+@node_printer('AlterEnumStmt')
+def alter_enum(node, output):
+    output.write("ALTER TYPE ")
+    output.print_name(node.typeName)
+    if node.newVal:
+        output.write("ADD VALUE ")
+        if node.skipIfNewValExists:
+            output.write("IF NOT EXISTS ")
+        output._write_quoted_string(node.newVal.value)
+    if node.newValNeighbor:
+        if node.newValIsAfter:
+            output.write(" AFTER ")
+        else:
+            output.write(" BEFORE ")
+        output._write_quoted_string(node.newValNeighbor.value)
+
+
+@node_printer('AlterOwnerStmt')
+def alterowner(node, output):
+    output.write("ALTER %s " %
+                 OBJECT_NAMES[enums.ObjectType(node.objectType.value)])
+    output.print_name(node.object)
+    output.write('OWNER TO ')
+    output.print_node(node.newowner)
+
+
+@node_printer('AlterSeqStmt')
+def alterseqstmt(node, output):
+    output.write("ALTER SEQUENCE ")
+    output.print_node(node.sequence)
+
+    if node.options:
+        output.print_list(node.options, '')
+
+
+
+
 
 
 
@@ -510,6 +505,17 @@ def create_domain_stmt(node, output):
         output.print_node(node.collClause)
     if node.constraints:
         output.print_list(node.constraints, '', standalone_items=False)
+
+
+@node_printer('CreateEnumStmt')
+def createenum(node, output):
+    output.write("CREATE TYPE ")
+    output.print_name(node.typeName)
+    output.write('AS ENUM (')
+    output.print_list(node.vals)
+    output.write(')')
+
+
 
 
 @node_printer('CreateEventTrigStmt')
