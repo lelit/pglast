@@ -34,8 +34,9 @@ def to_dollar_literal(code):
 
 @node_printer('ColumnDef')
 def column_def(node, output):
-    output.print_name(node.colname)
-    output.space()
+    if node.colname:
+        output.print_name(node.colname)
+        output.space()
     if node.typeName:
         output.print_name(node.typeName)
     else:
@@ -100,6 +101,125 @@ OBJECT_NAMES = {
     enums.ObjectType.OBJECT_USER_MAPPING: 'USER_MAPPING',
     enums.ObjectType.OBJECT_VIEW: 'VIEW',
 }
+
+
+@node_printer('AlterTableStmt')
+def altertable(node, output):
+    output.write("ALTER %s " %
+                 OBJECT_NAMES[enums.ObjectType(node.relkind.value)])
+    if node.missing_ok:
+        output.write("IF EXISTS ")
+    output.print_node(node.relation)
+    output.print_list(node.cmds, ',', standalone_items=True)
+
+
+@node_printer('AlterTableCmd')
+def altertablecmd(node, output):
+    cmdtype = enums.AlterTableType(node.subtype.value)
+
+    if cmdtype == enums.AlterTableType.AT_ChangeOwner:
+        output.write("OWNER TO ")
+        output.print_name(node.newowner)
+        return
+
+    if cmdtype == enums.AlterTableType.AT_SetStatistics:
+        output.write("ALTER COLUMN ")
+        output.print_name(node.name)
+        output.write(" SET STATISTICS ")
+        # def is a reserved keyword
+        output.print_node(getattr(node, 'def'))
+        return
+
+    if cmdtype == enums.AlterTableType.AT_ColumnDefault:
+        output.write("ALTER COLUMN ")
+        output.print_name(node.name)
+        if getattr(node, 'def'):
+            output.write(" SET DEFAULT ")
+            output.print_node(getattr(node, 'def'))
+        else:
+            output.write(" DROP DEFAULT ")
+        return
+
+    if cmdtype == enums.AlterTableType.AT_AddConstraint:
+        output.write("ADD ")
+        constraint = getattr(node, 'def')
+        output.print_node(constraint)
+        # Patch this into pglast.printers.ddl.constraint
+
+        return
+
+    if cmdtype == enums.AlterTableType.AT_DropConstraint:
+        output.write("DROP CONSTRAINT ")
+        if node.missing_ok:
+            output.write("IF EXISTS ")
+        output.print_name(node.name)
+        return
+
+    if cmdtype == enums.AlterTableType.AT_ClusterOn:
+        output.write("CLUSTER ON ")
+        output.print_name(node.name)
+        return
+
+    if cmdtype == enums.AlterTableType.AT_EnableRowSecurity:
+        output.write(" ENABLE ROW LEVEL SECURITY ")
+        return
+
+    if cmdtype == enums.AlterTableType.AT_AddColumn:
+        output.write("ADD COLUMN ")
+        if node.missing_ok:
+            output.write('IF NOT EXISTS ')
+        output.print_node(getattr(node, 'def'))
+        return
+
+    if cmdtype == enums.AlterTableType.AT_ValidateConstraint:
+        output.write("VALIDATE CONSTRAINT ")
+        output.print_name(node.name)
+        return
+
+    if cmdtype == enums.AlterTableType.AT_DropNotNull:
+        output.write("ALTER COLUMN ")
+        output.print_name(node.name)
+        output.write(" DROP NOT NULL ")
+        return
+
+    if cmdtype == enums.AlterTableType.AT_AlterColumnType:
+        output.write("ALTER COLUMN ")
+        output.print_name(node.name)
+        output.write(" TYPE ")
+        columndef = getattr(node, 'def')
+        output.print_node(getattr(node, 'def'))
+        if columndef.raw_default:
+            output.write('USING ')
+            output.print_node(columndef.raw_default)
+        return
+
+    if cmdtype == enums.AlterTableType.AT_DropColumn:
+        output.write("DROP COLUMN ")
+        if node.missing_ok:
+            output.write("IF EXISTS ")
+        output.print_name(node.name)
+        if node.behavior == enums.DropBehavior.DROP_CASCADE:
+            output.write("CASCADE ")
+        return
+
+    if cmdtype == enums.AlterTableType.AT_SetNotNull:
+        output.write("ALTER COLUMN ")
+        output.print_name(node.name)
+        output.write(" SET NOT NULL")
+        return
+
+    if cmdtype == enums.AlterTableType.AT_EnableTrig:
+        output.write("ENABLE TRIGGER ")
+        output.print_name(node.name)
+        return
+
+    if cmdtype == enums.AlterTableType.AT_DisableTrig:
+        output.write("DISABLE TRIGGER ")
+        output.print_name(node.name)
+        return
+
+    raise NotImplementedError("Unsupported alter table cmd: %s" % cmdtype) # pragma: nocover
+
 
 @node_printer('AlterFunctionStmt')
 def alter_function(node, output):
