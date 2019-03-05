@@ -58,6 +58,15 @@ def alterowner(node, output):
     output.print_node(node.newowner)
 
 
+@node_printer('AlterSeqStmt')
+def alterseqstmt(node, output):
+    output.write("ALTER SEQUENCE ")
+    output.print_node(node.sequence)
+
+    if node.options:
+        output.print_list(node.options, '')
+
+
 @node_printer('CreateEnumStmt')
 def createenum(node, output):
     output.write("CREATE TYPE ")
@@ -629,6 +638,7 @@ def create_seq_stmt(node, output):
 
 
 @node_printer('CreateSeqStmt', 'DefElem')
+@node_printer('AlterSeqStmt', 'DefElem')
 def create_seq_stmt_def_elem(node, output):
     option = node.defname.value
     if option == 'cycle':
