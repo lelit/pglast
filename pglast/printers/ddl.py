@@ -622,20 +622,12 @@ def create_table_as_stmt(node, output):
         output.newline()
     output.space(2)
     output.write('AS ')
-    if ((node.query.targetList is not Missing
-         and node.query.whereClause is Missing
-         and len(node.query.targetList[0].val.fields) == 1
-         and node.query.targetList[0].val.fields[0].node_tag == 'A_Star')):
-        output.write('TABLE ')
-        output.print_list(node.query.fromClause)
-    else:
-        with output.push_indent():
-            output.print_node(node.query)
+    with output.push_indent():
+        output.print_node(node.query)
     if node.into.skipData:
         output.newline()
         output.space(2)
         output.write('WITH NO DATA')
-
 
 @node_printer('CreateTrigStmt')
 def create_trig_stmt(node, output):

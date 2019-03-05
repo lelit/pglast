@@ -650,6 +650,8 @@ CREATE UNLOGGED TABLE IF NOT EXISTS "SomeSchema".films2 (id, title) AS
 
 CREATE TABLE films_recent AS
   SELECT * FROM films WHERE date_prod >= '2002-01-01'
+
+CREATE TABLE test AS SELECT * FROM t1 LIMIT 1;
 """
 
 
