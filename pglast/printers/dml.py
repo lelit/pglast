@@ -542,11 +542,12 @@ def null(node, output):
 
 @node_printer('NullTest')
 def null_test(node, output):
-    output.print_node(node.arg)
-    output.write(' IS')
-    if node.nulltesttype == enums.NullTestType.IS_NOT_NULL:
-        output.write(' NOT')
-    output.write(' NULL')
+    with output.expression():
+        output.print_node(node.arg)
+        output.write(' IS')
+        if node.nulltesttype == enums.NullTestType.IS_NOT_NULL:
+            output.write(' NOT')
+        output.write(' NULL')
 
 
 @node_printer('ParamRef')

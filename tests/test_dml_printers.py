@@ -301,6 +301,9 @@ SELECT m.id FROM manufacturers m WHERE m.deliver_date IS NULL
 
 SELECT m.id FROM manufacturers m WHERE m.deliver_date IS NOT NULL
 
+SELECT t1.c1 FROM t1 WHERE (a IS NULL) != (b IS NULL
+)
+
 SELECT true IS true
 
 SELECT true IS NOT true
@@ -778,12 +781,12 @@ where not a.bool_flag2 and a.something2 is null or a.other2 = 3
 =
 SELECT a.one
      , (   (    (NOT a.bool_flag)
-            AND a.something IS NULL)
+            AND (a.something IS NULL))
         OR (a.other = 3)) AS foo
      , a.value1 + (b.value2 * b.value3) AS bar
 FROM sometable AS a
 WHERE ((    (NOT a.bool_flag2)
-        AND a.something2 IS NULL)
+        AND (a.something2 IS NULL))
    OR (a.other2 = 3))
 
 select p.name, (select format('[%s] %s', count(*), r.name)
