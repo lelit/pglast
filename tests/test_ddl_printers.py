@@ -806,6 +806,8 @@ DROP TRANSFORM FOR hstore LANGUAGE plpythonu
 
 DROP TRIGGER "If_dist_exists" ON "Films"
 
+DROP TRIGGER trig1 ON public."Films"
+
 DROP USER IF EXISTS barry, "White"
 
 DROP USER MAPPING IF EXISTS FOR bob SERVER foo

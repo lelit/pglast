@@ -1088,8 +1088,8 @@ def drop_stmt(node, output):
                                  otypes.OBJECT_RULE,
                                  otypes.OBJECT_TRIGGER):
             nodes = list(node.objects[0])
-            on = nodes.pop(0)
-            output.print_name(nodes)
+            on = nodes[:-1]
+            output.print_name(nodes[-1])
             output.write(' ON ')
             output.print_name(on)
         elif isinstance(node.objects[0], List):
