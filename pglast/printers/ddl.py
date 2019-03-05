@@ -965,9 +965,8 @@ def define_stmt(node, output):
         output.write('IF NOT EXISTS ')
     output.print_list(node.defnames, '.', standalone_items=False, are_names=True,
                       is_symbol=node.kind == enums.ObjectType.OBJECT_OPERATOR)
-    output.write(' ')
     if node.args is not Missing:
-        output.write('(')
+        output.write(' (')
         # args is actually a tuple (list-of-nodes, integer): the integer value, if different
         # from -1, is the number of nodes representing the actual arguments, remaining are
         # ORDER BY
@@ -986,13 +985,13 @@ def define_stmt(node, output):
         output.write('FROM ')
         output.print_name(node.definition[0].arg)
     else:
-        output.write('(')
-        output.newline()
-        output.space(2 if output.comma_at_eoln or len(node.definition) == 1 else 4)
-        output.print_list(node.definition)
-        output.newline()
-        output.write(')')
-
+        if node.definition:
+            output.write('(')
+            output.newline()
+            output.space(2 if output.comma_at_eoln or len(node.definition) == 1 else 4)
+            output.print_list(node.definition)
+            output.newline()
+            output.write(')')
 
 @node_printer('DefElem')
 def def_elem(node, output):

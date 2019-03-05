@@ -917,6 +917,10 @@ CREATE DATABASE "NewDB"
        connection limit = 2
        is_template = false
 
+CREATE TYPE foo
+=
+CREATE TYPE foo
+
 CREATE DOMAIN foo integer
 =
 CREATE DOMAIN foo AS integer
