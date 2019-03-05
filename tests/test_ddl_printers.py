@@ -20,6 +20,8 @@ from test_dml_printers import roundtrip
 pglast.printers
 
 
+
+
 ALTER_TABLES = """
 ALTER TABLE t1 ALTER c1 TYPE varchar(20)
 
@@ -858,6 +860,8 @@ ALTER FUNCTION funca(somearg text) COST 100
 
 ALTER FUNCTION func_without_args() IMMUTABLE
 
+ALTER FUNCTION func() SET search_path TO public,schema2
+
 DO $$
 some_code
 $$ language somelanguage
@@ -891,6 +895,20 @@ FOR EACH STATEMENT EXECUTE PROCEDURE trigfunc()
 @pytest.mark.parametrize('sql', (sql.strip() for sql in TRIGS.split('\n\n')))
 def test_trigs(sql):
     roundtrip(sql)
+
+
+VARIABLE_SET = """
+SET search_path TO public,test
+
+RESET search_path
+
+RESET ALL
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in VARIABLE_SET.split('\n\n')))
+def test_variables_set(sql):
+    roundtrip(sql)
+
 
 
 # Prettification samples: each sample may be composed by either two or three parts,

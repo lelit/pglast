@@ -1268,3 +1268,18 @@ def role_spec(node, output):
         output.write('PUBLIC')
     else:
         output.print_name(node.rolename)
+
+
+@node_printer('VariableSetStmt')
+def variableset(node, output):
+    if node.args is Missing:
+        output.write("RESET ")
+        if node.name:
+            output.print_name(node.name)
+        else:
+            output.write("ALL")
+    else:
+        output.write("SET ")
+        output.print_name(node.name)
+        output.write(" = ")
+        output.print_list(node.args)
