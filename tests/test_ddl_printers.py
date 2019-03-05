@@ -900,6 +900,24 @@ some_code
 $$ language somelanguage
 """
 
+
+GRANTS = """
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO role1, role2
+
+GRANT EXECUTE ON FUNCTION func1() TO role1
+
+REVOKE ALL ON TABLE t1 FROM role1
+
+REVOKE SELECT ON TABLE t1 FROM role1
+
+GRANT SELECT, INSERT ON TABLE t1 TO role1
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in GRANTS.split('\n\n')))
+def test_grants(sql):
+    roundtrip(sql)
+
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in FUNCS.split('\n\n')))
 def test_functions(sql):
     roundtrip(sql)

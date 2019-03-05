@@ -32,6 +32,11 @@ def to_dollar_literal(code):
     return "$%s$%s$%s$" % (delimiter, code, delimiter)
 
 
+@node_printer("AccessPriv")
+def access_priv(node, output):
+    output.write(node.priv_name.value)
+
+
 @node_printer('AlterEnumStmt')
 def alter_enum(node, output):
     output.write("ALTER TYPE ")
@@ -145,6 +150,23 @@ OBJECT_NAMES = {
     enums.ObjectType.OBJECT_USER_MAPPING: 'USER_MAPPING',
     enums.ObjectType.OBJECT_VIEW: 'VIEW',
 }
+
+GRANT_OBJECT_TYPES_NAMES = {
+    enums.GrantObjectType.ACL_OBJECT_COLUMN: 'COLUMN',
+    enums.GrantObjectType.ACL_OBJECT_RELATION: 'TABLE',
+    enums.GrantObjectType.ACL_OBJECT_SEQUENCE: 'SEQUENCE',
+    enums.GrantObjectType.ACL_OBJECT_DATABASE: 'DATABASE',
+    enums.GrantObjectType.ACL_OBJECT_DOMAIN: 'DOMAIN',
+    enums.GrantObjectType.ACL_OBJECT_FDW: 'FOREIGN DATA WRAPPER',
+    enums.GrantObjectType.ACL_OBJECT_FOREIGN_SERVER: 'SERVER',
+    enums.GrantObjectType.ACL_OBJECT_FUNCTION: 'FUNCTION',
+    enums.GrantObjectType.ACL_OBJECT_LANGUAGE: 'LANGUAGE',
+    enums.GrantObjectType.ACL_OBJECT_LARGEOBJECT: 'LARGEOBJECT',
+    enums.GrantObjectType.ACL_OBJECT_NAMESPACE: 'SCHEMA',
+    enums.GrantObjectType.ACL_OBJECT_TABLESPACE: 'TABLESPACE',
+    enums.GrantObjectType.ACL_OBJECT_TYPE: 'TYPE'
+}
+
 
 
 @node_printer('AlterTableStmt')
@@ -1205,6 +1227,31 @@ def function_parameter(node, output):
     if node.defexpr is not Missing:
         output.write(' = ')
         output.print_node(node.defexpr)
+
+
+@node_printer("GrantStmt")
+def grant_stmt(node, output):
+    if node.is_grant:
+        output.write("GRANT ")
+        preposition = "TO"
+    else:
+        output.write("REVOKE ")
+        preposition = "FROM"
+    if node.privileges:
+        output.print_list(node.privileges)
+    else:
+        output.write(" ALL ")
+    object_name = GRANT_OBJECT_TYPES_NAMES[enums.GrantObjectType(node.objtype.value)]
+    granttype = enums.GrantTargetType(node.targtype.value)
+    if granttype == enums.GrantTargetType.ACL_TARGET_OBJECT:
+        output.write(" ON %s " % object_name)
+    elif granttype == enums.GrantTargetType.ACL_TARGET_ALL_IN_SCHEMA:
+        output.write(" ON ALL %sS" % object_name)
+        output.write(" IN SCHEMA ")
+    output.print_list(node.objects, are_names=True)
+
+    output.write(" %s " % preposition)
+    output.print_list(node.grantees, are_names=True)
 
 
 @node_printer('IndexStmt')
