@@ -126,6 +126,8 @@ select c,d from othertable
 
 SELECT count(distinct a) from sometable
 
+SELECT 1 OPERATOR(pg_catalog.>) 0
+
 SELECT array_agg(a ORDER BY b DESC) FROM sometable
 
 SELECT count(*) AS a, count(*) FILTER (WHERE i < 5 or i > 10) AS b

@@ -7,7 +7,7 @@
 #
 
 from .. import enums
-from ..node import Missing
+from ..node import Missing, List
 from ..printer import node_printer
 
 
@@ -32,8 +32,13 @@ def a_expr(node, output):
         with output.expression():
             output.print_node(node.lexpr)
             output.write(' ')
-            output.write(node.name.string_value)
-            output.write(' ')
+            if isinstance(node.name, List) and len(node.name) > 1:
+                output.write('OPERATOR(')
+                output.print_symbol(node.name)
+                output.write(') ')
+            else:
+                output.print_symbol(node.name)
+                output.write(' ')
             output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_OP_ANY:
         output.print_node(node.lexpr)
