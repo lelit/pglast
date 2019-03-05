@@ -768,6 +768,39 @@ def test_drops(sql):
     roundtrip(sql)
 
 
+FUNCS = r"""
+CREATE OR REPLACE FUNCTION funca(somearg text, someotherarg text) RETURNS void
+AS $$
+BEGIN
+    PERFORM $function$<some_string_literal>$function$;
+    RETURN;
+END;
+$$ language plpgsql IMMUTABLE PARALLEL SAFE STRICT
+
+CREATE FUNCTION funcb(somearg text) RETURNS TABLE(c1 int, c2 text)
+AS $$
+SELECT 1, 'Label 1'
+$$ language sql SECURITY INVOKER
+
+CREATE FUNCTION funcb() RETURNS TABLE(c1 int, c2 text)
+AS $$
+SELECT 1, 'Label 1'
+$$ language sql SECURITY DEFINER
+
+
+CREATE FUNCTION func_in_c(arg text) RETURNS text AS 'function_name', 'lib.so'
+LANGUAGE C
+
+CREATE FUNCTION funcc(arg text = 'default_val', OUT arg2 text, INOUT arg3 text, VARIADIC
+arglist text[]) RETURNS SETOF integer AS $$
+$$ language sql
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in FUNCS.split('\n\n')))
+def test_functions(sql):
+    roundtrip(sql)
+
+
 # Prettification samples: each sample may be composed by either two or three parts,
 # respectively the original statement, the expected outcome and an optional options
 # dictionary. The original and the expected statements are separated by a standalone "=",

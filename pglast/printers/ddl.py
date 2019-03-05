@@ -7,8 +7,19 @@
 #
 
 from .. import enums
-from ..node import Missing, List
+from ..node import Missing, List, Node
 from ..printer import node_printer
+import re
+
+
+RE_DOLLARQUOTE = re.compile(r"\$(\w*)\$")
+
+def to_dollar_literal(code):
+    delimiter = 'function'
+    match = set(RE_DOLLARQUOTE.findall(code))
+    while delimiter in match:
+        delimiter = delimiter + '_'
+    return "$%s$%s$%s$" % (delimiter, code, delimiter)
 
 
 @node_printer('ColumnDef')
@@ -636,6 +647,106 @@ def create_db_stmt_def_elem(node, output):
             output.print_node(node.arg)
 
 
+@node_printer('CreateFunctionStmt')
+def createfunction_stmt(node, output):
+    output.write("CREATE ")
+    if node.replace:
+        output.write("OR REPLACE ")
+    output.write("FUNCTION ")
+    output.print_name(node.funcname)
+    output.write("(")
+    real_params = node.parameters
+    # We need a very special case if we have a RETURNS TABLE():
+    # Take out the parameters from the parameter list, and inject them
+    # in the RETURN part of the statement
+    if node.returnType.setof:
+        fpm = enums.FunctionParameterMode
+        record_def = []
+        real_params = []
+
+        for param in node.parse_tree['parameters']:
+            paramnode = Node(param)
+
+            if chr(paramnode.mode.value) == fpm.FUNC_PARAM_TABLE:
+                record_def.append({'ColumnDef': {
+                    'typeName': {'TypeName': paramnode.argType.parse_tree},
+                    'colname': paramnode.name.value}})
+            else:
+                real_params.append(param)
+
+        if real_params:
+            real_params = Node(real_params)
+        else:
+            real_params = Missing
+
+        if record_def:
+            record_def = Node(record_def)
+
+    if real_params is not Missing:
+        output.print_list(real_params)
+    output.write(")")
+    output.write(" RETURNS ")
+
+    if node.returnType.setof and record_def:
+        # Do not treat them as argument
+        output.write(" TABLE (")
+        output.print_list(record_def, ',', standalone_items=False)
+        output.write(")")
+    else:
+        output.print_node(node.returnType)
+    output.print_list(node.options, sep=" ", standalone_items=True)
+
+
+@node_printer('CreateFunctionStmt', 'DefElem')
+@node_printer('AlterFunctionStmt', 'DefElem')
+@node_printer('DoStmt', 'DefElem')
+def function_option(node, output):
+    option = node.defname.value
+
+    if option == 'as':
+        # Choose a valid dollar-string delimiter
+
+        if isinstance(node.arg, List) and len(node.arg) > 1:
+            # We are in the weird C case
+            output.write("AS ")
+            output.print_list(node.arg)
+            return
+
+        if node.parent_node.node_tag == 'CreateFunctionStmt':
+            output.write(' AS\n')
+        output.write(to_dollar_literal(node.arg.string_value))
+        return
+
+    if option == 'security':
+        if node.arg.ival == 1:
+            output.write(" SECURITY DEFINER ")
+        else:
+            output.write(" SECURITY INVOKER ")
+        return
+
+    if option == 'strict':
+        if node.arg.ival == 1:
+            output.write(" STRICT ")
+        return
+
+    if option == 'volatility':
+        output.print_node(node.arg, is_symbol=True, is_name=True)
+        return
+
+    if option == 'parallel':
+        output.write(" PARALLEL SAFE ")
+        return
+
+    if option == 'set':
+        output.print_node(node.arg)
+        return
+
+    output.print_node(node.defname)
+    output.write(" ")
+    output.print_node(node.arg, is_symbol=True)
+
+
+
 @node_printer('DefineStmt')
 def define_stmt(node, output):
     output.write('CREATE ')
@@ -825,7 +936,7 @@ def function_parameter(node, output):
             output.write('INOUT ')
         elif node.mode == pm.FUNC_PARAM_VARIADIC:
             output.write('VARIADIC ')
-        else:
+        else: # pragma: nocover
             raise NotImplementedError
     if node.name:
         output.print_name(node.name)
