@@ -908,7 +908,8 @@ def type_cast(node, output):
          and '.'.join(n.str.value for n in node.typeName.names) == 'pg_catalog.bool')):
         output.write('TRUE' if node.arg.val.str == 't' else 'FALSE')
     else:
-        output.print_node(node.arg)
+        with output.expression():
+            output.print_node(node.arg)
         output.write('::')
         output.print_node(node.typeName)
 
