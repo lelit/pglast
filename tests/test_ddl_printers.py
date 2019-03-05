@@ -941,6 +941,19 @@ def test_variables_set(sql):
     roundtrip(sql)
 
 
+VIEWS = """
+CREATE OR REPLACE VIEW v1 AS
+SELECT 1
+
+CREATE VIEW v2 AS
+SELECT 2
+
+CREATE MATERIALIZED VIEW v3 AS
+SELECT 3
+"""
+@pytest.mark.parametrize('sql', (sql.strip() for sql in VIEWS.split('\n\n')))
+def test_views(sql):
+    roundtrip(sql)
 
 # Prettification samples: each sample may be composed by either two or three parts,
 # respectively the original statement, the expected outcome and an optional options

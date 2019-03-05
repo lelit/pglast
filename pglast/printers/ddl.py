@@ -751,7 +751,7 @@ def create_table_as_stmt(node, output):
         output.writes('TEMPORARY')
     elif rel.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
         output.writes('UNLOGGED')
-    output.writes('TABLE')
+    output.writes(OBJECT_NAMES[enums.ObjectType(node.relkind.value)])
     if node.if_not_exists:
         output.writes('IF NOT EXISTS')
     output.print_node(rel)
@@ -1318,3 +1318,14 @@ def variableset(node, output):
         output.print_name(node.name)
         output.write(" = ")
         output.print_list(node.args)
+
+
+@node_printer('ViewStmt')
+def viewstmt(node, output):
+    output.write("CREATE ")
+    if node.replace:
+        output.write("OR REPLACE ")
+    output.write("VIEW ")
+    output.print_node(node.view)
+    output.write(" AS\n")
+    output.print_node(node.query)
