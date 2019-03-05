@@ -801,6 +801,31 @@ def test_functions(sql):
     roundtrip(sql)
 
 
+TRIGS = r"""
+CREATE TRIGGER trig1 BEFORE INSERT OR UPDATE OF c1 OR DELETE ON table1
+FOR EACH ROW EXECUTE PROCEDURE trigfunc()
+
+CREATE TRIGGER trig2 INSTEAD OF UPDATE ON table1 FOR EACH ROW EXECUTE PROCEDURE
+trigfunc('param')
+
+CREATE TRIGGER trig3 AFTER INSERT ON table1 FOR EACH ROW
+WHEN (OLD.c1 != NEW.c1)
+EXECUTE PROCEDURE
+trigfunc()
+
+CREATE CONSTRAINT TRIGGER trig4 AFTER INSERT ON table1 DEFERRABLE INITIALLY
+DEFERRED FOR EACH ROW EXECUTE PROCEDURE trigfunc()
+
+CREATE TRIGGER trig5 AFTER INSERT ON table2
+REFERENCING OLD TABLE as t1 NEW TABLE as t2
+FOR EACH STATEMENT EXECUTE PROCEDURE trigfunc()
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in TRIGS.split('\n\n')))
+def test_trigs(sql):
+    roundtrip(sql)
+
+
 # Prettification samples: each sample may be composed by either two or three parts,
 # respectively the original statement, the expected outcome and an optional options
 # dictionary. The original and the expected statements are separated by a standalone "=",
