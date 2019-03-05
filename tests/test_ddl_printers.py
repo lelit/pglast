@@ -798,6 +798,10 @@ $$ language sql
 ALTER FUNCTION funca(somearg text) COST 100
 
 ALTER FUNCTION func_without_args() IMMUTABLE
+
+DO $$
+some_code
+$$ language somelanguage
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in FUNCS.split('\n\n')))

@@ -900,6 +900,12 @@ def define_stmt_def_elem(node, output):
         raise NotImplementedError
 
 
+@node_printer('DoStmt')
+def do(node, output):
+    output.write('DO ')
+    output.print_list(node.args, sep=" ", standalone_items=True)
+
+
 @node_printer('DropdbStmt')
 def drop_db_stmt(node, output):
     output.write('DROP DATABASE')
