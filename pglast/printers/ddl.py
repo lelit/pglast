@@ -32,6 +32,23 @@ def to_dollar_literal(code):
     return "$%s$%s$%s$" % (delimiter, code, delimiter)
 
 
+@node_printer('AlterEnumStmt')
+def alter_enum(node, output):
+    output.write("ALTER TYPE ")
+    output.print_name(node.typeName)
+    if node.newVal:
+        output.write("ADD VALUE ")
+        if node.skipIfNewValExists:
+            output.write("IF NOT EXISTS ")
+        output._write_quoted_string(node.newVal.value)
+    if node.newValNeighbor:
+        if node.newValIsAfter:
+            output.write(" AFTER ")
+        else:
+            output.write(" BEFORE ")
+        output._write_quoted_string(node.newValNeighbor.value)
+
+
 @node_printer('AlterOwnerStmt')
 def alterowner(node, output):
     output.write("ALTER %s " %
@@ -39,6 +56,15 @@ def alterowner(node, output):
     output.print_name(node.object)
     output.write('OWNER TO ')
     output.print_node(node.newowner)
+
+
+@node_printer('CreateEnumStmt')
+def createenum(node, output):
+    output.write("CREATE TYPE ")
+    output.print_name(node.typeName)
+    output.write('AS ENUM (')
+    output.print_list(node.vals)
+    output.write(')')
 
 
 @node_printer('ColumnDef')

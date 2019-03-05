@@ -82,6 +82,24 @@ def test_alter_tables(sql):
     roundtrip(sql)
 
 
+
+TYPES = """
+CREATE TYPE t1 AS ENUM ('value1', 'value2')
+
+ALTER TYPE t1 ADD VALUE 'value3'
+
+ALTER TYPE t1 ADD VALUE 'value2.5' BEFORE 'value3'
+
+ALTER TYPE t1 ADD VALUE 'value3.5' AFTER 'value3'
+
+ALTER TYPE t1 ADD VALUE IF NOT EXISTS 'value3' 
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in TYPES.split('\n\n')))
+def test_types(sql):
+    roundtrip(sql)
+
+
 COMMENTS = """\
 COMMENT ON ACCESS METHOD rtree IS 'R-Tree access method'
 
