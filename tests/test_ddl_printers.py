@@ -794,6 +794,10 @@ LANGUAGE C
 CREATE FUNCTION funcc(arg text = 'default_val', OUT arg2 text, INOUT arg3 text, VARIADIC
 arglist text[]) RETURNS SETOF integer AS $$
 $$ language sql
+
+ALTER FUNCTION funca(somearg text) COST 100
+
+ALTER FUNCTION func_without_args() IMMUTABLE
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in FUNCS.split('\n\n')))

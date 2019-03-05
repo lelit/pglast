@@ -101,6 +101,12 @@ OBJECT_NAMES = {
     enums.ObjectType.OBJECT_VIEW: 'VIEW',
 }
 
+@node_printer('AlterFunctionStmt')
+def alter_function(node, output):
+    output.write('ALTER FUNCTION ')
+    output.print_node(node.func)
+    output.print_list(node.actions, ' ')
+
 
 @node_printer('CommentStmt')
 def comment_stmt(node, output):
@@ -1074,7 +1080,8 @@ def object_with_args(node, output):
         output.print_name(node.objname)
     if not node.args_unspecified:
         output.write('(')
-        output.print_list(node.objargs, ',', standalone_items=False)
+        if node.objargs:
+            output.print_list(node.objargs, ',', standalone_items=False)
         output.write(')')
 
 
