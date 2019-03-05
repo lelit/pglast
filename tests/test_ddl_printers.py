@@ -348,6 +348,8 @@ create index aidx on atbl (value) tablespace foo
 create index aidx on atbl (value collate "it_IT")
 
 CREATE INDEX test_index ON test_table (col varchar_pattern_ops)
+
+CREATE INDEX aidx ON atbl USING gin(value public.trgm_pattern_ops)
 """
 
 

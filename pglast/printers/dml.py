@@ -374,7 +374,7 @@ def index_elem(node, output):
         output.print_name(node.collation, ',')
     if node.opclass:
         output.write(' ')
-        output.print_name(node.opclass, ',')
+        output.print_name(node.opclass, '.')
     if node.ordering != enums.SortByDir.SORTBY_DEFAULT:
         if node.ordering == enums.SortByDir.SORTBY_ASC:
             output.swrite('ASC')
