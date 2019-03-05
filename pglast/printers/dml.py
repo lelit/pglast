@@ -606,6 +606,10 @@ def range_function(node, output):
     if node.alias:
         output.write(' AS ')
         output.print_node(node.alias)
+        if node.coldeflist:
+            output.write('(')
+            output.print_list(node.coldeflist, ',')
+            output.write(')')
 
 
 @node_printer('RangeSubselect')
