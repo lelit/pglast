@@ -270,6 +270,8 @@ SELECT * FROM (VALUES (1, 'one'), (2, 'two')) AS t (num, "English")
 
 SELECT ARRAY(SELECT age FROM employees)
 
+SELECT ARRAY[]
+
 SELECT m.name AS mname, pname
 FROM manufacturers m, LATERAL get_product_names(m.id) pname
 

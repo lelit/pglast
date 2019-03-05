@@ -14,7 +14,8 @@ from ..printer import node_printer
 @node_printer('A_ArrayExpr')
 def a_array_expr(node, output):
     output.write('ARRAY[')
-    output.print_list(node.elements)
+    if node.elements:
+        output.print_list(node.elements)
     output.write(']')
 
 
