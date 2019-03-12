@@ -97,6 +97,17 @@ from firsttable as x
 select id, count(*) FROM sometable GROUP BY id
 order by id desc nulls last
 
+select id, count(*) FROM sometable GROUP BY GROUPING SETS ((c1, c2), (c1, c3))
+
+select id, count(*) FROM sometable GROUP BY GROUPING SETS (id, c2)
+
+select id, count(*) FROM sometable GROUP BY CUBE (id, c2)
+
+select id, count(*) FROM sometable GROUP BY ROLLUP (id, c2)
+
+select id, count(*) FROM sometable
+GROUP BY GROUPING SETS ((id, c1), CUBE(c2, c3))
+
 SELECT id, count(*) FROM sometable GROUP BY id having count(*) > 2
 order by count(*) using @> nulls first
 

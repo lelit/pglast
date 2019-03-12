@@ -12,3 +12,12 @@ from .pg_class import *     # noqa
 from .primnodes import *    # noqa
 from .nodes import *        # noqa
 from .parsenodes import *   # noqa
+
+
+class GroupingSetKind(IntEnum):
+    GOUPING_SET_EMPTY = 0,
+    GROUPING_SET_SIMPLE = auto()
+    GROUPING_SET_ROLLUP = auto()
+    GROUPING_SET_CUBE = auto()
+    GROUPING_SET_SETS = auto()
+
