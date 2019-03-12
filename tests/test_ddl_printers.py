@@ -424,9 +424,30 @@ CREATE OPERATOR === (
 """
 
 
+
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_OPERATORS.split('\n\n')))
 def test_create_operators(sql):
     roundtrip(sql)
+
+
+CREATE_POLICIES = """
+CREATE POLICY test_policy ON some_table AS PERMISSIVE
+    FOR ALL
+    TO some_role
+    USING ( current_user = c1 )
+    WITH CHECK ( current_user = c2)
+
+CREATE POLICY test_policy ON some_table AS RESTRICTIVE
+    FOR UPDATE
+    TO CURRENT_USER
+    USING ( current_user = c1 )
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_POLICIES.split('\n\n')))
+def test_create_policies(sql):
+    roundtrip(sql)
+
 
 
 CREATE_SEQUENCES = """\

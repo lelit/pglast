@@ -640,6 +640,30 @@ def create_foreign_table_stmt_def_elem(node, output):
     output.print_node(node.arg)
 
 
+@node_printer("CreatePolicyStmt")
+def create_policy(node, output):
+    output.write("CREATE POLICY ")
+    output.print_name(node.policy_name)
+    output.write(" ON ")
+    output.print_node(node.table)
+    if node.permissive:
+        output.write("AS PERMISSIVE ")
+    else:
+        output.write("AS RESTRICTIVE ")
+    if node.cmd_name:
+        output.write("FOR %s " % node.cmd_name.value)
+    output.write(" TO ")
+    output.print_list(node.roles, ",")
+    if node.qual:
+        output.write(" USING (")
+        output.print_node(node.qual)
+        output.write(")")
+    if node.with_check:
+        output.write(" WITH CHECK (")
+        output.print_node(node.with_check)
+        output.write(")")
+
+
 @node_printer('CreateSchemaStmt')
 def create_schema_stmt(node, output):
     output.write('CREATE SCHEMA ')
