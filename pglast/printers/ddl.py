@@ -127,6 +127,19 @@ LOCK_MODE_NAMES = {
 }
 
 
+@node_printer('AlterDatabaseStmt')
+def alter_database(node, output):
+    output.write("ALTER DATABASE ")
+    output.print_name(node.dbname)
+    output.print_list(node.options, ' ')
+
+
+@node_printer('AlterDatabaseSetStmt')
+def alter_database(node, output):
+    output.write("ALTER DATABASE ")
+    output.print_name(node.dbname)
+    output.print_node(node.setstmt)
+
 
 @node_printer('AlterEnumStmt')
 def alter_enum(node, output):
@@ -1533,7 +1546,8 @@ def rename(node, output):
     output.write("ALTER ")
     output.write(objtype_name)
     output.space()
-    if objtype == enums.ObjectType.OBJECT_SCHEMA:
+    if objtype in (enums.ObjectType.OBJECT_SCHEMA,
+                   enums.ObjectType.OBJECT_DATABASE):
         output.write(node.subname.value)
     elif node.relation:
         output.print_node(node.relation)

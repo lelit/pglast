@@ -394,6 +394,12 @@ CREATE DATABASE music2
     LC_COLLATE 'sv_SE.iso885915' LC_CTYPE 'sv_SE.iso885915'
     ENCODING LATIN9
     TEMPLATE template0
+
+ALTER DATABASE db1 ALLOW_CONNECTIONS true
+
+ALTER DATABASE db1 CONNECTION LIMIT 10
+
+ALTER DATABASE db1 SET work_mem = '2GB'
 """
 
 
@@ -1025,6 +1031,8 @@ ALTER TABLE told RENAME cold TO cnew
 ALTER FUNCTION oldfunc(int) RENAME TO newfunc
 
 ALTER SCHEMA s1 RENAME TO s2
+
+ALTER DATABASE db1 RENAME TO db2
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in RENAMES.split('\n\n')))
