@@ -192,11 +192,6 @@ def alterseqstmt(node, output):
         output.print_list(node.options, '')
 
 
-
-
-
-
-
 @node_printer('AlterTableStmt')
 def altertable(node, output):
     output.write("ALTER %s " %
@@ -634,8 +629,6 @@ def createenum(node, output):
     output.write('AS ENUM (')
     output.print_list(node.vals)
     output.write(')')
-
-
 
 
 @node_printer('CreateEventTrigStmt')
