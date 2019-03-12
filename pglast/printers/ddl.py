@@ -1539,9 +1539,9 @@ def partition_spec(node, output):
 
 @node_printer('RenameStmt')
 def rename(node, output):
-    objtype = enums.ObjectType(node.renameType)
+    objtype = enums.ObjectType(node.renameType.value)
     if objtype == enums.ObjectType.OBJECT_COLUMN:
-        reltype = enums.ObjectType(node.relationType)
+        reltype = enums.ObjectType(node.relationType.value)
         output.write("ALTER ")
         output.write(OBJECT_NAMES[reltype])
         output.space()
