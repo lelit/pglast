@@ -21,3 +21,12 @@ class GroupingSetKind(IntEnum):
     GROUPING_SET_CUBE = auto()
     GROUPING_SET_SETS = auto()
 
+
+class TriggerConstants(IntFlag):
+    TRIGGER_TYPE_ROW = (1 << 0)
+    TRIGGER_TYPE_BEFORE = (1 << 1)
+    TRIGGER_TYPE_INSERT = (1 << 2)
+    TRIGGER_TYPE_DELETE = (1 << 3)
+    TRIGGER_TYPE_UPDATE = (1 << 4)
+    TRIGGER_TYPE_TRUNCATE = (1 << 5)
+    TRIGGER_TYPE_INSTEAD = (1 << 6)

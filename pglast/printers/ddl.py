@@ -14,14 +14,6 @@ import re
 
 RE_DOLLARQUOTE = re.compile(r"\$(\w*)\$")
 
-class TriggerConstants(object):
-    TRIGGER_TYPE_ROW = (1 << 0)
-    TRIGGER_TYPE_BEFORE = (1 << 1)
-    TRIGGER_TYPE_INSERT = (1 << 2)
-    TRIGGER_TYPE_DELETE = (1 << 3)
-    TRIGGER_TYPE_UPDATE = (1 << 4)
-    TRIGGER_TYPE_TRUNCATE = (1 << 5)
-    TRIGGER_TYPE_INSTEAD = (1 << 6)
 
 
 def to_dollar_literal(code):
@@ -877,20 +869,18 @@ def create_trig_stmt(node, output):
                  ('CONSTRAINT' if node.isconstraint else ''))
     output.print_name(node.trigname)
 
-    if ((node.timing or 0) & TriggerConstants.TRIGGER_TYPE_BEFORE
-            == TriggerConstants.TRIGGER_TYPE_BEFORE):
+    if (node.timing or 0) & enums.TriggerConstants.TRIGGER_TYPE_BEFORE:
         output.write(" BEFORE ")
-    elif ((node.timing or 0) & TriggerConstants.TRIGGER_TYPE_INSTEAD
-            == TriggerConstants.TRIGGER_TYPE_INSTEAD):
+    elif (node.timing or 0) & enums.TriggerConstants.TRIGGER_TYPE_INSTEAD:
         output.write(" INSTEAD OF ")
     else:
         output.write(" AFTER ")
     event_strings = []
 
     for ev in ('INSERT', 'DELETE', 'UPDATE'):
-        bitmask = getattr(TriggerConstants, 'TRIGGER_TYPE_%s' % ev)
+        bitmask = getattr(enums.TriggerConstants, 'TRIGGER_TYPE_%s' % ev)
 
-        if node.events & bitmask == bitmask:
+        if node.events & bitmask:
             event_strings.append(ev)
     output.write(" OR ".join(event_strings))
 
