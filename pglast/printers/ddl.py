@@ -359,6 +359,16 @@ def alter_role(node, output):
             output.print_node(opt.arg)
 
 
+@node_printer('ClusterStmt')
+def cluster(node, output):
+    output.write('CLUSTER ')
+    if node.verbose:
+        output.write("VERBOSE ")
+    output.print_name(node.relation)
+    output.write(' USING ')
+    output.print_name(node.indexname)
+
+
 @node_printer('CommentStmt')
 def comment_stmt(node, output):
     otypes = enums.ObjectType

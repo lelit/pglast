@@ -110,6 +110,16 @@ def test_alter_tables(sql):
     roundtrip(sql)
 
 
+CLUSTERS = """
+CLUSTER t1 USING idx1
+
+CLUSTER VERBOSE t1 USING idx1
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in CLUSTERS.split('\n\n')))
+def test_clusters(sql):
+    roundtrip(sql)
+
 
 TYPES = """
 CREATE TYPE t1 AS ENUM ('value1', 'value2')
