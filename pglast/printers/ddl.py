@@ -334,6 +334,17 @@ def comment_stmt(node, output):
         output._write_quoted_string(node.comment.value)
 
 
+@node_printer('CompositeTypeStmt')
+def composite_type(node, output):
+    output.write("CREATE TYPE ")
+    node.typevar.parse_tree['inh'] = True
+    output.print_node(node.typevar)
+    output.write(" AS (")
+    output.print_list(node.coldeflist, ", ")
+    output.write(")")
+    node.typevar.parse_tree.pop('inh')
+
+
 @node_printer('Constraint')
 def constraint(node, output):
     if node.conname:

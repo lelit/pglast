@@ -92,7 +92,9 @@ ALTER TYPE t1 ADD VALUE 'value2.5' BEFORE 'value3'
 
 ALTER TYPE t1 ADD VALUE 'value3.5' AFTER 'value3'
 
-ALTER TYPE t1 ADD VALUE IF NOT EXISTS 'value3' 
+ALTER TYPE t1 ADD VALUE IF NOT EXISTS 'value3'
+
+CREATE TYPE tcomposite AS (c1 int, c2 text)
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in TYPES.split('\n\n')))
