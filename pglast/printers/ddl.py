@@ -115,6 +115,18 @@ GRANT_OBJECT_TYPES_NAMES = {
     enums.GrantObjectType.ACL_OBJECT_TYPE: 'TYPE'
 }
 
+LOCK_MODE_NAMES = {
+    enums.LockMode.LM_AccessShareLock: 'ACCESS SHARE',
+    enums.LockMode.LM_RowShareLock: 'ROW SHARE',
+    enums.LockMode.LM_RowExclusiveLock: 'ROW EXCLUSIVE',
+    enums.LockMode.LM_ShareUpdateExclusiveLock: 'SHARE UPDATE EXCLUSIVE',
+    enums.LockMode.LM_ShareLock: 'SHARE',
+    enums.LockMode.LM_ShareRowExclusiveLock: 'SHARE ROW EXCLUSIVE',
+    enums.LockMode.LM_ExclusiveLock: 'EXCLUSIVE',
+    enums.LockMode.LM_AccessExclusiveLock: 'ACCESS EXCLUSIVE'
+}
+
+
 
 @node_printer('AlterEnumStmt')
 def alter_enum(node, output):
@@ -1336,6 +1348,20 @@ def index_stmt(node, output):
             output.newline()
             output.write('WHERE ')
             output.print_node(node.whereClause)
+
+
+@node_printer('LockStmt')
+def lock(node, output):
+    output.write('LOCK ')
+    output.print_list(node.relations, ',')
+    lock_mode = enums.LockMode(node.mode.value)
+    lock_str = LOCK_MODE_NAMES[lock_mode]
+    output.write('IN ')
+    output.write(lock_str)
+    output.write(' MODE')
+    if node.nowait:
+        output.write(" NOWAIT")
+
 
 
 @node_printer('ObjectWithArgs')

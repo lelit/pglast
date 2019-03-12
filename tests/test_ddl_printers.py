@@ -923,6 +923,10 @@ some_code
 $$ language somelanguage
 """
 
+@pytest.mark.parametrize('sql', (sql.strip() for sql in FUNCS.split('\n\n')))
+def test_functions(sql):
+    roundtrip(sql)
+
 
 GRANTS = """
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO role1, role2
@@ -947,9 +951,18 @@ def test_grants(sql):
     roundtrip(sql)
 
 
-@pytest.mark.parametrize('sql', (sql.strip() for sql in FUNCS.split('\n\n')))
-def test_functions(sql):
+LOCKS = """
+LOCK t1 IN  ROW SHARE MODE
+
+LOCK t1, t2 IN ROW SHARE MODE NOWAIT
+
+LOCK TABLE ONLY t1
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in LOCKS.split('\n\n')))
+def test_locks(sql):
     roundtrip(sql)
+
 
 
 TRIGS = r"""

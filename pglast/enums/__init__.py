@@ -22,6 +22,17 @@ class GroupingSetKind(IntEnum):
     GROUPING_SET_SETS = auto()
 
 
+class LockMode(IntEnum):
+    LM_NoLock = 0
+    LM_AccessShareLock = auto()
+    LM_RowShareLock = auto()
+    LM_RowExclusiveLock = auto()
+    LM_ShareUpdateExclusiveLock = auto()
+    LM_ShareLock = auto()
+    LM_ShareRowExclusiveLock = auto()
+    LM_ExclusiveLock = auto()
+    LM_AccessExclusiveLock = auto()
+
 class TriggerConstants(IntFlag):
     TRIGGER_TYPE_ROW = (1 << 0)
     TRIGGER_TYPE_BEFORE = (1 << 1)
