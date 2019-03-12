@@ -293,6 +293,35 @@ def alter_function(node, output):
     output.print_list(node.actions, ' ')
 
 
+@node_printer('AlterRoleStmt')
+def alter_role(node, output):
+    mapping = {
+        'canlogin': ('LOGIN', True),
+        'password': ('PASSWORD', False),
+        'inherit': ('INHERIT', True),
+        'connectionlimit': ('CONNECTION LIMIT', False),
+        'validUntil': ('VALID UNTIL', False),
+        'superuser': ('SUPERUSER', True),
+        'createrole': ('CREATEROLE', True),
+        "isreplication": ('REPLICATION', True),
+        "createdb": ('CREATEDB', True),
+        "bypassrls": ('BYPASSRLS', True)
+    }
+    output.write('ALTER ROLE ')
+    output.print_node(node.role)
+    for opt in node.options:
+        optname, isbool = mapping[opt.defname.value]
+        if isbool:
+            if opt.arg.ival == 1:
+                output.write(optname)
+            else:
+                output.write('NO%s' % optname)
+        else:
+            output.write(optname)
+            output.space()
+            output.print_node(opt.arg)
+
+
 @node_printer('CommentStmt')
 def comment_stmt(node, output):
     otypes = enums.ObjectType

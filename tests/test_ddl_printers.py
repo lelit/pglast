@@ -34,6 +34,21 @@ ALTER SCHEMA schema1 OWNER TO rol4
 def test_alter_owners(sql):
     roundtrip(sql)
 
+ALTER_ROLES= """
+ALTER ROLE r1 LOGIN
+
+ALTER ROLE r1 NOLOGIN
+
+ALTER ROLE r2 CONNECTION LIMIT 10
+
+ALTER ROLE r2 VALID UNTIL '1900-01-01' SUPERUSER
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in ALTER_ROLES.split('\n\n')))
+def test_alter_roles(sql):
+    roundtrip(sql)
+
+
 
 ALTER_TABLES = """
 ALTER TABLE t1 ALTER c1 TYPE varchar(20)
