@@ -318,8 +318,7 @@ SELECT m.id FROM manufacturers m WHERE m.deliver_date IS NULL
 
 SELECT m.id FROM manufacturers m WHERE m.deliver_date IS NOT NULL
 
-SELECT t1.c1 FROM t1 WHERE (a IS NULL) != (b IS NULL
-)
+SELECT t1.c1 FROM t1 WHERE (a IS NULL) != (b IS NULL)
 
 SELECT true IS true
 

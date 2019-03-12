@@ -15,7 +15,6 @@ import re
 RE_DOLLARQUOTE = re.compile(r"\$(\w*)\$")
 
 
-
 def to_dollar_literal(code):
     delimiter = 'function'
     match = set(RE_DOLLARQUOTE.findall(code))
@@ -135,7 +134,7 @@ def alter_database(node, output):
 
 
 @node_printer('AlterDatabaseSetStmt')
-def alter_database(node, output):
+def alter_database_set(node, output):
     output.write("ALTER DATABASE ")
     output.print_name(node.dbname)
     output.print_node(node.setstmt)
@@ -307,7 +306,7 @@ def altertablecmd(node, output):
         output.print_name(node.name)
         return
 
-    raise NotImplementedError("Unsupported alter table cmd: %s" % cmdtype) # pragma: nocover
+    raise NotImplementedError("Unsupported alter table cmd: %s" % cmdtype)  # pragma: nocover
 
 
 @node_printer('AlterDefaultPrivilegesStmt')
@@ -973,6 +972,7 @@ def create_table_as_stmt(node, output):
         output.space(2)
         output.write('WITH NO DATA')
 
+
 @node_printer('CreateTrigStmt')
 def create_trig_stmt(node, output):
     output.write("CREATE %s TRIGGER " %
@@ -1036,7 +1036,6 @@ def trigger_transition(node, output):
     else:
         output.write("OLD TABLE AS ")
     output.print_name(node.name)
-
 
 
 @node_printer('CreatedbStmt')
@@ -1164,7 +1163,6 @@ def function_option(node, output):
     output.print_node(node.arg, is_symbol=True)
 
 
-
 @node_printer('DefineStmt')
 def define_stmt(node, output):
     output.write('CREATE ')
@@ -1200,6 +1198,7 @@ def define_stmt(node, output):
             output.print_list(node.definition)
             output.newline()
             output.write(')')
+
 
 @node_printer('DefElem')
 def def_elem(node, output):
@@ -1375,7 +1374,7 @@ def function_parameter(node, output):
             output.write('INOUT ')
         elif node.mode == pm.FUNC_PARAM_VARIADIC:
             output.write('VARIADIC ')
-        else: # pragma: nocover
+        else:  # pragma: nocover
             raise NotImplementedError
     if node.name:
         output.print_name(node.name)
@@ -1477,7 +1476,6 @@ def lock(node, output):
         output.write(" NOWAIT")
 
 
-
 @node_printer('ObjectWithArgs')
 def object_with_args(node, output):
     # Special treatment for OPERATOR object inside DROP or COMMENT
@@ -1564,6 +1562,7 @@ def rename(node, output):
         output.print_node(node.object)
     output.write(" RENAME TO ")
     output.print_name(node.newname)
+
 
 @node_printer('RoleSpec')
 def role_spec(node, output):

@@ -15,7 +15,7 @@ from .parsenodes import *   # noqa
 
 
 class GroupingSetKind(IntEnum):
-    GOUPING_SET_EMPTY = 0,
+    GOUPING_SET_EMPTY = 0
     GROUPING_SET_SIMPLE = auto()
     GROUPING_SET_ROLLUP = auto()
     GROUPING_SET_CUBE = auto()
@@ -32,6 +32,7 @@ class LockMode(IntEnum):
     LM_ShareRowExclusiveLock = auto()
     LM_ExclusiveLock = auto()
     LM_AccessExclusiveLock = auto()
+
 
 class TriggerConstants(IntFlag):
     TRIGGER_TYPE_ROW = (1 << 0)

@@ -28,7 +28,9 @@ ALTER DEFAULT PRIVILEGES FOR ROLE role1, role2 IN SCHEMA s1,  s2
 REVOKE INSERT, UPDATE ON TABLES FROM grantee1, grantee2
 """
 
-@pytest.mark.parametrize('sql', (sql.strip() for sql in ALTER_DEFAULT_PRIVILEGES.split('\n\n')))
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in
+                                 ALTER_DEFAULT_PRIVILEGES.split('\n\n')))
 def test_alter_default_privileges(sql):
     roundtrip(sql)
 
@@ -43,11 +45,13 @@ ALTER TABLE t1 OWNER TO rol3
 ALTER SCHEMA schema1 OWNER TO rol4
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in ALTER_OWNERS.split('\n\n')))
 def test_alter_owners(sql):
     roundtrip(sql)
 
-ALTER_ROLES= """
+
+ALTER_ROLES = """
 ALTER ROLE r1 LOGIN
 
 ALTER ROLE r1 NOLOGIN
@@ -57,10 +61,10 @@ ALTER ROLE r2 CONNECTION LIMIT 10
 ALTER ROLE r2 VALID UNTIL '1900-01-01' SUPERUSER
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in ALTER_ROLES.split('\n\n')))
 def test_alter_roles(sql):
     roundtrip(sql)
-
 
 
 ALTER_TABLES = """
@@ -105,6 +109,7 @@ ALTER TABLE t1 ADD PRIMARY KEY USING INDEX t1_idx
 ALTER FOREIGN TABLE c1 ADD COLUMN c1 int
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in ALTER_TABLES.split('\n\n')))
 def test_alter_tables(sql):
     roundtrip(sql)
@@ -115,6 +120,7 @@ CLUSTER t1 USING idx1
 
 CLUSTER VERBOSE t1 USING idx1
 """
+
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in CLUSTERS.split('\n\n')))
 def test_clusters(sql):
@@ -135,6 +141,7 @@ ALTER TYPE t1 ADD VALUE IF NOT EXISTS 'value3'
 CREATE TYPE tcomposite AS (c1 int, c2 text)
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in TYPES.split('\n\n')))
 def test_types(sql):
     roundtrip(sql)
@@ -149,6 +156,7 @@ DISCARD SEQUENCES
 
 DISCARD TEMP
 """
+
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in DISCARDS.split('\n\n')))
 def test_discards(sql):
@@ -483,8 +491,6 @@ CREATE OPERATOR === (
 """
 
 
-
-
 @pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_OPERATORS.split('\n\n')))
 def test_create_operators(sql):
     roundtrip(sql)
@@ -503,10 +509,10 @@ CREATE POLICY test_policy ON some_table AS RESTRICTIVE
     USING ( current_user = c1 )
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in CREATE_POLICIES.split('\n\n')))
 def test_create_policies(sql):
     roundtrip(sql)
-
 
 
 CREATE_SEQUENCES = """\
@@ -982,6 +988,7 @@ some_code
 $$ language somelanguage
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in FUNCS.split('\n\n')))
 def test_functions(sql):
     roundtrip(sql)
@@ -1005,6 +1012,7 @@ REVOKE role1 FROM role2
 GRANT role1 TO role2 WITH ADMIN OPTION
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in GRANTS.split('\n\n')))
 def test_grants(sql):
     roundtrip(sql)
@@ -1017,6 +1025,7 @@ LOCK t1, t2 IN ROW SHARE MODE NOWAIT
 
 LOCK TABLE ONLY t1
 """
+
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in LOCKS.split('\n\n')))
 def test_locks(sql):
@@ -1031,9 +1040,11 @@ ALTER FUNCTION func1(int) SET SCHEMA s2
 ALTER TYPE t1 SET SCHEMA s2
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in ALTEROBJECTSCHEMAS.split('\n\n')))
 def test_alterobjectschema(sql):
     roundtrip(sql)
+
 
 RENAMES = """
 ALTER TABLE told RENAME to tnew
@@ -1047,9 +1058,11 @@ ALTER SCHEMA s1 RENAME TO s2
 ALTER DATABASE db1 RENAME TO db2
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in RENAMES.split('\n\n')))
 def test_renames(sql):
     roundtrip(sql)
+
 
 TRIGS = r"""
 CREATE TRIGGER trig1 BEFORE INSERT OR UPDATE OF c1 OR DELETE ON table1
@@ -1071,6 +1084,7 @@ REFERENCING OLD TABLE as t1 NEW TABLE as t2
 FOR EACH STATEMENT EXECUTE PROCEDURE trigfunc()
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in TRIGS.split('\n\n')))
 def test_trigs(sql):
     roundtrip(sql)
@@ -1083,6 +1097,7 @@ RESET search_path
 
 RESET ALL
 """
+
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in VARIABLE_SET.split('\n\n')))
 def test_variables_set(sql):
@@ -1111,6 +1126,7 @@ VACUUM (VERBOSE, ANALYZE, DISABLE_PAGE_SKIPPING, FREEZE) t4
 ANALYZE
 """
 
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in VACUUMS.split('\n\n')))
 def test_vacuums(sql):
     roundtrip(sql)
@@ -1126,9 +1142,12 @@ SELECT 2
 CREATE MATERIALIZED VIEW v3 AS
 SELECT 3
 """
+
+
 @pytest.mark.parametrize('sql', (sql.strip() for sql in VIEWS.split('\n\n')))
 def test_views(sql):
     roundtrip(sql)
+
 
 # Prettification samples: each sample may be composed by either two or three parts,
 # respectively the original statement, the expected outcome and an optional options
