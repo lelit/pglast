@@ -20,6 +20,19 @@ from test_dml_printers import roundtrip
 pglast.printers
 
 
+ALTER_DEFAULT_PRIVILEGES = """
+ALTER DEFAULT PRIVILEGES FOR ROLE role1, role2 IN SCHEMA s1,  s2
+GRANT ALL PRIVILEGES ON TABLES TO grantee1, grantee2
+
+ALTER DEFAULT PRIVILEGES FOR ROLE role1, role2 IN SCHEMA s1,  s2
+REVOKE INSERT, UPDATE ON TABLES FROM grantee1, grantee2
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in ALTER_DEFAULT_PRIVILEGES.split('\n\n')))
+def test_alter_default_privileges(sql):
+    roundtrip(sql)
+
+
 ALTER_OWNERS = """
 ALTER FUNCTION fonction1() OWNER TO rol1
 

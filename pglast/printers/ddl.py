@@ -286,6 +286,43 @@ def altertablecmd(node, output):
     raise NotImplementedError("Unsupported alter table cmd: %s" % cmdtype) # pragma: nocover
 
 
+@node_printer('AlterDefaultPrivilegesStmt')
+def alter_default_privileges(node, output):
+    output.write('ALTER DEFAULT PRIVILEGES ')
+    roles = None
+    schemas = None
+    for opt in node.options:
+        optname = opt.defname.value
+        if optname == 'roles':
+            roles = opt.arg
+        elif optname == 'schemas':
+            schemas = opt.arg
+        else:
+            raise NotImplementedError('Option not implemented: %s' % optname)
+    if roles is not None:
+        output.write('FOR ROLE ')
+        output.print_list(roles, ',')
+    if schemas is not None:
+        output.write('IN SCHEMA ')
+        output.print_list(schemas, ',', are_names=True)
+    action = node.action
+    if action.is_grant:
+        output.write("GRANT ")
+        preposition = "TO"
+    else:
+        output.write("REVOKE ")
+        preposition = "FROM"
+    if action.privileges:
+        output.print_list(action.privileges, ',')
+    else:
+        output.write(' ALL ')
+    output.write(' ON ')
+    objtype = enums.GrantObjectType(action.objtype.value)
+    output.write('%sS' % GRANT_OBJECT_TYPES_NAMES[objtype])
+    output.write(' %s ' % preposition)
+    output.print_list(action.grantees, ',')
+
+
 @node_printer('AlterFunctionStmt')
 def alter_function(node, output):
     output.write('ALTER FUNCTION ')
