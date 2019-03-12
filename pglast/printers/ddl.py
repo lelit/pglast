@@ -1285,6 +1285,22 @@ def grant_stmt(node, output):
     output.print_list(node.grantees, are_names=True)
 
 
+@node_printer('GrantRoleStmt')
+def grant_role(node, output):
+    if node.is_grant:
+        output.write("GRANT ")
+        preposition = "TO"
+    else:
+        output.write("REVOKE ")
+        preposition = "FROM"
+
+    output.print_list(node.granted_roles, ',')
+    output.write(' %s ' % preposition)
+    output.print_list(node.grantee_roles, ',')
+    if node.admin_opt:
+        output.write("WITH ADMIN OPTION")
+
+
 @node_printer('IndexStmt')
 def index_stmt(node, output):
     output.write('CREATE ')

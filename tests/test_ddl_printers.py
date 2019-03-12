@@ -934,6 +934,12 @@ REVOKE ALL ON TABLE t1 FROM role1
 REVOKE SELECT ON TABLE t1 FROM role1
 
 GRANT SELECT, INSERT ON TABLE t1 TO role1
+
+GRANT role1 TO role2
+
+REVOKE role1 FROM role2
+
+GRANT role1 TO role2 WITH ADMIN OPTION
 """
 
 @pytest.mark.parametrize('sql', (sql.strip() for sql in GRANTS.split('\n\n')))
