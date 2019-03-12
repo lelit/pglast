@@ -964,6 +964,19 @@ def test_locks(sql):
     roundtrip(sql)
 
 
+RENAMES = """
+ALTER TABLE told RENAME to tnew
+
+ALTER TABLE told RENAME cold TO cnew
+
+ALTER FUNCTION oldfunc(int) RENAME TO newfunc
+
+ALTER SCHEMA s1 RENAME TO s2
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in RENAMES.split('\n\n')))
+def test_renames(sql):
+    roundtrip(sql)
 
 TRIGS = r"""
 CREATE TRIGGER trig1 BEFORE INSERT OR UPDATE OF c1 OR DELETE ON table1

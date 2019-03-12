@@ -1423,6 +1423,33 @@ def partition_spec(node, output):
     output.write(')')
 
 
+@node_printer('RenameStmt')
+def rename(node, output):
+    objtype = enums.ObjectType(node.renameType)
+    if objtype == enums.ObjectType.OBJECT_COLUMN:
+        reltype = enums.ObjectType(node.relationType)
+        output.write("ALTER ")
+        output.write(OBJECT_NAMES[reltype])
+        output.space()
+        output.print_node(node.relation)
+        output.write(" RENAME COLUMN ")
+        output.print_name(node.subname)
+        output.write(" TO ")
+        output.print_name(node.newname)
+        return
+    objtype_name = OBJECT_NAMES[objtype]
+    output.write("ALTER ")
+    output.write(objtype_name)
+    output.space()
+    if objtype == enums.ObjectType.OBJECT_SCHEMA:
+        output.write(node.subname.value)
+    elif node.relation:
+        output.print_node(node.relation)
+    else:
+        output.print_node(node.object)
+    output.write(" RENAME TO ")
+    output.print_name(node.newname)
+
 @node_printer('RoleSpec')
 def role_spec(node, output):
     if node.roletype == enums.RoleSpecType.ROLESPEC_CURRENT_USER:
