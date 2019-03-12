@@ -1023,6 +1023,18 @@ def test_locks(sql):
     roundtrip(sql)
 
 
+ALTEROBJECTSCHEMAS = """
+ALTER TABLE t1 SET SCHEMA s2
+
+ALTER FUNCTION func1(int) SET SCHEMA s2
+
+ALTER TYPE t1 SET SCHEMA s2
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in ALTEROBJECTSCHEMAS.split('\n\n')))
+def test_alterobjectschema(sql):
+    roundtrip(sql)
+
 RENAMES = """
 ALTER TABLE told RENAME to tnew
 

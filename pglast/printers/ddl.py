@@ -158,6 +158,22 @@ def alter_enum(node, output):
         output._write_quoted_string(node.newValNeighbor.value)
 
 
+@node_printer('AlterObjectSchemaStmt')
+def alter_object_schema(node, output):
+    objtype = enums.ObjectType(node.objectType.value)
+    output.write("ALTER %s " % OBJECT_NAMES[objtype])
+    if objtype in (enums.ObjectType.OBJECT_TABLE,
+                   enums.ObjectType.OBJECT_VIEW,
+                   enums.ObjectType.OBJECT_FOREIGN_TABLE,
+                   enums.ObjectType.OBJECT_MATVIEW):
+        name = node.relation
+    else:
+        name = node.object
+    output.print_name(name)
+    output.write(" SET SCHEMA ")
+    output.print_name(node.newschema)
+
+
 @node_printer('AlterOwnerStmt')
 def alterowner(node, output):
     output.write("ALTER %s " %
