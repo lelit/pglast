@@ -984,6 +984,33 @@ def test_variables_set(sql):
     roundtrip(sql)
 
 
+VACUUMS = """
+VACUUM t1
+
+VACUUM
+
+VACUUM ANALYZE t1(c1)
+
+ANALYZE T1(c1)
+
+VACUUM FULL FREEZE t1
+
+VACUUM FULL
+
+ANALYZE VERBOSE t2(c1)
+
+VACUUM FULL FREEZE VERBOSE t3
+
+VACUUM (VERBOSE, ANALYZE, DISABLE_PAGE_SKIPPING, FREEZE) t4
+
+ANALYZE
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in VACUUMS.split('\n\n')))
+def test_vacuums(sql):
+    roundtrip(sql)
+
+
 VIEWS = """
 CREATE OR REPLACE VIEW v1 AS
 SELECT 1

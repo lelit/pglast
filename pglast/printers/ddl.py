@@ -1393,6 +1393,46 @@ def role_spec(node, output):
         output.print_name(node.rolename)
 
 
+@node_printer('VacuumStmt')
+def vacuum(node, output):
+    optint = node.options.value
+    options = []
+    if optint & enums.VacuumOption.VACOPT_VACUUM:
+        options.append('VACUUM')
+    if optint & enums.VacuumOption.VACOPT_FULL:
+        options.append('FULL')
+    if optint & enums.VacuumOption.VACOPT_FREEZE:
+        options.append('FREEZE')
+    if optint & enums.VacuumOption.VACOPT_VERBOSE:
+        options.append('VERBOSE')
+    if optint & enums.VacuumOption.VACOPT_ANALYZE:
+        options.append('ANALYZE')
+    if optint & enums.VacuumOption.VACOPT_DISABLE_PAGE_SKIPPING:
+        options.append("DISABLE_PAGE_SKIPPING")
+    if 'VACUUM' in options:
+        output.write('VACUUM ')
+        options.remove('VACUUM')
+    else:
+        output.write('ANALYZE ')
+        options.remove('ANALYZE')
+    if options:
+        # Try so emit a syntax compatible with PG < 11, if possible.
+        if "DISABLE_PAGE_SKIPPING" in options:
+            output.write('(')
+            output.print_list(Node(options, node), ',')
+            output.write(') ')
+        else:
+            for option in options:
+                output.write(option)
+                output.space()
+    if node.relation:
+        output.print_node(node.relation)
+        if node.va_cols:
+            output.write("(")
+            output.print_list(node.va_cols, ",", are_names=True)
+            output.write(")")
+
+
 @node_printer('VariableSetStmt')
 def variableset(node, output):
     if node.args is Missing:
