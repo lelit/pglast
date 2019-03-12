@@ -140,6 +140,21 @@ def test_types(sql):
     roundtrip(sql)
 
 
+DISCARDS = """
+DISCARD ALL
+
+DISCARD PLANS
+
+DISCARD SEQUENCES
+
+DISCARD TEMP
+"""
+
+@pytest.mark.parametrize('sql', (sql.strip() for sql in DISCARDS.split('\n\n')))
+def test_discards(sql):
+    roundtrip(sql)
+
+
 COMMENTS = """\
 COMMENT ON ACCESS METHOD rtree IS 'R-Tree access method'
 

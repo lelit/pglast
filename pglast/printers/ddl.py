@@ -1211,6 +1211,22 @@ def define_stmt_def_elem(node, output):
         raise NotImplementedError
 
 
+@node_printer('DiscardStmt')
+def discard(node, output):
+    output.write('DISCARD ')
+    if node.target == enums.DiscardMode.DISCARD_ALL:
+        output.write('ALL')
+    elif node.target == enums.DiscardMode.DISCARD_PLANS:
+        output.write('PLANS')
+    elif node.target == enums.DiscardMode.DISCARD_SEQUENCES:
+        output.write('SEQUENCES')
+    elif node.target == enums.DiscardMode.DISCARD_TEMP:
+        output.write('TEMP')
+    else:
+        raise NotImplementedError("Invalid target for discard: %s" %
+                                  node.target)
+
+
 @node_printer('DoStmt')
 def do(node, output):
     output.write('DO ')
