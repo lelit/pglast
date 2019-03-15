@@ -677,7 +677,7 @@ def res_target(node, output):
 
 @node_printer('RowExpr')
 def row_expr(node, output):
-    coerciontype = enums.CoercionForm(node.row_format.value)
+    coerciontype = node.row_format.value
     if coerciontype == enums.CoercionForm.COERCE_EXPLICIT_CALL:
         output.write('ROW(')
         output.print_list(node.args)

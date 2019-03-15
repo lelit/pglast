@@ -159,7 +159,7 @@ def alter_enum(node, output):
 
 @node_printer('AlterObjectSchemaStmt')
 def alter_object_schema(node, output):
-    objtype = enums.ObjectType(node.objectType.value)
+    objtype = node.objectType.value
     output.write("ALTER %s " % OBJECT_NAMES[objtype])
     if objtype in (enums.ObjectType.OBJECT_TABLE,
                    enums.ObjectType.OBJECT_VIEW,
@@ -176,7 +176,7 @@ def alter_object_schema(node, output):
 @node_printer('AlterOwnerStmt')
 def alterowner(node, output):
     output.write("ALTER %s " %
-                 OBJECT_NAMES[enums.ObjectType(node.objectType.value)])
+                 OBJECT_NAMES[node.objectType.value])
     output.print_name(node.object)
     output.write('OWNER TO ')
     output.print_node(node.newowner)
@@ -194,7 +194,7 @@ def alterseqstmt(node, output):
 @node_printer('AlterTableStmt')
 def altertable(node, output):
     output.write("ALTER %s " %
-                 OBJECT_NAMES[enums.ObjectType(node.relkind.value)])
+                 OBJECT_NAMES[node.relkind.value])
     if node.missing_ok:
         output.write("IF EXISTS ")
     output.print_node(node.relation)
@@ -203,7 +203,7 @@ def altertable(node, output):
 
 @node_printer('AlterTableCmd')
 def altertablecmd(node, output):
-    cmdtype = enums.AlterTableType(node.subtype.value)
+    cmdtype = node.subtype.value
 
     if cmdtype == enums.AlterTableType.AT_ChangeOwner:
         output.write("OWNER TO ")
@@ -340,7 +340,7 @@ def alter_default_privileges(node, output):
     else:
         output.write(' ALL ')
     output.write(' ON ')
-    objtype = enums.GrantObjectType(action.objtype.value)
+    objtype = action.objtype.value
     output.write('%sS' % GRANT_OBJECT_TYPES_NAMES[objtype])
     output.write(' %s ' % preposition)
     output.print_list(action.grantees, ',')
@@ -925,7 +925,7 @@ def create_table_as_stmt(node, output):
         output.writes('TEMPORARY')
     elif rel.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
         output.writes('UNLOGGED')
-    output.writes(OBJECT_NAMES[enums.ObjectType(node.relkind.value)])
+    output.writes(OBJECT_NAMES[node.relkind.value])
     if node.if_not_exists:
         output.writes('IF NOT EXISTS')
     output.print_node(rel)
@@ -1397,8 +1397,8 @@ def grant_stmt(node, output):
         output.print_list(node.privileges)
     else:
         output.write(" ALL ")
-    object_name = GRANT_OBJECT_TYPES_NAMES[enums.GrantObjectType(node.objtype.value)]
-    granttype = enums.GrantTargetType(node.targtype.value)
+    object_name = GRANT_OBJECT_TYPES_NAMES[node.objtype.value]
+    granttype = node.targtype.value
     if granttype == enums.GrantTargetType.ACL_TARGET_OBJECT:
         output.write(" ON %s " % object_name)
     elif granttype == enums.GrantTargetType.ACL_TARGET_ALL_IN_SCHEMA:
@@ -1467,7 +1467,7 @@ def index_stmt(node, output):
 def lock(node, output):
     output.write('LOCK ')
     output.print_list(node.relations, ',')
-    lock_mode = enums.LockMode(node.mode.value)
+    lock_mode = node.mode.value
     lock_str = LOCK_MODE_NAMES[lock_mode]
     output.write('IN ')
     output.write(lock_str)
@@ -1537,9 +1537,9 @@ def partition_spec(node, output):
 
 @node_printer('RenameStmt')
 def rename(node, output):
-    objtype = enums.ObjectType(node.renameType.value)
+    objtype = node.renameType.value
     if objtype == enums.ObjectType.OBJECT_COLUMN:
-        reltype = enums.ObjectType(node.relationType.value)
+        reltype = node.relationType.value
         output.write("ALTER ")
         output.write(OBJECT_NAMES[reltype])
         output.space()
