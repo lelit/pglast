@@ -3,9 +3,10 @@
 # :Created:   gio 03 ago 2017 14:54:39 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
+from datetime import date
 from os.path import basename, splitext
 from re import match
 import subprocess
@@ -15,10 +16,10 @@ from pycparser import c_ast, c_parser
 
 PY_HEADER = """\
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from %s @ %s
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from %%s @ %%s
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017-%d Lele Gaifax
 #
 
 try:
@@ -27,25 +28,25 @@ except ImportError: #pragma: no cover
     # Python < 3.6
     from aenum import Enum, IntEnum, IntFlag, auto
 
-"""
+""" % date.today().year
 
 RST_HEADER = """\
 .. -*- coding: utf-8 -*-
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017-%d Lele Gaifax
 ..
 
-==========================================================%(extra_decoration)s
- :mod:`pglast.enums.%(mod_name)s` --- Constants extracted from `%(header_fname)s`__
-==========================================================%(extra_decoration)s
+========================================================%%(extra_decoration)s
+ :mod:`pglast.enums.%%(mod_name)s` --- Constants extracted from `%%(header_fname)s`__
+========================================================%%(extra_decoration)s
 
-__ %(header_url)s
+__ %%(header_url)s
 
-.. module:: pglast.enums.%(mod_name)s
-   :synopsis: Constants extracted from %(header_fname)s
-"""
+.. module:: pglast.enums.%%(mod_name)s
+   :synopsis: Constants extracted from %%(header_fname)s
+""" % date.today().year
 
 
 def get_libpg_query_info():
