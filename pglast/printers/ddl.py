@@ -25,7 +25,7 @@ def to_dollar_literal(code):
 
 @node_printer("AccessPriv")
 def access_priv(node, output):
-    output.write(node.priv_name.value)
+    output.print_node(node.priv_name)
 
 
 @node_printer('ColumnDef')
@@ -203,7 +203,7 @@ def altertable(node, output):
 
 @node_printer('AlterTableCmd')
 def altertablecmd(node, output):
-    cmdtype = node.subtype.value
+    cmdtype = node.subtype
 
     if cmdtype == enums.AlterTableType.AT_ChangeOwner:
         output.write("OWNER TO ")
@@ -752,7 +752,8 @@ def create_policy(node, output):
     else:
         output.write("AS RESTRICTIVE ")
     if node.cmd_name:
-        output.write("FOR %s " % node.cmd_name.value)
+        output.write("FOR ")
+        output.print_node(node.cmd_name)
     output.write(" TO ")
     output.print_list(node.roles, ",")
     if node.qual:
@@ -1494,7 +1495,7 @@ def object_with_args(node, output):
 
 @node_printer('PartitionBoundSpec')
 def partition_bound_spec(node, output):
-    if node.strategy.value == enums.PARTITION_STRATEGY_RANGE:
+    if node.strategy == enums.PARTITION_STRATEGY_RANGE:
         output.swrite('FROM (')
         output.print_list(node.lowerdatums)
         output.write(') TO (')
