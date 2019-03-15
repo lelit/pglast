@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:52:45 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 export TOPDIR := $(CURDIR)
@@ -63,9 +63,10 @@ help::
 	@printf "enums\n\textract Python enums from PG sources\n"
 
 PY_ENUMS_DIR := pglast/enums
-PY_ENUMS := $(PY_ENUMS_DIR)/lockoptions.py $(PY_ENUMS_DIR)/nodes.py \
-	    $(PY_ENUMS_DIR)/parsenodes.py $(PY_ENUMS_DIR)/primnodes.py \
-	    $(PY_ENUMS_DIR)/pg_class.py
+PY_ENUMS := $(PY_ENUMS_DIR)/lockoptions.py $(PY_ENUMS_DIR)/lockdefs.py \
+	    $(PY_ENUMS_DIR)/nodes.py $(PY_ENUMS_DIR)/parsenodes.py \
+	    $(PY_ENUMS_DIR)/pg_class.py $(PY_ENUMS_DIR)/pg_trigger.py \
+	    $(PY_ENUMS_DIR)/primnodes.py
 PG_INCLUDE_DIR := libpg_query/src/postgres/include
 
 .PHONY: enums
@@ -74,7 +75,11 @@ enums: $(PY_ENUMS)
 $(PY_ENUMS): tools/extract_enums.py libpg_query/pg_query.h
 $(PY_ENUMS_DIR)/%.py: $(PG_INCLUDE_DIR)/nodes/%.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
+$(PY_ENUMS_DIR)/lockdefs.py: $(PG_INCLUDE_DIR)/storage/lockdefs.h
+	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 $(PY_ENUMS_DIR)/pg_class.py: $(PG_INCLUDE_DIR)/catalog/pg_class.h
+	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
+$(PY_ENUMS_DIR)/pg_trigger.py: $(PG_INCLUDE_DIR)/catalog/pg_trigger.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 
 help::

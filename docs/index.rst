@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 09:56:59 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019 Lele Gaifax
 ..
 
 ========
@@ -58,25 +58,13 @@ __ https://github.com/lfittl/libpg_query/tree/10-latest
   nodes require that knowledge to determine their textual representation
 
 - avoid introducing arbitrary renames of tags and attributes, so what you read in PostgreSQL
-  documentation/sources\ [*]_ is available without the hassle of guessing how a symbol has been
+  documentation/sources is available without the hassle of guessing how a symbol has been
   mapped
 
 - use a `zero copy`__ approach, keeping the original parse tree returned from the underlying
   libpg_query functions and have each node just borrow a reference to its own subtree
 
 __ https://en.wikipedia.org/wiki/Zero-copy
-
-.. [*] Currently what you can find in the following headers:
-
-       - `nodes.h`__
-       - `primnodes.h`__
-       - `parsenodes.h`__
-       - `lockoptions.h`__
-
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/nodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/primnodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/parsenodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/lockoptions.h;hb=HEAD
 
 
 .. toctree::
