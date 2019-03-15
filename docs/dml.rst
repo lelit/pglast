@@ -2,12 +2,12 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018 Lele Gaifax
+.. :Copyright: © 2017-2019 Lele Gaifax
 ..
 
-========================================================
+======================================================
  :mod:`pglast.printers.dml` --- DML printer functions
-========================================================
+======================================================
 
 .. module:: pglast.printers.dml
    :synopsis: DML printer functions
@@ -147,6 +147,12 @@
 .. function:: func_call(node, output)
 
    Pretty print a `node` of type `FuncCall <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L346>`__ to the `output` stream.
+
+.. index:: GroupingSet
+
+.. function:: grouping_set(node, output)
+
+   Pretty print a `node` of type `GroupingSet <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1255>`__ to the `output` stream.
 
 .. index:: IndexElem
 
