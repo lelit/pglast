@@ -115,7 +115,7 @@ Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement\ [*]_
           b,
           c
    FROM sometable
-   WHERE (value IS NULL
+   WHERE ((value IS NULL)
       OR (value = 1))
 
 Customize a :func:`node printer <pglast.printer.node_printer>`
