@@ -72,9 +72,9 @@ def extract_printers(source):
 
     with open(source, encoding='utf-8') as f:
         content = f.read()
-    lines = content.splitlines()
-    while lines:
-        line = lines.pop(0)
+
+    nps = []
+    for line in content.splitlines():
         if line.startswith('@node_printer('):
             m = match(r'''@node_printer\((.*,\s)?['"]([\w_]+)['"]\)''', line)
             scope = m.group(1)
@@ -83,9 +83,13 @@ def extract_printers(source):
                 if isinstance(scope, str):
                     scope = (scope,)
             node = m.group(2)
-            line = lines.pop(0)
-            funcname = line[4:].split('(', 1)[0]
-            printers.append((scope, node, funcname))
+            nps.append((scope, node))
+        elif line.startswith('def '):
+            if nps:
+                funcname = line[4:].split('(', 1)[0]
+                for scope, node in nps:
+                    printers.append((scope, node, funcname))
+                nps = []
 
     return printers
 
