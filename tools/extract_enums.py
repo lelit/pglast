@@ -78,13 +78,22 @@ def extract_toc(header):
     with open(header, encoding='utf-8') as f:
         content = f.read()
 
+    in_typedef_enum = 0
+
     for lineno, line in enumerate(content.splitlines(), 1):
         if line.startswith('typedef enum '):
             m = match(r'typedef enum\s+([\w_]+)', line)
             if m is not None:
                 toc[m.group(1)] = lineno
+        elif line.startswith('typedef enum'):
+            in_typedef_enum = lineno
+        elif in_typedef_enum and line.startswith('} '):
+            m = match(r'}\s+([\w_]+)\s*;', line)
+            if m is not None:
+                toc[m.group(1)] = in_typedef_enum
+                in_typedef_enum = 0
         elif line.startswith('#define'):
-            m = match(r'#define\s+([A-Z_]+)', line)
+            m = match(r'#define\s+([a-zA-Z_]+)', line)
             if m is not None:
                 toc[m.group(1)] = lineno
 
@@ -106,7 +115,7 @@ def extract_enums(toc, source):
                     in_typedef = False
                     typedefs.append(typedef)
                     typedef = []
-            elif line.startswith('typedef enum '):
+            elif line.startswith('typedef enum'):
                 in_typedef = True
                 typedef.append(line)
 
@@ -122,7 +131,7 @@ def extract_defines(source):
 
     for line in source.splitlines():
         if line and line.startswith('#define'):
-            m = match(r"#define\s+([A-Z_]+)\s+\(?(\d+<<\d+|0x\d+|'[a-zA-Z]')\)?", line)
+            m = match(r"#define\s+([a-zA-Z_]+)\s+\(?(\d+\s*<<\s*\d+|(0x)?\d+|'[a-zA-Z]')\)?", line)
             if m is not None:
                 yield m.group(1), m.group(2)
 
@@ -182,19 +191,19 @@ def determine_enum_type_and_value(enum):
     return type, value
 
 
-def write_enum(enum, output):
+def write_enum(name, enum, output):
     enum_type, value_factory = determine_enum_type_and_value(enum)
     output.write('\n')
-    output.write('class %s(%s):\n' % (enum.name, enum_type))
+    output.write('class %s(%s):\n' % (name, enum_type))
     for index, item in enumerate(enum.values.enumerators):
         output.write('    %s = %s\n' % (item.name, value_factory(index, item)))
 
 
-def write_enum_doc(enum, output, toc, url, mod_name):
-    output.write('\n\n.. class:: pglast.enums.%s.%s\n' % (mod_name, enum.name))
-    if enum.name in toc:
+def write_enum_doc(name, enum, output, toc, url, mod_name):
+    output.write('\n\n.. class:: pglast.enums.%s.%s\n' % (mod_name, name))
+    if name in toc:
         output.write('\n   Corresponds to the `%s enum <%s#L%d>`__.\n' %
-                     (enum.name, url, toc[enum.name]))
+                     (name, url, toc[name]))
     for index, item in enumerate(enum.values.enumerators):
         output.write('\n   .. data:: %s\n' % item.name)
 
@@ -216,8 +225,10 @@ def workhorse(args):
 
         for node in sorted(extract_enums(toc, preprocessed),
                            key=lambda x: x.ext[0].name):
-            write_enum(node.ext[0].type.type, output)
-            write_enum_doc(node.ext[0].type.type, rstdoc, toc, header_url, mod_name)
+            enum = node.ext[0].type.type
+            write_enum(enum.name or node.ext[0].name, enum, output)
+            write_enum_doc(enum.name or node.ext[0].name, enum, rstdoc, toc, header_url,
+                           mod_name)
 
         separator_emitted = False
         with open(args.header, encoding='utf-8') as header:
