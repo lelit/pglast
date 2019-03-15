@@ -2,12 +2,12 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017-2019 Lele Gaifax
 ..
 
-================================================================================
+==============================================================================
  :mod:`pglast.enums.parsenodes` --- Constants extracted from `parsenodes.h`__
-================================================================================
+==============================================================================
 
 __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h
 
@@ -355,6 +355,21 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
    .. data:: ACL_TARGET_DEFAULTS
 
 
+.. class:: pglast.enums.parsenodes.GroupingSetKind
+
+   Corresponds to the `GroupingSetKind enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1246>`__.
+
+   .. data:: GROUPING_SET_EMPTY
+
+   .. data:: GROUPING_SET_SIMPLE
+
+   .. data:: GROUPING_SET_ROLLUP
+
+   .. data:: GROUPING_SET_CUBE
+
+   .. data:: GROUPING_SET_SETS
+
+
 .. class:: pglast.enums.parsenodes.ImportForeignSchemaType
 
    Corresponds to the `ImportForeignSchemaType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2284>`__.
@@ -666,6 +681,23 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
    .. data:: VACOPT_DISABLE_PAGE_SKIPPING
 
 
+.. class:: pglast.enums.parsenodes.VariableSetKind
+
+   Corresponds to the `VariableSetKind enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1957>`__.
+
+   .. data:: VAR_SET_VALUE
+
+   .. data:: VAR_SET_DEFAULT
+
+   .. data:: VAR_SET_CURRENT
+
+   .. data:: VAR_SET_MULTI
+
+   .. data:: VAR_RESET
+
+   .. data:: VAR_RESET_ALL
+
+
 .. class:: pglast.enums.parsenodes.ViewCheckOption
 
    Corresponds to the `ViewCheckOption enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2988>`__.
@@ -737,6 +769,14 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 .. data:: ACL_CONNECT
 
    See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L84>`__.
+
+.. data:: N_ACL_RIGHTS
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L85>`__.
+
+.. data:: ACL_NO_RIGHTS
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L86>`__.
 
 .. data:: FRAMEOPTION_NONDEFAULT
 
@@ -834,6 +874,18 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
    See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2073>`__.
 
+.. data:: OPCLASS_ITEM_OPERATOR
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2526>`__.
+
+.. data:: OPCLASS_ITEM_FUNCTION
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2527>`__.
+
+.. data:: OPCLASS_ITEM_STORAGETYPE
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2528>`__.
+
 .. data:: CURSOR_OPT_BINARY
 
    See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2627>`__.
@@ -869,3 +921,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 .. data:: CURSOR_OPT_PARALLEL_OK
 
    See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2636>`__.
+
+.. data:: REINDEXOPT_VERBOSE
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3213>`__.

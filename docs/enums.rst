@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 12:44:33 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019 Lele Gaifax
 ..
 
 ================================================
@@ -17,11 +17,29 @@ This module contains all the constants that are used to give a meaning to some *
 of the various kinds of nodes, extracted automatically from the PostgreSQL headers.
 
 
+From ``include/catalog``
+========================
+
+.. toctree::
+
+   pg_class
+   pg_trigger
+
+
+From ``include/nodes``
+======================
+
 .. toctree::
 
    lockoptions
-   pg_class
-
-   primnodes
    nodes
    parsenodes
+   primnodes
+
+
+From ``include/storage``
+========================
+
+.. toctree::
+
+   lockdefs

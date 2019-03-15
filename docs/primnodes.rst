@@ -2,12 +2,12 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017-2019 Lele Gaifax
 ..
 
-==============================================================================
+============================================================================
  :mod:`pglast.enums.primnodes` --- Constants extracted from `primnodes.h`__
-==============================================================================
+============================================================================
 
 __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h
 
@@ -201,3 +201,25 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
    .. data:: IS_XMLSERIALIZE
 
    .. data:: IS_DOCUMENT
+
+
+.. class:: pglast.enums.primnodes.XmlOptionType
+
+   Corresponds to the `XmlOptionType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L1133>`__.
+
+   .. data:: XMLOPTION_DOCUMENT
+
+   .. data:: XMLOPTION_CONTENT
+
+
+.. data:: INNER_VAR
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L153>`__.
+
+.. data:: OUTER_VAR
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L154>`__.
+
+.. data:: INDEX_VAR
+
+   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L155>`__.

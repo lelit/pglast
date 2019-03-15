@@ -2,7 +2,7 @@
 # :Project:   pglast -- DO NOT EDIT: automatically extracted from primnodes.h @ 10-1.0.2-0-gd710cb0
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017-2019 Lele Gaifax
 #
 
 try:
@@ -99,3 +99,16 @@ class XmlExprOp(IntEnum):
     IS_XMLROOT = auto()
     IS_XMLSERIALIZE = auto()
     IS_DOCUMENT = auto()
+
+class XmlOptionType(IntEnum):
+    XMLOPTION_DOCUMENT = 0
+    XMLOPTION_CONTENT = auto()
+
+
+# #define-ed constants
+
+INNER_VAR = 65000
+
+OUTER_VAR = 65001
+
+INDEX_VAR = 65002

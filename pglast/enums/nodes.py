@@ -2,7 +2,7 @@
 # :Project:   pglast -- DO NOT EDIT: automatically extracted from nodes.h @ 10-1.0.2-0-gd710cb0
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017-2019 Lele Gaifax
 #
 
 try:

@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 from .. import enums
@@ -115,14 +115,14 @@ GRANT_OBJECT_TYPES_NAMES = {
 }
 
 LOCK_MODE_NAMES = {
-    enums.LockMode.LM_AccessShareLock: 'ACCESS SHARE',
-    enums.LockMode.LM_RowShareLock: 'ROW SHARE',
-    enums.LockMode.LM_RowExclusiveLock: 'ROW EXCLUSIVE',
-    enums.LockMode.LM_ShareUpdateExclusiveLock: 'SHARE UPDATE EXCLUSIVE',
-    enums.LockMode.LM_ShareLock: 'SHARE',
-    enums.LockMode.LM_ShareRowExclusiveLock: 'SHARE ROW EXCLUSIVE',
-    enums.LockMode.LM_ExclusiveLock: 'EXCLUSIVE',
-    enums.LockMode.LM_AccessExclusiveLock: 'ACCESS EXCLUSIVE'
+    enums.AccessShareLock: 'ACCESS SHARE',
+    enums.RowShareLock: 'ROW SHARE',
+    enums.RowExclusiveLock: 'ROW EXCLUSIVE',
+    enums.ShareUpdateExclusiveLock: 'SHARE UPDATE EXCLUSIVE',
+    enums.ShareLock: 'SHARE',
+    enums.ShareRowExclusiveLock: 'SHARE ROW EXCLUSIVE',
+    enums.ExclusiveLock: 'EXCLUSIVE',
+    enums.AccessExclusiveLock: 'ACCESS EXCLUSIVE'
 }
 
 
@@ -979,17 +979,16 @@ def create_trig_stmt(node, output):
                  ('CONSTRAINT' if node.isconstraint else ''))
     output.print_name(node.trigname)
 
-    if (node.timing or 0) & enums.TriggerConstants.TRIGGER_TYPE_BEFORE:
+    if (node.timing or 0) & enums.TRIGGER_TYPE_BEFORE:
         output.write(" BEFORE ")
-    elif (node.timing or 0) & enums.TriggerConstants.TRIGGER_TYPE_INSTEAD:
+    elif (node.timing or 0) & enums.TRIGGER_TYPE_INSTEAD:
         output.write(" INSTEAD OF ")
     else:
         output.write(" AFTER ")
     event_strings = []
 
     for ev in ('INSERT', 'DELETE', 'UPDATE'):
-        bitmask = getattr(enums.TriggerConstants, 'TRIGGER_TYPE_%s' % ev)
-
+        bitmask = getattr(enums, 'TRIGGER_TYPE_%s' % ev)
         if node.events & bitmask:
             event_strings.append(ev)
     output.write(" OR ".join(event_strings))

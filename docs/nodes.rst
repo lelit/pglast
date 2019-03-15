@@ -2,12 +2,12 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017 Lele Gaifax
+.. :Copyright: © 2017-2019 Lele Gaifax
 ..
 
-======================================================================
+====================================================================
  :mod:`pglast.enums.nodes` --- Constants extracted from `nodes.h`__
-======================================================================
+====================================================================
 
 __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h
 

@@ -2,7 +2,7 @@
 # :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 10-1.0.2-0-gd710cb0
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017 Lele Gaifax
+# :Copyright: © 2017-2019 Lele Gaifax
 #
 
 try:
@@ -176,6 +176,13 @@ class GrantTargetType(IntEnum):
     ACL_TARGET_ALL_IN_SCHEMA = auto()
     ACL_TARGET_DEFAULTS = auto()
 
+class GroupingSetKind(IntEnum):
+    GROUPING_SET_EMPTY = 0
+    GROUPING_SET_SIMPLE = auto()
+    GROUPING_SET_ROLLUP = auto()
+    GROUPING_SET_CUBE = auto()
+    GROUPING_SET_SETS = auto()
+
 class ImportForeignSchemaType(IntEnum):
     FDW_IMPORT_SCHEMA_ALL = 0
     FDW_IMPORT_SCHEMA_LIMIT_TO = auto()
@@ -324,6 +331,14 @@ class VacuumOption(IntFlag):
     VACOPT_SKIPTOAST = 1 << 6
     VACOPT_DISABLE_PAGE_SKIPPING = 1 << 7
 
+class VariableSetKind(IntEnum):
+    VAR_SET_VALUE = 0
+    VAR_SET_DEFAULT = auto()
+    VAR_SET_CURRENT = auto()
+    VAR_SET_MULTI = auto()
+    VAR_RESET = auto()
+    VAR_RESET_ALL = auto()
+
 class ViewCheckOption(IntEnum):
     NO_CHECK_OPTION = 0
     LOCAL_CHECK_OPTION = auto()
@@ -361,6 +376,10 @@ ACL_CREATE = 1<<9
 ACL_CREATE_TEMP = 1<<10
 
 ACL_CONNECT = 1<<11
+
+N_ACL_RIGHTS = 12
+
+ACL_NO_RIGHTS = 0
 
 FRAMEOPTION_NONDEFAULT = 0x00001
 
@@ -410,6 +429,12 @@ FKCONSTR_MATCH_PARTIAL = 'p'
 
 FKCONSTR_MATCH_SIMPLE = 's'
 
+OPCLASS_ITEM_OPERATOR = 1
+
+OPCLASS_ITEM_FUNCTION = 2
+
+OPCLASS_ITEM_STORAGETYPE = 3
+
 CURSOR_OPT_BINARY = 0x0001
 
 CURSOR_OPT_SCROLL = 0x0002
@@ -427,3 +452,5 @@ CURSOR_OPT_GENERIC_PLAN = 0x0040
 CURSOR_OPT_CUSTOM_PLAN = 0x0080
 
 CURSOR_OPT_PARALLEL_OK = 0x0100
+
+REINDEXOPT_VERBOSE = 1 << 0
