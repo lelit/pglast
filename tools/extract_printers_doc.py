@@ -3,9 +3,10 @@
 # :Created:   gio 09 nov 2017 12:56:35 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
+from datetime import date
 from ast import literal_eval
 from os.path import basename, splitext
 from re import match
@@ -17,16 +18,16 @@ RST_HEADER = """\
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018 Lele Gaifax
+.. :Copyright: © 2017-%d Lele Gaifax
 ..
 
-==================================================%(extra_decoration)s
- :mod:`pglast.printers.%(mod_name)s` --- %(mod_nick_name)s printer functions
-==================================================%(extra_decoration)s
+================================================%%(extra_decoration)s
+ :mod:`pglast.printers.%%(mod_name)s` --- %%(mod_nick_name)s printer functions
+================================================%%(extra_decoration)s
 
-.. module:: pglast.printers.%(mod_name)s
-   :synopsis: %(mod_nick_name)s printer functions
-"""
+.. module:: pglast.printers.%%(mod_name)s
+   :synopsis: %%(mod_nick_name)s printer functions
+""" % date.today().year
 
 
 def get_libpg_query_info():
