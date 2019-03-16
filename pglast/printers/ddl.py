@@ -98,50 +98,23 @@ OBJECT_NAMES = {
     enums.ObjectType.OBJECT_VIEW: 'VIEW',
 }
 
-GRANT_OBJECT_TYPES_NAMES = {
-    enums.GrantObjectType.ACL_OBJECT_COLUMN: 'COLUMN',
-    enums.GrantObjectType.ACL_OBJECT_RELATION: 'TABLE',
-    enums.GrantObjectType.ACL_OBJECT_SEQUENCE: 'SEQUENCE',
-    enums.GrantObjectType.ACL_OBJECT_DATABASE: 'DATABASE',
-    enums.GrantObjectType.ACL_OBJECT_DOMAIN: 'DOMAIN',
-    enums.GrantObjectType.ACL_OBJECT_FDW: 'FOREIGN DATA WRAPPER',
-    enums.GrantObjectType.ACL_OBJECT_FOREIGN_SERVER: 'SERVER',
-    enums.GrantObjectType.ACL_OBJECT_FUNCTION: 'FUNCTION',
-    enums.GrantObjectType.ACL_OBJECT_LANGUAGE: 'LANGUAGE',
-    enums.GrantObjectType.ACL_OBJECT_LARGEOBJECT: 'LARGEOBJECT',
-    enums.GrantObjectType.ACL_OBJECT_NAMESPACE: 'SCHEMA',
-    enums.GrantObjectType.ACL_OBJECT_TABLESPACE: 'TABLESPACE',
-    enums.GrantObjectType.ACL_OBJECT_TYPE: 'TYPE'
-}
-
-LOCK_MODE_NAMES = {
-    enums.AccessShareLock: 'ACCESS SHARE',
-    enums.RowShareLock: 'ROW SHARE',
-    enums.RowExclusiveLock: 'ROW EXCLUSIVE',
-    enums.ShareUpdateExclusiveLock: 'SHARE UPDATE EXCLUSIVE',
-    enums.ShareLock: 'SHARE',
-    enums.ShareRowExclusiveLock: 'SHARE ROW EXCLUSIVE',
-    enums.ExclusiveLock: 'EXCLUSIVE',
-    enums.AccessExclusiveLock: 'ACCESS EXCLUSIVE'
-}
-
 
 @node_printer('AlterDatabaseStmt')
-def alter_database(node, output):
+def alter_database_stmt(node, output):
     output.write("ALTER DATABASE ")
     output.print_name(node.dbname)
     output.print_list(node.options, ' ')
 
 
 @node_printer('AlterDatabaseSetStmt')
-def alter_database_set(node, output):
+def alter_database_set_stmt(node, output):
     output.write("ALTER DATABASE ")
     output.print_name(node.dbname)
     output.print_node(node.setstmt)
 
 
 @node_printer('AlterEnumStmt')
-def alter_enum(node, output):
+def alter_enum_stmt(node, output):
     output.write("ALTER TYPE ")
     output.print_name(node.typeName)
     if node.newVal:
@@ -158,9 +131,10 @@ def alter_enum(node, output):
 
 
 @node_printer('AlterObjectSchemaStmt')
-def alter_object_schema(node, output):
+def alter_object_schema_stmt(node, output):
     objtype = node.objectType.value
-    output.write("ALTER %s " % OBJECT_NAMES[objtype])
+    output.write("ALTER ")
+    output.writes(OBJECT_NAMES[objtype])
     if objtype in (enums.ObjectType.OBJECT_TABLE,
                    enums.ObjectType.OBJECT_VIEW,
                    enums.ObjectType.OBJECT_FOREIGN_TABLE,
@@ -174,27 +148,26 @@ def alter_object_schema(node, output):
 
 
 @node_printer('AlterOwnerStmt')
-def alterowner(node, output):
-    output.write("ALTER %s " %
-                 OBJECT_NAMES[node.objectType.value])
+def alter_owner_stmt(node, output):
+    output.write("ALTER ")
+    output.writes(OBJECT_NAMES[node.objectType.value])
     output.print_name(node.object)
     output.write('OWNER TO ')
     output.print_node(node.newowner)
 
 
 @node_printer('AlterSeqStmt')
-def alterseqstmt(node, output):
+def alter_seq_stmt(node, output):
     output.write("ALTER SEQUENCE ")
     output.print_node(node.sequence)
-
     if node.options:
         output.print_list(node.options, '')
 
 
 @node_printer('AlterTableStmt')
-def altertable(node, output):
-    output.write("ALTER %s " %
-                 OBJECT_NAMES[node.relkind.value])
+def alter_table_stmt(node, output):
+    output.write("ALTER ")
+    output.writes(OBJECT_NAMES[node.relkind.value])
     if node.missing_ok:
         output.write("IF EXISTS ")
     output.print_node(node.relation)
@@ -202,7 +175,7 @@ def altertable(node, output):
 
 
 @node_printer('AlterTableCmd')
-def altertablecmd(node, output):
+def alter_table_cmd(node, output):
     cmdtype = node.subtype
 
     if cmdtype == enums.AlterTableType.AT_ChangeOwner:
@@ -214,26 +187,25 @@ def altertablecmd(node, output):
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
         output.write(" SET STATISTICS ")
-        # def is a reserved keyword
-        output.print_node(getattr(node, 'def'))
+        output.print_node(node['def'])
         return
 
     if cmdtype == enums.AlterTableType.AT_ColumnDefault:
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
-        if getattr(node, 'def'):
+        if node['def']:
             output.write(" SET DEFAULT ")
-            output.print_node(getattr(node, 'def'))
+            output.print_node(node['def'])
         else:
             output.write(" DROP DEFAULT ")
         return
 
     if cmdtype == enums.AlterTableType.AT_AddConstraint:
         output.write("ADD ")
-        constraint = getattr(node, 'def')
+        constraint = node['def']
         output.print_node(constraint)
         # Patch this into pglast.printers.ddl.constraint
-
+        # TODO: understand the meaning of the prev comment
         return
 
     if cmdtype == enums.AlterTableType.AT_DropConstraint:
@@ -256,7 +228,7 @@ def altertablecmd(node, output):
         output.write("ADD COLUMN ")
         if node.missing_ok:
             output.write('IF NOT EXISTS ')
-        output.print_node(getattr(node, 'def'))
+        output.print_node(node['def'])
         return
 
     if cmdtype == enums.AlterTableType.AT_ValidateConstraint:
@@ -274,8 +246,8 @@ def altertablecmd(node, output):
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
         output.write(" TYPE ")
-        columndef = getattr(node, 'def')
-        output.print_node(getattr(node, 'def'))
+        columndef = node['def']
+        output.print_node(columndef)
         if columndef.raw_default:
             output.write('USING ')
             output.print_node(columndef.raw_default)
@@ -309,8 +281,25 @@ def altertablecmd(node, output):
     raise NotImplementedError("Unsupported alter table cmd: %s" % cmdtype)  # pragma: nocover
 
 
+GRANT_OBJECT_TYPES_NAMES = {
+    enums.GrantObjectType.ACL_OBJECT_COLUMN: 'COLUMN',
+    enums.GrantObjectType.ACL_OBJECT_RELATION: 'TABLE',
+    enums.GrantObjectType.ACL_OBJECT_SEQUENCE: 'SEQUENCE',
+    enums.GrantObjectType.ACL_OBJECT_DATABASE: 'DATABASE',
+    enums.GrantObjectType.ACL_OBJECT_DOMAIN: 'DOMAIN',
+    enums.GrantObjectType.ACL_OBJECT_FDW: 'FOREIGN DATA WRAPPER',
+    enums.GrantObjectType.ACL_OBJECT_FOREIGN_SERVER: 'SERVER',
+    enums.GrantObjectType.ACL_OBJECT_FUNCTION: 'FUNCTION',
+    enums.GrantObjectType.ACL_OBJECT_LANGUAGE: 'LANGUAGE',
+    enums.GrantObjectType.ACL_OBJECT_LARGEOBJECT: 'LARGEOBJECT',
+    enums.GrantObjectType.ACL_OBJECT_NAMESPACE: 'SCHEMA',
+    enums.GrantObjectType.ACL_OBJECT_TABLESPACE: 'TABLESPACE',
+    enums.GrantObjectType.ACL_OBJECT_TYPE: 'TYPE'
+}
+
+
 @node_printer('AlterDefaultPrivilegesStmt')
-def alter_default_privileges(node, output):
+def alter_default_privileges_stmt(node, output):
     output.write('ALTER DEFAULT PRIVILEGES ')
     roles = None
     schemas = None
@@ -340,21 +329,21 @@ def alter_default_privileges(node, output):
     else:
         output.write(' ALL ')
     output.write(' ON ')
-    objtype = action.objtype.value
-    output.write('%sS' % GRANT_OBJECT_TYPES_NAMES[objtype])
-    output.write(' %s ' % preposition)
+    output.write(GRANT_OBJECT_TYPES_NAMES[action.objtype.value])
+    output.write('S ')
+    output.writes(preposition)
     output.print_list(action.grantees, ',')
 
 
 @node_printer('AlterFunctionStmt')
-def alter_function(node, output):
+def alter_function_stmt(node, output):
     output.write('ALTER FUNCTION ')
     output.print_node(node.func)
     output.print_list(node.actions, ' ')
 
 
 @node_printer('AlterRoleStmt')
-def alter_role(node, output):
+def alter_role_stmt(node, output):
     mapping = {
         'canlogin': ('LOGIN', True),
         'password': ('PASSWORD', False),
@@ -375,18 +364,18 @@ def alter_role(node, output):
             if opt.arg.ival == 1:
                 output.write(optname)
             else:
-                output.write('NO%s' % optname)
+                output.write('NO')
+                output.write(optname)
         else:
-            output.write(optname)
-            output.space()
+            output.writes(optname)
             output.print_node(opt.arg)
 
 
 @node_printer('ClusterStmt')
-def cluster(node, output):
+def cluster_stmt(node, output):
     output.write('CLUSTER ')
     if node.verbose:
-        output.write("VERBOSE ")
+        output.write('VERBOSE ')
     output.print_name(node.relation)
     output.write(' USING ')
     output.print_name(node.indexname)
@@ -438,7 +427,7 @@ def comment_stmt(node, output):
 
 
 @node_printer('CompositeTypeStmt')
-def composite_type(node, output):
+def composite_type_stmt(node, output):
     output.write("CREATE TYPE ")
     node.typevar.parse_tree['inh'] = True
     output.print_node(node.typevar)
@@ -492,9 +481,9 @@ def constraint(node, output):
             output.write(clauses.string_value)
         output.write(')')
     elif node.contype == ct.CONSTR_ATTR_DEFERRABLE:
-        output.swrite("DEFERRABLE ")
+        output.swrite('DEFERRABLE')
     elif node.contype == ct.CONSTR_ATTR_DEFERRED:
-        output.swrite("INITIALLY DEFERRED")
+        output.swrite('INITIALLY DEFERRED')
     elif node.contype == ct.CONSTR_FOREIGN:
         if node.fk_attrs:
             output.swrite('FOREIGN KEY ')
@@ -535,9 +524,9 @@ def constraint(node, output):
             elif node.fk_upd_action == enums.FKCONSTR_ACTION_SETDEFAULT:
                 output.write('SET DEFAULT')
         if node.deferrable:
-            output.write(" DEFERRABLE ")
+            output.swrite('DEFERRABLE')
             if node.initdeferred:
-                output.write(" INITIALLY DEFERRED")
+                output.swrite('INITIALLY DEFERRED')
 
     if node.indexname:
         output.write(' USING INDEX ')
@@ -622,8 +611,8 @@ def create_domain_stmt(node, output):
 
 
 @node_printer('CreateEnumStmt')
-def createenum(node, output):
-    output.write("CREATE TYPE ")
+def create_enum_stmt(node, output):
+    output.write('CREATE TYPE ')
     output.print_name(node.typeName)
     output.write('AS ENUM (')
     output.print_list(node.vals)
@@ -742,7 +731,7 @@ def create_foreign_table_stmt_def_elem(node, output):
 
 
 @node_printer("CreatePolicyStmt")
-def create_policy(node, output):
+def create_policy_stmt(node, output):
     output.write("CREATE POLICY ")
     output.print_name(node.policy_name)
     output.write(" ON ")
@@ -976,14 +965,17 @@ def create_table_as_stmt(node, output):
 
 @node_printer('CreateTrigStmt')
 def create_trig_stmt(node, output):
-    output.write("CREATE %s TRIGGER " %
-                 ('CONSTRAINT' if node.isconstraint else ''))
+    output.write('CREATE ')
+    if node.isconstraint:
+        output.write('CONSTRAINT ')
+    output.write('TRIGGER ')
     output.print_name(node.trigname)
 
-    if (node.timing or 0) & enums.TRIGGER_TYPE_BEFORE:
-        output.write(" BEFORE ")
-    elif (node.timing or 0) & enums.TRIGGER_TYPE_INSTEAD:
-        output.write(" INSTEAD OF ")
+    if node.timing:
+        if node.timing & enums.TRIGGER_TYPE_BEFORE:
+            output.write(" BEFORE ")
+        elif node.timing & enums.TRIGGER_TYPE_INSTEAD:
+            output.write(" INSTEAD OF ")
     else:
         output.write(" AFTER ")
     event_strings = []
@@ -1001,15 +993,15 @@ def create_trig_stmt(node, output):
     output.print_node(node.relation)
 
     if node.deferrable:
-        output.write(" DEFERRABLE ")
+        output.swrite("DEFERRABLE ")
         if node.initdeferred:
-            output.write(" INITIALLY DEFERRED ")
+            output.write("INITIALLY DEFERRED ")
 
     if node.transitionRels:
-        output.write(" REFERENCING ")
+        output.swrite("REFERENCING ")
         output.print_list(node.transitionRels, " ")
 
-    output.write(" FOR EACH ")
+    output.swrite("FOR EACH ")
 
     if node.row:
         output.write("ROW ")
@@ -1020,10 +1012,10 @@ def create_trig_stmt(node, output):
         output.write("WHEN (")
         output.print_node(node.whenClause)
         output.write(") ")
+
     output.write("EXECUTE PROCEDURE ")
     output.print_name(node.funcname)
     output.write("(")
-
     if node.args:
         output.print_list(node.args, ",")
     output.write(")")
@@ -1039,7 +1031,7 @@ def trigger_transition(node, output):
 
 
 @node_printer('CreatedbStmt')
-def createdb_stmt(node, output):
+def create_db_stmt(node, output):
     output.write('CREATE DATABASE ')
     output.print_name(node.dbname)
     if node.options:
@@ -1065,7 +1057,7 @@ def create_db_stmt_def_elem(node, output):
 
 
 @node_printer('CreateFunctionStmt')
-def createfunction_stmt(node, output):
+def create_function_stmt(node, output):
     output.write("CREATE ")
     if node.replace:
         output.write("OR REPLACE ")
@@ -1233,7 +1225,7 @@ def define_stmt_def_elem(node, output):
 
 
 @node_printer('DiscardStmt')
-def discard(node, output):
+def discard_stmt(node, output):
     output.write('DISCARD ')
     if node.target == enums.DiscardMode.DISCARD_ALL:
         output.write('ALL')
@@ -1249,7 +1241,7 @@ def discard(node, output):
 
 
 @node_printer('DoStmt')
-def do(node, output):
+def do_stmt(node, output):
     output.write('DO ')
     output.print_list(node.args, sep=" ", standalone_items=True)
 
@@ -1411,7 +1403,7 @@ def grant_stmt(node, output):
 
 
 @node_printer('GrantRoleStmt')
-def grant_role(node, output):
+def grant_role_stmt(node, output):
     if node.is_grant:
         output.write("GRANT ")
         preposition = "TO"
@@ -1420,7 +1412,9 @@ def grant_role(node, output):
         preposition = "FROM"
 
     output.print_list(node.granted_roles, ',')
-    output.write(' %s ' % preposition)
+    output.write(' ')
+    output.write(preposition)
+    output.write(' ')
     output.print_list(node.grantee_roles, ',')
     if node.admin_opt:
         output.write("WITH ADMIN OPTION")
@@ -1463,8 +1457,20 @@ def index_stmt(node, output):
             output.print_node(node.whereClause)
 
 
+LOCK_MODE_NAMES = {
+    enums.AccessShareLock: 'ACCESS SHARE',
+    enums.RowShareLock: 'ROW SHARE',
+    enums.RowExclusiveLock: 'ROW EXCLUSIVE',
+    enums.ShareUpdateExclusiveLock: 'SHARE UPDATE EXCLUSIVE',
+    enums.ShareLock: 'SHARE',
+    enums.ShareRowExclusiveLock: 'SHARE ROW EXCLUSIVE',
+    enums.ExclusiveLock: 'EXCLUSIVE',
+    enums.AccessExclusiveLock: 'ACCESS EXCLUSIVE'
+}
+
+
 @node_printer('LockStmt')
-def lock(node, output):
+def lock_stmt(node, output):
     output.write('LOCK ')
     output.print_list(node.relations, ',')
     lock_mode = node.mode.value
@@ -1473,7 +1479,7 @@ def lock(node, output):
     output.write(lock_str)
     output.write(' MODE')
     if node.nowait:
-        output.write(" NOWAIT")
+        output.write(' NOWAIT')
 
 
 @node_printer('ObjectWithArgs')
@@ -1536,7 +1542,7 @@ def partition_spec(node, output):
 
 
 @node_printer('RenameStmt')
-def rename(node, output):
+def rename_stmt(node, output):
     objtype = node.renameType.value
     if objtype == enums.ObjectType.OBJECT_COLUMN:
         reltype = node.relationType.value
@@ -1577,7 +1583,7 @@ def role_spec(node, output):
 
 
 @node_printer('VacuumStmt')
-def vacuum(node, output):
+def vacuum_stmt(node, output):
     optint = node.options.value
     options = []
     if optint & enums.VacuumOption.VACOPT_VACUUM:
@@ -1617,7 +1623,7 @@ def vacuum(node, output):
 
 
 @node_printer('VariableSetStmt')
-def variableset(node, output):
+def variable_set_stmt(node, output):
     if node.args is Missing:
         output.write("RESET ")
         if node.name:
@@ -1632,7 +1638,7 @@ def variableset(node, output):
 
 
 @node_printer('ViewStmt')
-def viewstmt(node, output):
+def view_stmt(node, output):
     output.write("CREATE ")
     if node.replace:
         output.write("OR REPLACE ")
