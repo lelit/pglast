@@ -1655,5 +1655,8 @@ def view_stmt(node, output):
         output.write('OR REPLACE ')
     output.write('VIEW ')
     output.print_node(node.view)
-    output.write(' AS\n')
-    output.print_node(node.query)
+    output.newline()
+    output.space(2)
+    output.write('AS ')
+    with output.push_indent():
+        output.print_node(node.query)
