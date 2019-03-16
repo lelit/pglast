@@ -300,7 +300,7 @@ GRANT_OBJECT_TYPES_NAMES = {
 
 @node_printer('AlterDefaultPrivilegesStmt')
 def alter_default_privileges_stmt(node, output):
-    output.write('ALTER DEFAULT PRIVILEGES ')
+    output.writes('ALTER DEFAULT PRIVILEGES')
     roles = None
     schemas = None
     for opt in node.options:
@@ -312,27 +312,38 @@ def alter_default_privileges_stmt(node, output):
         else:
             raise NotImplementedError('Option not implemented: %s' % optname)
     if roles is not None:
-        output.write('FOR ROLE ')
-        output.print_list(roles, ',')
+        output.newline()
+        with output.push_indent(2):
+            output.write('FOR ROLE ')
+            output.print_list(roles, ',')
     if schemas is not None:
-        output.write('IN SCHEMA ')
-        output.print_list(schemas, ',', are_names=True)
+        output.newline()
+        with output.push_indent(2):
+            output.write('IN SCHEMA ')
+            output.print_list(schemas, ',', are_names=True)
     action = node.action
-    if action.is_grant:
-        output.write('GRANT ')
-        preposition = 'TO'
-    else:
-        output.write('REVOKE ')
-        preposition = 'FROM'
-    if action.privileges:
-        output.print_list(action.privileges, ',')
-    else:
-        output.write(' ALL ')
-    output.write(' ON ')
-    output.write(GRANT_OBJECT_TYPES_NAMES[action.objtype.value])
-    output.write('S ')
-    output.writes(preposition)
-    output.print_list(action.grantees, ',')
+    output.newline()
+    with output.push_indent(2):
+        if action.is_grant:
+            output.write('GRANT ')
+            preposition = 'TO'
+        else:
+            output.write('REVOKE ')
+            preposition = 'FROM'
+        if action.grant_option:
+            output.write('GRANT OPTION FOR ')
+        if action.privileges:
+            output.print_list(action.privileges, ',')
+        else:
+            output.write('ALL')
+        output.write(' ON ')
+        output.write(GRANT_OBJECT_TYPES_NAMES[action.objtype.value])
+        output.write('S ')
+        output.writes(preposition)
+        output.print_list(action.grantees, ',')
+        if action.behavior == enums.DropBehavior.DROP_CASCADE:
+            output.newline()
+            output.swrite('CASCADE')
 
 
 @node_printer('AlterFunctionStmt')

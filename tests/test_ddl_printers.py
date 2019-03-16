@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:57:55 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 from ast import literal_eval
@@ -1463,6 +1463,20 @@ CREATE FOREIGN TABLE measurement_y2016m07
 CREATE FOREIGN TABLE measurement_y2016m07 PARTITION OF measurement
   FOR VALUES FROM ('2016-07-01') TO ('2016-08-01')
   SERVER server_07
+
+ALTER DEFAULT PRIVILEGES FOR ROLE admin REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC
+=
+ALTER DEFAULT PRIVILEGES
+  FOR ROLE admin
+  REVOKE execute ON FUNCTIONS FROM PUBLIC
+
+ALTER DEFAULT PRIVILEGES FOR ROLE role1 REVOKE GRANT OPTION FOR ALL
+ON SCHEMAS FROM PUBLIC CASCADE
+=
+ALTER DEFAULT PRIVILEGES
+  FOR ROLE role1
+  REVOKE GRANT OPTION FOR ALL ON SCHEMAS FROM PUBLIC
+  CASCADE
 """
 
 
