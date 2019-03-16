@@ -130,6 +130,78 @@ def alter_enum_stmt(node, output):
         output._write_quoted_string(node.newValNeighbor.value)
 
 
+GRANT_OBJECT_TYPES_NAMES = {
+    enums.GrantObjectType.ACL_OBJECT_COLUMN: 'COLUMN',
+    enums.GrantObjectType.ACL_OBJECT_RELATION: 'TABLE',
+    enums.GrantObjectType.ACL_OBJECT_SEQUENCE: 'SEQUENCE',
+    enums.GrantObjectType.ACL_OBJECT_DATABASE: 'DATABASE',
+    enums.GrantObjectType.ACL_OBJECT_DOMAIN: 'DOMAIN',
+    enums.GrantObjectType.ACL_OBJECT_FDW: 'FOREIGN DATA WRAPPER',
+    enums.GrantObjectType.ACL_OBJECT_FOREIGN_SERVER: 'SERVER',
+    enums.GrantObjectType.ACL_OBJECT_FUNCTION: 'FUNCTION',
+    enums.GrantObjectType.ACL_OBJECT_LANGUAGE: 'LANGUAGE',
+    enums.GrantObjectType.ACL_OBJECT_LARGEOBJECT: 'LARGEOBJECT',
+    enums.GrantObjectType.ACL_OBJECT_NAMESPACE: 'SCHEMA',
+    enums.GrantObjectType.ACL_OBJECT_TABLESPACE: 'TABLESPACE',
+    enums.GrantObjectType.ACL_OBJECT_TYPE: 'TYPE'
+}
+
+
+@node_printer('AlterDefaultPrivilegesStmt')
+def alter_default_privileges_stmt(node, output):
+    output.writes('ALTER DEFAULT PRIVILEGES')
+    roles = None
+    schemas = None
+    for opt in node.options:
+        optname = opt.defname.value
+        if optname == 'roles':
+            roles = opt.arg
+        elif optname == 'schemas':
+            schemas = opt.arg
+        else:
+            raise NotImplementedError('Option not implemented: %s' % optname)
+    if roles is not None:
+        output.newline()
+        with output.push_indent(2):
+            output.write('FOR ROLE ')
+            output.print_list(roles, ',')
+    if schemas is not None:
+        output.newline()
+        with output.push_indent(2):
+            output.write('IN SCHEMA ')
+            output.print_list(schemas, ',', are_names=True)
+    action = node.action
+    output.newline()
+    with output.push_indent(2):
+        if action.is_grant:
+            output.write('GRANT ')
+            preposition = 'TO'
+        else:
+            output.write('REVOKE ')
+            preposition = 'FROM'
+        if action.grant_option:
+            output.write('GRANT OPTION FOR ')
+        if action.privileges:
+            output.print_list(action.privileges, ',')
+        else:
+            output.write('ALL')
+        output.write(' ON ')
+        output.write(GRANT_OBJECT_TYPES_NAMES[action.objtype.value])
+        output.write('S ')
+        output.writes(preposition)
+        output.print_list(action.grantees, ',')
+        if action.behavior == enums.DropBehavior.DROP_CASCADE:
+            output.newline()
+            output.swrite('CASCADE')
+
+
+@node_printer('AlterFunctionStmt')
+def alter_function_stmt(node, output):
+    output.write('ALTER FUNCTION ')
+    output.print_node(node.func)
+    output.print_list(node.actions, ' ')
+
+
 @node_printer('AlterObjectSchemaStmt')
 def alter_object_schema_stmt(node, output):
     objtype = node.objectType.value
@@ -154,6 +226,35 @@ def alter_owner_stmt(node, output):
     output.print_name(node.object)
     output.write('OWNER TO ')
     output.print_node(node.newowner)
+
+
+@node_printer('AlterRoleStmt')
+def alter_role_stmt(node, output):
+    mapping = {
+        'canlogin': ('LOGIN', True),
+        'password': ('PASSWORD', False),
+        'inherit': ('INHERIT', True),
+        'connectionlimit': ('CONNECTION LIMIT', False),
+        'validUntil': ('VALID UNTIL', False),
+        'superuser': ('SUPERUSER', True),
+        'createrole': ('CREATEROLE', True),
+        'isreplication': ('REPLICATION', True),
+        'createdb': ('CREATEDB', True),
+        'bypassrls': ('BYPASSRLS', True)
+    }
+    output.write('ALTER ROLE ')
+    output.print_node(node.role)
+    for opt in node.options:
+        optname, isbool = mapping[opt.defname.value]
+        if isbool:
+            if opt.arg.ival == 1:
+                output.write(optname)
+            else:
+                output.write('NO')
+                output.write(optname)
+        else:
+            output.writes(optname)
+            output.print_node(opt.arg)
 
 
 @node_printer('AlterSeqStmt')
@@ -279,107 +380,6 @@ def alter_table_cmd(node, output):
         return
 
     raise NotImplementedError("Unsupported alter table cmd: %s" % cmdtype)  # pragma: nocover
-
-
-GRANT_OBJECT_TYPES_NAMES = {
-    enums.GrantObjectType.ACL_OBJECT_COLUMN: 'COLUMN',
-    enums.GrantObjectType.ACL_OBJECT_RELATION: 'TABLE',
-    enums.GrantObjectType.ACL_OBJECT_SEQUENCE: 'SEQUENCE',
-    enums.GrantObjectType.ACL_OBJECT_DATABASE: 'DATABASE',
-    enums.GrantObjectType.ACL_OBJECT_DOMAIN: 'DOMAIN',
-    enums.GrantObjectType.ACL_OBJECT_FDW: 'FOREIGN DATA WRAPPER',
-    enums.GrantObjectType.ACL_OBJECT_FOREIGN_SERVER: 'SERVER',
-    enums.GrantObjectType.ACL_OBJECT_FUNCTION: 'FUNCTION',
-    enums.GrantObjectType.ACL_OBJECT_LANGUAGE: 'LANGUAGE',
-    enums.GrantObjectType.ACL_OBJECT_LARGEOBJECT: 'LARGEOBJECT',
-    enums.GrantObjectType.ACL_OBJECT_NAMESPACE: 'SCHEMA',
-    enums.GrantObjectType.ACL_OBJECT_TABLESPACE: 'TABLESPACE',
-    enums.GrantObjectType.ACL_OBJECT_TYPE: 'TYPE'
-}
-
-
-@node_printer('AlterDefaultPrivilegesStmt')
-def alter_default_privileges_stmt(node, output):
-    output.writes('ALTER DEFAULT PRIVILEGES')
-    roles = None
-    schemas = None
-    for opt in node.options:
-        optname = opt.defname.value
-        if optname == 'roles':
-            roles = opt.arg
-        elif optname == 'schemas':
-            schemas = opt.arg
-        else:
-            raise NotImplementedError('Option not implemented: %s' % optname)
-    if roles is not None:
-        output.newline()
-        with output.push_indent(2):
-            output.write('FOR ROLE ')
-            output.print_list(roles, ',')
-    if schemas is not None:
-        output.newline()
-        with output.push_indent(2):
-            output.write('IN SCHEMA ')
-            output.print_list(schemas, ',', are_names=True)
-    action = node.action
-    output.newline()
-    with output.push_indent(2):
-        if action.is_grant:
-            output.write('GRANT ')
-            preposition = 'TO'
-        else:
-            output.write('REVOKE ')
-            preposition = 'FROM'
-        if action.grant_option:
-            output.write('GRANT OPTION FOR ')
-        if action.privileges:
-            output.print_list(action.privileges, ',')
-        else:
-            output.write('ALL')
-        output.write(' ON ')
-        output.write(GRANT_OBJECT_TYPES_NAMES[action.objtype.value])
-        output.write('S ')
-        output.writes(preposition)
-        output.print_list(action.grantees, ',')
-        if action.behavior == enums.DropBehavior.DROP_CASCADE:
-            output.newline()
-            output.swrite('CASCADE')
-
-
-@node_printer('AlterFunctionStmt')
-def alter_function_stmt(node, output):
-    output.write('ALTER FUNCTION ')
-    output.print_node(node.func)
-    output.print_list(node.actions, ' ')
-
-
-@node_printer('AlterRoleStmt')
-def alter_role_stmt(node, output):
-    mapping = {
-        'canlogin': ('LOGIN', True),
-        'password': ('PASSWORD', False),
-        'inherit': ('INHERIT', True),
-        'connectionlimit': ('CONNECTION LIMIT', False),
-        'validUntil': ('VALID UNTIL', False),
-        'superuser': ('SUPERUSER', True),
-        'createrole': ('CREATEROLE', True),
-        'isreplication': ('REPLICATION', True),
-        'createdb': ('CREATEDB', True),
-        'bypassrls': ('BYPASSRLS', True)
-    }
-    output.write('ALTER ROLE ')
-    output.print_node(node.role)
-    for opt in node.options:
-        optname, isbool = mapping[opt.defname.value]
-        if isbool:
-            if opt.arg.ival == 1:
-                output.write(optname)
-            else:
-                output.write('NO')
-                output.write(optname)
-        else:
-            output.writes(optname)
-            output.print_node(opt.arg)
 
 
 @node_printer('ClusterStmt')
