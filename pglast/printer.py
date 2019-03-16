@@ -348,6 +348,8 @@ class RawStream(OutputStream):
 
         if isinstance(node, Scalar):
             self._print_scalar(node, is_name, is_symbol)
+        elif is_name and isinstance(node, (List, list)):
+            self.print_list(node, '.', standalone_items=False, are_names=True)
         else:
             parent_node_tag = node.parent_node and node.parent_node.node_tag
             printer = get_printer_for_node_tag(parent_node_tag, node.node_tag)
