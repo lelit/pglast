@@ -26,73 +26,73 @@
 
 .. index:: AlterDatabaseStmt
 
-.. function:: alter_database(node, output)
+.. function:: alter_database_stmt(node, output)
 
    Pretty print a `node` of type `AlterDatabaseStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3031>`__ to the `output` stream.
 
 .. index:: AlterDatabaseSetStmt
 
-.. function:: alter_database_set(node, output)
+.. function:: alter_database_set_stmt(node, output)
 
    Pretty print a `node` of type `AlterDatabaseSetStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3038>`__ to the `output` stream.
 
 .. index:: AlterEnumStmt
 
-.. function:: alter_enum(node, output)
+.. function:: alter_enum_stmt(node, output)
 
    Pretty print a `node` of type `AlterEnumStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2973>`__ to the `output` stream.
 
 .. index:: AlterObjectSchemaStmt
 
-.. function:: alter_object_schema(node, output)
+.. function:: alter_object_schema_stmt(node, output)
 
    Pretty print a `node` of type `AlterObjectSchemaStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2827>`__ to the `output` stream.
 
 .. index:: AlterOwnerStmt
 
-.. function:: alterowner(node, output)
+.. function:: alter_owner_stmt(node, output)
 
    Pretty print a `node` of type `AlterOwnerStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2841>`__ to the `output` stream.
 
 .. index:: AlterSeqStmt
 
-.. function:: alterseqstmt(node, output)
+.. function:: alter_seq_stmt(node, output)
 
    Pretty print a `node` of type `AlterSeqStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2474>`__ to the `output` stream.
 
 .. index:: AlterTableStmt
 
-.. function:: altertable(node, output)
+.. function:: alter_table_stmt(node, output)
 
    Pretty print a `node` of type `AlterTableStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1687>`__ to the `output` stream.
 
 .. index:: AlterTableCmd
 
-.. function:: altertablecmd(node, output)
+.. function:: alter_table_cmd(node, output)
 
    Pretty print a `node` of type `AlterTableCmd <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1774>`__ to the `output` stream.
 
 .. index:: AlterDefaultPrivilegesStmt
 
-.. function:: alter_default_privileges(node, output)
+.. function:: alter_default_privileges_stmt(node, output)
 
    Pretty print a `node` of type `AlterDefaultPrivilegesStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1921>`__ to the `output` stream.
 
 .. index:: AlterFunctionStmt
 
-.. function:: alter_function(node, output)
+.. function:: alter_function_stmt(node, output)
 
    Pretty print a `node` of type `AlterFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2765>`__ to the `output` stream.
 
 .. index:: AlterRoleStmt
 
-.. function:: alter_role(node, output)
+.. function:: alter_role_stmt(node, output)
 
    Pretty print a `node` of type `AlterRoleStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2436>`__ to the `output` stream.
 
 .. index:: ClusterStmt
 
-.. function:: cluster(node, output)
+.. function:: cluster_stmt(node, output)
 
    Pretty print a `node` of type `ClusterStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3070>`__ to the `output` stream.
 
@@ -104,7 +104,7 @@
 
 .. index:: CompositeTypeStmt
 
-.. function:: composite_type(node, output)
+.. function:: composite_type_stmt(node, output)
 
    Pretty print a `node` of type `CompositeTypeStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2940>`__ to the `output` stream.
 
@@ -140,7 +140,7 @@
 
 .. index:: CreateEnumStmt
 
-.. function:: createenum(node, output)
+.. function:: create_enum_stmt(node, output)
 
    Pretty print a `node` of type `CreateEnumStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2951>`__ to the `output` stream.
 
@@ -198,7 +198,7 @@
 
 .. index:: CreatePolicyStmt
 
-.. function:: create_policy(node, output)
+.. function:: create_policy_stmt(node, output)
 
    Pretty print a `node` of type `CreatePolicyStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2306>`__ to the `output` stream.
 
@@ -254,7 +254,7 @@
 
 .. index:: CreatedbStmt
 
-.. function:: createdb_stmt(node, output)
+.. function:: create_db_stmt(node, output)
 
    Pretty print a `node` of type `CreatedbStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3020>`__ to the `output` stream.
 
@@ -267,7 +267,7 @@
 
 .. index:: CreateFunctionStmt
 
-.. function:: createfunction_stmt(node, output)
+.. function:: create_function_stmt(node, output)
 
    Pretty print a `node` of type `CreateFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2735>`__ to the `output` stream.
 
@@ -313,13 +313,13 @@
 
 .. index:: DiscardStmt
 
-.. function:: discard(node, output)
+.. function:: discard_stmt(node, output)
 
    Pretty print a `node` of type `DiscardStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3178>`__ to the `output` stream.
 
 .. index:: DoStmt
 
-.. function:: do(node, output)
+.. function:: do_stmt(node, output)
 
    Pretty print a `node` of type `DoStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2778>`__ to the `output` stream.
 
@@ -379,7 +379,7 @@
 
 .. index:: GrantRoleStmt
 
-.. function:: grant_role(node, output)
+.. function:: grant_role_stmt(node, output)
 
    Pretty print a `node` of type `GrantRoleStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1906>`__ to the `output` stream.
 
@@ -391,7 +391,7 @@
 
 .. index:: LockStmt
 
-.. function:: lock(node, output)
+.. function:: lock_stmt(node, output)
 
    Pretty print a `node` of type `LockStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3188>`__ to the `output` stream.
 
@@ -427,7 +427,7 @@
 
 .. index:: RenameStmt
 
-.. function:: rename(node, output)
+.. function:: rename_stmt(node, output)
 
    Pretty print a `node` of type `RenameStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2796>`__ to the `output` stream.
 
@@ -439,18 +439,18 @@
 
 .. index:: VacuumStmt
 
-.. function:: vacuum(node, output)
+.. function:: vacuum_stmt(node, output)
 
    Pretty print a `node` of type `VacuumStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3098>`__ to the `output` stream.
 
 .. index:: VariableSetStmt
 
-.. function:: variableset(node, output)
+.. function:: variable_set_stmt(node, output)
 
    Pretty print a `node` of type `VariableSetStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1967>`__ to the `output` stream.
 
 .. index:: ViewStmt
 
-.. function:: viewstmt(node, output)
+.. function:: view_stmt(node, output)
 
    Pretty print a `node` of type `ViewStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2995>`__ to the `output` stream.
