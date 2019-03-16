@@ -3,12 +3,13 @@
 # :Created:   gio 03 ago 2017 14:53:18 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 BUMPER := $(VENVDIR)/bin/bump_version
 VERSION_TXT := version.txt
 VERSION = $(shell cat $(VERSION_TXT))
+MOD_INIT := pglast/__init__.py
 
 help::
 	@printf "\nRelease management\n"
@@ -40,6 +41,7 @@ help::
 
 .PHONY: tag-release
 tag-release: assert-master-branch check-release-date check-long-description-markup
+	sed -i "s/__version__ = '.*'/__version__ = 'v$(VERSION)'/" $(MOD_INIT)
 	git commit -a -m "Release $(VERSION)"
 	git tag -a -m "Version $(VERSION)" v$(VERSION)
 

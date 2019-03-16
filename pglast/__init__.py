@@ -12,6 +12,14 @@ from .node import Missing, Node
 from .parser import get_postgresql_version, parse_plpgsql, parse_sql
 
 
+# This is injected automatically at release time
+__version__ = 'v1.2'
+"Package's version."
+
+__author__ = 'Lele Gaifax <lele@metapensiero.it>'
+"Package's author."
+
+
 def prettify(statement, safety_belt=True, **options):
     """Render given `statement` into a prettified format.
 

@@ -13,7 +13,7 @@
 This chapter briefly explains some implementation detail.
 
 .. automodule:: pglast
-   :members: Error, prettify, split
+   :members: Error, prettify, split, __author__, __version__
 
 .. toctree::
    :maxdepth: 2
