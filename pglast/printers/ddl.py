@@ -184,7 +184,7 @@ def alter_default_privileges_stmt(node, output):
         if action.privileges:
             output.print_list(action.privileges, ',')
         else:
-            output.write('ALL')
+            output.write('ALL PRIVILEGES')
         output.write(' ON ')
         output.write(GRANT_OBJECT_TYPES_NAMES[action.objtype.value])
         output.write('S ')
@@ -1399,18 +1399,27 @@ def grant_stmt(node, output):
     if node.privileges:
         output.print_list(node.privileges)
     else:
-        output.write(' ALL ')
+        output.write('ALL PRIVILEGES')
     object_name = GRANT_OBJECT_TYPES_NAMES[node.objtype.value]
-    granttype = node.targtype.value
-    if granttype == enums.GrantTargetType.ACL_TARGET_OBJECT:
-        output.write(' ON %s ' % object_name)
-    elif granttype == enums.GrantTargetType.ACL_TARGET_ALL_IN_SCHEMA:
-        output.write(' ON ALL %sS' % object_name)
-        output.write(' IN SCHEMA ')
-    output.print_list(node.objects, are_names=True)
-
-    output.write(' %s ' % preposition)
-    output.print_list(node.grantees, are_names=True)
+    target = node.targtype
+    output.newline()
+    output.space(2)
+    with output.push_indent():
+        if target == enums.GrantTargetType.ACL_TARGET_OBJECT:
+            output.write('ON ')
+            output.writes(object_name)
+        elif target == enums.GrantTargetType.ACL_TARGET_ALL_IN_SCHEMA:
+            output.write('ON ALL ')
+            output.write(object_name)
+            output.writes('S IN SCHEMA')
+        output.print_list(node.objects, are_names=True)
+        output.newline()
+        output.write(preposition)
+        output.space()
+        output.print_list(node.grantees, are_names=True)
+        if node.grant_option:
+            output.newline()
+            output.write('WITH GRANT OPTION')
 
 
 @node_printer('GrantRoleStmt')
