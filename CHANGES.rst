@@ -3,6 +3,18 @@
 Changes
 -------
 
+1.3 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Many new printers (`PR #14`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/14
+
+- Expose the package version as pglast.__version__ (`issue #12`__)
+
+  __ https://github.com/lelit/pglast/issues/12
+
+
 1.2 (2019-02-13)
 ~~~~~~~~~~~~~~~~
 
