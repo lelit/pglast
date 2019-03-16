@@ -364,18 +364,18 @@ def func_call(node, output):
 @node_printer('GroupingSet')
 def grouping_set(node, output):
     if node.kind == enums.GroupingSetKind.GROUPING_SET_CUBE:
-        output.write("CUBE (")
+        output.write('CUBE (')
     elif node.kind == enums.GroupingSetKind.GROUPING_SET_ROLLUP:
-        output.write("ROLLUP (")
+        output.write('ROLLUP (')
     elif node.kind == enums.GroupingSetKind.GROUPING_SET_SETS:
-        output.write("GROUPING SETS (")
+        output.write('GROUPING SETS (')
     # No idea how to reach those last two branches
     elif node.kind == enums.GroupingSetKind.GROUPING_SET_SIMPLE:
-        output.write("SIMPLE (")
+        output.write('SIMPLE (')
     else:
-        raise NotImplementedError("Empty groupingsetkind not implemented")
-    output.print_list(node.content, ",")
-    output.write(")")
+        raise NotImplementedError('Empty groupingsetkind not implemented')
+    output.print_list(node.content, ',')
+    output.write(')')
 
 
 @node_printer('IndexElem')
@@ -859,13 +859,13 @@ def sub_link(node, output):
         output.write(' IN ')
     elif node.subLinkType == slt.ROWCOMPARE_SUBLINK:  # pragma: no cover
         # FIXME: figure out how the get here
-        raise NotImplementedError("SubLink of type %s not supported yet"
+        raise NotImplementedError('SubLink of type %s not supported yet'
                                   % slt.ROWCOMPARE_SUBLINK)
     elif node.subLinkType == slt.EXPR_SUBLINK:
         pass
     elif node.subLinkType == slt.MULTIEXPR_SUBLINK:  # pragma: no cover
         # FIXME: figure out how the get here
-        raise NotImplementedError("SubLink of type %s not supported yet"
+        raise NotImplementedError('SubLink of type %s not supported yet'
                                   % slt.MULTIEXPR_SUBLINK)
     elif node.subLinkType == slt.ARRAY_SUBLINK:
         output.write('ARRAY')
@@ -880,16 +880,16 @@ def sub_link(node, output):
 def transaction_stmt(node, output):
     tsk = enums.TransactionStmtKind
     output.write({
-        tsk.TRANS_STMT_BEGIN: "BEGIN",
-        tsk.TRANS_STMT_START: "START TRANSACTION",
-        tsk.TRANS_STMT_COMMIT: "COMMIT",
-        tsk.TRANS_STMT_ROLLBACK: "ROLLBACK",
-        tsk.TRANS_STMT_SAVEPOINT: "SAVEPOINT",
-        tsk.TRANS_STMT_RELEASE: "RELEASE",
-        tsk.TRANS_STMT_ROLLBACK_TO: "ROLLBACK TO",
-        tsk.TRANS_STMT_PREPARE: "PREPARE TRANSACTION",
-        tsk.TRANS_STMT_COMMIT_PREPARED: "COMMIT PREPARED",
-        tsk.TRANS_STMT_ROLLBACK_PREPARED: "ROLLBACK PREPARED",
+        tsk.TRANS_STMT_BEGIN: 'BEGIN',
+        tsk.TRANS_STMT_START: 'START TRANSACTION',
+        tsk.TRANS_STMT_COMMIT: 'COMMIT',
+        tsk.TRANS_STMT_ROLLBACK: 'ROLLBACK',
+        tsk.TRANS_STMT_SAVEPOINT: 'SAVEPOINT',
+        tsk.TRANS_STMT_RELEASE: 'RELEASE',
+        tsk.TRANS_STMT_ROLLBACK_TO: 'ROLLBACK TO',
+        tsk.TRANS_STMT_PREPARE: 'PREPARE TRANSACTION',
+        tsk.TRANS_STMT_COMMIT_PREPARED: 'COMMIT PREPARED',
+        tsk.TRANS_STMT_ROLLBACK_PREPARED: 'ROLLBACK PREPARED',
     }[node.kind.value])
     if node.options:
         output.write(' ')
@@ -954,19 +954,19 @@ SECOND = 1 << 12
 
 # Map interval's typmod to string representation
 interval_ranges = {
-    YEAR:                         "year",
-    MONTH:                        "month",
-    DAY:                          "day",
-    HOUR:                         "hour",
-    MINUTE:                       "minute",
-    SECOND:                       "second",
-    YEAR | MONTH:                 "year to month",
-    DAY | HOUR:                   "day to hour",
-    DAY | HOUR | MINUTE:          "day to minute",
-    DAY | HOUR | MINUTE | SECOND: "day to second",
-    HOUR | MINUTE:                "hour to minute",
-    HOUR | MINUTE | SECOND:       "hour to second",
-    MINUTE | SECOND:              "minute to second",
+    YEAR:                         'year',
+    MONTH:                        'month',
+    DAY:                          'day',
+    HOUR:                         'hour',
+    MINUTE:                       'minute',
+    SECOND:                       'second',
+    YEAR | MONTH:                 'year to month',
+    DAY | HOUR:                   'day to hour',
+    DAY | HOUR | MINUTE:          'day to minute',
+    DAY | HOUR | MINUTE | SECOND: 'day to second',
+    HOUR | MINUTE:                'hour to minute',
+    HOUR | MINUTE | SECOND:       'hour to second',
+    MINUTE | SECOND:              'minute to second',
 }
 del MONTH, YEAR, DAY, HOUR, MINUTE, SECOND
 

@@ -319,11 +319,11 @@ def alter_default_privileges_stmt(node, output):
         output.print_list(schemas, ',', are_names=True)
     action = node.action
     if action.is_grant:
-        output.write("GRANT ")
-        preposition = "TO"
+        output.write('GRANT ')
+        preposition = 'TO'
     else:
-        output.write("REVOKE ")
-        preposition = "FROM"
+        output.write('REVOKE ')
+        preposition = 'FROM'
     if action.privileges:
         output.print_list(action.privileges, ',')
     else:
@@ -352,9 +352,9 @@ def alter_role_stmt(node, output):
         'validUntil': ('VALID UNTIL', False),
         'superuser': ('SUPERUSER', True),
         'createrole': ('CREATEROLE', True),
-        "isreplication": ('REPLICATION', True),
-        "createdb": ('CREATEDB', True),
-        "bypassrls": ('BYPASSRLS', True)
+        'isreplication': ('REPLICATION', True),
+        'createdb': ('CREATEDB', True),
+        'bypassrls': ('BYPASSRLS', True)
     }
     output.write('ALTER ROLE ')
     output.print_node(node.role)
@@ -428,12 +428,12 @@ def comment_stmt(node, output):
 
 @node_printer('CompositeTypeStmt')
 def composite_type_stmt(node, output):
-    output.write("CREATE TYPE ")
+    output.write('CREATE TYPE ')
     node.typevar.parse_tree['inh'] = True
     output.print_node(node.typevar)
-    output.write(" AS (")
-    output.print_list(node.coldeflist, ", ")
-    output.write(")")
+    output.write(' AS (')
+    output.print_list(node.coldeflist, ', ')
+    output.write(')')
     node.typevar.parse_tree.pop('inh')
 
 
@@ -730,29 +730,29 @@ def create_foreign_table_stmt_def_elem(node, output):
     output.print_node(node.arg)
 
 
-@node_printer("CreatePolicyStmt")
+@node_printer('CreatePolicyStmt')
 def create_policy_stmt(node, output):
-    output.write("CREATE POLICY ")
+    output.write('CREATE POLICY ')
     output.print_name(node.policy_name)
-    output.write(" ON ")
+    output.write(' ON ')
     output.print_node(node.table)
     if node.permissive:
-        output.write("AS PERMISSIVE ")
+        output.write('AS PERMISSIVE ')
     else:
-        output.write("AS RESTRICTIVE ")
+        output.write('AS RESTRICTIVE ')
     if node.cmd_name:
-        output.write("FOR ")
+        output.write('FOR ')
         output.print_node(node.cmd_name)
-    output.write(" TO ")
-    output.print_list(node.roles, ",")
+    output.write(' TO ')
+    output.print_list(node.roles, ',')
     if node.qual:
-        output.write(" USING (")
+        output.write(' USING (')
         output.print_node(node.qual)
-        output.write(")")
+        output.write(')')
     if node.with_check:
-        output.write(" WITH CHECK (")
+        output.write(' WITH CHECK (')
         output.print_node(node.with_check)
-        output.write(")")
+        output.write(')')
 
 
 @node_printer('CreateSchemaStmt')
@@ -973,60 +973,60 @@ def create_trig_stmt(node, output):
 
     if node.timing:
         if node.timing & enums.TRIGGER_TYPE_BEFORE:
-            output.write(" BEFORE ")
+            output.write(' BEFORE ')
         elif node.timing & enums.TRIGGER_TYPE_INSTEAD:
-            output.write(" INSTEAD OF ")
+            output.write(' INSTEAD OF ')
     else:
-        output.write(" AFTER ")
+        output.write(' AFTER ')
     event_strings = []
 
     for ev in ('INSERT', 'DELETE', 'UPDATE'):
         bitmask = getattr(enums, 'TRIGGER_TYPE_%s' % ev)
         if node.events & bitmask:
             event_strings.append(ev)
-    output.write(" OR ".join(event_strings))
+    output.write(' OR '.join(event_strings))
 
     if node.columns:
-        output.write(" OF ")
-        output.print_list(node.columns, ", ", are_names=True)
-    output.write(" ON ")
+        output.write(' OF ')
+        output.print_list(node.columns, ', ', are_names=True)
+    output.write(' ON ')
     output.print_node(node.relation)
 
     if node.deferrable:
-        output.swrite("DEFERRABLE ")
+        output.swrite('DEFERRABLE ')
         if node.initdeferred:
-            output.write("INITIALLY DEFERRED ")
+            output.write('INITIALLY DEFERRED ')
 
     if node.transitionRels:
-        output.swrite("REFERENCING ")
-        output.print_list(node.transitionRels, " ")
+        output.swrite('REFERENCING ')
+        output.print_list(node.transitionRels, ' ')
 
-    output.swrite("FOR EACH ")
+    output.swrite('FOR EACH ')
 
     if node.row:
-        output.write("ROW ")
+        output.write('ROW ')
     else:
-        output.write("STATEMENT ")
+        output.write('STATEMENT ')
 
     if node.whenClause:
-        output.write("WHEN (")
+        output.write('WHEN (')
         output.print_node(node.whenClause)
-        output.write(") ")
+        output.write(') ')
 
-    output.write("EXECUTE PROCEDURE ")
+    output.write('EXECUTE PROCEDURE ')
     output.print_name(node.funcname)
-    output.write("(")
+    output.write('(')
     if node.args:
-        output.print_list(node.args, ",")
-    output.write(")")
+        output.print_list(node.args, ',')
+    output.write(')')
 
 
-@node_printer("TriggerTransition")
+@node_printer('TriggerTransition')
 def trigger_transition(node, output):
     if node.isNew:
-        output.write("NEW TABLE AS ")
+        output.write('NEW TABLE AS ')
     else:
-        output.write("OLD TABLE AS ")
+        output.write('OLD TABLE AS ')
     output.print_name(node.name)
 
 
@@ -1058,12 +1058,12 @@ def create_db_stmt_def_elem(node, output):
 
 @node_printer('CreateFunctionStmt')
 def create_function_stmt(node, output):
-    output.write("CREATE ")
+    output.write('CREATE ')
     if node.replace:
-        output.write("OR REPLACE ")
-    output.write("FUNCTION ")
+        output.write('OR REPLACE ')
+    output.write('FUNCTION ')
     output.print_name(node.funcname)
-    output.write("(")
+    output.write('(')
     real_params = node.parameters
     # We need a very special case if we have a RETURNS TABLE():
     # Take out the parameters from the parameter list, and inject them
@@ -1093,17 +1093,17 @@ def create_function_stmt(node, output):
 
     if real_params is not Missing:
         output.print_list(real_params)
-    output.write(")")
-    output.write(" RETURNS ")
+    output.write(')')
+    output.write(' RETURNS ')
 
     if node.returnType.setof and record_def:
         # Do not treat them as argument
-        output.write(" TABLE (")
+        output.write(' TABLE (')
         output.print_list(record_def, ',', standalone_items=False)
-        output.write(")")
+        output.write(')')
     else:
         output.print_node(node.returnType)
-    output.print_list(node.options, sep=" ", standalone_items=True)
+    output.print_list(node.options, sep=' ', standalone_items=True)
 
 
 @node_printer('CreateFunctionStmt', 'DefElem')
@@ -1117,7 +1117,7 @@ def function_option(node, output):
 
         if isinstance(node.arg, List) and len(node.arg) > 1:
             # We are in the weird C case
-            output.write("AS ")
+            output.write('AS ')
             output.print_list(node.arg)
             return
 
@@ -1128,14 +1128,14 @@ def function_option(node, output):
 
     if option == 'security':
         if node.arg.ival == 1:
-            output.write(" SECURITY DEFINER ")
+            output.write(' SECURITY DEFINER ')
         else:
-            output.write(" SECURITY INVOKER ")
+            output.write(' SECURITY INVOKER ')
         return
 
     if option == 'strict':
         if node.arg.ival == 1:
-            output.write(" STRICT ")
+            output.write(' STRICT ')
         return
 
     if option == 'volatility':
@@ -1143,7 +1143,7 @@ def function_option(node, output):
         return
 
     if option == 'parallel':
-        output.write(" PARALLEL SAFE ")
+        output.write(' PARALLEL SAFE ')
         return
 
     if option == 'set':
@@ -1151,7 +1151,7 @@ def function_option(node, output):
         return
 
     output.print_node(node.defname)
-    output.write(" ")
+    output.write(' ')
     output.print_node(node.arg, is_symbol=True)
 
 
@@ -1236,14 +1236,14 @@ def discard_stmt(node, output):
     elif node.target == enums.DiscardMode.DISCARD_TEMP:
         output.write('TEMP')
     else:
-        raise NotImplementedError("Invalid target for discard: %s" %
+        raise NotImplementedError('Invalid target for discard: %s' %
                                   node.target)
 
 
 @node_printer('DoStmt')
 def do_stmt(node, output):
     output.write('DO ')
-    output.print_list(node.args, sep=" ", standalone_items=True)
+    output.print_list(node.args, sep=' ', standalone_items=True)
 
 
 @node_printer('DropdbStmt')
@@ -1377,39 +1377,39 @@ def function_parameter(node, output):
         output.print_node(node.defexpr)
 
 
-@node_printer("GrantStmt")
+@node_printer('GrantStmt')
 def grant_stmt(node, output):
     if node.is_grant:
-        output.write("GRANT ")
-        preposition = "TO"
+        output.write('GRANT ')
+        preposition = 'TO'
     else:
-        output.write("REVOKE ")
-        preposition = "FROM"
+        output.write('REVOKE ')
+        preposition = 'FROM'
     if node.privileges:
         output.print_list(node.privileges)
     else:
-        output.write(" ALL ")
+        output.write(' ALL ')
     object_name = GRANT_OBJECT_TYPES_NAMES[node.objtype.value]
     granttype = node.targtype.value
     if granttype == enums.GrantTargetType.ACL_TARGET_OBJECT:
-        output.write(" ON %s " % object_name)
+        output.write(' ON %s ' % object_name)
     elif granttype == enums.GrantTargetType.ACL_TARGET_ALL_IN_SCHEMA:
-        output.write(" ON ALL %sS" % object_name)
-        output.write(" IN SCHEMA ")
+        output.write(' ON ALL %sS' % object_name)
+        output.write(' IN SCHEMA ')
     output.print_list(node.objects, are_names=True)
 
-    output.write(" %s " % preposition)
+    output.write(' %s ' % preposition)
     output.print_list(node.grantees, are_names=True)
 
 
 @node_printer('GrantRoleStmt')
 def grant_role_stmt(node, output):
     if node.is_grant:
-        output.write("GRANT ")
-        preposition = "TO"
+        output.write('GRANT ')
+        preposition = 'TO'
     else:
-        output.write("REVOKE ")
-        preposition = "FROM"
+        output.write('REVOKE ')
+        preposition = 'FROM'
 
     output.print_list(node.granted_roles, ',')
     output.write(' ')
@@ -1417,7 +1417,7 @@ def grant_role_stmt(node, output):
     output.write(' ')
     output.print_list(node.grantee_roles, ',')
     if node.admin_opt:
-        output.write("WITH ADMIN OPTION")
+        output.write('WITH ADMIN OPTION')
 
 
 @node_printer('IndexStmt')
@@ -1546,17 +1546,17 @@ def rename_stmt(node, output):
     objtype = node.renameType.value
     if objtype == enums.ObjectType.OBJECT_COLUMN:
         reltype = node.relationType.value
-        output.write("ALTER ")
+        output.write('ALTER ')
         output.write(OBJECT_NAMES[reltype])
         output.space()
         output.print_node(node.relation)
-        output.write(" RENAME COLUMN ")
+        output.write(' RENAME COLUMN ')
         output.print_name(node.subname)
-        output.write(" TO ")
+        output.write(' TO ')
         output.print_name(node.newname)
         return
     objtype_name = OBJECT_NAMES[objtype]
-    output.write("ALTER ")
+    output.write('ALTER ')
     output.write(objtype_name)
     output.space()
     if objtype in (enums.ObjectType.OBJECT_SCHEMA,
@@ -1566,7 +1566,7 @@ def rename_stmt(node, output):
         output.print_node(node.relation)
     else:
         output.print_node(node.object)
-    output.write(" RENAME TO ")
+    output.write(' RENAME TO ')
     output.print_name(node.newname)
 
 
@@ -1597,7 +1597,7 @@ def vacuum_stmt(node, output):
     if optint & enums.VacuumOption.VACOPT_ANALYZE:
         options.append('ANALYZE')
     if optint & enums.VacuumOption.VACOPT_DISABLE_PAGE_SKIPPING:
-        options.append("DISABLE_PAGE_SKIPPING")
+        options.append('DISABLE_PAGE_SKIPPING')
     if 'VACUUM' in options:
         output.write('VACUUM ')
         options.remove('VACUUM')
@@ -1606,7 +1606,7 @@ def vacuum_stmt(node, output):
         options.remove('ANALYZE')
     if options:
         # Try so emit a syntax compatible with PG < 11, if possible.
-        if "DISABLE_PAGE_SKIPPING" in options:
+        if 'DISABLE_PAGE_SKIPPING' in options:
             output.write('(')
             output.print_list(Node(options, node), ',')
             output.write(') ')
@@ -1617,32 +1617,32 @@ def vacuum_stmt(node, output):
     if node.relation:
         output.print_node(node.relation)
         if node.va_cols:
-            output.write("(")
-            output.print_list(node.va_cols, ",", are_names=True)
-            output.write(")")
+            output.write('(')
+            output.print_list(node.va_cols, ',', are_names=True)
+            output.write(')')
 
 
 @node_printer('VariableSetStmt')
 def variable_set_stmt(node, output):
     if node.args is Missing:
-        output.write("RESET ")
+        output.write('RESET ')
         if node.name:
             output.print_name(node.name)
         else:
-            output.write("ALL")
+            output.write('ALL')
     else:
-        output.write("SET ")
+        output.write('SET ')
         output.print_name(node.name)
-        output.write(" = ")
+        output.write(' = ')
         output.print_list(node.args)
 
 
 @node_printer('ViewStmt')
 def view_stmt(node, output):
-    output.write("CREATE ")
+    output.write('CREATE ')
     if node.replace:
-        output.write("OR REPLACE ")
-    output.write("VIEW ")
+        output.write('OR REPLACE ')
+    output.write('VIEW ')
     output.print_node(node.view)
-    output.write(" AS\n")
+    output.write(' AS\n')
     output.print_node(node.query)
