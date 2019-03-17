@@ -6,6 +6,7 @@ include docs/*.py
 include tests/*.py
 include tools/*.py
 recursive-include pglast *.py *.pyx
+recursive-include tests *.sql
 exclude libpg_query/*
 include libpglast/LICENSE libpg_query/Makefile libpg_query/pg_query.h
 recursive-include libpg_query/src *.c *.h
