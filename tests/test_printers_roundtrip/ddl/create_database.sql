@@ -1,0 +1,8 @@
+CREATE DATABASE sales OWNER salesapp TABLESPACE salesspace
+
+CREATE DATABASE music LC_COLLATE 'sv_SE.utf8' LC_CTYPE 'sv_SE.utf8' TEMPLATE template0
+
+CREATE DATABASE music2
+    LC_COLLATE 'sv_SE.iso885915' LC_CTYPE 'sv_SE.iso885915'
+    ENCODING LATIN9
+    TEMPLATE template0
