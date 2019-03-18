@@ -476,7 +476,10 @@ def join_expr(node, output):
 
         jt = enums.JoinType
         if node.jointype == jt.JOIN_INNER:
-            output.write('INNER')
+            if not node.usingClause and not node.quals and not node.isNatural:
+                output.write('CROSS')
+            else:
+                output.write('INNER')
         elif node.jointype == jt.JOIN_LEFT:
             output.write('LEFT')
         elif node.jointype == jt.JOIN_FULL:

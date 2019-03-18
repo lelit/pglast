@@ -234,6 +234,8 @@ SELECT * FROM (VALUES (1),(2),(3)) v(r)
  LEFT JOIN ROWS FROM( foo_sql(11,13), foo_mat(11,13) )
  WITH ORDINALITY AS f(i1,s1,i2,s2,o) ON (r+i1+i2)<100
 
+SELECT * FROM t1 CROSS JOIN t2
+
 SELECT i.q1, i.q2, ss.column1
 FROM int8_tbl i, LATERAL (VALUES (i.*::int8_tbl)) ss
 
