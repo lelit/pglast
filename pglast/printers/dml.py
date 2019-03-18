@@ -976,20 +976,20 @@ del MONTH, YEAR, DAY, HOUR, MINUTE, SECOND
 
 # Map system type name to generic one
 system_types = {
-    'pg_catalog.bool':        'boolean',
-    'pg_catalog.bpchar':      'char',
-    'pg_catalog.float4':      'real',
-    'pg_catalog.float8':      'double precision',
-    'pg_catalog.int2':        'smallint',
-    'pg_catalog.int4':        'integer',
-    'pg_catalog.int8':        'bigint',
-    'pg_catalog.interval':    'interval',
-    'pg_catalog.numeric':     'numeric',
-    'pg_catalog.time':        'time',
-    'pg_catalog.timestamp':   'timestamp',
-    'pg_catalog.timestamptz': 'timestamp with time zone',
-    'pg_catalog.timetz':      'time with time zone',
-    'pg_catalog.varchar':     'varchar',
+    'pg_catalog.bool':        ('boolean', ''),
+    'pg_catalog.bpchar':      ('char', ''),
+    'pg_catalog.float4':      ('real', ''),
+    'pg_catalog.float8':      ('double precision', ''),
+    'pg_catalog.int2':        ('smallint', ''),
+    'pg_catalog.int4':        ('integer', ''),
+    'pg_catalog.int8':        ('bigint', ''),
+    'pg_catalog.interval':    ('interval', ''),
+    'pg_catalog.numeric':     ('numeric', ''),
+    'pg_catalog.time':        ('time', ''),
+    'pg_catalog.timestamp':   ('timestamp', ''),
+    'pg_catalog.timestamptz': ('timestamp', ' with time zone'),
+    'pg_catalog.timetz':      ('time', ' with time zone'),
+    'pg_catalog.varchar':     ('varchar', ''),
 }
 
 
@@ -999,8 +999,10 @@ def type_name(node, output):
         # FIXME: is this used only by plpgsql?
         output.writes('SETOF')
     name = '.'.join(n.str.value for n in node.names)
+    suffix = ''
     if name in system_types:
-        output.write(system_types[name])
+        prefix, suffix = system_types[name]
+        output.write(prefix)
     else:
         output.print_name(node.names)
     if node.pct_type:
@@ -1019,6 +1021,7 @@ def type_name(node, output):
                 output.write('(')
                 output.print_list(node.typmods, ',', standalone_items=False)
                 output.write(')')
+        output.write(suffix)
         if node.arrayBounds:
             for ab in node.arrayBounds:
                 output.write('[')

@@ -368,6 +368,10 @@ ORDER BY sp.name
 
 SELECT CAST(1.234 AS NUMERIC(5,2))
 
+SELECT now()::time(0) with time zone
+
+SELECT now()::timestamp(0) with time zone
+
 SELECT
   pc.id,
   pc.person_id,
