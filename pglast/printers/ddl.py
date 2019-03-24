@@ -1101,55 +1101,60 @@ def create_trig_stmt(node, output):
         output.write('CONSTRAINT ')
     output.write('TRIGGER ')
     output.print_name(node.trigname)
+    output.newline()
+    with output.push_indent(2):
+        if node.timing:
+            if node.timing & enums.TRIGGER_TYPE_BEFORE:
+                output.write('BEFORE ')
+            elif node.timing & enums.TRIGGER_TYPE_INSTEAD:
+                output.write('INSTEAD OF ')
+        else:
+            output.write('AFTER ')
+        event_strings = []
+        for ev in ('INSERT', 'DELETE', 'UPDATE'):
+            bitmask = getattr(enums, 'TRIGGER_TYPE_%s' % ev)
+            if node.events & bitmask:
+                event_strings.append(ev)
+        output.write(' OR '.join(event_strings))
+        if node.columns:
+            output.write(' OF ')
+            output.print_list(node.columns, ',', are_names=True)
 
-    if node.timing:
-        if node.timing & enums.TRIGGER_TYPE_BEFORE:
-            output.write(' BEFORE ')
-        elif node.timing & enums.TRIGGER_TYPE_INSTEAD:
-            output.write(' INSTEAD OF ')
-    else:
-        output.write(' AFTER ')
-    event_strings = []
+        output.newline()
+        output.write('ON ')
+        output.print_node(node.relation)
 
-    for ev in ('INSERT', 'DELETE', 'UPDATE'):
-        bitmask = getattr(enums, 'TRIGGER_TYPE_%s' % ev)
-        if node.events & bitmask:
-            event_strings.append(ev)
-    output.write(' OR '.join(event_strings))
+        if node.deferrable:
+            output.swrite('DEFERRABLE')
+            if node.initdeferred:
+                output.swrite('INITIALLY DEFERRED')
 
-    if node.columns:
-        output.write(' OF ')
-        output.print_list(node.columns, ', ', are_names=True)
-    output.write(' ON ')
-    output.print_node(node.relation)
+        if node.transitionRels:
+            output.swrite('REFERENCING ')
+            output.print_list(node.transitionRels, ' ')
 
-    if node.deferrable:
-        output.swrite('DEFERRABLE ')
-        if node.initdeferred:
-            output.write('INITIALLY DEFERRED ')
+        output.newline()
+        output.write('FOR EACH ')
 
-    if node.transitionRels:
-        output.swrite('REFERENCING ')
-        output.print_list(node.transitionRels, ' ')
+        if node.row:
+            output.write('ROW')
+        else:
+            output.write('STATEMENT')
 
-    output.swrite('FOR EACH ')
+        output.newline()
+        with output.push_indent(2):
+            if node.whenClause:
+                output.write('WHEN ')
+                with output.expression():
+                    output.print_node(node.whenClause)
+                output.newline()
 
-    if node.row:
-        output.write('ROW ')
-    else:
-        output.write('STATEMENT ')
-
-    if node.whenClause:
-        output.write('WHEN (')
-        output.print_node(node.whenClause)
-        output.write(') ')
-
-    output.write('EXECUTE PROCEDURE ')
-    output.print_name(node.funcname)
-    output.write('(')
-    if node.args:
-        output.print_list(node.args, ',')
-    output.write(')')
+            output.write('EXECUTE PROCEDURE ')
+            output.print_name(node.funcname)
+            output.write('(')
+            if node.args:
+                output.print_list(node.args, ',')
+            output.write(')')
 
 
 @node_printer('DefineStmt')
