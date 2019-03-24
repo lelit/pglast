@@ -786,10 +786,11 @@ def create_function_stmt(node, output):
     output.write(')')
 
     if node.returnType:
-        output.write(' RETURNS ')
+        output.newline()
+        output.writes('RETURNS')
         if node.returnType.setof and record_def:
             # Do not treat them as argument
-            output.write(' TABLE (')
+            output.write('TABLE (')
             output.print_list(record_def, ',', standalone_items=False)
             output.write(')')
         else:
