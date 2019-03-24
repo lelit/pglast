@@ -84,7 +84,7 @@ def special_function(name, override=False):
     """Decorator to declare a particular PostgreSQL function `name` as *special*, with a
     specific printer.
 
-    :param: str name: the qualified name of the PG function
+    :param str name: the qualified name of the PG function
     :param bool override: when ``True`` the function will be registered even if already
                           present in the :data:`SPECIAL_FUNCTIONS` registry
     """
