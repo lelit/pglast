@@ -18,12 +18,6 @@
 
    Pretty print a `node` of type `AccessPriv <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1890>`__ to the `output` stream.
 
-.. index:: ColumnDef
-
-.. function:: column_def(node, output)
-
-   Pretty print a `node` of type `ColumnDef <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L636>`__ to the `output` stream.
-
 .. index:: AlterDatabaseStmt
 
 .. function:: alter_database_stmt(node, output)
@@ -42,6 +36,18 @@
 
    Pretty print a `node` of type `AlterEnumStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2973>`__ to the `output` stream.
 
+.. index:: AlterDefaultPrivilegesStmt
+
+.. function:: alter_default_privileges_stmt(node, output)
+
+   Pretty print a `node` of type `AlterDefaultPrivilegesStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1921>`__ to the `output` stream.
+
+.. index:: AlterFunctionStmt
+
+.. function:: alter_function_stmt(node, output)
+
+   Pretty print a `node` of type `AlterFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2765>`__ to the `output` stream.
+
 .. index:: AlterObjectSchemaStmt
 
 .. function:: alter_object_schema_stmt(node, output)
@@ -53,6 +59,12 @@
 .. function:: alter_owner_stmt(node, output)
 
    Pretty print a `node` of type `AlterOwnerStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2841>`__ to the `output` stream.
+
+.. index:: AlterRoleStmt
+
+.. function:: alter_role_stmt(node, output)
+
+   Pretty print a `node` of type `AlterRoleStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2436>`__ to the `output` stream.
 
 .. index:: AlterSeqStmt
 
@@ -72,29 +84,17 @@
 
    Pretty print a `node` of type `AlterTableCmd <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1774>`__ to the `output` stream.
 
-.. index:: AlterDefaultPrivilegesStmt
-
-.. function:: alter_default_privileges_stmt(node, output)
-
-   Pretty print a `node` of type `AlterDefaultPrivilegesStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1921>`__ to the `output` stream.
-
-.. index:: AlterFunctionStmt
-
-.. function:: alter_function_stmt(node, output)
-
-   Pretty print a `node` of type `AlterFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2765>`__ to the `output` stream.
-
-.. index:: AlterRoleStmt
-
-.. function:: alter_role_stmt(node, output)
-
-   Pretty print a `node` of type `AlterRoleStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2436>`__ to the `output` stream.
-
 .. index:: ClusterStmt
 
 .. function:: cluster_stmt(node, output)
 
    Pretty print a `node` of type `ClusterStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3070>`__ to the `output` stream.
+
+.. index:: ColumnDef
+
+.. function:: column_def(node, output)
+
+   Pretty print a `node` of type `ColumnDef <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L636>`__ to the `output` stream.
 
 .. index:: CommentStmt
 
@@ -119,6 +119,19 @@
 .. function:: create_am_stmt(node, output)
 
    Pretty print a `node` of type `CreateAmStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2336>`__ to the `output` stream.
+
+.. index:: CreatedbStmt
+
+.. function:: create_db_stmt(node, output)
+
+   Pretty print a `node` of type `CreatedbStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3020>`__ to the `output` stream.
+
+.. index::
+   pair: CreatedbStmt;DefElem
+
+.. function:: create_db_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreatedbStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3020>`__, to the `output` stream.
 
 .. index:: CreateCastStmt
 
@@ -196,6 +209,25 @@
 
    Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreateForeignTableStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2242>`__, to the `output` stream.
 
+.. index:: CreateFunctionStmt
+
+.. function:: create_function_stmt(node, output)
+
+   Pretty print a `node` of type `CreateFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2735>`__ to the `output` stream.
+
+.. index::
+   pair: AlterFunctionStmt;DefElem
+
+.. index::
+   pair: CreateFunctionStmt;DefElem
+
+.. index::
+   pair: DoStmt;DefElem
+
+.. function:: create_function_option(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `AlterFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2765>`__ or a `CreateFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2735>`__ or a `DoStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2778>`__, to the `output` stream.
+
 .. index:: CreatePolicyStmt
 
 .. function:: create_policy_stmt(node, output)
@@ -245,52 +277,6 @@
 .. function:: create_trig_stmt(node, output)
 
    Pretty print a `node` of type `CreateTrigStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2348>`__ to the `output` stream.
-
-.. index:: TriggerTransition
-
-.. function:: trigger_transition(node, output)
-
-   Pretty print a `node` of type `TriggerTransition <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1397>`__ to the `output` stream.
-
-.. index:: CreatedbStmt
-
-.. function:: create_db_stmt(node, output)
-
-   Pretty print a `node` of type `CreatedbStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3020>`__ to the `output` stream.
-
-.. index::
-   pair: CreatedbStmt;DefElem
-
-.. function:: create_db_stmt_def_elem(node, output)
-
-   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreatedbStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3020>`__, to the `output` stream.
-
-.. index:: CreateFunctionStmt
-
-.. function:: create_function_stmt(node, output)
-
-   Pretty print a `node` of type `CreateFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2735>`__ to the `output` stream.
-
-.. index::
-   pair: CreateFunctionStmt;DefElem
-
-.. function:: function_option(node, output)
-
-   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `CreateFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2735>`__, to the `output` stream.
-
-.. index::
-   pair: AlterFunctionStmt;DefElem
-
-.. function:: function_option(node, output)
-
-   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `AlterFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2765>`__, to the `output` stream.
-
-.. index::
-   pair: DoStmt;DefElem
-
-.. function:: function_option(node, output)
-
-   Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `DoStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2778>`__, to the `output` stream.
 
 .. index:: DefineStmt
 
@@ -436,6 +422,12 @@
 .. function:: role_spec(node, output)
 
    Pretty print a `node` of type `RoleSpec <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L324>`__ to the `output` stream.
+
+.. index:: TriggerTransition
+
+.. function:: trigger_transition(node, output)
+
+   Pretty print a `node` of type `TriggerTransition <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1397>`__ to the `output` stream.
 
 .. index:: VacuumStmt
 
