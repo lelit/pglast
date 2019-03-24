@@ -57,6 +57,7 @@ def prettify(statement, safety_belt=True, **options):
         _remove_stmt_len_and_location(pretty_pt)
 
         if pretty_pt != orig_pt:  # pragma: no cover
+            print(prettified)
             warnings.warn("Detected a non-cosmetic difference between original and"
                           " prettified statements, please report", RuntimeWarning)
             return statement
