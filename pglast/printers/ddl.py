@@ -764,34 +764,24 @@ def create_function_stmt(node, output):
     output.write('FUNCTION ')
     output.print_name(node.funcname)
     output.write('(')
+
+    # Functions returning a SETOF needs special care, because the resulting record
+    # definition is intermixed with real parameters: split them into two separated
+    # lists
     real_params = node.parameters
-    # We need a very special case if we have a RETURNS TABLE():
-    # Take out the parameters from the parameter list, and inject them
-    # in the RETURN part of the statement
     if node.returnType and node.returnType.setof:
         fpm = enums.FunctionParameterMode
         record_def = []
         real_params = []
-
-        for param in node.parse_tree['parameters']:
-            paramnode = Node(param)
-
-            if chr(paramnode.mode.value) == fpm.FUNC_PARAM_TABLE:
-                record_def.append({'ColumnDef': {
-                    'typeName': {'TypeName': paramnode.argType.parse_tree},
-                    'colname': paramnode.name.value}})
+        for param in node.parameters:
+            if param.mode == fpm.FUNC_PARAM_TABLE:
+                record_def.append(Node(
+                    {'ColumnDef': {
+                        'typeName': {'TypeName': param.argType.parse_tree},
+                        'colname': param.name.value}}))
             else:
                 real_params.append(param)
-
-        if real_params:
-            real_params = Node(real_params)
-        else:
-            real_params = Missing
-
-        if record_def:
-            record_def = Node(record_def)
-
-    if real_params is not Missing:
+    if real_params:
         output.print_list(real_params)
     output.write(')')
 
