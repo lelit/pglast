@@ -17,25 +17,6 @@ def access_priv(node, output):
     output.print_node(node.priv_name)
 
 
-@node_printer('ColumnDef')
-def column_def(node, output):
-    if node.colname:
-        output.print_name(node.colname)
-        output.space()
-    if node.typeName:
-        output.print_name(node.typeName)
-    else:
-        if node.constraints:
-            output.write('WITH OPTIONS ')
-    if node.collClause:
-        output.print_node(node.collClause)
-    if node.is_not_null:
-        # FIXME: find a way to get here
-        output.swrite('NOT NULL')
-    if node.constraints:
-        output.print_list(node.constraints, '', standalone_items=False)
-
-
 OBJECT_NAMES = {
     enums.ObjectType.OBJECT_ACCESS_METHOD: 'ACCESS METHOD',
     enums.ObjectType.OBJECT_AGGREGATE: 'AGGREGATE',
@@ -381,6 +362,25 @@ def cluster_stmt(node, output):
     output.print_name(node.indexname)
 
 
+@node_printer('ColumnDef')
+def column_def(node, output):
+    if node.colname:
+        output.print_name(node.colname)
+        output.space()
+    if node.typeName:
+        output.print_name(node.typeName)
+    else:
+        if node.constraints:
+            output.write('WITH OPTIONS ')
+    if node.collClause:
+        output.print_node(node.collClause)
+    if node.is_not_null:
+        # FIXME: find a way to get here
+        output.swrite('NOT NULL')
+    if node.constraints:
+        output.print_list(node.constraints, '', standalone_items=False)
+
+
 @node_printer('CommentStmt')
 def comment_stmt(node, output):
     otypes = enums.ObjectType
@@ -565,6 +565,32 @@ def create_am_stmt(node, output):
         raise NotImplementedError
 
 
+@node_printer('CreatedbStmt')
+def create_db_stmt(node, output):
+    output.write('CREATE DATABASE ')
+    output.print_name(node.dbname)
+    if node.options:
+        output.newline()
+        output.space(2)
+        output.write('WITH ')
+        output.print_list(node.options, '')
+
+
+@node_printer('CreatedbStmt', 'DefElem')
+def create_db_stmt_def_elem(node, output):
+    option = node.defname.value
+    if option == 'connection_limit':
+        output.write('connection limit')
+    else:
+        output.print_node(node.defname)
+    if node.arg is not Missing:
+        output.write(' = ')
+        if isinstance(node.arg, List) or option in ('allow_connections', 'is_template'):
+            output.write(node.arg.string_value)
+        else:
+            output.print_node(node.arg)
+
+
 @node_printer('CreateCastStmt')
 def create_cast_stmt(node, output):
     output.write('CREATE CAST (')
@@ -728,6 +754,120 @@ def create_foreign_table_stmt_def_elem(node, output):
     output.write(node.defname.value)
     output.write(' ')
     output.print_node(node.arg)
+
+
+@node_printer('CreateFunctionStmt')
+def create_function_stmt(node, output):
+    output.write('CREATE ')
+    if node.replace:
+        output.write('OR REPLACE ')
+    output.write('FUNCTION ')
+    output.print_name(node.funcname)
+    output.write('(')
+    real_params = node.parameters
+    # We need a very special case if we have a RETURNS TABLE():
+    # Take out the parameters from the parameter list, and inject them
+    # in the RETURN part of the statement
+    if node.returnType and node.returnType.setof:
+        fpm = enums.FunctionParameterMode
+        record_def = []
+        real_params = []
+
+        for param in node.parse_tree['parameters']:
+            paramnode = Node(param)
+
+            if chr(paramnode.mode.value) == fpm.FUNC_PARAM_TABLE:
+                record_def.append({'ColumnDef': {
+                    'typeName': {'TypeName': paramnode.argType.parse_tree},
+                    'colname': paramnode.name.value}})
+            else:
+                real_params.append(param)
+
+        if real_params:
+            real_params = Node(real_params)
+        else:
+            real_params = Missing
+
+        if record_def:
+            record_def = Node(record_def)
+
+    if real_params is not Missing:
+        output.print_list(real_params)
+    output.write(')')
+
+    if node.returnType:
+        output.write(' RETURNS ')
+        if node.returnType.setof and record_def:
+            # Do not treat them as argument
+            output.write(' TABLE (')
+            output.print_list(record_def, ',', standalone_items=False)
+            output.write(')')
+        else:
+            output.print_node(node.returnType)
+
+    for option in node.options:
+        output.print_node(option)
+
+
+@node_printer(('AlterFunctionStmt', 'CreateFunctionStmt', 'DoStmt'), 'DefElem')
+def create_function_option(node, output):
+    option = node.defname.value
+
+    if option == 'as':
+        if isinstance(node.arg, List) and len(node.arg) > 1:
+            # We are in the weird C case
+            output.write('AS ')
+            output.print_list(node.arg)
+            return
+
+        if node.parent_node.node_tag == 'CreateFunctionStmt':
+            output.newline()
+            output.write('AS ')
+
+        # Choose a valid dollar-string delimiter
+
+        code = node.arg.string_value
+        used_delimiters = set(re.findall(r"\$(\w*)\$", code))
+        unique_delimiter = ''
+        while unique_delimiter in used_delimiters:
+            unique_delimiter += '_'
+
+        # TODO: ideally, when the function is "LANGUAGE SQL", we could reparse
+        # the statement and prettify it...
+
+        output.write('$' + unique_delimiter + '$')
+        output.write(code)
+        output.write('$' + unique_delimiter + '$')
+        return
+
+    if option == 'security':
+        if node.arg.ival == 1:
+            output.swrite('SECURITY DEFINER')
+        else:
+            output.swrite('SECURITY INVOKER')
+        return
+
+    if option == 'strict':
+        if node.arg.ival == 1:
+            output.swrite('STRICT')
+        return
+
+    if option == 'volatility':
+        output.separator()
+        output.print_symbol(node.arg)
+        return
+
+    if option == 'parallel':
+        output.swrite('PARALLEL SAFE')
+        return
+
+    if option == 'set':
+        output.separator()
+        output.print_node(node.arg)
+        return
+
+    output.writes(node.defname.value.upper())
+    output.print_symbol(node.arg)
 
 
 @node_printer('CreatePolicyStmt')
@@ -1019,157 +1159,6 @@ def create_trig_stmt(node, output):
     if node.args:
         output.print_list(node.args, ',')
     output.write(')')
-
-
-@node_printer('TriggerTransition')
-def trigger_transition(node, output):
-    if node.isNew:
-        output.write('NEW TABLE AS ')
-    else:
-        output.write('OLD TABLE AS ')
-    output.print_name(node.name)
-
-
-@node_printer('CreatedbStmt')
-def create_db_stmt(node, output):
-    output.write('CREATE DATABASE ')
-    output.print_name(node.dbname)
-    if node.options:
-        output.newline()
-        output.space(2)
-        output.write('WITH ')
-        output.print_list(node.options, '')
-
-
-@node_printer('CreatedbStmt', 'DefElem')
-def create_db_stmt_def_elem(node, output):
-    option = node.defname.value
-    if option == 'connection_limit':
-        output.write('connection limit')
-    else:
-        output.print_node(node.defname)
-    if node.arg is not Missing:
-        output.write(' = ')
-        if isinstance(node.arg, List) or option in ('allow_connections', 'is_template'):
-            output.write(node.arg.string_value)
-        else:
-            output.print_node(node.arg)
-
-
-@node_printer('CreateFunctionStmt')
-def create_function_stmt(node, output):
-    output.write('CREATE ')
-    if node.replace:
-        output.write('OR REPLACE ')
-    output.write('FUNCTION ')
-    output.print_name(node.funcname)
-    output.write('(')
-    real_params = node.parameters
-    # We need a very special case if we have a RETURNS TABLE():
-    # Take out the parameters from the parameter list, and inject them
-    # in the RETURN part of the statement
-    if node.returnType and node.returnType.setof:
-        fpm = enums.FunctionParameterMode
-        record_def = []
-        real_params = []
-
-        for param in node.parse_tree['parameters']:
-            paramnode = Node(param)
-
-            if chr(paramnode.mode.value) == fpm.FUNC_PARAM_TABLE:
-                record_def.append({'ColumnDef': {
-                    'typeName': {'TypeName': paramnode.argType.parse_tree},
-                    'colname': paramnode.name.value}})
-            else:
-                real_params.append(param)
-
-        if real_params:
-            real_params = Node(real_params)
-        else:
-            real_params = Missing
-
-        if record_def:
-            record_def = Node(record_def)
-
-    if real_params is not Missing:
-        output.print_list(real_params)
-    output.write(')')
-
-    if node.returnType:
-        output.write(' RETURNS ')
-        if node.returnType.setof and record_def:
-            # Do not treat them as argument
-            output.write(' TABLE (')
-            output.print_list(record_def, ',', standalone_items=False)
-            output.write(')')
-        else:
-            output.print_node(node.returnType)
-
-    for option in node.options:
-        output.print_node(option)
-
-
-@node_printer('CreateFunctionStmt', 'DefElem')
-@node_printer('AlterFunctionStmt', 'DefElem')
-@node_printer('DoStmt', 'DefElem')
-def function_option(node, output):
-    option = node.defname.value
-
-    if option == 'as':
-        if isinstance(node.arg, List) and len(node.arg) > 1:
-            # We are in the weird C case
-            output.write('AS ')
-            output.print_list(node.arg)
-            return
-
-        if node.parent_node.node_tag == 'CreateFunctionStmt':
-            output.newline()
-            output.write('AS ')
-
-        # Choose a valid dollar-string delimiter
-
-        code = node.arg.string_value
-        used_delimiters = set(re.findall(r"\$(\w*)\$", code))
-        unique_delimiter = ''
-        while unique_delimiter in used_delimiters:
-            unique_delimiter += '_'
-
-        # TODO: ideally, when the function is "LANGUAGE SQL", we could reparse
-        # the statement and prettify it...
-
-        output.write('$' + unique_delimiter + '$')
-        output.write(code)
-        output.write('$' + unique_delimiter + '$')
-        return
-
-    if option == 'security':
-        if node.arg.ival == 1:
-            output.swrite('SECURITY DEFINER')
-        else:
-            output.swrite('SECURITY INVOKER')
-        return
-
-    if option == 'strict':
-        if node.arg.ival == 1:
-            output.swrite('STRICT')
-        return
-
-    if option == 'volatility':
-        output.separator()
-        output.print_symbol(node.arg)
-        return
-
-    if option == 'parallel':
-        output.swrite('PARALLEL SAFE')
-        return
-
-    if option == 'set':
-        output.separator()
-        output.print_node(node.arg)
-        return
-
-    output.writes(node.defname.value.upper())
-    output.print_symbol(node.arg)
 
 
 @node_printer('DefineStmt')
@@ -1606,6 +1595,15 @@ def role_spec(node, output):
         output.write('PUBLIC')
     else:
         output.print_name(node.rolename)
+
+
+@node_printer('TriggerTransition')
+def trigger_transition(node, output):
+    if node.isNew:
+        output.write('NEW TABLE AS ')
+    else:
+        output.write('OLD TABLE AS ')
+    output.print_name(node.name)
 
 
 @node_printer('VacuumStmt')
