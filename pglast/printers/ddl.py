@@ -12,17 +12,6 @@ from ..printer import node_printer
 import re
 
 
-RE_DOLLARQUOTE = re.compile(r"\$(\w*)\$")
-
-
-def to_dollar_literal(code):
-    delimiter = 'function'
-    match = set(RE_DOLLARQUOTE.findall(code))
-    while delimiter in match:
-        delimiter = delimiter + '_'
-    return "$%s$%s$%s$" % (delimiter, code, delimiter)
-
-
 @node_printer("AccessPriv")
 def access_priv(node, output):
     output.print_node(node.priv_name)
@@ -1079,7 +1068,7 @@ def create_function_stmt(node, output):
     # We need a very special case if we have a RETURNS TABLE():
     # Take out the parameters from the parameter list, and inject them
     # in the RETURN part of the statement
-    if node.returnType.setof:
+    if node.returnType and node.returnType.setof:
         fpm = enums.FunctionParameterMode
         record_def = []
         real_params = []
@@ -1105,16 +1094,19 @@ def create_function_stmt(node, output):
     if real_params is not Missing:
         output.print_list(real_params)
     output.write(')')
-    output.write(' RETURNS ')
 
-    if node.returnType.setof and record_def:
-        # Do not treat them as argument
-        output.write(' TABLE (')
-        output.print_list(record_def, ',', standalone_items=False)
-        output.write(')')
-    else:
-        output.print_node(node.returnType)
-    output.print_list(node.options, sep=' ', standalone_items=True)
+    if node.returnType:
+        output.write(' RETURNS ')
+        if node.returnType.setof and record_def:
+            # Do not treat them as argument
+            output.write(' TABLE (')
+            output.print_list(record_def, ',', standalone_items=False)
+            output.write(')')
+        else:
+            output.print_node(node.returnType)
+
+    for option in node.options:
+        output.print_node(option)
 
 
 @node_printer('CreateFunctionStmt', 'DefElem')
@@ -1124,8 +1116,6 @@ def function_option(node, output):
     option = node.defname.value
 
     if option == 'as':
-        # Choose a valid dollar-string delimiter
-
         if isinstance(node.arg, List) and len(node.arg) > 1:
             # We are in the weird C case
             output.write('AS ')
@@ -1133,37 +1123,53 @@ def function_option(node, output):
             return
 
         if node.parent_node.node_tag == 'CreateFunctionStmt':
-            output.write(' AS\n')
-        output.write(to_dollar_literal(node.arg.string_value))
+            output.newline()
+            output.write('AS ')
+
+        # Choose a valid dollar-string delimiter
+
+        code = node.arg.string_value
+        used_delimiters = set(re.findall(r"\$(\w*)\$", code))
+        unique_delimiter = ''
+        while unique_delimiter in used_delimiters:
+            unique_delimiter += '_'
+
+        # TODO: ideally, when the function is "LANGUAGE SQL", we could reparse
+        # the statement and prettify it...
+
+        output.write('$' + unique_delimiter + '$')
+        output.write(code)
+        output.write('$' + unique_delimiter + '$')
         return
 
     if option == 'security':
         if node.arg.ival == 1:
-            output.write(' SECURITY DEFINER ')
+            output.swrite('SECURITY DEFINER')
         else:
-            output.write(' SECURITY INVOKER ')
+            output.swrite('SECURITY INVOKER')
         return
 
     if option == 'strict':
         if node.arg.ival == 1:
-            output.write(' STRICT ')
+            output.swrite('STRICT')
         return
 
     if option == 'volatility':
-        output.print_node(node.arg, is_symbol=True, is_name=True)
+        output.separator()
+        output.print_symbol(node.arg)
         return
 
     if option == 'parallel':
-        output.write(' PARALLEL SAFE ')
+        output.swrite('PARALLEL SAFE')
         return
 
     if option == 'set':
+        output.separator()
         output.print_node(node.arg)
         return
 
-    output.print_node(node.defname)
-    output.write(' ')
-    output.print_node(node.arg, is_symbol=True)
+    output.writes(node.defname.value.upper())
+    output.print_symbol(node.arg)
 
 
 @node_printer('DefineStmt')
