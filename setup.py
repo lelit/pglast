@@ -45,6 +45,7 @@ setup(
 
     description="PostgreSQL Languages AST and statements prettifier",
     long_description=README + '\n\n' + CHANGES,
+    long_description_content_type='text/x-rst',
 
     author="Lele Gaifax",
     author_email="lele@metapensiero.it",

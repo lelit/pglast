@@ -10,6 +10,7 @@ BUMPER := $(VENVDIR)/bin/bump_version
 VERSION_TXT := version.txt
 VERSION = $(shell cat $(VERSION_TXT))
 MOD_INIT := pglast/__init__.py
+TWINE := $(VENVDIR)/bin/twine
 
 help::
 	@printf "\nRelease management\n"
@@ -47,7 +48,8 @@ tag-release: assert-master-branch check-release-date check-long-description-mark
 
 .PHONY: check-long-description-markup
 check-long-description-markup:
-	@$(PYTHON) setup.py check -r -s
+	@$(PYTHON) setup.py --quiet sdist
+	@$(TWINE) check dist/pglast-$(VERSION).tar.gz
 
 .PHONY: check-release-date
 check-release-date:
@@ -59,7 +61,8 @@ help::
 
 .PHONY: pypi-upload
 pypi-upload: assert-master-branch assert-clean-tree
-	$(PYTHON) setup.py sdist upload
+	@$(PYTHON) setup.py sdist
+	$(TWINE) upload dist/pglast-$(VERSION).tar.gz
 
 help::
 	@printf "publish\n\tUpload to PyPI, push changes and tags to the remote repo\n"
