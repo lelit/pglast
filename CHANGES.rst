@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.3 (unreleased)
+1.3 (2019-03-28)
 ~~~~~~~~~~~~~~~~
 
 - Support ``CROSS JOIN`` and timezone modifiers on time and timestamp datatypes (`PR #15`__),
@@ -11,7 +11,7 @@ Changes
 
   __ https://github.com/lelit/pglast/pull/15
 
-- Many new printers (`PR #14`__), thanks to Ronan Dunklau
+- Many new printers and several enhancements (`PR #14`__), thanks to Ronan Dunklau
 
   __ https://github.com/lelit/pglast/pull/14
 
