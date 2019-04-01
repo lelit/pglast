@@ -38,3 +38,14 @@ CREATE TRIGGER trg_celery_periodic_tasks_950_after_update
            OR old.run_on_days IS DISTINCT FROM new.run_on_days
            OR old.run_on_months IS DISTINCT FROM new.run_on_months))
     EXECUTE PROCEDURE celery.notify_periodic_tasks_changed()
+
+CREATE TRIGGER trig1 AFTER UPDATE ON schema1.table1
+FOR EACH ROW WHEN (new.col1 IS DISTINCT FROM old.col1)
+EXECUTE PROCEDURE schema1.func1()
+=
+CREATE TRIGGER trig1
+  AFTER UPDATE
+  ON schema1.table1
+  FOR EACH ROW
+    WHEN (new.col1 IS DISTINCT FROM old.col1)
+    EXECUTE PROCEDURE schema1.func1()
