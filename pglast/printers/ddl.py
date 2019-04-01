@@ -1144,9 +1144,10 @@ def create_trig_stmt(node, output):
         output.newline()
         with output.push_indent(2):
             if node.whenClause:
-                output.write('WHEN ')
+                output.write('WHEN (')
                 with output.expression():
                     output.print_node(node.whenClause)
+                output.write(')')
                 output.newline()
 
             output.write('EXECUTE PROCEDURE ')
