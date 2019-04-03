@@ -343,7 +343,14 @@ def func_call(node, output):
         if node.agg_star:
             output.write('*')
     else:
-        output.print_list(node.args)
+        if node.func_variadic:
+            if len(node.args) > 1:
+                output.print_list(node.args[:-1])
+                output.write(', ')
+            output.write('VARIADIC ')
+            output.print_node(node.args[-1])
+        else:
+            output.print_list(node.args)
     if node.agg_order:
         if node.agg_within_group is Missing:
             output.swrites('ORDER BY')
@@ -359,7 +366,6 @@ def func_call(node, output):
     if node.over:
         output.swrite('OVER ')
         output.print_node(node.over)
-
 
 @node_printer('GroupingSet')
 def grouping_set(node, output):

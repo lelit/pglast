@@ -420,3 +420,7 @@ SELECT a < ('foo' COLLATE "fr_FR") FROM test1
 SELECT a < b COLLATE "de_DE" FROM test1
 
 SELECT * FROM test1 ORDER BY a || b COLLATE "fr_FR"
+
+SELECT variadic_function(VARIADIC ARRAY['param1']);
+
+SELECT variadic_function('value1', VARIADIC ARRAY['param2']);
