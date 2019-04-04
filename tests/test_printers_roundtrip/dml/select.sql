@@ -302,6 +302,17 @@ SELECT * FROM "T"
 UNION ALL
 SELECT * FROM "T"
 
+SELECT * FROM "T"
+UNION ALL
+SELECT * FROM "T"
+ORDER BY 1, 2, 3
+
+SELECT * FROM "T"
+UNION ALL
+SELECT * FROM "T"
+ORDER BY 1, 2, 3
+LIMIT 2 OFFSET 1
+
 WITH RECURSIVE employee_recursive("Distance", employee_name, manager_name) AS (
     SELECT 1, employee_name, manager_name
     FROM employee
