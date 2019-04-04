@@ -759,22 +759,22 @@ def select_stmt(node, output):
                 output.newline()
                 output.write('WINDOW ')
                 output.print_list(node.windowClause)
-            if node.sortClause:
-                output.newline()
-                output.write('ORDER BY ')
-                output.print_list(node.sortClause)
-            if node.limitCount:
-                output.newline()
-                output.write('LIMIT ')
-                output.print_node(node.limitCount)
-            if node.limitOffset:
-                output.newline()
-                output.write('OFFSET ')
-                output.print_node(node.limitOffset)
-            if node.lockingClause:
-                output.newline()
-                output.write('FOR ')
-                output.print_list(node.lockingClause)
+        if node.sortClause:
+            output.newline()
+            output.write('ORDER BY ')
+            output.print_list(node.sortClause)
+        if node.limitCount:
+            output.newline()
+            output.write('LIMIT ')
+            output.print_node(node.limitCount)
+        if node.limitOffset:
+            output.newline()
+            output.write('OFFSET ')
+            output.print_node(node.limitOffset)
+        if node.lockingClause:
+            output.newline()
+            output.write('FOR ')
+            output.print_list(node.lockingClause)
 
         if node.withClause:
             output.dedent()
