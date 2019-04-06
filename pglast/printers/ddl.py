@@ -1643,21 +1643,6 @@ def vacuum_stmt(node, output):
             output.write(')')
 
 
-@node_printer('VariableSetStmt')
-def variable_set_stmt(node, output):
-    if node.args is Missing:
-        output.write('RESET ')
-        if node.name:
-            output.print_name(node.name)
-        else:
-            output.write('ALL')
-    else:
-        output.write('SET ')
-        output.print_name(node.name)
-        output.write(' = ')
-        output.print_list(node.args)
-
-
 @node_printer('ViewStmt')
 def view_stmt(node, output):
     output.write('CREATE ')

@@ -293,6 +293,20 @@ def common_table_expr(node, output):
     output.newline()
 
 
+@node_printer('ConstraintsSetStmt')
+def constraints_set_stmt(node, output):
+    output.write('SET CONSTRAINTS ')
+    if node.constraints:
+        output.print_list(node.constraints)
+        output.write(' ')
+    else:
+        output.write('ALL ')
+    if node.deferred:
+        output.write('DEFERRED')
+    else:
+        output.write('IMMEDIATE')
+
+
 @node_printer('DeleteStmt')
 def delete_stmt(node, output):
     with output.push_indent():
@@ -1086,6 +1100,32 @@ def update_stmt_res_target(node, output):
                 output.print_list(node.indirection, '', standalone_items=False)
             output.write(' = ')
         output.print_node(node.val)
+
+
+@node_printer('VariableSetStmt')
+def variable_set_stmt(node, output):
+    vsk = enums.VariableSetKind
+    if node.kind == vsk.VAR_RESET:
+        output.write('RESET ')
+        output.print_name(node.name)
+    elif node.kind == vsk.VAR_RESET_ALL:
+        output.write('RESET ALL')
+    else:
+        output.write('SET ')
+        if node.is_local:
+            output.write('LOCAL ')
+        if node.name == 'timezone':
+            output.write('TIME ZONE ')
+        else:
+            output.print_name(node.name)
+            output.write(' TO ')
+        if node.kind == vsk.VAR_SET_VALUE:
+            output.print_list(node.args)
+        elif node.kind == vsk.VAR_SET_DEFAULT:
+            output.write('DEFAULT')
+        else:
+            raise NotImplementedError("SET statement of kind %s not implemented yet"
+                                      % node.kind)
 
 
 @node_printer('WindowDef')
