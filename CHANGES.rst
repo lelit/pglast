@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.4 (unreleased)
+1.4 (2019-04-06)
 ~~~~~~~~~~~~~~~~
 
 - Fix wrap of trigger's WHEN expression (`issue #18`__)
