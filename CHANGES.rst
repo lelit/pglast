@@ -3,6 +3,24 @@
 Changes
 -------
 
+1.4 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix wrap of trigger's WHEN expression (`issue #18`__)
+
+  __ https://github.com/lelit/pglast/issues/18
+
+- Support for variadic functions (`PR #19`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/19
+
+- Support ORDER / LIMIT / OFFSET for set operations (`PR #20`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/20
+
+- Implement ``ConstraintsSetStmt`` and improve ``VariableSetStmt`` printers
+
+
 1.3 (2019-03-28)
 ~~~~~~~~~~~~~~~~
 
