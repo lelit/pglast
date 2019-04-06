@@ -435,12 +435,6 @@
 
    Pretty print a `node` of type `VacuumStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3098>`__ to the `output` stream.
 
-.. index:: VariableSetStmt
-
-.. function:: variable_set_stmt(node, output)
-
-   Pretty print a `node` of type `VariableSetStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1967>`__ to the `output` stream.
-
 .. index:: ViewStmt
 
 .. function:: view_stmt(node, output)

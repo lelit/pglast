@@ -130,6 +130,12 @@
 
    Pretty print a `node` of type `CommonTableExpr <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1364>`__ to the `output` stream.
 
+.. index:: ConstraintsSetStmt
+
+.. function:: constraints_set_stmt(node, output)
+
+   Pretty print a `node` of type `ConstraintsSetStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3200>`__ to the `output` stream.
+
 .. index:: DeleteStmt
 
 .. function:: delete_stmt(node, output)
@@ -350,6 +356,12 @@
 .. function:: update_stmt_res_target(node, output)
 
    Pretty print a `node` of type `ResTarget <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L436>`__, when it is inside a `OnConflictClause <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1348>`__ or a `UpdateStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1471>`__, to the `output` stream.
+
+.. index:: VariableSetStmt
+
+.. function:: variable_set_stmt(node, output)
+
+   Pretty print a `node` of type `VariableSetStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L1967>`__ to the `output` stream.
 
 .. index:: WindowDef
 
