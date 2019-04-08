@@ -773,7 +773,7 @@ def create_function_stmt(node, output):
         fpm = enums.FunctionParameterMode
         record_def = []
         real_params = []
-        for param in node.parameters:
+        for param in node.parameters or []:
             if param.mode == fpm.FUNC_PARAM_TABLE:
                 record_def.append(Node(
                     {'ColumnDef': {
