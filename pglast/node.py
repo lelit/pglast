@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:44:14 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 from enum import Enum
@@ -15,6 +15,12 @@ class Missing:
 
     def __repr__(self):
         return "MISSING"
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        raise StopIteration()
 
 
 NoneType = type(None)
