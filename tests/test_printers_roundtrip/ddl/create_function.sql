@@ -22,3 +22,5 @@ LANGUAGE C
 CREATE FUNCTION funcc(arg text = 'default_val', OUT arg2 text, INOUT arg3 text, VARIADIC
 arglist text[]) RETURNS SETOF integer AS $$
 $$ language sql
+
+CREATE FUNCTION func() RETURNS SETOF montype AS $$ $$ language sql
