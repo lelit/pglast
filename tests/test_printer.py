@@ -271,6 +271,24 @@ def test_indented_stream_with_sql():
             printer.NODE_PRINTERS.pop('RawStmt', None)
 
 
+def test_separate_statements():
+    """Separate statements by ``separate_statements`` (int) newlines."""
+    raw_stmt_printer = printer.NODE_PRINTERS.pop('RawStmt', None)
+    try:
+        @printer.node_printer('RawStmt')
+        def raw_stmt(node, output):
+            output.write('Yeah')
+
+        output = printer.IndentedStream(separate_statements=2)
+        result = output('SELECT 1; SELECT 2')
+        assert result == 'Yeah;\n\n\nYeah'
+    finally:
+        if raw_stmt_printer is not None:
+            printer.NODE_PRINTERS['RawStmt'] = raw_stmt_printer
+        else:
+            printer.NODE_PRINTERS.pop('RawStmt', None)
+
+
 def test_special_function():
     output = printer.RawStream(special_functions=True)
 

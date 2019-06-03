@@ -227,7 +227,7 @@ class RawStream(OutputStream):
             else:
                 self.write(';')
                 self.newline()
-                if self.separate_statements:
+                for _ in range(int(self.separate_statements)):
                     self.newline()
             self.print_node(statement)
         return self.getvalue()
