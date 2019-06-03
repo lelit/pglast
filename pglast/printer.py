@@ -180,9 +180,8 @@ class RawStream(OutputStream):
 
     :param int expression_level:
            start the stream with the given expression level depth, 0 by default
-    :param bool separate_statements:
-           ``True`` by default, tells whether multiple statements shall be separated by an
-           empty line
+    :param int separate_statements:
+           ``1`` by default, tells how many empty lines should separate statements
     :param bool special_functions:
            ``False`` by default, when ``True`` some functions are treated in a special way and
            emitted as equivalent constructs
@@ -195,7 +194,7 @@ class RawStream(OutputStream):
     without any adornment.
     """
 
-    def __init__(self, expression_level=0, separate_statements=True, special_functions=False,
+    def __init__(self, expression_level=0, separate_statements=1, special_functions=False,
                  comma_at_eoln=False):
         super().__init__()
         self.expression_level = expression_level
