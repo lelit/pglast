@@ -3,6 +3,19 @@
 Changes
 -------
 
+1.5 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix issue with ``RETURNS SETOF`` functions, a more general solution than the one proposed by
+  Ronan Dunklau (`PR #22`__)
+
+  __ https://github.com/lelit/pglast/pull/22
+
+- Allow more than one empty line between statements (`PR #26`__), thanks to apnewberry
+
+  __ https://github.com/lelit/pglast/pull/26
+
+
 1.4 (2019-04-06)
 ~~~~~~~~~~~~~~~~
 
