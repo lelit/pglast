@@ -46,7 +46,7 @@ def get_printer_for_node_tag(parent_node_tag, node_tag):
 
 
 def node_printer(*node_tags, override=False):
-    """Decorator to register a specific printer implementation for given `node_tag`.
+    r"""Decorator to register a specific printer implementation for given `node_tag`.
 
     :param \*node_tags: one or two node tags
     :param bool override:
@@ -459,7 +459,7 @@ class RawStream(OutputStream):
 
 
 class IndentedStream(RawStream):
-    """Indented SQL parse tree writer.
+    r"""Indented SQL parse tree writer.
 
     :param int compact_lists_margin:
            an integer value that, if given, is used to print lists on a single line, when they
