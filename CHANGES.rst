@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.5 (unreleased)
+1.5 (2019-06-04)
 ~~~~~~~~~~~~~~~~
 
 - Fix issue with ``RETURNS SETOF`` functions, a more general solution than the one proposed by
