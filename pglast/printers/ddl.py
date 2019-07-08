@@ -1594,6 +1594,32 @@ def role_spec(node, output):
         output.print_name(node.rolename)
 
 
+@node_printer('RuleStmt')
+def rule_stmt_printer(node, output):
+    output.write('CREATE RULE ')
+    output.print_node(node.rulename)
+    output.write(' AS')
+    output.newline()
+    output.space(2)
+    with output.push_indent():
+        if node.event == 1:
+            output.write('ON SELECT TO ')
+        elif node.event == 2:
+            output.write('ON UPDATE TO ')
+        elif node.event == 3:
+            output.write('ON INSERT TO ')
+        elif node.event == 4:
+            output.write('ON DELETE TO ')
+        output.print_name(node.relation)
+        output.write(' DO')
+        if node.instead:
+            output.write(' INSTEAD')
+        output.newline()
+        output.space(2)
+        with output.push_indent():
+            output.print_list(node.actions, '', standalone_items=False)
+
+
 @node_printer('TriggerTransition')
 def trigger_transition(node, output):
     if node.isNew:
