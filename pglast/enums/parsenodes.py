@@ -283,6 +283,13 @@ class RoleStmtType(IntEnum):
     ROLESTMT_USER = auto()
     ROLESTMT_GROUP = auto()
 
+class RuleStmtEvent(IntEnum):
+    RULE_EVENT_NONE = 0
+    RULE_EVENT_SELECT = auto()
+    RULE_EVENT_UPDATE = auto()
+    RULE_EVENT_INSERT = auto()
+    RULE_EVENT_DELETE = auto()
+
 class SetOperation(IntEnum):
     SETOP_NONE = 0
     SETOP_UNION = auto()

@@ -1594,6 +1594,14 @@ def role_spec(node, output):
         output.print_name(node.rolename)
 
 
+RULE_EVENTS = {
+    enums.RuleStmtEvent.RULE_EVENT_SELECT: 'ON SELECT',
+    enums.RuleStmtEvent.RULE_EVENT_UPDATE: 'ON UPDATE',
+    enums.RuleStmtEvent.RULE_EVENT_INSERT: 'ON INSERT',
+    enums.RuleStmtEvent.RULE_EVENT_DELETE: 'ON DELETE'
+}
+
+
 @node_printer('RuleStmt')
 def rule_stmt_printer(node, output):
     output.write('CREATE RULE ')
@@ -1602,14 +1610,8 @@ def rule_stmt_printer(node, output):
     output.newline()
     output.space(2)
     with output.push_indent():
-        if node.event == 1:
-            output.write('ON SELECT TO ')
-        elif node.event == 2:
-            output.write('ON UPDATE TO ')
-        elif node.event == 3:
-            output.write('ON INSERT TO ')
-        elif node.event == 4:
-            output.write('ON DELETE TO ')
+        output.write(RULE_EVENTS[node.event.value])
+        output.write(' TO ')
         output.print_name(node.relation)
         output.write(' DO')
         if node.instead:
