@@ -127,4 +127,5 @@ def _remove_stmt_len_and_location(parse_tree):
 
 
 __all__ = ('Error', 'Missing', 'Node', 'enums', 'get_postgresql_version',
-           'parse_plpgsql', 'parse_sql', 'prettify', 'split')
+           'parse_plpgsql', 'parse_sql', 'prettify', 'split', 'parser',
+           'printer')
