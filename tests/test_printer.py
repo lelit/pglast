@@ -94,7 +94,7 @@ def test_raw_stream_basics():
     with pytest.raises(NotImplementedError) as exc:
         output(root)
 
-    assert "'TestRoot'" in str(exc)
+    assert "'TestRoot'" in exc.value.args[0]
 
     try:
         @printer.node_printer('TestRoot')
@@ -184,7 +184,7 @@ def test_indented_stream_basics():
     with pytest.raises(NotImplementedError) as exc:
         output(root)
 
-    assert "'TestRoot'" in str(exc)
+    assert "'TestRoot'" in exc.value.args[0]
 
     try:
         @printer.node_printer('TestRoot')
