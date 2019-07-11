@@ -30,7 +30,11 @@ def a_expr(node, output):
 
     if node.kind == aek.AEXPR_OP:
         with output.expression():
-            output.print_node(node.lexpr)
+            if node.lexpr.node_tag == 'A_Expr':
+                with output.expression():
+                    output.print_node(node.lexpr)
+            else:
+                output.print_node(node.lexpr)
             output.write(' ')
             if isinstance(node.name, List) and len(node.name) > 1:
                 output.write('OPERATOR(')
@@ -39,7 +43,11 @@ def a_expr(node, output):
             else:
                 output.print_symbol(node.name)
                 output.write(' ')
-            output.print_node(node.rexpr)
+            if node.rexpr.node_tag == 'A_Expr':
+                with output.expression():
+                    output.print_node(node.rexpr)
+            else:
+                output.print_node(node.rexpr)
     elif node.kind == aek.AEXPR_OP_ANY:
         output.print_node(node.lexpr)
         output.write(' ')

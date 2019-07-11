@@ -170,7 +170,7 @@ SELECT a.one
      , (   (    (NOT a.bool_flag)
             AND (a.something IS NULL))
         OR (a.other = 3)) AS foo
-     , a.value1 + (b.value2 * b.value3) AS bar
+     , a.value1 + ((b.value2 * b.value3)) AS bar
 FROM sometable AS a
 WHERE ((    (NOT a.bool_flag2)
         AND (a.something2 IS NULL))
