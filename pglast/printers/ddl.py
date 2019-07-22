@@ -862,18 +862,25 @@ def create_function_option(node, output):
 
 
 @node_printer('CreatePolicyStmt')
+@node_printer('AlterPolicyStmt')
 def create_policy_stmt(node, output):
-    output.write('CREATE POLICY ')
+    if node.node_tag == 'CreatePolicyStmt':
+        is_create = True
+        output.write('CREATE POLICY ')
+    else:
+        is_create = False
+        output.write('ALTER POLICY ')
     output.print_name(node.policy_name)
     output.write(' ON ')
     output.print_node(node.table)
-    if node.permissive:
-        output.write('AS PERMISSIVE ')
-    else:
-        output.write('AS RESTRICTIVE ')
-    if node.cmd_name:
-        output.write('FOR ')
-        output.print_node(node.cmd_name)
+    if is_create:
+        if node.permissive:
+            output.write('AS PERMISSIVE ')
+        else:
+            output.write('AS RESTRICTIVE ')
+        if node.cmd_name:
+            output.write('FOR ')
+            output.print_node(node.cmd_name)
     output.write(' TO ')
     output.print_list(node.roles, ',')
     if node.qual:
