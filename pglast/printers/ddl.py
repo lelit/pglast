@@ -536,6 +536,10 @@ def constraint(node, output):
         output.write(' (')
         output.print_name(node.keys, ',')
         output.write(')')
+    if node.deferrable:
+        output.swrite('DEFERRABLE')
+    if node.initdeferred:
+        output.swrite('INITIALLY DEFERRED')
     with output.push_indent():
         first = True
         if node.options:
