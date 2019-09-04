@@ -82,6 +82,12 @@
 
    Pretty print a `node` of type `Alias <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L39>`__ to the `output` stream.
 
+.. index:: BitString
+
+.. function:: bitstring(node, output)
+
+   Pretty print a `node` of type `BitString <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/value.h#L42>`__ to the `output` stream.
+
 .. index:: BoolExpr
 
 .. function:: bool_expr(node, output)

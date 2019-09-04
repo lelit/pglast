@@ -234,6 +234,12 @@
 
    Pretty print a `node` of type `CreatePolicyStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2306>`__ to the `output` stream.
 
+.. index:: AlterPolicyStmt
+
+.. function:: create_policy_stmt(node, output)
+
+   Pretty print a `node` of type `AlterPolicyStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2322>`__ to the `output` stream.
+
 .. index:: CreateSchemaStmt
 
 .. function:: create_schema_stmt(node, output)
