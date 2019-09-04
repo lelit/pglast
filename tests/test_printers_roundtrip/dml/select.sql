@@ -6,7 +6,7 @@ WHERE (m.deliver_date = CURRENT_DATE
    AND m.role = CURRENT_ROLE
 
 SELECT 'a', 123, 3.14159, $$this is a "complex" string containing apostrophe (')
-and newline (\n)$$, U&'Euro symbol: \20ac', 'Naïve',
+and newline (\n)$$, U&'Euro symbol: \20ac', 'Naïve', B'01',
 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 SELECT pc.id, pc.values[1] FROM ONLY ns.table

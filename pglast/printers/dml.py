@@ -199,6 +199,13 @@ def alias(node, output):
         output.write(')')
 
 
+@node_printer('BitString')
+def bitstring(node, output):
+    output.write("B'")
+    output.write(node.str.value[1:])
+    output.write("'")
+
+
 @node_printer('BoolExpr')
 def bool_expr(node, output):
     bet = enums.BoolExprType
