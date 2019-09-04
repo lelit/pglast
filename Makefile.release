@@ -69,5 +69,4 @@ help::
 
 .PHONY: publish
 publish: pypi-upload
-	git push
-	git push --tags
+	git push --follow-tags
