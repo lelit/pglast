@@ -852,6 +852,12 @@ def create_function_option(node, output):
         output.swrite('PARALLEL SAFE')
         return
 
+    if option == 'leakproof':
+        if node.arg.ival == 0:
+            output.swrite('NOT')
+        output.swrite('LEAKPROOF')
+        return
+
     if option == 'set':
         output.separator()
         output.print_node(node.arg)
