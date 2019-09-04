@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.6 (unreleased)
+1.6 (2019-09-04)
 ~~~~~~~~~~~~~~~~
 
 - Fix issue with boolean expressions precedence (`issue #29`__)
