@@ -3,6 +3,24 @@
 Changes
 -------
 
+1.6 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix issue with boolean expressions precedence (`issue #29`__)
+
+  __ https://github.com/lelit/pglast/issues/29
+
+- Implement ``BitString`` printer
+
+- Support ``LEAKPROOF`` option (`PR #31`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/31
+
+- Support ``DEFERRABLE INITIALLY DEFERRED`` option (`PR #32`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/32
+
+
 1.5 (2019-06-04)
 ~~~~~~~~~~~~~~~~
 
