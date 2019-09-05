@@ -21,7 +21,7 @@ __author__ = 'Lele Gaifax <lele@metapensiero.it>'
 
 
 def prettify(statement, safety_belt=True, **options):
-    """Render given `statement` into a prettified format.
+    r"""Render given `statement` into a prettified format.
 
     :param str statement: the SQL statement(s)
     :param bool safety_belt: whether to perform a safe check against bugs in pglast's
@@ -66,7 +66,7 @@ def prettify(statement, safety_belt=True, **options):
 
 
 def split(statements, safety_belt=True, stream_class=None, **options):
-    """Split given `statements` and yield one statement at a time.
+    r"""Split given `statements` and yield one statement at a time.
 
     :param str statements: the SQL statement(s)
     :param bool safety_belt: whether to perform a safe check against bugs in pglast's
