@@ -3,6 +3,14 @@
 Changes
 -------
 
+1.7 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Support ``ALTER TABLE RENAME CONSTRAINT`` (`PR #35`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/35
+
+
 1.6 (2019-09-04)
 ~~~~~~~~~~~~~~~~
 
