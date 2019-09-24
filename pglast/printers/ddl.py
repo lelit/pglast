@@ -1573,8 +1573,7 @@ def partition_spec(node, output):
 @node_printer('RenameStmt')
 def rename_stmt(node, output):
     objtype = node.renameType.value
-    if objtype in (enums.ObjectType.OBJECT_COLUMN,
-                  enums.ObjectType.OBJECT_TABCONSTRAINT):
+    if objtype in (enums.ObjectType.OBJECT_COLUMN, enums.ObjectType.OBJECT_TABCONSTRAINT):
         reltype = node.relationType.value or enums.ObjectType.OBJECT_TABLE
         output.write('ALTER ')
         output.write(OBJECT_NAMES[reltype])
