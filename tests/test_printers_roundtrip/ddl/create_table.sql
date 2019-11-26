@@ -259,3 +259,5 @@ CREATE TABLE films_recent AS
   SELECT * FROM films WHERE date_prod >= '2002-01-01'
 
 CREATE TABLE test AS SELECT * FROM t1 LIMIT 1;
+
+create table t1 (id int) using heap;

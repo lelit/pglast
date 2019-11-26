@@ -1035,6 +1035,9 @@ def create_stmt(node, output):
                 output.newline()
             output.write(' TABLESPACE ')
             output.print_name(node.tablespacename)
+    if node.accessMethod:
+        output.write(' USING ')
+        output.write(node.accessMethod.value)
 
 
 @node_printer('CreateTableAsStmt')
