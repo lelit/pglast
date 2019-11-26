@@ -100,23 +100,6 @@ def alter_enum_stmt(node, output):
         output._write_quoted_string(node.newValNeighbor.value)
 
 
-GRANT_OBJECT_TYPES_NAMES = {
-    enums.GrantObjectType.ACL_OBJECT_COLUMN: 'COLUMN',
-    enums.GrantObjectType.ACL_OBJECT_RELATION: 'TABLE',
-    enums.GrantObjectType.ACL_OBJECT_SEQUENCE: 'SEQUENCE',
-    enums.GrantObjectType.ACL_OBJECT_DATABASE: 'DATABASE',
-    enums.GrantObjectType.ACL_OBJECT_DOMAIN: 'DOMAIN',
-    enums.GrantObjectType.ACL_OBJECT_FDW: 'FOREIGN DATA WRAPPER',
-    enums.GrantObjectType.ACL_OBJECT_FOREIGN_SERVER: 'SERVER',
-    enums.GrantObjectType.ACL_OBJECT_FUNCTION: 'FUNCTION',
-    enums.GrantObjectType.ACL_OBJECT_LANGUAGE: 'LANGUAGE',
-    enums.GrantObjectType.ACL_OBJECT_LARGEOBJECT: 'LARGEOBJECT',
-    enums.GrantObjectType.ACL_OBJECT_NAMESPACE: 'SCHEMA',
-    enums.GrantObjectType.ACL_OBJECT_TABLESPACE: 'TABLESPACE',
-    enums.GrantObjectType.ACL_OBJECT_TYPE: 'TYPE'
-}
-
-
 @node_printer('AlterDefaultPrivilegesStmt')
 def alter_default_privileges_stmt(node, output):
     output.writes('ALTER DEFAULT PRIVILEGES')
@@ -156,7 +139,7 @@ def alter_default_privileges_stmt(node, output):
         else:
             output.write('ALL PRIVILEGES')
         output.write(' ON ')
-        output.write(GRANT_OBJECT_TYPES_NAMES[action.objtype.value])
+        output.write(OBJECT_NAMES[action.objtype.value])
         output.write('S ')
         output.writes(preposition)
         output.print_list(action.grantees, ',')
@@ -1409,7 +1392,7 @@ def grant_stmt(node, output):
         output.print_list(node.privileges)
     else:
         output.write('ALL PRIVILEGES')
-    object_name = GRANT_OBJECT_TYPES_NAMES[node.objtype.value]
+    object_name = OBJECT_NAMES[node.objtype.value]
     target = node.targtype
     output.newline()
     output.space(2)
