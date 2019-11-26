@@ -338,7 +338,7 @@ def alter_table_cmd(node, output):
 @node_printer('ClusterStmt')
 def cluster_stmt(node, output):
     output.write('CLUSTER ')
-    if node.verbose:
+    if (node.options or 0) & enums.ClusterOption.CLUOPT_VERBOSE:
         output.write('VERBOSE ')
     output.print_name(node.relation)
     output.write(' USING ')
