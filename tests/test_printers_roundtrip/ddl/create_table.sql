@@ -28,10 +28,6 @@ create table a (value integer not null check (value < 10) no inherit)
 
 create table "Someschema"."Sometable" (a integer primary key)
 
-create table a (id serial primary key, value integer) with oids
-
-create table a (id serial primary key, value integer) without oids
-
 create table a (
   id serial primary key,
   v integer references b(id) on delete cascade on update cascade
@@ -237,10 +233,6 @@ CREATE TABLE cities_ab
 CREATE TABLE films2 AS TABLE films
 
 CREATE TABLE films2 AS TABLE films WITH NO DATA
-
-CREATE TABLE films2 WITH OIDS AS TABLE films
-
-CREATE TABLE films2 WITHOUT OIDS AS TABLE films
 
 CREATE TABLE films2 AS VALUES (1,2)
 
