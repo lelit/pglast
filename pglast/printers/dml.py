@@ -932,6 +932,8 @@ def transaction_stmt(node, output):
     if node.options:
         output.write(' ')
         output.print_list(node.options)
+    if node.savepoint_name:
+        output.swrite(node.savepoint_name.value)
     if node.gid:
         output.write(" '%s'" % node.gid.value)
 
