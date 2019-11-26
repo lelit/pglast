@@ -1669,26 +1669,12 @@ def trigger_transition(node, output):
 
 @node_printer('VacuumStmt')
 def vacuum_stmt(node, output):
-    optint = node.options.value
-    options = []
-    if optint & enums.VacuumOption.VACOPT_VACUUM:
-        options.append('VACUUM')
-    if optint & enums.VacuumOption.VACOPT_FULL:
-        options.append('FULL')
-    if optint & enums.VacuumOption.VACOPT_FREEZE:
-        options.append('FREEZE')
-    if optint & enums.VacuumOption.VACOPT_VERBOSE:
-        options.append('VERBOSE')
-    if optint & enums.VacuumOption.VACOPT_ANALYZE:
-        options.append('ANALYZE')
-    if optint & enums.VacuumOption.VACOPT_DISABLE_PAGE_SKIPPING:
-        options.append('DISABLE_PAGE_SKIPPING')
-    if 'VACUUM' in options:
+    options = node.options or []
+    options = [option.defname.value.upper() for option in options]
+    if node.is_vacuumcmd:
         output.write('VACUUM ')
-        options.remove('VACUUM')
     else:
         output.write('ANALYZE ')
-        options.remove('ANALYZE')
     if options:
         # Try so emit a syntax compatible with PG < 11, if possible.
         if 'DISABLE_PAGE_SKIPPING' in options:
@@ -1697,15 +1683,19 @@ def vacuum_stmt(node, output):
             output.write(') ')
         else:
             for option in options:
-                output.write(option)
+                output.swrite(option)
                 output.space()
-    if node.relation:
-        output.print_node(node.relation)
-        if node.va_cols:
-            output.write('(')
-            output.print_list(node.va_cols, ',', are_names=True)
-            output.write(')')
+    if node.rels:
+        output.print_list(node.rels, ",")
 
+
+@node_printer('VacuumRelation')
+def vacuum_relation(node, output):
+    output.print_node(node.relation)
+    if node.va_cols:
+        output.write('(')
+        output.print_list(node.va_cols, ',', are_names=True)
+        output.write(')')
 
 @node_printer('ViewStmt')
 def view_stmt(node, output):
