@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 10-1.0.2-0-gd710cb0
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 12-latest-0-g49ab660
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2019 Lele Gaifax
@@ -51,6 +51,7 @@ class AlterTableType(IntEnum):
     AT_ColumnDefault = auto()
     AT_DropNotNull = auto()
     AT_SetNotNull = auto()
+    AT_CheckNotNull = auto()
     AT_SetStatistics = auto()
     AT_SetOptions = auto()
     AT_ResetOptions = auto()
@@ -62,6 +63,7 @@ class AlterTableType(IntEnum):
     AT_AddConstraint = auto()
     AT_AddConstraintRecurse = auto()
     AT_ReAddConstraint = auto()
+    AT_ReAddDomainConstraint = auto()
     AT_AlterConstraint = auto()
     AT_ValidateConstraint = auto()
     AT_ValidateConstraintRecurse = auto()
@@ -77,8 +79,6 @@ class AlterTableType(IntEnum):
     AT_DropCluster = auto()
     AT_SetLogged = auto()
     AT_SetUnLogged = auto()
-    AT_AddOids = auto()
-    AT_AddOidsRecurse = auto()
     AT_DropOids = auto()
     AT_SetTableSpace = auto()
     AT_SetRelOptions = auto()
@@ -112,11 +112,21 @@ class AlterTableType(IntEnum):
     AT_SetIdentity = auto()
     AT_DropIdentity = auto()
 
+class CTEMaterialize(IntEnum):
+    CTEMaterializeDefault = 0
+    CTEMaterializeAlways = auto()
+    CTEMaterializeNever = auto()
+
+class ClusterOption(IntFlag):
+    CLUOPT_RECHECK = 1 << 0
+    CLUOPT_VERBOSE = 1 << 1
+
 class ConstrType(IntEnum):
     CONSTR_NULL = 0
     CONSTR_NOTNULL = auto()
     CONSTR_DEFAULT = auto()
     CONSTR_IDENTITY = auto()
+    CONSTR_GENERATED = auto()
     CONSTR_CHECK = auto()
     CONSTR_PRIMARY = auto()
     CONSTR_UNIQUE = auto()
@@ -155,21 +165,6 @@ class FunctionParameterMode(str, Enum):
     FUNC_PARAM_INOUT = 'b'
     FUNC_PARAM_VARIADIC = 'v'
     FUNC_PARAM_TABLE = 't'
-
-class GrantObjectType(IntEnum):
-    ACL_OBJECT_COLUMN = 0
-    ACL_OBJECT_RELATION = auto()
-    ACL_OBJECT_SEQUENCE = auto()
-    ACL_OBJECT_DATABASE = auto()
-    ACL_OBJECT_DOMAIN = auto()
-    ACL_OBJECT_FDW = auto()
-    ACL_OBJECT_FOREIGN_SERVER = auto()
-    ACL_OBJECT_FUNCTION = auto()
-    ACL_OBJECT_LANGUAGE = auto()
-    ACL_OBJECT_LARGEOBJECT = auto()
-    ACL_OBJECT_NAMESPACE = auto()
-    ACL_OBJECT_TABLESPACE = auto()
-    ACL_OBJECT_TYPE = auto()
 
 class GrantTargetType(IntEnum):
     ACL_TARGET_OBJECT = 0
@@ -217,9 +212,11 @@ class ObjectType(IntEnum):
     OBJECT_OPERATOR = auto()
     OBJECT_OPFAMILY = auto()
     OBJECT_POLICY = auto()
+    OBJECT_PROCEDURE = auto()
     OBJECT_PUBLICATION = auto()
     OBJECT_PUBLICATION_REL = auto()
     OBJECT_ROLE = auto()
+    OBJECT_ROUTINE = auto()
     OBJECT_RULE = auto()
     OBJECT_SCHEMA = auto()
     OBJECT_SEQUENCE = auto()
@@ -264,6 +261,7 @@ class RTEKind(IntEnum):
     RTE_VALUES = auto()
     RTE_CTE = auto()
     RTE_NAMEDTUPLESTORE = auto()
+    RTE_RESULT = auto()
 
 class ReindexObjectType(IntEnum):
     REINDEX_OBJECT_INDEX = 0
@@ -301,12 +299,14 @@ class SortByNulls(IntEnum):
     SORTBY_NULLS_LAST = auto()
 
 class TableLikeOption(IntFlag):
-    CREATE_TABLE_LIKE_DEFAULTS = 1 << 0
+    CREATE_TABLE_LIKE_COMMENTS = 1 << 0
     CREATE_TABLE_LIKE_CONSTRAINTS = 1 << 1
-    CREATE_TABLE_LIKE_IDENTITY = 1 << 2
-    CREATE_TABLE_LIKE_INDEXES = 1 << 3
-    CREATE_TABLE_LIKE_STORAGE = 1 << 4
-    CREATE_TABLE_LIKE_COMMENTS = 1 << 5
+    CREATE_TABLE_LIKE_DEFAULTS = 1 << 2
+    CREATE_TABLE_LIKE_GENERATED = 1 << 3
+    CREATE_TABLE_LIKE_IDENTITY = 1 << 4
+    CREATE_TABLE_LIKE_INDEXES = 1 << 5
+    CREATE_TABLE_LIKE_STATISTICS = 1 << 6
+    CREATE_TABLE_LIKE_STORAGE = 1 << 7
     CREATE_TABLE_LIKE_ALL = 0x7FFFFFFF
 
 class TransactionStmtKind(IntEnum):
@@ -320,16 +320,6 @@ class TransactionStmtKind(IntEnum):
     TRANS_STMT_PREPARE = auto()
     TRANS_STMT_COMMIT_PREPARED = auto()
     TRANS_STMT_ROLLBACK_PREPARED = auto()
-
-class VacuumOption(IntFlag):
-    VACOPT_VACUUM = 1 << 0
-    VACOPT_ANALYZE = 1 << 1
-    VACOPT_VERBOSE = 1 << 2
-    VACOPT_FREEZE = 1 << 3
-    VACOPT_FULL = 1 << 4
-    VACOPT_NOWAIT = 1 << 5
-    VACOPT_SKIPTOAST = 1 << 6
-    VACOPT_DISABLE_PAGE_SKIPPING = 1 << 7
 
 class VariableSetKind(IntEnum):
     VAR_SET_VALUE = 0
@@ -387,27 +377,37 @@ FRAMEOPTION_RANGE = 0x00002
 
 FRAMEOPTION_ROWS = 0x00004
 
-FRAMEOPTION_BETWEEN = 0x00008
+FRAMEOPTION_GROUPS = 0x00008
 
-FRAMEOPTION_START_UNBOUNDED_PRECEDING = 0x00010
+FRAMEOPTION_BETWEEN = 0x00010
 
-FRAMEOPTION_END_UNBOUNDED_PRECEDING = 0x00020
+FRAMEOPTION_START_UNBOUNDED_PRECEDING = 0x00020
 
-FRAMEOPTION_START_UNBOUNDED_FOLLOWING = 0x00040
+FRAMEOPTION_END_UNBOUNDED_PRECEDING = 0x00040
 
-FRAMEOPTION_END_UNBOUNDED_FOLLOWING = 0x00080
+FRAMEOPTION_START_UNBOUNDED_FOLLOWING = 0x00080
 
-FRAMEOPTION_START_CURRENT_ROW = 0x00100
+FRAMEOPTION_END_UNBOUNDED_FOLLOWING = 0x00100
 
-FRAMEOPTION_END_CURRENT_ROW = 0x00200
+FRAMEOPTION_START_CURRENT_ROW = 0x00200
 
-FRAMEOPTION_START_VALUE_PRECEDING = 0x00400
+FRAMEOPTION_END_CURRENT_ROW = 0x00400
 
-FRAMEOPTION_END_VALUE_PRECEDING = 0x00800
+FRAMEOPTION_START_OFFSET_PRECEDING = 0x00800
 
-FRAMEOPTION_START_VALUE_FOLLOWING = 0x01000
+FRAMEOPTION_END_OFFSET_PRECEDING = 0x01000
 
-FRAMEOPTION_END_VALUE_FOLLOWING = 0x02000
+FRAMEOPTION_START_OFFSET_FOLLOWING = 0x02000
+
+FRAMEOPTION_END_OFFSET_FOLLOWING = 0x04000
+
+FRAMEOPTION_EXCLUDE_CURRENT_ROW = 0x08000
+
+FRAMEOPTION_EXCLUDE_GROUP = 0x10000
+
+FRAMEOPTION_EXCLUDE_TIES = 0x20000
+
+PARTITION_STRATEGY_HASH = 'h'
 
 PARTITION_STRATEGY_LIST = 'l'
 
@@ -454,3 +454,5 @@ CURSOR_OPT_CUSTOM_PLAN = 0x0080
 CURSOR_OPT_PARALLEL_OK = 0x0100
 
 REINDEXOPT_VERBOSE = 1 << 0
+
+REINDEXOPT_REPORT_PROGRESS = 1 << 1
