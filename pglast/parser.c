@@ -3033,11 +3033,11 @@ static int __Pyx_modinit_function_import_code(void) {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initparser(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initparser(void)
+__Pyx_PyMODINIT_FUNC __attribute__((visibility("default"))) initparser(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC __attribute__((visibility("default"))) initparser(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_parser(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_parser(void)
+__Pyx_PyMODINIT_FUNC __attribute__((visibility("default"))) PyInit_parser(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC __attribute__((visibility("default"))) PyInit_parser(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
