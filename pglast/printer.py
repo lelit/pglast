@@ -188,6 +188,9 @@ class RawStream(OutputStream):
     :param bool comma_at_eoln:
            ``False`` by default, when ``True`` put the comma right after each item instead of
            at the beginning of the *next* item line
+    :param bool semicolon_after_last_statement:
+           ``False`` by default, when ``True`` add a semicolon after the last statement,
+           otherwise it is emitted only as a separator between multiple statements
 
     This augments :class:`OutputStream` and implements the basic machinery needed to serialize
     the *parse tree* produced by :func:`~.parser.parse_sql()` back to a textual representation,
@@ -195,12 +198,13 @@ class RawStream(OutputStream):
     """
 
     def __init__(self, expression_level=0, separate_statements=1, special_functions=False,
-                 comma_at_eoln=False):
+                 comma_at_eoln=False, semicolon_after_last_statement=False):
         super().__init__()
         self.expression_level = expression_level
         self.separate_statements = separate_statements
         self.special_functions = special_functions
         self.comma_at_eoln = comma_at_eoln
+        self.semicolon_after_last_statement = semicolon_after_last_statement
         self.current_column = 0
 
     def __call__(self, sql, plpgsql=False):
@@ -229,6 +233,8 @@ class RawStream(OutputStream):
                 for _ in range(self.separate_statements):
                     self.newline()
             self.print_node(statement)
+        if self.semicolon_after_last_statement:
+            self.write(';')
         return self.getvalue()
 
     def dedent(self):

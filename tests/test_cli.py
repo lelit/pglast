@@ -99,6 +99,12 @@ WHERE foo <> 0
                 main([])
             assert output.getvalue() == "SELECT 1;\n\nSELECT 2\n"
 
+    with StringIO("Select 1; Select 2") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--semicolon-after-last-statement'])
+            assert output.getvalue() == "SELECT 1;\n\nSELECT 2;\n"
+
     with StringIO("Select 'abcdef'") as input:
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):

@@ -3,7 +3,7 @@
 # :Created:   dom 06 ago 2017 23:09:23 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 import argparse
@@ -33,7 +33,8 @@ def workhorse(args):
                 compact_lists_margin=args.compact_lists_margin,
                 split_string_literals_threshold=args.split_string_literals,
                 special_functions=args.special_functions,
-                comma_at_eoln=args.comma_at_eoln)
+                comma_at_eoln=args.comma_at_eoln,
+                semicolon_after_last_statement=args.semicolon_after_last_statement)
         except Error as e:
             print()
             raise SystemExit(e)
@@ -71,6 +72,8 @@ def main(options=None):
     parser.add_argument('-c', '--comma-at-eoln', action='store_true', default=False,
                         help='use alternative style to print lists, putting the comma right'
                         ' after each item')
+    parser.add_argument('-e', '--semicolon-after-last-statement', action='store_true',
+                        default=False, help='end the last statement with a semicolon')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'
                         ' by default stdin')
