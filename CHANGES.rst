@@ -6,6 +6,18 @@ Changes
 1.7 (unreleased)
 ~~~~~~~~~~~~~~~~
 
+- Implement ``NotifyStmt`` printer
+
+- Implement ``RuleStmt`` printer, thanks to Gavin M. Roy for his `PR #28`__
+
+  __ https://github.com/lelit/pglast/pull/28
+
+- Fix ``RenameStmt``, properly handling object name
+
+- Produce Python 3.8 wheels, thanks to `cibuildwheel`__ 1.0.0
+
+  __ https://github.com/joerick/cibuildwheel
+
 - Support ``ALTER TABLE RENAME CONSTRAINT`` (`PR #35`__), thanks to Ronan Dunklau
 
   __ https://github.com/lelit/pglast/pull/35
