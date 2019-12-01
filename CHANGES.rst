@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.7 (unreleased)
+1.7 (2019-12-01)
 ~~~~~~~~~~~~~~~~
 
 - Implement ``NotifyStmt`` printer
