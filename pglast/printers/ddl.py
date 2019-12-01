@@ -1622,6 +1622,52 @@ def role_spec(node, output):
         output.print_name(node.rolename)
 
 
+EVENT_NAMES = {
+    enums.CmdType.CMD_SELECT: 'SELECT',
+    enums.CmdType.CMD_UPDATE: 'UPDATE',
+    enums.CmdType.CMD_INSERT: 'INSERT',
+    enums.CmdType.CMD_DELETE: 'DELETE',
+}
+
+
+@node_printer('RuleStmt')
+def rule_stmt_printer(node, output):
+    output.write('CREATE RULE ')
+    output.print_name(node.rulename)
+    output.write(' AS')
+    output.newline()
+    with output.push_indent(2):
+        output.write('ON ')
+        output.write(EVENT_NAMES[node.event.value])
+        output.write(' TO ')
+        output.print_name(node.relation)
+        if node.whereClause:
+            output.newline()
+            output.write('WHERE ')
+            output.print_node(node.whereClause)
+        output.newline()
+        output.write('DO ')
+        if node.instead:
+            output.write('INSTEAD')
+        else:
+            output.writes('ALSO')
+        if node.actions:
+            if len(node.actions) > 1:
+                output.write(' (')
+                output.newline()
+                with output.push_indent(2):
+                    output.space(2)
+                    output.print_list(node.actions, ';', standalone_items=True)
+                output.newline()
+                output.write(')')
+            else:
+                output.space()
+                with output.push_indent():
+                    output.print_list(node.actions)
+        else:
+            output.write(' NOTHING')
+
+
 @node_printer('TriggerTransition')
 def trigger_transition(node, output):
     if node.isNew:
