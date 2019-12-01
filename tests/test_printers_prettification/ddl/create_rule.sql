@@ -29,3 +29,7 @@ CREATE RULE notify_me AS
     ; INSERT INTO audit (foo)
       VALUES ('after')
   )
+
+alter rule "XX" on "Foo" rename to "YY"
+=
+ALTER RULE "XX" ON "Foo" RENAME TO "YY"
