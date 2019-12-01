@@ -387,6 +387,12 @@
 
    Pretty print a `node` of type `LockStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L3188>`__ to the `output` stream.
 
+.. index:: NotifyStmt
+
+.. function:: notify_stmt(node, output)
+
+   Pretty print a `node` of type `NotifyStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2883>`__ to the `output` stream.
+
 .. index:: ObjectWithArgs
 
 .. function:: object_with_args(node, output)
@@ -428,6 +434,12 @@
 .. function:: role_spec(node, output)
 
    Pretty print a `node` of type `RoleSpec <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L324>`__ to the `output` stream.
+
+.. index:: RuleStmt
+
+.. function:: rule_stmt_printer(node, output)
+
+   Pretty print a `node` of type `RuleStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2867>`__ to the `output` stream.
 
 .. index:: TriggerTransition
 
