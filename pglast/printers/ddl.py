@@ -1511,6 +1511,15 @@ def lock_stmt(node, output):
         output.write(' NOWAIT')
 
 
+@node_printer('NotifyStmt')
+def notify_stmt(node, output):
+    output.write('NOTIFY ')
+    output.print_name(node.conditionname)
+    if node.payload:
+        output.write(', ')
+        output._write_quoted_string(node.payload.value)
+
+
 @node_printer('ObjectWithArgs')
 def object_with_args(node, output):
     # Special treatment for OPERATOR object inside DROP or COMMENT
