@@ -28,7 +28,7 @@ export CFLAGS=-flto -fdata-sections -ffunction-sections -Os
 export LDFLAGS=-Wl,--gc-sections,--as-needed
 
 .PHONY: build
-build: virtualenv enums keywords libpg_query/libpg_query.a pglast/parser.c
+build: virtualenv libpg_query/libpg_query.a enums keywords libpg_query/libpg_query.a pglast/parser.c
 	$(PYTHON) setup.py build_ext --inplace
 
 libpg_query/libpg_query.a: libpg_query/LICENSE
