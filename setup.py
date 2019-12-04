@@ -33,8 +33,8 @@ LIBPG_QUERY_DIR = str(here / 'libpg_query')
 INCLUDE_DIR = str(here / 'libpg_query' / 'tmp' / 'postgres' / 'src' /
                   'include')
 
-CFLAGS="-flto -fvisibility=hidden -fdata-sections -ffunction-sections"
-LDFLAGS="-Wl,--gc-sections,--as-needed"
+CFLAGS=["-flto", "-fdata-sections", "-ffunction-sections",
+        "-Os", "-Wl,--gc-sections,--as-needed"]
 
 class BuildLibPgQueryFirst(build_ext):
     def run(self):
@@ -81,7 +81,9 @@ setup(
         Extension('pglast.parser', [extension_source],
                   libraries=['pg_query'],
                   include_dirs=[LIBPG_QUERY_DIR, INCLUDE_DIR],
-                  library_dirs=[LIBPG_QUERY_DIR]),
+                  library_dirs=[LIBPG_QUERY_DIR],
+                  extra_compile_args=CFLAGS,
+                  extra_link_args=CFLAGS),
     ]),
 
     install_requires=[
