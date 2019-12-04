@@ -20,6 +20,7 @@ env:
     - CIBW_TEST_REQUIRES="coverage pytest pytest-cov"
     - CIBW_TEST_COMMAND="py.test {project}/tests"
     - CIBW_SKIP="cp2* cp33* cp34*"
+    - CIBW_BEFORE_BUILD="yum -y install flex"
     - TWINE_USERNAME=lelit
       # Note: TWINE_PASSWORD is set in Travis settings
 
