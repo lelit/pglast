@@ -255,7 +255,7 @@ def case_expr(node, output):
             output.print_list(node.args, '')
             if node.defresult:
                 output.newline()
-                output.writes('ELSE')
+                output.write('ELSE ')
                 output.print_node(node.defresult)
         output.newline()
         output.write('END')
@@ -263,11 +263,12 @@ def case_expr(node, output):
 
 @node_printer('CaseWhen')
 def case_when(node, output):
-    output.writes('WHEN')
+    output.write('WHEN ')
     with output.push_indent(-3):
-        output.print_node(node.expr)
+        with output.expression():
+            output.print_node(node.expr)
         output.newline()
-        output.writes('THEN')
+        output.write('THEN ')
         output.print_node(node.result)
 
 

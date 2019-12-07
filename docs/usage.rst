@@ -162,6 +162,16 @@ Reformat a ``SQL`` statement from the command line
         , c
    FROM sometable
 
+   $ echo "select a, case when a=1 then 'singular' else 'plural' end from test" > /tmp/q.sql
+   $ pgpp /tmp/q.sql
+   SELECT a
+        , CASE
+            WHEN (a = 1)
+              THEN 'singular'
+            ELSE 'plural'
+          END
+   FROM test
+
    $ echo 'update "table" set value=123 where value is null' | pgpp
    UPDATE "table"
    SET value = 123

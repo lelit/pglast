@@ -312,3 +312,46 @@ FROM table_b AS b
      INNER JOIN table_c AS c ON c.b_id = b.id
    , table_a AS a
 WHERE a.code = b.code
+
+SELECT id, CASE WHEN (NOT EXISTS (SELECT TRUE FROM aaa WHERE a = 1) or exists (select true from bbb where b = 2)) and  id=1 THEN NULL ELSE NOT EXISTS (SELECT TRUE FROM ccc WHERE c = 1) END FROM bar
+=
+SELECT id
+     , CASE
+         WHEN (    ((   (NOT EXISTS (SELECT TRUE
+                                     FROM aaa
+                                     WHERE (a = 1)))
+                     OR EXISTS (SELECT TRUE
+                                FROM bbb
+                                WHERE (b = 2))))
+               AND (id = 1))
+           THEN NULL
+         ELSE NOT EXISTS (SELECT TRUE
+                          FROM ccc
+                          WHERE (c = 1))
+       END
+FROM bar
+
+select case a.a when 1 then 'one' when 2 then 'two' else 'something else' end from a
+=
+SELECT CASE a.a
+         WHEN 1
+           THEN 'one'
+         WHEN 2
+           THEN 'two'
+         ELSE 'something else'
+       END
+FROM a
+
+select case a.a when 1 then (select b from b) when 2 then (select c from c) else (select d from d) end from a
+=
+SELECT CASE a.a
+         WHEN 1
+           THEN (SELECT b
+                 FROM b)
+         WHEN 2
+           THEN (SELECT c
+                 FROM c)
+         ELSE (SELECT d
+               FROM d)
+       END
+FROM a
