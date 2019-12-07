@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.8 (unreleased)
+1.8 (2019-12-07)
 ~~~~~~~~~~~~~~~~
 
 - Prettier ``CASE`` representation
