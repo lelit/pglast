@@ -9,6 +9,7 @@
 from contextlib import contextmanager
 from io import StringIO
 from re import match
+from sys import stderr
 
 from .error import Error
 from .node import List, Node, Scalar
@@ -105,6 +106,12 @@ class OutputStream(StringIO):
         super().__init__()
         self.pending_separator = False
         self.last_emitted_char = ' '
+
+    def show(self, where=stderr):
+        "Emit current stream content, by default to `stderr`, to aid debugging."
+
+        where.write(self.getvalue())
+        where.write('\n')
 
     def separator(self):
         """Possibly insert a single whitespace character before next output.
@@ -206,6 +213,15 @@ class RawStream(OutputStream):
         self.comma_at_eoln = comma_at_eoln
         self.semicolon_after_last_statement = semicolon_after_last_statement
         self.current_column = 0
+
+    def show(self, where=stderr):
+        """Emit also current expression_level and a "pointer" showing current_column."""
+
+        where.write('expression_level=%d\n' % self.expression_level)
+        super().show(where)
+        if self.current_column:
+            where.write('-' * (self.current_column-1))
+        where.write('^\n')
 
     def __call__(self, sql, plpgsql=False):
         """Main entry point: execute :meth:`print_node` on each statement in `sql`.
@@ -485,6 +501,13 @@ class IndentedStream(RawStream):
         self.split_string_literals_threshold = split_string_literals_threshold
         self.current_indent = 0
         self.indentation_stack = []
+
+    def show(self, where=stderr):
+        "Emit also current_indent and indentation_stack."
+
+        where.write('current_indent=%d\n' % self.current_indent)
+        where.write('indentation_stack=%r\n' % self.indentation_stack)
+        super().show(where)
 
     def dedent(self):
         "Pop the indentation level from the stack and set `current_indent` to that."
