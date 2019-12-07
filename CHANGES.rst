@@ -3,6 +3,16 @@
 Changes
 -------
 
+1.8 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Prettier ``CASE`` representation
+
+- New option to emit a semicolon after the last statement (`issue #24`__)
+
+  __ https://github.com/lelit/pglast/issues/24
+
+
 1.7 (2019-12-01)
 ~~~~~~~~~~~~~~~~
 
