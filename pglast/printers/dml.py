@@ -476,7 +476,7 @@ def insert_stmt(node, output):
         output.print_node(node.relation)
         if node.cols:
             output.write(' (')
-            output.print_name(node.cols, ',')
+            output.print_list(node.cols)
             output.write(')')
         else:
             output.write(' ')

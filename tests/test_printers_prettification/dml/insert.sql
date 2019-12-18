@@ -1,14 +1,16 @@
 insert into t (id, description)
 values (1, 'this is short enough'), (2, 'this is too long, and will be splitted')
 =
-INSERT INTO t (id, description)
+INSERT INTO t (id
+             , description)
 VALUES (1, 'this is short enough')
      , (2, 'this is too long, and will be splitted')
 
 insert into t (id, description)
 values (1, 'this is short enough'), (2, 'this is too long, and will be splitted')
 =
-INSERT INTO t (id, description)
+INSERT INTO t (id
+             , description)
 VALUES (1, 'this is short enough')
      , (2, 'this is too long, an'
            'd will be splitted')
@@ -18,7 +20,8 @@ VALUES (1, 'this is short enough')
 insert into t (id, description)
 values (1, 'this is short enough'), (2, 'this is too long, and will be splitted')
 =
-INSERT INTO t (id, description)
+INSERT INTO t (id,
+               description)
 VALUES (1, 'this is short enough'),
        (2, 'this is too long, and will be splitted')
 :
