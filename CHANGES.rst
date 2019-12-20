@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.9 (unreleased)
+1.9 (2019-12-20)
 ~~~~~~~~~~~~~~~~
 
 - Prettier ``INSERT`` representation
