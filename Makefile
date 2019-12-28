@@ -10,7 +10,7 @@ export TOPDIR := $(CURDIR)
 export VENVDIR := $(TOPDIR)/env
 export PYTHON := $(VENVDIR)/bin/python
 export SHELL := /bin/bash
-export SYS_PYTHON := $(shell which python3.6 || which python3)
+export SYS_PYTHON := $(shell which python3)
 
 all: virtualenv libpg_query/LICENSE help
 
