@@ -69,7 +69,7 @@ def test_unicode():
 def test_pg_version():
     pg_version = get_postgresql_version()
     assert isinstance(pg_version, tuple)
-    assert len(pg_version) == 3
+    assert len(pg_version) == 2
 
 
 def test_pointless_attributes_remotion():

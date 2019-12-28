@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:12:49 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 #cython: language_level=3
@@ -51,12 +51,11 @@ cdef extern from "pg_query.h" nogil:
 
 
 def get_postgresql_version():
-    "Return the PostgreSQL version as a tuple (`major`, `minor`, `patch`)."
+    "Return the PostgreSQL version as a tuple (`major`, `minor`)."
 
     version = PG_VERSION_NUM
-    major, mp = divmod(version, 10_000)
-    minor, patch = divmod(mp, 100)
-    return (major, minor, patch)
+    major, minor = divmod(version, 10_000)
+    return (major, minor)
 
 
 def parse_sql(str query):
