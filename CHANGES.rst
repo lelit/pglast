@@ -3,6 +3,19 @@
 Changes
 -------
 
+2.0 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Use Ronan's fork__ of libpg_query, targeting PostgreSQL 12.1 (`PR #36`__)
+
+  __ https://github.com/rdunklau/libpg_query
+  __ https://github.com/lelit/pglast/pull/36
+
+- Change get_postgresql_version() to return a ``(major, minor)`` tuple (`issue #38`__)
+
+  __ https://github.com/lelit/pglast/issues/38
+
+
 1.9 (2019-12-20)
 ~~~~~~~~~~~~~~~~
 
