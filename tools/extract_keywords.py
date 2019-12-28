@@ -3,7 +3,7 @@
 # :Created:   dom 06 ago 2017 23:34:53 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019 Lele Gaifax
 #
 
 from collections import defaultdict
@@ -23,11 +23,19 @@ HEADER = """\
 """
 
 
-def get_libpg_query_version():
-    result = subprocess.check_output(['git', 'describe', '--all', '--long'],
-                                     cwd='libpg_query')
-    return result.decode('utf-8').strip().split('/')[-1]
+def get_target_pg_version():
+    "Return the target PG version"
 
+    with open('libpg_query/Makefile') as mf:
+        for line in mf:
+            if line.startswith('PG_VERSION ='):
+                pg_version = line.split('=')[1].strip()
+                break
+        else:
+            raise RuntimeError('Could not determine target PG version, "PG_VERSION" not found'
+                               ' in libpg_query/Makefile!')
+
+    return pg_version
 
 def extract_keywords(source):
     for line in source.splitlines():
@@ -46,7 +54,7 @@ def workhorse(args):
         bytype[type].add(keyword)
 
     with open(args.output, 'w', encoding='utf-8') as output:
-        output.write(HEADER % (basename(args.header), get_libpg_query_version()))
+        output.write(HEADER % (basename(args.header), get_target_pg_version()))
         for type in sorted(bytype):
             output.write('\n')
             output.write(type + 'S')
