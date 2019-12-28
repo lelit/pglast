@@ -9,7 +9,7 @@
  :mod:`pglast.enums.nodes` --- Constants extracted from `nodes.h`__
 ====================================================================
 
-__ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h
+__ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h
 
 .. module:: pglast.enums.nodes
    :synopsis: Constants extracted from nodes.h
@@ -17,7 +17,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.nodes.AggSplit
 
-   Corresponds to the `AggSplit enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L757>`__.
+   Corresponds to the `AggSplit enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L775>`__.
 
    .. data:: AGGSPLIT_SIMPLE
 
@@ -28,7 +28,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.nodes.AggStrategy
 
-   Corresponds to the `AggStrategy enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L735>`__.
+   Corresponds to the `AggStrategy enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L753>`__.
 
    .. data:: AGG_PLAIN
 
@@ -41,7 +41,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.nodes.CmdType
 
-   Corresponds to the `CmdType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L649>`__.
+   Corresponds to the `CmdType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L667>`__.
 
    .. data:: CMD_UNKNOWN
 
@@ -60,7 +60,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.nodes.JoinType
 
-   Corresponds to the `JoinType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L673>`__.
+   Corresponds to the `JoinType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L691>`__.
 
    .. data:: JOIN_INNER
 
@@ -81,7 +81,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.nodes.NodeTag
 
-   Corresponds to the `NodeTag enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L26>`__.
+   Corresponds to the `NodeTag enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L26>`__.
 
    .. data:: T_Invalid
 
@@ -92,6 +92,8 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
    .. data:: T_ProjectionInfo
 
    .. data:: T_JunkFilter
+
+   .. data:: T_OnConflictSetState
 
    .. data:: T_ResultRelInfo
 
@@ -186,6 +188,14 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
    .. data:: T_NestLoopParam
 
    .. data:: T_PlanRowMark
+
+   .. data:: T_PartitionPruneInfo
+
+   .. data:: T_PartitionedRelPruneInfo
+
+   .. data:: T_PartitionPruneStepOp
+
+   .. data:: T_PartitionPruneStepCombine
 
    .. data:: T_PlanInvalItem
 
@@ -293,7 +303,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
    .. data:: T_WindowFunc
 
-   .. data:: T_ArrayRef
+   .. data:: T_SubscriptingRef
 
    .. data:: T_FuncExpr
 
@@ -431,7 +441,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
    .. data:: T_MergeAppendPath
 
-   .. data:: T_ResultPath
+   .. data:: T_GroupResultPath
 
    .. data:: T_MaterialPath
 
@@ -479,13 +489,13 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
    .. data:: T_RestrictInfo
 
+   .. data:: T_IndexClause
+
    .. data:: T_PlaceHolderVar
 
    .. data:: T_SpecialJoinInfo
 
    .. data:: T_AppendRelInfo
-
-   .. data:: T_PartitionedChildRelInfo
 
    .. data:: T_PlaceHolderInfo
 
@@ -504,6 +514,8 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
    .. data:: T_AllocSetContext
 
    .. data:: T_SlabContext
+
+   .. data:: T_GenerationContext
 
    .. data:: T_Value
 
@@ -751,6 +763,8 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
    .. data:: T_AlterCollationStmt
 
+   .. data:: T_CallStmt
+
    .. data:: T_A_Expr
 
    .. data:: T_ColumnRef
@@ -853,6 +867,8 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
    .. data:: T_PartitionCmd
 
+   .. data:: T_VacuumRelation
+
    .. data:: T_IdentifySystemCmd
 
    .. data:: T_BaseBackupCmd
@@ -883,14 +899,28 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
    .. data:: T_IndexAmRoutine
 
+   .. data:: T_TableAmRoutine
+
    .. data:: T_TsmRoutine
 
    .. data:: T_ForeignKeyCacheInfo
 
+   .. data:: T_CallContext
+
+   .. data:: T_SupportRequestSimplify
+
+   .. data:: T_SupportRequestSelectivity
+
+   .. data:: T_SupportRequestCost
+
+   .. data:: T_SupportRequestRows
+
+   .. data:: T_SupportRequestIndexCondition
+
 
 .. class:: pglast.enums.nodes.OnConflictAction
 
-   Corresponds to the `OnConflictAction enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L799>`__.
+   Corresponds to the `OnConflictAction enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L817>`__.
 
    .. data:: ONCONFLICT_NONE
 
@@ -901,7 +931,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.nodes.SetOpCmd
 
-   Corresponds to the `SetOpCmd enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L779>`__.
+   Corresponds to the `SetOpCmd enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L797>`__.
 
    .. data:: SETOPCMD_INTERSECT
 
@@ -914,7 +944,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.nodes.SetOpStrategy
 
-   Corresponds to the `SetOpStrategy enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L787>`__.
+   Corresponds to the `SetOpStrategy enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L805>`__.
 
    .. data:: SETOP_SORTED
 
@@ -923,16 +953,16 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. data:: AGGSPLITOP_COMBINE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L751>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L769>`__.
 
 .. data:: AGGSPLITOP_SKIPFINAL
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L752>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L770>`__.
 
 .. data:: AGGSPLITOP_SERIALIZE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L753>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L771>`__.
 
 .. data:: AGGSPLITOP_DESERIALIZE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/nodes.h#L754>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L772>`__.

@@ -100,23 +100,6 @@ def alter_enum_stmt(node, output):
         output._write_quoted_string(node.newValNeighbor.value)
 
 
-GRANT_OBJECT_TYPES_NAMES = {
-    enums.GrantObjectType.ACL_OBJECT_COLUMN: 'COLUMN',
-    enums.GrantObjectType.ACL_OBJECT_RELATION: 'TABLE',
-    enums.GrantObjectType.ACL_OBJECT_SEQUENCE: 'SEQUENCE',
-    enums.GrantObjectType.ACL_OBJECT_DATABASE: 'DATABASE',
-    enums.GrantObjectType.ACL_OBJECT_DOMAIN: 'DOMAIN',
-    enums.GrantObjectType.ACL_OBJECT_FDW: 'FOREIGN DATA WRAPPER',
-    enums.GrantObjectType.ACL_OBJECT_FOREIGN_SERVER: 'SERVER',
-    enums.GrantObjectType.ACL_OBJECT_FUNCTION: 'FUNCTION',
-    enums.GrantObjectType.ACL_OBJECT_LANGUAGE: 'LANGUAGE',
-    enums.GrantObjectType.ACL_OBJECT_LARGEOBJECT: 'LARGEOBJECT',
-    enums.GrantObjectType.ACL_OBJECT_NAMESPACE: 'SCHEMA',
-    enums.GrantObjectType.ACL_OBJECT_TABLESPACE: 'TABLESPACE',
-    enums.GrantObjectType.ACL_OBJECT_TYPE: 'TYPE'
-}
-
-
 @node_printer('AlterDefaultPrivilegesStmt')
 def alter_default_privileges_stmt(node, output):
     output.writes('ALTER DEFAULT PRIVILEGES')
@@ -156,7 +139,7 @@ def alter_default_privileges_stmt(node, output):
         else:
             output.write('ALL PRIVILEGES')
         output.write(' ON ')
-        output.write(GRANT_OBJECT_TYPES_NAMES[action.objtype.value])
+        output.write(OBJECT_NAMES[action.objtype.value])
         output.write('S ')
         output.writes(preposition)
         output.print_list(action.grantees, ',')
@@ -355,7 +338,7 @@ def alter_table_cmd(node, output):
 @node_printer('ClusterStmt')
 def cluster_stmt(node, output):
     output.write('CLUSTER ')
-    if node.verbose:
+    if (node.options or 0) & enums.ClusterOption.CLUOPT_VERBOSE:
         output.write('VERBOSE ')
     output.print_name(node.relation)
     output.write(' USING ')
@@ -1023,16 +1006,9 @@ def create_stmt(node, output):
                 first = False
             else:
                 output.newline()
-            if len(node.options) == 1 and node.options[0].defname == 'oids':
-                output.write(' WITH')
-                if node.options[0].arg.ival.value == 0:
-                    output.write
-                    output.write('OUT')
-                output.write(' OIDS')
-            else:
-                output.write(' WITH (')
-                output.print_list(node.options)
-                output.write(')')
+            output.write(' WITH (')
+            output.print_list(node.options)
+            output.write(')')
         if node.oncommit != enums.OnCommitAction.ONCOMMIT_NOOP:
             if first:
                 first = False
@@ -1052,6 +1028,9 @@ def create_stmt(node, output):
                 output.newline()
             output.write(' TABLESPACE ')
             output.print_name(node.tablespacename)
+    if node.accessMethod:
+        output.write(' USING ')
+        output.write(node.accessMethod.value)
 
 
 @node_printer('CreateTableAsStmt')
@@ -1409,7 +1388,7 @@ def grant_stmt(node, output):
         output.print_list(node.privileges)
     else:
         output.write('ALL PRIVILEGES')
-    object_name = GRANT_OBJECT_TYPES_NAMES[node.objtype.value]
+    object_name = OBJECT_NAMES[node.objtype.value]
     target = node.targtype
     output.newline()
     output.space(2)
@@ -1683,26 +1662,12 @@ def trigger_transition(node, output):
 
 @node_printer('VacuumStmt')
 def vacuum_stmt(node, output):
-    optint = node.options.value
-    options = []
-    if optint & enums.VacuumOption.VACOPT_VACUUM:
-        options.append('VACUUM')
-    if optint & enums.VacuumOption.VACOPT_FULL:
-        options.append('FULL')
-    if optint & enums.VacuumOption.VACOPT_FREEZE:
-        options.append('FREEZE')
-    if optint & enums.VacuumOption.VACOPT_VERBOSE:
-        options.append('VERBOSE')
-    if optint & enums.VacuumOption.VACOPT_ANALYZE:
-        options.append('ANALYZE')
-    if optint & enums.VacuumOption.VACOPT_DISABLE_PAGE_SKIPPING:
-        options.append('DISABLE_PAGE_SKIPPING')
-    if 'VACUUM' in options:
+    options = node.options or []
+    options = [option.defname.value.upper() for option in options]
+    if node.is_vacuumcmd:
         output.write('VACUUM ')
-        options.remove('VACUUM')
     else:
         output.write('ANALYZE ')
-        options.remove('ANALYZE')
     if options:
         # Try so emit a syntax compatible with PG < 11, if possible.
         if 'DISABLE_PAGE_SKIPPING' in options:
@@ -1711,15 +1676,19 @@ def vacuum_stmt(node, output):
             output.write(') ')
         else:
             for option in options:
-                output.write(option)
+                output.swrite(option)
                 output.space()
-    if node.relation:
-        output.print_node(node.relation)
-        if node.va_cols:
-            output.write('(')
-            output.print_list(node.va_cols, ',', are_names=True)
-            output.write(')')
+    if node.rels:
+        output.print_list(node.rels, ",")
 
+
+@node_printer('VacuumRelation')
+def vacuum_relation(node, output):
+    output.print_node(node.relation)
+    if node.va_cols:
+        output.write('(')
+        output.print_list(node.va_cols, ',', are_names=True)
+        output.write(')')
 
 @node_printer('ViewStmt')
 def view_stmt(node, output):

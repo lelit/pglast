@@ -933,6 +933,8 @@ def transaction_stmt(node, output):
     if node.options:
         output.write(' ')
         output.print_list(node.options)
+    if node.savepoint_name:
+        output.swrite(node.savepoint_name.value)
     if node.gid:
         output.write(" '%s'" % node.gid.value)
 
@@ -1187,10 +1189,10 @@ def window_def(node, output):
                     output.writes('UNBOUNDED FOLLOWING')
                 elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
                     output.writes('CURRENT ROW')
-                elif fo & enums.FRAMEOPTION_START_VALUE_PRECEDING:
+                elif fo & enums.FRAMEOPTION_START_OFFSET_PRECEDING:
                     output.print_node(node.startOffset)
                     output.swrites('PRECEDING')
-                elif fo & enums.FRAMEOPTION_START_VALUE_FOLLOWING:
+                elif fo & enums.FRAMEOPTION_START_OFFSET_FOLLOWING:
                     output.print_node(node.startOffset)
                     output.swrites('FOLLOWING')
                 if fo & enums.FRAMEOPTION_BETWEEN:
@@ -1203,10 +1205,10 @@ def window_def(node, output):
                     output.writes('UNBOUNDED FOLLOWING')
                 elif fo & enums.FRAMEOPTION_END_CURRENT_ROW:
                     output.writes('CURRENT ROW')
-                elif fo & enums.FRAMEOPTION_END_VALUE_PRECEDING:
+                elif fo & enums.FRAMEOPTION_END_OFFSET_PRECEDING:
                     output.print_node(node.endOffset)
                     output.swrites('PRECEDING')
-                elif fo & enums.FRAMEOPTION_END_VALUE_FOLLOWING:
+                elif fo & enums.FRAMEOPTION_END_OFFSET_FOLLOWING:
                     output.print_node(node.endOffset)
                     output.swrites('FOLLOWING')
         output.write(')')

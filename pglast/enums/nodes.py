@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from nodes.h @ 10-1.0.2-0-gd710cb0
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from nodes.h @ 12-latest-0-g49ab660
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2019 Lele Gaifax
@@ -48,6 +48,7 @@ class NodeTag(IntEnum):
     T_ExprContext = auto()
     T_ProjectionInfo = auto()
     T_JunkFilter = auto()
+    T_OnConflictSetState = auto()
     T_ResultRelInfo = auto()
     T_EState = auto()
     T_TupleTableSlot = auto()
@@ -95,6 +96,10 @@ class NodeTag(IntEnum):
     T_Limit = auto()
     T_NestLoopParam = auto()
     T_PlanRowMark = auto()
+    T_PartitionPruneInfo = auto()
+    T_PartitionedRelPruneInfo = auto()
+    T_PartitionPruneStepOp = auto()
+    T_PartitionPruneStepCombine = auto()
     T_PlanInvalItem = auto()
     T_PlanState = auto()
     T_ResultState = auto()
@@ -148,7 +153,7 @@ class NodeTag(IntEnum):
     T_Aggref = auto()
     T_GroupingFunc = auto()
     T_WindowFunc = auto()
-    T_ArrayRef = auto()
+    T_SubscriptingRef = auto()
     T_FuncExpr = auto()
     T_NamedArgExpr = auto()
     T_OpExpr = auto()
@@ -217,7 +222,7 @@ class NodeTag(IntEnum):
     T_HashPath = auto()
     T_AppendPath = auto()
     T_MergeAppendPath = auto()
-    T_ResultPath = auto()
+    T_GroupResultPath = auto()
     T_MaterialPath = auto()
     T_UniquePath = auto()
     T_GatherPath = auto()
@@ -241,10 +246,10 @@ class NodeTag(IntEnum):
     T_PathKey = auto()
     T_PathTarget = auto()
     T_RestrictInfo = auto()
+    T_IndexClause = auto()
     T_PlaceHolderVar = auto()
     T_SpecialJoinInfo = auto()
     T_AppendRelInfo = auto()
-    T_PartitionedChildRelInfo = auto()
     T_PlaceHolderInfo = auto()
     T_MinMaxAggInfo = auto()
     T_PlannerParamItem = auto()
@@ -254,6 +259,7 @@ class NodeTag(IntEnum):
     T_MemoryContext = auto()
     T_AllocSetContext = auto()
     T_SlabContext = auto()
+    T_GenerationContext = auto()
     T_Value = auto()
     T_Integer = auto()
     T_Float = auto()
@@ -377,6 +383,7 @@ class NodeTag(IntEnum):
     T_DropSubscriptionStmt = auto()
     T_CreateStatsStmt = auto()
     T_AlterCollationStmt = auto()
+    T_CallStmt = auto()
     T_A_Expr = auto()
     T_ColumnRef = auto()
     T_ParamRef = auto()
@@ -428,6 +435,7 @@ class NodeTag(IntEnum):
     T_PartitionBoundSpec = auto()
     T_PartitionRangeDatum = auto()
     T_PartitionCmd = auto()
+    T_VacuumRelation = auto()
     T_IdentifySystemCmd = auto()
     T_BaseBackupCmd = auto()
     T_CreateReplicationSlotCmd = auto()
@@ -443,8 +451,15 @@ class NodeTag(IntEnum):
     T_InlineCodeBlock = auto()
     T_FdwRoutine = auto()
     T_IndexAmRoutine = auto()
+    T_TableAmRoutine = auto()
     T_TsmRoutine = auto()
     T_ForeignKeyCacheInfo = auto()
+    T_CallContext = auto()
+    T_SupportRequestSimplify = auto()
+    T_SupportRequestSelectivity = auto()
+    T_SupportRequestCost = auto()
+    T_SupportRequestRows = auto()
+    T_SupportRequestIndexCondition = auto()
 
 class OnConflictAction(IntEnum):
     ONCONFLICT_NONE = 0

@@ -28,10 +28,6 @@ create table a (value integer not null check (value < 10) no inherit)
 
 create table "Someschema"."Sometable" (a integer primary key)
 
-create table a (id serial primary key, value integer) with oids
-
-create table a (id serial primary key, value integer) without oids
-
 create table a (
   id serial primary key,
   v integer references b(id) on delete cascade on update cascade
@@ -238,10 +234,6 @@ CREATE TABLE films2 AS TABLE films
 
 CREATE TABLE films2 AS TABLE films WITH NO DATA
 
-CREATE TABLE films2 WITH OIDS AS TABLE films
-
-CREATE TABLE films2 WITHOUT OIDS AS TABLE films
-
 CREATE TABLE films2 AS VALUES (1,2)
 
 CREATE TEMPORARY TABLE films2 AS VALUES (1,2)
@@ -259,3 +251,5 @@ CREATE TABLE films_recent AS
   SELECT * FROM films WHERE date_prod >= '2002-01-01'
 
 CREATE TABLE test AS SELECT * FROM t1 LIMIT 1;
+
+create table t1 (id int) using heap;

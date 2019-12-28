@@ -24,8 +24,11 @@ help::
 help::
 	@printf "build\n\tbuild the module\n"
 
+export CFLAGS=-flto -fdata-sections -ffunction-sections -Os
+export LDFLAGS=-Wl,--gc-sections,--as-needed
+
 .PHONY: build
-build: virtualenv enums keywords libpg_query/libpg_query.a pglast/parser.c
+build: virtualenv libpg_query/libpg_query.a enums keywords libpg_query/libpg_query.a pglast/parser.c
 	$(PYTHON) setup.py build_ext --inplace
 
 libpg_query/libpg_query.a: libpg_query/LICENSE
@@ -67,7 +70,7 @@ PY_ENUMS := $(PY_ENUMS_DIR)/lockoptions.py $(PY_ENUMS_DIR)/lockdefs.py \
 	    $(PY_ENUMS_DIR)/nodes.py $(PY_ENUMS_DIR)/parsenodes.py \
 	    $(PY_ENUMS_DIR)/pg_class.py $(PY_ENUMS_DIR)/pg_trigger.py \
 	    $(PY_ENUMS_DIR)/primnodes.py
-PG_INCLUDE_DIR := libpg_query/src/postgres/include
+PG_INCLUDE_DIR := libpg_query/tmp/postgres/src/include
 
 .PHONY: enums
 enums: $(PY_ENUMS)
