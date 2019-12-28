@@ -9,7 +9,7 @@
  :mod:`pglast.enums.parsenodes` --- Constants extracted from `parsenodes.h`__
 ==============================================================================
 
-__ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h
 
 .. module:: pglast.enums.parsenodes
    :synopsis: Constants extracted from parsenodes.h
@@ -17,7 +17,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.A_Expr_Kind
 
-   Corresponds to the `A_Expr_Kind enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L252>`__.
+   Corresponds to the `A_Expr_Kind enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l252>`__.
 
    .. data:: AEXPR_OP
 
@@ -54,7 +54,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.AlterSubscriptionType
 
-   Corresponds to the `AlterSubscriptionType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L3497>`__.
+   Corresponds to the `AlterSubscriptionType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l3497>`__.
 
    .. data:: ALTER_SUBSCRIPTION_OPTIONS
 
@@ -69,7 +69,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.AlterTSConfigType
 
-   Corresponds to the `AlterTSConfigType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L3438>`__.
+   Corresponds to the `AlterTSConfigType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l3438>`__.
 
    .. data:: ALTER_TSCONFIG_ADD_MAPPING
 
@@ -84,7 +84,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.AlterTableType
 
-   Corresponds to the `AlterTableType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L1759>`__.
+   Corresponds to the `AlterTableType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l1759>`__.
 
    .. data:: AT_AddColumn
 
@@ -221,7 +221,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.CTEMaterialize
 
-   Corresponds to the `CTEMaterialize enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L1417>`__.
+   Corresponds to the `CTEMaterialize enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l1417>`__.
 
    .. data:: CTEMaterializeDefault
 
@@ -232,7 +232,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.ClusterOption
 
-   Corresponds to the `ClusterOption enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L3152>`__.
+   Corresponds to the `ClusterOption enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l3152>`__.
 
    .. data:: CLUOPT_RECHECK
 
@@ -241,7 +241,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.ConstrType
 
-   Corresponds to the `ConstrType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2095>`__.
+   Corresponds to the `ConstrType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2095>`__.
 
    .. data:: CONSTR_NULL
 
@@ -274,7 +274,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.DefElemAction
 
-   Corresponds to the `DefElemAction enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L718>`__.
+   Corresponds to the `DefElemAction enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l718>`__.
 
    .. data:: DEFELEM_UNSPEC
 
@@ -287,7 +287,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.DiscardMode
 
-   Corresponds to the `DiscardMode enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L3260>`__.
+   Corresponds to the `DiscardMode enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l3260>`__.
 
    .. data:: DISCARD_ALL
 
@@ -300,7 +300,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.DropBehavior
 
-   Corresponds to the `DropBehavior enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L1740>`__.
+   Corresponds to the `DropBehavior enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l1740>`__.
 
    .. data:: DROP_RESTRICT
 
@@ -309,7 +309,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.FetchDirection
 
-   Corresponds to the `FetchDirection enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2717>`__.
+   Corresponds to the `FetchDirection enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2717>`__.
 
    .. data:: FETCH_FORWARD
 
@@ -322,7 +322,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.FunctionParameterMode
 
-   Corresponds to the `FunctionParameterMode enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2807>`__.
+   Corresponds to the `FunctionParameterMode enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2807>`__.
 
    .. data:: FUNC_PARAM_IN
 
@@ -337,7 +337,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.GrantTargetType
 
-   Corresponds to the `GrantTargetType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L1894>`__.
+   Corresponds to the `GrantTargetType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l1894>`__.
 
    .. data:: ACL_TARGET_OBJECT
 
@@ -348,7 +348,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.GroupingSetKind
 
-   Corresponds to the `GroupingSetKind enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L1291>`__.
+   Corresponds to the `GroupingSetKind enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l1291>`__.
 
    .. data:: GROUPING_SET_EMPTY
 
@@ -363,7 +363,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.ImportForeignSchemaType
 
-   Corresponds to the `ImportForeignSchemaType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2340>`__.
+   Corresponds to the `ImportForeignSchemaType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2340>`__.
 
    .. data:: FDW_IMPORT_SCHEMA_ALL
 
@@ -374,7 +374,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.ObjectType
 
-   Corresponds to the `ObjectType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L1669>`__.
+   Corresponds to the `ObjectType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l1669>`__.
 
    .. data:: OBJECT_ACCESS_METHOD
 
@@ -479,7 +479,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.OverridingKind
 
-   Corresponds to the `OverridingKind enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L32>`__.
+   Corresponds to the `OverridingKind enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l32>`__.
 
    .. data:: OVERRIDING_NOT_SET
 
@@ -490,7 +490,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.PartitionRangeDatumKind
 
-   Corresponds to the `PartitionRangeDatumKind enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L834>`__.
+   Corresponds to the `PartitionRangeDatumKind enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l834>`__.
 
    .. data:: PARTITION_RANGE_DATUM_MINVALUE
 
@@ -501,7 +501,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.QuerySource
 
-   Corresponds to the `QuerySource enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L40>`__.
+   Corresponds to the `QuerySource enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l40>`__.
 
    .. data:: QSRC_ORIGINAL
 
@@ -516,7 +516,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.RTEKind
 
-   Corresponds to the `RTEKind enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L955>`__.
+   Corresponds to the `RTEKind enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l955>`__.
 
    .. data:: RTE_RELATION
 
@@ -539,7 +539,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.ReindexObjectType
 
-   Corresponds to the `ReindexObjectType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L3306>`__.
+   Corresponds to the `ReindexObjectType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l3306>`__.
 
    .. data:: REINDEX_OBJECT_INDEX
 
@@ -554,7 +554,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.RoleSpecType
 
-   Corresponds to the `RoleSpecType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L317>`__.
+   Corresponds to the `RoleSpecType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l317>`__.
 
    .. data:: ROLESPEC_CSTRING
 
@@ -567,7 +567,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.RoleStmtType
 
-   Corresponds to the `RoleStmtType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2476>`__.
+   Corresponds to the `RoleStmtType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2476>`__.
 
    .. data:: ROLESTMT_ROLE
 
@@ -578,7 +578,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.SetOperation
 
-   Corresponds to the `SetOperation enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L1556>`__.
+   Corresponds to the `SetOperation enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l1556>`__.
 
    .. data:: SETOP_NONE
 
@@ -591,7 +591,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.SortByDir
 
-   Corresponds to the `SortByDir enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L50>`__.
+   Corresponds to the `SortByDir enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l50>`__.
 
    .. data:: SORTBY_DEFAULT
 
@@ -604,7 +604,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.SortByNulls
 
-   Corresponds to the `SortByNulls enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L58>`__.
+   Corresponds to the `SortByNulls enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l58>`__.
 
    .. data:: SORTBY_NULLS_DEFAULT
 
@@ -615,7 +615,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.TableLikeOption
 
-   Corresponds to the `TableLikeOption enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L676>`__.
+   Corresponds to the `TableLikeOption enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l676>`__.
 
    .. data:: CREATE_TABLE_LIKE_COMMENTS
 
@@ -638,7 +638,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.TransactionStmtKind
 
-   Corresponds to the `TransactionStmtKind enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2994>`__.
+   Corresponds to the `TransactionStmtKind enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2994>`__.
 
    .. data:: TRANS_STMT_BEGIN
 
@@ -663,7 +663,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.VariableSetKind
 
-   Corresponds to the `VariableSetKind enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2006>`__.
+   Corresponds to the `VariableSetKind enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2006>`__.
 
    .. data:: VAR_SET_VALUE
 
@@ -680,7 +680,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.ViewCheckOption
 
-   Corresponds to the `ViewCheckOption enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L3070>`__.
+   Corresponds to the `ViewCheckOption enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l3070>`__.
 
    .. data:: NO_CHECK_OPTION
 
@@ -691,7 +691,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.parsenodes.WCOKind
 
-   Corresponds to the `WCOKind enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L1155>`__.
+   Corresponds to the `WCOKind enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l1155>`__.
 
    .. data:: WCO_VIEW_CHECK
 
@@ -704,228 +704,228 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. data:: ACL_INSERT
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L74>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l74>`__.
 
 .. data:: ACL_SELECT
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L75>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l75>`__.
 
 .. data:: ACL_UPDATE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L76>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l76>`__.
 
 .. data:: ACL_DELETE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L77>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l77>`__.
 
 .. data:: ACL_TRUNCATE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L78>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l78>`__.
 
 .. data:: ACL_REFERENCES
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L79>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l79>`__.
 
 .. data:: ACL_TRIGGER
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L80>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l80>`__.
 
 .. data:: ACL_EXECUTE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L81>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l81>`__.
 
 .. data:: ACL_USAGE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L82>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l82>`__.
 
 .. data:: ACL_CREATE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L84>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l84>`__.
 
 .. data:: ACL_CREATE_TEMP
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L85>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l85>`__.
 
 .. data:: ACL_CONNECT
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L86>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l86>`__.
 
 .. data:: N_ACL_RIGHTS
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L87>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l87>`__.
 
 .. data:: ACL_NO_RIGHTS
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L88>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l88>`__.
 
 .. data:: FRAMEOPTION_NONDEFAULT
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L504>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l504>`__.
 
 .. data:: FRAMEOPTION_RANGE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L505>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l505>`__.
 
 .. data:: FRAMEOPTION_ROWS
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L506>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l506>`__.
 
 .. data:: FRAMEOPTION_GROUPS
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L507>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l507>`__.
 
 .. data:: FRAMEOPTION_BETWEEN
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L508>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l508>`__.
 
 .. data:: FRAMEOPTION_START_UNBOUNDED_PRECEDING
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L509>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l509>`__.
 
 .. data:: FRAMEOPTION_END_UNBOUNDED_PRECEDING
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L510>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l510>`__.
 
 .. data:: FRAMEOPTION_START_UNBOUNDED_FOLLOWING
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L511>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l511>`__.
 
 .. data:: FRAMEOPTION_END_UNBOUNDED_FOLLOWING
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L512>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l512>`__.
 
 .. data:: FRAMEOPTION_START_CURRENT_ROW
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L513>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l513>`__.
 
 .. data:: FRAMEOPTION_END_CURRENT_ROW
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L514>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l514>`__.
 
 .. data:: FRAMEOPTION_START_OFFSET_PRECEDING
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L515>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l515>`__.
 
 .. data:: FRAMEOPTION_END_OFFSET_PRECEDING
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L516>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l516>`__.
 
 .. data:: FRAMEOPTION_START_OFFSET_FOLLOWING
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L517>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l517>`__.
 
 .. data:: FRAMEOPTION_END_OFFSET_FOLLOWING
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L518>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l518>`__.
 
 .. data:: FRAMEOPTION_EXCLUDE_CURRENT_ROW
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L519>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l519>`__.
 
 .. data:: FRAMEOPTION_EXCLUDE_GROUP
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L520>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l520>`__.
 
 .. data:: FRAMEOPTION_EXCLUDE_TIES
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L521>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l521>`__.
 
 .. data:: PARTITION_STRATEGY_HASH
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L798>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l798>`__.
 
 .. data:: PARTITION_STRATEGY_LIST
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L799>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l799>`__.
 
 .. data:: PARTITION_STRATEGY_RANGE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L800>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l800>`__.
 
 .. data:: FKCONSTR_ACTION_NOACTION
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2115>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2115>`__.
 
 .. data:: FKCONSTR_ACTION_RESTRICT
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2116>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2116>`__.
 
 .. data:: FKCONSTR_ACTION_CASCADE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2117>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2117>`__.
 
 .. data:: FKCONSTR_ACTION_SETNULL
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2118>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2118>`__.
 
 .. data:: FKCONSTR_ACTION_SETDEFAULT
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2119>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2119>`__.
 
 .. data:: FKCONSTR_MATCH_FULL
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2122>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2122>`__.
 
 .. data:: FKCONSTR_MATCH_PARTIAL
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2123>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2123>`__.
 
 .. data:: FKCONSTR_MATCH_SIMPLE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2124>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2124>`__.
 
 .. data:: OPCLASS_ITEM_OPERATOR
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2582>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2582>`__.
 
 .. data:: OPCLASS_ITEM_FUNCTION
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2583>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2583>`__.
 
 .. data:: OPCLASS_ITEM_STORAGETYPE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2584>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2584>`__.
 
 .. data:: CURSOR_OPT_BINARY
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2683>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2683>`__.
 
 .. data:: CURSOR_OPT_SCROLL
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2684>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2684>`__.
 
 .. data:: CURSOR_OPT_NO_SCROLL
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2685>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2685>`__.
 
 .. data:: CURSOR_OPT_INSENSITIVE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2686>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2686>`__.
 
 .. data:: CURSOR_OPT_HOLD
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2687>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2687>`__.
 
 .. data:: CURSOR_OPT_FAST_PLAN
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2689>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2689>`__.
 
 .. data:: CURSOR_OPT_GENERIC_PLAN
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2690>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2690>`__.
 
 .. data:: CURSOR_OPT_CUSTOM_PLAN
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2691>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2691>`__.
 
 .. data:: CURSOR_OPT_PARALLEL_OK
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L2692>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l2692>`__.
 
 .. data:: REINDEXOPT_VERBOSE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L3303>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l3303>`__.
 
 .. data:: REINDEXOPT_REPORT_PROGRESS
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/parsenodes.h#L3304>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/parsenodes.h#l3304>`__.

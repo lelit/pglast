@@ -9,7 +9,7 @@
  :mod:`pglast.enums.nodes` --- Constants extracted from `nodes.h`__
 ====================================================================
 
-__ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h
 
 .. module:: pglast.enums.nodes
    :synopsis: Constants extracted from nodes.h
@@ -17,7 +17,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.nodes.AggSplit
 
-   Corresponds to the `AggSplit enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L775>`__.
+   Corresponds to the `AggSplit enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l775>`__.
 
    .. data:: AGGSPLIT_SIMPLE
 
@@ -28,7 +28,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.nodes.AggStrategy
 
-   Corresponds to the `AggStrategy enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L753>`__.
+   Corresponds to the `AggStrategy enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l753>`__.
 
    .. data:: AGG_PLAIN
 
@@ -41,7 +41,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.nodes.CmdType
 
-   Corresponds to the `CmdType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L667>`__.
+   Corresponds to the `CmdType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l667>`__.
 
    .. data:: CMD_UNKNOWN
 
@@ -60,7 +60,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.nodes.JoinType
 
-   Corresponds to the `JoinType enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L691>`__.
+   Corresponds to the `JoinType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l691>`__.
 
    .. data:: JOIN_INNER
 
@@ -81,7 +81,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.nodes.NodeTag
 
-   Corresponds to the `NodeTag enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L26>`__.
+   Corresponds to the `NodeTag enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l26>`__.
 
    .. data:: T_Invalid
 
@@ -920,7 +920,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.nodes.OnConflictAction
 
-   Corresponds to the `OnConflictAction enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L817>`__.
+   Corresponds to the `OnConflictAction enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l817>`__.
 
    .. data:: ONCONFLICT_NONE
 
@@ -931,7 +931,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.nodes.SetOpCmd
 
-   Corresponds to the `SetOpCmd enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L797>`__.
+   Corresponds to the `SetOpCmd enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l797>`__.
 
    .. data:: SETOPCMD_INTERSECT
 
@@ -944,7 +944,7 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. class:: pglast.enums.nodes.SetOpStrategy
 
-   Corresponds to the `SetOpStrategy enum <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L805>`__.
+   Corresponds to the `SetOpStrategy enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l805>`__.
 
    .. data:: SETOP_SORTED
 
@@ -953,16 +953,16 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/n
 
 .. data:: AGGSPLITOP_COMBINE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L769>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l769>`__.
 
 .. data:: AGGSPLITOP_SKIPFINAL
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L770>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l770>`__.
 
 .. data:: AGGSPLITOP_SERIALIZE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L771>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l771>`__.
 
 .. data:: AGGSPLITOP_DESERIALIZE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/nodes/nodes.h#L772>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/nodes.h#l772>`__.

@@ -9,7 +9,7 @@
  :mod:`pglast.enums.pg_class` --- Constants extracted from `pg_class.h`__
 ==========================================================================
 
-__ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h
+__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h
 
 .. module:: pglast.enums.pg_class
    :synopsis: Constants extracted from pg_class.h
@@ -17,68 +17,68 @@ __ https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/c
 
 .. data:: RELKIND_RELATION
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L154>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l154>`__.
 
 .. data:: RELKIND_INDEX
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L155>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l155>`__.
 
 .. data:: RELKIND_SEQUENCE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L156>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l156>`__.
 
 .. data:: RELKIND_TOASTVALUE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L157>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l157>`__.
 
 .. data:: RELKIND_VIEW
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L158>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l158>`__.
 
 .. data:: RELKIND_MATVIEW
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L159>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l159>`__.
 
 .. data:: RELKIND_COMPOSITE_TYPE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L160>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l160>`__.
 
 .. data:: RELKIND_FOREIGN_TABLE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L161>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l161>`__.
 
 .. data:: RELKIND_PARTITIONED_TABLE
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L162>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l162>`__.
 
 .. data:: RELKIND_PARTITIONED_INDEX
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L163>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l163>`__.
 
 .. data:: RELPERSISTENCE_PERMANENT
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L165>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l165>`__.
 
 .. data:: RELPERSISTENCE_UNLOGGED
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L166>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l166>`__.
 
 .. data:: RELPERSISTENCE_TEMP
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L167>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l167>`__.
 
 .. data:: REPLICA_IDENTITY_DEFAULT
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L170>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l170>`__.
 
 .. data:: REPLICA_IDENTITY_NOTHING
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L172>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l172>`__.
 
 .. data:: REPLICA_IDENTITY_FULL
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L174>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l174>`__.
 
 .. data:: REPLICA_IDENTITY_INDEX
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/49ab660/tmp/postgres/src/include/catalog/pg_class.h#L180>`__.
+   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/catalog/pg_class.h#l180>`__.
