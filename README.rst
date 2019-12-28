@@ -17,6 +17,7 @@ PostgreSQL Languages AST and statements prettifier
 :Contact: lele@metapensiero.it
 :License: `GNU General Public License version 3 or later`__
 :Status: |build| |doc|
+:Version: 2
 
 __ https://www.gnu.org/licenses/gpl.html
 .. |build| image:: https://travis-ci.org/lelit/pglast.svg?branch=master
@@ -32,6 +33,10 @@ as set of interconnected *nodes*, usually called an *abstract syntax tree*.
 
 __ https://www.postgresql.org/
 __ https://github.com/lfittl/libpg_query
+
+
+Foreword
+--------
 
 I needed a better SQL reformatter than the one implemented by `sqlparse`__, and was annoyed by
 a few glitches (subselects__ in particular) that ruins the otherwise excellent job it does,
@@ -50,7 +55,7 @@ __ https://github.com/alculquicondor/psqlparse/pull/22
 
 - target only Python 3.4+
 
-- target PostgreSQL 10
+- target PostgreSQL 10+
 
 - use a more dynamic approach to represent the *parse tree*, with a twofold advantage:
 
@@ -64,7 +69,7 @@ __ https://github.com/alculquicondor/psqlparse/pull/22
   nodes require that knowledge to determine their textual representation
 
 - avoid introducing arbitrary renames of tags and attributes, so what you read in PostgreSQL
-  documentation/sources\ [*]_ is available without the hassle of guessing how a symbol has been
+  documentation/sources is available without the hassle of guessing how a symbol has been
   mapped
 
 - use a `zero copy`__ approach, keeping the original parse tree returned from the underlying
@@ -72,19 +77,23 @@ __ https://github.com/alculquicondor/psqlparse/pull/22
 
 __ https://en.wikipedia.org/wiki/Zero-copy
 
-.. [*] Currently what you can find in the following headers:
 
-       - `lockoptions.h`__
-       - `nodes.h`__
-       - `parsenodes.h`__
-       - `pg_class.h`__
-       - `primnodes.h`__
+Version 2
+~~~~~~~~~
 
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/lockoptions.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/nodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/parsenodes.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/catalog/pg_class.h;hb=HEAD
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/primnodes.h;hb=HEAD
+In late 2019, Ronan Dunklau opened `PR #62`__ against ``libpg_query``, that reimplemented the
+build machinery of the library to make it easier (read, semi-automatic) to support PostgreSQL
+v12, and `PR #36`__ to bring ``pglast`` in line.
+
+Since latest version of PostgreSQL inevitably introduced some backward incompatibilities, I
+bumped the major version of ``pglast`` to better reflect the fact.
+
+As I'm writing this, the fate of ``PR #62`` is still unclear, so for the time being I switched
+the ``libpg_query`` submodule to Ronan's fork.
+
+__ https://github.com/lfittl/libpg_query/pull/62
+__ https://github.com/lelit/pglast/pull/36
+
 
 Introduction
 ------------
@@ -116,6 +125,7 @@ On top of that, the module implements two serializations, one that transforms a 
 *raw* textual representation and another that returns a *prettified* representation. The latter
 is exposed by the ``pgpp`` CLI tool, see below for an example.
 
+
 Installation
 ------------
 
@@ -131,6 +141,7 @@ and install from there::
 
   $ pip install ./pglast
 
+
 Development
 -----------
 
@@ -139,6 +150,7 @@ show a brief table of contents. A comprehensive test suite, based on pytest__, c
 the source lines.
 
 __ https://docs.pytest.org/en/latest/
+
 
 Examples of usage
 -----------------
@@ -248,14 +260,6 @@ Examples of usage
    DELETE FROM sometable
    WHERE value IS NULL
 
-Documentation
--------------
-
-Latest documentation is hosted by `Read the Docs`__ at http://pglast.readthedocs.io/en/latest/
-
-__ https://readthedocs.org/
-
-
 .. [*] This is an approximation, because in principle a list could contain different kinds of
        nodes, or even sub-lists in some cases: the ``List`` representation arbitrarily shows
        the tag of the first object.
@@ -263,3 +267,11 @@ __ https://readthedocs.org/
 .. [*] Currently this covers most `DML` statements such as ``SELECT``\ s, ``INSERT``\ s,
        ``DELETE``\ s and ``UPDATE``\ s, fulfilling my needs, but I'd like to extend it to
        handle also `DDL` statements and, why not, `PLpgSQL` instructions too.
+
+
+Documentation
+-------------
+
+Latest documentation is hosted by `Read the Docs`__ at http://pglast.readthedocs.io/en/latest/
+
+__ https://readthedocs.org/
