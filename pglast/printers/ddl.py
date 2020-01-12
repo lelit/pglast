@@ -1128,7 +1128,7 @@ def create_trig_stmt(node, output):
         else:
             output.write('AFTER ')
         event_strings = []
-        for ev in ('INSERT', 'DELETE', 'UPDATE'):
+        for ev in ('INSERT', 'DELETE', 'UPDATE', 'TRUNCATE'):
             bitmask = getattr(enums, 'TRIGGER_TYPE_%s' % ev)
             if node.events & bitmask:
                 event_strings.append(ev)
