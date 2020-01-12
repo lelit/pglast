@@ -49,3 +49,15 @@ BEGIN
   RETURN new;
 END;
 $$ LANGUAGE plpgsql
+
+CREATE FUNCTION func()
+RETURNS void
+AS '
+    SELECT $_$$_$;
+' LANGUAGE sql
+=
+CREATE FUNCTION func()
+RETURNS void
+AS $__$
+    SELECT $_$$_$;
+$__$ LANGUAGE sql
