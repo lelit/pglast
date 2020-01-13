@@ -14,7 +14,10 @@ import re
 
 @node_printer("AccessPriv")
 def access_priv(node, output):
-    output.write(node.priv_name.value.upper())
+    if node.priv_name is Missing:
+        output.write('ALL PRIVILEGES')
+    else:
+        output.write(node.priv_name.value.upper())
     if node.cols is not Missing:
         output.write(' (')
         output.print_list(node.cols, ',', are_names=True)
