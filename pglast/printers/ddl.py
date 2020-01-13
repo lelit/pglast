@@ -14,7 +14,7 @@ import re
 
 @node_printer("AccessPriv")
 def access_priv(node, output):
-    output.print_node(node.priv_name)
+    output.write(node.priv_name.value.upper())
 
 
 OBJECT_NAMES = {

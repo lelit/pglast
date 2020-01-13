@@ -4,3 +4,9 @@ GRANT ALL PRIVILEGES
   ON SCHEMA foo
   TO role1, role2
   WITH GRANT OPTION
+
+GRANT update ON TABLE tab1 TO role1
+=
+GRANT UPDATE
+  ON TABLE tab1
+  TO role1
