@@ -15,6 +15,10 @@ import re
 @node_printer("AccessPriv")
 def access_priv(node, output):
     output.write(node.priv_name.value.upper())
+    if node.cols is not Missing:
+        output.write(' (')
+        output.print_list(node.cols, ',', are_names=True)
+        output.write(')')
 
 
 OBJECT_NAMES = {

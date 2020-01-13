@@ -5,8 +5,8 @@ GRANT ALL PRIVILEGES
   TO role1, role2
   WITH GRANT OPTION
 
-GRANT update ON TABLE tab1 TO role1
+GRANT update(field1) ON TABLE tab1 TO role1
 =
-GRANT UPDATE
+GRANT UPDATE (field1)
   ON TABLE tab1
   TO role1
