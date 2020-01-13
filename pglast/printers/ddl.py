@@ -871,6 +871,30 @@ def create_function_option(node, output):
     output.print_symbol(node.arg)
 
 
+@node_printer('CreatePLangStmt')
+def create_plang_stmt(node, output):
+    output.write('CREATE ')
+    if node.replace:
+        output.write('OR REPLACE ')
+    if node.pltrusted:
+        output.write('TRUSTED ')
+    output.write('PROCEDURAL LANGUAGE ')
+    output.print_name(node.plname)
+    if node.plhandler:
+        output.newline()
+        with output.push_indent(2):
+            output.write('HANDLER ')
+            output.print_name(node.plhandler)
+            if node.plinline:
+                output.newline()
+                output.write('INLINE ')
+                output.print_name(node.plinline)
+            if node.plvalidator:
+                output.newline()
+                output.write('VALIDATOR ')
+                output.print_name(node.plvalidator)
+
+
 @node_printer('CreatePolicyStmt')
 @node_printer('AlterPolicyStmt')
 def create_policy_stmt(node, output):
