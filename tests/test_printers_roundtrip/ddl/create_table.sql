@@ -54,6 +54,8 @@ create table a (
 
 CREATE TABLE a(t text collate "C")
 
+CREATE TABLE a(t text collate pg_catalog."C" NOT NULL)
+
 CREATE TABLE ages (
   id integer primary key,
   age1 interval year,
