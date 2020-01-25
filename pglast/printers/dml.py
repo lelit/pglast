@@ -284,7 +284,7 @@ def collate_clause(node, output):
     if node.arg:
         output.print_node(node.arg)
     output.swrite('COLLATE ')
-    output.print_name(node.collname, ',')
+    output.print_name(node.collname, '.')
 
 
 @node_printer('ColumnRef')

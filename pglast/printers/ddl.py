@@ -14,7 +14,14 @@ import re
 
 @node_printer("AccessPriv")
 def access_priv(node, output):
-    output.print_node(node.priv_name)
+    if node.priv_name is Missing:
+        output.write('ALL PRIVILEGES')
+    else:
+        output.write(node.priv_name.value.upper())
+    if node.cols is not Missing:
+        output.write(' (')
+        output.print_list(node.cols, ',', are_names=True)
+        output.write(')')
 
 
 OBJECT_NAMES = {
@@ -854,6 +861,30 @@ def create_function_option(node, output):
     output.print_symbol(node.arg)
 
 
+@node_printer('CreatePLangStmt')
+def create_plang_stmt(node, output):
+    output.write('CREATE ')
+    if node.replace:
+        output.write('OR REPLACE ')
+    if node.pltrusted:
+        output.write('TRUSTED ')
+    output.write('PROCEDURAL LANGUAGE ')
+    output.print_name(node.plname)
+    if node.plhandler:
+        output.newline()
+        with output.push_indent(2):
+            output.write('HANDLER ')
+            output.print_name(node.plhandler)
+            if node.plinline:
+                output.newline()
+                output.write('INLINE ')
+                output.print_name(node.plinline)
+            if node.plvalidator:
+                output.newline()
+                output.write('VALIDATOR ')
+                output.print_name(node.plvalidator)
+
+
 @node_printer('CreatePolicyStmt')
 @node_printer('AlterPolicyStmt')
 def create_policy_stmt(node, output):
@@ -1107,7 +1138,7 @@ def create_trig_stmt(node, output):
         else:
             output.write('AFTER ')
         event_strings = []
-        for ev in ('INSERT', 'DELETE', 'UPDATE'):
+        for ev in ('INSERT', 'DELETE', 'UPDATE', 'TRUNCATE'):
             bitmask = getattr(enums, 'TRIGGER_TYPE_%s' % ev)
             if node.events & bitmask:
                 event_strings.append(ev)
