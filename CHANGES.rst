@@ -6,11 +6,11 @@ Changes
 1.10 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
-- Fix collation name printer (`PR #44`), thanks to Ronan Dunklau
+- Fix collation name printer (`PR #44`__), thanks to Ronan Dunklau
 
   __ https://github.com/lelit/pglast/pull/44
 
-- Implement ``CreatePLangStmt`` printer (`PR #42`), thanks to Bennie Swart
+- Implement ``CreatePLangStmt`` printer (`PR #42`__), thanks to Bennie Swart
 
   __ https://github.com/lelit/pglast/pull/42
 
@@ -18,7 +18,7 @@ Changes
 
   __ https://github.com/lelit/pglast/pull/41
 
-- Handle ``TRUNCATE`` event in ``CreateTrigStmt`` printer (`PR #40`), thanks to Bennie Swart
+- Handle ``TRUNCATE`` event in ``CreateTrigStmt`` printer (`PR #40`__), thanks to Bennie Swart
 
   __ https://github.com/lelit/pglast/pull/40
 
