@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.10 (unreleased)
+1.10 (2020-01-25)
 ~~~~~~~~~~~~~~~~~
 
 - Fix collation name printer (`PR #44`__), thanks to Ronan Dunklau
