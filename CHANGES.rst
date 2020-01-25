@@ -22,6 +22,10 @@ Changes
 
   __ https://github.com/lelit/pglast/pull/40
 
+- Fix function body dollar quoting (`PR #39`__), thanks to Bennie Swart
+
+  __ https://github.com/lelit/pglast/pull/39
+
 
 1.9 (2019-12-20)
 ~~~~~~~~~~~~~~~~
