@@ -18,6 +18,10 @@ Changes
 
   __ https://github.com/lelit/pglast/pull/41
 
+- Handle ``TRUNCATE`` event in ``CreateTrigStmt`` printer (`PR #40`), thanks to Bennie Swart
+
+  __ https://github.com/lelit/pglast/pull/40
+
 
 1.9 (2019-12-20)
 ~~~~~~~~~~~~~~~~
