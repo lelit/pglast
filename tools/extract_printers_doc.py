@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 12:56:35 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 #
 
 from datetime import date
@@ -57,6 +57,11 @@ def extract_toc(headers):
                 m = match(r'typedef struct\s+([\w_]+)', line)
                 if m is not None:
                     toc[m.group(1)] = (header, lineno)
+            elif line.startswith('struct PartitionBoundSpec'):
+                # For some reason, this is an exception: unlike all other nodes
+                # in nodes/parsenodes.h, this is not typedef'd right away, but
+                # rather in partitioning/partdefs.h
+                toc['PartitionBoundSpec'] = (header, lineno)
 
     # Add implicit "aliases"
     toc['Integer'] = toc['Float'] = toc['String'] = toc['BitString'] = toc['Null'] = \
