@@ -3,6 +3,22 @@
 Changes
 -------
 
+1.10 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix collation name printer (`PR #44`), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/44
+
+- Implement ``CreatePLangStmt`` printer (`PR #42`), thanks to Bennie Swart
+
+  __ https://github.com/lelit/pglast/pull/42
+
+- Fix privileges printer (`PR #41`__), thanks to Bennie Swart
+
+  __ https://github.com/lelit/pglast/pull/41
+
+
 1.9 (2019-12-20)
 ~~~~~~~~~~~~~~~~
 
