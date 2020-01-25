@@ -812,7 +812,7 @@ def create_function_option(node, output):
         # Choose a valid dollar-string delimiter
 
         code = node.arg.string_value
-        used_delimiters = set(re.findall(r"\$(\w*)\$", code))
+        used_delimiters = set(re.findall(r"\$(\w*)(?=\$)", code))
         unique_delimiter = ''
         while unique_delimiter in used_delimiters:
             unique_delimiter += '_'

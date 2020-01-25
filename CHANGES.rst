@@ -16,7 +16,7 @@ Changes
   __ https://github.com/lelit/pglast/issues/38
 
 
-1.10 (unreleased)
+1.10 (2020-01-25)
 ~~~~~~~~~~~~~~~~~
 
 - Fix collation name printer (`PR #44`__), thanks to Ronan Dunklau
@@ -34,6 +34,10 @@ Changes
 - Handle ``TRUNCATE`` event in ``CreateTrigStmt`` printer (`PR #40`__), thanks to Bennie Swart
 
   __ https://github.com/lelit/pglast/pull/40
+
+- Fix function body dollar quoting (`PR #39`__), thanks to Bennie Swart
+
+  __ https://github.com/lelit/pglast/pull/39
 
 
 1.9 (2019-12-20)

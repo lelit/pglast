@@ -2,7 +2,7 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2019 Lele Gaifax
+.. :Copyright: © 2017-2020 Lele Gaifax
 ..
 
 ======================================================
@@ -227,6 +227,12 @@
 .. function:: create_function_option(node, output)
 
    Pretty print a `node` of type `DefElem <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L715>`__, when it is inside a `AlterFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2765>`__ or a `CreateFunctionStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2735>`__ or a `DoStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2778>`__, to the `output` stream.
+
+.. index:: CreatePLangStmt
+
+.. function:: create_plang_stmt(node, output)
+
+   Pretty print a `node` of type `CreatePLangStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2401>`__ to the `output` stream.
 
 .. index:: CreatePolicyStmt
 
