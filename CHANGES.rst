@@ -3,6 +3,14 @@
 Changes
 -------
 
+1.11 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Implement ``CreateOpClassStmt`` printer (`PR #47`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/47
+
+
 1.10 (2020-01-25)
 ~~~~~~~~~~~~~~~~~
 
