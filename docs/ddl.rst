@@ -228,6 +228,18 @@
 
    Pretty print a `node` of type `DefElem <https://github.com/rdunklau/libpg_query/blob/d0e2a41/tmp/postgres/src/include/nodes/parsenodes.h#L726>`__, when it is inside a `AlterFunctionStmt <https://github.com/rdunklau/libpg_query/blob/d0e2a41/tmp/postgres/src/include/nodes/parsenodes.h#L2826>`__ or a `CreateFunctionStmt <https://github.com/rdunklau/libpg_query/blob/d0e2a41/tmp/postgres/src/include/nodes/parsenodes.h#L2796>`__ or a `DoStmt <https://github.com/rdunklau/libpg_query/blob/d0e2a41/tmp/postgres/src/include/nodes/parsenodes.h#L2840>`__, to the `output` stream.
 
+.. index:: CreateOpClassStmt
+
+.. function:: create_opclass_stmt(node, output)
+
+   Pretty print a `node` of type `CreateOpClassStmt <https://github.com/rdunklau/libpg_query/blob/d0e2a41/tmp/postgres/src/include/nodes/parsenodes.h#L2571>`__ to the `output` stream.
+
+.. index:: CreateOpClassItem
+
+.. function:: create_opclass_item(node, output)
+
+   Pretty print a `node` of type `CreateOpClassItem <https://github.com/rdunklau/libpg_query/blob/d0e2a41/tmp/postgres/src/include/nodes/parsenodes.h#L2586>`__ to the `output` stream.
+
 .. index:: CreatePLangStmt
 
 .. function:: create_plang_stmt(node, output)

@@ -2,7 +2,7 @@
 # :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_class.h @ 12.1
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2019 Lele Gaifax
+# :Copyright: © 2017-2020 Lele Gaifax
 #
 
 try:
