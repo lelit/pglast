@@ -861,6 +861,41 @@ def create_function_option(node, output):
     output.print_symbol(node.arg)
 
 
+@node_printer('CreateOpClassStmt')
+def create_opclass_stmt(node, output):
+    output.write('CREATE OPERATOR CLASS ')
+    output.print_name(node.opclassname)
+    if node.isDefault:
+        output.write('DEFAULT ')
+    output.write('FOR TYPE ')
+    output.print_name(node.datatype)
+    output.write('USING ')
+    output.print_name(node.amname)
+    output.write('AS ')
+    output.print_list(node.items, ',')
+
+
+@node_printer('CreateOpClassItem')
+def create_opclass_item(node, output):
+    unquote_name = False
+    if node.itemtype == enums.OPCLASS_ITEM_OPERATOR:
+        output.write('OPERATOR ')
+        unquote_name = True
+    elif node.itemtype == enums.OPCLASS_ITEM_FUNCTION:
+        output.write('FUNCTION ')
+    elif node.itemtype == enums.OPCLASS_ITEM_STORAGETYPE:
+        output.write('STORAGE ')
+        output.print_name(node.storedtype)
+    else:
+        raise ValueError('Invalid OpClassItem type: %d' %
+                         node.itemtype._value)
+    if node.number:
+        output.write('%d ' % node.number._value)
+    if node.name:
+        _object_with_args(node.name, output, unquote_name,
+                          skip_empty_args=True)
+
+
 @node_printer('CreatePLangStmt')
 def create_plang_stmt(node, output):
     output.write('CREATE ')
@@ -1530,21 +1565,29 @@ def notify_stmt(node, output):
         output._write_quoted_string(node.payload.value)
 
 
-@node_printer('ObjectWithArgs')
-def object_with_args(node, output):
+def _object_with_args(node, output, unquote_name=False, skip_empty_args=False):
     # Special treatment for OPERATOR object inside DROP or COMMENT
-    if (((node.parent_node.removeType or node.parent_node.objtype)
-         == enums.ObjectType.OBJECT_OPERATOR)):
+    if unquote_name:
         output.write(node.objname.string_value)
         if not node.args_unspecified:
             output.write(' ')
     else:
         output.print_name(node.objname)
     if not node.args_unspecified:
-        output.write('(')
         if node.objargs:
+            output.write('(')
             output.print_list(node.objargs, ',', standalone_items=False)
-        output.write(')')
+            output.write(')')
+        elif not skip_empty_args:
+            output.write('()')
+
+
+@node_printer('ObjectWithArgs')
+def object_with_args(node, output):
+    # Special treatment for OPERATOR object inside DROP or COMMENT
+    unquote_name = (((node.parent_node.removeType or node.parent_node.objtype)
+                      == enums.ObjectType.OBJECT_OPERATOR))
+    _object_with_args(node, output, unquote_name=unquote_name)
 
 
 @node_printer('PartitionBoundSpec')
