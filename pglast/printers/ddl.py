@@ -53,6 +53,7 @@ OBJECT_NAMES = {
     enums.ObjectType.OBJECT_OPERATOR: 'OPERATOR',
     enums.ObjectType.OBJECT_OPFAMILY: 'OPERATOR FAMILY',
     enums.ObjectType.OBJECT_POLICY: 'POLICY',
+    enums.ObjectType.OBJECT_PROCEDURE: 'PROCEDURE',
     enums.ObjectType.OBJECT_PUBLICATION: 'PUBLICATION',
     enums.ObjectType.OBJECT_PUBLICATION_REL: 'PUBLICATION_REL',
     enums.ObjectType.OBJECT_ROLE: 'ROLE',
@@ -157,7 +158,11 @@ def alter_default_privileges_stmt(node, output):
 
 @node_printer('AlterFunctionStmt')
 def alter_function_stmt(node, output):
-    output.write('ALTER FUNCTION ')
+    output.write('ALTER ')
+    if node.objtype == enums.ObjectType.OBJECT_PROCEDURE:
+        output.write('PROCEDURE ')
+    else:
+        output.write('FUNCTION ')
     output.print_node(node.func)
     output.print_list(node.actions, ' ')
 
@@ -755,7 +760,10 @@ def create_function_stmt(node, output):
     output.write('CREATE ')
     if node.replace:
         output.write('OR REPLACE ')
-    output.write('FUNCTION ')
+    if node.is_procedure:
+        output.write('PROCEDURE ')
+    else:
+        output.write('FUNCTION ')
     output.print_name(node.funcname)
     output.write('(')
 
@@ -1343,6 +1351,7 @@ def drop_role_stmt(node, output):
 def drop_stmt(node, output):
     otypes = enums.ObjectType
     output.write('DROP ')
+    # Special case functions since they are not special objects
     output.writes(OBJECT_NAMES[node.removeType.value])
     if node.removeType == otypes.OBJECT_INDEX:
         if node.concurrent:

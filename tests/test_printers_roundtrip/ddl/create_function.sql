@@ -24,3 +24,5 @@ arglist text[]) RETURNS SETOF integer AS $$
 $$ language sql
 
 CREATE FUNCTION func() RETURNS SETOF montype AS $$ $$ language sql
+
+CREATE PROCEDURE func() AS $$ $$ language sql
