@@ -6,6 +6,10 @@ Changes
 2.0 (unreleased)
 ~~~~~~~~~~~~~~~~
 
+- Add support for Create / Alter / Drop PROCEDURE (`PR #48`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/48
+
 - Use Ronan's fork__ of libpg_query, targeting PostgreSQL 12.1 (`PR #36`__)
 
   __ https://github.com/rdunklau/libpg_query
