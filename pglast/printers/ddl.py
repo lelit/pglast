@@ -302,6 +302,10 @@ def alter_table_cmd(node, output):
         output.write(" ENABLE ROW LEVEL SECURITY ")
         return
 
+    if cmdtype == enums.AlterTableType.AT_DisableRowSecurity:
+        output.write(" DISABLE ROW LEVEL SECURITY ")
+        return
+
     if cmdtype == enums.AlterTableType.AT_AddColumn:
         output.write("ADD COLUMN ")
         if node.missing_ok:
