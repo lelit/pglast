@@ -6,6 +6,11 @@ Changes
 1.11 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
+- Support ``DISABLE ROW LEVEL SECURITY`` in ``AlterTableCmd`` (`PR #49`__), thanks to Ronan
+  Dunklau
+
+  __ https://github.com/lelit/pglast/pull/49
+
 - Implement ``CreateOpClassStmt`` printer (`PR #47`__), thanks to Ronan Dunklau
 
   __ https://github.com/lelit/pglast/pull/47
