@@ -96,9 +96,14 @@ def alter_enum_stmt(node, output):
     output.write("ALTER TYPE ")
     output.print_name(node.typeName)
     if node.newVal:
-        output.write("ADD VALUE ")
-        if node.skipIfNewValExists:
-            output.write("IF NOT EXISTS ")
+        if node.oldVal:
+            output.write("RENAME VALUE ")
+            output._write_quoted_string(node.oldVal.value)
+            output.write("TO ")
+        else:
+            output.write("ADD VALUE ")
+            if node.skipIfNewValExists:
+                output.write("IF NOT EXISTS ")
         output._write_quoted_string(node.newVal.value)
     if node.newValNeighbor:
         if node.newValIsAfter:
