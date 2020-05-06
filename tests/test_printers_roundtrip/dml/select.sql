@@ -435,3 +435,9 @@ SELECT * FROM test1 ORDER BY a || b COLLATE "fr_FR"
 SELECT variadic_function(VARIADIC ARRAY['param1']);
 
 SELECT variadic_function('value1', VARIADIC ARRAY['param2']);
+
+SELECT -(1+1);
+
+SELECT +(1+1);
+
+SELECT ~(1+1);
