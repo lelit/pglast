@@ -30,12 +30,14 @@ def a_expr(node, output):
 
     if node.kind == aek.AEXPR_OP:
         with output.expression():
-            if node.lexpr.node_tag == 'A_Expr':
-                with output.expression():
+            # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
+            if node.lexpr is not Missing:
+                if node.lexpr.node_tag == 'A_Expr':
+                    with output.expression():
+                        output.print_node(node.lexpr)
+                else:
                     output.print_node(node.lexpr)
-            else:
-                output.print_node(node.lexpr)
-            output.write(' ')
+                output.write(' ')
             if isinstance(node.name, List) and len(node.name) > 1:
                 output.write('OPERATOR(')
                 output.print_symbol(node.name)

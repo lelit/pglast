@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 16:55:55 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018 Lele Gaifax
+# :Copyright: © 2017, 2018, 2020 Lele Gaifax
 #
 
 ACTIVATE_SCRIPT := $(VENVDIR)/bin/activate
@@ -42,7 +42,7 @@ requirements: $(REQUIREMENTS_TIMESTAMP)
 
 $(REQUIREMENTS_TIMESTAMP): $(REQUIREMENTS)
 	@echo "Installing pre-requirements..."
-	@PATH=$(TOPDIR)/bin:$(PATH) $(PIP) install --no-cache-dir -r $(REQUIREMENTS)
+	@PATH="$(TOPDIR)/bin:$(PATH)" $(PIP) install --no-cache-dir -r $(REQUIREMENTS)
 	@touch $@
 
 distclean::

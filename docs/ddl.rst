@@ -240,6 +240,18 @@
 
    Pretty print a `node` of type `CreateOpClassItem <https://github.com/rdunklau/libpg_query/blob/d0e2a41/tmp/postgres/src/include/nodes/parsenodes.h#L2586>`__ to the `output` stream.
 
+.. index:: CreateOpClassStmt
+
+.. function:: create_opclass_stmt(node, output)
+
+   Pretty print a `node` of type `CreateOpClassStmt <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2515>`__ to the `output` stream.
+
+.. index:: CreateOpClassItem
+
+.. function:: create_opclass_item(node, output)
+
+   Pretty print a `node` of type `CreateOpClassItem <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/parsenodes.h#L2530>`__ to the `output` stream.
+
 .. index:: CreatePLangStmt
 
 .. function:: create_plang_stmt(node, output)
