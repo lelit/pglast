@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 #
 
 from .. import enums
@@ -98,19 +98,19 @@ def alter_enum_stmt(node, output):
     if node.newVal:
         if node.oldVal:
             output.write("RENAME VALUE ")
-            output._write_quoted_string(node.oldVal.value)
+            output.write_quoted_string(node.oldVal.value)
             output.write("TO ")
         else:
             output.write("ADD VALUE ")
             if node.skipIfNewValExists:
                 output.write("IF NOT EXISTS ")
-        output._write_quoted_string(node.newVal.value)
+        output.write_quoted_string(node.newVal.value)
     if node.newValNeighbor:
         if node.newValIsAfter:
             output.write(" AFTER ")
         else:
             output.write(" BEFORE ")
-        output._write_quoted_string(node.newValNeighbor.value)
+        output.write_quoted_string(node.newValNeighbor.value)
 
 
 @node_printer('AlterDefaultPrivilegesStmt')
@@ -427,7 +427,7 @@ def comment_stmt(node, output):
     output.space(2)
     output.write('IS ')
     with output.push_indent():
-        output._write_quoted_string(node.comment.value)
+        output.write_quoted_string(node.comment.value)
 
 
 @node_printer('CompositeTypeStmt')
@@ -1580,7 +1580,7 @@ def notify_stmt(node, output):
     output.print_name(node.conditionname)
     if node.payload:
         output.write(', ')
-        output._write_quoted_string(node.payload.value)
+        output.write_quoted_string(node.payload.value)
 
 
 def _object_with_args(node, output, unquote_name=False, skip_empty_args=False):

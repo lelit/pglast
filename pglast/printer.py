@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:46:11 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 #
 
 from contextlib import contextmanager
@@ -318,8 +318,8 @@ class RawStream(OutputStream):
         rawstream.print_list(nodes, sep, are_names=are_names, standalone_items=False)
         return rawstream.getvalue()
 
-    def _write_quoted_string(self, s):
-        "Emit the `s` as a single-quoted literal constant."
+    def write_quoted_string(self, s):
+        "Emit the string `s` as a single-quoted literal constant."
 
         self.write("'%s'" % s.replace("'", "''"))
 
@@ -337,7 +337,7 @@ class RawStream(OutputStream):
                 value = '"%s"' % value.replace('"', '""')
             self.write(value)
         elif node.parent_node.node_tag == 'String':
-            self._write_quoted_string(value)
+            self.write_quoted_string(value)
         else:
             self.write(str(value))
 
@@ -597,8 +597,8 @@ class IndentedStream(RawStream):
 
         super().print_list(nodes, sep, relative_indent, standalone_items, are_names, is_symbol)
 
-    def _write_quoted_string(self, s):
-        """Possibly split `s` string in successive chunks.
+    def write_quoted_string(self, s):
+        """Emit the string `s` possibly splitted in successive chunks.
 
         When the ``split_string_literals_threshold`` option is greater than 0 and the length of
         `s` exceeds that value, split the string into multiple chunks.
@@ -606,7 +606,7 @@ class IndentedStream(RawStream):
 
         sslt = self.split_string_literals_threshold
         if sslt is None or sslt <= 0:
-            super()._write_quoted_string(s)
+            super().write_quoted_string(s)
         else:
             multiline = '\n' in s
             if multiline:
