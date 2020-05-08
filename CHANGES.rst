@@ -6,6 +6,10 @@ Changes
 1.11 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
+- Fix ``A_Expr`` printer, when ``lexpr`` is missing (`PR #54`__), thanks to Aiham
+
+  __ https://github.com/lelit/pglast/pull/54
+
 - Support ``DISABLE ROW LEVEL SECURITY`` in ``AlterTableCmd`` (`PR #49`__), thanks to Ronan
   Dunklau
 
