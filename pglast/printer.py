@@ -107,7 +107,7 @@ class OutputStream(StringIO):
         self.pending_separator = False
         self.last_emitted_char = ' '
 
-    def show(self, where=stderr):
+    def show(self, where=stderr):  # pragma: no cover
         "Emit current stream content, by default to `stderr`, to aid debugging."
 
         where.write(self.getvalue())
@@ -214,7 +214,7 @@ class RawStream(OutputStream):
         self.semicolon_after_last_statement = semicolon_after_last_statement
         self.current_column = 0
 
-    def show(self, where=stderr):
+    def show(self, where=stderr):  # pragma: no cover
         """Emit also current expression_level and a "pointer" showing current_column."""
 
         where.write('expression_level=%d\n' % self.expression_level)
@@ -502,7 +502,7 @@ class IndentedStream(RawStream):
         self.current_indent = 0
         self.indentation_stack = []
 
-    def show(self, where=stderr):
+    def show(self, where=stderr):  # pragma: no cover
         "Emit also current_indent and indentation_stack."
 
         where.write('current_indent=%d\n' % self.current_indent)
