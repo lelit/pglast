@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.11 (unreleased)
+1.11 (2020-05-08)
 ~~~~~~~~~~~~~~~~~
 
 - Fix ``A_Expr`` printer, when ``lexpr`` is missing (`PR #54`__), thanks to Aiham
