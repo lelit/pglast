@@ -6,6 +6,11 @@ Changes
 2.0 (unreleased)
 ~~~~~~~~~~~~~~~~
 
+- Handle ``ALTER TYPE .. RENAME VALUE`` in ``AlterEnumStmt`` (`PR #52`__), thanks to Ronan
+  Dunklau
+
+  __ https://github.com/lelit/pglast/pull/52
+
 - Add support for Create / Alter / Drop PROCEDURE (`PR #48`__), thanks to Ronan Dunklau
 
   __ https://github.com/lelit/pglast/pull/48
