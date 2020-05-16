@@ -6,10 +6,12 @@
 # :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 #
 
+import re
+
 from .. import enums
 from ..node import Missing, List, Node
 from ..printer import node_printer
-import re
+from . import IntEnumPrinter
 
 
 @node_printer("AccessPriv")
@@ -245,79 +247,24 @@ def alter_table_stmt(node, output):
     output.print_list(node.cmds, ',', standalone_items=True)
 
 
-@node_printer('AlterTableCmd')
-def alter_table_cmd(node, output):
-    cmdtype = node.subtype
+class AlterTableTypePrinter(IntEnumPrinter):
+    def __init__(self):
+        super().__init__(enums.AlterTableType)
 
-    if cmdtype == enums.AlterTableType.AT_ChangeOwner:
-        output.write("OWNER TO ")
-        output.print_name(node.newowner)
-        return
-
-    if cmdtype == enums.AlterTableType.AT_SetStatistics:
-        output.write("ALTER COLUMN ")
-        output.print_name(node.name)
-        output.write(" SET STATISTICS ")
+    def AT_AddColumn(self, node, output):
+        output.write("ADD COLUMN ")
+        if node.missing_ok:
+            output.write('IF NOT EXISTS ')
         output.print_node(node['def'])
-        return
 
-    if cmdtype == enums.AlterTableType.AT_ColumnDefault:
-        output.write("ALTER COLUMN ")
-        output.print_name(node.name)
-        if node['def']:
-            output.write(" SET DEFAULT ")
-            output.print_node(node['def'])
-        else:
-            output.write(" DROP DEFAULT ")
-        return
-
-    if cmdtype == enums.AlterTableType.AT_AddConstraint:
+    def AT_AddConstraint(self, node, output):
         output.write("ADD ")
         constraint = node['def']
         output.print_node(constraint)
         # Patch this into pglast.printers.ddl.constraint
         # TODO: understand the meaning of the prev comment
-        return
 
-    if cmdtype == enums.AlterTableType.AT_DropConstraint:
-        output.write("DROP CONSTRAINT ")
-        if node.missing_ok:
-            output.write("IF EXISTS ")
-        output.print_name(node.name)
-        return
-
-    if cmdtype == enums.AlterTableType.AT_ClusterOn:
-        output.write("CLUSTER ON ")
-        output.print_name(node.name)
-        return
-
-    if cmdtype == enums.AlterTableType.AT_EnableRowSecurity:
-        output.write(" ENABLE ROW LEVEL SECURITY ")
-        return
-
-    if cmdtype == enums.AlterTableType.AT_DisableRowSecurity:
-        output.write(" DISABLE ROW LEVEL SECURITY ")
-        return
-
-    if cmdtype == enums.AlterTableType.AT_AddColumn:
-        output.write("ADD COLUMN ")
-        if node.missing_ok:
-            output.write('IF NOT EXISTS ')
-        output.print_node(node['def'])
-        return
-
-    if cmdtype == enums.AlterTableType.AT_ValidateConstraint:
-        output.write("VALIDATE CONSTRAINT ")
-        output.print_name(node.name)
-        return
-
-    if cmdtype == enums.AlterTableType.AT_DropNotNull:
-        output.write("ALTER COLUMN ")
-        output.print_name(node.name)
-        output.write(" DROP NOT NULL ")
-        return
-
-    if cmdtype == enums.AlterTableType.AT_AlterColumnType:
+    def AT_AlterColumnType(self, node, output):
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
         output.write(" TYPE ")
@@ -326,34 +273,77 @@ def alter_table_cmd(node, output):
         if columndef.raw_default:
             output.write('USING ')
             output.print_node(columndef.raw_default)
-        return
 
-    if cmdtype == enums.AlterTableType.AT_DropColumn:
+    def AT_ChangeOwner(self, node, output):
+        output.write("OWNER TO ")
+        output.print_name(node.newowner)
+
+    def AT_ClusterOn(self, node, output):
+        output.write("CLUSTER ON ")
+        output.print_name(node.name)
+
+    def AT_ColumnDefault(self, node, output):
+        output.write("ALTER COLUMN ")
+        output.print_name(node.name)
+        if node['def']:
+            output.write(" SET DEFAULT ")
+            output.print_node(node['def'])
+        else:
+            output.write(" DROP DEFAULT ")
+
+    def AT_DisableRowSecurity(self, node, output):
+        output.write(" DISABLE ROW LEVEL SECURITY ")
+
+    def AT_DisableTrig(self, node, output):
+        output.write("DISABLE TRIGGER ")
+        output.print_name(node.name)
+
+    def AT_DropColumn(self, node, output):
         output.write("DROP COLUMN ")
         if node.missing_ok:
             output.write("IF EXISTS ")
         output.print_name(node.name)
         if node.behavior == enums.DropBehavior.DROP_CASCADE:
             output.write("CASCADE ")
-        return
 
-    if cmdtype == enums.AlterTableType.AT_SetNotNull:
+    def AT_DropConstraint(self, node, output):
+        output.write("DROP CONSTRAINT ")
+        if node.missing_ok:
+            output.write("IF EXISTS ")
+        output.print_name(node.name)
+
+    def AT_DropNotNull(self, node, output):
+        output.write("ALTER COLUMN ")
+        output.print_name(node.name)
+        output.write(" DROP NOT NULL ")
+
+    def AT_EnableRowSecurity(self, node, output):
+        output.write(" ENABLE ROW LEVEL SECURITY ")
+
+    def AT_EnableTrig(self, node, output):
+        output.write("ENABLE TRIGGER ")
+        output.print_name(node.name)
+
+    def AT_SetNotNull(self, node, output):
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
         output.write(" SET NOT NULL")
-        return
 
-    if cmdtype == enums.AlterTableType.AT_EnableTrig:
-        output.write("ENABLE TRIGGER ")
+    def AT_SetStatistics(self, node, output):
+        output.write("ALTER COLUMN ")
         output.print_name(node.name)
-        return
+        output.write(" SET STATISTICS ")
+        output.print_node(node['def'])
 
-    if cmdtype == enums.AlterTableType.AT_DisableTrig:
-        output.write("DISABLE TRIGGER ")
+    def AT_ValidateConstraint(self, node, output):
+        output.write("VALIDATE CONSTRAINT ")
         output.print_name(node.name)
-        return
 
-    raise NotImplementedError("Unsupported alter table cmd: %s" % cmdtype)  # pragma: nocover
+
+@node_printer('AlterTableCmd')
+def alter_table_cmd(node, output):
+    attp = AlterTableTypePrinter()
+    attp[node.subtype](node, output)
 
 
 @node_printer('ClusterStmt')
@@ -441,34 +431,32 @@ def composite_type_stmt(node, output):
     node.typevar.parse_tree.pop('inh')
 
 
-@node_printer('Constraint')
-def constraint(node, output):
-    if node.conname:
-        output.swrite('CONSTRAINT ')
-        output.print_name(node.conname)
-    ct = enums.ConstrType
-    if node.contype == ct.CONSTR_NULL:
-        output.swrite('NULL')
-    elif node.contype == ct.CONSTR_DEFAULT:
+class ConstrTypePrinter(IntEnumPrinter):
+    def __init__(self):
+        super().__init__(enums.ConstrType)
+
+    def CONSTR_ATTR_DEFERRABLE(self, node, output):
+        output.swrite('DEFERRABLE')
+
+    def CONSTR_ATTR_DEFERRED(self, node, output):
+        output.swrite('INITIALLY DEFERRED')
+
+    def CONSTR_CHECK(self, node, output):
+        output.swrite('CHECK (')
+        output.print_node(node.raw_expr or node.cooked_expr)
+        output.write(')')
+        if node.is_no_inherit:
+            output.swrite('NO INHERIT')
+
+    def CONSTR_DEFAULT(self, node, output):
         output.swrite('DEFAULT ')
         # """
         # we may have the expression in either "raw" form [...]  or "cooked" form [...]
         # should never have both in the same node!
         # """
         output.print_node(node.raw_expr or node.cooked_expr)
-    elif node.contype == ct.CONSTR_NOTNULL:
-        output.swrite('NOT NULL')
-    elif node.contype == ct.CONSTR_CHECK:
-        output.swrite('CHECK (')
-        output.print_node(node.raw_expr or node.cooked_expr)
-        output.write(')')
-        if node.is_no_inherit:
-            output.swrite('NO INHERIT')
-    elif node.contype == ct.CONSTR_PRIMARY:
-        output.swrite('PRIMARY KEY')
-    elif node.contype == ct.CONSTR_UNIQUE:
-        output.swrite('UNIQUE')
-    elif node.contype == ct.CONSTR_EXCLUSION:
+
+    def CONSTR_EXCLUSION(self, node, output):
         output.swrite('EXCLUDE USING ')
         if node.access_method:
             output.print_node(node.access_method)
@@ -484,11 +472,8 @@ def constraint(node, output):
             output.swrite('WITH ')
             output.write(clauses.string_value)
         output.write(')')
-    elif node.contype == ct.CONSTR_ATTR_DEFERRABLE:
-        output.swrite('DEFERRABLE')
-    elif node.contype == ct.CONSTR_ATTR_DEFERRED:
-        output.swrite('INITIALLY DEFERRED')
-    elif node.contype == ct.CONSTR_FOREIGN:
+
+    def CONSTR_FOREIGN(self, node, output):
         if node.fk_attrs:
             output.swrite('FOREIGN KEY ')
             output.write(' (')
@@ -531,6 +516,27 @@ def constraint(node, output):
             output.swrite('DEFERRABLE')
             if node.initdeferred:
                 output.swrite('INITIALLY DEFERRED')
+
+    def CONSTR_NOTNULL(self, node, output):
+        output.swrite('NOT NULL')
+
+    def CONSTR_NULL(self, node, output):
+        output.swrite('NULL')
+
+    def CONSTR_PRIMARY(self, node, output):
+        output.swrite('PRIMARY KEY')
+
+    def CONSTR_UNIQUE(self, node, output):
+        output.swrite('UNIQUE')
+
+
+@node_printer('Constraint')
+def constraint(node, output):
+    if node.conname:
+        output.swrite('CONSTRAINT ')
+        output.print_name(node.conname)
+    ctp = ConstrTypePrinter()
+    ctp[node.contype](node, output)
 
     if node.indexname:
         output.write(' USING INDEX ')
@@ -1306,20 +1312,28 @@ def define_stmt_def_elem(node, output):
         raise NotImplementedError
 
 
+class DiscardModePrinter(IntEnumPrinter):
+    def __init__(self):
+        super().__init__(enums.DiscardMode)
+
+    def DISCARD_ALL(self, node, output):
+        output.write('ALL')
+
+    def DISCARD_PLANS(self, node, output):
+        output.write('PLANS')
+
+    def DISCARD_SEQUENCES(self, node, output):
+        output.write('SEQUENCES')
+
+    def DISCARD_TEMP(self, node, output):
+        output.write('TEMP')
+
+
 @node_printer('DiscardStmt')
 def discard_stmt(node, output):
     output.write('DISCARD ')
-    if node.target == enums.DiscardMode.DISCARD_ALL:
-        output.write('ALL')
-    elif node.target == enums.DiscardMode.DISCARD_PLANS:
-        output.write('PLANS')
-    elif node.target == enums.DiscardMode.DISCARD_SEQUENCES:
-        output.write('SEQUENCES')
-    elif node.target == enums.DiscardMode.DISCARD_TEMP:
-        output.write('TEMP')
-    else:
-        raise NotImplementedError('Invalid target for discard: %s' %
-                                  node.target)
+    dmp = DiscardModePrinter()
+    dmp[node.target](node, output)
 
 
 @node_printer('DoStmt')
