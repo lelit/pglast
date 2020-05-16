@@ -335,6 +335,12 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write(" SET STATISTICS ")
         output.print_node(node['def'])
 
+    def AT_SetStorage(self, node, output):
+        output.write("ALTER COLUMN ")
+        output.print_name(node.name)
+        output.write(" SET STORAGE ")
+        output.write(node['def'].string_value)
+
     def AT_ValidateConstraint(self, node, output):
         output.write("VALIDATE CONSTRAINT ")
         output.print_name(node.name)

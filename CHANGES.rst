@@ -24,6 +24,8 @@ Changes
 
   __ https://github.com/lelit/pglast/issues/38
 
+- Handle ``ALTER TABLE ... ALTER COLUMN ... SET STORAGE ...``
+
 
 1.11 (2020-05-08)
 ~~~~~~~~~~~~~~~~~
