@@ -3,12 +3,13 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 #
 
 from .. import enums
 from ..node import Missing, List
 from ..printer import node_printer
+from . import IntEnumPrinter
 
 
 @node_printer('A_ArrayExpr')
@@ -24,11 +25,77 @@ def a_const(node, output):
     output.print_node(node.val)
 
 
-@node_printer('A_Expr')
-def a_expr(node, output):
-    aek = enums.A_Expr_Kind
+class A_Expr_Kind_Printer(IntEnumPrinter):
+    def __init__(self):
+        super().__init__(enums.A_Expr_Kind)
 
-    if node.kind == aek.AEXPR_OP:
+    def AEXPR_BETWEEN(self, node, output):
+        output.print_node(node.lexpr)
+        output.swrites('BETWEEN')
+        output.print_list(node.rexpr, 'AND', relative_indent=-4)
+
+    def AEXPR_BETWEEN_SYM(self, node, output):
+        output.print_node(node.lexpr)
+        output.swrites('BETWEEN SYMMETRIC')
+        output.print_list(node.rexpr, 'AND', relative_indent=-4)
+
+    def AEXPR_DISTINCT(self, node, output):
+        output.print_node(node.lexpr)
+        output.swrites('IS DISTINCT FROM')
+        output.print_node(node.rexpr)
+
+    def AEXPR_ILIKE(self, node, output):
+        output.print_node(node.lexpr)
+        if node.name.string_value == '!~~*':
+            output.swrites('NOT')
+        output.swrites('ILIKE')
+        output.print_node(node.rexpr)
+
+    def AEXPR_IN(self, node, output):
+        output.print_node(node.lexpr)
+        if node.name.string_value == '<>':
+            output.swrites('NOT')
+        output.swrite('IN (')
+        output.print_list(node.rexpr)
+        output.write(')')
+
+    def AEXPR_LIKE(self, node, output):
+        output.print_node(node.lexpr)
+        if node.name.string_value == '!~~':
+            output.swrites('NOT')
+        output.swrites('LIKE')
+        output.print_node(node.rexpr)
+
+    def AEXPR_NOT_BETWEEN(self, node, output):
+        output.print_node(node.lexpr)
+        output.swrites('NOT BETWEEN')
+        output.print_list(node.rexpr, 'AND', relative_indent=-4)
+
+    def AEXPR_NOT_BETWEEN_SYM(self, node, output):
+        output.print_node(node.lexpr)
+        output.swrites('NOT BETWEEN SYMMETRIC')
+        output.print_list(node.rexpr, 'AND', relative_indent=-4)
+
+    def AEXPR_NOT_DISTINCT(self, node, output):
+        output.print_node(node.lexpr)
+        output.swrites('IS NOT DISTINCT FROM')
+        output.print_node(node.rexpr)
+
+    def AEXPR_NULLIF(self, node, output):
+        output.write('NULLIF(')
+        output.print_list((node.lexpr, node.rexpr))
+        output.write(')')
+
+    def AEXPR_OF(self, node, output):
+        output.print_node(node.lexpr)
+        output.swrites('IS')
+        if node.name.string_value == '<>':
+            output.writes('NOT')
+        output.write('OF (')
+        output.print_list(node.rexpr)
+        output.write(')')
+
+    def AEXPR_OP(self, node, output):
         with output.expression():
             # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
             if node.lexpr is not Missing:
@@ -50,60 +117,31 @@ def a_expr(node, output):
                     output.print_node(node.rexpr)
             else:
                 output.print_node(node.rexpr)
-    elif node.kind == aek.AEXPR_OP_ANY:
-        output.print_node(node.lexpr)
-        output.write(' ')
-        output.write(node.name.string_value)
-        output.write(' ANY(')
-        output.print_node(node.rexpr)
-        output.write(')')
-    elif node.kind == aek.AEXPR_OP_ALL:
+
+    def AEXPR_OP_ALL(self, node, output):
         output.print_node(node.lexpr)
         output.write(' ')
         output.write(node.name.string_value)
         output.write(' ALL(')
         output.print_node(node.rexpr)
         output.write(')')
-    elif node.kind == aek.AEXPR_DISTINCT:
+
+    def AEXPR_OP_ANY(self, node, output):
         output.print_node(node.lexpr)
-        output.swrites('IS DISTINCT FROM')
+        output.write(' ')
+        output.write(node.name.string_value)
+        output.write(' ANY(')
         output.print_node(node.rexpr)
-    elif node.kind == aek.AEXPR_NOT_DISTINCT:
-        output.print_node(node.lexpr)
-        output.swrites('IS NOT DISTINCT FROM')
-        output.print_node(node.rexpr)
-    elif node.kind == aek.AEXPR_NULLIF:
-        output.write('NULLIF(')
-        output.print_list((node.lexpr, node.rexpr))
         output.write(')')
-    elif node.kind == aek.AEXPR_OF:
-        output.print_node(node.lexpr)
-        output.swrites('IS')
-        if node.name.string_value == '<>':
-            output.writes('NOT')
-        output.write('OF (')
-        output.print_list(node.rexpr)
-        output.write(')')
-    elif node.kind == aek.AEXPR_IN:
-        output.print_node(node.lexpr)
-        if node.name.string_value == '<>':
-            output.swrites('NOT')
-        output.swrite('IN (')
-        output.print_list(node.rexpr)
-        output.write(')')
-    elif node.kind == aek.AEXPR_LIKE:
-        output.print_node(node.lexpr)
-        if node.name.string_value == '!~~':
-            output.swrites('NOT')
-        output.swrites('LIKE')
-        output.print_node(node.rexpr)
-    elif node.kind == aek.AEXPR_ILIKE:
-        output.print_node(node.lexpr)
-        if node.name.string_value == '!~~*':
-            output.swrites('NOT')
-        output.swrites('ILIKE')
-        output.print_node(node.rexpr)
-    elif node.kind == aek.AEXPR_SIMILAR:
+
+    def AEXPR_PAREN(self, node, output):  # pragma: no cover
+        # FIXME: accordingly with the documentation of the A_Expr_Kind typedef, AEXPR_PAREN is
+        # a “nameless dummy node for parentheses”. What does that mean? I wasn't able to
+        # “produce” it in any way...
+        raise NotImplementedError("Expression of kind %s not implemented yet"
+                                  % aek.AEXPR_PAREN)
+
+    def AEXPR_SIMILAR(self, node, output):
         output.print_node(node.lexpr)
         if node.name.string_value == '!~':
             output.swrites('NOT')
@@ -116,28 +154,12 @@ def a_expr(node, output):
         if escape.val.node_tag != 'Null':
             output.swrites('ESCAPE')
             output.print_node(escape)
-    elif node.kind == aek.AEXPR_BETWEEN:
-        output.print_node(node.lexpr)
-        output.swrites('BETWEEN')
-        output.print_list(node.rexpr, 'AND', relative_indent=-4)
-    elif node.kind == aek.AEXPR_NOT_BETWEEN:
-        output.print_node(node.lexpr)
-        output.swrites('NOT BETWEEN')
-        output.print_list(node.rexpr, 'AND', relative_indent=-4)
-    elif node.kind == aek.AEXPR_BETWEEN_SYM:
-        output.print_node(node.lexpr)
-        output.swrites('BETWEEN SYMMETRIC')
-        output.print_list(node.rexpr, 'AND', relative_indent=-4)
-    elif node.kind == aek.AEXPR_NOT_BETWEEN_SYM:
-        output.print_node(node.lexpr)
-        output.swrites('NOT BETWEEN SYMMETRIC')
-        output.print_list(node.rexpr, 'AND', relative_indent=-4)
-    elif node.kind == aek.AEXPR_PAREN:  # pragma: no cover
-        # FIXME: accordingly with the documentation of the A_Expr_Kind typedef, AEXPR_PAREN is
-        # a “nameless dummy node for parentheses”. What does that mean? I wasn't able to
-        # “produce” it in any way...
-        raise NotImplementedError("Expression of kind %s not implemented yet"
-                                  % aek.AEXPR_PAREN)
+
+
+@node_printer('A_Expr')
+def a_expr(node, output):
+    aekp = A_Expr_Kind_Printer()
+    aekp[node.kind](node, output)
 
 
 @node_printer('A_Indices')
@@ -226,23 +248,35 @@ def bool_expr(node, output):
             output.print_node(node.args[0])
 
 
+class BooleanTestPrinter(IntEnumPrinter):
+    def __init__(self):
+        super().__init__(enums.BoolTestType)
+
+    def IS_FALSE(self, node, output):
+        output.write('FALSE')
+
+    def IS_NOT_FALSE(self, node, output):
+        output.write('NOT FALSE')
+
+    def IS_NOT_TRUE(self, node, output):
+        output.write('NOT TRUE')
+
+    def IS_NOT_UNKNOWN(self, node, output):
+        output.write('NOT UNKNOWN')
+
+    def IS_TRUE(self, node, output):
+        output.write('TRUE')
+
+    def IS_UNKNOWN(self, node, output):
+        output.write('UNKNOWN')
+
+
 @node_printer('BooleanTest')
 def boolean_test(node, output):
-    btt = enums.BoolTestType
     output.print_node(node.arg)
     output.write(' IS ')
-    if node.booltesttype == btt.IS_TRUE:
-        output.write('TRUE')
-    elif node.booltesttype == btt.IS_NOT_TRUE:
-        output.write('NOT TRUE')
-    elif node.booltesttype == btt.IS_FALSE:
-        output.write('FALSE')
-    elif node.booltesttype == btt.IS_NOT_FALSE:
-        output.write('NOT FALSE')
-    elif node.booltesttype == btt.IS_UNKNOWN:
-        output.write('UNKNOWN')
-    elif node.booltesttype == btt.IS_NOT_UNKNOWN:
-        output.write('NOT UNKNOWN')
+    btp = BooleanTestPrinter()
+    btp[node.booltesttype](node, output)
 
 
 @node_printer('CaseExpr')
@@ -840,43 +874,64 @@ def sort_by(node, output):
         output.write('FIRST' if node.sortby_nulls == sbn.SORTBY_NULLS_FIRST else 'LAST')
 
 
-@node_printer('SQLValueFunction')
-def sql_value_function(node, output):
-    svfo = enums.SQLValueFunctionOp
-    if node.op == svfo.SVFOP_CURRENT_DATE:
+class SQLValueFunctionOpPrinter(IntEnumPrinter):
+    def __init__(self):
+        super().__init__(enums.SQLValueFunctionOp)
+
+    def SVFOP_CURRENT_CATALOG(self, node, output):
+        output.write('CURRENT_CATALOG')
+
+    def SVFOP_CURRENT_DATE(self, node, output):
         output.write('CURRENT_DATE')
-    elif node.op == svfo.SVFOP_CURRENT_TIME:
+
+    def SVFOP_CURRENT_ROLE(self, node, output):
+        output.write('CURRENT_ROLE')
+
+    def SVFOP_CURRENT_SCHEMA(self, node, output):
+        output.write('CURRENT_SCHEMA')
+
+    def SVFOP_CURRENT_TIME(self, node, output):
         output.write('CURRENT_TIME')
-    elif node.op == svfo.SVFOP_CURRENT_TIME_N:  # pragma: no cover
-        # FIXME: understand the meaning of this
-        raise NotImplementedError('CURRENT_TIME_N')
-    elif node.op == svfo.SVFOP_CURRENT_TIMESTAMP:
+
+    def SVFOP_CURRENT_TIMESTAMP(self, node, output):
         output.write('CURRENT_TIMESTAMP')
-    elif node.op == svfo.SVFOP_CURRENT_TIMESTAMP_N:  # pragma: no cover
+
+    def SVFOP_CURRENT_TIMESTAMP_N(self, node, output):  # pragma: no cover
         # FIXME: understand the meaning of this
         raise NotImplementedError('CURRENT_TIMESTAMP_N')
-    elif node.op == svfo.SVFOP_LOCALTIME:
-        output.write('LOCALTIME')
-    elif node.op == svfo.SVFOP_LOCALTIME_N:  # pragma: no cover
+
+    def SVFOP_CURRENT_TIME_N(self, node, output):  # pragma: no cover
         # FIXME: understand the meaning of this
-        raise NotImplementedError('LOCALTIME_N')
-    elif node.op == svfo.SVFOP_LOCALTIMESTAMP:
+        raise NotImplementedError('CURRENT_TIME_N')
+
+    def SVFOP_CURRENT_USER(self, node, output):
+        output.write('CURRENT_USER')
+
+    def SVFOP_LOCALTIME(self, node, output):
+        output.write('LOCALTIME')
+
+    def SVFOP_LOCALTIMESTAMP(self, node, output):
         output.write('LOCALTIMESTAMP')
-    elif node.op == svfo.SVFOP_LOCALTIMESTAMP_N:  # pragma: no cover
+
+    def SVFOP_LOCALTIMESTAMP_N(self, node, output):  # pragma: no cover
         # FIXME: understand the meaning of this
         raise NotImplementedError('LOCALTIMESTAMP_N')
-    elif node.op == svfo.SVFOP_CURRENT_ROLE:
-        output.write('CURRENT_ROLE')
-    elif node.op == svfo.SVFOP_CURRENT_USER:
-        output.write('CURRENT_USER')
-    elif node.op == svfo.SVFOP_USER:
-        output.write('USER')
-    elif node.op == svfo.SVFOP_SESSION_USER:
+
+    def SVFOP_LOCALTIME_N(self, node, output):  # pragma: no cover
+        # FIXME: understand the meaning of this
+        raise NotImplementedError('LOCALTIME_N')
+
+    def SVFOP_SESSION_USER(self, node, output):
         output.write('SESSION_USER')
-    elif node.op == svfo.SVFOP_CURRENT_CATALOG:
-        output.write('CURRENT_CATALOG')
-    elif node.op == svfo.SVFOP_CURRENT_SCHEMA:
-        output.write('CURRENT_SCHEMA')
+
+    def SVFOP_USER(self, node, output):
+        output.write('USER')
+
+
+@node_printer('SQLValueFunction')
+def sql_value_function(node, output):
+    svfop = SQLValueFunctionOpPrinter()
+    svfop[node.op](node, output)
 
 
 @node_printer('String')
