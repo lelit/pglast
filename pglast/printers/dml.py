@@ -25,9 +25,8 @@ def a_const(node, output):
     output.print_node(node.val)
 
 
-class A_Expr_Kind_Printer(IntEnumPrinter):
-    def __init__(self):
-        super().__init__(enums.A_Expr_Kind)
+class AExprKindPrinter(IntEnumPrinter):
+    enum = enums.A_Expr_Kind
 
     def AEXPR_BETWEEN(self, node, output):
         output.print_node(node.lexpr)
@@ -156,10 +155,12 @@ class A_Expr_Kind_Printer(IntEnumPrinter):
             output.print_node(escape)
 
 
+a_expr_kind_printer = AExprKindPrinter()
+
+
 @node_printer('A_Expr')
 def a_expr(node, output):
-    aekp = A_Expr_Kind_Printer()
-    aekp[node.kind](node, output)
+    a_expr_kind_printer(node.kind, node, output)
 
 
 @node_printer('A_Indices')
@@ -249,8 +250,7 @@ def bool_expr(node, output):
 
 
 class BooleanTestPrinter(IntEnumPrinter):
-    def __init__(self):
-        super().__init__(enums.BoolTestType)
+    enum = enums.BoolTestType
 
     def IS_FALSE(self, node, output):
         output.write('FALSE')
@@ -271,12 +271,14 @@ class BooleanTestPrinter(IntEnumPrinter):
         output.write('UNKNOWN')
 
 
+boolean_test_printer = BooleanTestPrinter()
+
+
 @node_printer('BooleanTest')
 def boolean_test(node, output):
     output.print_node(node.arg)
     output.write(' IS ')
-    btp = BooleanTestPrinter()
-    btp[node.booltesttype](node, output)
+    boolean_test_printer(node.booltesttype, node, output)
 
 
 @node_printer('CaseExpr')
@@ -875,8 +877,7 @@ def sort_by(node, output):
 
 
 class SQLValueFunctionOpPrinter(IntEnumPrinter):
-    def __init__(self):
-        super().__init__(enums.SQLValueFunctionOp)
+    enum = enums.SQLValueFunctionOp
 
     def SVFOP_CURRENT_CATALOG(self, node, output):
         output.write('CURRENT_CATALOG')
@@ -928,10 +929,12 @@ class SQLValueFunctionOpPrinter(IntEnumPrinter):
         output.write('USER')
 
 
+sql_value_function_op_printer = SQLValueFunctionOpPrinter()
+
+
 @node_printer('SQLValueFunction')
 def sql_value_function(node, output):
-    svfop = SQLValueFunctionOpPrinter()
-    svfop[node.op](node, output)
+    sql_value_function_op_printer(node.op, node, output)
 
 
 @node_printer('String')

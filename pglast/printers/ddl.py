@@ -248,8 +248,7 @@ def alter_table_stmt(node, output):
 
 
 class AlterTableTypePrinter(IntEnumPrinter):
-    def __init__(self):
-        super().__init__(enums.AlterTableType)
+    enum = enums.AlterTableType
 
     def AT_AddColumn(self, node, output):
         output.write("ADD COLUMN ")
@@ -346,10 +345,12 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.print_name(node.name)
 
 
+alter_table_type_printer = AlterTableTypePrinter()
+
+
 @node_printer('AlterTableCmd')
 def alter_table_cmd(node, output):
-    attp = AlterTableTypePrinter()
-    attp[node.subtype](node, output)
+    alter_table_type_printer(node.subtype, node, output)
 
 
 @node_printer('ClusterStmt')
@@ -438,8 +439,7 @@ def composite_type_stmt(node, output):
 
 
 class ConstrTypePrinter(IntEnumPrinter):
-    def __init__(self):
-        super().__init__(enums.ConstrType)
+    enum = enums.ConstrType
 
     def CONSTR_ATTR_DEFERRABLE(self, node, output):
         output.swrite('DEFERRABLE')
@@ -536,13 +536,16 @@ class ConstrTypePrinter(IntEnumPrinter):
         output.swrite('UNIQUE')
 
 
+constr_type_printer = ConstrTypePrinter()
+
+
 @node_printer('Constraint')
 def constraint(node, output):
     if node.conname:
         output.swrite('CONSTRAINT ')
         output.print_name(node.conname)
-    ctp = ConstrTypePrinter()
-    ctp[node.contype](node, output)
+
+    constr_type_printer(node.contype, node, output)
 
     if node.indexname:
         output.write(' USING INDEX ')
@@ -1319,8 +1322,7 @@ def define_stmt_def_elem(node, output):
 
 
 class DiscardModePrinter(IntEnumPrinter):
-    def __init__(self):
-        super().__init__(enums.DiscardMode)
+    enum = enums.DiscardMode
 
     def DISCARD_ALL(self, node, output):
         output.write('ALL')
@@ -1335,11 +1337,13 @@ class DiscardModePrinter(IntEnumPrinter):
         output.write('TEMP')
 
 
+discard_mode_printer = DiscardModePrinter()
+
+
 @node_printer('DiscardStmt')
 def discard_stmt(node, output):
     output.write('DISCARD ')
-    dmp = DiscardModePrinter()
-    dmp[node.target](node, output)
+    discard_mode_printer(node.target, node, output)
 
 
 @node_printer('DoStmt')
