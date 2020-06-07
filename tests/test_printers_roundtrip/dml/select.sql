@@ -441,3 +441,11 @@ SELECT -(1+1);
 SELECT +(1+1);
 
 SELECT ~(1+1);
+
+SELECT * from test1 WHERE foo = "between"
+
+SELECT * from test1 WHERE foo = "all"
+
+SELECT * from test1 WHERE foo = "authorization"
+
+SELECT * from test1 WHERE foo = "abort"

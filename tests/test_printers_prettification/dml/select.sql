@@ -266,10 +266,10 @@ ORDER BY EXTRACT(YEAR FROM deliver_date) ASC
 SELECT (DATE '2001-02-16', DATE '2001-12-21') OVERLAPS
        (DATE '2001-10-30', DATE '2002-10-30')
 =
-SELECT pg_catalog.overlaps('2001-02-16'::date
-                         , '2001-12-21'::date
-                         , '2001-10-30'::date
-                         , '2002-10-30'::date)
+SELECT pg_catalog."overlaps"('2001-02-16'::date
+                           , '2001-12-21'::date
+                           , '2001-10-30'::date
+                           , '2002-10-30'::date)
 
 SELECT (DATE '2001-02-16', DATE '2001-12-21') OVERLAPS
        (DATE '2001-10-30', DATE '2002-10-30')
