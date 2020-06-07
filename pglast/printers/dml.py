@@ -732,10 +732,14 @@ def row_expr(node, output):
 
 
 def _select_needs_to_be_wrapped_in_parens(node):
-    # Accordingly with https://www.postgresql.org/docs/current/sql-select.html,
-    # a SELECT statement on either sides of UNION/INTERSECT must be wrapped in
-    # parens if it contains ORDER BY/LIMIT/...
-    return node.sortClause or node.limitCount or node.limitOffset or node.lockingClause
+    # Accordingly with https://www.postgresql.org/docs/current/sql-select.html, a SELECT
+    # statement on either sides of UNION/INTERSECT/EXCEPT must be wrapped in parens if it
+    # contains ORDER BY/LIMIT/... or is a nested UNION/INTERSECT/EXCEPT
+    return (node.sortClause
+            or node.limitCount
+            or node.limitOffset
+            or node.lockingClause
+            or node.op != enums.SetOperation.SETOP_NONE)
 
 
 @node_printer('SelectStmt')
