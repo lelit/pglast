@@ -441,3 +441,35 @@ SELECT -(1+1);
 SELECT +(1+1);
 
 SELECT ~(1+1);
+
+SELECT * from test1 WHERE foo = "between"
+
+SELECT * from test1 WHERE foo = "all"
+
+SELECT * from test1 WHERE foo = "authorization"
+
+SELECT * from test1 WHERE foo = "abort"
+
+select n from d1 intersect select n from d2 limit 3
+
+(select n from d1 limit 3) intersect select n from d2 limit 3
+
+(select n from d1 fetch first 3 rows only) intersect select n from d2 limit 3
+
+(select x from d1 order by y) intersect select n from d2
+
+(select x from d1 order by y) intersect select n from d2 limit 3
+
+(select x from d1 order by y) intersect select n from d2 group by y
+
+(select x from d1 order by y) intersect select n from d2 group by y limit 3
+
+(select x from d1 order by y) intersect (select n from d2 group by y limit 3)
+
+(select x from d1 order by y) intersect (select n from d2 group by y limit 3) limit 2
+
+select n from d1 intersect select n from d2 limit 3 for update
+
+(select n from d1 for update) intersect select n from d2 limit 3
+
+(select n from d1 for update) intersect (select n from d2 limit 3 for update)

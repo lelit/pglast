@@ -13,7 +13,7 @@ from sys import stderr
 
 from .error import Error
 from .node import List, Node, Scalar
-from .keywords import RESERVED_KEYWORDS
+from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
 from .parser import parse_plpgsql, parse_sql
 
 
@@ -333,7 +333,9 @@ class RawStream(OutputStream):
             # The `scalar` represent a name of a column/table/alias: when any of its
             # characters is not a lower case letter, a digit or underscore, it must be
             # double quoted
-            if not match(r'[a-z_][a-z0-9_]*$', value) or value in RESERVED_KEYWORDS:
+            if ((not match(r'[a-z_][a-z0-9_]*$', value)
+                 or value in RESERVED_KEYWORDS
+                 or value in TYPE_FUNC_NAME_KEYWORDS)):
                 value = '"%s"' % value.replace('"', '""')
             self.write(value)
         elif node.parent_node.node_tag == 'String':
