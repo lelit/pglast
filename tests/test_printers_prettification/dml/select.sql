@@ -355,3 +355,17 @@ SELECT CASE a.a
                FROM d)
        END
 FROM a
+
+(select x from d1 order by y) intersect (select n from d2 group by y limit 3) limit 2
+=
+(SELECT x
+ FROM d1
+ ORDER BY y)
+\n\
+INTERSECT
+\n\
+(SELECT n
+ FROM d2
+ GROUP BY y
+ LIMIT 3)
+LIMIT 2

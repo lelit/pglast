@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 #
 
 from .. import enums
@@ -731,6 +731,13 @@ def row_expr(node, output):
                                   coerciontype)
 
 
+def _select_needs_to_be_wrapped_in_parens(node):
+    # Accordingly with https://www.postgresql.org/docs/current/sql-select.html,
+    # a SELECT statement on either sides of UNION/INTERSECT must be wrapped in
+    # parens if it contains ORDER BY/LIMIT/...
+    return node.sortClause or node.limitCount or node.limitOffset or node.lockingClause
+
+
 @node_printer('SelectStmt')
 def select_stmt(node, output):
     with output.push_indent():
@@ -752,7 +759,12 @@ def select_stmt(node, output):
                 output.write(')')
         elif node.targetList is Missing:
             with output.push_indent():
-                output.print_node(node.larg)
+                if _select_needs_to_be_wrapped_in_parens(node.larg):
+                    output.write('(')
+                    output.print_node(node.larg)
+                    output.write(')')
+                else:
+                    output.print_node(node.larg)
                 output.newline()
                 output.newline()
                 so = enums.SetOperation
@@ -766,7 +778,12 @@ def select_stmt(node, output):
                     output.write(' ALL')
                 output.newline()
                 output.newline()
-                output.print_node(node.rarg)
+                if _select_needs_to_be_wrapped_in_parens(node.rarg):
+                    output.write('(')
+                    output.print_node(node.rarg)
+                    output.write(')')
+                else:
+                    output.print_node(node.rarg)
         else:
             output.write('SELECT')
             if node.distinctClause:
