@@ -748,6 +748,8 @@ def select_stmt(node, output):
             output.space(2)
             output.indent()
 
+        so = enums.SetOperation
+
         if node.valuesLists:
             # Is this a SELECT ... FROM (VALUES (...))?
             require_parens = node.parent_node.node_tag == 'RangeSubselect'
@@ -757,7 +759,7 @@ def select_stmt(node, output):
             output.print_lists(node.valuesLists)
             if require_parens:
                 output.write(')')
-        elif node.targetList is Missing:
+        elif node.op != so.SETOP_NONE:
             with output.push_indent():
                 if _select_needs_to_be_wrapped_in_parens(node.larg):
                     output.write('(')
@@ -767,7 +769,6 @@ def select_stmt(node, output):
                     output.print_node(node.larg)
                 output.newline()
                 output.newline()
-                so = enums.SetOperation
                 if node.op == so.SETOP_UNION:
                     output.write('UNION')
                 elif node.op == so.SETOP_INTERSECT:
