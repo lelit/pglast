@@ -483,3 +483,7 @@ SELECT * FROM "table" INTERSECT ((SELECT * FROM "table") UNION (SELECT * FROM "t
 ((SELECT * FROM "table") UNION (SELECT * FROM "table")) INTERSECT SELECT * FROM "table"
 
 ((SELECT * FROM "table") UNION (SELECT * FROM "table")) INTERSECT (SELECT * FROM "table" FOR UPDATE)
+
+WITH k AS MATERIALIZED (select * from m) select * from k;
+
+WITH k AS NOT MATERIALIZED (select * from m) select * from k;

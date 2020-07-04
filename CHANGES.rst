@@ -26,6 +26,8 @@ Changes
 
 - Handle ``ALTER TABLE ... ALTER COLUMN ... SET STORAGE ...``
 
+- Handle PG12 materialized CTEs (`issue #57`)
+
 
 1.13 (unreleased)
 ~~~~~~~~~~~~~~~~~

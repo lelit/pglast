@@ -330,6 +330,22 @@ def column_ref(node, output):
     output.print_name(node.fields)
 
 
+class CTEMaterializedPrinter(IntEnumPrinter):
+    enum = enums.CTEMaterialize
+
+    def CTEMaterializeAlways(self, node, output):
+        output.write(' MATERIALIZED')
+
+    def CTEMaterializeDefault(self, node, output):
+        pass
+
+    def CTEMaterializeNever(self, node, output):
+        output.write(' NOT MATERIALIZED')
+
+
+cte_materialize_printer = CTEMaterializedPrinter()
+
+
 @node_printer('CommonTableExpr')
 def common_table_expr(node, output):
     output.print_name(node.ctename)
@@ -341,7 +357,9 @@ def common_table_expr(node, output):
         output.write(')')
         output.newline()
 
-    output.swrite('AS (')
+    output.swrite('AS')
+    cte_materialize_printer(node.ctematerialized, node, output)
+    output.write(' (')
     output.print_node(node.ctequery)
     output.write(')')
     output.newline()
