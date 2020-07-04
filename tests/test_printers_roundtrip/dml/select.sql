@@ -442,6 +442,8 @@ SELECT +(1+1);
 
 SELECT ~(1+1);
 
+SELECT FROM test1;
+
 SELECT * from test1 WHERE foo = "between"
 
 SELECT * from test1 WHERE foo = "all"
