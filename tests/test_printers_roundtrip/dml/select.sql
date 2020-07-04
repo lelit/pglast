@@ -442,6 +442,8 @@ SELECT +(1+1);
 
 SELECT ~(1+1);
 
+SELECT FROM test1;
+
 SELECT * from test1 WHERE foo = "between"
 
 SELECT * from test1 WHERE foo = "all"
@@ -473,3 +475,11 @@ select n from d1 intersect select n from d2 limit 3 for update
 (select n from d1 for update) intersect select n from d2 limit 3
 
 (select n from d1 for update) intersect (select n from d2 limit 3 for update)
+
+SELECT * FROM "table" INTERSECT ((SELECT * FROM "table") UNION (SELECT * FROM "table"))
+
+(SELECT * FROM "table" LIMIT 1) INTERSECT ((SELECT * FROM "table") UNION (SELECT * FROM "table"))
+
+((SELECT * FROM "table") UNION (SELECT * FROM "table")) INTERSECT SELECT * FROM "table"
+
+((SELECT * FROM "table") UNION (SELECT * FROM "table")) INTERSECT (SELECT * FROM "table" FOR UPDATE)

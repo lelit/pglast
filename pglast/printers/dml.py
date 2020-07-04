@@ -768,10 +768,14 @@ def row_expr(node, output):
 
 
 def _select_needs_to_be_wrapped_in_parens(node):
-    # Accordingly with https://www.postgresql.org/docs/current/sql-select.html,
-    # a SELECT statement on either sides of UNION/INTERSECT must be wrapped in
-    # parens if it contains ORDER BY/LIMIT/...
-    return node.sortClause or node.limitCount or node.limitOffset or node.lockingClause
+    # Accordingly with https://www.postgresql.org/docs/current/sql-select.html, a SELECT
+    # statement on either sides of UNION/INTERSECT/EXCEPT must be wrapped in parens if it
+    # contains ORDER BY/LIMIT/... or is a nested UNION/INTERSECT/EXCEPT
+    return (node.sortClause
+            or node.limitCount
+            or node.limitOffset
+            or node.lockingClause
+            or node.op != enums.SetOperation.SETOP_NONE)
 
 
 @node_printer('SelectStmt')
@@ -784,6 +788,8 @@ def select_stmt(node, output):
             output.space(2)
             output.indent()
 
+        so = enums.SetOperation
+
         if node.valuesLists:
             # Is this a SELECT ... FROM (VALUES (...))?
             require_parens = node.parent_node.node_tag == 'RangeSubselect'
@@ -793,17 +799,17 @@ def select_stmt(node, output):
             output.print_lists(node.valuesLists)
             if require_parens:
                 output.write(')')
-        elif node.targetList is Missing:
+        elif node.op != so.SETOP_NONE and (node.larg or node.rarg):
             with output.push_indent():
-                if _select_needs_to_be_wrapped_in_parens(node.larg):
-                    output.write('(')
-                    output.print_node(node.larg)
-                    output.write(')')
-                else:
-                    output.print_node(node.larg)
+                if node.larg:
+                    if _select_needs_to_be_wrapped_in_parens(node.larg):
+                        output.write('(')
+                        output.print_node(node.larg)
+                        output.write(')')
+                    else:
+                        output.print_node(node.larg)
                 output.newline()
                 output.newline()
-                so = enums.SetOperation
                 if node.op == so.SETOP_UNION:
                     output.write('UNION')
                 elif node.op == so.SETOP_INTERSECT:
@@ -814,12 +820,13 @@ def select_stmt(node, output):
                     output.write(' ALL')
                 output.newline()
                 output.newline()
-                if _select_needs_to_be_wrapped_in_parens(node.rarg):
-                    output.write('(')
-                    output.print_node(node.rarg)
-                    output.write(')')
-                else:
-                    output.print_node(node.rarg)
+                if node.rarg:
+                    if _select_needs_to_be_wrapped_in_parens(node.rarg):
+                        output.write('(')
+                        output.print_node(node.rarg)
+                        output.write(')')
+                    else:
+                        output.print_node(node.rarg)
         else:
             output.write('SELECT')
             if node.distinctClause:
@@ -829,7 +836,8 @@ def select_stmt(node, output):
                     output.print_list(node.distinctClause)
                     output.write(')')
             output.write(' ')
-            output.print_list(node.targetList)
+            if node.targetList:
+                output.print_list(node.targetList)
             if node.fromClause:
                 output.newline()
                 output.write('FROM ')
