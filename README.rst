@@ -3,7 +3,7 @@
 .. :Created:   mer 02 ago 2017 14:49:24 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 ..
 
 ========
@@ -90,6 +90,8 @@ bumped the major version of ``pglast`` to better reflect the fact.
 
 As I'm writing this, the fate of ``PR #62`` is still unclear, so for the time being I switched
 the ``libpg_query`` submodule to Ronan's fork.
+
+.. important:: This version requires Python 3.6 or greater, due to usage of `f-strings`.
 
 __ https://github.com/lfittl/libpg_query/pull/62
 __ https://github.com/lelit/pglast/pull/36
