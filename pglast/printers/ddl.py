@@ -347,6 +347,12 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write("VALIDATE CONSTRAINT ")
         output.print_name(node.name)
 
+    def AT_SetUnLogged(self, node, output):
+        output.write("SET UNLOGGED")
+
+    def AT_SetLogged(self, node, output):
+        output.write("SET LOGGED")
+
 
 alter_table_type_printer = AlterTableTypePrinter()
 
