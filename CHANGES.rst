@@ -6,6 +6,8 @@ Changes
 2.0 (unreleased)
 ~~~~~~~~~~~~~~~~
 
+- Require Python 3.6 or greater
+
 - Handle ``ALTER TYPE .. RENAME VALUE`` in ``AlterEnumStmt`` (`PR #52`__), thanks to Ronan
   Dunklau
 
@@ -27,6 +29,15 @@ Changes
 - Handle ``ALTER TABLE ... ALTER COLUMN ... SET STORAGE ...``
 
 - Handle PG12 materialized CTEs (`issue #57`)
+
+- Support column numbers in ``ALTER INDEX`` (`PR #58`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/58
+
+- Handle ``SET LOGGED`` and ``SET UNLOGGED`` in ``ALTER TABLE`` (`PR #59`__), thanks to Ronan
+  Dunklau
+
+  __ https://github.com/lelit/pglast/pull/59
 
 
 1.13 (unreleased)
