@@ -7,6 +7,8 @@
 #
 
 from enum import Enum
+from .tag_map import tag_map
+from . import enums
 
 
 class Missing:
@@ -278,7 +280,14 @@ class Scalar(Base):
             return super().__eq__(other)
 
     def __repr__(self):
-        return '<%r>' % self._value
+        key = (self.parent_node.node_tag, self._parent_attribute)
+        
+        if key in tag_map:
+            return repr(
+                getattr(enums,tag_map[key])(self._value)
+            )
+        else:
+            return '<%r>' % self._value
 
     def traverse(self):
         yield self

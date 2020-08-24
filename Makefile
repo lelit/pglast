@@ -25,7 +25,7 @@ help::
 	@printf "build\n\tbuild the module\n"
 
 .PHONY: build
-build: virtualenv enums keywords libpg_query/libpg_query.a pglast/parser.c
+build: virtualenv enums keywords libpg_query/libpg_query.a pglast/parser.c pglast/tag_map.py
 	$(PYTHON) setup.py build_ext --inplace
 
 libpg_query/libpg_query.a: libpg_query/LICENSE
@@ -81,6 +81,10 @@ $(PY_ENUMS_DIR)/pg_class.py: $(PG_INCLUDE_DIR)/catalog/pg_class.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 $(PY_ENUMS_DIR)/pg_trigger.py: $(PG_INCLUDE_DIR)/catalog/pg_trigger.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
+
+pglast/tag_map.py: libpg_query/srcdata/struct_defs.json
+	$(PYTHON) tools/extract_tag_map.py $< $@
+
 
 help::
 	@printf "keywords\n\textract Python keyword sets from PG sources\n"
