@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt -r requirements-test.txt
+
+    - name: Build the libpg_query library
+      run: |
+        make -C libpg_query build
+
+    - name: Build the extension module
+      run: |
+        python setup.py build_ext --inplace
+
+    - name: Install the module itself in development mode
+      run: |
+        python -m pip install -e .
+
+    - name: Execute the test suite
+      run: |
+        python -m pytest tests/
+        make -C docs doctest

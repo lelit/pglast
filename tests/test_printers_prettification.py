@@ -3,7 +3,7 @@
 # :Created:   dom 17 mar 2019 10:46:03 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2019 Lele Gaifax
+# :Copyright: © 2019, 2020 Lele Gaifax
 #
 
 from ast import literal_eval
@@ -55,7 +55,23 @@ def make_id(arg):
 #   PRETTIFIED_STATEMENT
 #   :
 #   INDENTEDSTREAM_OPTIONS_DICTIONARY
-
+#
+# The prettified statement may contain standalone "\n\" lines, that are replaced with single
+# newlines, to allow "empty lines"; in other words, the following expected statement
+#
+#   SELECT foo
+#
+#   INTERSECT
+#
+#   SELECT bar
+#
+# must be written as
+#
+#   SELECT foo
+#   \n\
+#   INTERSECT
+#   \n\
+#   SELECT bar
 
 @pytest.mark.parametrize('src,lineno,case',
                          ((src, lineno, case)
@@ -66,7 +82,7 @@ def test_prettification(src, lineno, case):
     parts = case.split('\n=\n')
     original = parts[0].strip()
     parts = parts[1].split('\n:\n')
-    expected = parts[0].strip()
+    expected = parts[0].strip().replace('\\n\\\n', '\n')
     if len(parts) == 2:
         options = literal_eval(parts[1])
     else:

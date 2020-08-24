@@ -3,6 +3,25 @@
 Changes
 -------
 
+1.13 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Handle ``SELECT FROM foo``
+
+
+1.12 (2020-06-08)
+~~~~~~~~~~~~~~~~~
+
+- Double quote column names in the ``TYPE_FUNC_NAME_KEYWORDS`` set (`issue #55`__)
+
+  __ https://github.com/lelit/pglast/issues/55
+
+- Possibly wrap ``SELECT`` in ``UNION``/``INTERSECT`` between parens, when needed
+  (`issue #55`__)
+
+  __ https://github.com/lelit/pglast/issues/55
+
+
 1.11 (2020-05-08)
 ~~~~~~~~~~~~~~~~~
 
