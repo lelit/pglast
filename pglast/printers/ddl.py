@@ -1697,6 +1697,8 @@ def rename_stmt(node, output):
     if objtype in (enums.ObjectType.OBJECT_SCHEMA,
                    enums.ObjectType.OBJECT_DATABASE):
         output.print_name(node.subname)
+    elif objtype == enums.ObjectType.OBJECT_TYPE:
+        output.print_name(node.object)
     elif objtype == enums.ObjectType.OBJECT_RULE:
         output.print_name(node.subname)
         output.write(' ON ')
