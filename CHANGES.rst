@@ -39,6 +39,11 @@ Changes
 
   __ https://github.com/lelit/pglast/pull/59
 
+- Handle ``ALTER TYPE ... RENAME`` (`PR #62`__), , thanks to Ronan
+  Dunklau
+
+  __ https://github.com/lelit/pglast/pull/62
+
 
 1.13 (unreleased)
 ~~~~~~~~~~~~~~~~~
