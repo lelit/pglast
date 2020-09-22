@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:54:39 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 #
 
 from datetime import date
@@ -22,11 +22,7 @@ PY_HEADER = """\
 # :Copyright: © 2017-%d Lele Gaifax
 #
 
-try:
-    from enum import Enum, IntEnum, IntFlag, auto
-except ImportError: #pragma: no cover
-    # Python < 3.6
-    from aenum import Enum, IntEnum, IntFlag, auto
+from enum import Enum, IntEnum, IntFlag, auto
 
 """ % date.today().year
 
