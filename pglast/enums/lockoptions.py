@@ -5,11 +5,7 @@
 # :Copyright: © 2017-2020 Lele Gaifax
 #
 
-try:
-    from enum import Enum, IntEnum, IntFlag, auto
-except ImportError: #pragma: no cover
-    # Python < 3.6
-    from aenum import Enum, IntEnum, IntFlag, auto
+from enum import Enum, IntEnum, IntFlag, auto
 
 
 class LockClauseStrength(IntEnum):
