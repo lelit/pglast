@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.13 (unreleased)
+1.13 (2020-09-26)
 ~~~~~~~~~~~~~~~~~
 
 - Handle ``SELECT FROM foo``
