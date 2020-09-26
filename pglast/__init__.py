@@ -13,7 +13,7 @@ from .parser import get_postgresql_version, parse_plpgsql, parse_sql
 
 
 # This is injected automatically at release time
-__version__ = 'v1.12'
+__version__ = 'v1.13'
 "Package's version."
 
 __author__ = 'Lele Gaifax <lele@metapensiero.it>'
