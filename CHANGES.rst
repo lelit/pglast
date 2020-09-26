@@ -3,8 +3,8 @@
 Changes
 -------
 
-2.0 (unreleased)
-~~~~~~~~~~~~~~~~
+2.0.dev1 (2020-09-26)
+~~~~~~~~~~~~~~~~~~~~~
 
 - Require Python 3.6 or greater
 
