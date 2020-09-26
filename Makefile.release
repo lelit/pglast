@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:53:18 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 #
 
 BUMPER := $(VENVDIR)/bin/bump_version
@@ -38,6 +38,17 @@ release: printers-doc assert-master-branch assert-clean-tree
 	@echo ">>>"
 
 help::
+	@printf "dev-release\n\tBump the development version number\n"
+
+.PHONY: dev-release
+dev-release: printers-doc assert-clean-tree
+	$(BUMPER) -s pep440 -f dev $(VERSION_TXT)
+	@echo ">>>"
+	@echo ">>> Do your duties (update CHANGES.rst for example), then"
+	@echo ">>> execute “make dev-tag-release”."
+	@echo ">>>"
+
+help::
 	@printf "tag-release\n\tComplete the release tagging the working tree\n"
 
 .PHONY: tag-release
@@ -45,6 +56,15 @@ tag-release: assert-master-branch check-release-date check-long-description-mark
 	sed -i "s/__version__ = '.*'/__version__ = 'v$(VERSION)'/" $(MOD_INIT)
 	git commit -a -m "Release $(VERSION)"
 	git tag -a -m "Version $(VERSION)" v$(VERSION)
+
+help::
+	@printf "dev-tag-release\n\tComplete the development release tagging the working tree\n"
+
+.PHONY: dev-tag-release
+dev-tag-release: check-release-date check-long-description-markup
+	sed -i "s/__version__ = '.*'/__version__ = 'v$(VERSION)'/" $(MOD_INIT)
+	git commit -a -m "Development release $(VERSION)"
+	git tag -a -m "Development version $(VERSION)" v$(VERSION)
 
 .PHONY: check-long-description-markup
 check-long-description-markup:
