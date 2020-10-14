@@ -9,7 +9,7 @@
 from . import enums
 from .error import Error
 from .node import Missing, Node
-from .parser import get_postgresql_version, parse_plpgsql, parse_sql
+from .parser import get_postgresql_version, parse_plpgsql, parse_sql, fingerprint
 
 
 # This is injected automatically at release time
@@ -127,4 +127,4 @@ def _remove_stmt_len_and_location(parse_tree):
 
 
 __all__ = ('Error', 'Missing', 'Node', 'enums', 'get_postgresql_version',
-           'parse_plpgsql', 'parse_sql', 'prettify', 'split')
+           'parse_plpgsql', 'parse_sql', 'prettify', 'split', 'fingerprint')
