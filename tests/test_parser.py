@@ -10,10 +10,10 @@ import pytest
 
 from pglast import (
     Error,
+    fingerprint,
     get_postgresql_version,
     parse_plpgsql,
     parse_sql,
-    fingerprint,
     _remove_stmt_len_and_location
 )
 
