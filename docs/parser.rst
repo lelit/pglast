@@ -16,6 +16,15 @@
 This module is a C extension written in Cython__ that exposes a few functions from the
 underlying ``libpg_query`` library it links against.
 
+.. function:: fingerprint(query)
+
+   :param str query: The SQL statement
+   :returns: a string
+
+   Fingerprint the given `query`, a string with the ``SQL`` statement(s), and return a
+   hash digest that can identify similar queries. For similar queries that are different
+   only because of the queried object or formatting, the returned digest will be the same.
+
 .. function:: get_postgresql_version()
 
    :returns: a tuple

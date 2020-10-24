@@ -43,11 +43,19 @@ cdef extern from "pg_query.h" nogil:
         char *plpgsql_funcs
         PgQueryError *error
 
+    ctypedef struct PgQueryFingerprintResult:
+        char *hexdigest
+        char *stderr_buffer
+        PgQueryError *error
+
     PgQueryParseResult pg_query_parse(const char* input)
     void pg_query_free_parse_result(PgQueryParseResult result)
 
     PgQueryPlpgsqlParseResult pg_query_parse_plpgsql(const char* input)
     void pg_query_free_plpgsql_parse_result(PgQueryPlpgsqlParseResult result)
+
+    PgQueryFingerprintResult pg_query_fingerprint(const char* input)
+    void pg_query_free_fingerprint_result(PgQueryFingerprintResult result)
 
 
 def get_postgresql_version():
@@ -101,3 +109,25 @@ def parse_plpgsql(str query):
     finally:
         with nogil:
             pg_query_free_plpgsql_parse_result(parsed)
+
+
+def fingerprint(str query):
+    cdef PgQueryFingerprintResult result
+    cdef const char *cstring
+
+    utf8 = query.encode('utf-8')
+    cstring = utf8
+
+    with nogil:
+        result = pg_query_fingerprint(cstring)
+
+    try:
+        if result.error:
+            message = result.error.message.decode('utf8')
+            cursorpos = result.error.cursorpos
+            raise ParseError(message, cursorpos)
+
+        return result.hexdigest.decode('utf-8')
+    finally:
+        with nogil:
+            pg_query_free_fingerprint_result(result)
