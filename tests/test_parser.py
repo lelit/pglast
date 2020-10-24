@@ -10,6 +10,7 @@ import pytest
 
 from pglast import (
     Error,
+    fingerprint,
     get_postgresql_version,
     parse_plpgsql,
     parse_sql,
@@ -32,6 +33,12 @@ def test_basic():
     function = ptree[0]
     assert isinstance(function, dict)
     assert function.keys() == {'PLpgSQL_function'}
+
+
+def test_fingerprint():
+    sql1 = "SELECT a as b, c as d FROM atable AS btable WHERE a = 1 AND b in (1, 2)"
+    sql2 = "SELECT a, c FROM atable WHERE a = 2 AND b IN (2, 3, 4) "
+    assert fingerprint(sql1) == fingerprint(sql2)
 
 
 def test_errors():
@@ -58,6 +65,14 @@ def test_errors():
     errmsg = str(exc.value)
     assert 'syntax error at or near "FUMCTION"' in errmsg
     assert 'location 8' in errmsg
+
+    with pytest.raises(Error) as exc:
+        fingerprint('SELECT foo FRON bar')
+    assert exc.typename == 'ParseError'
+    assert exc.value.location == 17
+    errmsg = str(exc.value)
+    assert 'syntax error at or near "bar"' in errmsg
+    assert 'location 17' in errmsg
 
 
 def test_unicode():
