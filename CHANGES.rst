@@ -3,6 +3,12 @@
 Changes
 -------
 
+2.0.dev2 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+- Merge new ``fingerprint`` functionality from ``v1`` (i.e. ``master``) branch
+
+
 2.0.dev1 (2020-09-26)
 ~~~~~~~~~~~~~~~~~~~~~
 
