@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.14 (unreleased)
+1.14 (2020-10-24)
 ~~~~~~~~~~~~~~~~~
 
 - Produce Python 3.9 wheels, thanks to ``cibuildwheel`` 1.6.3
