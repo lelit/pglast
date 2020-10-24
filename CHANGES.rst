@@ -3,6 +3,18 @@
 Changes
 -------
 
+1.14 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Produce Python 3.9 wheels, thanks to ``cibuildwheel`` 1.6.3
+
+- Expose the ``libpg_query``'s `fingerprint`__ functionality (`PR #64`__), thanks to Yiming
+  Wang
+
+  __ https://github.com/lfittl/libpg_query/wiki/Fingerprinting
+  __ https://github.com/lelit/pglast/pull/64
+
+
 1.13 (2020-09-26)
 ~~~~~~~~~~~~~~~~~
 
