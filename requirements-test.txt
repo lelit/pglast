@@ -3,9 +3,9 @@
 # :Created:   lun 07 ago 2017 00:43:41 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
 #
 
-coverage==4.5.4
-pytest-cov==2.7.1
-pytest==5.1.2
+coverage==5.3
+pytest-cov==2.10.1
+pytest==6.1.1
