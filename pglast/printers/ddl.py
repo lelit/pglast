@@ -1567,6 +1567,10 @@ def index_stmt(node, output):
         output.write(' (')
         output.print_list(node.indexParams)
         output.write(')')
+        if node.indexIncludingParams:
+            output.write(' INCLUDE (')
+            output.print_list(node.indexIncludingParams)
+            output.write(')')
         if node.options:
             output.newline()
             output.write('WITH (')
