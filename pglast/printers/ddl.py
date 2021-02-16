@@ -1679,7 +1679,7 @@ def rename_stmt(node, output):
         output.write('ALTER ')
         output.write(objtype_name)
         output.space()
-        if objtype == enums.ObjectType.OBJECT_TABLE and node.missing_ok:
+        if objtype in (enums.ObjectType.OBJECT_TABLE,enums.ObjectType.OBJECT_VIEW) and node.missing_ok:
             output.write("IF EXISTS ")
         if objtype in (enums.ObjectType.OBJECT_SCHEMA,
                        enums.ObjectType.OBJECT_DATABASE):
