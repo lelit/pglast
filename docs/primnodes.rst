@@ -2,14 +2,14 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2019 Lele Gaifax
+.. :Copyright: © 2017-2021 Lele Gaifax
 ..
 
 ============================================================================
  :mod:`pglast.enums.primnodes` --- Constants extracted from `primnodes.h`__
 ============================================================================
 
-__ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h
+__ https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h
 
 .. module:: pglast.enums.primnodes
    :synopsis: Constants extracted from primnodes.h
@@ -17,7 +17,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.BoolExprType
 
-   Corresponds to the `BoolExprType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L554>`__.
+   Corresponds to the `BoolExprType enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L557>`__.
 
    .. data:: AND_EXPR
 
@@ -28,7 +28,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.BoolTestType
 
-   Corresponds to the `BoolTestType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L1195>`__.
+   Corresponds to the `BoolTestType enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L1198>`__.
 
    .. data:: IS_TRUE
 
@@ -45,7 +45,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.CoercionContext
 
-   Corresponds to the `CoercionContext enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L420>`__.
+   Corresponds to the `CoercionContext enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L423>`__.
 
    .. data:: COERCION_IMPLICIT
 
@@ -56,7 +56,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.CoercionForm
 
-   Corresponds to the `CoercionForm enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L436>`__.
+   Corresponds to the `CoercionForm enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L439>`__.
 
    .. data:: COERCE_EXPLICIT_CALL
 
@@ -67,7 +67,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.MinMaxOp
 
-   Corresponds to the `MinMaxOp enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L1054>`__.
+   Corresponds to the `MinMaxOp enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L1057>`__.
 
    .. data:: IS_GREATEST
 
@@ -76,7 +76,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.NullTestType
 
-   Corresponds to the `NullTestType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L1172>`__.
+   Corresponds to the `NullTestType enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L1175>`__.
 
    .. data:: IS_NULL
 
@@ -85,7 +85,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.OnCommitAction
 
-   Corresponds to the `OnCommitAction enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L47>`__.
+   Corresponds to the `OnCommitAction enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L47>`__.
 
    .. data:: ONCOMMIT_NOOP
 
@@ -98,7 +98,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.ParamKind
 
-   Corresponds to the `ParamKind enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L233>`__.
+   Corresponds to the `ParamKind enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L236>`__.
 
    .. data:: PARAM_EXTERN
 
@@ -111,7 +111,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.RowCompareType
 
-   Corresponds to the `RowCompareType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L1017>`__.
+   Corresponds to the `RowCompareType enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L1020>`__.
 
    .. data:: ROWCOMPARE_LT
 
@@ -128,7 +128,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.SQLValueFunctionOp
 
-   Corresponds to the `SQLValueFunctionOp enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L1082>`__.
+   Corresponds to the `SQLValueFunctionOp enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L1085>`__.
 
    .. data:: SVFOP_CURRENT_DATE
 
@@ -163,7 +163,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.SubLinkType
 
-   Corresponds to the `SubLinkType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L618>`__.
+   Corresponds to the `SubLinkType enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L621>`__.
 
    .. data:: EXISTS_SUBLINK
 
@@ -184,7 +184,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.XmlExprOp
 
-   Corresponds to the `XmlExprOp enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L1121>`__.
+   Corresponds to the `XmlExprOp enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L1124>`__.
 
    .. data:: IS_XMLCONCAT
 
@@ -205,7 +205,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.primnodes.XmlOptionType
 
-   Corresponds to the `XmlOptionType enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L1133>`__.
+   Corresponds to the `XmlOptionType enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L1136>`__.
 
    .. data:: XMLOPTION_DOCUMENT
 
@@ -214,12 +214,12 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. data:: INNER_VAR
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L153>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L156>`__.
 
 .. data:: OUTER_VAR
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L154>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L157>`__.
 
 .. data:: INDEX_VAR
 
-   See `here for details <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/primnodes.h#L155>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/primnodes.h#L158>`__.

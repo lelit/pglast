@@ -2,14 +2,14 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2019 Lele Gaifax
+.. :Copyright: © 2017-2021 Lele Gaifax
 ..
 
 ================================================================================
  :mod:`pglast.enums.lockoptions` --- Constants extracted from `lockoptions.h`__
 ================================================================================
 
-__ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/lockoptions.h
+__ https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/lockoptions.h
 
 .. module:: pglast.enums.lockoptions
    :synopsis: Constants extracted from lockoptions.h
@@ -17,7 +17,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.lockoptions.LockClauseStrength
 
-   Corresponds to the `LockClauseStrength enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/lockoptions.h#L21>`__.
+   Corresponds to the `LockClauseStrength enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/lockoptions.h#L21>`__.
 
    .. data:: LCS_NONE
 
@@ -32,7 +32,7 @@ __ https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes
 
 .. class:: pglast.enums.lockoptions.LockWaitPolicy
 
-   Corresponds to the `LockWaitPolicy enum <https://github.com/lfittl/libpg_query/blob/d710cb0/src/postgres/include/nodes/lockoptions.h#L36>`__.
+   Corresponds to the `LockWaitPolicy enum <https://github.com/lfittl/libpg_query/blob/2d0200c/src/postgres/include/nodes/lockoptions.h#L36>`__.
 
    .. data:: LockWaitBlock
 

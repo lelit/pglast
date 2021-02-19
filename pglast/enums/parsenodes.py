@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 10-1.0.2-0-gd710cb0
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 10-1.0.5-0-g2d0200c
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2019 Lele Gaifax
+# :Copyright: © 2017-2021 Lele Gaifax
 #
 
 try:
@@ -307,6 +307,7 @@ class TableLikeOption(IntFlag):
     CREATE_TABLE_LIKE_INDEXES = 1 << 3
     CREATE_TABLE_LIKE_STORAGE = 1 << 4
     CREATE_TABLE_LIKE_COMMENTS = 1 << 5
+    CREATE_TABLE_LIKE_STATISTICS = 1 << 6
     CREATE_TABLE_LIKE_ALL = 0x7FFFFFFF
 
 class TransactionStmtKind(IntEnum):

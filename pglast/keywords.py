@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from kwlist.h @ 10-1.0.2-0-gd710cb0
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from kwlist.h @ 10-1.0.5-0-g2d0200c
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017 Lele Gaifax
