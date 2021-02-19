@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:52:45 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 export TOPDIR := $(CURDIR)
@@ -29,6 +29,8 @@ build: virtualenv enums keywords libpg_query/libpg_query.a pglast/parser.c
 	$(PYTHON) setup.py build_ext --inplace
 
 libpg_query/libpg_query.a: libpg_query/LICENSE
+libpg_query/libpg_query.a: libpg_query/src/*.c libpg_query/src/*.h
+libpg_query/libpg_query.a: libpg_query/src/postgres/*.c
 	$(MAKE) -C libpg_query build
 
 pglast/parser.c: pglast/parser.pyx
