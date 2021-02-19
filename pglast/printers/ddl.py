@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 from .. import enums
@@ -1694,7 +1694,7 @@ def rename_stmt(node, output):
             output.print_node(node.object)
         output.write(' RENAME TO ')
         output.print_name(node.newname)
-    
+
 
 @node_printer('RoleSpec')
 def role_spec(node, output):
