@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.15 (unreleased)
+1.15 (2021-02-19)
 ~~~~~~~~~~~~~~~~~
 
 - Fix ``IF EXISTS`` variant of ``RenameStmt`` printer (`PR #70`__), thanks to Jonathan
