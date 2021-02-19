@@ -7,7 +7,11 @@
 #
 
 export TOPDIR := $(CURDIR)
+ifeq ($(VIRTUAL_ENV),)
 export VENVDIR := $(TOPDIR)/env
+else
+export VENVDIR := $(VIRTUAL_ENV)
+endif
 export PYTHON := $(VENVDIR)/bin/python
 export SHELL := /bin/bash
 export SYS_PYTHON := $(shell which python3)
