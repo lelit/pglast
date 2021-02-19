@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:44:14 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 from enum import Enum
@@ -249,31 +249,34 @@ class Scalar(Base):
         self._value = value
 
     def __and__(self, other):
-        if isinstance(self._value, int) and isinstance(other, int):
-            return self._value & other
+        value = self._value
+        if isinstance(value, int) and isinstance(other, int):
+            return value & other
         else:
             raise ValueError("Wrong operands for __and__: %r & %r"
-                             % (type(self._value), type(other)))
+                             % (type(value), type(other)))
 
     def __bool__(self):
-        if self.value is None:
+        value = self._value
+        if value is None:
             return False
-        if isinstance(self.value, str):
-            return bool(self.value)
-        elif isinstance(self.value, bool):
-            return self.value
+        if isinstance(value, str):
+            return bool(value)
+        elif isinstance(value, bool):
+            return value
         return True
 
     def __eq__(self, other):
+        value = self._value
         if isinstance(other, Enum):
             # Handle the FunctionParameterMode case, when the value is an integer while the
             # enum is actually a character
-            if isinstance(self.value, int) and isinstance(other.value, str):
+            if isinstance(value, int) and isinstance(other.value, str):
                 assert len(other.value) == 1
-                return self.value == ord(other.value)
-            return self.value == other
-        elif isinstance(other, type(self.value)):
-            return self.value == other
+                return value == ord(other.value)
+            return value == other
+        elif isinstance(other, type(value)):
+            return value == other
         else:
             return super().__eq__(other)
 
