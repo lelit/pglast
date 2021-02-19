@@ -3,6 +3,17 @@
 Changes
 -------
 
+1.15 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``IF EXISTS`` variant of ``RenameStmt`` printer (`PR #70`__), thanks to Jonathan
+  Mortensen
+
+  __ https://github.com/lelit/pglast/pull/70
+
+- Update libpg_query to 10-1.0.5
+
+
 1.14 (2020-10-24)
 ~~~~~~~~~~~~~~~~~
 
