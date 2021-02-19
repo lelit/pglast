@@ -3,6 +3,14 @@
 Changes
 -------
 
+2.0 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Handle ``INCLUDE`` clause in ``IndexStmt`` (`PR #67`__), thanks to Ronan Dunklau
+
+  __ https://github.com/lelit/pglast/pull/67
+
+
 2.0.dev2 (2020-10-24)
 ~~~~~~~~~~~~~~~~~~~~~
 
