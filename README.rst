@@ -3,7 +3,7 @@
 .. :Created:   mer 02 ago 2017 14:49:24 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 ..
 
 ========
@@ -19,8 +19,8 @@ PostgreSQL Languages AST and statements prettifier
 :Status: |build| |doc|
 
 __ https://www.gnu.org/licenses/gpl.html
-.. |build| image:: https://travis-ci.org/lelit/pglast.svg?branch=master
-   :target: https://travis-ci.org/lelit/pglast
+.. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=master
+   :target: https://github.com/lelit/pglast/actions/workflows/ci.yml
    :alt: Build status
 .. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=latest
    :target: https://readthedocs.org/projects/pglast/builds/
