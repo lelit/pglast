@@ -3,7 +3,7 @@
 Changes
 -------
 
-2.0.dev3 (unreleased)
+2.0.dev3 (2021-02-20)
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Handle ``INCLUDE`` clause in ``IndexStmt`` (`PR #67`__), thanks to Ronan Dunklau

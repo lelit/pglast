@@ -13,7 +13,7 @@ from .parser import fingerprint, get_postgresql_version, parse_plpgsql, parse_sq
 
 
 # This is injected automatically at release time
-__version__ = 'v2.0.dev2'
+__version__ = 'v2.0.dev3'
 "Package's version."
 
 __author__ = 'Lele Gaifax <lele@metapensiero.it>'
