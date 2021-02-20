@@ -1692,7 +1692,7 @@ def rename_stmt(node, output):
         elif node.relation:
             output.print_node(node.relation)
         else:
-            output.print_node(node.object)
+            output.print_name(node.object)
         output.write(' RENAME TO ')
         output.print_name(node.newname)
 
