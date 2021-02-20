@@ -1,47 +1,93 @@
-name: CI
+name: Build, test and upload to PyPI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+# Build on every branch push, tag push, and pull request change:
+on: [push, pull_request]
 
 jobs:
-  build:
+  doctest:
+    name: All tests, on current Python
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: [3.9]
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: true
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install -r requirements.txt -r requirements-test.txt
+      - name: Install dependencies
+        run: |
+          sudo apt install bison flex
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
 
-    - name: Build the libpg_query library
-      run: |
-        make -C libpg_query build
+      - name: Build the libpg_query library
+        run: |
+          make -C libpg_query build
 
-    - name: Build the extension module
-      run: |
-        python setup.py build_ext --inplace
+      - name: Build the extension module
+        run: |
+          python setup.py build_ext --inplace
 
-    - name: Install the module itself in development mode
-      run: |
-        python -m pip install -e .
+      - name: Install the module itself in development mode
+        run: |
+          python -m pip install -e .
 
-    - name: Execute the test suite
-      run: |
-        python -m pytest tests/
-        make -C docs doctest
+      - name: Execute the test suite
+        run: |
+          python -m pytest tests/
+          make -C docs doctest
+
+  build_wheels:
+    name: Build wheels
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Build wheels
+        uses: joerick/cibuildwheel@v1.9.0
+        env:
+          CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
+          CIBW_TEST_COMMAND: "py.test {project}/tests"
+          CIBW_SKIP: "cp2* cp33* cp34* cp35* pp*"
+          # This is required only in the v2 branch, using rdunklau fork
+          CIBW_BEFORE_BUILD: "yum -y install bison flex"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./wheelhouse/*.whl
+
+  upload_pypi:
+    needs: build_wheels
+    runs-on: ubuntu-latest
+
+    # upload to PyPI on every tag starting with 'v'
+    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
