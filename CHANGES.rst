@@ -3,6 +3,14 @@
 Changes
 -------
 
+1.16 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Promote to the *stable* state
+
+- Move the job of building and uploading binary wheels from TravisCI to GitHub Actions
+
+
 1.15 (2021-02-19)
 ~~~~~~~~~~~~~~~~~
 
