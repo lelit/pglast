@@ -9,7 +9,7 @@ include tools/*.py
 recursive-include pglast *.py *.pyx
 recursive-include tests *.sql
 exclude libpg_query/*
-include libpglast/LICENSE libpg_query/Makefile libpg_query/pg_query.h
+include libpg_query/LICENSE libpg_query/Makefile libpg_query/pg_query.h
 recursive-include libpg_query/src *.c *.h
 prune libpg_query/.github
 prune libpg_query/examples
