@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
 #
 
 import re
@@ -1695,6 +1695,8 @@ def rename_stmt(node, output):
         output.write('ALTER ')
         output.write(OBJECT_NAMES[reltype])
         output.space()
+        if reltype == enums.ObjectType.OBJECT_TABLE and node.missing_ok:
+            output.write("IF EXISTS ")
         output.print_node(node.relation)
         output.write(' RENAME ')
         output.write(OBJECT_NAMES[objtype])
@@ -1702,26 +1704,27 @@ def rename_stmt(node, output):
         output.print_name(node.subname)
         output.write(' TO ')
         output.print_name(node.newname)
-        return
-    objtype_name = OBJECT_NAMES[objtype]
-    output.write('ALTER ')
-    output.write(objtype_name)
-    output.space()
-    if objtype in (enums.ObjectType.OBJECT_SCHEMA,
-                   enums.ObjectType.OBJECT_DATABASE):
-        output.print_name(node.subname)
-    elif objtype == enums.ObjectType.OBJECT_TYPE:
-        output.print_name(node.object)
-    elif objtype == enums.ObjectType.OBJECT_RULE:
-        output.print_name(node.subname)
-        output.write(' ON ')
-        output.print_node(node.relation)
-    elif node.relation:
-        output.print_node(node.relation)
     else:
-        output.print_node(node.object)
-    output.write(' RENAME TO ')
-    output.print_name(node.newname)
+        objtype_name = OBJECT_NAMES[objtype]
+        output.write('ALTER ')
+        output.write(objtype_name)
+        output.space()
+        if node.missing_ok and objtype in (enums.ObjectType.OBJECT_TABLE,
+                                           enums.ObjectType.OBJECT_VIEW):
+            output.write("IF EXISTS ")
+        if objtype in (enums.ObjectType.OBJECT_SCHEMA,
+                       enums.ObjectType.OBJECT_DATABASE):
+            output.print_name(node.subname)
+        elif objtype == enums.ObjectType.OBJECT_RULE:
+            output.print_name(node.subname)
+            output.write(' ON ')
+            output.print_node(node.relation)
+        elif node.relation:
+            output.print_node(node.relation)
+        else:
+            output.print_node(node.object)
+        output.write(' RENAME TO ')
+        output.print_name(node.newname)
 
 
 @node_printer('RoleSpec')

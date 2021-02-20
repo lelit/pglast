@@ -59,7 +59,26 @@ Changes
   __ https://github.com/lelit/pglast/pull/62
 
 
-1.14 (unreleased)
+1.16 (2021-02-20)
+~~~~~~~~~~~~~~~~~
+
+- Promote to the *stable* state
+
+- Move the job of building and uploading binary wheels from TravisCI to GitHub Actions
+
+
+1.15 (2021-02-19)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``IF EXISTS`` variant of ``RenameStmt`` printer (`PR #70`__), thanks to Jonathan
+  Mortensen
+
+  __ https://github.com/lelit/pglast/pull/70
+
+- Update libpg_query to 10-1.0.5
+
+
+1.14 (2020-10-24)
 ~~~~~~~~~~~~~~~~~
 
 - Produce Python 3.9 wheels, thanks to ``cibuildwheel`` 1.6.3

@@ -1,4 +1,5 @@
-exclude .git .gitmodules .travis.yml
+exclude .git .gitmodules
+exclude .github/*
 include *.cfg *.py *.rst *.txt Makefile*
 include docs/Makefile
 include docs/*.rst
@@ -8,8 +9,9 @@ include tools/*.py
 recursive-include pglast *.py *.pyx
 recursive-include tests *.sql
 exclude libpg_query/*
-include libpglast/LICENSE libpg_query/Makefile libpg_query/pg_query.h
+include libpg_query/LICENSE libpg_query/Makefile libpg_query/pg_query.h
 recursive-include libpg_query/src *.c *.h
+prune libpg_query/.github
 prune libpg_query/examples
 prune libpg_query/patches
 prune libpg_query/scripts
