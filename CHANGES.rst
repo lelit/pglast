@@ -3,6 +3,12 @@
 Changes
 -------
 
+1.17 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix the generic case in the ``RenameStmt`` printer
+
+
 1.16 (2021-02-20)
 ~~~~~~~~~~~~~~~~~
 
