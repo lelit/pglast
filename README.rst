@@ -17,7 +17,7 @@ PostgreSQL Languages AST and statements prettifier
 :Contact: lele@metapensiero.it
 :License: `GNU General Public License version 3 or later`__
 :Status: |build| |doc|
-:Version: 2
+:Version: `2`__
 
 __ https://www.gnu.org/licenses/gpl.html
 .. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v2
@@ -26,6 +26,7 @@ __ https://www.gnu.org/licenses/gpl.html
 .. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=latest
    :target: https://readthedocs.org/projects/pglast/builds/
    :alt: Documentation status
+__ `Version 2`_
 
 This is a Python 3 module that exposes the *parse tree* of a PostgreSQL__ statement (extracted
 by the almost standard PG parser repackaged as a standalone static library by `libpg_query`__)
@@ -85,16 +86,21 @@ In late 2019, Ronan Dunklau opened `PR #62`__ against ``libpg_query``, that reim
 build machinery of the library to make it easier (read, semi-automatic) to support PostgreSQL
 v12, and `PR #36`__ to bring ``pglast`` in line.
 
-Since latest version of PostgreSQL inevitably introduced some backward incompatibilities, I
+Since that version of PostgreSQL inevitably introduced some backward incompatibilities, I
 bumped the major version of ``pglast`` to better reflect the fact.
 
 As I'm writing this, the fate of ``PR #62`` is still unclear, so for the time being I switched
 the ``libpg_query`` submodule to Ronan's fork.
 
+I'm going to keep version 1 aligned to the original Lukas' `PG 10 branch`__. In all likelihood
+version 3 will target PostgreSQL 13 once his work on `PG 13 branch`__ reaches stability.
+
 .. important:: This version requires Python 3.6 or greater, due to usage of `f-strings`.
 
 __ https://github.com/lfittl/libpg_query/pull/62
 __ https://github.com/lelit/pglast/pull/36
+__ https://github.com/lfittl/libpg_query/tree/10-latest
+__ https://github.com/lfittl/libpg_query/tree/13-latest-develop
 
 
 Introduction
