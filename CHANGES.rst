@@ -59,6 +59,12 @@ Changes
   __ https://github.com/lelit/pglast/pull/62
 
 
+1.17 (2021-02-20)
+~~~~~~~~~~~~~~~~~
+
+- Fix the generic case in the ``RenameStmt`` printer
+
+
 1.16 (2021-02-20)
 ~~~~~~~~~~~~~~~~~
 

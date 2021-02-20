@@ -16,9 +16,9 @@ export PYTHON := $(VENVDIR)/bin/python
 export SHELL := /bin/bash
 export SYS_PYTHON := $(shell which python3)
 
-all: virtualenv libpg_query/LICENSE help
+all: virtualenv libpg_query/Makefile help
 
-libpg_query/LICENSE:
+libpg_query/Makefile:
 	git submodule update --init
 
 help::
@@ -35,9 +35,8 @@ export LDFLAGS=-Wl,--gc-sections,--as-needed
 build: virtualenv libpg_query/libpg_query.a enums keywords libpg_query/libpg_query.a pglast/parser.c
 	$(PYTHON) setup.py build_ext --inplace
 
-libpg_query/libpg_query.a: libpg_query/LICENSE
+libpg_query/libpg_query.a: libpg_query/Makefile
 libpg_query/libpg_query.a: libpg_query/src/*.c libpg_query/src/*.h
-libpg_query/libpg_query.a: libpg_query/src/postgres/*.c
 	$(MAKE) -C libpg_query build
 
 pglast/parser.c: pglast/parser.pyx
