@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.16 (unreleased)
+1.16 (2021-02-20)
 ~~~~~~~~~~~~~~~~~
 
 - Promote to the *stable* state
