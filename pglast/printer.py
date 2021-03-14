@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:46:11 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
 #
 
 from contextlib import contextmanager
@@ -11,10 +11,10 @@ from io import StringIO
 from re import match
 from sys import stderr
 
+from . import parse_plpgsql, parse_sql
 from .error import Error
 from .node import List, Node, Scalar
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
-from .parser import parse_plpgsql, parse_sql
 
 
 NODE_PRINTERS = {}
@@ -338,7 +338,7 @@ class RawStream(OutputStream):
                  or value in TYPE_FUNC_NAME_KEYWORDS)):
                 value = '"%s"' % value.replace('"', '""')
             self.write(value)
-        elif node.parent_node.node_tag == 'String':
+        elif isinstance(value, str):  # node.parent_node.node_tag == 'String':
             self.write_quoted_string(value)
         else:
             self.write(str(value))
@@ -406,7 +406,7 @@ class RawStream(OutputStream):
                    are_names=False, is_symbol=False):
         """Execute :meth:`print_node` on all the `nodes`, separating them with `sep`.
 
-        :param nodes: a sequence of :class:`~.node.Node` instances
+        :param nodes: a sequence of :class:`~.node.Node` instances or a single List node
         :param str sep: the separator between them
         :param bool relative_indent:
                if given, the relative amount of indentation to apply before the first item, by
@@ -419,6 +419,10 @@ class RawStream(OutputStream):
                whether the nodes are actually a *symbol* such as an *operator name*, in which
                case the last one must be printed verbatim (e.g. ``"MySchema".===``)
         """
+
+        if isinstance(nodes, Node):
+            assert nodes.node_tag == 'List'
+            nodes = nodes.items
 
         if relative_indent is None:
             if are_names or is_symbol:
@@ -574,6 +578,10 @@ class IndentedStream(RawStream):
                whether the nodes are actually an *operator name*, in which case the last one
                must be printed verbatim (such as ``"MySchema".===``)
         """
+
+        if isinstance(nodes, Node):
+            assert nodes.node_tag == 'List'
+            nodes = nodes.items
 
         if standalone_items is None:
             clm = self.compact_lists_margin

@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 16:33:14 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2020 Lele Gaifax
+# :Copyright: © 2017, 2018, 2020, 2021 Lele Gaifax
 #
 
 class IntEnumPrinter:
@@ -20,9 +20,23 @@ class IntEnumPrinter:
         self.value_to_symbol = {m.value: m.name for m in self.enum}
 
     def __call__(self, value, node, output):
-        from ..node import Scalar
+        from ..node import Missing, Scalar
 
-        symbol = self.value_to_symbol.get(value.value if isinstance(value, Scalar) else value)
+        if value is Missing:
+            for symbol, member in self.enum.__members__.items():
+                if member.value == 0:
+                    break
+            else:
+                raise ValueError(f"Could not determine default value of class {self.enum!r}")
+        elif isinstance(value, Scalar):
+            if isinstance(value.value, str):
+                # libpg_query 13+ emits enum names, not values
+                symbol = value.value
+                assert symbol in self.enum.__members__
+            else:
+                symbol = self.value_to_symbol.get(value.value)
+        else:
+            symbol = value
         if symbol is None:  # pragma: nocover
             raise ValueError(f"Invalid value {value!r}, not in class {self.enum!r}")
         method = getattr(self, symbol, None)

@@ -219,7 +219,7 @@ def alter_role_stmt(node, output):
     for opt in node.options:
         optname, isbool = mapping[opt.defname.value]
         if isbool:
-            if opt.arg.ival == 1:
+            if opt.arg.val.value == 1:
                 output.write(optname)
             else:
                 output.write('NO')
@@ -254,11 +254,11 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write("ADD COLUMN ")
         if node.missing_ok:
             output.write('IF NOT EXISTS ')
-        output.print_node(node['def'])
+        output.print_node(node.def_)
 
     def AT_AddConstraint(self, node, output):
         output.write("ADD ")
-        constraint = node['def']
+        constraint = node.def_
         output.print_node(constraint)
         # Patch this into pglast.printers.ddl.constraint
         # TODO: understand the meaning of the prev comment
@@ -267,7 +267,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
         output.write(" TYPE ")
-        columndef = node['def']
+        columndef = node.def_
         output.print_node(columndef)
         if columndef.raw_default:
             output.write('USING ')
@@ -284,9 +284,9 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_ColumnDefault(self, node, output):
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
-        if node['def']:
+        if node.def_:
             output.write(" SET DEFAULT ")
-            output.print_node(node['def'])
+            output.print_node(node.def_)
         else:
             output.write(" DROP DEFAULT ")
 
@@ -335,13 +335,13 @@ class AlterTableTypePrinter(IntEnumPrinter):
         elif node.num:
             output.write(str(node.num.value))
         output.write(" SET STATISTICS ")
-        output.print_node(node['def'])
+        output.print_node(node.def_)
 
     def AT_SetStorage(self, node, output):
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
         output.write(" SET STORAGE ")
-        output.write(node['def'].string_value)
+        output.write(node.def_.val.value)
 
     def AT_ValidateConstraint(self, node, output):
         output.write("VALIDATE CONSTRAINT ")
@@ -439,12 +439,23 @@ def comment_stmt(node, output):
 @node_printer('CompositeTypeStmt')
 def composite_type_stmt(node, output):
     output.write('CREATE TYPE ')
-    node.typevar.parse_tree['inh'] = True
     output.print_node(node.typevar)
     output.write(' AS (')
     output.print_list(node.coldeflist, ', ')
     output.write(')')
-    node.typevar.parse_tree.pop('inh')
+
+
+@node_printer('CompositeTypeStmt', 'RangeVar')
+def range_var(node, output):
+    # Ignore the inh attribute, that in the normal implementation emits "ONLY" when it is False
+    if node.schemaname:
+        output.print_name(node.schemaname)
+        output.write('.')
+    output.print_name(node.relname)
+    alias = node.alias
+    if alias:
+        output.write(' AS ')
+        output.print_name(alias)
 
 
 class ConstrTypePrinter(IntEnumPrinter):
@@ -474,7 +485,7 @@ class ConstrTypePrinter(IntEnumPrinter):
     def CONSTR_EXCLUSION(self, node, output):
         output.swrite('EXCLUDE USING ')
         if node.access_method:
-            output.print_node(node.access_method)
+            output.print_symbol(node.access_method)
             output.write(' ')
         output.write('(')
         first = True
@@ -614,11 +625,11 @@ def create_db_stmt_def_elem(node, output):
     if option == 'connection_limit':
         output.write('connection limit')
     else:
-        output.print_node(node.defname)
+        output.print_symbol(node.defname)
     if node.arg is not Missing:
         output.write(' = ')
         if isinstance(node.arg, List) or option in ('allow_connections', 'is_template'):
-            output.write(node.arg.string_value)
+            output.write(node.arg.val.value)
         else:
             output.print_node(node.arg)
 
@@ -646,7 +657,7 @@ def create_cast_stmt(node, output):
 @node_printer('CreateConversionStmt')
 def create_conversion_stmt(node, output):
     output.write('CREATE ')
-    if node['def']:
+    if node.def_:
         output.write('DEFAULT ')
     output.write('CONVERSION ')
     output.print_name(node.conversion_name)
@@ -719,7 +730,7 @@ def create_extension_stmt(node, output):
 def create_extension_stmt_def_elem(node, output):
     option = node.defname.value
     if option == 'cascade':
-        if node.arg.ival == 1:
+        if node.arg.val.value == 1:
             output.write('CASCADE')
     elif option == 'old_version':
         output.write('from ')
@@ -810,10 +821,7 @@ def create_function_stmt(node, output):
         real_params = []
         for param in node.parameters:
             if param.mode == fpm.FUNC_PARAM_TABLE:
-                record_def.append(Node(
-                    {'ColumnDef': {
-                        'typeName': {'TypeName': param.argType.parse_tree},
-                        'colname': param.name.value}}))
+                record_def.append(param)
             else:
                 real_params.append(param)
     if real_params:
@@ -824,7 +832,7 @@ def create_function_stmt(node, output):
         output.newline()
         output.writes('RETURNS')
         if node.returnType.setof and record_def:
-            # Do not treat them as argument
+            # Do not treat them as arguments
             output.write('TABLE (')
             output.print_list(record_def, ',', standalone_items=False)
             output.write(')')
@@ -852,7 +860,10 @@ def create_function_option(node, output):
 
         # Choose a valid dollar-string delimiter
 
-        code = node.arg.string_value
+        if isinstance(node.arg, List):
+            code = node.arg[0].val.value
+        else:
+            code = node.arg.val.value
         used_delimiters = set(re.findall(r"\$(\w*)(?=\$)", code))
         unique_delimiter = ''
         while unique_delimiter in used_delimiters:
@@ -867,14 +878,14 @@ def create_function_option(node, output):
         return
 
     if option == 'security':
-        if node.arg.ival == 1:
+        if node.arg.val.value == 1:
             output.swrite('SECURITY DEFINER')
         else:
             output.swrite('SECURITY INVOKER')
         return
 
     if option == 'strict':
-        if node.arg.ival == 1:
+        if node.arg.val.value == 1:
             output.swrite('STRICT')
         return
 
@@ -888,7 +899,7 @@ def create_function_option(node, output):
         return
 
     if option == 'leakproof':
-        if node.arg.ival == 0:
+        if node.arg.val.value == 0:
             output.swrite('NOT')
         output.swrite('LEAKPROOF')
         return
@@ -930,7 +941,7 @@ def create_opclass_item(node, output):
     else:
         raise ValueError('Invalid OpClassItem type: %d' %
                          node.itemtype._value)
-    if node.number:
+    if node.number.value != 0:
         output.write('%d ' % node.number._value)
     if node.name:
         _object_with_args(node.name, output, unquote_name,
@@ -962,25 +973,36 @@ def create_plang_stmt(node, output):
 
 
 @node_printer('CreatePolicyStmt')
-@node_printer('AlterPolicyStmt')
 def create_policy_stmt(node, output):
-    if node.node_tag == 'CreatePolicyStmt':
-        is_create = True
-        output.write('CREATE POLICY ')
-    else:
-        is_create = False
-        output.write('ALTER POLICY ')
+    output.write('CREATE POLICY ')
     output.print_name(node.policy_name)
     output.write(' ON ')
     output.print_node(node.table)
-    if is_create:
-        if node.permissive:
-            output.write('AS PERMISSIVE ')
-        else:
-            output.write('AS RESTRICTIVE ')
-        if node.cmd_name:
-            output.write('FOR ')
-            output.print_node(node.cmd_name)
+    if node.permissive:
+        output.write('AS PERMISSIVE ')
+    else:
+        output.write('AS RESTRICTIVE ')
+    if node.cmd_name:
+        output.write('FOR ')
+        output.print_symbol(node.cmd_name)
+    output.write(' TO ')
+    output.print_list(node.roles, ',')
+    if node.qual:
+        output.write(' USING (')
+        output.print_node(node.qual)
+        output.write(')')
+    if node.with_check:
+        output.write(' WITH CHECK (')
+        output.print_node(node.with_check)
+        output.write(')')
+
+
+@node_printer('AlterPolicyStmt')
+def alter_policy_stmt(node, output):
+    output.write('ALTER POLICY ')
+    output.print_name(node.policy_name)
+    output.write(' ON ')
+    output.print_node(node.table)
     output.write(' TO ')
     output.print_list(node.roles, ',')
     if node.qual:
@@ -1034,7 +1056,7 @@ def create_seq_stmt(node, output):
 def create_seq_stmt_def_elem(node, output):
     option = node.defname.value
     if option == 'cycle':
-        if node.arg.ival.value == 0:
+        if node.arg.val.value == 0:
             output.write('NO ')
         output.write('CYCLE')
     elif option == 'increment':
@@ -1206,7 +1228,7 @@ def create_trig_stmt(node, output):
     output.print_name(node.trigname)
     output.newline()
     with output.push_indent(2):
-        if node.timing:
+        if node.timing.value:
             if node.timing & enums.TRIGGER_TYPE_BEFORE:
                 output.write('BEFORE ')
             elif node.timing & enums.TRIGGER_TYPE_INSTEAD:
@@ -1275,7 +1297,7 @@ def define_stmt(node, output):
         # from -1, is the number of nodes representing the actual arguments, remaining are
         # ORDER BY
         args, count = node.args
-        count = count.ival.value
+        count = count.val.value
         if count == -1:
             output.print_list(args, standalone_items=False)
         else:
@@ -1300,7 +1322,7 @@ def define_stmt(node, output):
 
 @node_printer('DefElem')
 def def_elem(node, output):
-    output.print_node(node.defname)
+    output.print_symbol(node.defname)
     if node.arg is not Missing:
         output.write(' = ')
         if isinstance(node.arg, List):
@@ -1313,7 +1335,7 @@ def def_elem(node, output):
 
 @node_printer('DefineStmt', 'DefElem')
 def define_stmt_def_elem(node, output):
-    output.print_node(node.defname)
+    output.print_symbol(node.defname)
     if node.arg is not Missing:
         output.write(' = ')
         if isinstance(node.arg, List):
@@ -1482,7 +1504,10 @@ def function_parameter(node, output):
             output.write('INOUT ')
         elif node.mode == pm.FUNC_PARAM_VARIADIC:
             output.write('VARIADIC ')
+        elif node.mode == pm.FUNC_PARAM_TABLE:
+            pass  # function output column
         else:  # pragma: nocover
+            import pdb; pdb.set_trace()
             raise NotImplementedError
     if node.name:
         output.print_name(node.name)
@@ -1639,9 +1664,18 @@ def _object_with_args(node, output, unquote_name=False, skip_empty_args=False):
 
 @node_printer('ObjectWithArgs')
 def object_with_args(node, output):
-    # Special treatment for OPERATOR object inside DROP or COMMENT
-    unquote_name = (((node.parent_node.removeType or node.parent_node.objtype)
-                      == enums.ObjectType.OBJECT_OPERATOR))
+    _object_with_args(node, output)
+
+
+@node_printer(('CommentStmt',), 'ObjectWithArgs')
+def object_with_args(node, output):
+    unquote_name = node.parent_node.objtype == enums.ObjectType.OBJECT_OPERATOR
+    _object_with_args(node, output, unquote_name=unquote_name)
+
+
+@node_printer(('DropStmt',), 'ObjectWithArgs')
+def object_with_args(node, output):
+    unquote_name = node.parent_node.removeType == enums.ObjectType.OBJECT_OPERATOR
     _object_with_args(node, output, unquote_name=unquote_name)
 
 
@@ -1681,7 +1715,7 @@ def partition_range_datum(node, output):
 
 @node_printer('PartitionSpec')
 def partition_spec(node, output):
-    output.print_node(node.strategy)
+    output.print_symbol(node.strategy)
     output.write(' (')
     output.print_list(node.partParams)
     output.write(')')
@@ -1796,22 +1830,14 @@ def trigger_transition(node, output):
 
 @node_printer('VacuumStmt')
 def vacuum_stmt(node, output):
-    options = node.options or []
-    options = [option.defname.value.upper() for option in options]
     if node.is_vacuumcmd:
         output.write('VACUUM ')
     else:
         output.write('ANALYZE ')
-    if options:
-        # Try so emit a syntax compatible with PG < 11, if possible.
-        if 'DISABLE_PAGE_SKIPPING' in options:
-            output.write('(')
-            output.print_list(Node(options, node), ',')
-            output.write(') ')
-        else:
-            for option in options:
-                output.swrite(option)
-                output.space()
+    if node.options:
+        output.write('(')
+        output.print_list(node.options, ',')
+        output.write(') ')
     if node.rels:
         output.print_list(node.rels, ",")
 

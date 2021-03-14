@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
 #
 
 from .. import enums
@@ -146,13 +146,12 @@ class AExprKindPrinter(IntEnumPrinter):
             output.swrites('NOT')
         output.swrites('SIMILAR TO')
         assert (node.rexpr.node_tag == 'FuncCall'
-                and node.rexpr.funcname[1].str == 'similar_escape')
+                and node.rexpr.funcname[1].val.value == 'similar_to_escape')
         pattern = node.rexpr.args[0]
-        escape = node.rexpr.args[1]
         output.print_node(pattern)
-        if escape.val.node_tag != 'Null':
+        if len(node.rexpr.args) > 1:
             output.swrites('ESCAPE')
-            output.print_node(escape)
+            output.print_node(node.rexpr.args[1])
 
 
 a_expr_kind_printer = AExprKindPrinter()
@@ -227,7 +226,7 @@ def alias(node, output):
 @node_printer('BitString')
 def bitstring(node, output):
     output.write("B'")
-    output.write(node.str.value[1:])
+    output.write(node.val.value[1:])
     output.write("'")
 
 
@@ -410,12 +409,12 @@ def delete_stmt(node, output):
 
 @node_printer('Float')
 def float(node, output):
-    output.print_node(node.str)
+    output.print_node(node.val)
 
 
 @node_printer('FuncCall')
 def func_call(node, output):
-    name = '.'.join(n.str.value for n in node.funcname)
+    name = '.'.join(n.val.value for n in node.funcname)
     special_printer = output.get_printer_for_function(name)
     if special_printer is not None:
         special_printer(node, output)
@@ -438,7 +437,7 @@ def func_call(node, output):
         else:
             output.print_list(node.args)
     if node.agg_order:
-        if node.agg_within_group is Missing:
+        if not node.agg_within_group:
             output.swrites('ORDER BY')
             output.print_list(node.agg_order)
         else:
@@ -515,7 +514,7 @@ def infer_clause(node, output):
 
 @node_printer('Integer')
 def integer(node, output):
-    output.print_node(node.ival)
+    output.print_node(node.val)
 
 
 @node_printer('InsertStmt')
@@ -982,7 +981,7 @@ def sql_value_function(node, output):
 
 @node_printer('String')
 def string(node, output, is_name=False, is_symbol=False):
-    output.print_node(node.str, is_name=is_name, is_symbol=is_symbol)
+    output.print_node(node.val, is_name=is_name, is_symbol=is_symbol)
 
 
 @node_printer('SubLink')
@@ -1045,17 +1044,18 @@ def transaction_stmt(node, output):
 @node_printer('TransactionStmt', 'DefElem')
 def transaction_stmt_def_elem(node, output):
     value = node.defname.value
+    argv = node.arg.val
     if value == 'transaction_isolation':
         output.write('ISOLATION LEVEL ')
-        output.write(node.arg.val.str.value.upper())
+        output.write(argv.val.value.upper())
     elif value == 'transaction_read_only':
         output.write('READ ')
-        if node.arg.val.ival == 0:
+        if argv.val.value == 0:
             output.write('WRITE')
         else:
             output.write('ONLY')
     elif value == 'transaction_deferrable':
-        if node.arg.val.ival == 0:
+        if argv.val.value == 0:
             output.write('NOT ')
         output.write('DEFERRABLE')
     else:
@@ -1076,10 +1076,10 @@ def truncate_stmt(node, output):
 def type_cast(node, output):
     # Special case for boolean constants
     if ((node.arg.node_tag == 'A_Const'
-         and node.arg.val.node_tag == 'String'
-         and node.arg.val.str.value in ('t', 'f')
-         and '.'.join(n.str.value for n in node.typeName.names) == 'pg_catalog.bool')):
-        output.write('TRUE' if node.arg.val.str == 't' else 'FALSE')
+         and node.arg.val.node_tag != 'Null'
+         and node.arg.val.val.value in ('t', 'f')
+         and '.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bool')):
+        output.write('TRUE' if node.arg.val.val.value == 't' else 'FALSE')
     else:
         with output.expression():
             output.print_node(node.arg)
@@ -1139,7 +1139,7 @@ def type_name(node, output):
     if node.setof:
         # FIXME: is this used only by plpgsql?
         output.writes('SETOF')
-    name = '.'.join(n.str.value for n in node.names)
+    name = '.'.join(n.val.value for n in node.names)
     suffix = ''
     if name in system_types:
         prefix, suffix = system_types[name]
@@ -1152,7 +1152,7 @@ def type_name(node, output):
     else:
         if node.typmods:
             if name == 'pg_catalog.interval':
-                typmod = node.typmods[0].val.ival.value
+                typmod = node.typmods[0].val.val.value
                 output.swrite(interval_ranges[typmod])
                 if len(node.typmods) == 2:
                     output.write(' (')
@@ -1166,7 +1166,7 @@ def type_name(node, output):
         if node.arrayBounds:
             for ab in node.arrayBounds:
                 output.write('[')
-                if ab.ival.value >= 0:
+                if ab.val.value >= 0:
                     output.print_node(ab)
                 output.write(']')
 
