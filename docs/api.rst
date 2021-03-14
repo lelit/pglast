@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:14:17 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 ..
 
 ===================
@@ -20,6 +20,7 @@ This chapter briefly explains some implementation detail.
    :caption: Packages
 
    parser
+   ast
    enums
    keywords
    node
