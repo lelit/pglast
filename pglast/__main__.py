@@ -3,11 +3,12 @@
 # :Created:   dom 06 ago 2017 23:09:23 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 import argparse
 import json
+import pprint
 import sys
 
 from pglast import Error, parse_plpgsql, parse_sql, prettify
@@ -22,7 +23,10 @@ def workhorse(args):
         tree = parse_plpgsql(statement) if args.plpgsql else parse_sql(statement)
         output = args.outfile or sys.stdout
         with output:
-            json.dump(tree, output, sort_keys=True, indent=2)
+            if args.plpgsql:
+                json.dump(tree, output, sort_keys=True, indent=2)
+            else:
+                pprint.pprint([stmt(skip_none=True, enum_name=False) for stmt in tree], output)
             output.write('\n')
     else:
         try:
