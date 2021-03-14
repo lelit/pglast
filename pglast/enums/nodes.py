@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from nodes.h @ 12.1
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from nodes.h @ 13-latest-develop-0-g69e163b
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2020 Lele Gaifax
+# :Copyright: © 2017-2021 Lele Gaifax
 #
 
 from enum import Enum, IntEnum, IntFlag, auto
+
+try:
+    from enum import StrEnum
+except ImportError:
+    # Python < 3.10
+    class StrEnum(str, Enum):
+        pass
 
 
 class AggSplit(IntEnum):
@@ -37,6 +44,11 @@ class JoinType(IntEnum):
     JOIN_ANTI = auto()
     JOIN_UNIQUE_OUTER = auto()
     JOIN_UNIQUE_INNER = auto()
+
+class LimitOption(IntEnum):
+    LIMIT_OPTION_DEFAULT = 0
+    LIMIT_OPTION_COUNT = auto()
+    LIMIT_OPTION_WITH_TIES = auto()
 
 class NodeTag(IntEnum):
     T_Invalid = 0
@@ -80,6 +92,7 @@ class NodeTag(IntEnum):
     T_HashJoin = auto()
     T_Material = auto()
     T_Sort = auto()
+    T_IncrementalSort = auto()
     T_Group = auto()
     T_Agg = auto()
     T_WindowAgg = auto()
@@ -129,6 +142,7 @@ class NodeTag(IntEnum):
     T_HashJoinState = auto()
     T_MaterialState = auto()
     T_SortState = auto()
+    T_IncrementalSortState = auto()
     T_GroupState = auto()
     T_AggState = auto()
     T_WindowAggState = auto()
@@ -226,6 +240,7 @@ class NodeTag(IntEnum):
     T_ProjectionPath = auto()
     T_ProjectSetPath = auto()
     T_SortPath = auto()
+    T_IncrementalSortPath = auto()
     T_GroupPath = auto()
     T_UpperUniquePath = auto()
     T_AggPath = auto()
@@ -340,6 +355,7 @@ class NodeTag(IntEnum):
     T_AlterObjectSchemaStmt = auto()
     T_AlterOwnerStmt = auto()
     T_AlterOperatorStmt = auto()
+    T_AlterTypeStmt = auto()
     T_DropOwnedStmt = auto()
     T_ReassignOwnedStmt = auto()
     T_CompositeTypeStmt = auto()
@@ -380,6 +396,7 @@ class NodeTag(IntEnum):
     T_CreateStatsStmt = auto()
     T_AlterCollationStmt = auto()
     T_CallStmt = auto()
+    T_AlterStatsStmt = auto()
     T_A_Expr = auto()
     T_ColumnRef = auto()
     T_ParamRef = auto()

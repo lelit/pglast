@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from primnodes.h @ 12.1
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from primnodes.h @ 13-latest-develop-0-g69e163b
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2020 Lele Gaifax
+# :Copyright: © 2017-2021 Lele Gaifax
 #
 
 from enum import Enum, IntEnum, IntFlag, auto
+
+try:
+    from enum import StrEnum
+except ImportError:
+    # Python < 3.10
+    class StrEnum(str, Enum):
+        pass
 
 
 class BoolExprType(IntEnum):

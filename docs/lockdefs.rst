@@ -2,14 +2,14 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2020 Lele Gaifax
+.. :Copyright: © 2017-2021 Lele Gaifax
 ..
 
 ==========================================================================
  :mod:`pglast.enums.lockdefs` --- Constants extracted from `lockdefs.h`__
 ==========================================================================
 
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h
+__ https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h
 
 .. module:: pglast.enums.lockdefs
    :synopsis: Constants extracted from lockdefs.h
@@ -17,40 +17,40 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. data:: NoLock
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l34>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L34>`__.
 
 .. data:: AccessShareLock
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l36>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L36>`__.
 
 .. data:: RowShareLock
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l37>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L37>`__.
 
 .. data:: RowExclusiveLock
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l38>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L38>`__.
 
 .. data:: ShareUpdateExclusiveLock
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l39>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L39>`__.
 
 .. data:: ShareLock
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l41>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L41>`__.
 
 .. data:: ShareRowExclusiveLock
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l42>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L42>`__.
 
 .. data:: ExclusiveLock
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l44>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L44>`__.
 
 .. data:: AccessExclusiveLock
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l45>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L45>`__.
 
 .. data:: MaxLockMode
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/storage/lockdefs.h#l48>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/storage/lockdefs.h#L48>`__.

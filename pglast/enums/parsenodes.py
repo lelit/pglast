@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 12.1
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 13-latest-develop-0-g69e163b
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2020 Lele Gaifax
+# :Copyright: © 2017-2021 Lele Gaifax
 #
 
 from enum import Enum, IntEnum, IntFlag, auto
+
+try:
+    from enum import StrEnum
+except ImportError:
+    # Python < 3.10
+    class StrEnum(str, Enum):
+        pass
 
 
 class A_Expr_Kind(IntEnum):
@@ -45,8 +52,10 @@ class AlterTableType(IntEnum):
     AT_AddColumnRecurse = auto()
     AT_AddColumnToView = auto()
     AT_ColumnDefault = auto()
+    AT_CookedColumnDefault = auto()
     AT_DropNotNull = auto()
     AT_SetNotNull = auto()
+    AT_DropExpression = auto()
     AT_CheckNotNull = auto()
     AT_SetStatistics = auto()
     AT_SetOptions = auto()
@@ -63,7 +72,6 @@ class AlterTableType(IntEnum):
     AT_AlterConstraint = auto()
     AT_ValidateConstraint = auto()
     AT_ValidateConstraintRecurse = auto()
-    AT_ProcessedConstraint = auto()
     AT_AddIndexConstraint = auto()
     AT_DropConstraint = auto()
     AT_DropConstraintRecurse = auto()
@@ -155,7 +163,7 @@ class FetchDirection(IntEnum):
     FETCH_ABSOLUTE = auto()
     FETCH_RELATIVE = auto()
 
-class FunctionParameterMode(str, Enum):
+class FunctionParameterMode(StrEnum):
     FUNC_PARAM_IN = 'i'
     FUNC_PARAM_OUT = 'o'
     FUNC_PARAM_INOUT = 'b'

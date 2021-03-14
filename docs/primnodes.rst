@@ -2,14 +2,14 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2020 Lele Gaifax
+.. :Copyright: © 2017-2021 Lele Gaifax
 ..
 
 ============================================================================
  :mod:`pglast.enums.primnodes` --- Constants extracted from `primnodes.h`__
 ============================================================================
 
-__ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h
+__ https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h
 
 .. module:: pglast.enums.primnodes
    :synopsis: Constants extracted from primnodes.h
@@ -17,7 +17,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.BoolExprType
 
-   Corresponds to the `BoolExprType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l560>`__.
+   Corresponds to the `BoolExprType enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L574>`__.
 
    .. data:: AND_EXPR
 
@@ -28,7 +28,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.BoolTestType
 
-   Corresponds to the `BoolTestType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l1220>`__.
+   Corresponds to the `BoolTestType enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1234>`__.
 
    .. data:: IS_TRUE
 
@@ -45,7 +45,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.CoercionContext
 
-   Corresponds to the `CoercionContext enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l426>`__.
+   Corresponds to the `CoercionContext enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L440>`__.
 
    .. data:: COERCION_IMPLICIT
 
@@ -56,7 +56,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.CoercionForm
 
-   Corresponds to the `CoercionForm enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l442>`__.
+   Corresponds to the `CoercionForm enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L456>`__.
 
    .. data:: COERCE_EXPLICIT_CALL
 
@@ -67,7 +67,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.MinMaxOp
 
-   Corresponds to the `MinMaxOp enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l1079>`__.
+   Corresponds to the `MinMaxOp enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1093>`__.
 
    .. data:: IS_GREATEST
 
@@ -76,7 +76,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.NullTestType
 
-   Corresponds to the `NullTestType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l1197>`__.
+   Corresponds to the `NullTestType enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1211>`__.
 
    .. data:: IS_NULL
 
@@ -85,7 +85,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.OnCommitAction
 
-   Corresponds to the `OnCommitAction enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l47>`__.
+   Corresponds to the `OnCommitAction enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L47>`__.
 
    .. data:: ONCOMMIT_NOOP
 
@@ -98,7 +98,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.ParamKind
 
-   Corresponds to the `ParamKind enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l237>`__.
+   Corresponds to the `ParamKind enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L251>`__.
 
    .. data:: PARAM_EXTERN
 
@@ -111,7 +111,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.RowCompareType
 
-   Corresponds to the `RowCompareType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l1042>`__.
+   Corresponds to the `RowCompareType enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1056>`__.
 
    .. data:: ROWCOMPARE_LT
 
@@ -128,7 +128,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.SQLValueFunctionOp
 
-   Corresponds to the `SQLValueFunctionOp enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l1107>`__.
+   Corresponds to the `SQLValueFunctionOp enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1121>`__.
 
    .. data:: SVFOP_CURRENT_DATE
 
@@ -163,7 +163,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.SubLinkType
 
-   Corresponds to the `SubLinkType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l624>`__.
+   Corresponds to the `SubLinkType enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L638>`__.
 
    .. data:: EXISTS_SUBLINK
 
@@ -184,7 +184,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.XmlExprOp
 
-   Corresponds to the `XmlExprOp enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l1146>`__.
+   Corresponds to the `XmlExprOp enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1160>`__.
 
    .. data:: IS_XMLCONCAT
 
@@ -205,7 +205,7 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. class:: pglast.enums.primnodes.XmlOptionType
 
-   Corresponds to the `XmlOptionType enum <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l1158>`__.
+   Corresponds to the `XmlOptionType enum <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1172>`__.
 
    .. data:: XMLOPTION_DOCUMENT
 
@@ -214,12 +214,12 @@ __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_1
 
 .. data:: INNER_VAR
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l157>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L171>`__.
 
 .. data:: OUTER_VAR
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l158>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L172>`__.
 
 .. data:: INDEX_VAR
 
-   See `here for details <https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;hb=refs/tags/REL_12_1;f=src/include/nodes/primnodes.h#l159>`__.
+   See `here for details <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L173>`__.
