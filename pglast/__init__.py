@@ -3,13 +3,13 @@
 # :Created:   mer 02 ago 2017 15:11:02 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 from . import enums
 from .error import Error
 from .node import Missing, Node
-from .parser import fingerprint, get_postgresql_version, parse_plpgsql, parse_sql
+from .parser import fingerprint, get_postgresql_version, parse_sql, split
 
 
 # This is injected automatically at release time
@@ -18,6 +18,13 @@ __version__ = 'v2.0.dev3'
 
 __author__ = 'Lele Gaifax <lele@metapensiero.it>'
 "Package's author."
+
+
+def parse_plpgsql(statement):
+    from json import loads
+    from .parser import parse_plpgsql_json
+
+    return loads(parse_plpgsql_json(statement))
 
 
 def prettify(statement, safety_belt=True, **options):
@@ -53,7 +60,6 @@ def prettify(statement, safety_belt=True, **options):
                           % (e, prettified), RuntimeWarning)
             return statement
 
-
         if pretty_pt != orig_pt:  # pragma: no cover
             print(prettified)
             warnings.warn("Detected a non-cosmetic difference between original and"
@@ -61,44 +67,6 @@ def prettify(statement, safety_belt=True, **options):
             return statement
 
     return prettified
-
-
-def split(statements, safety_belt=True, stream_class=None, **options):
-    r"""Split given `statements` and yield one statement at a time.
-
-    :param str statements: the SQL statement(s)
-    :param bool safety_belt: whether to perform a safe check against bugs in pglast's
-                             serialization
-    :param stream_class: the subclass of :class:`~.printer.OutputStream` that shall be
-                         used to render each statement, defaults to
-                         :class:`~.printer.RawStream`
-    :param \*\*options: any keyword option accepted by the `stream_class` constructor
-    :returns: a generator that will yield one statement at a time
-
-    When `safety_belt` is ``True``, the resulting statement is parsed again and its *AST*
-    compared with the original statement: if they don't match, an :class:`~.error.Error` is
-    raised. This is a transient protection against possible bugs in the serialization machinery
-    that may disappear before 1.0.
-    """
-
-    from . import printers  # noqa
-
-    if stream_class is None:
-        from .printer import RawStream
-        stream_class = RawStream
-
-    for orig_pt in parse_sql(statements):
-        printed = stream_class(**options)(Node(orig_pt))
-        if safety_belt:
-            printed_pt = parse_sql(printed)[0]
-
-            _remove_stmt_len_and_location(orig_pt)
-            _remove_stmt_len_and_location(printed_pt)
-
-            if printed_pt != orig_pt:  # pragma: no cover
-                raise Error("Detected a non-cosmetic difference between original and"
-                            " printed statement")
-        yield printed
 
 
 __all__ = ('Error', 'Missing', 'Node', 'enums', 'fingerprint', 'get_postgresql_version',
