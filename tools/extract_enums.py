@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:54:39 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
 #
 
 from datetime import date
@@ -45,22 +45,17 @@ __ %%(header_url)s
 """ % date.today().year
 
 
-def get_target_pg_info():
-    "Return a tuple with (version, baseurl) of the target PG library."
+def get_libpg_query_info():
+    "Return a tuple with (version, baseurl) of the libpg_query library."
 
-    with open('libpg_query/Makefile') as mf:
-        for line in mf:
-            if line.startswith('PG_VERSION ='):
-                pg_version = line.split('=')[1].strip()
-                break
-        else:
-            raise RuntimeError('Could not determine target PG version, "PG_VERSION" not found'
-                               ' in libpg_query/Makefile!')
-
-    pg_baseurl = ('https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;'
-                  'hb=refs/tags/REL_%s;f=' % pg_version.replace('.', '_'))
-
-    return pg_version, pg_baseurl
+    version = subprocess.check_output(['git', 'describe', '--all', '--long'],
+                                      cwd='libpg_query')
+    version = version.decode('utf-8').strip().split('/')[-1]
+    remote = subprocess.check_output(['git', 'remote', 'get-url', 'origin'],
+                                     cwd='libpg_query')
+    remote = remote.decode('utf-8')
+    baseurl = '%s/blob/%s/' % (remote[:-5], version[-7:])
+    return version, baseurl
 
 
 def preprocess(fname, cpp_args=[]):
@@ -203,23 +198,22 @@ def write_enum(name, enum, output):
 def write_enum_doc(name, enum, output, toc, url, mod_name):
     output.write('\n\n.. class:: pglast.enums.%s.%s\n' % (mod_name, name))
     if name in toc:
-        output.write('\n   Corresponds to the `%s enum <%s#l%d>`__.\n' %
+        output.write('\n   Corresponds to the `%s enum <%s#L%d>`__.\n' %
                      (name, url, toc[name]))
     for index, item in enumerate(enum.values.enumerators):
         output.write('\n   .. data:: %s\n' % item.name)
 
 
 def workhorse(args):
-    pg_version, pg_baseurl = get_target_pg_info()
-    assert args.header.startswith('libpg_query/tmp/postgres/src')
-    header_url = pg_baseurl + args.header[25:]
+    libpg_query_version, libpg_query_baseurl = get_libpg_query_info()
+    header_url = libpg_query_baseurl + args.header[12:]
     toc = extract_toc(args.header)
     preprocessed = preprocess(args.header, ['-I%s' % idir for idir in args.include_directory])
     with open(args.output, 'w', encoding='utf-8') as output, \
          open(args.rstdoc, 'w', encoding='utf-8') as rstdoc:
         header_fname = basename(args.header)
         mod_name = splitext(header_fname)[0]
-        output.write(PY_HEADER % (header_fname, pg_version))
+        output.write(PY_HEADER % (header_fname, libpg_query_version))
         rstdoc.write(RST_HEADER % dict(
             mod_name=mod_name, header_fname=header_fname,
             extra_decoration='='*(len(mod_name) + len(header_fname)),
@@ -243,7 +237,7 @@ def workhorse(args):
                 output.write('\n%s = %s\n' % (constant, value))
                 rstdoc.write('\n.. data:: %s\n' % constant)
                 if constant in toc:
-                    rstdoc.write('\n   See `here for details <%s#l%d>`__.\n'
+                    rstdoc.write('\n   See `here for details <%s#L%d>`__.\n'
                                  % (header_url, toc[constant]))
 
 
