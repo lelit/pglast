@@ -24,6 +24,13 @@ PY_HEADER = """\
 
 from enum import Enum, IntEnum, IntFlag, auto
 
+try:
+    from enum import StrEnum
+except ImportError:
+    # Python < 3.10
+    class StrEnum(str, Enum):
+        pass
+
 """ % date.today().year
 
 RST_HEADER = """\
@@ -177,7 +184,7 @@ def determine_enum_type_and_value(enum):
     for item in enum.values.enumerators:
         if item.value:
             if isinstance(item.value, c_ast.Constant) and item.value.type == 'char':
-                type = 'str, Enum'
+                type = 'StrEnum'
                 value = char_enum_value_factory
                 break
             elif isinstance(item.value, c_ast.BinaryOp) and item.value.op == '<<':
