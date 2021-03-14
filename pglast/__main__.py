@@ -10,7 +10,7 @@ import argparse
 import json
 import sys
 
-from pglast import Error, parse_plpgsql, parse_sql, prettify, _remove_stmt_len_and_location
+from pglast import Error, parse_plpgsql, parse_sql, prettify
 
 
 def workhorse(args):
@@ -20,8 +20,6 @@ def workhorse(args):
 
     if args.parse_tree or args.plpgsql:
         tree = parse_plpgsql(statement) if args.plpgsql else parse_sql(statement)
-        if args.no_location:
-            _remove_stmt_len_and_location(tree)
         output = args.outfile or sys.stdout
         with output:
             json.dump(tree, output, sort_keys=True, indent=2)
@@ -61,8 +59,6 @@ def main(options=None):
                         help='use the plpgsql parser (and print just the resulting tree)')
     parser.add_argument('-t', '--parse-tree', action='store_true', default=False,
                         help='show just the parse tree of the statement')
-    parser.add_argument('-l', '--no-location', action='store_true', default=False,
-                        help='remove the location of each node from the parse tree')
     parser.add_argument('-m', '--compact-lists-margin', type=int, default=0,
                         help='use compact form for lists not exceeding the given margin')
     parser.add_argument('-s', '--split-string-literals', type=int, default=0,

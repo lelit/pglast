@@ -3,15 +3,15 @@
 # :Created:   dom 17 mar 2019 09:24:11 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2019 Lele Gaifax
+# :Copyright: © 2019, 2021 Lele Gaifax
 #
 
 from pathlib import Path
 
 import pytest
 
-from pglast import Node, _remove_stmt_len_and_location
-from pglast.parser import parse_sql
+from pglast import Node
+from pglast import parse_sql
 from pglast.printer import RawStream, IndentedStream
 import pglast.printers
 
@@ -50,14 +50,12 @@ def test_printers_roundtrip(src, lineno, statement):
     except:  # noqa
         raise RuntimeError("%s:%d:Could not parse %r" % (src, lineno, statement))
 
-    _remove_stmt_len_and_location(orig_ast)
-
     serialized = RawStream()(Node(orig_ast))
     try:
         serialized_ast = parse_sql(serialized)
     except:  # noqa
         raise RuntimeError("%s:%d:Could not reparse %r" % (src, lineno, serialized))
-    _remove_stmt_len_and_location(serialized_ast)
+
     assert orig_ast == serialized_ast, "%s:%s:%r != %r" % (src, lineno, statement, serialized)
 
     indented = IndentedStream()(Node(orig_ast))
@@ -65,7 +63,7 @@ def test_printers_roundtrip(src, lineno, statement):
         indented_ast = parse_sql(indented)
     except:  # noqa
         raise RuntimeError("%s:%d:Could not reparse %r" % (src, lineno, indented))
-    _remove_stmt_len_and_location(indented_ast)
+
     assert orig_ast == indented_ast, "%s:%d:%r != %r" % (src, lineno, statement, indented)
 
     # Run ``pytest -s tests/`` to see the following output

@@ -14,7 +14,6 @@ from pglast import (
     get_postgresql_version,
     parse_plpgsql,
     parse_sql,
-    _remove_stmt_len_and_location
 )
 
 
@@ -87,10 +86,3 @@ def test_pg_version():
     assert len(pg_version) == 2
 
 
-def test_pointless_attributes_remotion():
-    sql1 = parse_sql('select a from x; select b from y')
-    sql2 = parse_sql('select a from x;\n\nselect b from y')
-    assert sql1 != sql2
-    _remove_stmt_len_and_location(sql1)
-    _remove_stmt_len_and_location(sql2)
-    assert sql1 == sql2

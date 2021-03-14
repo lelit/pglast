@@ -3,7 +3,7 @@
 # :Created:   lun 07 ago 2017 12:50:37 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 try:
@@ -75,11 +75,6 @@ WHERE foo <> 0
                 main(['--parse-tree'])
             assert '"ival": 1' in output.getvalue()
 
-    with StringIO("Select 1") as input:
-        with UnclosableStream() as output:
-            with redirect_stdin(input), redirect_stdout(output):
-                main(['--parse-tree', '--no-location'])
-            assert '"location":' not in output.getvalue()
 
     with StringIO("Select 1") as input:
         with UnclosableStream() as output:
