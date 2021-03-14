@@ -1,9 +1,9 @@
 CREATE OPERATOR CLASS bloom_uuid_ops
 DEFAULT FOR TYPE uuid USING bloom AS
     OPERATOR    1   =(uuid, uuid),
-    FUNCTION    1   uuid_hash(uuid);
+    FUNCTION    1   uuid_hash(uuid)
 
-CREATE OPERATOR CLASS alt_opc1 FOR TYPE macaddr USING hash AS STORAGE macaddr;
+CREATE OPERATOR CLASS alt_opc1 FOR TYPE macaddr USING hash AS STORAGE macaddr
 
 CREATE OPERATOR CLASS box_ops DEFAULT
         FOR TYPE box USING gist2 AS
@@ -26,4 +26,4 @@ CREATE OPERATOR CLASS box_ops DEFAULT
         -- don't need compress, decompress, or fetch functions
         FUNCTION 5      gist_box_penalty(internal, internal, internal),
         FUNCTION 6      gist_box_picksplit(internal, internal),
-        FUNCTION 7      gist_box_same(box, box, internal);
+        FUNCTION 7      gist_box_same(box, box, internal)
