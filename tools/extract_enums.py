@@ -90,7 +90,7 @@ def extract_toc(header):
                 toc[m.group(1)] = lineno
         elif line.startswith('typedef enum'):
             in_typedef_enum = lineno
-        elif in_typedef_enum and line.startswith('} '):
+        elif in_typedef_enum and line.startswith('}'):
             m = match(r'}\s+([\w_]+)\s*;', line)
             if m is not None:
                 toc[m.group(1)] = in_typedef_enum
