@@ -13,6 +13,8 @@ import subprocess
 
 from pycparser import c_ast, c_parser
 
+from pglast.parser import LONG_MAX
+
 
 PY_HEADER = """\
 # -*- coding: utf-8 -*-
@@ -137,6 +139,10 @@ def extract_defines(source):
             m = match(r"#define\s+([a-zA-Z_]+)\s+\(?(\d+\s*<<\s*\d+|(0x)?\d+|'[a-zA-Z]')\)?", line)
             if m is not None:
                 yield m.group(1), m.group(2)
+            else:
+                m = match(r"#define\s+([a-zA-Z_]+)\s+LONG_MAX", line)
+                if m is not None:
+                    yield m.group(1), LONG_MAX
 
 
 def emit_constant(value):

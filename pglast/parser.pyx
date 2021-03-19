@@ -10,6 +10,7 @@
 
 from cpython.bytes cimport PyBytes_AsStringAndSize, PyBytes_FromStringAndSize
 from libc.stdint cimport uint64_t
+from libc cimport limits
 
 from . import Error
 from . cimport structs
@@ -118,6 +119,9 @@ cdef extern from "src/pg_query_internal.h" nogil:
     void pg_query_exit_memory_context(MemoryContext ctx)
 
     PgQueryInternalParsetreeAndError pg_query_raw_parse(const char* input)
+
+
+LONG_MAX = limits.LONG_MAX
 
 
 def get_postgresql_version():
