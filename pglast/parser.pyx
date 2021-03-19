@@ -260,17 +260,24 @@ def fingerprint(str query):
             pg_query_free_fingerprint_result(result)
 
 
-def split(str stmts, int with_parser=True):
-    """Split the given `stmts` string into a tuple of the single ``SQL`` statements.
+def split(str stmts, bint with_parser=True, bint only_slices=False):
+    """Split the given `stmts` string into a sequence of the single ``SQL`` statements.
 
     By default this uses the *parser* to perform the job; when `with_parser` is ``False``
     the *scanner* variant is used, indicated when the statements may contain parse errors.
+
+    When `only_slices` is ``True``, return a sequence of ``slice`` instances, one for each
+    statement, instead of statements text.
+
+    NB: leading and trailing whitespace are removed from the statements.
     """
 
     cdef PgQuerySplitResult splitted
     cdef const char *cstring
     cdef int i = 0
-
+    cdef int prev_offset = 0
+    cdef int start
+    cdef int end
     utf8 = stmts.encode('utf-8')
     cstring = utf8
 
@@ -290,8 +297,14 @@ def split(str stmts, int with_parser=True):
         while i < splitted.n_stmts:
             start = splitted.stmts[i].stmt_location
             end = splitted.stmts[i].stmt_location + splitted.stmts[i].stmt_len
-            stmt = utf8[start:end].decode('utf-8')
-            result.append(stmt.strip())
+            stmt = utf8[start:end].decode('utf-8').strip()
+            if only_slices:
+                # Adjust offsets, we remove leading/trailing whitespace above
+                cur_offset = stmts.index(stmt, prev_offset)
+                result.append(slice(cur_offset, cur_offset + len(stmt)))
+                prev_offset = cur_offset + 1
+            else:
+                result.append(stmt)
             i += 1
         return tuple(result)
     finally:
