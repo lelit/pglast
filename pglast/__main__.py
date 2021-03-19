@@ -26,7 +26,7 @@ def workhorse(args):
             if args.plpgsql:
                 json.dump(tree, output, sort_keys=True, indent=2)
             else:
-                pprint.pprint([stmt(skip_none=True, enum_name=False) for stmt in tree], output)
+                pprint.pprint([stmt(skip_none=True) for stmt in tree], output)
             output.write('\n')
     else:
         try:

@@ -95,7 +95,7 @@ class Node:
                 return False
         return True
 
-    def __call__(self, depth=None, ellipsis=..., skip_none=False, enum_name=True):
+    def __call__(self, depth=None, ellipsis=..., skip_none=False):
         '''Serialize the node as a structure made of simple Python data-types.
 
         :type depth: ``None`` or ``int``
@@ -105,10 +105,10 @@ class Node:
         :param bool enum_name: whether Enums will be rendered as their name only
         :return: a :class:`dict` instance
 
-        This performs a top-down recursive visit to the whole AST tree, converting each
-        ``Node`` instance into a dictionary. When `enum_name` is true, ``Enum`` instances
-        will be represented by their textual value.
-        '''
+        This performs a top-down recursive visit to the whole AST tree: each ``Node`` instance
+        becomes a dictionary with a special ``@`` key carrying the node type, lists becomes
+        tuples and ``Enum`` instances become dictionaries with a special ``#`` key carrying the
+        enum name.'''
 
         from enum import Enum
 
@@ -117,18 +117,18 @@ class Node:
             v = getattr(self, a)
             if isinstance(v, Node):
                 if depth is None or depth > 0:
-                    v = v(None if depth is None else depth - 1, ellipsis, skip_none, enum_name)
+                    v = v(None if depth is None else depth - 1, ellipsis, skip_none)
                 else:
                     v = ellipsis
             elif isinstance(v, tuple):
                 if depth is None or depth > 0:
                     if v and isinstance(v[0], Node):
-                        v = tuple(i(None if depth is None else depth - 1, ellipsis, skip_none, enum_name)
+                        v = tuple(i(None if depth is None else depth - 1, ellipsis, skip_none)
                                   for i in v)
                 else:
                     v = ellipsis
-            elif enum_name and isinstance(v, Enum):
-                v = v.name
+            elif isinstance(v, Enum):
+                v = {{'#': v.__class__.__name__, 'name': v.name, 'value': v.value}}
             if not skip_none or v is not None:
                 d[a] = v
         return d
@@ -171,13 +171,22 @@ class Node:
                 if hasattr(enums, ctype):
                     enum = getattr(enums, ctype)
                     if not isinstance(value, enum):
+                        if isinstance(value, dict) and '#' in value:
+                            if value['#'] != ctype:
+                                raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}.{{name}}, expected a {{ptype}}, got {{value!r}}') from None
+                            if 'name' in value:
+                                value = value['name']
+                            elif 'value' in value:
+                                value = value['value']
+                            else:
+                                raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}.{{name}}, expected a {{ptype}}, got {{value!r}}') from None
                         try:
                             if isinstance(value, str) and len(value) > 1:
                                 value = enum[value]
                             else:
                                 value = enum(value)
                         except (KeyError, ValueError):
-                            raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}.{{name}}, expected a {{enum!r}}, got {{value!r}}') from None
+                            raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}.{{name}}, expected a {{ptype}}, got {{value!r}}') from None
                 else:
                     if ctype.endswith('*'):
                         cls = globals().get(ctype[:-1])
@@ -936,7 +945,7 @@ def _fixup_attribute_types_in_slots():
                 from pglast import enums
 
                 if hasattr(enums, ctype):
-                    ptype = (int, str, getattr(enums, ctype))
+                    ptype = (int, str, dict, getattr(enums, ctype))
                 else:
                     if ctype.endswith('*'):
                         ptype = G.get(ctype[:-1])
