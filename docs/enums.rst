@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 12:44:33 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 ..
 
 ================================================
@@ -43,3 +43,11 @@ From ``include/storage``
 .. toctree::
 
    lockdefs
+
+
+From ``include/utils``
+======================
+
+.. toctree::
+
+   xml

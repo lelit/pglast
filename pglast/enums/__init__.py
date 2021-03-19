@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 17:08:26 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 # include/catalog
@@ -18,3 +18,6 @@ from .primnodes import *        # noqa
 
 # include/storage
 from .lockdefs import *         # noqa
+
+# include/utils
+from .xml import *              # noqa

@@ -73,7 +73,7 @@ help::
 PY_ENUMS := pglast/enums/lockoptions.py pglast/enums/lockdefs.py \
 	    pglast/enums/nodes.py pglast/enums/parsenodes.py \
 	    pglast/enums/pg_class.py pglast/enums/pg_trigger.py \
-	    pglast/enums/primnodes.py
+	    pglast/enums/primnodes.py pglast/enums/xml.py
 PG_INCLUDE_DIR := libpg_query/src/postgres/include
 
 .PHONY: enums
@@ -87,6 +87,8 @@ pglast/enums/lockdefs.py: $(PG_INCLUDE_DIR)/storage/lockdefs.h
 pglast/enums/pg_class.py: $(PG_INCLUDE_DIR)/catalog/pg_class.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 pglast/enums/pg_trigger.py: $(PG_INCLUDE_DIR)/catalog/pg_trigger.h
+	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
+pglast/enums/xml.py: $(PG_INCLUDE_DIR)/utils/xml.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 
 help::
