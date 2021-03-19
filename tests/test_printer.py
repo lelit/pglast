@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 10:31:23 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 import pytest
@@ -361,21 +361,3 @@ def test_names_and_symbols():
     assert do('print_symbol', first_node.b) == 'foo'
     assert do('print_symbol', first_node.c) == '"table".bar'
     assert do('print_symbol', first_node.d) == '"Schema".='
-
-
-def test_split():
-    result = split('select a from b')
-    assert next(result) == 'SELECT a FROM b'
-    with pytest.raises(StopIteration):
-        next(result)
-
-    result = split('select a from b; select b from a')
-    assert next(result) == 'SELECT a FROM b'
-    assert next(result) == 'SELECT b FROM a'
-    with pytest.raises(StopIteration):
-        next(result)
-
-    result = split('select a from b', stream_class=printer.IndentedStream)
-    assert next(result) == 'SELECT a\nFROM b'
-    with pytest.raises(StopIteration):
-        next(result)

@@ -142,14 +142,35 @@ Customize a :func:`node printer <pglast.printer.node_printer>`
 :func:`Iterate <pglast.split>` over each statement
 ==================================================
 
+By default, the :func:`split` function uses the parser to do its job:
+
 .. doctest::
 
    >>> from pglast import split
    >>> for statement in split('select 1; select 2'):
    ...     print(statement)
    ...
-   SELECT 1
-   SELECT 2
+   select 1
+   select 2
+
+and thus it raises an error if the statement contains errors:
+
+.. doctest::
+
+   >>> split('select 1 from; select 2')
+   Traceback (most recent call last):
+     ...
+   pglast.parser.ParseError: syntax error at or near ";", at location 14
+
+In this case, you can use a variant that uses the lexical *scanner* instead:
+
+.. doctest::
+
+   >>> for statement in split('select 1 from; select 2', with_parser=False):
+   ...     print(statement)
+   ...
+   select 1 from
+   select 2
 
 Reformat a ``SQL`` statement from the command line
 ==================================================
