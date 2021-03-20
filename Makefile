@@ -29,18 +29,16 @@ help::
 	@printf "build\n\tbuild the module\n"
 
 .PHONY: build
-build: virtualenv libpg_query/libpg_query.a
-build: enums keywords
-build: libpg_query/libpg_query.a
-build: pglast/ast.pyx pglast/parser.pyx
-	$(PYTHON) setup.py build_ext --inplace
+build: virtualenv $(VENVDIR)/extension.timestamp
+
+$(VENVDIR)/extension.timestamp: libpg_query/libpg_query.a
+$(VENVDIR)/extension.timestamp: pglast/ast.pyx pglast/parser.pyx
+	$(PYTHON) setup.py build_ext --inplace --force
+	@touch $@
 
 libpg_query/libpg_query.a: libpg_query/Makefile
 libpg_query/libpg_query.a: libpg_query/src/*.c libpg_query/src/*.h
 	$(MAKE) -C libpg_query build
-
-pglast/parser.c: pglast/ast.pyx pglast/parser.pyx
-	$(PYTHON) setup.py build_ext --inplace
 
 help::
 	@printf "recythonize\n\tforce retranslation of the pyx module\n"
