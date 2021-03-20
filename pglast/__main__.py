@@ -15,9 +15,12 @@ from pglast import Error, parse_plpgsql, parse_sql, prettify
 
 
 def workhorse(args):
-    input = args.infile or sys.stdin
-    with input:
-        statement = input.read()
+    if args.statement:
+        statement = args.statement
+    else:
+        input = args.infile or sys.stdin
+        with input:
+            statement = input.read()
 
     if args.parse_tree or args.plpgsql:
         tree = parse_plpgsql(statement) if args.plpgsql else parse_sql(statement)
@@ -74,9 +77,11 @@ def main(options=None):
                         ' after each item')
     parser.add_argument('-e', '--semicolon-after-last-statement', action='store_true',
                         default=False, help='end the last statement with a semicolon')
+    parser.add_argument('-S', '--statement',
+                        help='the SQL statement')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'
-                        ' by default stdin')
+                        ' by default stdin, when not specified with --statement option')
     parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'),
                         help='where the result will be written, by default stdout')
 
