@@ -108,7 +108,7 @@ class List(Base):
                  nodes
     """
 
-    __slots__ = Base.__slots__ + ('_items',)
+    __slots__ = ('_items',)
 
     def _init(self, items, parent, name):
         if not isinstance(items, list) or not items:
@@ -239,7 +239,7 @@ class Node(Base):
 class Scalar(Base):
     "Represent a single scalar value."
 
-    __slots__ = Base.__slots__ + ('_value',)
+    __slots__ = ('_value',)
 
     def _init(self, value, parent, name):
         if not isinstance(value, (NoneType, bool, float, int, str)):
