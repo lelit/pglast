@@ -450,7 +450,7 @@ def alter_table_cmd_def_elem(node, output):
     output.print_name(node.defname)
     if node.arg:
         output.write(' = ')
-        output.write(str(node.arg.val.value))
+        output.print_node(node.arg)
 
 
 @node_printer('ClusterStmt')
