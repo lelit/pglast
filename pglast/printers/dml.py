@@ -385,7 +385,7 @@ def copy_stmt(node, output):
         output.print_node(node.relation)
         if node.attlist:
             output.write(' (')
-            output.print_list(node.attlist)
+            output.print_list(node.attlist, are_names=True)
             output.write(')')
     if node.query:
         output.write(' (')
@@ -986,7 +986,7 @@ def range_table_func_col(node, output):
 
 @node_printer('RangeVar')
 def range_var(node, output):
-    if not node.inh or not node.inh.value:
+    if not node.inh:
         output.write('ONLY ')
     if node.schemaname:
         output.print_name(node.schemaname)

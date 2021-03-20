@@ -188,7 +188,7 @@ def alter_object_schema_stmt(node, output):
     else:
         if objtype in (OT.OBJECT_OPFAMILY,
                        OT.OBJECT_OPCLASS):
-            method, name = node.object
+            method, *name = node.object
             output.print_name(name)
             output.write(' USING ')
             output.print_symbol(method)
@@ -311,14 +311,38 @@ def alter_table_stmt(node, output):
     if node.missing_ok:
         output.write("IF EXISTS ")
     output.print_node(node.relation)
-    output.print_list(node.cmds, ',', standalone_items=True)
+    if len(node.cmds) > 1:
+        output.newline()
+        output.space(4)
+        with output.push_indent():
+            output.print_list(node.cmds, ',')
+    else:
+        output.print_list(node.cmds, ',', standalone_items=True)
+
+
+@node_printer('AlterTableStmt', 'RangeVar')
+def range_var(node, output):
+    if node.parent_node.relkind == enums.ObjectType.OBJECT_TABLE and not node.inh:
+        output.write('ONLY ')
+    if node.schemaname:
+        output.print_name(node.schemaname)
+        output.write('.')
+    output.print_name(node.relname)
+    alias = node.alias
+    if alias:
+        output.write(' AS ')
+        output.print_name(alias)
 
 
 class AlterTableTypePrinter(IntEnumPrinter):
     enum = enums.AlterTableType
 
     def AT_AddColumn(self, node, output):
-        output.write("ADD COLUMN ")
+        output.write("ADD ")
+        if node.parent_node.relkind == enums.ObjectType.OBJECT_TYPE:
+            output.write("ATTRIBUTE ")
+        else:
+            output.write("COLUMN ")
         if node.missing_ok:
             output.write('IF NOT EXISTS ')
         output.print_node(node.def_)
@@ -326,15 +350,17 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_AddConstraint(self, node, output):
         output.write("ADD ")
         output.print_node(node.def_)
-        # Patch this into pglast.printers.ddl.constraint
-        # TODO: understand the meaning of the prev comment
 
     def AT_AddInherit(self, node, output):
         output.write("INHERIT ")
         output.print_node(node.def_)
 
     def AT_AlterColumnType(self, node, output):
-        output.write("ALTER COLUMN ")
+        output.write("ALTER ")
+        if node.parent_node.relkind == enums.ObjectType.OBJECT_TYPE:
+            output.write("ATTRIBUTE ")
+        else:
+            output.write("COLUMN ")
         output.print_name(node.name)
         output.write(" TYPE ")
         columndef = node.def_
@@ -342,6 +368,10 @@ class AlterTableTypePrinter(IntEnumPrinter):
         if columndef.raw_default:
             output.write('USING ')
             output.print_node(columndef.raw_default)
+
+    def AT_AlterConstraint(self, node, output):
+        output.write("ALTER ")
+        output.print_node(node.def_)
 
     def AT_AttachPartition(self, node, output):
         output.write("ATTACH PARTITION ")
@@ -371,13 +401,18 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write("DISABLE TRIGGER ")
         output.print_name(node.name)
 
+    def AT_DropCluster(self, node, output):
+        output.write("SET WITHOUT CLUSTER")
+
     def AT_DropColumn(self, node, output):
-        output.write("DROP COLUMN ")
+        output.write("DROP ")
+        if node.parent_node.relkind == enums.ObjectType.OBJECT_TYPE:
+            output.write("ATTRIBUTE ")
+        else:
+            output.write("COLUMN ")
         if node.missing_ok:
             output.write("IF EXISTS ")
         output.print_name(node.name)
-        if node.behavior == enums.DropBehavior.DROP_CASCADE:
-            output.write("CASCADE ")
 
     def AT_DropConstraint(self, node, output):
         output.write("DROP CONSTRAINT ")
@@ -385,10 +420,17 @@ class AlterTableTypePrinter(IntEnumPrinter):
             output.write("IF EXISTS ")
         output.print_name(node.name)
 
+    def AT_DropInherit(self, node, output):
+        output.write("NO INHERIT ")
+        output.print_node(node.def_)
+
     def AT_DropNotNull(self, node, output):
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
         output.write(" DROP NOT NULL ")
+
+    def AT_DropOids(self, node, output):
+        output.write("SET WITHOUT OIDS")
 
     def AT_EnableRowSecurity(self, node, output):
         output.write(" ENABLE ROW LEVEL SECURITY ")
@@ -439,6 +481,14 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_SetLogged(self, node, output):
         output.write("SET LOGGED")
 
+    def AT_SetOptions(self, node, output):
+        output.write("ALTER COLUMN ")
+        output.print_name(node.name)
+        output.write(" SET (")
+        with output.push_indent():
+            output.print_list(node.def_)
+        output.write(")")
+
 
 alter_table_type_printer = AlterTableTypePrinter()
 
@@ -446,6 +496,8 @@ alter_table_type_printer = AlterTableTypePrinter()
 @node_printer('AlterTableCmd')
 def alter_table_cmd(node, output):
     alter_table_type_printer(node.subtype, node, output)
+    if node.behavior == enums.DropBehavior.DROP_CASCADE:
+        output.write(' CASCADE')
 
 
 @node_printer('AlterTableCmd', 'DefElem')
@@ -542,7 +594,8 @@ def composite_type_stmt(node, output):
     output.write('CREATE TYPE ')
     output.print_node(node.typevar)
     output.write(' AS (')
-    output.print_list(node.coldeflist, ', ')
+    if node.coldeflist:
+        output.print_list(node.coldeflist, ', ')
     output.write(')')
 
 
@@ -599,6 +652,10 @@ class ConstrTypePrinter(IntEnumPrinter):
             output.swrite('WITH ')
             output.write(clauses.string_value)
         output.write(')')
+        if node.where_clause:
+            output.write(' WHERE (')
+            output.print_node(node.where_clause)
+            output.write(')')
 
     def CONSTR_FOREIGN(self, node, output):
         if node.fk_attrs:
@@ -606,20 +663,21 @@ class ConstrTypePrinter(IntEnumPrinter):
             output.write(' (')
             output.print_name(node.fk_attrs, ',')
             output.write(')')
-        output.swrite('REFERENCES ')
-        output.print_name(node.pktable)
+        if node.pktable:
+            output.swrite('REFERENCES ')
+            output.print_name(node.pktable)
         if node.pk_attrs:
             output.write(' (')
             output.print_name(node.pk_attrs, ',')
             output.write(')')
-        if node.fk_matchtype != enums.FKCONSTR_MATCH_SIMPLE:
+        if node.fk_matchtype and node.fk_matchtype != enums.FKCONSTR_MATCH_SIMPLE:
             output.write(' MATCH ')
             if node.fk_matchtype == enums.FKCONSTR_MATCH_FULL:
                 output.write('FULL')
             elif node.fk_matchtype == enums.FKCONSTR_MATCH_PARTIAL:  # pragma: no cover
                 # MATCH PARTIAL not yet implemented
                 output.write('PARTIAL')
-        if node.fk_del_action != enums.FKCONSTR_ACTION_NOACTION:
+        if node.fk_del_action and node.fk_del_action != enums.FKCONSTR_ACTION_NOACTION:
             output.write(' ON DELETE ')
             if node.fk_del_action == enums.FKCONSTR_ACTION_RESTRICT:
                 output.write('RESTRICT')
@@ -629,7 +687,7 @@ class ConstrTypePrinter(IntEnumPrinter):
                 output.write('SET NULL')
             elif node.fk_del_action == enums.FKCONSTR_ACTION_SETDEFAULT:
                 output.write('SET DEFAULT')
-        if node.fk_upd_action != enums.FKCONSTR_ACTION_NOACTION:
+        if node.fk_upd_action and node.fk_upd_action != enums.FKCONSTR_ACTION_NOACTION:
             output.write(' ON UPDATE ')
             if node.fk_upd_action == enums.FKCONSTR_ACTION_RESTRICT:
                 output.write('RESTRICT')
@@ -1009,8 +1067,10 @@ def create_function_option(node, output):
         return
 
     if option == 'strict':
-        if node.arg.val.value == 1:
-            output.swrite('STRICT')
+        if node.arg.val == 0:
+            output.swrite('CALLED ON NULL INPUT')
+        elif node.arg.val == 1:
+            output.swrite('RETURNS NULL ON NULL INPUT')
         return
 
     if option == 'volatility':
@@ -1053,13 +1113,11 @@ def create_opclass_stmt(node, output):
 
 @node_printer('CreateOpClassItem')
 def create_opclass_item(node, output):
-    unquote_name = False
     if node.itemtype == enums.OPCLASS_ITEM_OPERATOR:
         output.write('OPERATOR ')
-        unquote_name = True
         output.write('%d ' % node.number._value)
         if node.name:
-            _object_with_args(node.name, output, unquote_name, skip_empty_args=True)
+            _object_with_args(node.name, output, symbol=True, skip_empty_args=True)
         if node.order_family:
             output.write(' FOR ORDER BY ')
             output.print_name(node.order_family)
@@ -1075,7 +1133,7 @@ def create_opclass_item(node, output):
             output.print_list(node.class_args, standalone_items=False)
             output.write(')')
         if node.name:
-            _object_with_args(node.name, output, unquote_name, skip_empty_args=True)
+            _object_with_args(node.name, output, skip_empty_args=True)
     elif node.itemtype == enums.OPCLASS_ITEM_STORAGETYPE:
         output.write('STORAGE ')
         output.print_name(node.storedtype)
@@ -1300,11 +1358,11 @@ def create_stmt(node, output):
     elif node.partbound:
         output.newline()
         output.write(' ')
+    elif not node.ofTypename:
+        output.write(' ()')
     with output.push_indent():
         first = True
         if node.inhRelations and not node.partbound:
-            if not node.tableElts:
-                output.write(' ()')
             output.write(' INHERITS (')
             output.print_list(node.inhRelations)
             output.write(')')
@@ -1847,21 +1905,23 @@ def notify_stmt(node, output):
         output.write_quoted_string(node.payload.value)
 
 
-def _object_with_args(node, output, unquote_name=False, skip_empty_args=False):
+def _object_with_args(node, output, unquote_name=False, symbol=False, skip_empty_args=False):
     # Special treatment for OPERATOR object inside DROP or COMMENT
     if unquote_name:
         output.write(node.objname.string_value)
         if not node.args_unspecified:
             output.write(' ')
+    elif symbol:
+        output.print_symbol(node.objname)
     else:
         output.print_name(node.objname)
     if not node.args_unspecified:
         if node.objargs:
-            output.write('(')
+            output.write(' (')
             output.print_list(node.objargs, ',', standalone_items=False)
             output.write(')')
         elif not skip_empty_args:
-            output.write('()')
+            output.write(' ()')
 
 
 @node_printer('ObjectWithArgs')
@@ -1871,8 +1931,8 @@ def object_with_args(node, output):
 
 @node_printer(('AlterObjectSchemaStmt',), 'ObjectWithArgs')
 def object_with_args(node, output):
-    unquote_name = node.parent_node.objectType == enums.ObjectType.OBJECT_OPERATOR
-    _object_with_args(node, output, unquote_name=unquote_name)
+    symbol = node.parent_node.objectType == enums.ObjectType.OBJECT_OPERATOR
+    _object_with_args(node, output, symbol=symbol)
 
 
 @node_printer(('AlterOperatorStmt',), 'ObjectWithArgs')
@@ -1961,46 +2021,61 @@ def partition_spec(node, output):
 def rename_stmt(node, output):
     OT = enums.ObjectType
     objtype = node.renameType
-    if objtype in (OT.OBJECT_COLUMN, OT.OBJECT_TABCONSTRAINT):
-        reltype = node.relationType
-        if reltype == OT.OBJECT_ACCESS_METHOD:
-            reltype = OT.OBJECT_TABLE
-        output.write('ALTER ')
-        output.write(OBJECT_NAMES[reltype])
-        output.space()
-        if node.missing_ok:
-            output.write("IF EXISTS ")
-        output.print_node(node.relation)
-        output.write(' RENAME ')
-        output.write(OBJECT_NAMES[objtype])
-        output.space()
-        output.print_name(node.subname)
-        output.write(' TO ')
-        output.print_name(node.newname)
+    output.write('ALTER ')
+    if objtype == OT.OBJECT_TABCONSTRAINT:
+        output.write('TABLE')
     else:
-        output.write('ALTER ')
-        output.write(OBJECT_NAMES[objtype])
-        output.space()
-        if node.missing_ok:
-            output.write("IF EXISTS ")
-        if objtype in (OT.OBJECT_SCHEMA, OT.OBJECT_DATABASE):
-            output.print_name(node.subname)
-        elif objtype == OT.OBJECT_RULE:
-            output.print_name(node.subname)
-            output.write(' ON ')
-            output.print_node(node.relation)
-        elif node.relation:
-            output.print_node(node.relation)
-        elif objtype in (OT.OBJECT_OPFAMILY,
-                         OT.OBJECT_OPCLASS):
-            method, name = node.object
-            output.print_name(name)
-            output.write(' USING ')
-            output.print_symbol(method)
-        else:
-            output.print_name(node.object)
-        output.write(' RENAME TO ')
-        output.print_name(node.newname)
+        output.write(OBJECT_NAMES[node.relationType
+                                  if objtype in (OT.OBJECT_ATTRIBUTE, OT.OBJECT_COLUMN)
+                                  else objtype])
+    output.write(' ')
+    if node.missing_ok:
+        output.write("IF EXISTS ")
+    if objtype in (OT.OBJECT_SCHEMA, OT.OBJECT_DATABASE):
+        output.print_name(node.subname)
+    elif objtype == OT.OBJECT_RULE:
+        output.print_name(node.subname)
+        output.write(' ON ')
+        output.print_node(node.relation)
+    elif node.relation:
+        output.print_node(node.relation)
+    elif objtype in (OT.OBJECT_OPFAMILY, OT.OBJECT_OPCLASS):
+        method, name = node.object
+        output.print_name(name)
+        output.write(' USING ')
+        output.print_symbol(method)
+    else:
+        output.print_name(node.object)
+    output.write(' RENAME ')
+    if objtype == OT.OBJECT_COLUMN:
+        output.write('COLUMN ')
+        output.print_name(node.subname)
+    elif objtype == OT.OBJECT_TABCONSTRAINT:
+        output.write('CONSTRAINT ')
+        output.print_name(node.subname)
+    elif objtype == OT.OBJECT_ATTRIBUTE:
+        output.write('ATTRIBUTE ')
+        output.print_name(node.subname)
+    output.swrite('TO ')
+    output.print_name(node.newname)
+    if node.behavior == enums.DropBehavior.DROP_CASCADE:
+        output.write(' CASCADE')
+
+
+@node_printer('RenameStmt', 'RangeVar')
+def range_var(node, output):
+    OT = enums.ObjectType
+    if not node.inh and node.parent_node.renameType not in (OT.OBJECT_ATTRIBUTE,
+                                                            OT.OBJECT_TYPE):
+        output.write('ONLY ')
+    if node.schemaname:
+        output.print_name(node.schemaname)
+        output.write('.')
+    output.print_name(node.relname)
+    alias = node.alias
+    if alias:
+        output.write(' AS ')
+        output.print_name(alias)
 
 
 @node_printer('RoleSpec')
