@@ -10,8 +10,8 @@ from pathlib import Path
 
 import pytest
 
-from pglast import Node
-from pglast import parse_sql
+from pglast import Node, parse_sql, split
+from pglast.parser import ParseError
 from pglast.printer import RawStream, IndentedStream
 import pglast.printers
 
@@ -80,3 +80,50 @@ def test_stream_call_with_single_node():
     node = Node(parsed[1])
     result = RawStream()(node)
     assert result == 'SELECT b FROM y'
+
+
+pg_regressions_dir = this_dir / '..' / 'libpg_query' / 'test' / 'sql' / 'postgres_regress'
+
+
+@pytest.mark.parametrize('filename',
+                         (src.name for src in sorted(pg_regressions_dir.glob('*.sql'))),
+                         ids=make_id)
+def test_pg_regress_corpus(filename):
+    # we do this dance to minimize the length of the test name
+    src = pg_regressions_dir / filename
+    source = src.read_text()
+    try:
+        slices = split(source, with_parser=False, only_slices=True)
+    except Exception as e:
+        return
+
+    for slice in slices:
+        stmt = source[slice]
+        lineno = source[:slice.start].count('\n') + 1
+
+        rel_src = src.relative_to(this_dir / '..')
+        try:
+            orig_ast = parse_sql(stmt)
+        except ParseError:
+            continue
+        except Exception as e:
+            raise RuntimeError("Statement %r from %s at line %d, could not parse: %s"
+                               % (stmt, rel_src, lineno, e))
+
+        try:
+            serialized = RawStream()(Node(orig_ast))
+        except NotImplementedError as e:
+            raise NotImplementedError("Statement %r from %s at line %d, could not reprint: %s"
+                                      % (stmt, rel_src, lineno, e))
+        except Exception as e:
+            raise RuntimeError("Statement %r from %s at line %d, could not reprint: %s"
+                               % (stmt, rel_src, lineno, e))
+
+        try:
+            serialized_ast = parse_sql(serialized)
+        except Exception as e:
+            raise RuntimeError("Statement %r from %s at line %d, could not reparse %r: %s"
+                               % (stmt, rel_src, lineno, serialized, e))
+
+        assert orig_ast == serialized_ast, "Statement %r from %s at line %d != %r" % (
+            stmt, rel_src, lineno, serialized)
