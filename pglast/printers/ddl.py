@@ -209,6 +209,9 @@ def alter_operator_stmt(node, output):
 
 @node_printer('AlterOperatorStmt', 'DefElem')
 def alter_operator_stmt_def_elem(node, output):
+    if node.defnamespace:
+        output.print_name(node.defnamespace)
+        output.write('.')
     output.print_name(node.defname)
     output.write(' = ')
     if node.arg:
@@ -437,6 +440,17 @@ alter_table_type_printer = AlterTableTypePrinter()
 @node_printer('AlterTableCmd')
 def alter_table_cmd(node, output):
     alter_table_type_printer(node.subtype, node, output)
+
+
+@node_printer('AlterTableCmd', 'DefElem')
+def alter_table_cmd_def_elem(node, output):
+    if node.defnamespace:
+        output.print_name(node.defnamespace)
+        output.write('.')
+    output.print_name(node.defname)
+    if node.arg:
+        output.write(' = ')
+        output.write(str(node.arg.val.value))
 
 
 @node_printer('ClusterStmt')
@@ -2048,6 +2062,14 @@ def vacuum_stmt(node, output):
         output.write(') ')
     if node.rels:
         output.print_list(node.rels, ",")
+
+
+@node_printer('VacuumStmt', 'DefElem')
+def vacuum_stmt_def_elem(node, output):
+    output.write(node.defname.value.upper())
+    if node.arg:
+        output.write(' ')
+        output.write(str(node.arg.val.value))
 
 
 @node_printer('VacuumRelation')
