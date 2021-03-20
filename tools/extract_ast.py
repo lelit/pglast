@@ -608,6 +608,10 @@ def emit_node_def(name, fields, enums, url, output, doc):
             comment = sub(r'\n +', '\n      ', comment)
             comment = sub(r'\*\)', '\\*)', comment)
             comment = comment.strip()
+            comment = comment[0].upper() + comment[1:]
+            if comment.lower() == 'see above':
+                comment = ''
+
         attrs.append((fname, ctype, comment, emitter))
 
     real_attrs = []
@@ -670,7 +674,8 @@ class {name}({superclass}):
             type = ctype
         doc.write(f'   .. attribute:: {attr}\n')
         doc.write(f'      :type: {type}\n\n')
-        doc.write(f'      {comment}\n\n')
+        if comment:
+            doc.write(f'      {comment}\n\n')
 
 
 def emit_node_create_function(nodes, enums, output):
@@ -719,12 +724,7 @@ def emit_node_create_function(nodes, enums, output):
             else:
                 emitter = emit_generic_attr
 
-            comment = field['comment']
-            if comment:
-                comment = comment.strip()
-                if comment.startswith('/*'):
-                    comment = comment[2:-2].strip()
-            attrs.append((fname, ctype, comment, emitter))
+            attrs.append((fname, ctype, emitter))
             if emitter is not emit_no_attr:
                 real_attrs.append((fname, ctype))
 
@@ -733,7 +733,7 @@ def emit_node_create_function(nodes, enums, output):
 
 cdef create_{name}(structs.{name}* data):
 ''')
-        for attr, ctype, comment, emitter in attrs:
+        for attr, ctype, emitter in attrs:
             emitter(attr, ctype, output)
         output.write(f'''\
     return ast.{name}({', '.join(f'v_{attr}' for attr, __ in real_attrs)})
