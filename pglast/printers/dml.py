@@ -378,6 +378,93 @@ def constraints_set_stmt(node, output):
         output.write('IMMEDIATE')
 
 
+@node_printer('CopyStmt')
+def copy_stmt(node, output):
+    output.write('COPY ')
+    if node.relation:
+        output.print_node(node.relation)
+        if node.attlist:
+            output.write(' (')
+            output.print_list(node.attlist)
+            output.write(')')
+    if node.query:
+        output.write(' (')
+        with output.push_indent():
+            output.print_node(output.query)
+        output.write(')')
+    if node.is_from:
+        output.write(' FROM ')
+    else:
+        output.write(' TO ')
+    if node.is_program:
+        output.write('PROGRAM ')
+    if node.filename:
+        output.print_node(node.filename)
+    else:
+        if node.is_from:
+            output.write('STDIN')
+        else:
+            output.write('STDOUT')
+    if node.options:
+        output.newline()
+        output.write('WITH (')
+        output.print_list(node.options)
+        output.write(')')
+    if node.whereClause:
+        output.newline()
+        output.print_node(node.whereClause)
+
+
+@node_printer('CopyStmt', 'DefElem')
+def copy_stmt_def_elem(node, output):
+    option = node.defname.value
+    argv = node.arg
+    if option == 'format':
+        output.write('FORMAT ')
+        output.print_symbol(argv)
+    elif option == 'freeze' and argv.val == 1:
+        output.write('FREEZE 1')
+    elif option == 'delimiter':
+        output.write('DELIMITER ')
+        output.print_node(argv)
+    elif option == 'null':
+        output.write('NULL ')
+        output.print_node(argv)
+    elif option == 'header' and argv.val == 1:
+        output.write('HEADER 1')
+    elif option == 'quote':
+        output.write('QUOTE ')
+        output.print_node(argv)
+    elif option == 'escape':
+        output.write('ESCAPE ')
+        output.print_node(argv)
+    else:
+        raise NotImplementedError(option)
+
+
+@node_printer('DeclareCursorStmt')
+def declare_cursor_stmt(node, output):
+    output.write('DECLARE ')
+    output.print_name(node.portalname)
+    output.write(' ')
+    if node.options & enums.CURSOR_OPT_BINARY:
+        output.write('BINARY ')
+    if node.options & enums.CURSOR_OPT_SCROLL:
+        output.write('SCROLL ')
+    elif node.options & enums.CURSOR_OPT_NO_SCROLL:
+        output.write('NO SCROLL ')
+    if node.options & enums.CURSOR_OPT_INSENSITIVE:
+        output.write('INSENSITIVE ')
+    output.write('CURSOR ')
+    if node.options & enums.CURSOR_OPT_HOLD:
+        output.write('WITH HOLD ')
+    output.newline()
+    output.space(2)
+    output.write('FOR ')
+    with output.push_indent():
+        output.print_node(node.query)
+
+
 @node_printer('DeleteStmt')
 def delete_stmt(node, output):
     with output.push_indent():
@@ -405,6 +492,76 @@ def delete_stmt(node, output):
 
         if node.withClause:
             output.dedent()
+
+
+@node_printer('ExecuteStmt')
+def execute_stmt(node, output):
+    output.write('EXECUTE ')
+    output.print_node(node.name, is_name=True)
+    if node.params:
+        output.write('(')
+        output.print_list(node.params)
+        output.write(')')
+
+
+@node_printer('ExplainStmt')
+def explain_stmt(node, output):
+    output.write('EXPLAIN ')
+    if node.options:
+        output.write('(')
+        output.print_list(node.options)
+        output.write(')')
+        output.newline()
+        output.space(2)
+    output.print_node(node.query)
+
+
+@node_printer('ExplainStmt', 'DefElem')
+def explain_stmt_def_elem(node, output):
+    output.print_symbol(node.defname)
+    if node.arg is not Missing:
+        output.write(' ')
+        output.print_symbol(node.arg)
+
+
+class FetchDirectionPrinter(IntEnumPrinter):
+    enum = enums.FetchDirection
+
+    def FETCH_FORWARD(self, node, output):
+        if node.howMany == enums.FETCH_ALL:
+            output.write('ALL ')
+        elif node.howMany != 1:
+            output.write(f'FORWARD {node.howMany} ')
+
+    def FETCH_BACKWARD(self, node, output):
+        if node.howMany == enums.FETCH_ALL:
+            output.write('BACKWARD ALL ')
+        elif node.howMany != 1:
+            output.write(f'BACKWARD {node.howMany} ')
+        else:
+            output.write('PRIOR ')
+
+    def FETCH_ABSOLUTE(self, node, output):
+        if node.howMany == 1:
+            output.write('FIRST ')
+        elif node.howMany == -1:
+            output.write('LAST ')
+        else:
+            output.write(f'ABSOLUTE {node.howMany} ')
+
+    def FETCH_RELATIVE(self, node, output):
+        output.write(f'RELATIVE {node.howMany} ')
+
+
+fetch_direction_printer = FetchDirectionPrinter()
+
+
+@node_printer('FetchStmt')
+def fetch_stmt(node, output):
+    output.write('MOVE ' if node.ismove else 'FETCH ')
+    fetch_direction_printer(node.direction, node, output)
+    output.write('IN ')
+    output.print_name(node.portalname)
 
 
 @node_printer('Float')
@@ -553,6 +710,29 @@ def insert_stmt(node, output):
             output.dedent()
 
 
+@node_printer('IntoClause')
+def into_clause(node, output):
+    output.print_node(node.rel)
+    if node.accessMethod:
+        output.write(' USING ')
+        output.print_name(node.accessMethod)
+    if node.options:
+        output.write(' WITH (')
+        output.print_list(node.options)
+        output.write(')')
+    if node.onCommit != enums.OnCommitAction.ONCOMMIT_NOOP:
+        output.write(' ON COMMIT ')
+        if node.onCommit == enums.OnCommitAction.ONCOMMIT_PRESERVE_ROWS:
+            output.write('PRESERVE ROWS')
+        elif node.onCommit == enums.OnCommitAction.ONCOMMIT_DELETE_ROWS:
+            output.write('DELETE ROWS')
+        elif node.onCommit == enums.OnCommitAction.ONCOMMIT_DROP:
+            output.write('DROP')
+    if node.tableSpaceName:
+        output.write(' TABLESPACE ')
+        output.print_name(node.tableSpaceName)
+
+
 @node_printer('JoinExpr')
 def join_expr(node, output):
     if node.alias:
@@ -671,6 +851,20 @@ def param_ref(node, output):
         output.write('$%d' % node.number.value)
 
 
+@node_printer('PrepareStmt')
+def prepare_stmt(node, output):
+    output.write('PREPARE ')
+    output.print_node(node.name, is_name=True)
+    if node.argtypes:
+        output.write('(')
+        output.print_list(node.argtypes)
+        output.write(')')
+    output.write(' AS')
+    output.newline()
+    with output.push_indent(2):
+        output.print_node(node.query)
+
+
 @node_printer('OnConflictClause')
 def on_conflict_clause(node, output):
     oca = enums.OnConflictAction
@@ -737,6 +931,59 @@ def range_subselect(node, output):
         output.print_name(node.alias)
 
 
+@node_printer('RangeTableFunc')
+def range_table_func(node, output):
+    if node.lateral:
+        output.write('LATERAL ')
+    output.write('xmltable(')
+    with output.push_indent():
+        if node.namespaces:
+            output.write('xmlnamespaces(')
+            output.print_list(node.namespaces)
+            output.writes('),')
+            output.newline()
+        with output.expression():
+            output.print_node(node.rowexpr)
+        output.newline()
+        output.write('PASSING ')
+        output.print_node(node.docexpr)
+        output.newline()
+        output.write('COLUMNS ')
+        output.print_list(node.columns)
+        output.write(')')
+    if node.alias:
+        output.write(' AS ')
+        output.print_node(node.alias)
+
+
+@node_printer('RangeTableFunc', 'ResTarget')
+def res_target(node, output):
+    if not node.name:
+        output.write('DEFAULT ')
+    output.print_node(node.val)
+    if node.name:
+        output.write(' AS ')
+        output.print_name(node.name)
+
+
+@node_printer('RangeTableFuncCol')
+def range_table_func_col(node, output):
+    output.print_node(node.colname, is_name=True)
+    output.write(' ')
+    if node.for_ordinality:
+        output.write('FOR ORDINALITY')
+    else:
+        output.print_node(node.typeName)
+        if node.colexpr:
+            output.swrite('PATH ')
+            output.print_node(node.colexpr)
+        if node.coldefexpr:
+            output.swrite('DEFAULT ')
+            output.print_node(node.coldefexpr)
+        if node.is_not_null:
+            output.swrite('NOT NULL')
+
+
 @node_printer('RangeVar')
 def range_var(node, output):
     if not node.inh or not node.inh.value:
@@ -792,6 +1039,7 @@ def _select_needs_to_be_wrapped_in_parens(node):
             or node.limitCount
             or node.limitOffset
             or node.lockingClause
+            or node.withClause
             or node.op != enums.SetOperation.SETOP_NONE)
 
 
@@ -855,6 +1103,14 @@ def select_stmt(node, output):
             output.write(' ')
             if node.targetList:
                 output.print_list(node.targetList)
+            if node.intoClause:
+                output.newline()
+                output.write('INTO ')
+                if node.intoClause.rel.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
+                    output.write('UNLOGGED ')
+                elif node.intoClause.rel.relpersistence == enums.RELPERSISTENCE_TEMP:
+                    output.write('TEMPORARY ')
+                output.print_node(node.intoClause)
             if node.fromClause:
                 output.newline()
                 output.write('FROM ')
@@ -1247,6 +1503,118 @@ def variable_set_stmt(node, output):
         else:
             raise NotImplementedError("SET statement of kind %s not implemented yet"
                                       % node.kind)
+
+
+class XmlOptionTypePrinter(IntEnumPrinter):
+    enum = enums.XmlOptionType
+
+    def XMLOPTION_DOCUMENT(self, node, output):
+        output.write('document ')
+
+    def XMLOPTION_CONTENT(self, node, output):
+        output.write('content ')
+
+
+xml_option_type_printer = XmlOptionTypePrinter()
+
+
+class XmlStandaloneTypePrinter(IntEnumPrinter):
+    enum = enums.XmlStandaloneType
+
+    def XML_STANDALONE_YES(self, node, output):
+        output.write(', STANDALONE YES')
+
+    def XML_STANDALONE_NO(self, node, output):
+        output.write(', STANDALONE NO')
+
+    def XML_STANDALONE_NO_VALUE(self, node, output):
+        output.write(', STANDALONE NO VALUE')
+
+    def XML_STANDALONE_OMITTED(self, node, output):
+        pass
+
+
+xml_standalone_type_printer = XmlStandaloneTypePrinter()
+
+
+class XmlExprOpPrinter(IntEnumPrinter):
+    enum = enums.XmlExprOp
+
+    def IS_XMLCONCAT(self, node, output):  # XMLCONCAT(args)
+        output.write('xmlconcat(')
+        output.print_list(node.args)
+        output.write(')')
+
+    def IS_XMLELEMENT(self, node, output):  # XMLELEMENT(name, xml_attributes, args)
+        output.write('xmlelement(name ')
+        output.print_name(node.name)
+        if node.named_args:
+            output.write(', xmlattributes(')
+            output.print_list(node.named_args)
+            output.write(')')
+        if node.args:
+            output.write(', ')
+            output.print_list(node.args)
+        output.write(')')
+
+    def IS_XMLFOREST(self, node, output):  # XMLFOREST(xml_attributes)
+        output.write('xmlforest(')
+        output.print_list(node.named_args)
+        output.write(')')
+
+    def IS_XMLPARSE(self, node, output):  # XMLPARSE(text, is_doc, preserve_ws)
+        output.write('xmlparse(')
+        xml_option_type_printer(node.xmloption, node, output)
+        arg, preserve_ws = node.args
+        output.print_node(arg)
+        if preserve_ws.arg.val.val.value == 't':
+            output.write(' PRESERVE WHITESPACE')
+        output.write(')')
+
+    def IS_XMLPI(self, node, output):  # XMLPI(name [, args])
+        output.write('xmlpi(name ')
+        output.print_name(node.name)
+        if node.args:
+            output.write(', ')
+            output.print_list(node.args)
+        output.write(')')
+
+    def IS_XMLROOT(self, node, output):  # XMLROOT(xml, version, standalone)
+        output.write('xmlroot(')
+        xml, version, standalone = node.args
+        output.print_node(xml)
+        output.write(', version ')
+        if version.val.node_tag == 'Null':
+            output.write('NO VALUE')
+        else:
+            output.print_node(version)
+        xml_standalone_type_printer(standalone.val.val, node, output)
+        output.write(')')
+
+    def IS_XMLSERIALIZE(self, node, output):  # XMLSERIALIZE(is_document, xmlval)
+        raise NotImplementedError('IS_XMLSERIALIZE??')
+
+    def IS_DOCUMENT(self, node, output):  # xmlval IS DOCUMENT
+        output.print_node(node.args[0])
+        output.write(' IS DOCUMENT')
+
+
+xml_expr_op_printer = XmlExprOpPrinter()
+
+
+@node_printer('XmlExpr')
+def xml_expr(node, output):
+    xml_expr_op_printer(node.op, node, output)
+
+
+@node_printer('XmlSerialize')
+def xml_serialize(node, output):
+    output.write('xmlserialize(')
+    xml_option_type_printer(node.xmloption, node, output)
+    output.print_node(node.expr)
+    output.write(' AS ')
+    output.print_node(node.typeName)
+    output.write(')')
 
 
 @node_printer('WindowDef')
