@@ -7,6 +7,7 @@
 #
 
 from pathlib import Path
+from re import sub, subn
 
 import pytest
 
@@ -101,6 +102,15 @@ def test_pg_regress_corpus(filename):
         stmt = source[slice]
         lineno = source[:slice.start].count('\n') + 1
 
+        # Remove comments and replace \n to make it easier cut&pasting the stmt
+        # in `pgpp -t`
+
+        trimmed_stmt = stmt.strip()
+        while trimmed_stmt.startswith('--'):
+            trimmed_stmt = sub(r'--.*\n', '', trimmed_stmt)
+            lineno += 1
+        trimmed_stmt = subn(r'[\n\t]+', ' ', trimmed_stmt)[0].strip()
+
         rel_src = src.relative_to(this_dir / '..')
         try:
             orig_ast = parse_sql(stmt)
@@ -108,22 +118,22 @@ def test_pg_regress_corpus(filename):
             continue
         except Exception as e:
             raise RuntimeError("Statement %r from %s at line %d, could not parse: %s"
-                               % (stmt, rel_src, lineno, e))
+                               % (trimmed_stmt, rel_src, lineno, e))
 
         try:
             serialized = RawStream()(Node(orig_ast))
         except NotImplementedError as e:
             raise NotImplementedError("Statement %r from %s at line %d, could not reprint: %s"
-                                      % (stmt, rel_src, lineno, e))
+                                      % (trimmed_stmt, rel_src, lineno, e))
         except Exception as e:
             raise RuntimeError("Statement %r from %s at line %d, could not reprint: %s"
-                               % (stmt, rel_src, lineno, e))
+                               % (trimmed_stmt, rel_src, lineno, e))
 
         try:
             serialized_ast = parse_sql(serialized)
         except Exception as e:
             raise RuntimeError("Statement %r from %s at line %d, could not reparse %r: %s"
-                               % (stmt, rel_src, lineno, serialized, e))
+                               % (trimmed_stmt, rel_src, lineno, serialized, e))
 
         assert orig_ast == serialized_ast, "Statement %r from %s at line %d != %r" % (
-            stmt, rel_src, lineno, serialized)
+            trimmed_stmt, rel_src, lineno, serialized)
