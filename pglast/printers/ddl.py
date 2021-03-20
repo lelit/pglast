@@ -397,6 +397,12 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write("ENABLE TRIGGER ")
         output.print_name(node.name)
 
+    def AT_ResetRelOptions(self, node, output):
+        output.write("RESET (")
+        with output.push_indent():
+            output.print_list(node.def_)
+        output.write(")")
+
     def AT_SetNotNull(self, node, output):
         output.write("ALTER COLUMN ")
         output.print_name(node.name)
