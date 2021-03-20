@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:06:38 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 ..
 
 ===================
@@ -11,6 +11,176 @@
 ===================
 
 Here are some example of how the module can be used.
+
+---------
+Low level
+---------
+
+The lowest level is a Python wrapper around each *parse node* returned by the ``PostgreSQL``
+parser. Each node is represented by a corresponding Python class in the module
+:ref:`pglast.ast`.
+
+Parse an ``SQL`` statement and get its *AST* root node
+======================================================
+
+The function :func:`pglast.parser.parse_sql` returns one or more ``RawStmt`` instances:
+
+.. doctest::
+
+   >>> from pglast import parse_sql
+   >>> root = parse_sql('select 1')
+   >>> print(root)
+   (<RawStmt stmt=<SelectStmt targetList=(<ResTarget val=<A_Const val=<Integer val=1>>>,) ...,)
+
+The textual ``repr``\ esentation of a parse node carries all its *not* ``None`` attributes,
+recursively.
+
+You can obtain the accepted attributes of any node by iterating it:
+
+.. doctest::
+
+   >>> rawstmt = root[0]
+   >>> print(tuple(rawstmt))
+   ('stmt', 'stmt_location', 'stmt_len')
+
+.. doctest::
+
+   >>> from pglast import ast
+   >>> stmt = rawstmt.stmt
+   >>> assert isinstance(stmt, ast.SelectStmt)
+
+Each node is also a *callable*, to serialize it into a hierarchy of elementary Python values
+such as dictionaries and tuples:
+
+.. doctest::
+
+   >>> from pprint import pprint
+   >>> pprint(stmt(depth=1, skip_none=True))
+   {'@': 'SelectStmt',
+    'all': False,
+    'limitOption': {'#': 'LimitOption',
+                    'name': 'LIMIT_OPTION_DEFAULT',
+                    'value': 0},
+    'op': {'#': 'SetOperation', 'name': 'SETOP_NONE', 'value': 0},
+    'targetList': ({'@': 'ResTarget', 'location': 7, 'val': Ellipsis},)}
+
+As you can see, each node is serialized to a dictionary containing at least on *special* key,
+``@``, with the *tag name* of the node; lists of nodes are converted to tuples, and ``Enum``
+instances to a dictionary with a special ``#`` key carrying the name of data type, and two
+other keys ``name`` and ``value`` respectively with the name and value of the enum value.
+
+Nodes can be compared to each other, and are considered equal when all their attributes match,
+ignoring those semantically irrelevant:
+
+.. doctest::
+
+   >>> other_stmt = parse_sql('select /* something here */ 1')[0].stmt
+   >>> print(other_stmt(depth=1, skip_none=True))
+   {'@': 'SelectStmt', 'targetList': ({'@': 'ResTarget', 'val': Ellipsis, 'location': 28},), ...}
+   >>> stmt == other_stmt
+   True
+
+Altering a node
+===============
+
+Any attribute of a node is alterable, and some check is done on the assigned value:
+
+.. doctest::
+
+   >>> print(stmt.all)
+   False
+   >>> stmt.all = True
+   >>> print(stmt.all)
+   True
+
+.. doctest::
+
+   >>> stmt.all = "foo"
+   Traceback (most recent call last):
+     ...
+   ValueError: Bad value for attribute SelectStmt.all, expected (<class 'bool'>, <class 'int'>), got <class 'str'>: 'foo'
+
+Enum attributes can be set to either a plain string, which is looked up in the related class,
+or to a dictionary:
+
+.. doctest::
+
+   >>> stmt.limitOption = 'LIMIT_OPTION_COUNT'
+   >>> pprint(stmt(depth=1, skip_none=True))
+   {'@': 'SelectStmt',
+    'all': True,
+    'limitOption': {'#': 'LimitOption', 'name': 'LIMIT_OPTION_COUNT', 'value': 1},
+    'op': {'#': 'SetOperation', 'name': 'SETOP_NONE', 'value': 0},
+    'targetList': ({'@': 'ResTarget', 'location': 7, 'val': Ellipsis},)}
+
+.. doctest::
+
+   >>> stmt.limitOption = {'#': 'LimitOption', 'name': 'LIMIT_OPTION_WITH_TIES'}
+   >>> pprint(stmt(depth=1, skip_none=True))
+   {'@': 'SelectStmt',
+    'all': True,
+    'limitOption': {'#': 'LimitOption',
+                    'name': 'LIMIT_OPTION_WITH_TIES',
+                    'value': 2},
+    'op': {'#': 'SetOperation', 'name': 'SETOP_NONE', 'value': 0},
+    'targetList': ({'@': 'ResTarget', 'location': 7, 'val': Ellipsis},)}
+
+Either way, assigning the wrong value raises an exception:
+
+.. doctest::
+
+   >>> stmt.limitOption = 'foo'
+   Traceback (most recent call last):
+     ...
+   ValueError: Bad value for attribute SelectStmt.limitOption, (<class 'int'>, <class 'str'>, <class 'dict'>, <enum 'LimitOption'>), got 'foo'
+   >>> stmt.limitOption = {'#': 'JoinType', 'name': 'JOIN_INNER'}
+   Traceback (most recent call last):
+     ...
+   ValueError: Bad value for attribute SelectStmt.limitOption, expected a (<class 'int'>, <class 'str'>, <class 'dict'>, <enum 'LimitOption'>), got {'#': 'JoinType', 'name': 'JOIN_INNER'}
+
+
+Creating a node
+===============
+
+You can easily create a new node in the usual way, possibly passing any recognized attribute as
+a parameter to the constructor:
+
+.. doctest::
+
+   >>> print(ast.SelectStmt())
+   <SelectStmt>
+   >>> print(ast.SelectStmt(all=1))
+   <SelectStmt all=True>
+   >>> ast.SelectStmt(non_existing_attribute=None)
+   Traceback (most recent call last):
+     ...
+   TypeError: __init__() got an unexpected keyword argument 'non_existing_attribute'
+   >>> ast.SelectStmt(all="foo")
+   Traceback (most recent call last):
+     ...
+   ValueError: Bad value for attribute SelectStmt.all, expected (<class 'bool'>, <class 'int'>), got <class 'str'>: 'foo'
+
+Alternatively, you can pass a single dictionary as argument, with the special ``@`` key valued
+with the correct node name:
+
+   >>> print(ast.SelectStmt({'@': 'SelectStmt', 'all': True}))
+   <SelectStmt all=True>
+   >>> print(ast.SelectStmt({'@': 'RawStmt', 'all': True}))
+   Traceback (most recent call last):
+     ...
+   ValueError: Bad argument, wrong "@" value, expected 'SelectStmt', got 'RawStmt'
+
+This basically means that you can reconstruct a syntax tree from the result of calling a node:
+
+   >>> clone = ast.SelectStmt(stmt())
+   >>> clone is stmt
+   False
+   >>> clone == stmt
+   True
+
+------------
+Medium level
+------------
 
 Parse an ``SQL`` statement and get its *AST* root node
 ======================================================
@@ -32,18 +202,22 @@ Recursively :meth:`traverse <pglast.node.Node.traverse>` the parse tree
    ...
    None[0]={RawStmt}
    stmt={SelectStmt}
+   all=<False>
    fromClause[0]={RangeVar}
    inh=<True>
    location=<16>
    relname=<'bar'>
    relpersistence=<'p'>
-   op=<0>
+   limitOption=<LimitOption.LIMIT_OPTION_DEFAULT: 0>
+   op=<SetOperation.SETOP_NONE: 0>
    targetList[0]={ResTarget}
    location=<7>
    val={ColumnRef}
    fields[0]={String}
-   str=<'foo'>
+   val=<'foo'>
    location=<7>
+   stmt_len=<0>
+   stmt_location=<0>
 
 As you can see, the ``repr``\ esentation of each value is mnemonic: ``{some_tag}`` means a
 ``Node`` with tag ``some_tag``, ``[X*{some_tag}]`` is a ``List`` containing `X` nodes of that
@@ -67,7 +241,7 @@ Obtain some information about a node
    >>> print(range_var.node_tag)
    RangeVar
    >>> print(range_var.attribute_names)
-   dict_keys(['relname', 'inh', 'relpersistence', 'location'])
+   ('catalogname', 'schemaname', 'relname', 'inh', 'relpersistence', 'alias', 'location')
    >>> print(range_var.parent_node)
    stmt={SelectStmt}
 
@@ -233,34 +407,18 @@ Obtain the *parse tree* of a ``SQL`` statement from the command line
 .. code-block:: shell
 
    $ echo "select 1" | pgpp --parse-tree
-   [
-     {
-       "RawStmt": {
-         "stmt": {
-           "SelectStmt": {
-             "op": 0,
-             "targetList": [
-               {
-                 "ResTarget": {
-                   "location": 7,
-                   "val": {
-                     "A_Const": {
-                       "location": 7,
-                       "val": {
-                         "Integer": {
-                           "ival": 1
-                         }
-                       }
-                     }
-                   }
-                 }
-               }
-             ]
-           }
-         }
-       }
-     }
-   ]
+   [{'@': 'RawStmt',
+     'stmt': {'@': 'SelectStmt',
+              'all': False,
+              'limitOption': <LimitOption.LIMIT_OPTION_DEFAULT: 0>,
+              'op': <SetOperation.SETOP_NONE: 0>,
+              'targetList': ({'@': 'ResTarget',
+                              'location': 7,
+                              'val': {'@': 'A_Const',
+                                      'location': 7,
+                                      'val': {'@': 'Integer', 'val': 1}}},)},
+     'stmt_len': 0,
+     'stmt_location': 0}]
 
 
 ---
