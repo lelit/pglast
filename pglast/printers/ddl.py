@@ -2041,6 +2041,32 @@ def rule_stmt_printer(node, output):
             output.write(' NOTHING')
 
 
+@node_printer('TableLikeClause')
+def table_like_clause(node, output):
+    output.write('LIKE ')
+    output.print_node(node.relation)
+    TLO = enums.TableLikeOption
+    if node.options == TLO.CREATE_TABLE_LIKE_ALL:
+        output.write(' INCLUDING ALL')
+    else:
+        if node.options & TLO.CREATE_TABLE_LIKE_COMMENTS:
+            output.write(' INCLUDING COMMENTS')
+        if node.options & TLO.CREATE_TABLE_LIKE_CONSTRAINTS:
+            output.write(' INCLUDING CONSTRAINTS')
+        if node.options & TLO.CREATE_TABLE_LIKE_DEFAULTS:
+            output.write(' INCLUDING DEFAULTS')
+        if node.options & TLO.CREATE_TABLE_LIKE_IDENTITY:
+            output.write(' INCLUDING IDENTITY')
+        if node.options & TLO.CREATE_TABLE_LIKE_GENERATED:
+            output.write(' INCLUDING GENERATED')
+        if node.options & TLO.CREATE_TABLE_LIKE_INDEXES:
+            output.write(' INCLUDING INDEXES')
+        if node.options & TLO.CREATE_TABLE_LIKE_STATISTICS:
+            output.write(' INCLUDING STATISTICS')
+        if node.options & TLO.CREATE_TABLE_LIKE_STORAGE:
+            output.write(' INCLUDING STORAGE')
+
+
 @node_printer('TriggerTransition')
 def trigger_transition(node, output):
     if node.isNew:
