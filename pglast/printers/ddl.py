@@ -638,6 +638,11 @@ class ConstrTypePrinter(IntEnumPrinter):
             if node.initdeferred:
                 output.swrite('INITIALLY DEFERRED')
 
+    def CONSTR_GENERATED(self, node, output):
+        output.swrite('GENERATED ALWAYS AS (')
+        output.print_node(node.raw_expr)
+        output.write(') STORED')
+
     def CONSTR_NOTNULL(self, node, output):
         output.swrite('NOT NULL')
 
