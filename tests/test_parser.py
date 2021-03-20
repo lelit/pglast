@@ -3,27 +3,21 @@
 # :Created:   ven 04 ago 2017 08:37:10 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 import pytest
 
-from pglast import (
-    Error,
-    fingerprint,
-    get_postgresql_version,
-    parse_plpgsql,
-    parse_sql,
-)
+from pglast import Error, ast, parse_plpgsql, parse_sql
+from pglast.parser import fingerprint, get_postgresql_version, split
 
 
 def test_basic():
     ptree = parse_sql('SELECT 1')
-    assert isinstance(ptree, list)
+    assert isinstance(ptree, tuple)
     assert len(ptree) == 1
     rawstmt = ptree[0]
-    assert isinstance(rawstmt, dict)
-    assert rawstmt.keys() == {'RawStmt'}
+    assert isinstance(rawstmt, ast.RawStmt)
 
     ptree = parse_plpgsql('CREATE FUNCTION add (a integer, b integer)'
                           ' RETURNS integer AS $$ BEGIN RETURN a + b; END; $$'
@@ -76,8 +70,8 @@ def test_errors():
 
 def test_unicode():
     ptree = parse_sql('SELECT 1 AS "Naïve"')
-    target =ptree[0]['RawStmt']['stmt']['SelectStmt']['targetList'][0]['ResTarget']
-    assert target['name'] == "Naïve"
+    target = ptree[0].stmt.targetList[0]
+    assert target.name == "Naïve"
 
 
 def test_pg_version():
@@ -86,3 +80,19 @@ def test_pg_version():
     assert len(pg_version) == 2
 
 
+def test_clone():
+    from pglast import ast
+    stmts = parse_sql('SELECT 1')
+    stmt = stmts[0].stmt
+    clone = ast.SelectStmt(stmt())
+    assert clone is not stmt
+    assert clone == stmt
+    assert repr(clone) == repr(stmt)
+    assert clone() == stmt()
+
+
+def test_split():
+    sql = 'select 1; select 2;    select "€€€€ ·";   select 4'
+    expected = ('select 1', 'select 2', 'select "€€€€ ·"', 'select 4')
+    assert split(sql) == expected
+    assert tuple(sql[s] for s in split(sql, only_slices=True)) == expected
