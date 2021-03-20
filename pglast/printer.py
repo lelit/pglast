@@ -36,14 +36,13 @@ def get_printer_for_node_tag(parent_node_tag, node_tag):
     `parent_node_tag`, return that instead.
     """
 
-    try:
-        return NODE_PRINTERS[(parent_node_tag, node_tag)]
-    except KeyError:
-        try:
-            return NODE_PRINTERS[node_tag]
-        except KeyError:
+    printer = NODE_PRINTERS.get((parent_node_tag, node_tag))
+    if printer is None:
+        printer = NODE_PRINTERS.get(node_tag)
+        if printer is None:
             raise NotImplementedError("Printer for node %r is not implemented yet"
                                       % node_tag)
+    return printer
 
 
 def node_printer(*node_tags, override=False):
