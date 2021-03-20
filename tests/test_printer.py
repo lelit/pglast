@@ -8,7 +8,7 @@
 
 import pytest
 
-from pglast import Node, printer, split
+from pglast import printer
 
 
 def test_registry():
@@ -75,74 +75,6 @@ def test_output_stream():
     assert output.getvalue() == 'SELECT * FROM table WHERE id = 1'
 
 
-def test_raw_stream_basics():
-    ptree = [{'TestRoot': {'bar': {'TestChild': {'a': [
-        {'TestNiece': {'x': 0, 'y': 0}},
-        {'TestNiece': {'x': 1, 'z': [
-            {'TestNiece': {'x': 2, 'y': 2}},
-            {'TestNiece': {'x': 3, 'z': [
-                {'TestNiece': {'x': 4, 'y': 4}},
-                {'TestNiece': {'x': 5, 'y': 5}},
-            ]}}
-        ]}},
-    ]}}}}]
-
-    root = Node(ptree)
-
-    output = printer.RawStream()
-
-    with pytest.raises(NotImplementedError) as exc:
-        output(root)
-
-    assert "'TestRoot'" in exc.value.args[0]
-
-    try:
-        @printer.node_printer('TestRoot')
-        def test_root(node, output):
-            output.write('bar = ')
-            output.print_node(node.bar)
-
-        @printer.node_printer('TestChild')
-        def test_child(node, output):
-            output.write('a(')
-            with output.push_indent():
-                output.print_list(node.a, '*')
-            output.write(')')
-
-        @printer.node_printer('TestNiece')
-        def test_niece(node, output):
-            output.write('{')
-            output.write('x')
-            output.print_node(node.x)
-            output.separator()
-            output.write(',')
-            output.separator()
-            if node.y:
-                output.write('y')
-                output.print_node(node.y)
-            else:
-                if output.test_child_z_is_expression:
-                    with output.push_indent(2, relative=False):
-                        output.print_list(node.z, '+')
-                else:
-                    output.print_list(node.z, '/', standalone_items=False)
-            output.write('}')
-
-        output = printer.RawStream()
-        output.test_child_z_is_expression = True
-        result = output(root)
-        assert result == 'bar = a({x0, y0} * {x1,{x2, y2} + {x3,{x4, y4} + {x5, y5}}})'
-
-        output = printer.RawStream()
-        output.test_child_z_is_expression = False
-        result = output(root)
-        assert result == 'bar = a({x0, y0} * {x1,{x2, y2} / {x3,{x4, y4} / {x5, y5}}})'
-    finally:
-        printer.NODE_PRINTERS.pop('TestRoot', None)
-        printer.NODE_PRINTERS.pop('TestChild', None)
-        printer.NODE_PRINTERS.pop('TestNiece', None)
-
-
 def test_raw_stream_with_sql():
     raw_stmt_printer = printer.NODE_PRINTERS.pop('RawStmt', None)
     try:
@@ -163,91 +95,6 @@ def test_raw_stream_with_sql():
 def test_raw_stream_invalid_call():
     with pytest.raises(ValueError) as exc:
         printer.RawStream()(1)
-
-
-def test_indented_stream_basics():
-    ptree = [{'TestRoot': {'bar': {'TestChild': {'a': [
-        {'TestNiece': {'x': 0, 'y': 0}},
-        {'TestNiece': {'x': 1, 'z': [
-            {'TestNiece': {'x': 2, 'y': 2}},
-            {'TestNiece': {'x': 3, 'z': [
-                {'TestNiece': {'x': 4, 'y': 4}},
-                {'TestNiece': {'x': 5, 'y': 5}},
-            ]}}
-        ]}},
-    ]}}}}]
-
-    root = Node(ptree)
-
-    output = printer.RawStream()
-
-    with pytest.raises(NotImplementedError) as exc:
-        output(root)
-
-    assert "'TestRoot'" in exc.value.args[0]
-
-    try:
-        @printer.node_printer('TestRoot')
-        def test_root(node, output):
-            output.write('bar = ')
-            output.print_node(node.bar)
-
-        @printer.node_printer('TestChild')
-        def test_child(node, output):
-            output.write('a(')
-            with output.push_indent():
-                output.print_list(node.a, '*')
-            output.write(')')
-
-        @printer.node_printer('TestNiece')
-        def test_niece(node, output):
-            output.write('{')
-            output.write('x')
-            output.print_node(node.x)
-            output.swrites(',')
-            if node.y:
-                output.write('y')
-                output.print_node(node.y)
-            else:
-                if output.test_child_z_is_expression:
-                    with output.push_indent(2, relative=False):
-                        output.print_list(node.z, '+')
-                else:
-                    list_sep = output.test_child_z_list_sep
-                    output.print_list(node.z, list_sep, standalone_items=len(list_sep) == 2)
-            output.write('}')
-
-        output = printer.IndentedStream()
-        output.test_child_z_is_expression = True
-        output.test_child_z_list_sep = '/'
-        result = output(root)
-        assert result == """\
-bar = a({x0, y0}
-      * {x1,{x2, y2}
-           + {x3,{x4, y4}
-                + {x5, y5}}})"""
-
-        output = printer.IndentedStream()
-        output.test_child_z_is_expression = False
-        output.test_child_z_list_sep = '/'
-        result = output(root)
-        assert result == """\
-bar = a({x0, y0}
-      * {x1,{x2, y2} / {x3,{x4, y4} / {x5, y5}}})"""
-
-        output = printer.IndentedStream()
-        output.test_child_z_is_expression = False
-        output.test_child_z_list_sep = '//'
-        result = output(root)
-        assert result == """\
-bar = a({x0, y0}
-      * {x1,   {x2, y2}
-            // {x3,   {x4, y4}
-                   // {x5, y5}}})"""
-    finally:
-        printer.NODE_PRINTERS.pop('TestRoot', None)
-        printer.NODE_PRINTERS.pop('TestChild', None)
-        printer.NODE_PRINTERS.pop('TestNiece', None)
 
 
 def test_indented_stream_with_sql():
@@ -314,50 +161,3 @@ def test_special_function():
         assert result == 'SELECT x - "Y" FROM sometable'
     finally:
         printer.SPECIAL_FUNCTIONS.pop('foo.test_function')
-
-
-def test_names_and_symbols():
-    ptree = [{'TestRoot': {
-        'a': {
-            "String": {
-                "str": "Sum"
-            }},
-        'b': [{
-            "String": {
-                "str": "foo"
-            }}],
-        'c': [{
-            "String": {
-                "str": "table"
-            }
-        }, {
-            "String": {
-                "str": "bar"
-            }}],
-        'd': [{
-            "String": {
-                "str": "Schema"
-            }
-        }, {
-            "String": {
-                "str": "="
-            }
-        }],
-    }}]
-
-    first_node = Node(ptree)[0]
-
-    def do(meth, node):
-        output = printer.RawStream()
-        getattr(output, meth)(node)
-        return output.getvalue()
-
-    assert do('print_name', first_node.a) == '"Sum"'
-    assert do('print_name', first_node.b) == 'foo'
-    assert do('print_name', first_node.c) == '"table".bar'
-    assert do('print_name', first_node.d) == '"Schema"."="'
-
-    assert do('print_symbol', first_node.a) == 'Sum'
-    assert do('print_symbol', first_node.b) == 'foo'
-    assert do('print_symbol', first_node.c) == '"table".bar'
-    assert do('print_symbol', first_node.d) == '"Schema".='

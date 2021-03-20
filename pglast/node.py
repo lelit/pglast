@@ -6,7 +6,10 @@
 # :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
+from decimal import Decimal
 from enum import Enum
+
+from . import ast
 
 
 class Missing:
@@ -23,9 +26,6 @@ class Missing:
         raise StopIteration()
 
 
-NoneType = type(None)
-
-
 Missing = Missing()
 "Singleton returned when trying to get a non-existing attribute out of a :class:`Node`."
 
@@ -33,7 +33,6 @@ Missing = Missing()
 class Base:
     """Common base class.
 
-    :type details: dict
     :param details: the *parse tree*
     :type parent: ``None`` or :class:`Node` instance
     :param parent: ``None`` to indicate that the node is the *root* of the parse tree,
@@ -51,15 +50,15 @@ class Base:
     __slots__ = ('_parent_node', '_parent_attribute')
 
     def __new__(cls, details, parent=None, name=None):
-        if not isinstance(parent, (Node, NoneType)):
+        if parent is not None and not isinstance(parent, Node):
             raise ValueError("Unexpected value for 'parent', must be either None"
                              " or a Node instance, got %r" % type(parent))
-        if not isinstance(name, (NoneType, str, tuple)):
+        if name is not None and not isinstance(name, (str, tuple)):
             raise ValueError("Unexpected value for 'name', must be either None,"
                              " a string or a tuple, got %r" % type(name))
-        if isinstance(details, list):
+        if isinstance(details, (list, tuple)):
             self = super().__new__(List)
-        elif isinstance(details, dict):
+        elif isinstance(details, ast.Node):
             self = super().__new__(Node)
         else:
             self = super().__new__(Scalar)
@@ -71,8 +70,14 @@ class Base:
         self._parent_attribute = name
 
     def __eq__(self, other):
-        if type(self) is type(other):
-            return all(getattr(self, slot) == getattr(other, slot) for slot in self.__slots__)
+        cls = type(self)
+        if cls is type(other):
+            slots = []
+            while issubclass(cls, Base):
+                slots.extend(cls.__slots__)
+                assert len(cls.__bases__) == 1
+                cls = cls.__bases__[0]
+            return all(getattr(self, slot) == getattr(other, slot) for slot in slots)
         return False
 
     def __str__(self):
@@ -111,16 +116,21 @@ class List(Base):
     __slots__ = ('_items',)
 
     def _init(self, items, parent, name):
-        if not isinstance(items, list) or not items:
-            raise ValueError("Unexpected value for 'items', must be a non empty"
-                             " list, got %r" % type(items))
+        if not isinstance(items, (list, tuple)) or not items:
+            raise ValueError("Unexpected value for 'items', must be a non empty tuple or list,"
+                             " got %r" % type(items))
         super()._init(parent, name)
         self._items = items
 
     def __len__(self):
         return len(self._items)
 
+    def __bool__(self):
+        return len(self) > 0
+
     def __repr__(self):
+        if not self:
+            return '[]'
         # There's no guarantee that a list contains the same kind of objects,
         # so picking the first is rather arbitrary but serves the purpose, as
         # this is primarily an helper for investigating the internals of a tree.
@@ -144,7 +154,7 @@ class List(Base):
         node = self[0]
         if node.node_tag != 'String':
             raise TypeError('%r does not contain a single String node' % self)
-        return node.str.value
+        return node.val.value
 
     def traverse(self):
         "A generator that recursively traverse all the items in the list."
@@ -154,10 +164,9 @@ class List(Base):
 
 
 class Node(Base):
-    """Represent a single entry in a *parse tree* returned by :func:`~.parser.parse_sql()`
-    (or :func:`~.parser.parse_plpgsql()`).
+    """Represent a single entry in a *parse tree*.
 
-    :type details: dict
+    :type details: :class:`.ast.Node`
     :param details: the *parse tree* of the node
     :type parent: ``None`` or :class:`Node` instance
     :param parent: ``None`` to indicate that the node is the *root* of the parse tree,
@@ -168,25 +177,24 @@ class Node(Base):
                  nodes
     """
 
-    __slots__ = Base.__slots__ + ('_node_tag', '_parse_tree')
+    __slots__ = ('node_tag', 'ast_node')
 
     def _init(self, details, parent=None, name=None):
-        if not isinstance(details, dict) or len(details) != 1:
-            raise ValueError("Unexpected value for 'details', must be a dict with"
-                             " exactly one key, got %r" % type(details))
+        if not isinstance(details, ast.Node):
+            raise ValueError("Unexpected value for 'details', must be a ast.Node")
         super()._init(parent, name)
-        (self._node_tag, self._parse_tree), *_ = details.items()
-
-    def __repr__(self):
-        return '{%s}' % self._node_tag
+        self.node_tag = details.__class__.__name__
+        self.ast_node = details
 
     def __getattr__(self, attr):
-        try:
-            value = self._parse_tree[attr]
-        except KeyError:
+        value = getattr(self.ast_node, attr)
+        if value is None:
             return Missing
         else:
             return Base(value, self, attr)
+
+    def __repr__(self):
+        return '{%s}' % self.node_tag
 
     def __getitem__(self, attr):
         if isinstance(attr, tuple):
@@ -199,34 +207,17 @@ class Node(Base):
                              % type(attr).__name__)
 
     def __iter__(self):
-        value = self._parse_tree
-        for attr in sorted(value.keys()):
-            yield Base(value[attr], self, attr)
+        node = self.ast_node
+        for attr in sorted(node.__slots__):
+            value = getattr(node, attr)
+            if value is not None:
+                yield Base(value, self, attr)
 
     @property
     def attribute_names(self):
         "The names of the attributes present in the parse tree of the node."
 
-        value = self._parse_tree
-        return value.keys()
-
-    @property
-    def node_tag(self):
-        "The *tag* of the node."
-
-        return self._node_tag
-
-    @property
-    def parse_tree(self):
-        "The *parse tree* of the node."
-
-        return self._parse_tree
-
-    @property
-    def string_value(self):
-        if self.node_tag != 'String':
-            raise TypeError('%r is not a String node' % self)
-        return self.str.value
+        return tuple(self.ast_node)
 
     def traverse(self):
         "A generator that recursively traverse all attributes of the node."
@@ -242,9 +233,9 @@ class Scalar(Base):
     __slots__ = ('_value',)
 
     def _init(self, value, parent, name):
-        if not isinstance(value, (NoneType, bool, float, int, str)):
+        if value is not None and not isinstance(value, (bool, float, int, str, Decimal, ast.Value)):
             raise ValueError("Unexpected value for 'value', must be either None or a"
-                             " bool|float|int|str instance, got %r" % type(value))
+                             " bool|float|int|str|Decimal instance, got %r" % type(value))
         super()._init(parent, name)
         self._value = value
 
@@ -266,6 +257,9 @@ class Scalar(Base):
             return value
         return True
 
+    def __hash__(self):
+        return hash(self._value)
+
     def __eq__(self, other):
         value = self._value
         if isinstance(other, Enum):
@@ -281,7 +275,10 @@ class Scalar(Base):
             return super().__eq__(other)
 
     def __repr__(self):
-        return '<%r>' % self._value
+        if isinstance(self._value, Enum):
+            return repr(self._value)
+        else:
+            return '<%r>' % self._value
 
     def traverse(self):
         yield self
