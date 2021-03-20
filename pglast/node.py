@@ -252,7 +252,12 @@ class Scalar(Base):
         if value is None:
             return False
         if isinstance(value, str):
-            return bool(value)
+            if len(value) == 0:
+                return False
+            elif len(value) == 1:
+                return value[0] != '\x00'
+            else:
+                return True
         elif isinstance(value, bool):
             return value
         return True

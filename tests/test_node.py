@@ -46,3 +46,10 @@ def test_basic():
     assert rawstmt[stmt.parent_attribute] == stmt
     assert stmt.whereClause is Missing
     assert not stmt.whereClause
+
+
+def test_scalar():
+    constraint = ast.Constraint()
+    constraint.fk_matchtype = '\00'
+    node = Node(constraint)
+    assert not node.fk_matchtype
