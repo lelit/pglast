@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 13-latest-develop-0-g69e163b
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 13-latest-0-g6517eed
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2021 Lele Gaifax
@@ -456,6 +456,8 @@ CURSOR_OPT_GENERIC_PLAN = 0x0040
 CURSOR_OPT_CUSTOM_PLAN = 0x0080
 
 CURSOR_OPT_PARALLEL_OK = 0x0100
+
+FETCH_ALL = 9223372036854775807
 
 REINDEXOPT_VERBOSE = 1 << 0
 

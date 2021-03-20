@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:19:26 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2021 Lele Gaifax
 ..
 
 ===========================================================
@@ -16,10 +16,23 @@
 This module is a C extension written in Cython__ that exposes a few functions from the
 underlying ``libpg_query`` library it links against.
 
+.. data:: LONG_MAX
+
+   The highest integer that can be stored in a C ``long`` variable: it is used as a marker, for
+   example in PG's ``FetchStmt.howMany``, that uses the constant ``FETCH_ALL``.
+
+.. exception:: ParseError
+
+   Exception representing the error state returned by the parser.
+
+.. exception:: DeparseError
+
+   Exception representing the error state returned by the deparser.
+
 .. function:: fingerprint(query)
 
    :param str query: The SQL statement
-   :returns: a string
+   :returns: str
 
    Fingerprint the given `query`, a string with the ``SQL`` statement(s), and return a
    hash digest that can identify similar queries. For similar queries that are different
@@ -34,18 +47,50 @@ underlying ``libpg_query`` library it links against.
 .. function:: parse_sql(query)
 
    :param str query: The SQL statement
-   :returns: a dictionary
+   :returns: tuple
 
    Parse the given `query`, a string with the ``SQL`` statement(s), and return the
-   corresponding *parse tree*.
+   corresponding *parse tree* as a tuple of :class:`pglast.ast.RawStmt` instances.
 
-.. function:: parse_plpgsql(query)
+.. function:: parse_sql_json(query)
+
+   :param str query: The SQL statement
+   :returns: str
+
+   Parse the given `query`, a string with the ``SQL`` statement(s), and return the
+   ``libpg_query``\ 's ``JSON``\ -serialized parse tree.
+
+.. function:: parse_sql_protobuf(query)
+
+   :param str query: The SQL statement
+   :returns: bytes
+
+   Parse the given `query`, a string with the ``SQL`` statement(s), and return the
+   ``libpg_query``\ 's ``Protobuf``\ -serialized parse tree.
+
+.. function:: parse_plpgsql_json(query)
 
    :param str query: The PLpgSQL statement
-   :returns: a dictionary
+   :returns: str
 
    Parse the given `query`, a string with the ``plpgsql`` statement(s), and return the
-   corresponding *parse tree*.
+   ``libpg_query``\ 's ``JSON``\ -serialized parse tree.
 
+.. function:: split(query, with_parser=True, only_slices=False)
+
+   :param str query: The SQL statement
+   :param bool with_parser: Whether to use the parser or the scanner
+   :param bool only_slices: Return slices instead of statement's text
+   :returns: tuple
+
+   Split the given `stmts` string into a sequence of the single ``SQL`` statements.
+
+   By default this uses the *parser* to perform the job; when `with_parser` is ``False``
+   the *scanner* variant is used, indicated when the statements may contain parse errors.
+
+   When `only_slices` is ``True``, return a sequence of :class:`slice` instances, one for each
+   statement, instead of statements text.
+
+   .. note:: Leading and trailing whitespace are removed from the statements.
 
 __ http://cython.org/

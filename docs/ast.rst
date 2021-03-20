@@ -30,137 +30,135 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: A_ArrayExpr(elements=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L413>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L413>`__ parser node.
 
    .. attribute:: elements
       :type: tuple
 
-      array element expressions
+      Array element expressions
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: A_Const(val=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L286>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L286>`__ parser node.
 
    .. attribute:: val
       :type: Value
 
-      value (includes type info, see value.h)
+      Value (includes type info, see value.h)
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: A_Expr(kind=None, name=None, lexpr=None, rexpr=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L273>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L273>`__ parser node.
 
    .. attribute:: kind
       :type: A_Expr_Kind
 
-      see above
-
    .. attribute:: name
       :type: tuple
 
-      possibly-qualified name of operator
+      Possibly-qualified name of operator
 
    .. attribute:: lexpr
       :type: Node
 
-      left argument, or NULL if none
+      Left argument, or NULL if none
 
    .. attribute:: rexpr
       :type: Node
 
-      right argument, or NULL if none
+      Right argument, or NULL if none
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: A_Indices(is_slice=None, lidx=None, uidx=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L380>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L380>`__ parser node.
 
    .. attribute:: is_slice
       :type: bool
 
-      true if slice (i.e., colon present)
+      True if slice (i.e., colon present)
 
    .. attribute:: lidx
       :type: Node
 
-      slice lower bound, if any
+      Slice lower bound, if any
 
    .. attribute:: uidx
       :type: Node
 
-      subscript, or slice upper bound if any
+      Subscript, or slice upper bound if any
 
 
 .. class:: A_Indirection(arg=None, indirection=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L403>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L403>`__ parser node.
 
    .. attribute:: arg
       :type: Node
 
-      the thing being selected from
+      The thing being selected from
 
    .. attribute:: indirection
       :type: tuple
 
-      subscripts and/or field names and/or *
+      Subscripts and/or field names and/or *
 
 
 .. class:: A_Star()
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L369>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L369>`__ parser node.
 
 
 .. class:: AccessPriv(priv_name=None, cols=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1967>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1967>`__ parser node.
 
    .. attribute:: priv_name
       :type: str
 
-      string name of privilege
+      String name of privilege
 
    .. attribute:: cols
       :type: tuple
 
-      list of Value strings
+      List of Value strings
 
 
 .. class:: Aggref(aggargtypes=None, aggdirectargs=None, args=None, aggorder=None, aggdistinct=None, aggfilter=None, aggstar=None, aggvariadic=None, aggkind=None, agglevelsup=None, aggsplit=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L309>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L309>`__ parser node.
 
    .. attribute:: aggargtypes
       :type: tuple
 
-      type Oids of direct and aggregated args
+      Type Oids of direct and aggregated args
 
    .. attribute:: aggdirectargs
       :type: tuple
 
-      direct arguments, if an ordered-set agg
+      Direct arguments, if an ordered-set agg
 
    .. attribute:: args
       :type: tuple
 
-      aggregated arguments and sort expressions
+      Aggregated arguments and sort expressions
 
    .. attribute:: aggorder
       :type: tuple
@@ -180,18 +178,18 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: aggstar
       :type: bool
 
-      true if argument list was really '*'
+      True if argument list was really '*'
 
    .. attribute:: aggvariadic
       :type: bool
 
-      true if variadic arguments have been
+      True if variadic arguments have been
       * combined into an array last argument
 
    .. attribute:: aggkind
       :type: str
 
-      aggregate kind (see pg_aggregate.h)
+      Aggregate kind (see pg_aggregate.h)
 
    .. attribute:: agglevelsup
       :type: Index
@@ -201,47 +199,45 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: aggsplit
       :type: AggSplit
 
-      expected agg-splitting mode of parent Agg
+      Expected agg-splitting mode of parent Agg
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: Alias(aliasname=None, colnames=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L39>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L39>`__ parser node.
 
    .. attribute:: aliasname
       :type: str
 
-      aliased rel name (never qualified)
+      Aliased rel name (never qualified)
 
    .. attribute:: colnames
       :type: tuple
 
-      optional list of column aliases
+      Optional list of column aliases
 
 
 .. class:: AlterCollationStmt(collname=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1886>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1886>`__ parser node.
 
    .. attribute:: collname
       :type: tuple
 
-      None
-
 
 .. class:: AlterDatabaseSetStmt(dbname=None, setstmt=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3174>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3174>`__ parser node.
 
    .. attribute:: dbname
       :type: str
 
-      database name
+      Database name
 
    .. attribute:: setstmt
       :type: VariableSetStmt*
@@ -251,12 +247,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterDatabaseStmt(dbname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3167>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3167>`__ parser node.
 
    .. attribute:: dbname
       :type: str
 
-      name of database to alter
+      Name of database to alter
 
    .. attribute:: options
       :type: tuple
@@ -266,12 +262,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterDefaultPrivilegesStmt(options=None, action=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1998>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1998>`__ parser node.
 
    .. attribute:: options
       :type: tuple
 
-      list of DefElem
+      List of DefElem
 
    .. attribute:: action
       :type: GrantStmt*
@@ -281,7 +277,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterDomainStmt(subtype=None, typeName=None, name=None, def_=None, behavior=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1900>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1900>`__ parser node.
 
    .. attribute:: subtype
       :type: str
@@ -295,17 +291,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: typeName
       :type: tuple
 
-      domain to work on
+      Domain to work on
 
    .. attribute:: name
       :type: str
 
-      column or constraint name to act on
+      Column or constraint name to act on
 
    .. attribute:: def_
       :type: Node
 
-      definition of default or constraint
+      Definition of default or constraint
 
    .. attribute:: behavior
       :type: DropBehavior
@@ -315,47 +311,47 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if missing?
+      Skip error if missing?
 
 
 .. class:: AlterEnumStmt(typeName=None, oldVal=None, newVal=None, newValNeighbor=None, newValIsAfter=None, skipIfNewValExists=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3109>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3109>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: oldVal
       :type: str
 
-      old enum value's name, if renaming
+      Old enum value's name, if renaming
 
    .. attribute:: newVal
       :type: str
 
-      new enum value's name
+      New enum value's name
 
    .. attribute:: newValNeighbor
       :type: str
 
-      neighboring enum value, if specified
+      Neighboring enum value, if specified
 
    .. attribute:: newValIsAfter
       :type: bool
 
-      place new enum value after neighbor?
+      Place new enum value after neighbor?
 
    .. attribute:: skipIfNewValExists
       :type: bool
 
-      no error if new already exists?
+      No error if new already exists?
 
 
 .. class:: AlterEventTrigStmt(trigname=None, tgenabled=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2473>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2473>`__ parser node.
 
    .. attribute:: trigname
       :type: str
@@ -365,13 +361,13 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: tgenabled
       :type: str
 
-      trigger's firing configuration WRT
+      Trigger's firing configuration WRT
       * session_replication_role
 
 
 .. class:: AlterExtensionContentsStmt(extname=None, action=None, objtype=None, object=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2267>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2267>`__ parser node.
 
    .. attribute:: extname
       :type: str
@@ -396,12 +392,10 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterExtensionStmt(extname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2260>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2260>`__ parser node.
 
    .. attribute:: extname
       :type: str
-
-      None
 
    .. attribute:: options
       :type: tuple
@@ -411,12 +405,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterFdwStmt(fdwname=None, func_options=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2289>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2289>`__ parser node.
 
    .. attribute:: fdwname
       :type: str
 
-      foreign-data wrapper name
+      Foreign-data wrapper name
 
    .. attribute:: func_options
       :type: tuple
@@ -426,57 +420,55 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: options
       :type: tuple
 
-      generic options to FDW
+      Generic options to FDW
 
 
 .. class:: AlterForeignServerStmt(servername=None, version=None, options=None, has_version=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2313>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2313>`__ parser node.
 
    .. attribute:: servername
       :type: str
 
-      server name
+      Server name
 
    .. attribute:: version
       :type: str
 
-      optional server version
+      Optional server version
 
    .. attribute:: options
       :type: tuple
 
-      generic options to server
+      Generic options to server
 
    .. attribute:: has_version
       :type: bool
 
-      version specified
+      Version specified
 
 
 .. class:: AlterFunctionStmt(objtype=None, func=None, actions=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2870>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2870>`__ parser node.
 
    .. attribute:: objtype
       :type: ObjectType
 
-      None
-
    .. attribute:: func
       :type: ObjectWithArgs*
 
-      name and args of function
+      Name and args of function
 
    .. attribute:: actions
       :type: tuple
 
-      list of DefElem
+      List of DefElem
 
 
 .. class:: AlterObjectDependsStmt(objectType=None, relation=None, object=None, extname=None, remove=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2938>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2938>`__ parser node.
 
    .. attribute:: objectType
       :type: ObjectType
@@ -486,27 +478,27 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: relation
       :type: RangeVar*
 
-      in case a table is involved
+      In case a table is involved
 
    .. attribute:: object
       :type: Node
 
-      name of the object
+      Name of the object
 
    .. attribute:: extname
       :type: Value*
 
-      extension name
+      Extension name
 
    .. attribute:: remove
       :type: bool
 
-      set true to remove dep rather than add
+      Set true to remove dep rather than add
 
 
 .. class:: AlterObjectSchemaStmt(objectType=None, relation=None, object=None, newschema=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2952>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2952>`__ parser node.
 
    .. attribute:: objectType
       :type: ObjectType
@@ -516,37 +508,37 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: relation
       :type: RangeVar*
 
-      in case it's a table
+      In case it's a table
 
    .. attribute:: object
       :type: Node
 
-      in case it's some other object
+      In case it's some other object
 
    .. attribute:: newschema
       :type: str
 
-      the new schema
+      The new schema
 
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if missing?
+      Skip error if missing?
 
 
 .. class:: AlterOpFamilyStmt(opfamilyname=None, amname=None, isDrop=None, items=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2643>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2643>`__ parser node.
 
    .. attribute:: opfamilyname
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: amname
       :type: str
 
-      name of index AM opfamily is for
+      Name of index AM opfamily is for
 
    .. attribute:: isDrop
       :type: bool
@@ -561,12 +553,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterOperatorStmt(opername=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2979>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2979>`__ parser node.
 
    .. attribute:: opername
       :type: ObjectWithArgs*
 
-      operator name and argument types
+      Operator name and argument types
 
    .. attribute:: options
       :type: tuple
@@ -576,7 +568,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterOwnerStmt(objectType=None, relation=None, object=None, newowner=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2966>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2966>`__ parser node.
 
    .. attribute:: objectType
       :type: ObjectType
@@ -586,22 +578,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: relation
       :type: RangeVar*
 
-      in case it's a table
+      In case it's a table
 
    .. attribute:: object
       :type: Node
 
-      in case it's some other object
+      In case it's some other object
 
    .. attribute:: newowner
       :type: RoleSpec*
 
-      the new owner
+      The new owner
 
 
 .. class:: AlterPolicyStmt(policy_name=None, table=None, roles=None, qual=None, with_check=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2407>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2407>`__ parser node.
 
    .. attribute:: policy_name
       :type: str
@@ -611,27 +603,27 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: table
       :type: RangeVar*
 
-      the table name the policy applies to
+      The table name the policy applies to
 
    .. attribute:: roles
       :type: tuple
 
-      the roles associated with the policy
+      The roles associated with the policy
 
    .. attribute:: qual
       :type: Node
 
-      the policy's condition
+      The policy's condition
 
    .. attribute:: with_check
       :type: Node
 
-      the policy's WITH CHECK condition.
+      The policy's WITH CHECK condition.
 
 
 .. class:: AlterPublicationStmt(pubname=None, options=None, tables=None, for_all_tables=None, tableAction=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3529>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3529>`__ parser node.
 
    .. attribute:: pubname
       :type: str
@@ -661,17 +653,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterRoleSetStmt(role=None, database=None, setstmt=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2528>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2528>`__ parser node.
 
    .. attribute:: role
       :type: RoleSpec*
 
-      role
+      Role
 
    .. attribute:: database
       :type: str
 
-      database name, or NULL
+      Database name, or NULL
 
    .. attribute:: setstmt
       :type: VariableSetStmt*
@@ -681,12 +673,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterRoleStmt(role=None, options=None, action=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2520>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2520>`__ parser node.
 
    .. attribute:: role
       :type: RoleSpec*
 
-      role
+      Role
 
    .. attribute:: options
       :type: tuple
@@ -701,52 +693,48 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterSeqStmt(sequence=None, options=None, for_identity=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2558>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2558>`__ parser node.
 
    .. attribute:: sequence
       :type: RangeVar*
 
-      the sequence to alter
+      The sequence to alter
 
    .. attribute:: options
       :type: tuple
 
-      None
-
    .. attribute:: for_identity
       :type: bool
-
-      None
 
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if a role is missing?
+      Skip error if a role is missing?
 
 
 .. class:: AlterStatsStmt(defnames=None, stxstattarget=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2828>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2828>`__ parser node.
 
    .. attribute:: defnames
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: stxstattarget
       :type: int
 
-      statistics target
+      Statistics target
 
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if statistics object is missing
+      Skip error if statistics object is missing
 
 
 .. class:: AlterSubscriptionStmt(kind=None, subname=None, conninfo=None, publication=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3561>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3561>`__ parser node.
 
    .. attribute:: kind
       :type: AlterSubscriptionType
@@ -776,7 +764,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterSystemStmt(setstmt=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3197>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3197>`__ parser node.
 
    .. attribute:: setstmt
       :type: VariableSetStmt*
@@ -786,7 +774,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterTSConfigurationStmt(kind=None, cfgname=None, tokentype=None, dicts=None, override=None, replace=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3502>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3502>`__ parser node.
 
    .. attribute:: kind
       :type: AlterTSConfigType
@@ -796,42 +784,42 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: cfgname
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: tokentype
       :type: tuple
 
-      list of Value strings
+      List of Value strings
 
    .. attribute:: dicts
       :type: tuple
 
-      list of list of Value strings
+      List of list of Value strings
 
    .. attribute:: override
       :type: bool
 
-      if true - remove old variant
+      If true - remove old variant
 
    .. attribute:: replace
       :type: bool
 
-      if true - replace dictionary by another
+      If true - replace dictionary by another
 
    .. attribute:: missing_ok
       :type: bool
 
-      for DROP - skip error if missing?
+      For DROP - skip error if missing?
 
 
 .. class:: AlterTSDictionaryStmt(dictname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3483>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3483>`__ parser node.
 
    .. attribute:: dictname
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: options
       :type: tuple
@@ -841,7 +829,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterTableCmd(subtype=None, name=None, num=None, newowner=None, def_=None, behavior=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1866>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1866>`__ parser node.
 
    .. attribute:: subtype
       :type: AlterTableType
@@ -851,24 +839,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: name
       :type: str
 
-      column, constraint, or trigger to act on,
+      Column, constraint, or trigger to act on,
       * or tablespace
 
    .. attribute:: num
       :type: int16
 
-      attribute number for columns referenced by
+      Attribute number for columns referenced by
       * number
 
    .. attribute:: newowner
       :type: RoleSpec*
 
-      None
-
    .. attribute:: def_
       :type: Node
 
-      definition of new column, index,
+      Definition of new column, index,
       * constraint, or parent table
 
    .. attribute:: behavior
@@ -879,17 +865,15 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if missing?
+      Skip error if missing?
 
 
 .. class:: AlterTableMoveAllStmt(orig_tablespacename=None, objtype=None, roles=None, new_tablespacename=None, nowait=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2236>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2236>`__ parser node.
 
    .. attribute:: orig_tablespacename
       :type: str
-
-      None
 
    .. attribute:: objtype
       :type: ObjectType
@@ -904,67 +888,57 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: new_tablespacename
       :type: str
 
-      None
-
    .. attribute:: nowait
       :type: bool
-
-      None
 
 
 .. class:: AlterTableSpaceOptionsStmt(tablespacename=None, options=None, isReset=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2228>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2228>`__ parser node.
 
    .. attribute:: tablespacename
       :type: str
 
-      None
-
    .. attribute:: options
       :type: tuple
-
-      None
 
    .. attribute:: isReset
       :type: bool
 
-      None
-
 
 .. class:: AlterTableStmt(relation=None, cmds=None, relkind=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1779>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1779>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
 
-      table to work on
+      Table to work on
 
    .. attribute:: cmds
       :type: tuple
 
-      list of subcommands
+      List of subcommands
 
    .. attribute:: relkind
       :type: ObjectType
 
-      type of object
+      Type of object
 
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if table missing
+      Skip error if table missing
 
 
 .. class:: AlterTypeStmt(typeName=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2990>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2990>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
 
-      type name (possibly qualified)
+      Type name (possibly qualified)
 
    .. attribute:: options
       :type: tuple
@@ -974,27 +948,27 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterUserMappingStmt(user=None, servername=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2348>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2348>`__ parser node.
 
    .. attribute:: user
       :type: RoleSpec*
 
-      user role
+      User role
 
    .. attribute:: servername
       :type: str
 
-      server name
+      Server name
 
    .. attribute:: options
       :type: tuple
 
-      generic options to server
+      Generic options to server
 
 
 .. class:: AlternativeSubPlan(subplans=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L744>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L744>`__ parser node.
 
    .. attribute:: subplans
       :type: tuple
@@ -1004,202 +978,198 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ArrayCoerceExpr(arg=None, elemexpr=None, resulttypmod=None, coerceformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L855>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L855>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input expression (yields an array)
+      Input expression (yields an array)
 
    .. attribute:: elemexpr
       :type: Expr*
 
-      expression representing per-element work
+      Expression representing per-element work
 
    .. attribute:: resulttypmod
       :type: int32
 
-      output typmod (also element typmod)
+      Output typmod (also element typmod)
 
    .. attribute:: coerceformat
       :type: CoercionForm
 
-      how to display this node
+      How to display this node
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: ArrayExpr(elements=None, multidims=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L985>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L985>`__ parser node.
 
    .. attribute:: elements
       :type: tuple
 
-      the array elements or sub-arrays
+      The array elements or sub-arrays
 
    .. attribute:: multidims
       :type: bool
 
-      true if elements are sub-arrays
+      True if elements are sub-arrays
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: BoolExpr(boolop=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L579>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L579>`__ parser node.
 
    .. attribute:: boolop
       :type: BoolExprType
 
-      None
-
    .. attribute:: args
       :type: tuple
 
-      arguments to this expression
+      Arguments to this expression
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: BooleanTest(arg=None, booltesttype=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1239>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1239>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input expression
+      Input expression
 
    .. attribute:: booltesttype
       :type: BoolTestType
 
-      test type
+      Test type
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CallContext(atomic=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2910>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2910>`__ parser node.
 
    .. attribute:: atomic
       :type: bool
 
-      None
-
 
 .. class:: CallStmt(funccall=None, funcexpr=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2903>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2903>`__ parser node.
 
    .. attribute:: funccall
       :type: FuncCall*
 
-      from the parser
+      From the parser
 
    .. attribute:: funcexpr
       :type: FuncExpr*
 
-      transformed
+      Transformed
 
 
 .. class:: CaseExpr(arg=None, args=None, defresult=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L927>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L927>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      implicit equality comparison argument
+      Implicit equality comparison argument
 
    .. attribute:: args
       :type: tuple
 
-      the arguments (list of WHEN clauses)
+      The arguments (list of WHEN clauses)
 
    .. attribute:: defresult
       :type: Expr*
 
-      the default result (ELSE clause)
+      The default result (ELSE clause)
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CaseTestExpr(typeMod=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L969>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L969>`__ parser node.
 
    .. attribute:: typeMod
       :type: int32
 
-      typemod for substituted value
+      Typemod for substituted value
 
 
 .. class:: CaseWhen(expr=None, result=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L941>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L941>`__ parser node.
 
    .. attribute:: expr
       :type: Expr*
 
-      condition expression
+      Condition expression
 
    .. attribute:: result
       :type: Expr*
 
-      substitution result
+      Substitution result
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CheckPointStmt()
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3305>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3305>`__ parser node.
 
 
 .. class:: ClosePortalStmt(portalname=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2735>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2735>`__ parser node.
 
    .. attribute:: portalname
       :type: str
 
-      name of the portal (cursor)
+      Name of the portal (cursor)
 
 
 .. class:: ClusterStmt(relation=None, indexname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3213>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3213>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
 
-      relation being indexed, or NULL if all
+      Relation being indexed, or NULL if all
 
    .. attribute:: indexname
       :type: str
 
-      original index defined
+      Original index defined
 
    .. attribute:: options
       :type: int
@@ -1209,137 +1179,137 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CoalesceExpr(args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1081>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1081>`__ parser node.
 
    .. attribute:: args
       :type: tuple
 
-      the arguments
+      The arguments
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CoerceToDomain(arg=None, resulttypmod=None, coercionformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1256>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1256>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input expression
+      Input expression
 
    .. attribute:: resulttypmod
       :type: int32
 
-      output typmod (currently always -1)
+      Output typmod (currently always -1)
 
    .. attribute:: coercionformat
       :type: CoercionForm
 
-      how to display this node
+      How to display this node
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CoerceToDomainValue(typeMod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1276>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1276>`__ parser node.
 
    .. attribute:: typeMod
       :type: int32
 
-      typemod for substituted value
+      Typemod for substituted value
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CoerceViaIO(arg=None, coerceformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L831>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L831>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input expression
+      Input expression
 
    .. attribute:: coerceformat
       :type: CoercionForm
 
-      how to display this node
+      How to display this node
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CollateClause(arg=None, collname=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L307>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L307>`__ parser node.
 
    .. attribute:: arg
       :type: Node
 
-      input expression
+      Input expression
 
    .. attribute:: collname
       :type: tuple
 
-      possibly-qualified collation name
+      Possibly-qualified collation name
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CollateExpr(arg=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L897>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L897>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input expression
+      Input expression
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: ColumnDef(colname=None, typeName=None, inhcount=None, is_local=None, is_not_null=None, is_from_type=None, storage=None, raw_default=None, cooked_default=None, identity=None, identitySequence=None, generated=None, collClause=None, constraints=None, fdwoptions=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L644>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L644>`__ parser node.
 
    .. attribute:: colname
       :type: str
 
-      name of column
+      Name of column
 
    .. attribute:: typeName
       :type: TypeName*
 
-      type of column
+      Type of column
 
    .. attribute:: inhcount
       :type: int
 
-      number of times column is inherited
+      Number of times column is inherited
 
    .. attribute:: is_local
       :type: bool
 
-      column has local (non-inherited) def'n
+      Column has local (non-inherited) def'n
 
    .. attribute:: is_not_null
       :type: bool
@@ -1349,78 +1319,78 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: is_from_type
       :type: bool
 
-      column definition came from table type
+      Column definition came from table type
 
    .. attribute:: storage
       :type: str
 
-      attstorage setting, or 0 for default
+      Attstorage setting, or 0 for default
 
    .. attribute:: raw_default
       :type: Node
 
-      default value (untransformed parse tree)
+      Default value (untransformed parse tree)
 
    .. attribute:: cooked_default
       :type: Node
 
-      default value (transformed expr tree)
+      Default value (transformed expr tree)
 
    .. attribute:: identity
       :type: str
 
-      attidentity setting
+      Attidentity setting
 
    .. attribute:: identitySequence
       :type: RangeVar*
 
-      to store identity sequence name for
+      To store identity sequence name for
       * ALTER TABLE ... ADD COLUMN
 
    .. attribute:: generated
       :type: str
 
-      attgenerated setting
+      Attgenerated setting
 
    .. attribute:: collClause
       :type: CollateClause*
 
-      untransformed COLLATE spec, if any
+      Untransformed COLLATE spec, if any
 
    .. attribute:: constraints
       :type: tuple
 
-      other constraints on column
+      Other constraints on column
 
    .. attribute:: fdwoptions
       :type: tuple
 
-      per-column FDW options
+      Per-column FDW options
 
    .. attribute:: location
       :type: int
 
-      parse location, or -1 if none/unknown
+      Parse location, or -1 if none/unknown
 
 
 .. class:: ColumnRef(fields=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L233>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L233>`__ parser node.
 
    .. attribute:: fields
       :type: tuple
 
-      field names (Value strings) or A_Star
+      Field names (Value strings) or A_Star
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CommentStmt(objtype=None, object=None, comment=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2683>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2683>`__ parser node.
 
    .. attribute:: objtype
       :type: ObjectType
@@ -1440,48 +1410,48 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CommonTableExpr(ctename=None, aliascolnames=None, ctematerialized=None, ctequery=None, location=None, cterecursive=None, cterefcount=None, ctecolnames=None, ctecoltypes=None, ctecoltypmods=None, ctecolcollations=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1452>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1452>`__ parser node.
 
    .. attribute:: ctename
       :type: str
 
-      query name (never qualified)
+      Query name (never qualified)
 
    .. attribute:: aliascolnames
       :type: tuple
 
-      optional list of column names
+      Optional list of column names
 
    .. attribute:: ctematerialized
       :type: CTEMaterialize
 
-      is this an optimization fence?
+      Is this an optimization fence?
 
    .. attribute:: ctequery
       :type: Node
 
-      the CTE's subquery
+      The CTE's subquery
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
    .. attribute:: cterecursive
       :type: bool
 
-      is this CTE actually recursive?
+      Is this CTE actually recursive?
 
    .. attribute:: cterefcount
       :type: int
 
-      number of RTEs referencing this CTE
+      Number of RTEs referencing this CTE
       * (excluding internal self-references)
 
    .. attribute:: ctecolnames
       :type: tuple
 
-      list of output column names
+      List of output column names
 
    .. attribute:: ctecoltypes
       :type: tuple
@@ -1491,7 +1461,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: ctecoltypmods
       :type: tuple
 
-      integer list of output column typmods
+      Integer list of output column typmods
 
    .. attribute:: ctecolcollations
       :type: tuple
@@ -1501,27 +1471,25 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CompositeTypeStmt(typevar=None, coldeflist=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3076>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3076>`__ parser node.
 
    .. attribute:: typevar
       :type: RangeVar*
 
-      the composite type to be created
+      The composite type to be created
 
    .. attribute:: coldeflist
       :type: tuple
 
-      list of ColumnDef nodes
+      List of ColumnDef nodes
 
 
 .. class:: Constraint(contype=None, conname=None, deferrable=None, initdeferred=None, location=None, is_no_inherit=None, raw_expr=None, cooked_expr=None, generated_when=None, keys=None, including=None, exclusions=None, options=None, indexname=None, indexspace=None, reset_default_tblspc=None, access_method=None, where_clause=None, pktable=None, fk_attrs=None, pk_attrs=None, fk_matchtype=None, fk_upd_action=None, fk_del_action=None, old_conpfeqop=None, skip_validation=None, initially_valid=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2155>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2155>`__ parser node.
 
    .. attribute:: contype
       :type: ConstrType
-
-      see above
 
    .. attribute:: conname
       :type: str
@@ -1541,22 +1509,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
    .. attribute:: is_no_inherit
       :type: bool
 
-      is constraint non-inheritable?
+      Is constraint non-inheritable?
 
    .. attribute:: raw_expr
       :type: Node
 
-      expr, as untransformed parse tree
+      Expr, as untransformed parse tree
 
    .. attribute:: cooked_expr
       :type: str
 
-      expr, as nodeToString representation
+      Expr, as nodeToString representation
 
    .. attribute:: generated_when
       :type: str
@@ -1578,38 +1546,38 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: exclusions
       :type: tuple
 
-      list of (IndexElem, operator name) pairs
+      List of (IndexElem, operator name) pairs
 
    .. attribute:: options
       :type: tuple
 
-      options from WITH clause
+      Options from WITH clause
 
    .. attribute:: indexname
       :type: str
 
-      existing index to use; otherwise NULL
+      Existing index to use; otherwise NULL
 
    .. attribute:: indexspace
       :type: str
 
-      index tablespace; NULL for default
+      Index tablespace; NULL for default
 
    .. attribute:: reset_default_tblspc
       :type: bool
 
-      reset default_tablespace prior to
+      Reset default_tablespace prior to
       * creating the index
 
    .. attribute:: access_method
       :type: str
 
-      index access method; NULL for default
+      Index access method; NULL for default
 
    .. attribute:: where_clause
       :type: Node
 
-      partial index predicate
+      Partial index predicate
 
    .. attribute:: pktable
       :type: RangeVar*
@@ -1644,22 +1612,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: old_conpfeqop
       :type: tuple
 
-      pg_constraint.conpfeqop of my former self
+      Pg_constraint.conpfeqop of my former self
 
    .. attribute:: skip_validation
       :type: bool
 
-      skip validation of existing rows?
+      Skip validation of existing rows?
 
    .. attribute:: initially_valid
       :type: bool
 
-      mark the new constraint as valid?
+      Mark the new constraint as valid?
 
 
 .. class:: ConstraintsSetStmt(constraints=None, deferred=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3345>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3345>`__ parser node.
 
    .. attribute:: constraints
       :type: tuple
@@ -1669,42 +1637,40 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: deferred
       :type: bool
 
-      None
-
 
 .. class:: ConvertRowtypeExpr(arg=None, convertformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L880>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L880>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input expression
+      Input expression
 
    .. attribute:: convertformat
       :type: CoercionForm
 
-      how to display this node
+      How to display this node
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: CopyStmt(relation=None, query=None, attlist=None, is_from=None, is_program=None, filename=None, options=None, whereClause=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2013>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2013>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
 
-      the relation to copy
+      The relation to copy
 
    .. attribute:: query
       :type: Node
 
-      the query (SELECT or DML statement with
+      The query (SELECT or DML statement with
       * RETURNING) to copy, as a raw parse tree
 
    .. attribute:: attlist
@@ -1721,12 +1687,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: is_program
       :type: bool
 
-      is 'filename' a program to popen?
+      Is 'filename' a program to popen?
 
    .. attribute:: filename
       :type: str
 
-      filename, or NULL for STDIN/STDOUT
+      Filename, or NULL for STDIN/STDOUT
 
    .. attribute:: options
       :type: tuple
@@ -1741,57 +1707,47 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateAmStmt(amname=None, handler_name=None, amtype=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2421>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2421>`__ parser node.
 
    .. attribute:: amname
       :type: str
 
-      access method name
+      Access method name
 
    .. attribute:: handler_name
       :type: tuple
 
-      handler function name
+      Handler function name
 
    .. attribute:: amtype
       :type: str
 
-      type of access method
+      Type of access method
 
 
 .. class:: CreateCastStmt(sourcetype=None, targettype=None, func=None, context=None, inout=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3399>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3399>`__ parser node.
 
    .. attribute:: sourcetype
       :type: TypeName*
 
-      None
-
    .. attribute:: targettype
       :type: TypeName*
-
-      None
 
    .. attribute:: func
       :type: ObjectWithArgs*
 
-      None
-
    .. attribute:: context
       :type: CoercionContext
-
-      None
 
    .. attribute:: inout
       :type: bool
 
-      None
-
 
 .. class:: CreateConversionStmt(conversion_name=None, for_encoding_name=None, to_encoding_name=None, func_name=None, def_=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3385>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3385>`__ parser node.
 
    .. attribute:: conversion_name
       :type: tuple
@@ -1801,67 +1757,67 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: for_encoding_name
       :type: str
 
-      source encoding name
+      Source encoding name
 
    .. attribute:: to_encoding_name
       :type: str
 
-      destination encoding name
+      Destination encoding name
 
    .. attribute:: func_name
       :type: tuple
 
-      qualified conversion function name
+      Qualified conversion function name
 
    .. attribute:: def_
       :type: bool
 
-      is this a default conversion?
+      Is this a default conversion?
 
 
 .. class:: CreateDomainStmt(domainname=None, typeName=None, collClause=None, constraints=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2587>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2587>`__ parser node.
 
    .. attribute:: domainname
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: typeName
       :type: TypeName*
 
-      the base type
+      The base type
 
    .. attribute:: collClause
       :type: CollateClause*
 
-      untransformed COLLATE spec, if any
+      Untransformed COLLATE spec, if any
 
    .. attribute:: constraints
       :type: tuple
 
-      constraints (list of Constraint nodes)
+      Constraints (list of Constraint nodes)
 
 
 .. class:: CreateEnumStmt(typeName=None, vals=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3087>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3087>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: vals
       :type: tuple
 
-      enum values (list of Value strings)
+      Enum values (list of Value strings)
 
 
 .. class:: CreateEventTrigStmt(trigname=None, eventname=None, whenclause=None, funcname=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2460>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2460>`__ parser node.
 
    .. attribute:: trigname
       :type: str
@@ -1871,32 +1827,30 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: eventname
       :type: str
 
-      event's identifier
+      Event's identifier
 
    .. attribute:: whenclause
       :type: tuple
 
-      list of DefElems indicating filtering
+      List of DefElems indicating filtering
 
    .. attribute:: funcname
       :type: tuple
 
-      qual. name of function to call
+      Qual. name of function to call
 
 
 .. class:: CreateExtensionStmt(extname=None, if_not_exists=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2251>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2251>`__ parser node.
 
    .. attribute:: extname
       :type: str
 
-      None
-
    .. attribute:: if_not_exists
       :type: bool
 
-      just do nothing if it already exists?
+      Just do nothing if it already exists?
 
    .. attribute:: options
       :type: tuple
@@ -1906,12 +1860,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateFdwStmt(fdwname=None, func_options=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2281>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2281>`__ parser node.
 
    .. attribute:: fdwname
       :type: str
 
-      foreign-data wrapper name
+      Foreign-data wrapper name
 
    .. attribute:: func_options
       :type: tuple
@@ -1921,27 +1875,27 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: options
       :type: tuple
 
-      generic options to FDW
+      Generic options to FDW
 
 
 .. class:: CreateForeignServerStmt(servername=None, servertype=None, version=None, fdwname=None, if_not_exists=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2302>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2302>`__ parser node.
 
    .. attribute:: servername
       :type: str
 
-      server name
+      Server name
 
    .. attribute:: servertype
       :type: str
 
-      optional server type
+      Optional server type
 
    .. attribute:: version
       :type: str
 
-      optional server version
+      Optional server version
 
    .. attribute:: fdwname
       :type: str
@@ -1951,42 +1905,36 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: if_not_exists
       :type: bool
 
-      just do nothing if it already exists?
+      Just do nothing if it already exists?
 
    .. attribute:: options
       :type: tuple
 
-      generic options to server
+      Generic options to server
 
 
 .. class:: CreateForeignTableStmt(base=None, servername=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2327>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2327>`__ parser node.
 
    .. attribute:: base
       :type: CreateStmt
 
-      None
-
    .. attribute:: servername
       :type: str
-
-      None
 
    .. attribute:: options
       :type: tuple
 
-      None
-
 
 .. class:: CreateFunctionStmt(is_procedure=None, replace=None, funcname=None, parameters=None, returnType=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2840>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2840>`__ parser node.
 
    .. attribute:: is_procedure
       :type: bool
 
-      it's really CREATE PROCEDURE
+      It's really CREATE PROCEDURE
 
    .. attribute:: replace
       :type: bool
@@ -1996,83 +1944,83 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: funcname
       :type: tuple
 
-      qualified name of function to create
+      Qualified name of function to create
 
    .. attribute:: parameters
       :type: tuple
 
-      a list of FunctionParameter
+      A list of FunctionParameter
 
    .. attribute:: returnType
       :type: TypeName*
 
-      the return type
+      The return type
 
    .. attribute:: options
       :type: tuple
 
-      a list of DefElem
+      A list of DefElem
 
 
 .. class:: CreateOpClassItem(itemtype=None, name=None, number=None, order_family=None, class_args=None, storedtype=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2615>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2615>`__ parser node.
 
    .. attribute:: itemtype
       :type: int
 
-      see codes above
+      See codes above
 
    .. attribute:: name
       :type: ObjectWithArgs*
 
-      operator or function name and args
+      Operator or function name and args
 
    .. attribute:: number
       :type: int
 
-      strategy num or support proc num
+      Strategy num or support proc num
 
    .. attribute:: order_family
       :type: tuple
 
-      only used for ordering operators
+      Only used for ordering operators
 
    .. attribute:: class_args
       :type: tuple
 
-      amproclefttype/amprocrighttype or
+      Amproclefttype/amprocrighttype or
       * amoplefttype/amoprighttype
 
    .. attribute:: storedtype
       :type: TypeName*
 
-      datatype stored in index
+      Datatype stored in index
 
 
 .. class:: CreateOpClassStmt(opclassname=None, opfamilyname=None, amname=None, datatype=None, items=None, isDefault=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2600>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2600>`__ parser node.
 
    .. attribute:: opclassname
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: opfamilyname
       :type: tuple
 
-      qualified name (ditto); NIL if omitted
+      Qualified name (ditto); NIL if omitted
 
    .. attribute:: amname
       :type: str
 
-      name of index AM opclass is for
+      Name of index AM opclass is for
 
    .. attribute:: datatype
       :type: TypeName*
 
-      datatype of indexed column
+      Datatype of indexed column
 
    .. attribute:: items
       :type: tuple
@@ -2087,22 +2035,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateOpFamilyStmt(opfamilyname=None, amname=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2632>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2632>`__ parser node.
 
    .. attribute:: opfamilyname
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: amname
       :type: str
 
-      name of index AM opfamily is for
+      Name of index AM opfamily is for
 
 
 .. class:: CreatePLangStmt(replace=None, plname=None, plhandler=None, plinline=None, plvalidator=None, pltrusted=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2485>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2485>`__ parser node.
 
    .. attribute:: replace
       :type: bool
@@ -2122,12 +2070,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: plinline
       :type: tuple
 
-      optional inline function (qual. name)
+      Optional inline function (qual. name)
 
    .. attribute:: plvalidator
       :type: tuple
 
-      optional validator function (qual. name)
+      Optional validator function (qual. name)
 
    .. attribute:: pltrusted
       :type: bool
@@ -2137,7 +2085,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreatePolicyStmt(policy_name=None, table=None, cmd_name=None, permissive=None, roles=None, qual=None, with_check=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2391>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2391>`__ parser node.
 
    .. attribute:: policy_name
       :type: str
@@ -2147,37 +2095,37 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: table
       :type: RangeVar*
 
-      the table name the policy applies to
+      The table name the policy applies to
 
    .. attribute:: cmd_name
       :type: str
 
-      the command name the policy applies to
+      The command name the policy applies to
 
    .. attribute:: permissive
       :type: bool
 
-      restrictive or permissive policy
+      Restrictive or permissive policy
 
    .. attribute:: roles
       :type: tuple
 
-      the roles associated with the policy
+      The roles associated with the policy
 
    .. attribute:: qual
       :type: Node
 
-      the policy's condition
+      The policy's condition
 
    .. attribute:: with_check
       :type: Node
 
-      the policy's WITH CHECK condition.
+      The policy's WITH CHECK condition.
 
 
 .. class:: CreatePublicationStmt(pubname=None, options=None, tables=None, for_all_tables=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3520>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3520>`__ parser node.
 
    .. attribute:: pubname
       :type: str
@@ -2202,22 +2150,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateRangeStmt(typeName=None, params=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3098>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3098>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: params
       :type: tuple
 
-      range parameters (list of DefElem)
+      Range parameters (list of DefElem)
 
 
 .. class:: CreateRoleStmt(stmt_type=None, role=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2512>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2512>`__ parser node.
 
    .. attribute:: stmt_type
       :type: RoleStmtType
@@ -2227,7 +2175,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: role
       :type: str
 
-      role name
+      Role name
 
    .. attribute:: options
       :type: tuple
@@ -2237,107 +2185,103 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateSchemaStmt(schemaname=None, authrole=None, schemaElts=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1760>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1760>`__ parser node.
 
    .. attribute:: schemaname
       :type: str
 
-      the name of the schema to create
+      The name of the schema to create
 
    .. attribute:: authrole
       :type: RoleSpec*
 
-      the owner of the created schema
+      The owner of the created schema
 
    .. attribute:: schemaElts
       :type: tuple
 
-      schema components (list of parsenodes)
+      Schema components (list of parsenodes)
 
    .. attribute:: if_not_exists
       :type: bool
 
-      just do nothing if schema already exists?
+      Just do nothing if schema already exists?
 
 
 .. class:: CreateSeqStmt(sequence=None, options=None, for_identity=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2548>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2548>`__ parser node.
 
    .. attribute:: sequence
       :type: RangeVar*
 
-      the sequence to create
+      The sequence to create
 
    .. attribute:: options
       :type: tuple
 
-      None
-
    .. attribute:: for_identity
       :type: bool
-
-      None
 
    .. attribute:: if_not_exists
       :type: bool
 
-      just do nothing if it already exists?
+      Just do nothing if it already exists?
 
 
 .. class:: CreateStatsStmt(defnames=None, stat_types=None, exprs=None, relations=None, stxcomment=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2813>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2813>`__ parser node.
 
    .. attribute:: defnames
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: stat_types
       :type: tuple
 
-      stat types (list of Value strings)
+      Stat types (list of Value strings)
 
    .. attribute:: exprs
       :type: tuple
 
-      expressions to build statistics on
+      Expressions to build statistics on
 
    .. attribute:: relations
       :type: tuple
 
-      rels to build stats on (list of RangeVar)
+      Rels to build stats on (list of RangeVar)
 
    .. attribute:: stxcomment
       :type: str
 
-      comment to apply to stats, or NULL
+      Comment to apply to stats, or NULL
 
    .. attribute:: if_not_exists
       :type: bool
 
-      do nothing if stats name already exists
+      Do nothing if stats name already exists
 
 
 .. class:: CreateStmt(relation=None, tableElts=None, inhRelations=None, partbound=None, partspec=None, ofTypename=None, constraints=None, options=None, oncommit=None, tablespacename=None, accessMethod=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2075>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2075>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
 
-      relation to create
+      Relation to create
 
    .. attribute:: tableElts
       :type: tuple
 
-      column definitions (list of ColumnDef)
+      Column definitions (list of ColumnDef)
 
    .. attribute:: inhRelations
       :type: tuple
 
-      relations to inherit from (list of
+      Relations to inherit from (list of
       * inhRelation)
 
    .. attribute:: partbound
@@ -2358,37 +2302,37 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: constraints
       :type: tuple
 
-      constraints (list of Constraint nodes)
+      Constraints (list of Constraint nodes)
 
    .. attribute:: options
       :type: tuple
 
-      options from WITH clause
+      Options from WITH clause
 
    .. attribute:: oncommit
       :type: OnCommitAction
 
-      what do we do at COMMIT?
+      What do we do at COMMIT?
 
    .. attribute:: tablespacename
       :type: str
 
-      table space to use, or NULL
+      Table space to use, or NULL
 
    .. attribute:: accessMethod
       :type: str
 
-      table access method
+      Table access method
 
    .. attribute:: if_not_exists
       :type: bool
 
-      just do nothing if it already exists?
+      Just do nothing if it already exists?
 
 
 .. class:: CreateSubscriptionStmt(subname=None, conninfo=None, publication=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3543>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3543>`__ parser node.
 
    .. attribute:: subname
       :type: str
@@ -2413,17 +2357,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateTableAsStmt(query=None, into=None, relkind=None, is_select_into=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3279>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3279>`__ parser node.
 
    .. attribute:: query
       :type: Node
 
-      the query (see comments above)
+      The query (see comments above)
 
    .. attribute:: into
       :type: IntoClause*
 
-      destination table
+      Destination table
 
    .. attribute:: relkind
       :type: ObjectType
@@ -2433,72 +2377,54 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: is_select_into
       :type: bool
 
-      it was written as SELECT INTO
+      It was written as SELECT INTO
 
    .. attribute:: if_not_exists
       :type: bool
 
-      just do nothing if it already exists?
+      Just do nothing if it already exists?
 
 
 .. class:: CreateTableSpaceStmt(tablespacename=None, owner=None, location=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2212>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2212>`__ parser node.
 
    .. attribute:: tablespacename
       :type: str
 
-      None
-
    .. attribute:: owner
       :type: RoleSpec*
-
-      None
 
    .. attribute:: location
       :type: str
 
-      None
-
    .. attribute:: options
       :type: tuple
-
-      None
 
 
 .. class:: CreateTransformStmt(replace=None, type_name=None, lang=None, fromsql=None, tosql=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3413>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3413>`__ parser node.
 
    .. attribute:: replace
       :type: bool
 
-      None
-
    .. attribute:: type_name
       :type: TypeName*
-
-      None
 
    .. attribute:: lang
       :type: str
 
-      None
-
    .. attribute:: fromsql
       :type: ObjectWithArgs*
-
-      None
 
    .. attribute:: tosql
       :type: ObjectWithArgs*
 
-      None
-
 
 .. class:: CreateTrigStmt(trigname=None, relation=None, funcname=None, args=None, row=None, timing=None, events=None, columns=None, whenClause=None, isconstraint=None, transitionRels=None, deferrable=None, initdeferred=None, constrrel=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2433>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2433>`__ parser node.
 
    .. attribute:: trigname
       :type: str
@@ -2508,17 +2434,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: relation
       :type: RangeVar*
 
-      relation trigger is on
+      Relation trigger is on
 
    .. attribute:: funcname
       :type: tuple
 
-      qual. name of function to call
+      Qual. name of function to call
 
    .. attribute:: args
       :type: tuple
 
-      list of (T_String) Values or NIL
+      List of (T_String) Values or NIL
 
    .. attribute:: row
       :type: bool
@@ -2538,12 +2464,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: columns
       :type: tuple
 
-      column names, or NIL for all columns
+      Column names, or NIL for all columns
 
    .. attribute:: whenClause
       :type: Node
 
-      qual expression, or NULL if none
+      Qual expression, or NULL if none
 
    .. attribute:: isconstraint
       :type: bool
@@ -2568,42 +2494,42 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: constrrel
       :type: RangeVar*
 
-      opposite relation, if RI trigger
+      Opposite relation, if RI trigger
 
 
 .. class:: CreateUserMappingStmt(user=None, servername=None, if_not_exists=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2339>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2339>`__ parser node.
 
    .. attribute:: user
       :type: RoleSpec*
 
-      user role
+      User role
 
    .. attribute:: servername
       :type: str
 
-      server name
+      Server name
 
    .. attribute:: if_not_exists
       :type: bool
 
-      just do nothing if it already exists?
+      Just do nothing if it already exists?
 
    .. attribute:: options
       :type: tuple
 
-      generic options to server
+      Generic options to server
 
 
 .. class:: CreatedbStmt(dbname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3156>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3156>`__ parser node.
 
    .. attribute:: dbname
       :type: str
 
-      name of database to create
+      Name of database to create
 
    .. attribute:: options
       :type: tuple
@@ -2613,7 +2539,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CurrentOfExpr(cvarno=None, cursor_name=None, cursor_param=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1313>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1313>`__ parser node.
 
    .. attribute:: cvarno
       :type: Index
@@ -2623,17 +2549,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: cursor_name
       :type: str
 
-      name of referenced cursor, or NULL
+      Name of referenced cursor, or NULL
 
    .. attribute:: cursor_param
       :type: int
 
-      refcursor parameter number, or 0
+      Refcursor parameter number, or 0
 
 
 .. class:: DeallocateStmt(name=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3453>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3453>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -2643,27 +2569,27 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DeclareCursorStmt(portalname=None, options=None, query=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2723>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2723>`__ parser node.
 
    .. attribute:: portalname
       :type: str
 
-      name of the portal (cursor)
+      Name of the portal (cursor)
 
    .. attribute:: options
       :type: int
 
-      bitmask of options (see above)
+      Bitmask of options (see above)
 
    .. attribute:: query
       :type: Node
 
-      the query (see comments above)
+      The query (see comments above)
 
 
 .. class:: DefElem(defnamespace=None, defname=None, arg=None, defaction=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L729>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L729>`__ parser node.
 
    .. attribute:: defnamespace
       :type: str
@@ -2673,87 +2599,85 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: defname
       :type: str
 
-      None
-
    .. attribute:: arg
       :type: Node
 
-      a (Value \*) or a (TypeName \*)
+      A (Value \*) or a (TypeName \*)
 
    .. attribute:: defaction
       :type: DefElemAction
 
-      unspecified action, or SET/ADD/DROP
+      Unspecified action, or SET/ADD/DROP
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: DefineStmt(kind=None, oldstyle=None, defnames=None, args=None, definition=None, if_not_exists=None, replace=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2571>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2571>`__ parser node.
 
    .. attribute:: kind
       :type: ObjectType
 
-      aggregate, operator, type
+      Aggregate, operator, type
 
    .. attribute:: oldstyle
       :type: bool
 
-      hack to signal old CREATE AGG syntax
+      Hack to signal old CREATE AGG syntax
 
    .. attribute:: defnames
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: args
       :type: tuple
 
-      a list of TypeName (if needed)
+      A list of TypeName (if needed)
 
    .. attribute:: definition
       :type: tuple
 
-      a list of DefElem
+      A list of DefElem
 
    .. attribute:: if_not_exists
       :type: bool
 
-      just do nothing if it already exists?
+      Just do nothing if it already exists?
 
    .. attribute:: replace
       :type: bool
 
-      replace if already exists?
+      Replace if already exists?
 
 
 .. class:: DeleteStmt(relation=None, usingClause=None, whereClause=None, returningList=None, withClause=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1546>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1546>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
 
-      relation to delete from
+      Relation to delete from
 
    .. attribute:: usingClause
       :type: tuple
 
-      optional using clause for more tables
+      Optional using clause for more tables
 
    .. attribute:: whereClause
       :type: Node
 
-      qualifications
+      Qualifications
 
    .. attribute:: returningList
       :type: tuple
 
-      list of expressions to return
+      List of expressions to return
 
    .. attribute:: withClause
       :type: WithClause*
@@ -2763,17 +2687,15 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DiscardStmt(target=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3323>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3323>`__ parser node.
 
    .. attribute:: target
       :type: DiscardMode
 
-      None
-
 
 .. class:: DoStmt(args=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2884>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2884>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -2783,22 +2705,18 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DropOwnedStmt(roles=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3463>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3463>`__ parser node.
 
    .. attribute:: roles
       :type: tuple
 
-      None
-
    .. attribute:: behavior
       :type: DropBehavior
-
-      None
 
 
 .. class:: DropRoleStmt(roles=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2536>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2536>`__ parser node.
 
    .. attribute:: roles
       :type: tuple
@@ -2808,22 +2726,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if a role is missing?
+      Skip error if a role is missing?
 
 
 .. class:: DropStmt(objects=None, removeType=None, behavior=None, missing_ok=None, concurrent=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2657>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2657>`__ parser node.
 
    .. attribute:: objects
       :type: tuple
 
-      list of names
+      List of names
 
    .. attribute:: removeType
       :type: ObjectType
 
-      object type
+      Object type
 
    .. attribute:: behavior
       :type: DropBehavior
@@ -2833,17 +2751,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if object is missing?
+      Skip error if object is missing?
 
    .. attribute:: concurrent
       :type: bool
 
-      drop index concurrently?
+      Drop index concurrently?
 
 
 .. class:: DropSubscriptionStmt(subname=None, missing_ok=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3571>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3571>`__ parser node.
 
    .. attribute:: subname
       :type: str
@@ -2863,62 +2781,60 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DropTableSpaceStmt(tablespacename=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2221>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2221>`__ parser node.
 
    .. attribute:: tablespacename
       :type: str
 
-      None
-
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if missing?
+      Skip error if missing?
 
 
 .. class:: DropUserMappingStmt(user=None, servername=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2356>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2356>`__ parser node.
 
    .. attribute:: user
       :type: RoleSpec*
 
-      user role
+      User role
 
    .. attribute:: servername
       :type: str
 
-      server name
+      Server name
 
    .. attribute:: missing_ok
       :type: bool
 
-      ignore missing mappings
+      Ignore missing mappings
 
 
 .. class:: DropdbStmt(dbname=None, missing_ok=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3185>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3185>`__ parser node.
 
    .. attribute:: dbname
       :type: str
 
-      database to drop
+      Database to drop
 
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if db is missing?
+      Skip error if db is missing?
 
    .. attribute:: options
       :type: tuple
 
-      currently only FORCE is supported
+      Currently only FORCE is supported
 
 
 .. class:: ExecuteStmt(name=None, params=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3441>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3441>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -2933,92 +2849,90 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ExplainStmt(query=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3259>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3259>`__ parser node.
 
    .. attribute:: query
       :type: Node
 
-      the query (see comments above)
+      The query (see comments above)
 
    .. attribute:: options
       :type: tuple
 
-      list of DefElem nodes
+      List of DefElem nodes
 
 
 .. class:: Expr()
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L136>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L136>`__ parser node.
 
 
 .. class:: FetchStmt(direction=None, howMany=None, portalname=None, ismove=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2758>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2758>`__ parser node.
 
    .. attribute:: direction
       :type: FetchDirection
 
-      see above
-
    .. attribute:: howMany
       :type: long
 
-      number of rows, or position argument
+      Number of rows, or position argument
 
    .. attribute:: portalname
       :type: str
 
-      name of portal (cursor)
+      Name of portal (cursor)
 
    .. attribute:: ismove
       :type: bool
 
-      true if MOVE
+      True if MOVE
 
 
 .. class:: FieldSelect(arg=None, fieldnum=None, resulttypmod=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L759>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L759>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input expression
+      Input expression
 
    .. attribute:: fieldnum
       :type: AttrNumber
 
-      attribute number of field to extract
+      Attribute number of field to extract
 
    .. attribute:: resulttypmod
       :type: int32
 
-      output typmod (usually -1)
+      Output typmod (usually -1)
 
 
 .. class:: FieldStore(arg=None, newvals=None, fieldnums=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L788>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L788>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input tuple value
+      Input tuple value
 
    .. attribute:: newvals
       :type: tuple
 
-      new value(s) for field(s)
+      New value(s) for field(s)
 
    .. attribute:: fieldnums
       :type: tuple
 
-      integer list of field attnums
+      Integer list of field attnums
 
 
 .. class:: FromExpr(fromlist=None, quals=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1507>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1507>`__ parser node.
 
    .. attribute:: fromlist
       :type: tuple
@@ -3028,22 +2942,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: quals
       :type: Node
 
-      qualifiers on join, if any
+      Qualifiers on join, if any
 
 
 .. class:: FuncCall(funcname=None, args=None, agg_order=None, agg_filter=None, agg_within_group=None, agg_star=None, agg_distinct=None, func_variadic=None, over=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L348>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L348>`__ parser node.
 
    .. attribute:: funcname
       :type: tuple
 
-      qualified name of function
+      Qualified name of function
 
    .. attribute:: args
       :type: tuple
 
-      the arguments (list of exprs)
+      The arguments (list of exprs)
 
    .. attribute:: agg_order
       :type: tuple
@@ -3063,17 +2977,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: agg_star
       :type: bool
 
-      argument was really '*'
+      Argument was really '*'
 
    .. attribute:: agg_distinct
       :type: bool
 
-      arguments were labeled DISTINCT
+      Arguments were labeled DISTINCT
 
    .. attribute:: func_variadic
       :type: bool
 
-      last argument was labeled VARIADIC
+      Last argument was labeled VARIADIC
 
    .. attribute:: over
       :type: WindowDef*
@@ -3083,48 +2997,48 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: FuncExpr(funcretset=None, funcvariadic=None, funcformat=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L466>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L466>`__ parser node.
 
    .. attribute:: funcretset
       :type: bool
 
-      true if function returns set
+      True if function returns set
 
    .. attribute:: funcvariadic
       :type: bool
 
-      true if variadic arguments have been
+      True if variadic arguments have been
       * combined into an array last argument
 
    .. attribute:: funcformat
       :type: CoercionForm
 
-      how to display this function call
+      How to display this function call
 
    .. attribute:: args
       :type: tuple
 
-      arguments to the function
+      Arguments to the function
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: FunctionParameter(name=None, argType=None, mode=None, defexpr=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2861>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2861>`__ parser node.
 
    .. attribute:: name
       :type: str
 
-      parameter name, or NULL if not given
+      Parameter name, or NULL if not given
 
    .. attribute:: argType
       :type: TypeName*
@@ -3139,144 +3053,138 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: defexpr
       :type: Node
 
-      raw default expr, or NULL if not given
+      Raw default expr, or NULL if not given
 
 
 .. class:: GrantRoleStmt(granted_roles=None, grantee_roles=None, is_grant=None, admin_opt=None, grantor=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1983>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1983>`__ parser node.
 
    .. attribute:: granted_roles
       :type: tuple
 
-      list of roles to be granted/revoked
+      List of roles to be granted/revoked
 
    .. attribute:: grantee_roles
       :type: tuple
 
-      list of member roles to add/delete
+      List of member roles to add/delete
 
    .. attribute:: is_grant
       :type: bool
 
-      true = GRANT, false = REVOKE
+      True = GRANT, false = REVOKE
 
    .. attribute:: admin_opt
       :type: bool
 
-      with admin option
+      With admin option
 
    .. attribute:: grantor
       :type: RoleSpec*
 
-      set grantor to other than current role
+      Set grantor to other than current role
 
    .. attribute:: behavior
       :type: DropBehavior
 
-      drop behavior (for REVOKE)
+      Drop behavior (for REVOKE)
 
 
 .. class:: GrantStmt(is_grant=None, targtype=None, objtype=None, objects=None, privileges=None, grantees=None, grant_option=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1930>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1930>`__ parser node.
 
    .. attribute:: is_grant
       :type: bool
 
-      true = GRANT, false = REVOKE
+      True = GRANT, false = REVOKE
 
    .. attribute:: targtype
       :type: GrantTargetType
 
-      type of the grant target
+      Type of the grant target
 
    .. attribute:: objtype
       :type: ObjectType
 
-      kind of object being operated on
+      Kind of object being operated on
 
    .. attribute:: objects
       :type: tuple
 
-      list of RangeVar nodes, ObjectWithArgs
+      List of RangeVar nodes, ObjectWithArgs
       * nodes, or plain names (as Value strings)
 
    .. attribute:: privileges
       :type: tuple
 
-      list of AccessPriv nodes
+      List of AccessPriv nodes
 
    .. attribute:: grantees
       :type: tuple
 
-      list of RoleSpec nodes
+      List of RoleSpec nodes
 
    .. attribute:: grant_option
       :type: bool
 
-      grant or revoke grant option
+      Grant or revoke grant option
 
    .. attribute:: behavior
       :type: DropBehavior
 
-      drop behavior (for REVOKE)
+      Drop behavior (for REVOKE)
 
 
 .. class:: GroupingFunc(args=None, refs=None, cols=None, agglevelsup=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L356>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L356>`__ parser node.
 
    .. attribute:: args
       :type: tuple
 
-      arguments, not evaluated but kept for
+      Arguments, not evaluated but kept for
       * benefit of EXPLAIN etc.
 
    .. attribute:: refs
       :type: tuple
 
-      ressortgrouprefs of arguments
+      Ressortgrouprefs of arguments
 
    .. attribute:: cols
       :type: tuple
 
-      actual column positions set by planner
+      Actual column positions set by planner
 
    .. attribute:: agglevelsup
       :type: Index
 
-      same as Aggref.agglevelsup
+      Same as Aggref.agglevelsup
 
    .. attribute:: location
       :type: int
 
-      token location
+      Token location
 
 
 .. class:: GroupingSet(kind=None, content=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1328>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1328>`__ parser node.
 
    .. attribute:: kind
       :type: GroupingSetKind
 
-      None
-
    .. attribute:: content
       :type: tuple
-
-      None
 
    .. attribute:: location
       :type: int
 
-      None
-
 
 .. class:: ImportForeignSchemaStmt(server_name=None, remote_schema=None, local_schema=None, list_type=None, table_list=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2376>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2376>`__ parser node.
 
    .. attribute:: server_name
       :type: str
@@ -3286,17 +3194,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: remote_schema
       :type: str
 
-      remote schema name to query
+      Remote schema name to query
 
    .. attribute:: local_schema
       :type: str
 
-      local schema to create objects in
+      Local schema to create objects in
 
    .. attribute:: list_type
       :type: ImportForeignSchemaType
 
-      type of table list
+      Type of table list
 
    .. attribute:: table_list
       :type: tuple
@@ -3306,42 +3214,42 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: options
       :type: tuple
 
-      list of options to pass to FDW
+      List of options to pass to FDW
 
 
 .. class:: IndexElem(name=None, expr=None, indexcolname=None, collation=None, opclass=None, opclassopts=None, ordering=None, nulls_ordering=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L698>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L698>`__ parser node.
 
    .. attribute:: name
       :type: str
 
-      name of attribute to index, or NULL
+      Name of attribute to index, or NULL
 
    .. attribute:: expr
       :type: Node
 
-      expression to index, or NULL
+      Expression to index, or NULL
 
    .. attribute:: indexcolname
       :type: str
 
-      name for index column; NULL = default
+      Name for index column; NULL = default
 
    .. attribute:: collation
       :type: tuple
 
-      name of collation; NIL = default
+      Name of collation; NIL = default
 
    .. attribute:: opclass
       :type: tuple
 
-      name of desired opclass; NIL = default
+      Name of desired opclass; NIL = default
 
    .. attribute:: opclassopts
       :type: tuple
 
-      opclass-specific options, or NIL
+      Opclass-specific options, or NIL
 
    .. attribute:: ordering
       :type: SortByDir
@@ -3356,37 +3264,37 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: IndexStmt(idxname=None, relation=None, accessMethod=None, tableSpace=None, indexParams=None, indexIncludingParams=None, options=None, whereClause=None, excludeOpNames=None, idxcomment=None, oldCreateSubid=None, oldFirstRelfilenodeSubid=None, unique=None, primary=None, isconstraint=None, deferrable=None, initdeferred=None, transformed=None, concurrent=None, if_not_exists=None, reset_default_tblspc=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2778>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2778>`__ parser node.
 
    .. attribute:: idxname
       :type: str
 
-      name of new index, or NULL for default
+      Name of new index, or NULL for default
 
    .. attribute:: relation
       :type: RangeVar*
 
-      relation to build index on
+      Relation to build index on
 
    .. attribute:: accessMethod
       :type: str
 
-      name of access method (eg. btree)
+      Name of access method (eg. btree)
 
    .. attribute:: tableSpace
       :type: str
 
-      tablespace, or NULL for default
+      Tablespace, or NULL for default
 
    .. attribute:: indexParams
       :type: tuple
 
-      columns to index: a list of IndexElem
+      Columns to index: a list of IndexElem
 
    .. attribute:: indexIncludingParams
       :type: tuple
 
-      additional columns to index: a list
+      Additional columns to index: a list
       * of IndexElem
 
    .. attribute:: options
@@ -3397,79 +3305,79 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: whereClause
       :type: Node
 
-      qualification (partial-index predicate)
+      Qualification (partial-index predicate)
 
    .. attribute:: excludeOpNames
       :type: tuple
 
-      exclusion operator names, or NIL if none
+      Exclusion operator names, or NIL if none
 
    .. attribute:: idxcomment
       :type: str
 
-      comment to apply to index, or NULL
+      Comment to apply to index, or NULL
 
    .. attribute:: oldCreateSubid
       :type: SubTransactionId
 
-      rd_createSubid of oldNode
+      Rd_createSubid of oldNode
 
    .. attribute:: oldFirstRelfilenodeSubid
       :type: SubTransactionId
 
-      rd_firstRelfilenodeSubid of
+      Rd_firstRelfilenodeSubid of
       * oldNode
 
    .. attribute:: unique
       :type: bool
 
-      is index unique?
+      Is index unique?
 
    .. attribute:: primary
       :type: bool
 
-      is index a primary key?
+      Is index a primary key?
 
    .. attribute:: isconstraint
       :type: bool
 
-      is it for a pkey/unique constraint?
+      Is it for a pkey/unique constraint?
 
    .. attribute:: deferrable
       :type: bool
 
-      is the constraint DEFERRABLE?
+      Is the constraint DEFERRABLE?
 
    .. attribute:: initdeferred
       :type: bool
 
-      is the constraint INITIALLY DEFERRED?
+      Is the constraint INITIALLY DEFERRED?
 
    .. attribute:: transformed
       :type: bool
 
-      true when transformIndexStmt is finished
+      True when transformIndexStmt is finished
 
    .. attribute:: concurrent
       :type: bool
 
-      should this be a concurrent index build?
+      Should this be a concurrent index build?
 
    .. attribute:: if_not_exists
       :type: bool
 
-      just do nothing if index already exists?
+      Just do nothing if index already exists?
 
    .. attribute:: reset_default_tblspc
       :type: bool
 
-      reset default_tablespace prior to
+      Reset default_tablespace prior to
       * executing
 
 
 .. class:: InferClause(indexElems=None, whereClause=None, conname=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1414>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1414>`__ parser node.
 
    .. attribute:: indexElems
       :type: tuple
@@ -3479,7 +3387,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: whereClause
       :type: Node
 
-      qualification (partial-index predicate)
+      Qualification (partial-index predicate)
 
    .. attribute:: conname
       :type: str
@@ -3489,57 +3397,57 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: InferenceElem(expr=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1342>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1342>`__ parser node.
 
    .. attribute:: expr
       :type: Node
 
-      expression to infer from, or NULL
+      Expression to infer from, or NULL
 
 
 .. class:: InlineCodeBlock(source_text=None, langIsTrusted=None, atomic=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2890>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2890>`__ parser node.
 
    .. attribute:: source_text
       :type: str
 
-      source text of anonymous code block
+      Source text of anonymous code block
 
    .. attribute:: langIsTrusted
       :type: bool
 
-      trusted property of the language
+      Trusted property of the language
 
    .. attribute:: atomic
       :type: bool
 
-      atomic execution context
+      Atomic execution context
 
 
 .. class:: InsertStmt(relation=None, cols=None, selectStmt=None, onConflictClause=None, returningList=None, withClause=None, override=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1530>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1530>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
 
-      relation to insert into
+      Relation to insert into
 
    .. attribute:: cols
       :type: tuple
 
-      optional: names of the target columns
+      Optional: names of the target columns
 
    .. attribute:: selectStmt
       :type: Node
 
-      the source SELECT/VALUES, or NULL
+      The source SELECT/VALUES, or NULL
 
    .. attribute:: onConflictClause
       :type: OnConflictClause*
@@ -3549,7 +3457,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: returningList
       :type: tuple
 
-      list of expressions to return
+      List of expressions to return
 
    .. attribute:: withClause
       :type: WithClause*
@@ -3564,57 +3472,57 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: IntoClause(rel=None, colNames=None, accessMethod=None, options=None, onCommit=None, tableSpaceName=None, viewQuery=None, skipData=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L108>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L108>`__ parser node.
 
    .. attribute:: rel
       :type: RangeVar*
 
-      target relation name
+      Target relation name
 
    .. attribute:: colNames
       :type: tuple
 
-      column names to assign, or NIL
+      Column names to assign, or NIL
 
    .. attribute:: accessMethod
       :type: str
 
-      table access method
+      Table access method
 
    .. attribute:: options
       :type: tuple
 
-      options from WITH clause
+      Options from WITH clause
 
    .. attribute:: onCommit
       :type: OnCommitAction
 
-      what do we do at COMMIT?
+      What do we do at COMMIT?
 
    .. attribute:: tableSpaceName
       :type: str
 
-      table space to use, or NULL
+      Table space to use, or NULL
 
    .. attribute:: viewQuery
       :type: Node
 
-      materialized view's SELECT query
+      Materialized view's SELECT query
 
    .. attribute:: skipData
       :type: bool
 
-      true for WITH NO DATA
+      True for WITH NO DATA
 
 
 .. class:: JoinExpr(jointype=None, isNatural=None, larg=None, rarg=None, usingClause=None, quals=None, alias=None, rtindex=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1485>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1485>`__ parser node.
 
    .. attribute:: jointype
       :type: JoinType
 
-      type of join
+      Type of join
 
    .. attribute:: isNatural
       :type: bool
@@ -3624,12 +3532,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: larg
       :type: Node
 
-      left subtree
+      Left subtree
 
    .. attribute:: rarg
       :type: Node
 
-      right subtree
+      Right subtree
 
    .. attribute:: usingClause
       :type: tuple
@@ -3639,12 +3547,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: quals
       :type: Node
 
-      qualifiers on join, if any
+      Qualifiers on join, if any
 
    .. attribute:: alias
       :type: Alias*
 
-      user-written alias clause, if any
+      User-written alias clause, if any
 
    .. attribute:: rtindex
       :type: int
@@ -3654,47 +3562,47 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ListenStmt(conditionname=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3028>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3028>`__ parser node.
 
    .. attribute:: conditionname
       :type: str
 
-      condition name to listen on
+      Condition name to listen on
 
 
 .. class:: LoadStmt(filename=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3146>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3146>`__ parser node.
 
    .. attribute:: filename
       :type: str
 
-      file to load
+      File to load
 
 
 .. class:: LockStmt(relations=None, mode=None, nowait=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3333>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3333>`__ parser node.
 
    .. attribute:: relations
       :type: tuple
 
-      relations to lock
+      Relations to lock
 
    .. attribute:: mode
       :type: int
 
-      lock mode
+      Lock mode
 
    .. attribute:: nowait
       :type: bool
 
-      no wait mode
+      No wait mode
 
 
 .. class:: LockingClause(lockedRels=None, strength=None, waitPolicy=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L748>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L748>`__ parser node.
 
    .. attribute:: lockedRels
       :type: tuple
@@ -3704,8 +3612,6 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: strength
       :type: LockClauseStrength
 
-      None
-
    .. attribute:: waitPolicy
       :type: LockWaitPolicy
 
@@ -3714,92 +3620,92 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: MinMaxExpr(op=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1099>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1099>`__ parser node.
 
    .. attribute:: op
       :type: MinMaxOp
 
-      function to execute
+      Function to execute
 
    .. attribute:: args
       :type: tuple
 
-      the arguments
+      The arguments
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: MultiAssignRef(source=None, colno=None, ncolumns=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L456>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L456>`__ parser node.
 
    .. attribute:: source
       :type: Node
 
-      the row-valued expression
+      The row-valued expression
 
    .. attribute:: colno
       :type: int
 
-      column number for this target (1..n)
+      Column number for this target (1..n)
 
    .. attribute:: ncolumns
       :type: int
 
-      number of targets in the construct
+      Number of targets in the construct
 
 
 .. class:: NamedArgExpr(arg=None, name=None, argnumber=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L495>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L495>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      the argument expression
+      The argument expression
 
    .. attribute:: name
       :type: str
 
-      the name
+      The name
 
    .. attribute:: argnumber
       :type: int
 
-      argument's number in positional notation
+      Argument's number in positional notation
 
    .. attribute:: location
       :type: int
 
-      argument name location, or -1 if unknown
+      Argument name location, or -1 if unknown
 
 
 .. class:: NotifyStmt(conditionname=None, payload=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3017>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3017>`__ parser node.
 
    .. attribute:: conditionname
       :type: str
 
-      condition name to notify
+      Condition name to notify
 
    .. attribute:: payload
       :type: str
 
-      the payload string, or NULL if none
+      The payload string, or NULL if none
 
 
 .. class:: NullTest(arg=None, nulltesttype=None, argisrow=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1216>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1216>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input expression
+      Input expression
 
    .. attribute:: nulltesttype
       :type: NullTestType
@@ -3814,34 +3720,34 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: ObjectWithArgs(objname=None, objargs=None, args_unspecified=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1950>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1950>`__ parser node.
 
    .. attribute:: objname
       :type: tuple
 
-      qualified name of function/operator
+      Qualified name of function/operator
 
    .. attribute:: objargs
       :type: tuple
 
-      list of Typename nodes
+      List of Typename nodes
 
    .. attribute:: args_unspecified
       :type: bool
 
-      argument list was omitted, so name must
+      Argument list was omitted, so name must
       * be unique (note that objargs == NIL
       * means zero args)
 
 
 .. class:: OnConflictClause(action=None, infer=None, targetList=None, whereClause=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1429>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1429>`__ parser node.
 
    .. attribute:: action
       :type: OnConflictAction
@@ -3856,22 +3762,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: targetList
       :type: tuple
 
-      the target list (of ResTarget)
+      The target list (of ResTarget)
 
    .. attribute:: whereClause
       :type: Node
 
-      qualifications
+      Qualifications
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: OnConflictExpr(action=None, arbiterElems=None, arbiterWhere=None, onConflictSet=None, onConflictWhere=None, exclRelIndex=None, exclRelTlist=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1523>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1523>`__ parser node.
 
    .. attribute:: action
       :type: OnConflictAction
@@ -3881,13 +3787,13 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: arbiterElems
       :type: tuple
 
-      unique index arbiter list (of
+      Unique index arbiter list (of
       * InferenceElem's)
 
    .. attribute:: arbiterWhere
       :type: Node
 
-      unique index arbiter WHERE clause
+      Unique index arbiter WHERE clause
 
    .. attribute:: onConflictSet
       :type: tuple
@@ -3897,7 +3803,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: onConflictWhere
       :type: Node
 
-      qualifiers to restrict UPDATE to
+      Qualifiers to restrict UPDATE to
 
    .. attribute:: exclRelIndex
       :type: int
@@ -3907,92 +3813,88 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: exclRelTlist
       :type: tuple
 
-      tlist of the EXCLUDED pseudo relation
+      Tlist of the EXCLUDED pseudo relation
 
 
 .. class:: OpExpr(opretset=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L513>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L513>`__ parser node.
 
    .. attribute:: opretset
       :type: bool
 
-      true if operator returns set
+      True if operator returns set
 
    .. attribute:: args
       :type: tuple
 
-      arguments to the operator (1 or 2)
+      Arguments to the operator (1 or 2)
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: Param(paramkind=None, paramid=None, paramtypmod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L259>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L259>`__ parser node.
 
    .. attribute:: paramkind
       :type: ParamKind
 
-      kind of parameter. See above
+      Kind of parameter. See above
 
    .. attribute:: paramid
       :type: int
 
-      numeric ID for parameter
+      Numeric ID for parameter
 
    .. attribute:: paramtypmod
       :type: int32
 
-      typmod value, if known
+      Typmod value, if known
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: ParamRef(number=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L243>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L243>`__ parser node.
 
    .. attribute:: number
       :type: int
 
-      the number of the parameter
+      The number of the parameter
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: PartitionBoundSpec(strategy=None, is_default=None, modulus=None, remainder=None, listdatums=None, lowerdatums=None, upperdatums=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L811>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L811>`__ parser node.
 
    .. attribute:: strategy
       :type: str
 
-      see PARTITION_STRATEGY codes above
+      See PARTITION_STRATEGY codes above
 
    .. attribute:: is_default
       :type: bool
 
-      is it a default partition bound?
+      Is it a default partition bound?
 
    .. attribute:: modulus
       :type: int
 
-      None
-
    .. attribute:: remainder
       :type: int
-
-      None
 
    .. attribute:: listdatums
       :type: tuple
@@ -4012,17 +3914,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: PartitionCmd(name=None, bound=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L858>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L858>`__ parser node.
 
    .. attribute:: name
       :type: RangeVar*
 
-      name of partition to attach/detach
+      Name of partition to attach/detach
 
    .. attribute:: bound
       :type: PartitionBoundSpec*
@@ -4032,42 +3934,40 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: PartitionElem(name=None, expr=None, collation=None, opclass=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L776>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L776>`__ parser node.
 
    .. attribute:: name
       :type: str
 
-      name of column to partition on, or NULL
+      Name of column to partition on, or NULL
 
    .. attribute:: expr
       :type: Node
 
-      expression to partition on, or NULL
+      Expression to partition on, or NULL
 
    .. attribute:: collation
       :type: tuple
 
-      name of collation; NIL = default
+      Name of collation; NIL = default
 
    .. attribute:: opclass
       :type: tuple
 
-      name of desired opclass; NIL = default
+      Name of desired opclass; NIL = default
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: PartitionRangeDatum(kind=None, value=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L844>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L844>`__ parser node.
 
    .. attribute:: kind
       :type: PartitionRangeDatumKind
-
-      None
 
    .. attribute:: value
       :type: Node
@@ -4078,17 +3978,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: PartitionSpec(strategy=None, partParams=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L791>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L791>`__ parser node.
 
    .. attribute:: strategy
       :type: str
 
-      partitioning strategy ('hash', 'list' or
+      Partitioning strategy ('hash', 'list' or
       * 'range')
 
    .. attribute:: partParams
@@ -4099,12 +3999,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: PrepareStmt(name=None, argtypes=None, query=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3427>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3427>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -4124,63 +4024,63 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: Query(commandType=None, querySource=None, queryId=None, canSetTag=None, utilityStmt=None, resultRelation=None, hasAggs=None, hasWindowFuncs=None, hasTargetSRFs=None, hasSubLinks=None, hasDistinctOn=None, hasRecursive=None, hasModifyingCTE=None, hasForUpdate=None, hasRowSecurity=None, cteList=None, rtable=None, jointree=None, targetList=None, override=None, onConflict=None, returningList=None, groupClause=None, groupingSets=None, havingQual=None, windowClause=None, distinctClause=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, rowMarks=None, setOperations=None, constraintDeps=None, withCheckOptions=None, stmt_location=None, stmt_len=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L108>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L108>`__ parser node.
 
    .. attribute:: commandType
       :type: CmdType
 
-      select|insert|update|delete|utility
+      Select|insert|update|delete|utility
 
    .. attribute:: querySource
       :type: QuerySource
 
-      where did I come from?
+      Where did I come from?
 
    .. attribute:: queryId
       :type: uint64
 
-      query identifier (can be set by plugins)
+      Query identifier (can be set by plugins)
 
    .. attribute:: canSetTag
       :type: bool
 
-      do I set the command result tag?
+      Do I set the command result tag?
 
    .. attribute:: utilityStmt
       :type: Node
 
-      non-null if commandType == CMD_UTILITY
+      Non-null if commandType == CMD_UTILITY
 
    .. attribute:: resultRelation
       :type: int
 
-      rtable index of target relation for
+      Rtable index of target relation for
       * INSERT/UPDATE/DELETE; 0 for SELECT
 
    .. attribute:: hasAggs
       :type: bool
 
-      has aggregates in tlist or havingQual
+      Has aggregates in tlist or havingQual
 
    .. attribute:: hasWindowFuncs
       :type: bool
 
-      has window functions in tlist
+      Has window functions in tlist
 
    .. attribute:: hasTargetSRFs
       :type: bool
 
-      has set-returning functions in tlist
+      Has set-returning functions in tlist
 
    .. attribute:: hasSubLinks
       :type: bool
 
-      has subquery SubLink
+      Has subquery SubLink
 
    .. attribute:: hasDistinctOn
       :type: bool
 
-      distinctClause is from DISTINCT ON
+      DistinctClause is from DISTINCT ON
 
    .. attribute:: hasRecursive
       :type: bool
@@ -4190,7 +4090,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: hasModifyingCTE
       :type: bool
 
-      has INSERT/UPDATE/DELETE in WITH
+      Has INSERT/UPDATE/DELETE in WITH
 
    .. attribute:: hasForUpdate
       :type: bool
@@ -4200,7 +4100,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: hasRowSecurity
       :type: bool
 
-      rewriter has applied some RLS policy
+      Rewriter has applied some RLS policy
 
    .. attribute:: cteList
       :type: tuple
@@ -4210,17 +4110,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: rtable
       :type: tuple
 
-      list of range table entries
+      List of range table entries
 
    .. attribute:: jointree
       :type: FromExpr*
 
-      table join tree (FROM and WHERE clauses)
+      Table join tree (FROM and WHERE clauses)
 
    .. attribute:: targetList
       :type: tuple
 
-      target list (of TargetEntry)
+      Target list (of TargetEntry)
 
    .. attribute:: override
       :type: OverridingKind
@@ -4235,37 +4135,37 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: returningList
       :type: tuple
 
-      return-values list (of TargetEntry)
+      Return-values list (of TargetEntry)
 
    .. attribute:: groupClause
       :type: tuple
 
-      a list of SortGroupClause's
+      A list of SortGroupClause's
 
    .. attribute:: groupingSets
       :type: tuple
 
-      a list of GroupingSet's if present
+      A list of GroupingSet's if present
 
    .. attribute:: havingQual
       :type: Node
 
-      qualifications applied to groups
+      Qualifications applied to groups
 
    .. attribute:: windowClause
       :type: tuple
 
-      a list of WindowClause's
+      A list of WindowClause's
 
    .. attribute:: distinctClause
       :type: tuple
 
-      a list of SortGroupClause's
+      A list of SortGroupClause's
 
    .. attribute:: sortClause
       :type: tuple
 
-      a list of SortGroupClause's
+      A list of SortGroupClause's
 
    .. attribute:: limitOffset
       :type: Node
@@ -4280,196 +4180,196 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: limitOption
       :type: LimitOption
 
-      limit type
+      Limit type
 
    .. attribute:: rowMarks
       :type: tuple
 
-      a list of RowMarkClause's
+      A list of RowMarkClause's
 
    .. attribute:: setOperations
       :type: Node
 
-      set-operation tree if this is top level of
+      Set-operation tree if this is top level of
       * a UNION/INTERSECT/EXCEPT query
 
    .. attribute:: constraintDeps
       :type: tuple
 
-      a list of pg_constraint OIDs that the query
+      A list of pg_constraint OIDs that the query
       * depends on to be semantically valid
 
    .. attribute:: withCheckOptions
       :type: tuple
 
-      a list of WithCheckOption's (added
+      A list of WithCheckOption's (added
       * during rewrite)
 
    .. attribute:: stmt_location
       :type: int
 
-      start location, or -1 if unknown
+      Start location, or -1 if unknown
 
    .. attribute:: stmt_len
       :type: int
 
-      length in bytes; 0 means "rest of string"
+      Length in bytes; 0 means "rest of string"
 
 
 .. class:: RangeFunction(lateral=None, ordinality=None, is_rowsfrom=None, functions=None, alias=None, coldeflist=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L561>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L561>`__ parser node.
 
    .. attribute:: lateral
       :type: bool
 
-      does it have LATERAL prefix?
+      Does it have LATERAL prefix?
 
    .. attribute:: ordinality
       :type: bool
 
-      does it have WITH ORDINALITY suffix?
+      Does it have WITH ORDINALITY suffix?
 
    .. attribute:: is_rowsfrom
       :type: bool
 
-      is result of ROWS FROM() syntax?
+      Is result of ROWS FROM() syntax?
 
    .. attribute:: functions
       :type: tuple
 
-      per-function information, see above
+      Per-function information, see above
 
    .. attribute:: alias
       :type: Alias*
 
-      table alias & optional column aliases
+      Table alias & optional column aliases
 
    .. attribute:: coldeflist
       :type: tuple
 
-      list of ColumnDef nodes to describe result
+      List of ColumnDef nodes to describe result
       * of function returning RECORD
 
 
 .. class:: RangeSubselect(lateral=None, subquery=None, alias=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L539>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L539>`__ parser node.
 
    .. attribute:: lateral
       :type: bool
 
-      does it have LATERAL prefix?
+      Does it have LATERAL prefix?
 
    .. attribute:: subquery
       :type: Node
 
-      the untransformed sub-select clause
+      The untransformed sub-select clause
 
    .. attribute:: alias
       :type: Alias*
 
-      table alias & optional column aliases
+      Table alias & optional column aliases
 
 
 .. class:: RangeTableFunc(lateral=None, docexpr=None, rowexpr=None, namespaces=None, columns=None, alias=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L576>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L576>`__ parser node.
 
    .. attribute:: lateral
       :type: bool
 
-      does it have LATERAL prefix?
+      Does it have LATERAL prefix?
 
    .. attribute:: docexpr
       :type: Node
 
-      document expression
+      Document expression
 
    .. attribute:: rowexpr
       :type: Node
 
-      row generator expression
+      Row generator expression
 
    .. attribute:: namespaces
       :type: tuple
 
-      list of namespaces as ResTarget
+      List of namespaces as ResTarget
 
    .. attribute:: columns
       :type: tuple
 
-      list of RangeTableFuncCol
+      List of RangeTableFuncCol
 
    .. attribute:: alias
       :type: Alias*
 
-      table alias & optional column aliases
+      Table alias & optional column aliases
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: RangeTableFuncCol(colname=None, typeName=None, for_ordinality=None, is_not_null=None, colexpr=None, coldefexpr=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L594>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L594>`__ parser node.
 
    .. attribute:: colname
       :type: str
 
-      name of generated column
+      Name of generated column
 
    .. attribute:: typeName
       :type: TypeName*
 
-      type of generated column
+      Type of generated column
 
    .. attribute:: for_ordinality
       :type: bool
 
-      does it have FOR ORDINALITY?
+      Does it have FOR ORDINALITY?
 
    .. attribute:: is_not_null
       :type: bool
 
-      does it have NOT NULL?
+      Does it have NOT NULL?
 
    .. attribute:: colexpr
       :type: Node
 
-      column filter expression
+      Column filter expression
 
    .. attribute:: coldefexpr
       :type: Node
 
-      column default value expression
+      Column default value expression
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: RangeTableSample(relation=None, method=None, args=None, repeatable=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L616>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L616>`__ parser node.
 
    .. attribute:: relation
       :type: Node
 
-      relation to be sampled
+      Relation to be sampled
 
    .. attribute:: method
       :type: tuple
 
-      sampling method name (possibly qualified)
+      Sampling method name (possibly qualified)
 
    .. attribute:: args
       :type: tuple
 
-      argument(s) for sampling method
+      Argument(s) for sampling method
 
    .. attribute:: repeatable
       :type: Node
@@ -4479,102 +4379,98 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: location
       :type: int
 
-      method name location, or -1 if unknown
+      Method name location, or -1 if unknown
 
 
 .. class:: RangeTblEntry(rtekind=None, relkind=None, rellockmode=None, tablesample=None, subquery=None, security_barrier=None, jointype=None, joinmergedcols=None, joinaliasvars=None, joinleftcols=None, joinrightcols=None, functions=None, funcordinality=None, tablefunc=None, values_lists=None, ctename=None, ctelevelsup=None, self_reference=None, coltypes=None, coltypmods=None, colcollations=None, enrname=None, enrtuples=None, alias=None, eref=None, lateral=None, inh=None, inFromCl=None, requiredPerms=None, selectedCols=None, insertedCols=None, updatedCols=None, extraUpdatedCols=None, securityQuals=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L977>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L977>`__ parser node.
 
    .. attribute:: rtekind
       :type: RTEKind
 
-      see above
-
    .. attribute:: relkind
       :type: str
 
-      relation kind (see pg_class.relkind)
+      Relation kind (see pg_class.relkind)
 
    .. attribute:: rellockmode
       :type: int
 
-      lock level that query requires on the rel
+      Lock level that query requires on the rel
 
    .. attribute:: tablesample
       :type: TableSampleClause*
 
-      sampling info, or NULL
+      Sampling info, or NULL
 
    .. attribute:: subquery
       :type: Query*
 
-      the sub-query
+      The sub-query
 
    .. attribute:: security_barrier
       :type: bool
 
-      is from security_barrier view?
+      Is from security_barrier view?
 
    .. attribute:: jointype
       :type: JoinType
 
-      type of join
+      Type of join
 
    .. attribute:: joinmergedcols
       :type: int
 
-      number of merged (JOIN USING) columns
+      Number of merged (JOIN USING) columns
 
    .. attribute:: joinaliasvars
       :type: tuple
 
-      list of alias-var expansions
+      List of alias-var expansions
 
    .. attribute:: joinleftcols
       :type: tuple
 
-      left-side input column numbers
+      Left-side input column numbers
 
    .. attribute:: joinrightcols
       :type: tuple
 
-      right-side input column numbers
+      Right-side input column numbers
 
    .. attribute:: functions
       :type: tuple
 
-      list of RangeTblFunction nodes
+      List of RangeTblFunction nodes
 
    .. attribute:: funcordinality
       :type: bool
 
-      is this called WITH ORDINALITY?
+      Is this called WITH ORDINALITY?
 
    .. attribute:: tablefunc
       :type: TableFunc*
 
-      None
-
    .. attribute:: values_lists
       :type: tuple
 
-      list of expression lists
+      List of expression lists
 
    .. attribute:: ctename
       :type: str
 
-      name of the WITH list item
+      Name of the WITH list item
 
    .. attribute:: ctelevelsup
       :type: Index
 
-      number of query levels up
+      Number of query levels up
 
    .. attribute:: self_reference
       :type: bool
 
-      is this a recursive self-reference?
+      Is this a recursive self-reference?
 
    .. attribute:: coltypes
       :type: tuple
@@ -4584,7 +4480,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: coltypmods
       :type: tuple
 
-      integer list of column typmods
+      Integer list of column typmods
 
    .. attribute:: colcollations
       :type: tuple
@@ -4594,87 +4490,87 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: enrname
       :type: str
 
-      name of ephemeral named relation
+      Name of ephemeral named relation
 
    .. attribute:: enrtuples
       :type: double
 
-      estimated or actual from caller
+      Estimated or actual from caller
 
    .. attribute:: alias
       :type: Alias*
 
-      user-written alias clause, if any
+      User-written alias clause, if any
 
    .. attribute:: eref
       :type: Alias*
 
-      expanded reference names
+      Expanded reference names
 
    .. attribute:: lateral
       :type: bool
 
-      subquery, function, or values is LATERAL?
+      Subquery, function, or values is LATERAL?
 
    .. attribute:: inh
       :type: bool
 
-      inheritance requested?
+      Inheritance requested?
 
    .. attribute:: inFromCl
       :type: bool
 
-      present in FROM clause?
+      Present in FROM clause?
 
    .. attribute:: requiredPerms
       :type: AclMode
 
-      bitmask of required access permissions
+      Bitmask of required access permissions
 
    .. attribute:: selectedCols
       :type: Bitmapset*
 
-      columns needing SELECT permission
+      Columns needing SELECT permission
 
    .. attribute:: insertedCols
       :type: Bitmapset*
 
-      columns needing INSERT permission
+      Columns needing INSERT permission
 
    .. attribute:: updatedCols
       :type: Bitmapset*
 
-      columns needing UPDATE permission
+      Columns needing UPDATE permission
 
    .. attribute:: extraUpdatedCols
       :type: Bitmapset*
 
-      generated columns being updated
+      Generated columns being updated
 
    .. attribute:: securityQuals
       :type: tuple
 
-      security barrier quals to apply, if any
+      Security barrier quals to apply, if any
 
 
 .. class:: RangeTblFunction(funcexpr=None, funccolcount=None, funccolnames=None, funccoltypes=None, funccoltypmods=None, funccolcollations=None, funcparams=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1149>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1149>`__ parser node.
 
    .. attribute:: funcexpr
       :type: Node
 
-      expression tree for func call
+      Expression tree for func call
 
    .. attribute:: funccolcount
       :type: int
 
-      number of columns it contributes to RTE
+      Number of columns it contributes to RTE
 
    .. attribute:: funccolnames
       :type: tuple
 
-      column names (list of String)
+      Column names (list of String)
 
    .. attribute:: funccoltypes
       :type: tuple
@@ -4684,7 +4580,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: funccoltypmods
       :type: tuple
 
-      integer list of column typmods
+      Integer list of column typmods
 
    .. attribute:: funccolcollations
       :type: tuple
@@ -4699,113 +4595,107 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeTblRef(rtindex=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1456>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1456>`__ parser node.
 
    .. attribute:: rtindex
       :type: int
 
-      None
-
 
 .. class:: RangeVar(catalogname=None, schemaname=None, relname=None, inh=None, relpersistence=None, alias=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L63>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L63>`__ parser node.
 
    .. attribute:: catalogname
       :type: str
 
-      the catalog (database) name, or NULL
+      The catalog (database) name, or NULL
 
    .. attribute:: schemaname
       :type: str
 
-      the schema name, or NULL
+      The schema name, or NULL
 
    .. attribute:: relname
       :type: str
 
-      the relation/sequence name
+      The relation/sequence name
 
    .. attribute:: inh
       :type: bool
 
-      expand rel by inheritance? recursively act
+      Expand rel by inheritance? recursively act
       * on children?
 
    .. attribute:: relpersistence
       :type: str
 
-      see RELPERSISTENCE_* in pg_class.h
+      See RELPERSISTENCE_* in pg_class.h
 
    .. attribute:: alias
       :type: Alias*
 
-      table alias & optional column aliases
+      Table alias & optional column aliases
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: RawStmt(stmt=None, stmt_location=None, stmt_len=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1510>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1510>`__ parser node.
 
    .. attribute:: stmt
       :type: Node
 
-      raw parse tree
+      Raw parse tree
 
    .. attribute:: stmt_location
       :type: int
 
-      start location, or -1 if unknown
+      Start location, or -1 if unknown
 
    .. attribute:: stmt_len
       :type: int
 
-      length in bytes; 0 means "rest of string"
+      Length in bytes; 0 means "rest of string"
 
 
 .. class:: ReassignOwnedStmt(roles=None, newrole=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3473>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3473>`__ parser node.
 
    .. attribute:: roles
       :type: tuple
 
-      None
-
    .. attribute:: newrole
       :type: RoleSpec*
-
-      None
 
 
 .. class:: RefreshMatViewStmt(concurrent=None, skipData=None, relation=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3293>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3293>`__ parser node.
 
    .. attribute:: concurrent
       :type: bool
 
-      allow concurrent access?
+      Allow concurrent access?
 
    .. attribute:: skipData
       :type: bool
 
-      true for WITH NO DATA
+      True for WITH NO DATA
 
    .. attribute:: relation
       :type: RangeVar*
 
-      relation to insert into
+      Relation to insert into
 
 
 .. class:: ReindexStmt(kind=None, relation=None, name=None, options=None, concurrent=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3370>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3370>`__ parser node.
 
    .. attribute:: kind
       :type: ReindexObjectType
@@ -4821,7 +4711,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: name
       :type: str
 
-      name of database to reindex
+      Name of database to reindex
 
    .. attribute:: options
       :type: int
@@ -4831,37 +4721,37 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: concurrent
       :type: bool
 
-      reindex concurrently?
+      Reindex concurrently?
 
 
 .. class:: RelabelType(arg=None, resulttypmod=None, relabelformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L811>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L811>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      input expression
+      Input expression
 
    .. attribute:: resulttypmod
       :type: int32
 
-      output typmod (usually -1)
+      Output typmod (usually -1)
 
    .. attribute:: relabelformat
       :type: CoercionForm
 
-      how to display this node
+      How to display this node
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: RenameStmt(renameType=None, relationType=None, relation=None, object=None, subname=None, newname=None, behavior=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2920>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2920>`__ parser node.
 
    .. attribute:: renameType
       :type: ObjectType
@@ -4871,28 +4761,28 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: relationType
       :type: ObjectType
 
-      if column name, associated relation type
+      If column name, associated relation type
 
    .. attribute:: relation
       :type: RangeVar*
 
-      in case it's a table
+      In case it's a table
 
    .. attribute:: object
       :type: Node
 
-      in case it's some other object
+      In case it's some other object
 
    .. attribute:: subname
       :type: str
 
-      name of contained object (column, rule,
+      Name of contained object (column, rule,
       * trigger, etc)
 
    .. attribute:: newname
       :type: str
 
-      the new name
+      The new name
 
    .. attribute:: behavior
       :type: DropBehavior
@@ -4902,52 +4792,48 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: missing_ok
       :type: bool
 
-      skip error if missing?
+      Skip error if missing?
 
 
 .. class:: ReplicaIdentityStmt(identity_type=None, name=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1859>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1859>`__ parser node.
 
    .. attribute:: identity_type
       :type: str
 
-      None
-
    .. attribute:: name
       :type: str
-
-      None
 
 
 .. class:: ResTarget(name=None, indirection=None, val=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L438>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L438>`__ parser node.
 
    .. attribute:: name
       :type: str
 
-      column name or NULL
+      Column name or NULL
 
    .. attribute:: indirection
       :type: tuple
 
-      subscripts, field names, and '*', or NIL
+      Subscripts, field names, and '*', or NIL
 
    .. attribute:: val
       :type: Node
 
-      the value expression to compute or assign
+      The value expression to compute or assign
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: RoleSpec(roletype=None, rolename=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L326>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L326>`__ parser node.
 
    .. attribute:: roletype
       :type: RoleSpecType
@@ -4957,17 +4843,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: rolename
       :type: str
 
-      filled only for ROLESPEC_CSTRING
+      Filled only for ROLESPEC_CSTRING
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: RowCompareExpr(rctype=None, opnos=None, opfamilies=None, inputcollids=None, largs=None, rargs=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1067>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1067>`__ parser node.
 
    .. attribute:: rctype
       :type: RowCompareType
@@ -4992,52 +4878,50 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: largs
       :type: tuple
 
-      the left-hand input arguments
+      The left-hand input arguments
 
    .. attribute:: rargs
       :type: tuple
 
-      the right-hand input arguments
+      The right-hand input arguments
 
 
 .. class:: RowExpr(args=None, row_format=None, colnames=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1019>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1019>`__ parser node.
 
    .. attribute:: args
       :type: tuple
 
-      the fields
+      The fields
 
    .. attribute:: row_format
       :type: CoercionForm
 
-      how to display this node
+      How to display this node
 
    .. attribute:: colnames
       :type: tuple
 
-      list of String, or NIL
+      List of String, or NIL
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: RowMarkClause(rti=None, strength=None, waitPolicy=None, pushedDown=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1384>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1384>`__ parser node.
 
    .. attribute:: rti
       :type: Index
 
-      range table index of target relation
+      Range table index of target relation
 
    .. attribute:: strength
       :type: LockClauseStrength
-
-      None
 
    .. attribute:: waitPolicy
       :type: LockWaitPolicy
@@ -5047,27 +4931,27 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: pushedDown
       :type: bool
 
-      pushed down from higher query level?
+      Pushed down from higher query level?
 
 
 .. class:: RuleStmt(relation=None, rulename=None, whereClause=None, event=None, instead=None, actions=None, replace=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3001>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3001>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
 
-      relation the rule is for
+      Relation the rule is for
 
    .. attribute:: rulename
       :type: str
 
-      name of the rule
+      Name of the rule
 
    .. attribute:: whereClause
       :type: Node
 
-      qualifications
+      Qualifications
 
    .. attribute:: event
       :type: CmdType
@@ -5077,12 +4961,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: instead
       :type: bool
 
-      is a 'do instead'?
+      Is a 'do instead'?
 
    .. attribute:: actions
       :type: tuple
 
-      the action statements
+      The action statements
 
    .. attribute:: replace
       :type: bool
@@ -5092,47 +4976,45 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SQLValueFunction(op=None, typmod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1140>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1140>`__ parser node.
 
    .. attribute:: op
       :type: SQLValueFunctionOp
 
-      which function this is
+      Which function this is
 
    .. attribute:: typmod
       :type: int32
 
-      None
-
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: ScalarArrayOpExpr(useOr=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L556>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L556>`__ parser node.
 
    .. attribute:: useOr
       :type: bool
 
-      true for ANY, false for ALL
+      True for ANY, false for ALL
 
    .. attribute:: args
       :type: tuple
 
-      the scalar and array operands
+      The scalar and array operands
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: SecLabelStmt(objtype=None, object=None, provider=None, label=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2695>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2695>`__ parser node.
 
    .. attribute:: objtype
       :type: ObjectType
@@ -5157,7 +5039,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SelectStmt(distinctClause=None, intoClause=None, targetList=None, fromClause=None, whereClause=None, groupClause=None, havingClause=None, windowClause=None, valuesLists=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, lockingClause=None, withClause=None, op=None, all=None, larg=None, rarg=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1592>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1592>`__ parser node.
 
    .. attribute:: distinctClause
       :type: tuple
@@ -5168,17 +5050,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: intoClause
       :type: IntoClause*
 
-      target for SELECT INTO
+      Target for SELECT INTO
 
    .. attribute:: targetList
       :type: tuple
 
-      the target list (of ResTarget)
+      The target list (of ResTarget)
 
    .. attribute:: fromClause
       :type: tuple
 
-      the FROM clause
+      The FROM clause
 
    .. attribute:: whereClause
       :type: Node
@@ -5203,12 +5085,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: valuesLists
       :type: tuple
 
-      untransformed list of expression lists
+      Untransformed list of expression lists
 
    .. attribute:: sortClause
       :type: tuple
 
-      sort clause (a list of SortBy's)
+      Sort clause (a list of SortBy's)
 
    .. attribute:: limitOffset
       :type: Node
@@ -5223,7 +5105,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: limitOption
       :type: LimitOption
 
-      limit type
+      Limit type
 
    .. attribute:: lockingClause
       :type: tuple
@@ -5238,7 +5120,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: op
       :type: SetOperation
 
-      type of set op
+      Type of set op
 
    .. attribute:: all
       :type: bool
@@ -5248,22 +5130,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: larg
       :type: SelectStmt*
 
-      left child
+      Left child
 
    .. attribute:: rarg
       :type: SelectStmt*
 
-      right child
+      Right child
 
 
 .. class:: SetOperationStmt(op=None, all=None, larg=None, rarg=None, colTypes=None, colTypmods=None, colCollations=None, groupClauses=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1660>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1660>`__ parser node.
 
    .. attribute:: op
       :type: SetOperation
 
-      type of set op
+      Type of set op
 
    .. attribute:: all
       :type: bool
@@ -5273,12 +5155,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: larg
       :type: Node
 
-      left child
+      Left child
 
    .. attribute:: rarg
       :type: Node
 
-      right child
+      Right child
 
    .. attribute:: colTypes
       :type: tuple
@@ -5288,7 +5170,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: colTypmods
       :type: tuple
 
-      integer list of output column typmods
+      Integer list of output column typmods
 
    .. attribute:: colCollations
       :type: tuple
@@ -5298,32 +5180,32 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: groupClauses
       :type: tuple
 
-      a list of SortGroupClause's
+      A list of SortGroupClause's
 
 
 .. class:: SetToDefault(typeMod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1292>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1292>`__ parser node.
 
    .. attribute:: typeMod
       :type: int32
 
-      typemod for substituted value
+      Typemod for substituted value
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: SortBy(node=None, sortby_dir=None, sortby_nulls=None, useOp=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L467>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L467>`__ parser node.
 
    .. attribute:: node
       :type: Node
 
-      expression to sort on
+      Expression to sort on
 
    .. attribute:: sortby_dir
       :type: SortByDir
@@ -5338,42 +5220,40 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: useOp
       :type: tuple
 
-      name of op to use, if SORTBY_USING
+      Name of op to use, if SORTBY_USING
 
    .. attribute:: location
       :type: int
 
-      operator location, or -1 if none/unknown
+      Operator location, or -1 if none/unknown
 
 
 .. class:: SortGroupClause(tleSortGroupRef=None, nulls_first=None, hashable=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1259>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1259>`__ parser node.
 
    .. attribute:: tleSortGroupRef
       :type: Index
 
-      reference into targetlist
+      Reference into targetlist
 
    .. attribute:: nulls_first
       :type: bool
 
-      do NULLs come before normal values?
+      Do NULLs come before normal values?
 
    .. attribute:: hashable
       :type: bool
 
-      can eqop be implemented by hashing?
+      Can eqop be implemented by hashing?
 
 
 .. class:: SubLink(subLinkType=None, subLinkId=None, testexpr=None, operName=None, subselect=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L651>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L651>`__ parser node.
 
    .. attribute:: subLinkType
       :type: SubLinkType
-
-      see above
 
    .. attribute:: subLinkId
       :type: int
@@ -5383,32 +5263,30 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: testexpr
       :type: Node
 
-      outer-query test for ALL/ANY/ROWCOMPARE
+      Outer-query test for ALL/ANY/ROWCOMPARE
 
    .. attribute:: operName
       :type: tuple
 
-      originally specified operator name
+      Originally specified operator name
 
    .. attribute:: subselect
       :type: Node
 
-      subselect as Query* or raw parsetree
+      Subselect as Query* or raw parsetree
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: SubPlan(subLinkType=None, testexpr=None, paramIds=None, plan_id=None, plan_name=None, firstColTypmod=None, useHashTable=None, unknownEqFalse=None, parallel_safe=None, setParam=None, parParam=None, args=None, startup_cost=None, per_call_cost=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L700>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L700>`__ parser node.
 
    .. attribute:: subLinkType
       :type: SubLinkType
-
-      see above
 
    .. attribute:: testexpr
       :type: Node
@@ -5438,111 +5316,111 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: useHashTable
       :type: bool
 
-      true to store subselect output in a hash
+      True to store subselect output in a hash
       * table (implies we are doing "IN")
 
    .. attribute:: unknownEqFalse
       :type: bool
 
-      true if it's okay to return FALSE when the
+      True if it's okay to return FALSE when the
       * spec result is UNKNOWN; this allows much
       * simpler handling of null values
 
    .. attribute:: parallel_safe
       :type: bool
 
-      is the subplan parallel-safe?
+      Is the subplan parallel-safe?
 
    .. attribute:: setParam
       :type: tuple
 
-      initplan subqueries have to set these
+      Initplan subqueries have to set these
       * Params for parent plan
 
    .. attribute:: parParam
       :type: tuple
 
-      indices of input Params from parent plan
+      Indices of input Params from parent plan
 
    .. attribute:: args
       :type: tuple
 
-      exprs to pass as parParam values
+      Exprs to pass as parParam values
 
    .. attribute:: startup_cost
       :type: Cost
 
-      one-time setup cost
+      One-time setup cost
 
    .. attribute:: per_call_cost
       :type: Cost
 
-      cost for each subplan evaluation
+      Cost for each subplan evaluation
 
 
 .. class:: SubscriptingRef(reftypmod=None, refupperindexpr=None, reflowerindexpr=None, refexpr=None, refassgnexpr=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L415>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L415>`__ parser node.
 
    .. attribute:: reftypmod
       :type: int32
 
-      typmod of the container (and elements too)
+      Typmod of the container (and elements too)
 
    .. attribute:: refupperindexpr
       :type: tuple
 
-      expressions that evaluate to upper
+      Expressions that evaluate to upper
       * container indexes
 
    .. attribute:: reflowerindexpr
       :type: tuple
 
-      expressions that evaluate to lower
+      Expressions that evaluate to lower
       * container indexes, or NIL for single
       * container element
 
    .. attribute:: refexpr
       :type: Expr*
 
-      the expression that evaluates to a
+      The expression that evaluates to a
       * container value
 
    .. attribute:: refassgnexpr
       :type: Expr*
 
-      expression for the source value, or NULL if
+      Expression for the source value, or NULL if
       * fetch
 
 
 .. class:: TableFunc(ns_uris=None, ns_names=None, docexpr=None, rowexpr=None, colnames=None, coltypes=None, coltypmods=None, colcollations=None, colexprs=None, coldefexprs=None, notnulls=None, ordinalitycol=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L82>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L82>`__ parser node.
 
    .. attribute:: ns_uris
       :type: tuple
 
-      list of namespace URI expressions
+      List of namespace URI expressions
 
    .. attribute:: ns_names
       :type: tuple
 
-      list of namespace names or NULL
+      List of namespace names or NULL
 
    .. attribute:: docexpr
       :type: Node
 
-      input document expression
+      Input document expression
 
    .. attribute:: rowexpr
       :type: Node
 
-      row filter expression
+      Row filter expression
 
    .. attribute:: colnames
       :type: tuple
 
-      column names (list of String)
+      Column names (list of String)
 
    .. attribute:: coltypes
       :type: tuple
@@ -5552,7 +5430,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: coltypmods
       :type: tuple
 
-      integer list of column typmods
+      Integer list of column typmods
 
    .. attribute:: colcollations
       :type: tuple
@@ -5562,37 +5440,35 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: colexprs
       :type: tuple
 
-      list of column filter expressions
+      List of column filter expressions
 
    .. attribute:: coldefexprs
       :type: tuple
 
-      list of column default expressions
+      List of column default expressions
 
    .. attribute:: notnulls
       :type: Bitmapset*
 
-      nullability flag for each output column
+      Nullability flag for each output column
 
    .. attribute:: ordinalitycol
       :type: int
 
-      counts from 0; -1 if none specified
+      Counts from 0; -1 if none specified
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: TableLikeClause(relation=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L670>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L670>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
-
-      None
 
    .. attribute:: options
       :type: bits32
@@ -5602,12 +5478,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TableSampleClause(args=None, repeatable=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1169>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1169>`__ parser node.
 
    .. attribute:: args
       :type: tuple
 
-      tablesample argument expression(s)
+      Tablesample argument expression(s)
 
    .. attribute:: repeatable
       :type: Expr*
@@ -5617,64 +5493,62 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TargetEntry(expr=None, resno=None, resname=None, ressortgroupref=None, resorigcol=None, resjunk=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1404>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1404>`__ parser node.
 
    .. attribute:: expr
       :type: Expr*
 
-      expression to evaluate
+      Expression to evaluate
 
    .. attribute:: resno
       :type: AttrNumber
 
-      attribute number (see notes above)
+      Attribute number (see notes above)
 
    .. attribute:: resname
       :type: str
 
-      name of the column (could be NULL)
+      Name of the column (could be NULL)
 
    .. attribute:: ressortgroupref
       :type: Index
 
-      nonzero if referenced by a sort/group
+      Nonzero if referenced by a sort/group
       * clause
 
    .. attribute:: resorigcol
       :type: AttrNumber
 
-      column's number in source table
+      Column's number in source table
 
    .. attribute:: resjunk
       :type: bool
 
-      set to true to eliminate the attribute from
+      Set to true to eliminate the attribute from
       * final target list
 
 
 .. class:: TransactionStmt(kind=None, options=None, savepoint_name=None, gid=None, chain=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3062>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3062>`__ parser node.
 
    .. attribute:: kind
       :type: TransactionStmtKind
 
-      see above
-
    .. attribute:: options
       :type: tuple
 
-      for BEGIN/START commands
+      For BEGIN/START commands
 
    .. attribute:: savepoint_name
       :type: str
 
-      for savepoint commands
+      For savepoint commands
 
    .. attribute:: gid
       :type: str
 
-      for two-phase-commit related commands
+      For two-phase-commit related commands
 
    .. attribute:: chain
       :type: bool
@@ -5684,37 +5558,31 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TriggerTransition(name=None, isNew=None, isTable=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1486>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1486>`__ parser node.
 
    .. attribute:: name
       :type: str
 
-      None
-
    .. attribute:: isNew
       :type: bool
-
-      None
 
    .. attribute:: isTable
       :type: bool
 
-      None
-
 
 .. class:: TruncateStmt(relations=None, restart_seqs=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2671>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2671>`__ parser node.
 
    .. attribute:: relations
       :type: tuple
 
-      relations (RangeVars) to be truncated
+      Relations (RangeVars) to be truncated
 
    .. attribute:: restart_seqs
       :type: bool
 
-      restart owned sequences?
+      Restart owned sequences?
 
    .. attribute:: behavior
       :type: DropBehavior
@@ -5724,37 +5592,37 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TypeCast(arg=None, typeName=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L296>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L296>`__ parser node.
 
    .. attribute:: arg
       :type: Node
 
-      the expression being casted
+      The expression being casted
 
    .. attribute:: typeName
       :type: TypeName*
 
-      the target type
+      The target type
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: TypeName(names=None, setof=None, pct_type=None, typmods=None, typemod=None, arrayBounds=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L207>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L207>`__ parser node.
 
    .. attribute:: names
       :type: tuple
 
-      qualified name (list of Value strings)
+      Qualified name (list of Value strings)
 
    .. attribute:: setof
       :type: bool
 
-      is a set?
+      Is a set?
 
    .. attribute:: pct_type
       :type: bool
@@ -5764,62 +5632,62 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: typmods
       :type: tuple
 
-      type modifier expression(s)
+      Type modifier expression(s)
 
    .. attribute:: typemod
       :type: int32
 
-      prespecified type modifier
+      Prespecified type modifier
 
    .. attribute:: arrayBounds
       :type: tuple
 
-      array bounds
+      Array bounds
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: UnlistenStmt(conditionname=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3038>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3038>`__ parser node.
 
    .. attribute:: conditionname
       :type: str
 
-      name to unlisten on, or NULL for all
+      Name to unlisten on, or NULL for all
 
 
 .. class:: UpdateStmt(relation=None, targetList=None, whereClause=None, fromClause=None, returningList=None, withClause=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1560>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1560>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
 
-      relation to update
+      Relation to update
 
    .. attribute:: targetList
       :type: tuple
 
-      the target list (of ResTarget)
+      The target list (of ResTarget)
 
    .. attribute:: whereClause
       :type: Node
 
-      qualifications
+      Qualifications
 
    .. attribute:: fromClause
       :type: tuple
 
-      optional from clause for more tables
+      Optional from clause for more tables
 
    .. attribute:: returningList
       :type: tuple
 
-      list of expressions to return
+      List of expressions to return
 
    .. attribute:: withClause
       :type: WithClause*
@@ -5829,96 +5697,94 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: VacuumRelation(relation=None, va_cols=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3243>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3243>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
 
-      table name to process, or NULL
+      Table name to process, or NULL
 
    .. attribute:: va_cols
       :type: tuple
 
-      list of column names, or NIL for all
+      List of column names, or NIL for all
 
 
 .. class:: VacuumStmt(options=None, rels=None, is_vacuumcmd=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3228>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3228>`__ parser node.
 
    .. attribute:: options
       :type: tuple
 
-      list of DefElem nodes
+      List of DefElem nodes
 
    .. attribute:: rels
       :type: tuple
 
-      list of VacuumRelation, or NIL for all
+      List of VacuumRelation, or NIL for all
 
    .. attribute:: is_vacuumcmd
       :type: bool
 
-      true for VACUUM, false for ANALYZE
+      True for VACUUM, false for ANALYZE
 
 
 .. class:: Var(varno=None, varattno=None, vartypmod=None, varlevelsup=None, varnosyn=None, varattnosyn=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L181>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L181>`__ parser node.
 
    .. attribute:: varno
       :type: Index
 
-      index of this var's relation in the range
+      Index of this var's relation in the range
       * table, or INNER_VAR/OUTER_VAR/INDEX_VAR
 
    .. attribute:: varattno
       :type: AttrNumber
 
-      attribute number of this var, or zero for
+      Attribute number of this var, or zero for
       * all attrs ("whole-row Var")
 
    .. attribute:: vartypmod
       :type: int32
 
-      pg_attribute typmod value
+      Pg_attribute typmod value
 
    .. attribute:: varlevelsup
       :type: Index
 
-      for subquery variables referencing outer
+      For subquery variables referencing outer
       * relations; 0 in a normal var, >0 means N
       * levels up
 
    .. attribute:: varnosyn
       :type: Index
 
-      syntactic relation index (0 if unknown)
+      Syntactic relation index (0 if unknown)
 
    .. attribute:: varattnosyn
       :type: AttrNumber
 
-      syntactic attribute number
+      Syntactic attribute number
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: VariableSetStmt(kind=None, name=None, args=None, is_local=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2045>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2045>`__ parser node.
 
    .. attribute:: kind
       :type: VariableSetKind
 
-      None
-
    .. attribute:: name
       :type: str
 
-      variable to be set
+      Variable to be set
 
    .. attribute:: args
       :type: tuple
@@ -5933,42 +5799,40 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: VariableShowStmt(name=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L2058>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2058>`__ parser node.
 
    .. attribute:: name
       :type: str
 
-      None
-
 
 .. class:: ViewStmt(view=None, aliases=None, query=None, replace=None, options=None, withCheckOption=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L3131>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3131>`__ parser node.
 
    .. attribute:: view
       :type: RangeVar*
 
-      the view to be created
+      The view to be created
 
    .. attribute:: aliases
       :type: tuple
 
-      target column names
+      Target column names
 
    .. attribute:: query
       :type: Node
 
-      the SELECT query (as a raw parse tree)
+      The SELECT query (as a raw parse tree)
 
    .. attribute:: replace
       :type: bool
 
-      replace an existing view?
+      Replace an existing view?
 
    .. attribute:: options
       :type: tuple
 
-      options from WITH clause
+      Options from WITH clause
 
    .. attribute:: withCheckOption
       :type: ViewCheckOption
@@ -5978,17 +5842,17 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: WindowClause(name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, inRangeAsc=None, inRangeNullsFirst=None, winref=None, copiedOrder=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1353>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1353>`__ parser node.
 
    .. attribute:: name
       :type: str
 
-      window name (NULL in an OVER clause)
+      Window name (NULL in an OVER clause)
 
    .. attribute:: refname
       :type: str
 
-      referenced window name, if any
+      Referenced window name, if any
 
    .. attribute:: partitionClause
       :type: tuple
@@ -6003,27 +5867,27 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: frameOptions
       :type: int
 
-      frame_clause options, see WindowDef
+      Frame_clause options, see WindowDef
 
    .. attribute:: startOffset
       :type: Node
 
-      expression for starting bound, if any
+      Expression for starting bound, if any
 
    .. attribute:: endOffset
       :type: Node
 
-      expression for ending bound, if any
+      Expression for ending bound, if any
 
    .. attribute:: inRangeAsc
       :type: bool
 
-      use ASC sort order for in_range tests?
+      Use ASC sort order for in_range tests?
 
    .. attribute:: inRangeNullsFirst
       :type: bool
 
-      nulls sort first for in_range tests?
+      Nulls sort first for in_range tests?
 
    .. attribute:: winref
       :type: Index
@@ -6033,22 +5897,22 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: copiedOrder
       :type: bool
 
-      did we copy orderClause from refname?
+      Did we copy orderClause from refname?
 
 
 .. class:: WindowDef(name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L485>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L485>`__ parser node.
 
    .. attribute:: name
       :type: str
 
-      window's own name
+      Window's own name
 
    .. attribute:: refname
       :type: str
 
-      referenced window name, if any
+      Referenced window name, if any
 
    .. attribute:: partitionClause
       :type: tuple
@@ -6063,32 +5927,32 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: frameOptions
       :type: int
 
-      frame_clause options, see below
+      Frame_clause options, see below
 
    .. attribute:: startOffset
       :type: Node
 
-      expression for starting bound, if any
+      Expression for starting bound, if any
 
    .. attribute:: endOffset
       :type: Node
 
-      expression for ending bound, if any
+      Expression for ending bound, if any
 
    .. attribute:: location
       :type: int
 
-      parse location, or -1 if none/unknown
+      Parse location, or -1 if none/unknown
 
 
 .. class:: WindowFunc(args=None, aggfilter=None, winref=None, winstar=None, winagg=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L370>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L370>`__ parser node.
 
    .. attribute:: args
       :type: tuple
 
-      arguments to the window function
+      Arguments to the window function
 
    .. attribute:: aggfilter
       :type: Expr*
@@ -6098,102 +5962,102 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: winref
       :type: Index
 
-      index of associated WindowClause
+      Index of associated WindowClause
 
    .. attribute:: winstar
       :type: bool
 
-      true if argument list was really '*'
+      True if argument list was really '*'
 
    .. attribute:: winagg
       :type: bool
 
-      is function a simple aggregate?
+      Is function a simple aggregate?
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: WithCheckOption(kind=None, relname=None, polname=None, qual=None, cascaded=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1191>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1191>`__ parser node.
 
    .. attribute:: kind
       :type: WCOKind
 
-      kind of WCO
+      Kind of WCO
 
    .. attribute:: relname
       :type: str
 
-      name of relation that specified the WCO
+      Name of relation that specified the WCO
 
    .. attribute:: polname
       :type: str
 
-      name of RLS policy being checked
+      Name of RLS policy being checked
 
    .. attribute:: qual
       :type: Node
 
-      constraint qual to check
+      Constraint qual to check
 
    .. attribute:: cascaded
       :type: bool
 
-      true for a cascaded WCO on a view
+      True for a cascaded WCO on a view
 
 
 .. class:: WithClause(ctes=None, recursive=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L1400>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1400>`__ parser node.
 
    .. attribute:: ctes
       :type: tuple
 
-      list of CommonTableExprs
+      List of CommonTableExprs
 
    .. attribute:: recursive
       :type: bool
 
-      true = WITH RECURSIVE
+      True = WITH RECURSIVE
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: XmlExpr(op=None, name=None, named_args=None, arg_names=None, args=None, xmloption=None, typmod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/primnodes.h#L1178>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1178>`__ parser node.
 
    .. attribute:: op
       :type: XmlExprOp
 
-      xml function ID
+      Xml function ID
 
    .. attribute:: name
       :type: str
 
-      name in xml(NAME foo ...) syntaxes
+      Name in xml(NAME foo ...) syntaxes
 
    .. attribute:: named_args
       :type: tuple
 
-      non-XML expressions for xml_attributes
+      Non-XML expressions for xml_attributes
 
    .. attribute:: arg_names
       :type: tuple
 
-      parallel list of Value strings
+      Parallel list of Value strings
 
    .. attribute:: args
       :type: tuple
 
-      list of expressions
+      List of expressions
 
    .. attribute:: xmloption
       :type: XmlOptionType
@@ -6203,17 +6067,15 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: typmod
       :type: int32
 
-      None
-
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
 
 .. class:: XmlSerialize(xmloption=None, expr=None, typeName=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/lfittl/libpg_query/blob/69e163b/src/postgres/include/nodes/parsenodes.h#L759>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L759>`__ parser node.
 
    .. attribute:: xmloption
       :type: XmlOptionType
@@ -6223,15 +6085,11 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
    .. attribute:: expr
       :type: Node
 
-      None
-
    .. attribute:: typeName
       :type: TypeName*
-
-      None
 
    .. attribute:: location
       :type: int
 
-      token location, or -1 if unknown
+      Token location, or -1 if unknown
 
