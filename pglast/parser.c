@@ -79398,7 +79398,7 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
  *             for i in range(parsed.tree.length):
  */
     __pyx_t_3 = ((__pyx_v_parsed.tree != NULL) != 0);
-    if (likely(__pyx_t_3)) {
+    if (__pyx_t_3) {
 
       /* "pglast/parser.pyx":153
  *     try:
@@ -79450,7 +79450,7 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
  *                 Py_INCREF(item)
  *                 PyTuple_SET_ITEM(stmts, i, item)             # <<<<<<<<<<<<<<
  *             return stmts
- *         else:
+ *         elif parsed.error is NULL:
  */
         PyTuple_SET_ITEM(__pyx_v_stmts, __pyx_v_i, __pyx_v_item);
       }
@@ -79459,8 +79459,8 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
  *                 Py_INCREF(item)
  *                 PyTuple_SET_ITEM(stmts, i, item)
  *             return stmts             # <<<<<<<<<<<<<<
- *         else:
- *             message = parsed.error.message.decode('utf8')
+ *         elif parsed.error is NULL:
+ *             return ()
  */
       __Pyx_XDECREF(__pyx_r);
       __Pyx_INCREF(__pyx_v_stmts);
@@ -79476,8 +79476,39 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
  */
     }
 
-    /* "pglast/parser.pyx":160
+    /* "pglast/parser.pyx":159
+ *                 PyTuple_SET_ITEM(stmts, i, item)
  *             return stmts
+ *         elif parsed.error is NULL:             # <<<<<<<<<<<<<<
+ *             return ()
+ *         else:
+ */
+    __pyx_t_3 = ((__pyx_v_parsed.error == NULL) != 0);
+    if (likely(__pyx_t_3)) {
+
+      /* "pglast/parser.pyx":160
+ *             return stmts
+ *         elif parsed.error is NULL:
+ *             return ()             # <<<<<<<<<<<<<<
+ *         else:
+ *             message = parsed.error.message.decode('utf8')
+ */
+      __Pyx_XDECREF(__pyx_r);
+      __Pyx_INCREF(__pyx_empty_tuple);
+      __pyx_r = __pyx_empty_tuple;
+      goto __pyx_L6_return;
+
+      /* "pglast/parser.pyx":159
+ *                 PyTuple_SET_ITEM(stmts, i, item)
+ *             return stmts
+ *         elif parsed.error is NULL:             # <<<<<<<<<<<<<<
+ *             return ()
+ *         else:
+ */
+    }
+
+    /* "pglast/parser.pyx":162
+ *             return ()
  *         else:
  *             message = parsed.error.message.decode('utf8')             # <<<<<<<<<<<<<<
  *             cursorpos = parsed.error.cursorpos
@@ -79485,13 +79516,13 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
  */
     /*else*/ {
       __pyx_t_7 = __pyx_v_parsed.error->message;
-      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 160, __pyx_L7_error)
+      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 162, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_v_message = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pglast/parser.pyx":161
+      /* "pglast/parser.pyx":163
  *         else:
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos             # <<<<<<<<<<<<<<
@@ -79501,16 +79532,16 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
       __pyx_t_4 = __pyx_v_parsed.error->cursorpos;
       __pyx_v_cursorpos = __pyx_t_4;
 
-      /* "pglast/parser.pyx":162
+      /* "pglast/parser.pyx":164
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos
  *             raise ParseError(message, cursorpos)             # <<<<<<<<<<<<<<
  *     finally:
  *         pg_query_exit_memory_context(mctx);
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 162, __pyx_L7_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 164, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 162, __pyx_L7_error)
+      __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 164, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_9);
       __pyx_t_10 = NULL;
       __pyx_t_4 = 0;
@@ -79529,17 +79560,17 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_4, 2+__pyx_t_4);
         __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 162, __pyx_L7_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 164, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __PYX_ERR(1, 162, __pyx_L7_error)
+      __PYX_ERR(1, 164, __pyx_L7_error)
     }
   }
 
-  /* "pglast/parser.pyx":164
+  /* "pglast/parser.pyx":166
  *             raise ParseError(message, cursorpos)
  *     finally:
  *         pg_query_exit_memory_context(mctx);             # <<<<<<<<<<<<<<
@@ -79618,7 +79649,7 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
   return __pyx_r;
 }
 
-/* "pglast/parser.pyx":167
+/* "pglast/parser.pyx":169
  * 
  * 
  * def parse_sql_json(str query):             # <<<<<<<<<<<<<<
@@ -79673,12 +79704,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_query)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 167, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 169, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "parse_sql_json") < 0)) __PYX_ERR(1, 167, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "parse_sql_json") < 0)) __PYX_ERR(1, 169, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -79689,13 +79720,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("parse_sql_json", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 167, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("parse_sql_json", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 169, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pglast.parser.parse_sql_json", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(1, 167, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(1, 169, __pyx_L1_error)
   __pyx_r = __pyx_pf_6pglast_6parser_4parse_sql_json(__pyx_self, __pyx_v_query);
 
   /* function exit code */
@@ -79736,7 +79767,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("parse_sql_json", 0);
 
-  /* "pglast/parser.pyx":173
+  /* "pglast/parser.pyx":175
  *     cdef const char *cstring
  * 
  *     utf8 = query.encode('utf-8')             # <<<<<<<<<<<<<<
@@ -79745,24 +79776,24 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
  */
   if (unlikely(__pyx_v_query == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "encode");
-    __PYX_ERR(1, 173, __pyx_L1_error)
+    __PYX_ERR(1, 175, __pyx_L1_error)
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 173, __pyx_L1_error)
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 175, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_utf8 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/parser.pyx":174
+  /* "pglast/parser.pyx":176
  * 
  *     utf8 = query.encode('utf-8')
  *     cstring = utf8             # <<<<<<<<<<<<<<
  * 
  *     with nogil:
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 174, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 176, __pyx_L1_error)
   __pyx_v_cstring = __pyx_t_2;
 
-  /* "pglast/parser.pyx":176
+  /* "pglast/parser.pyx":178
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -79777,7 +79808,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
       #endif
       /*try:*/ {
 
-        /* "pglast/parser.pyx":177
+        /* "pglast/parser.pyx":179
  * 
  *     with nogil:
  *         parsed = pg_query_parse(cstring)             # <<<<<<<<<<<<<<
@@ -79787,7 +79818,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
         __pyx_v_parsed = pg_query_parse(__pyx_v_cstring);
       }
 
-      /* "pglast/parser.pyx":176
+      /* "pglast/parser.pyx":178
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -79806,7 +79837,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
       }
   }
 
-  /* "pglast/parser.pyx":179
+  /* "pglast/parser.pyx":181
  *         parsed = pg_query_parse(cstring)
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -79815,7 +79846,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
  */
   /*try:*/ {
 
-    /* "pglast/parser.pyx":180
+    /* "pglast/parser.pyx":182
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -79825,7 +79856,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
     __pyx_t_3 = (__pyx_v_parsed.error != 0);
     if (unlikely(__pyx_t_3)) {
 
-      /* "pglast/parser.pyx":181
+      /* "pglast/parser.pyx":183
  *     try:
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')             # <<<<<<<<<<<<<<
@@ -79833,13 +79864,13 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
  *             raise ParseError(message, cursorpos)
  */
       __pyx_t_4 = __pyx_v_parsed.error->message;
-      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 181, __pyx_L7_error)
+      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 183, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_v_message = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pglast/parser.pyx":182
+      /* "pglast/parser.pyx":184
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos             # <<<<<<<<<<<<<<
@@ -79849,16 +79880,16 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
       __pyx_t_5 = __pyx_v_parsed.error->cursorpos;
       __pyx_v_cursorpos = __pyx_t_5;
 
-      /* "pglast/parser.pyx":183
+      /* "pglast/parser.pyx":185
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos
  *             raise ParseError(message, cursorpos)             # <<<<<<<<<<<<<<
  * 
  *         return parsed.parse_tree.decode('utf8')
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 183, __pyx_L7_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 185, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 183, __pyx_L7_error)
+      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 185, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_7);
       __pyx_t_8 = NULL;
       __pyx_t_5 = 0;
@@ -79877,15 +79908,15 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 183, __pyx_L7_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 185, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __PYX_ERR(1, 183, __pyx_L7_error)
+      __PYX_ERR(1, 185, __pyx_L7_error)
 
-      /* "pglast/parser.pyx":180
+      /* "pglast/parser.pyx":182
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -79894,7 +79925,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
  */
     }
 
-    /* "pglast/parser.pyx":185
+    /* "pglast/parser.pyx":187
  *             raise ParseError(message, cursorpos)
  * 
  *         return parsed.parse_tree.decode('utf8')             # <<<<<<<<<<<<<<
@@ -79903,7 +79934,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
  */
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_4 = __pyx_v_parsed.parse_tree;
-    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 185, __pyx_L7_error)
+    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 187, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_t_1);
     __pyx_r = __pyx_t_1;
@@ -79911,7 +79942,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
     goto __pyx_L6_return;
   }
 
-  /* "pglast/parser.pyx":187
+  /* "pglast/parser.pyx":189
  *         return parsed.parse_tree.decode('utf8')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -79946,7 +79977,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
             #endif
             /*try:*/ {
 
-              /* "pglast/parser.pyx":188
+              /* "pglast/parser.pyx":190
  *     finally:
  *         with nogil:
  *             pg_query_free_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -79956,7 +79987,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
               pg_query_free_parse_result(__pyx_v_parsed);
             }
 
-            /* "pglast/parser.pyx":187
+            /* "pglast/parser.pyx":189
  *         return parsed.parse_tree.decode('utf8')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -80000,7 +80031,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
           #endif
           /*try:*/ {
 
-            /* "pglast/parser.pyx":188
+            /* "pglast/parser.pyx":190
  *     finally:
  *         with nogil:
  *             pg_query_free_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -80010,7 +80041,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
             pg_query_free_parse_result(__pyx_v_parsed);
           }
 
-          /* "pglast/parser.pyx":187
+          /* "pglast/parser.pyx":189
  *         return parsed.parse_tree.decode('utf8')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -80034,7 +80065,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
     }
   }
 
-  /* "pglast/parser.pyx":167
+  /* "pglast/parser.pyx":169
  * 
  * 
  * def parse_sql_json(str query):             # <<<<<<<<<<<<<<
@@ -80058,7 +80089,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "pglast/parser.pyx":191
+/* "pglast/parser.pyx":193
  * 
  * 
  * def parse_sql_protobuf(str query):             # <<<<<<<<<<<<<<
@@ -80113,12 +80144,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_query)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 191, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 193, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "parse_sql_protobuf") < 0)) __PYX_ERR(1, 191, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "parse_sql_protobuf") < 0)) __PYX_ERR(1, 193, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -80129,13 +80160,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("parse_sql_protobuf", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 191, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("parse_sql_protobuf", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 193, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pglast.parser.parse_sql_protobuf", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(1, 191, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(1, 193, __pyx_L1_error)
   __pyx_r = __pyx_pf_6pglast_6parser_6parse_sql_protobuf(__pyx_self, __pyx_v_query);
 
   /* function exit code */
@@ -80176,7 +80207,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("parse_sql_protobuf", 0);
 
-  /* "pglast/parser.pyx":197
+  /* "pglast/parser.pyx":199
  *     cdef const char *cstring
  * 
  *     utf8 = query.encode('utf-8')             # <<<<<<<<<<<<<<
@@ -80185,24 +80216,24 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
  */
   if (unlikely(__pyx_v_query == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "encode");
-    __PYX_ERR(1, 197, __pyx_L1_error)
+    __PYX_ERR(1, 199, __pyx_L1_error)
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 197, __pyx_L1_error)
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_utf8 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/parser.pyx":198
+  /* "pglast/parser.pyx":200
  * 
  *     utf8 = query.encode('utf-8')
  *     cstring = utf8             # <<<<<<<<<<<<<<
  * 
  *     with nogil:
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 198, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 200, __pyx_L1_error)
   __pyx_v_cstring = __pyx_t_2;
 
-  /* "pglast/parser.pyx":200
+  /* "pglast/parser.pyx":202
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -80217,7 +80248,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
       #endif
       /*try:*/ {
 
-        /* "pglast/parser.pyx":201
+        /* "pglast/parser.pyx":203
  * 
  *     with nogil:
  *         parsed = pg_query_parse_protobuf(cstring)             # <<<<<<<<<<<<<<
@@ -80227,7 +80258,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
         __pyx_v_parsed = pg_query_parse_protobuf(__pyx_v_cstring);
       }
 
-      /* "pglast/parser.pyx":200
+      /* "pglast/parser.pyx":202
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -80246,7 +80277,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
       }
   }
 
-  /* "pglast/parser.pyx":203
+  /* "pglast/parser.pyx":205
  *         parsed = pg_query_parse_protobuf(cstring)
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -80255,7 +80286,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
  */
   /*try:*/ {
 
-    /* "pglast/parser.pyx":204
+    /* "pglast/parser.pyx":206
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -80265,7 +80296,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
     __pyx_t_3 = (__pyx_v_parsed.error != 0);
     if (unlikely(__pyx_t_3)) {
 
-      /* "pglast/parser.pyx":205
+      /* "pglast/parser.pyx":207
  *     try:
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')             # <<<<<<<<<<<<<<
@@ -80273,13 +80304,13 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
  *             raise ParseError(message, cursorpos)
  */
       __pyx_t_4 = __pyx_v_parsed.error->message;
-      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 205, __pyx_L7_error)
+      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 207, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_v_message = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pglast/parser.pyx":206
+      /* "pglast/parser.pyx":208
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos             # <<<<<<<<<<<<<<
@@ -80289,16 +80320,16 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
       __pyx_t_5 = __pyx_v_parsed.error->cursorpos;
       __pyx_v_cursorpos = __pyx_t_5;
 
-      /* "pglast/parser.pyx":207
+      /* "pglast/parser.pyx":209
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos
  *             raise ParseError(message, cursorpos)             # <<<<<<<<<<<<<<
  * 
  *         return PyBytes_FromStringAndSize(parsed.parse_tree.data, parsed.parse_tree.len)
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 207, __pyx_L7_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 209, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 207, __pyx_L7_error)
+      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 209, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_7);
       __pyx_t_8 = NULL;
       __pyx_t_5 = 0;
@@ -80317,15 +80348,15 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 207, __pyx_L7_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 209, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __PYX_ERR(1, 207, __pyx_L7_error)
+      __PYX_ERR(1, 209, __pyx_L7_error)
 
-      /* "pglast/parser.pyx":204
+      /* "pglast/parser.pyx":206
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -80334,7 +80365,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
  */
     }
 
-    /* "pglast/parser.pyx":209
+    /* "pglast/parser.pyx":211
  *             raise ParseError(message, cursorpos)
  * 
  *         return PyBytes_FromStringAndSize(parsed.parse_tree.data, parsed.parse_tree.len)             # <<<<<<<<<<<<<<
@@ -80342,14 +80373,14 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
  *         with nogil:
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = PyBytes_FromStringAndSize(__pyx_v_parsed.parse_tree.data, __pyx_v_parsed.parse_tree.len); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 209, __pyx_L7_error)
+    __pyx_t_1 = PyBytes_FromStringAndSize(__pyx_v_parsed.parse_tree.data, __pyx_v_parsed.parse_tree.len); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 211, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_r = __pyx_t_1;
     __pyx_t_1 = 0;
     goto __pyx_L6_return;
   }
 
-  /* "pglast/parser.pyx":211
+  /* "pglast/parser.pyx":213
  *         return PyBytes_FromStringAndSize(parsed.parse_tree.data, parsed.parse_tree.len)
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -80384,7 +80415,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
             #endif
             /*try:*/ {
 
-              /* "pglast/parser.pyx":212
+              /* "pglast/parser.pyx":214
  *     finally:
  *         with nogil:
  *             pg_query_free_protobuf_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -80394,7 +80425,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
               pg_query_free_protobuf_parse_result(__pyx_v_parsed);
             }
 
-            /* "pglast/parser.pyx":211
+            /* "pglast/parser.pyx":213
  *         return PyBytes_FromStringAndSize(parsed.parse_tree.data, parsed.parse_tree.len)
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -80438,7 +80469,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
           #endif
           /*try:*/ {
 
-            /* "pglast/parser.pyx":212
+            /* "pglast/parser.pyx":214
  *     finally:
  *         with nogil:
  *             pg_query_free_protobuf_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -80448,7 +80479,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
             pg_query_free_protobuf_parse_result(__pyx_v_parsed);
           }
 
-          /* "pglast/parser.pyx":211
+          /* "pglast/parser.pyx":213
  *         return PyBytes_FromStringAndSize(parsed.parse_tree.data, parsed.parse_tree.len)
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -80472,7 +80503,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
     }
   }
 
-  /* "pglast/parser.pyx":191
+  /* "pglast/parser.pyx":193
  * 
  * 
  * def parse_sql_protobuf(str query):             # <<<<<<<<<<<<<<
@@ -80496,7 +80527,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "pglast/parser.pyx":215
+/* "pglast/parser.pyx":217
  * 
  * 
  * def parse_plpgsql_json(str query):             # <<<<<<<<<<<<<<
@@ -80551,12 +80582,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_query)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 215, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 217, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "parse_plpgsql_json") < 0)) __PYX_ERR(1, 215, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "parse_plpgsql_json") < 0)) __PYX_ERR(1, 217, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -80567,13 +80598,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("parse_plpgsql_json", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 215, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("parse_plpgsql_json", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 217, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pglast.parser.parse_plpgsql_json", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(1, 215, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(1, 217, __pyx_L1_error)
   __pyx_r = __pyx_pf_6pglast_6parser_8parse_plpgsql_json(__pyx_self, __pyx_v_query);
 
   /* function exit code */
@@ -80614,7 +80645,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("parse_plpgsql_json", 0);
 
-  /* "pglast/parser.pyx":221
+  /* "pglast/parser.pyx":223
  *     cdef const char *cstring
  * 
  *     utf8 = query.encode('utf-8')             # <<<<<<<<<<<<<<
@@ -80623,24 +80654,24 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
  */
   if (unlikely(__pyx_v_query == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "encode");
-    __PYX_ERR(1, 221, __pyx_L1_error)
+    __PYX_ERR(1, 223, __pyx_L1_error)
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 221, __pyx_L1_error)
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_utf8 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/parser.pyx":222
+  /* "pglast/parser.pyx":224
  * 
  *     utf8 = query.encode('utf-8')
  *     cstring = utf8             # <<<<<<<<<<<<<<
  * 
  *     with nogil:
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 222, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 224, __pyx_L1_error)
   __pyx_v_cstring = __pyx_t_2;
 
-  /* "pglast/parser.pyx":224
+  /* "pglast/parser.pyx":226
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -80655,7 +80686,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
       #endif
       /*try:*/ {
 
-        /* "pglast/parser.pyx":225
+        /* "pglast/parser.pyx":227
  * 
  *     with nogil:
  *         parsed = pg_query_parse_plpgsql(cstring)             # <<<<<<<<<<<<<<
@@ -80665,7 +80696,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
         __pyx_v_parsed = pg_query_parse_plpgsql(__pyx_v_cstring);
       }
 
-      /* "pglast/parser.pyx":224
+      /* "pglast/parser.pyx":226
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -80684,7 +80715,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
       }
   }
 
-  /* "pglast/parser.pyx":227
+  /* "pglast/parser.pyx":229
  *         parsed = pg_query_parse_plpgsql(cstring)
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -80693,7 +80724,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
  */
   /*try:*/ {
 
-    /* "pglast/parser.pyx":228
+    /* "pglast/parser.pyx":230
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -80703,7 +80734,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
     __pyx_t_3 = (__pyx_v_parsed.error != 0);
     if (unlikely(__pyx_t_3)) {
 
-      /* "pglast/parser.pyx":229
+      /* "pglast/parser.pyx":231
  *     try:
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')             # <<<<<<<<<<<<<<
@@ -80711,13 +80742,13 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
  *             raise ParseError(message, cursorpos)
  */
       __pyx_t_4 = __pyx_v_parsed.error->message;
-      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 229, __pyx_L7_error)
+      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 231, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_v_message = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pglast/parser.pyx":230
+      /* "pglast/parser.pyx":232
  *         if parsed.error:
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos             # <<<<<<<<<<<<<<
@@ -80727,16 +80758,16 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
       __pyx_t_5 = __pyx_v_parsed.error->cursorpos;
       __pyx_v_cursorpos = __pyx_t_5;
 
-      /* "pglast/parser.pyx":231
+      /* "pglast/parser.pyx":233
  *             message = parsed.error.message.decode('utf8')
  *             cursorpos = parsed.error.cursorpos
  *             raise ParseError(message, cursorpos)             # <<<<<<<<<<<<<<
  * 
  *         return parsed.plpgsql_funcs.decode('utf8')
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 231, __pyx_L7_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 233, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 231, __pyx_L7_error)
+      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 233, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_7);
       __pyx_t_8 = NULL;
       __pyx_t_5 = 0;
@@ -80755,15 +80786,15 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 231, __pyx_L7_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 233, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __PYX_ERR(1, 231, __pyx_L7_error)
+      __PYX_ERR(1, 233, __pyx_L7_error)
 
-      /* "pglast/parser.pyx":228
+      /* "pglast/parser.pyx":230
  * 
  *     try:
  *         if parsed.error:             # <<<<<<<<<<<<<<
@@ -80772,7 +80803,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
  */
     }
 
-    /* "pglast/parser.pyx":233
+    /* "pglast/parser.pyx":235
  *             raise ParseError(message, cursorpos)
  * 
  *         return parsed.plpgsql_funcs.decode('utf8')             # <<<<<<<<<<<<<<
@@ -80781,7 +80812,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
  */
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_4 = __pyx_v_parsed.plpgsql_funcs;
-    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 233, __pyx_L7_error)
+    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 235, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_t_1);
     __pyx_r = __pyx_t_1;
@@ -80789,7 +80820,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
     goto __pyx_L6_return;
   }
 
-  /* "pglast/parser.pyx":235
+  /* "pglast/parser.pyx":237
  *         return parsed.plpgsql_funcs.decode('utf8')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -80824,7 +80855,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
             #endif
             /*try:*/ {
 
-              /* "pglast/parser.pyx":236
+              /* "pglast/parser.pyx":238
  *     finally:
  *         with nogil:
  *             pg_query_free_plpgsql_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -80834,7 +80865,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
               pg_query_free_plpgsql_parse_result(__pyx_v_parsed);
             }
 
-            /* "pglast/parser.pyx":235
+            /* "pglast/parser.pyx":237
  *         return parsed.plpgsql_funcs.decode('utf8')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -80878,7 +80909,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
           #endif
           /*try:*/ {
 
-            /* "pglast/parser.pyx":236
+            /* "pglast/parser.pyx":238
  *     finally:
  *         with nogil:
  *             pg_query_free_plpgsql_parse_result(parsed)             # <<<<<<<<<<<<<<
@@ -80888,7 +80919,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
             pg_query_free_plpgsql_parse_result(__pyx_v_parsed);
           }
 
-          /* "pglast/parser.pyx":235
+          /* "pglast/parser.pyx":237
  *         return parsed.plpgsql_funcs.decode('utf8')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -80912,7 +80943,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
     }
   }
 
-  /* "pglast/parser.pyx":215
+  /* "pglast/parser.pyx":217
  * 
  * 
  * def parse_plpgsql_json(str query):             # <<<<<<<<<<<<<<
@@ -80936,7 +80967,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "pglast/parser.pyx":239
+/* "pglast/parser.pyx":241
  * 
  * 
  * def fingerprint(str query):             # <<<<<<<<<<<<<<
@@ -80991,12 +81022,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_query)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 239, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 241, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "fingerprint") < 0)) __PYX_ERR(1, 239, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "fingerprint") < 0)) __PYX_ERR(1, 241, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -81007,13 +81038,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("fingerprint", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 239, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("fingerprint", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 241, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pglast.parser.fingerprint", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(1, 239, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_query), (&PyUnicode_Type), 1, "query", 1))) __PYX_ERR(1, 241, __pyx_L1_error)
   __pyx_r = __pyx_pf_6pglast_6parser_10fingerprint(__pyx_self, __pyx_v_query);
 
   /* function exit code */
@@ -81054,7 +81085,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("fingerprint", 0);
 
-  /* "pglast/parser.pyx":245
+  /* "pglast/parser.pyx":247
  *     cdef const char *cstring
  * 
  *     utf8 = query.encode('utf-8')             # <<<<<<<<<<<<<<
@@ -81063,24 +81094,24 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
  */
   if (unlikely(__pyx_v_query == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "encode");
-    __PYX_ERR(1, 245, __pyx_L1_error)
+    __PYX_ERR(1, 247, __pyx_L1_error)
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 245, __pyx_L1_error)
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 247, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_utf8 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/parser.pyx":246
+  /* "pglast/parser.pyx":248
  * 
  *     utf8 = query.encode('utf-8')
  *     cstring = utf8             # <<<<<<<<<<<<<<
  * 
  *     with nogil:
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 246, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 248, __pyx_L1_error)
   __pyx_v_cstring = __pyx_t_2;
 
-  /* "pglast/parser.pyx":248
+  /* "pglast/parser.pyx":250
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -81095,7 +81126,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
       #endif
       /*try:*/ {
 
-        /* "pglast/parser.pyx":249
+        /* "pglast/parser.pyx":251
  * 
  *     with nogil:
  *         result = pg_query_fingerprint(cstring)             # <<<<<<<<<<<<<<
@@ -81105,7 +81136,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
         __pyx_v_result = pg_query_fingerprint(__pyx_v_cstring);
       }
 
-      /* "pglast/parser.pyx":248
+      /* "pglast/parser.pyx":250
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -81124,7 +81155,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
       }
   }
 
-  /* "pglast/parser.pyx":251
+  /* "pglast/parser.pyx":253
  *         result = pg_query_fingerprint(cstring)
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -81133,7 +81164,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
  */
   /*try:*/ {
 
-    /* "pglast/parser.pyx":252
+    /* "pglast/parser.pyx":254
  * 
  *     try:
  *         if result.error:             # <<<<<<<<<<<<<<
@@ -81143,7 +81174,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
     __pyx_t_3 = (__pyx_v_result.error != 0);
     if (unlikely(__pyx_t_3)) {
 
-      /* "pglast/parser.pyx":253
+      /* "pglast/parser.pyx":255
  *     try:
  *         if result.error:
  *             message = result.error.message.decode('utf8')             # <<<<<<<<<<<<<<
@@ -81151,13 +81182,13 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
  *             raise ParseError(message, cursorpos)
  */
       __pyx_t_4 = __pyx_v_result.error->message;
-      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 253, __pyx_L7_error)
+      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 255, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_v_message = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pglast/parser.pyx":254
+      /* "pglast/parser.pyx":256
  *         if result.error:
  *             message = result.error.message.decode('utf8')
  *             cursorpos = result.error.cursorpos             # <<<<<<<<<<<<<<
@@ -81167,16 +81198,16 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
       __pyx_t_5 = __pyx_v_result.error->cursorpos;
       __pyx_v_cursorpos = __pyx_t_5;
 
-      /* "pglast/parser.pyx":255
+      /* "pglast/parser.pyx":257
  *             message = result.error.message.decode('utf8')
  *             cursorpos = result.error.cursorpos
  *             raise ParseError(message, cursorpos)             # <<<<<<<<<<<<<<
  * 
  *         return result.fingerprint_str.decode('ascii')
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 255, __pyx_L7_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 257, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 255, __pyx_L7_error)
+      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 257, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_7);
       __pyx_t_8 = NULL;
       __pyx_t_5 = 0;
@@ -81195,15 +81226,15 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 255, __pyx_L7_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 257, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __PYX_ERR(1, 255, __pyx_L7_error)
+      __PYX_ERR(1, 257, __pyx_L7_error)
 
-      /* "pglast/parser.pyx":252
+      /* "pglast/parser.pyx":254
  * 
  *     try:
  *         if result.error:             # <<<<<<<<<<<<<<
@@ -81212,7 +81243,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
  */
     }
 
-    /* "pglast/parser.pyx":257
+    /* "pglast/parser.pyx":259
  *             raise ParseError(message, cursorpos)
  * 
  *         return result.fingerprint_str.decode('ascii')             # <<<<<<<<<<<<<<
@@ -81221,7 +81252,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
  */
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_4 = __pyx_v_result.fingerprint_str;
-    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 257, __pyx_L7_error)
+    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 259, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_t_1);
     __pyx_r = __pyx_t_1;
@@ -81229,7 +81260,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
     goto __pyx_L6_return;
   }
 
-  /* "pglast/parser.pyx":259
+  /* "pglast/parser.pyx":261
  *         return result.fingerprint_str.decode('ascii')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -81264,7 +81295,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
             #endif
             /*try:*/ {
 
-              /* "pglast/parser.pyx":260
+              /* "pglast/parser.pyx":262
  *     finally:
  *         with nogil:
  *             pg_query_free_fingerprint_result(result)             # <<<<<<<<<<<<<<
@@ -81274,7 +81305,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
               pg_query_free_fingerprint_result(__pyx_v_result);
             }
 
-            /* "pglast/parser.pyx":259
+            /* "pglast/parser.pyx":261
  *         return result.fingerprint_str.decode('ascii')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -81318,7 +81349,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
           #endif
           /*try:*/ {
 
-            /* "pglast/parser.pyx":260
+            /* "pglast/parser.pyx":262
  *     finally:
  *         with nogil:
  *             pg_query_free_fingerprint_result(result)             # <<<<<<<<<<<<<<
@@ -81328,7 +81359,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
             pg_query_free_fingerprint_result(__pyx_v_result);
           }
 
-          /* "pglast/parser.pyx":259
+          /* "pglast/parser.pyx":261
  *         return result.fingerprint_str.decode('ascii')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -81352,7 +81383,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
     }
   }
 
-  /* "pglast/parser.pyx":239
+  /* "pglast/parser.pyx":241
  * 
  * 
  * def fingerprint(str query):             # <<<<<<<<<<<<<<
@@ -81376,7 +81407,7 @@ static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "pglast/parser.pyx":263
+/* "pglast/parser.pyx":265
  * 
  * 
  * def split(str stmts, bint with_parser=True, bint only_slices=False):             # <<<<<<<<<<<<<<
@@ -81437,26 +81468,26 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_stmts)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 263, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 265, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_with_parser);
           if (value) { values[1] = value; kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 263, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 265, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_only_slices);
           if (value) { values[2] = value; kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 263, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 265, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "split") < 0)) __PYX_ERR(1, 263, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "split") < 0)) __PYX_ERR(1, 265, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -81471,25 +81502,25 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     }
     __pyx_v_stmts = ((PyObject*)values[0]);
     if (values[1]) {
-      __pyx_v_with_parser = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_with_parser == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 263, __pyx_L3_error)
+      __pyx_v_with_parser = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_with_parser == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 265, __pyx_L3_error)
     } else {
       __pyx_v_with_parser = ((int)((int)1));
     }
     if (values[2]) {
-      __pyx_v_only_slices = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_only_slices == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 263, __pyx_L3_error)
+      __pyx_v_only_slices = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_only_slices == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 265, __pyx_L3_error)
     } else {
       __pyx_v_only_slices = ((int)((int)0));
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("split", 0, 1, 3, __pyx_nargs); __PYX_ERR(1, 263, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("split", 0, 1, 3, __pyx_nargs); __PYX_ERR(1, 265, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pglast.parser.split", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_stmts), (&PyUnicode_Type), 1, "stmts", 1))) __PYX_ERR(1, 263, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_stmts), (&PyUnicode_Type), 1, "stmts", 1))) __PYX_ERR(1, 265, __pyx_L1_error)
   __pyx_r = __pyx_pf_6pglast_6parser_12split(__pyx_self, __pyx_v_stmts, __pyx_v_with_parser, __pyx_v_only_slices);
 
   /* function exit code */
@@ -81539,7 +81570,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("split", 0);
 
-  /* "pglast/parser.pyx":277
+  /* "pglast/parser.pyx":279
  *     cdef PgQuerySplitResult splitted
  *     cdef const char *cstring
  *     cdef int i = 0             # <<<<<<<<<<<<<<
@@ -81548,7 +81579,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  */
   __pyx_v_i = 0;
 
-  /* "pglast/parser.pyx":278
+  /* "pglast/parser.pyx":280
  *     cdef const char *cstring
  *     cdef int i = 0
  *     cdef int prev_offset = 0             # <<<<<<<<<<<<<<
@@ -81557,7 +81588,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  */
   __pyx_v_prev_offset = 0;
 
-  /* "pglast/parser.pyx":281
+  /* "pglast/parser.pyx":283
  *     cdef int start
  *     cdef int end
  *     utf8 = stmts.encode('utf-8')             # <<<<<<<<<<<<<<
@@ -81566,24 +81597,24 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  */
   if (unlikely(__pyx_v_stmts == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "encode");
-    __PYX_ERR(1, 281, __pyx_L1_error)
+    __PYX_ERR(1, 283, __pyx_L1_error)
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_stmts); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 281, __pyx_L1_error)
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_stmts); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 283, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_utf8 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/parser.pyx":282
+  /* "pglast/parser.pyx":284
  *     cdef int end
  *     utf8 = stmts.encode('utf-8')
  *     cstring = utf8             # <<<<<<<<<<<<<<
  * 
  *     with nogil:
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 282, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 284, __pyx_L1_error)
   __pyx_v_cstring = __pyx_t_2;
 
-  /* "pglast/parser.pyx":284
+  /* "pglast/parser.pyx":286
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -81598,7 +81629,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
       #endif
       /*try:*/ {
 
-        /* "pglast/parser.pyx":285
+        /* "pglast/parser.pyx":287
  * 
  *     with nogil:
  *         if with_parser:             # <<<<<<<<<<<<<<
@@ -81608,7 +81639,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
         __pyx_t_3 = (__pyx_v_with_parser != 0);
         if (__pyx_t_3) {
 
-          /* "pglast/parser.pyx":286
+          /* "pglast/parser.pyx":288
  *     with nogil:
  *         if with_parser:
  *             splitted = pg_query_split_with_parser(cstring)             # <<<<<<<<<<<<<<
@@ -81617,7 +81648,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  */
           __pyx_v_splitted = pg_query_split_with_parser(__pyx_v_cstring);
 
-          /* "pglast/parser.pyx":285
+          /* "pglast/parser.pyx":287
  * 
  *     with nogil:
  *         if with_parser:             # <<<<<<<<<<<<<<
@@ -81627,7 +81658,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
           goto __pyx_L6;
         }
 
-        /* "pglast/parser.pyx":288
+        /* "pglast/parser.pyx":290
  *             splitted = pg_query_split_with_parser(cstring)
  *         else:
  *             splitted = pg_query_split_with_scanner(cstring)             # <<<<<<<<<<<<<<
@@ -81640,7 +81671,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
         __pyx_L6:;
       }
 
-      /* "pglast/parser.pyx":284
+      /* "pglast/parser.pyx":286
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -81659,7 +81690,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
       }
   }
 
-  /* "pglast/parser.pyx":290
+  /* "pglast/parser.pyx":292
  *             splitted = pg_query_split_with_scanner(cstring)
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -81668,7 +81699,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  */
   /*try:*/ {
 
-    /* "pglast/parser.pyx":291
+    /* "pglast/parser.pyx":293
  * 
  *     try:
  *         if splitted.error:             # <<<<<<<<<<<<<<
@@ -81678,7 +81709,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_3 = (__pyx_v_splitted.error != 0);
     if (unlikely(__pyx_t_3)) {
 
-      /* "pglast/parser.pyx":292
+      /* "pglast/parser.pyx":294
  *     try:
  *         if splitted.error:
  *             message = splitted.error.message.decode('utf8')             # <<<<<<<<<<<<<<
@@ -81686,13 +81717,13 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  *             raise ParseError(message, cursorpos)
  */
       __pyx_t_4 = __pyx_v_splitted.error->message;
-      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 292, __pyx_L8_error)
+      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 294, __pyx_L8_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_v_message = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pglast/parser.pyx":293
+      /* "pglast/parser.pyx":295
  *         if splitted.error:
  *             message = splitted.error.message.decode('utf8')
  *             cursorpos = splitted.error.cursorpos             # <<<<<<<<<<<<<<
@@ -81702,16 +81733,16 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_5 = __pyx_v_splitted.error->cursorpos;
       __pyx_v_cursorpos = __pyx_t_5;
 
-      /* "pglast/parser.pyx":294
+      /* "pglast/parser.pyx":296
  *             message = splitted.error.message.decode('utf8')
  *             cursorpos = splitted.error.cursorpos
  *             raise ParseError(message, cursorpos)             # <<<<<<<<<<<<<<
  * 
  *         result = []
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 294, __pyx_L8_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 296, __pyx_L8_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 294, __pyx_L8_error)
+      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 296, __pyx_L8_error)
       __Pyx_GOTREF(__pyx_t_7);
       __pyx_t_8 = NULL;
       __pyx_t_5 = 0;
@@ -81730,15 +81761,15 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 294, __pyx_L8_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 296, __pyx_L8_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __PYX_ERR(1, 294, __pyx_L8_error)
+      __PYX_ERR(1, 296, __pyx_L8_error)
 
-      /* "pglast/parser.pyx":291
+      /* "pglast/parser.pyx":293
  * 
  *     try:
  *         if splitted.error:             # <<<<<<<<<<<<<<
@@ -81747,19 +81778,19 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  */
     }
 
-    /* "pglast/parser.pyx":296
+    /* "pglast/parser.pyx":298
  *             raise ParseError(message, cursorpos)
  * 
  *         result = []             # <<<<<<<<<<<<<<
  *         while i < splitted.n_stmts:
  *             start = splitted.stmts[i].stmt_location
  */
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 296, __pyx_L8_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 298, __pyx_L8_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_result = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/parser.pyx":297
+    /* "pglast/parser.pyx":299
  * 
  *         result = []
  *         while i < splitted.n_stmts:             # <<<<<<<<<<<<<<
@@ -81770,7 +81801,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_3 = ((__pyx_v_i < __pyx_v_splitted.n_stmts) != 0);
       if (!__pyx_t_3) break;
 
-      /* "pglast/parser.pyx":298
+      /* "pglast/parser.pyx":300
  *         result = []
  *         while i < splitted.n_stmts:
  *             start = splitted.stmts[i].stmt_location             # <<<<<<<<<<<<<<
@@ -81780,7 +81811,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_5 = (__pyx_v_splitted.stmts[__pyx_v_i])->stmt_location;
       __pyx_v_start = __pyx_t_5;
 
-      /* "pglast/parser.pyx":299
+      /* "pglast/parser.pyx":301
  *         while i < splitted.n_stmts:
  *             start = splitted.stmts[i].stmt_location
  *             end = splitted.stmts[i].stmt_location + splitted.stmts[i].stmt_len             # <<<<<<<<<<<<<<
@@ -81789,16 +81820,16 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  */
       __pyx_v_end = ((__pyx_v_splitted.stmts[__pyx_v_i])->stmt_location + (__pyx_v_splitted.stmts[__pyx_v_i])->stmt_len);
 
-      /* "pglast/parser.pyx":300
+      /* "pglast/parser.pyx":302
  *             start = splitted.stmts[i].stmt_location
  *             end = splitted.stmts[i].stmt_location + splitted.stmts[i].stmt_len
  *             stmt = utf8[start:end].decode('utf-8').strip()             # <<<<<<<<<<<<<<
  *             if only_slices:
  *                 # Adjust offsets, we remove leading/trailing whitespace above
  */
-      __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_v_utf8, __pyx_v_start, __pyx_v_end, NULL, NULL, NULL, 1, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 300, __pyx_L8_error)
+      __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_v_utf8, __pyx_v_start, __pyx_v_end, NULL, NULL, NULL, 1, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 302, __pyx_L8_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_decode); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 300, __pyx_L8_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_decode); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 302, __pyx_L8_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_7 = NULL;
@@ -81817,11 +81848,11 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
         PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_kp_u_utf_8};
         __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 300, __pyx_L8_error)
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 302, __pyx_L8_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_strip); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 300, __pyx_L8_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_strip); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 302, __pyx_L8_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_6 = NULL;
@@ -81840,14 +81871,14 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
         PyObject *__pyx_callargs[1] = {__pyx_t_6, };
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 300, __pyx_L8_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 302, __pyx_L8_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
       __Pyx_XDECREF_SET(__pyx_v_stmt, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/parser.pyx":301
+      /* "pglast/parser.pyx":303
  *             end = splitted.stmts[i].stmt_location + splitted.stmts[i].stmt_len
  *             stmt = utf8[start:end].decode('utf-8').strip()
  *             if only_slices:             # <<<<<<<<<<<<<<
@@ -81857,54 +81888,54 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_3 = (__pyx_v_only_slices != 0);
       if (__pyx_t_3) {
 
-        /* "pglast/parser.pyx":303
+        /* "pglast/parser.pyx":305
  *             if only_slices:
  *                 # Adjust offsets, we remove leading/trailing whitespace above
  *                 cur_offset = stmts.index(stmt, prev_offset)             # <<<<<<<<<<<<<<
  *                 result.append(slice(cur_offset, cur_offset + len(stmt)))
  *                 prev_offset = cur_offset + 1
  */
-        __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_prev_offset); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 303, __pyx_L8_error)
+        __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_prev_offset); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 305, __pyx_L8_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_8 = __Pyx_CallUnboundCMethod2(&__pyx_umethod_PyUnicode_Type_index, __pyx_v_stmts, __pyx_v_stmt, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 303, __pyx_L8_error)
+        __pyx_t_8 = __Pyx_CallUnboundCMethod2(&__pyx_umethod_PyUnicode_Type_index, __pyx_v_stmts, __pyx_v_stmt, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 305, __pyx_L8_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_XDECREF_SET(__pyx_v_cur_offset, __pyx_t_8);
         __pyx_t_8 = 0;
 
-        /* "pglast/parser.pyx":304
+        /* "pglast/parser.pyx":306
  *                 # Adjust offsets, we remove leading/trailing whitespace above
  *                 cur_offset = stmts.index(stmt, prev_offset)
  *                 result.append(slice(cur_offset, cur_offset + len(stmt)))             # <<<<<<<<<<<<<<
  *                 prev_offset = cur_offset + 1
  *             else:
  */
-        __pyx_t_9 = PyObject_Length(__pyx_v_stmt); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(1, 304, __pyx_L8_error)
-        __pyx_t_8 = PyInt_FromSsize_t(__pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 304, __pyx_L8_error)
+        __pyx_t_9 = PyObject_Length(__pyx_v_stmt); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(1, 306, __pyx_L8_error)
+        __pyx_t_8 = PyInt_FromSsize_t(__pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 306, __pyx_L8_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_1 = PyNumber_Add(__pyx_v_cur_offset, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 304, __pyx_L8_error)
+        __pyx_t_1 = PyNumber_Add(__pyx_v_cur_offset, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 306, __pyx_L8_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = PySlice_New(__pyx_v_cur_offset, __pyx_t_1, Py_None); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 304, __pyx_L8_error)
+        __pyx_t_8 = PySlice_New(__pyx_v_cur_offset, __pyx_t_1, Py_None); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 306, __pyx_L8_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_result, __pyx_t_8); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(1, 304, __pyx_L8_error)
+        __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_result, __pyx_t_8); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(1, 306, __pyx_L8_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-        /* "pglast/parser.pyx":305
+        /* "pglast/parser.pyx":307
  *                 cur_offset = stmts.index(stmt, prev_offset)
  *                 result.append(slice(cur_offset, cur_offset + len(stmt)))
  *                 prev_offset = cur_offset + 1             # <<<<<<<<<<<<<<
  *             else:
  *                 result.append(stmt)
  */
-        __pyx_t_8 = __Pyx_PyInt_AddObjC(__pyx_v_cur_offset, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 305, __pyx_L8_error)
+        __pyx_t_8 = __Pyx_PyInt_AddObjC(__pyx_v_cur_offset, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 307, __pyx_L8_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_8); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 305, __pyx_L8_error)
+        __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_8); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 307, __pyx_L8_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __pyx_v_prev_offset = __pyx_t_5;
 
-        /* "pglast/parser.pyx":301
+        /* "pglast/parser.pyx":303
  *             end = splitted.stmts[i].stmt_location + splitted.stmts[i].stmt_len
  *             stmt = utf8[start:end].decode('utf-8').strip()
  *             if only_slices:             # <<<<<<<<<<<<<<
@@ -81914,7 +81945,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
         goto __pyx_L13;
       }
 
-      /* "pglast/parser.pyx":307
+      /* "pglast/parser.pyx":309
  *                 prev_offset = cur_offset + 1
  *             else:
  *                 result.append(stmt)             # <<<<<<<<<<<<<<
@@ -81922,11 +81953,11 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  *         return tuple(result)
  */
       /*else*/ {
-        __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_result, __pyx_v_stmt); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(1, 307, __pyx_L8_error)
+        __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_result, __pyx_v_stmt); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(1, 309, __pyx_L8_error)
       }
       __pyx_L13:;
 
-      /* "pglast/parser.pyx":308
+      /* "pglast/parser.pyx":310
  *             else:
  *                 result.append(stmt)
  *             i += 1             # <<<<<<<<<<<<<<
@@ -81936,7 +81967,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
       __pyx_v_i = (__pyx_v_i + 1);
     }
 
-    /* "pglast/parser.pyx":309
+    /* "pglast/parser.pyx":311
  *                 result.append(stmt)
  *             i += 1
  *         return tuple(result)             # <<<<<<<<<<<<<<
@@ -81944,14 +81975,14 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  *         with nogil:
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_8 = PyList_AsTuple(__pyx_v_result); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 309, __pyx_L8_error)
+    __pyx_t_8 = PyList_AsTuple(__pyx_v_result); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 311, __pyx_L8_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_r = __pyx_t_8;
     __pyx_t_8 = 0;
     goto __pyx_L7_return;
   }
 
-  /* "pglast/parser.pyx":311
+  /* "pglast/parser.pyx":313
  *         return tuple(result)
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -81986,7 +82017,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
             #endif
             /*try:*/ {
 
-              /* "pglast/parser.pyx":312
+              /* "pglast/parser.pyx":314
  *     finally:
  *         with nogil:
  *             pg_query_free_split_result(splitted)             # <<<<<<<<<<<<<<
@@ -81996,7 +82027,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
               pg_query_free_split_result(__pyx_v_splitted);
             }
 
-            /* "pglast/parser.pyx":311
+            /* "pglast/parser.pyx":313
  *         return tuple(result)
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -82040,7 +82071,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
           #endif
           /*try:*/ {
 
-            /* "pglast/parser.pyx":312
+            /* "pglast/parser.pyx":314
  *     finally:
  *         with nogil:
  *             pg_query_free_split_result(splitted)             # <<<<<<<<<<<<<<
@@ -82050,7 +82081,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
             pg_query_free_split_result(__pyx_v_splitted);
           }
 
-          /* "pglast/parser.pyx":311
+          /* "pglast/parser.pyx":313
  *         return tuple(result)
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -82074,7 +82105,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
     }
   }
 
-  /* "pglast/parser.pyx":263
+  /* "pglast/parser.pyx":265
  * 
  * 
  * def split(str stmts, bint with_parser=True, bint only_slices=False):             # <<<<<<<<<<<<<<
@@ -82101,7 +82132,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
   return __pyx_r;
 }
 
-/* "pglast/parser.pyx":315
+/* "pglast/parser.pyx":317
  * 
  * 
  * def deparse(bytes protobuf):             # <<<<<<<<<<<<<<
@@ -82156,12 +82187,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_protobuf)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 315, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 317, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "deparse") < 0)) __PYX_ERR(1, 315, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "deparse") < 0)) __PYX_ERR(1, 317, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -82172,13 +82203,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("deparse", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 315, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("deparse", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 317, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pglast.parser.deparse", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_protobuf), (&PyBytes_Type), 1, "protobuf", 1))) __PYX_ERR(1, 315, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_protobuf), (&PyBytes_Type), 1, "protobuf", 1))) __PYX_ERR(1, 317, __pyx_L1_error)
   __pyx_r = __pyx_pf_6pglast_6parser_14deparse(__pyx_self, __pyx_v_protobuf);
 
   /* function exit code */
@@ -82217,16 +82248,16 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("deparse", 0);
 
-  /* "pglast/parser.pyx":321
+  /* "pglast/parser.pyx":323
  *     cdef PgQueryDeparseResult deparsed
  * 
  *     PyBytes_AsStringAndSize(protobuf, &tree.data, <Py_ssize_t *>&tree.len)             # <<<<<<<<<<<<<<
  *     with nogil:
  *          deparsed = pg_query_deparse_protobuf(tree)
  */
-  __pyx_t_1 = PyBytes_AsStringAndSize(__pyx_v_protobuf, (&__pyx_v_tree.data), ((Py_ssize_t *)(&__pyx_v_tree.len))); if (unlikely(__pyx_t_1 == ((int)-1))) __PYX_ERR(1, 321, __pyx_L1_error)
+  __pyx_t_1 = PyBytes_AsStringAndSize(__pyx_v_protobuf, (&__pyx_v_tree.data), ((Py_ssize_t *)(&__pyx_v_tree.len))); if (unlikely(__pyx_t_1 == ((int)-1))) __PYX_ERR(1, 323, __pyx_L1_error)
 
-  /* "pglast/parser.pyx":322
+  /* "pglast/parser.pyx":324
  * 
  *     PyBytes_AsStringAndSize(protobuf, &tree.data, <Py_ssize_t *>&tree.len)
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -82241,7 +82272,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
       #endif
       /*try:*/ {
 
-        /* "pglast/parser.pyx":323
+        /* "pglast/parser.pyx":325
  *     PyBytes_AsStringAndSize(protobuf, &tree.data, <Py_ssize_t *>&tree.len)
  *     with nogil:
  *          deparsed = pg_query_deparse_protobuf(tree)             # <<<<<<<<<<<<<<
@@ -82251,7 +82282,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
         __pyx_v_deparsed = pg_query_deparse_protobuf(__pyx_v_tree);
       }
 
-      /* "pglast/parser.pyx":322
+      /* "pglast/parser.pyx":324
  * 
  *     PyBytes_AsStringAndSize(protobuf, &tree.data, <Py_ssize_t *>&tree.len)
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -82270,7 +82301,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
       }
   }
 
-  /* "pglast/parser.pyx":325
+  /* "pglast/parser.pyx":327
  *          deparsed = pg_query_deparse_protobuf(tree)
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -82279,7 +82310,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
  */
   /*try:*/ {
 
-    /* "pglast/parser.pyx":326
+    /* "pglast/parser.pyx":328
  * 
  *     try:
  *         if deparsed.error:             # <<<<<<<<<<<<<<
@@ -82289,7 +82320,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
     __pyx_t_2 = (__pyx_v_deparsed.error != 0);
     if (unlikely(__pyx_t_2)) {
 
-      /* "pglast/parser.pyx":327
+      /* "pglast/parser.pyx":329
  *     try:
  *         if deparsed.error:
  *             message = deparsed.error.message.decode('utf8')             # <<<<<<<<<<<<<<
@@ -82297,13 +82328,13 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
  *             raise ParseError(message, cursorpos)
  */
       __pyx_t_3 = __pyx_v_deparsed.error->message;
-      __pyx_t_4 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 327, __pyx_L7_error)
+      __pyx_t_4 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 329, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_INCREF(__pyx_t_4);
       __pyx_v_message = __pyx_t_4;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "pglast/parser.pyx":328
+      /* "pglast/parser.pyx":330
  *         if deparsed.error:
  *             message = deparsed.error.message.decode('utf8')
  *             cursorpos = deparsed.error.cursorpos             # <<<<<<<<<<<<<<
@@ -82313,16 +82344,16 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
       __pyx_t_1 = __pyx_v_deparsed.error->cursorpos;
       __pyx_v_cursorpos = __pyx_t_1;
 
-      /* "pglast/parser.pyx":329
+      /* "pglast/parser.pyx":331
  *             message = deparsed.error.message.decode('utf8')
  *             cursorpos = deparsed.error.cursorpos
  *             raise ParseError(message, cursorpos)             # <<<<<<<<<<<<<<
  * 
  *         return deparsed.query.decode('utf-8')
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 329, __pyx_L7_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 331, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 329, __pyx_L7_error)
+      __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_cursorpos); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 331, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_6);
       __pyx_t_7 = NULL;
       __pyx_t_1 = 0;
@@ -82341,15 +82372,15 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
         __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_1, 2+__pyx_t_1);
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 329, __pyx_L7_error)
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 331, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
       __Pyx_Raise(__pyx_t_4, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __PYX_ERR(1, 329, __pyx_L7_error)
+      __PYX_ERR(1, 331, __pyx_L7_error)
 
-      /* "pglast/parser.pyx":326
+      /* "pglast/parser.pyx":328
  * 
  *     try:
  *         if deparsed.error:             # <<<<<<<<<<<<<<
@@ -82358,7 +82389,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
  */
     }
 
-    /* "pglast/parser.pyx":331
+    /* "pglast/parser.pyx":333
  *             raise ParseError(message, cursorpos)
  * 
  *         return deparsed.query.decode('utf-8')             # <<<<<<<<<<<<<<
@@ -82367,7 +82398,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
  */
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_3 = __pyx_v_deparsed.query;
-    __pyx_t_4 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 331, __pyx_L7_error)
+    __pyx_t_4 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 333, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_t_4);
     __pyx_r = __pyx_t_4;
@@ -82375,7 +82406,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
     goto __pyx_L6_return;
   }
 
-  /* "pglast/parser.pyx":333
+  /* "pglast/parser.pyx":335
  *         return deparsed.query.decode('utf-8')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -82409,7 +82440,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
             #endif
             /*try:*/ {
 
-              /* "pglast/parser.pyx":334
+              /* "pglast/parser.pyx":336
  *     finally:
  *         with nogil:
  *             pg_query_free_deparse_result(deparsed)             # <<<<<<<<<<<<<<
@@ -82417,7 +82448,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
               pg_query_free_deparse_result(__pyx_v_deparsed);
             }
 
-            /* "pglast/parser.pyx":333
+            /* "pglast/parser.pyx":335
  *         return deparsed.query.decode('utf-8')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -82460,7 +82491,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
           #endif
           /*try:*/ {
 
-            /* "pglast/parser.pyx":334
+            /* "pglast/parser.pyx":336
  *     finally:
  *         with nogil:
  *             pg_query_free_deparse_result(deparsed)             # <<<<<<<<<<<<<<
@@ -82468,7 +82499,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
             pg_query_free_deparse_result(__pyx_v_deparsed);
           }
 
-          /* "pglast/parser.pyx":333
+          /* "pglast/parser.pyx":335
  *         return deparsed.query.decode('utf-8')
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -82491,7 +82522,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
     }
   }
 
-  /* "pglast/parser.pyx":315
+  /* "pglast/parser.pyx":317
  * 
  * 
  * def deparse(bytes protobuf):             # <<<<<<<<<<<<<<
@@ -83324,77 +83355,77 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__12);
   __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_sql, 135, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(1, 135, __pyx_L1_error)
 
-  /* "pglast/parser.pyx":167
+  /* "pglast/parser.pyx":169
  * 
  * 
  * def parse_sql_json(str query):             # <<<<<<<<<<<<<<
  *     "Parse the given ``SQL`` `query` and return its JSON encoded parse tree."
  * 
  */
-  __pyx_tuple__14 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(1, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_sql_json, 167, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_sql_json, 169, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(1, 169, __pyx_L1_error)
 
-  /* "pglast/parser.pyx":191
+  /* "pglast/parser.pyx":193
  * 
  * 
  * def parse_sql_protobuf(str query):             # <<<<<<<<<<<<<<
  *     "Parse the given ``SQL`` `query` and return its Protobuf encoded parse tree."
  * 
  */
-  __pyx_tuple__16 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(1, 191, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_sql_protobuf, 191, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(1, 191, __pyx_L1_error)
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_sql_protobuf, 193, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(1, 193, __pyx_L1_error)
 
-  /* "pglast/parser.pyx":215
+  /* "pglast/parser.pyx":217
  * 
  * 
  * def parse_plpgsql_json(str query):             # <<<<<<<<<<<<<<
  *     "Parse the given ``pgpgsql`` `query` and return its JSON encoded parse tree."
  * 
  */
-  __pyx_tuple__18 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 215, __pyx_L1_error)
+  __pyx_tuple__18 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_plpgsql_json, 215, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 215, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_plpgsql_json, 217, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 217, __pyx_L1_error)
 
-  /* "pglast/parser.pyx":239
+  /* "pglast/parser.pyx":241
  * 
  * 
  * def fingerprint(str query):             # <<<<<<<<<<<<<<
  *     "Compute and return a *signature* of the given ``SQL`` `query`."
  * 
  */
-  __pyx_tuple__20 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_result, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(1, 239, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_result, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(1, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_fingerprint, 239, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(1, 239, __pyx_L1_error)
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_fingerprint, 241, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(1, 241, __pyx_L1_error)
 
-  /* "pglast/parser.pyx":263
+  /* "pglast/parser.pyx":265
  * 
  * 
  * def split(str stmts, bint with_parser=True, bint only_slices=False):             # <<<<<<<<<<<<<<
  *     """Split the given `stmts` string into a sequence of the single ``SQL`` statements.
  * 
  */
-  __pyx_tuple__22 = PyTuple_Pack(15, __pyx_n_s_stmts, __pyx_n_s_with_parser, __pyx_n_s_only_slices, __pyx_n_s_splitted, __pyx_n_s_cstring, __pyx_n_s_i, __pyx_n_s_prev_offset, __pyx_n_s_start, __pyx_n_s_end, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos, __pyx_n_s_result, __pyx_n_s_stmt, __pyx_n_s_cur_offset); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(1, 263, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(15, __pyx_n_s_stmts, __pyx_n_s_with_parser, __pyx_n_s_only_slices, __pyx_n_s_splitted, __pyx_n_s_cstring, __pyx_n_s_i, __pyx_n_s_prev_offset, __pyx_n_s_start, __pyx_n_s_end, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos, __pyx_n_s_result, __pyx_n_s_stmt, __pyx_n_s_cur_offset); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_split, 263, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(1, 263, __pyx_L1_error)
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_split, 265, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(1, 265, __pyx_L1_error)
 
-  /* "pglast/parser.pyx":315
+  /* "pglast/parser.pyx":317
  * 
  * 
  * def deparse(bytes protobuf):             # <<<<<<<<<<<<<<
  *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
-  __pyx_tuple__24 = PyTuple_Pack(5, __pyx_n_s_protobuf, __pyx_n_s_tree, __pyx_n_s_deparsed, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(1, 315, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(5, __pyx_n_s_protobuf, __pyx_n_s_tree, __pyx_n_s_deparsed, __pyx_n_s_message, __pyx_n_s_cursorpos); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(1, 317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_deparse, 315, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(1, 315, __pyx_L1_error)
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_deparse, 317, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(1, 317, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -84363,66 +84394,66 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_sql, __pyx_t_2) < 0) __PYX_ERR(1, 135, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pglast/parser.pyx":167
+  /* "pglast/parser.pyx":169
  * 
  * 
  * def parse_sql_json(str query):             # <<<<<<<<<<<<<<
  *     "Parse the given ``SQL`` `query` and return its JSON encoded parse tree."
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_5parse_sql_json, 0, __pyx_n_s_parse_sql_json, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_5parse_sql_json, 0, __pyx_n_s_parse_sql_json, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_sql_json, __pyx_t_2) < 0) __PYX_ERR(1, 167, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_sql_json, __pyx_t_2) < 0) __PYX_ERR(1, 169, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pglast/parser.pyx":191
+  /* "pglast/parser.pyx":193
  * 
  * 
  * def parse_sql_protobuf(str query):             # <<<<<<<<<<<<<<
  *     "Parse the given ``SQL`` `query` and return its Protobuf encoded parse tree."
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_7parse_sql_protobuf, 0, __pyx_n_s_parse_sql_protobuf, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 191, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_7parse_sql_protobuf, 0, __pyx_n_s_parse_sql_protobuf, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_sql_protobuf, __pyx_t_2) < 0) __PYX_ERR(1, 191, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_sql_protobuf, __pyx_t_2) < 0) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pglast/parser.pyx":215
+  /* "pglast/parser.pyx":217
  * 
  * 
  * def parse_plpgsql_json(str query):             # <<<<<<<<<<<<<<
  *     "Parse the given ``pgpgsql`` `query` and return its JSON encoded parse tree."
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_9parse_plpgsql_json, 0, __pyx_n_s_parse_plpgsql_json, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 215, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_9parse_plpgsql_json, 0, __pyx_n_s_parse_plpgsql_json, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_plpgsql_json, __pyx_t_2) < 0) __PYX_ERR(1, 215, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_parse_plpgsql_json, __pyx_t_2) < 0) __PYX_ERR(1, 217, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pglast/parser.pyx":239
+  /* "pglast/parser.pyx":241
  * 
  * 
  * def fingerprint(str query):             # <<<<<<<<<<<<<<
  *     "Compute and return a *signature* of the given ``SQL`` `query`."
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_11fingerprint, 0, __pyx_n_s_fingerprint, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 239, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_11fingerprint, 0, __pyx_n_s_fingerprint, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fingerprint, __pyx_t_2) < 0) __PYX_ERR(1, 239, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fingerprint, __pyx_t_2) < 0) __PYX_ERR(1, 241, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pglast/parser.pyx":263
+  /* "pglast/parser.pyx":265
  * 
  * 
  * def split(str stmts, bint with_parser=True, bint only_slices=False):             # <<<<<<<<<<<<<<
  *     """Split the given `stmts` string into a sequence of the single ``SQL`` statements.
  * 
  */
-  __pyx_t_2 = __Pyx_PyBool_FromLong(((int)1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 263, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong(((int)1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(((int)0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 263, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(((int)0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 263, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
@@ -84430,23 +84461,23 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_1);
   __pyx_t_2 = 0;
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_13split, 0, __pyx_n_s_split, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 263, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_13split, 0, __pyx_n_s_split, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_split, __pyx_t_1) < 0) __PYX_ERR(1, 263, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_split, __pyx_t_1) < 0) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pglast/parser.pyx":315
+  /* "pglast/parser.pyx":317
  * 
  * 
  * def deparse(bytes protobuf):             # <<<<<<<<<<<<<<
  *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_15deparse, 0, __pyx_n_s_deparse, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 315, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_15deparse, 0, __pyx_n_s_deparse, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_deparse, __pyx_t_1) < 0) __PYX_ERR(1, 315, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_deparse, __pyx_t_1) < 0) __PYX_ERR(1, 317, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pglast/parser.pyx":1
