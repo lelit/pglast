@@ -3,6 +3,36 @@
 Changes
 -------
 
+V3
+##
+
+3.0.dev0 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+**Breaking changes**
+
+- Target PostgreSQL 13
+
+- The ``pglast.parser`` module exposes all ``libpg_query`` entry points, even the new
+  ``pg_query_deparse_protobuf()`` function that is basically equivalent to
+  ``RawStream``\ -based printer
+
+- The ``split()`` function is now based on the lower level ``pg_query_split_with_xxx()``
+  functions
+
+- The ``parse_sql()`` function returns native Python objects, not a ``JSON`` string as before:
+  all PG *nodes* are now represented by subclasses of ``pglast.ast.Node``, without exception,
+  even ``Expr`` and ``Value`` are there. The latter impacts on ``pglast.node.Scalar``: for
+  example it now may contain a ``ast.Integer`` instance instead of a Python ``int``
+
+- The ``pgpp --parse-tree`` output is a `pprint`__ represention of the ``AST``
+
+  __ https://docs.python.org/3.9/library/pprint.html#pprint.pprint
+
+
+V2
+##
+
 2.0.dev3 (2021-02-20)
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -58,6 +88,9 @@ Changes
 
   __ https://github.com/lelit/pglast/pull/62
 
+
+V1
+##
 
 1.17 (2021-02-20)
 ~~~~~~~~~~~~~~~~~
