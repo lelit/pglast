@@ -156,6 +156,8 @@ def parse_sql(str query):
                 Py_INCREF(item)
                 PyTuple_SET_ITEM(stmts, i, item)
             return stmts
+        elif parsed.error is NULL:
+            return ()
         else:
             message = parsed.error.message.decode('utf8')
             cursorpos = parsed.error.cursorpos

@@ -9,10 +9,15 @@
 import pytest
 
 from pglast import Error, ast, parse_plpgsql, parse_sql
-from pglast.parser import fingerprint, get_postgresql_version, split
+from pglast.parser import ParseError, fingerprint, get_postgresql_version, split
 
 
 def test_basic():
+    assert parse_sql('') == ()
+    assert parse_sql('-- nothing') == ()
+    with pytest.raises(ParseError):
+        parse_sql('foo')
+
     ptree = parse_sql('SELECT 1')
     assert isinstance(ptree, tuple)
     assert len(ptree) == 1
