@@ -117,23 +117,23 @@ def test_pg_regress_corpus(filename):
         except ParseError:
             continue
         except Exception as e:
-            raise RuntimeError("Statement %r from %s at line %d, could not parse: %s"
+            raise RuntimeError("Statement “%s” from %s at line %d, could not parse: %s"
                                % (trimmed_stmt, rel_src, lineno, e))
 
         try:
             serialized = RawStream()(Node(orig_ast))
         except NotImplementedError as e:
-            raise NotImplementedError("Statement %r from %s at line %d, could not reprint: %s"
+            raise NotImplementedError("Statement “%s” from %s at line %d, could not reprint: %s"
                                       % (trimmed_stmt, rel_src, lineno, e))
         except Exception as e:
-            raise RuntimeError("Statement %r from %s at line %d, could not reprint: %s"
+            raise RuntimeError("Statement “%s” from %s at line %d, could not reprint: %s"
                                % (trimmed_stmt, rel_src, lineno, e))
 
         try:
             serialized_ast = parse_sql(serialized)
         except Exception as e:
-            raise RuntimeError("Statement %r from %s at line %d, could not reparse %r: %s"
+            raise RuntimeError("Statement “%s” from %s at line %d, could not reparse %r: %s"
                                % (trimmed_stmt, rel_src, lineno, serialized, e))
 
-        assert orig_ast == serialized_ast, "Statement %r from %s at line %d != %r" % (
+        assert orig_ast == serialized_ast, "Statement “%s” from %s at line %d != %r" % (
             trimmed_stmt, rel_src, lineno, serialized)
