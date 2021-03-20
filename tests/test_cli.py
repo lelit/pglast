@@ -73,8 +73,7 @@ WHERE foo <> 0
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--parse-tree'])
-            assert '"ival": 1' in output.getvalue()
-
+            assert "'val': {'@': 'Integer', 'val': 1}" in output.getvalue()
 
     with StringIO("Select 1") as input:
         with UnclosableStream() as output:
