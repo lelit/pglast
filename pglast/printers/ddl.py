@@ -1476,6 +1476,15 @@ def create_trig_stmt(node, output):
             output.write(')')
 
 
+@node_printer('DeallocateStmt')
+def deallocate_stmt(node, output):
+    output.write('DEALLOCATE PREPARE ')
+    if node.name:
+        output.print_name(node.name)
+    else:
+        output.write('ALL')
+
+
 @node_printer('DefineStmt')
 def define_stmt(node, output):
     output.write('CREATE ')
