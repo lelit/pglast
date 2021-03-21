@@ -81,37 +81,37 @@ OBJECT_NAMES = {
 
 @node_printer('AlterDatabaseStmt')
 def alter_database_stmt(node, output):
-    output.write("ALTER DATABASE ")
+    output.write('ALTER DATABASE ')
     output.print_name(node.dbname)
     output.print_list(node.options, ' ')
 
 
 @node_printer('AlterDatabaseSetStmt')
 def alter_database_set_stmt(node, output):
-    output.write("ALTER DATABASE ")
+    output.write('ALTER DATABASE ')
     output.print_name(node.dbname)
     output.print_node(node.setstmt)
 
 
 @node_printer('AlterEnumStmt')
 def alter_enum_stmt(node, output):
-    output.write("ALTER TYPE ")
+    output.write('ALTER TYPE ')
     output.print_name(node.typeName)
     if node.newVal:
         if node.oldVal:
-            output.write("RENAME VALUE ")
+            output.write('RENAME VALUE ')
             output.write_quoted_string(node.oldVal.value)
-            output.write("TO ")
+            output.write('TO ')
         else:
-            output.write("ADD VALUE ")
+            output.write('ADD VALUE ')
             if node.skipIfNewValExists:
-                output.write("IF NOT EXISTS ")
+                output.write('IF NOT EXISTS ')
         output.write_quoted_string(node.newVal.value)
     if node.newValNeighbor:
         if node.newValIsAfter:
-            output.write(" AFTER ")
+            output.write(' AFTER ')
         else:
-            output.write(" BEFORE ")
+            output.write(' BEFORE ')
         output.write_quoted_string(node.newValNeighbor.value)
 
 
@@ -178,8 +178,10 @@ def alter_function_stmt(node, output):
 def alter_object_schema_stmt(node, output):
     OT = enums.ObjectType
     objtype = node.objectType
-    output.write("ALTER ")
+    output.write('ALTER ')
     output.writes(OBJECT_NAMES[objtype])
+    if node.missing_ok:
+        output.write(' IF EXISTS ')
     if objtype in (OT.OBJECT_TABLE,
                    OT.OBJECT_VIEW,
                    OT.OBJECT_FOREIGN_TABLE,
@@ -194,7 +196,7 @@ def alter_object_schema_stmt(node, output):
             output.print_symbol(method)
         else:
             output.print_name(node.object)
-    output.write(" SET SCHEMA ")
+    output.write(' SET SCHEMA ')
     output.print_name(node.newschema)
 
 
@@ -234,7 +236,7 @@ def alter_op_family_stmt(node, output):
 
 @node_printer('AlterOwnerStmt')
 def alter_owner_stmt(node, output):
-    output.write("ALTER ")
+    output.write('ALTER ')
     output.writes(OBJECT_NAMES[node.objectType.value])
     OT = enums.ObjectType
     if node.objectType in (OT.OBJECT_OPFAMILY,
@@ -298,7 +300,7 @@ def alter_role_stmt(node, output):
 
 @node_printer('AlterSeqStmt')
 def alter_seq_stmt(node, output):
-    output.write("ALTER SEQUENCE ")
+    output.write('ALTER SEQUENCE ')
     output.print_node(node.sequence)
     if node.options:
         output.print_list(node.options, '')
@@ -306,10 +308,10 @@ def alter_seq_stmt(node, output):
 
 @node_printer('AlterTableStmt')
 def alter_table_stmt(node, output):
-    output.write("ALTER ")
+    output.write('ALTER ')
     output.writes(OBJECT_NAMES[node.relkind.value])
     if node.missing_ok:
-        output.write("IF EXISTS ")
+        output.write('IF EXISTS ')
     output.print_node(node.relation)
     if len(node.cmds) > 1:
         output.newline()
@@ -338,31 +340,35 @@ class AlterTableTypePrinter(IntEnumPrinter):
     enum = enums.AlterTableType
 
     def AT_AddColumn(self, node, output):
-        output.write("ADD ")
+        output.write('ADD ')
         if node.parent_node.relkind == enums.ObjectType.OBJECT_TYPE:
-            output.write("ATTRIBUTE ")
+            output.write('ATTRIBUTE ')
         else:
-            output.write("COLUMN ")
+            output.write('COLUMN ')
         if node.missing_ok:
             output.write('IF NOT EXISTS ')
         output.print_node(node.def_)
 
     def AT_AddConstraint(self, node, output):
-        output.write("ADD ")
+        output.write('ADD ')
         output.print_node(node.def_)
 
     def AT_AddInherit(self, node, output):
-        output.write("INHERIT ")
+        output.write('INHERIT ')
+        output.print_node(node.def_)
+
+    def AT_AddOf(self, node, output):
+        output.write('OF ')
         output.print_node(node.def_)
 
     def AT_AlterColumnType(self, node, output):
-        output.write("ALTER ")
+        output.write('ALTER ')
         if node.parent_node.relkind == enums.ObjectType.OBJECT_TYPE:
-            output.write("ATTRIBUTE ")
+            output.write('ATTRIBUTE ')
         else:
-            output.write("COLUMN ")
+            output.write('COLUMN ')
         output.print_name(node.name)
-        output.write(" TYPE ")
+        output.write(' TYPE ')
         columndef = node.def_
         output.print_node(columndef)
         if columndef.raw_default:
@@ -370,105 +376,105 @@ class AlterTableTypePrinter(IntEnumPrinter):
             output.print_node(columndef.raw_default)
 
     def AT_AlterConstraint(self, node, output):
-        output.write("ALTER ")
+        output.write('ALTER ')
         output.print_node(node.def_)
 
     def AT_AttachPartition(self, node, output):
-        output.write("ATTACH PARTITION ")
+        output.write('ATTACH PARTITION ')
         output.print_node(node.def_)
 
     def AT_ChangeOwner(self, node, output):
-        output.write("OWNER TO ")
+        output.write('OWNER TO ')
         output.print_name(node.newowner)
 
     def AT_ClusterOn(self, node, output):
-        output.write("CLUSTER ON ")
+        output.write('CLUSTER ON ')
         output.print_name(node.name)
 
     def AT_ColumnDefault(self, node, output):
-        output.write("ALTER COLUMN ")
+        output.write('ALTER COLUMN ')
         output.print_name(node.name)
         if node.def_:
-            output.write(" SET DEFAULT ")
+            output.write(' SET DEFAULT ')
             output.print_node(node.def_)
         else:
-            output.write(" DROP DEFAULT ")
+            output.write(' DROP DEFAULT ')
 
     def AT_DisableRowSecurity(self, node, output):
-        output.write(" DISABLE ROW LEVEL SECURITY ")
+        output.write(' DISABLE ROW LEVEL SECURITY ')
 
     def AT_DisableTrig(self, node, output):
-        output.write("DISABLE TRIGGER ")
+        output.write('DISABLE TRIGGER ')
         output.print_name(node.name)
 
     def AT_DropCluster(self, node, output):
-        output.write("SET WITHOUT CLUSTER")
+        output.write('SET WITHOUT CLUSTER')
 
     def AT_DropColumn(self, node, output):
-        output.write("DROP ")
+        output.write('DROP ')
         if node.parent_node.relkind == enums.ObjectType.OBJECT_TYPE:
-            output.write("ATTRIBUTE ")
+            output.write('ATTRIBUTE ')
         else:
-            output.write("COLUMN ")
+            output.write('COLUMN ')
         if node.missing_ok:
-            output.write("IF EXISTS ")
+            output.write('IF EXISTS ')
         output.print_name(node.name)
 
     def AT_DropConstraint(self, node, output):
-        output.write("DROP CONSTRAINT ")
+        output.write('DROP CONSTRAINT ')
         if node.missing_ok:
-            output.write("IF EXISTS ")
+            output.write('IF EXISTS ')
         output.print_name(node.name)
 
     def AT_DropInherit(self, node, output):
-        output.write("NO INHERIT ")
+        output.write('NO INHERIT ')
         output.print_node(node.def_)
 
     def AT_DropNotNull(self, node, output):
-        output.write("ALTER COLUMN ")
+        output.write('ALTER COLUMN ')
         output.print_name(node.name)
-        output.write(" DROP NOT NULL ")
+        output.write(' DROP NOT NULL ')
 
     def AT_DropOids(self, node, output):
-        output.write("SET WITHOUT OIDS")
+        output.write('SET WITHOUT OIDS')
 
     def AT_EnableRowSecurity(self, node, output):
-        output.write(" ENABLE ROW LEVEL SECURITY ")
+        output.write(' ENABLE ROW LEVEL SECURITY ')
 
     def AT_EnableTrig(self, node, output):
-        output.write("ENABLE TRIGGER ")
+        output.write('ENABLE TRIGGER ')
         output.print_name(node.name)
 
     def AT_ResetRelOptions(self, node, output):
-        output.write("RESET (")
+        output.write('RESET (')
         with output.push_indent():
             output.print_list(node.def_)
-        output.write(")")
+        output.write(')')
 
     def AT_SetNotNull(self, node, output):
-        output.write("ALTER COLUMN ")
+        output.write('ALTER COLUMN ')
         output.print_name(node.name)
-        output.write(" SET NOT NULL")
+        output.write(' SET NOT NULL')
 
     def AT_SetRelOptions(self, node, output):
-        output.write("SET (")
+        output.write('SET (')
         with output.push_indent():
             output.print_list(node.def_)
-        output.write(")")
+        output.write(')')
 
     def AT_SetStatistics(self, node, output):
-        output.write("ALTER COLUMN ")
+        output.write('ALTER COLUMN ')
         if node.name:
             output.print_name(node.name)
         elif node.num:
             output.write(str(node.num.value))
-        output.write(" SET STATISTICS ")
+        output.write(' SET STATISTICS ')
         output.print_node(node.def_)
 
     def AT_SetStorage(self, node, output):
-        output.write("ALTER COLUMN ")
+        output.write('ALTER COLUMN ')
         output.print_name(node.name)
-        output.write(" SET STORAGE ")
+        output.write(' SET STORAGE ')
         output.write(node.def_.val.value)
 
     def AT_ValidateConstraint(self, node, output):
@@ -476,18 +482,18 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.print_name(node.name)
 
     def AT_SetUnLogged(self, node, output):
-        output.write("SET UNLOGGED")
+        output.write('SET UNLOGGED')
 
     def AT_SetLogged(self, node, output):
-        output.write("SET LOGGED")
+        output.write('SET LOGGED')
 
     def AT_SetOptions(self, node, output):
-        output.write("ALTER COLUMN ")
+        output.write('ALTER COLUMN ')
         output.print_name(node.name)
-        output.write(" SET (")
+        output.write(' SET (')
         with output.push_indent():
             output.print_list(node.def_)
-        output.write(")")
+        output.write(')')
 
 
 alter_table_type_printer = AlterTableTypePrinter()
@@ -497,7 +503,7 @@ alter_table_type_printer = AlterTableTypePrinter()
 def alter_table_cmd(node, output):
     alter_table_type_printer(node.subtype, node, output)
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
-        output.write(' CASCADE')
+        output.swrite('CASCADE')
 
 
 @node_printer('AlterTableCmd', 'DefElem')
@@ -2030,7 +2036,7 @@ def rename_stmt(node, output):
                                   else objtype])
     output.write(' ')
     if node.missing_ok:
-        output.write("IF EXISTS ")
+        output.write('IF EXISTS ')
     if objtype in (OT.OBJECT_SCHEMA, OT.OBJECT_DATABASE):
         output.print_name(node.subname)
     elif objtype == OT.OBJECT_RULE:
@@ -2182,7 +2188,7 @@ def vacuum_stmt(node, output):
         output.print_list(node.options, ',')
         output.write(') ')
     if node.rels:
-        output.print_list(node.rels, ",")
+        output.print_list(node.rels, ',')
 
 
 @node_printer('VacuumStmt', 'DefElem')
