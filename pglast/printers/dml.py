@@ -99,8 +99,11 @@ class AExprKindPrinter(IntEnumPrinter):
             # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
             if node.lexpr is not Missing:
                 if node.lexpr.node_tag == 'A_Expr':
-                    with output.expression():
+                    if node.lexpr.kind == node.kind and node.lexpr.name == node.name:
                         output.print_node(node.lexpr)
+                    else:
+                        with output.expression():
+                            output.print_node(node.lexpr)
                 else:
                     output.print_node(node.lexpr)
                 output.write(' ')
@@ -112,8 +115,11 @@ class AExprKindPrinter(IntEnumPrinter):
                 output.print_symbol(node.name)
                 output.write(' ')
             if node.rexpr.node_tag == 'A_Expr':
-                with output.expression():
+                if node.rexpr.kind == node.kind and node.rexpr.name == node.name:
                     output.print_node(node.rexpr)
+                else:
+                    with output.expression():
+                        output.print_node(node.rexpr)
             else:
                 output.print_node(node.rexpr)
 
