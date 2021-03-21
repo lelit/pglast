@@ -7,6 +7,7 @@
 #
 
 # include/catalog
+from .pg_attribute import *     # noqa
 from .pg_class import *         # noqa
 from .pg_trigger import *       # noqa
 

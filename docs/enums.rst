@@ -22,6 +22,7 @@ From ``include/catalog``
 
 .. toctree::
 
+   pg_attribute
    pg_class
    pg_trigger
 
