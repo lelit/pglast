@@ -85,9 +85,12 @@ def test_stream_call_with_single_node():
 
 pg_regressions_dir = this_dir / '..' / 'libpg_query' / 'test' / 'sql' / 'postgres_regress'
 
+# Following scripts contain intentional errors, and it's difficult to isolate them
+skip_due_syntax_error = {'unicode.sql'}
 
 @pytest.mark.parametrize('filename',
-                         (src.name for src in sorted(pg_regressions_dir.glob('*.sql'))),
+                         (src.name for src in sorted(pg_regressions_dir.glob('*.sql'))
+                          if src.name not in skip_due_syntax_error),
                          ids=make_id)
 def test_pg_regress_corpus(filename):
     # we do this dance to minimize the length of the test name
