@@ -72623,9 +72623,9 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   int __pyx_t_6;
-  PyObject *__pyx_t_7 = NULL;
+  char *__pyx_t_7;
   PyObject *__pyx_t_8 = NULL;
-  char *__pyx_t_9;
+  PyObject *__pyx_t_9 = NULL;
   int __pyx_t_10;
   int __pyx_t_11;
   int __pyx_lineno = 0;
@@ -73839,7 +73839,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
  *     elif tag == structs.T_Integer:
  *         return ast.Integer(structs.intVal(<structs.Value *> data))             # <<<<<<<<<<<<<<
  *     elif tag == structs.T_Float:
- *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data)))
+ *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5859, __pyx_L1_error)
@@ -73887,7 +73887,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
     /* "pglast/ast.pyx":5861
  *         return ast.Integer(structs.intVal(<structs.Value *> data))
  *     elif tag == structs.T_Float:
- *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data)))             # <<<<<<<<<<<<<<
+ *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))             # <<<<<<<<<<<<<<
  *     elif tag == structs.T_String:
  *         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
  */
@@ -73899,25 +73899,26 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_Decimal); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 5861, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyBytes_FromString(strVal(((Value *)__pyx_v_data))); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5861, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = NULL;
+    __pyx_t_7 = strVal(((Value *)__pyx_v_data));
+    __pyx_t_8 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 5861, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_9 = NULL;
     __pyx_t_6 = 0;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
-      __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_5);
-      if (likely(__pyx_t_8)) {
+      __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_9)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-        __Pyx_INCREF(__pyx_t_8);
+        __Pyx_INCREF(__pyx_t_9);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_5, function);
         __pyx_t_6 = 1;
       }
     }
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_8, __pyx_t_7};
+      PyObject *__pyx_callargs[2] = {__pyx_t_9, __pyx_t_8};
       __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
-      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5861, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -73951,18 +73952,18 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
  *     elif tag == structs.T_Integer:
  *         return ast.Integer(structs.intVal(<structs.Value *> data))
  *     elif tag == structs.T_Float:             # <<<<<<<<<<<<<<
- *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data)))
+ *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
  *     elif tag == structs.T_String:
  */
     break;
     case T_String:
 
     /* "pglast/ast.pyx":5863
- *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data)))
+ *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
  *     elif tag == structs.T_String:
  *         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))             # <<<<<<<<<<<<<<
  *     elif tag == structs.T_BitString:
- *         return ast.BitString(structs.strVal(<structs.Value *> data))
+ *         return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5863, __pyx_L1_error)
@@ -73970,8 +73971,8 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_String); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5863, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_9 = strVal(((Value *)__pyx_v_data));
-    __pyx_t_3 = __Pyx_decode_c_string(__pyx_t_9, 0, strlen(__pyx_t_9), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5863, __pyx_L1_error)
+    __pyx_t_7 = strVal(((Value *)__pyx_v_data));
+    __pyx_t_3 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5863, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_5 = NULL;
     __pyx_t_6 = 0;
@@ -74000,7 +74001,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
 
     /* "pglast/ast.pyx":5862
  *     elif tag == structs.T_Float:
- *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data)))
+ *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
  *     elif tag == structs.T_String:             # <<<<<<<<<<<<<<
  *         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_BitString:
@@ -74011,7 +74012,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
     /* "pglast/ast.pyx":5865
  *         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_BitString:
- *         return ast.BitString(structs.strVal(<structs.Value *> data))             # <<<<<<<<<<<<<<
+ *         return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))             # <<<<<<<<<<<<<<
  *     elif tag == structs.T_Null:
  *         return ast.Null(None)
  */
@@ -74021,7 +74022,8 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_BitString); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5865, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyBytes_FromString(strVal(((Value *)__pyx_v_data))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5865, __pyx_L1_error)
+    __pyx_t_7 = strVal(((Value *)__pyx_v_data));
+    __pyx_t_4 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5865, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     __pyx_t_6 = 0;
@@ -74052,14 +74054,14 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
  *     elif tag == structs.T_String:
  *         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_BitString:             # <<<<<<<<<<<<<<
- *         return ast.BitString(structs.strVal(<structs.Value *> data))
+ *         return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_Null:
  */
     break;
     case T_Null:
 
     /* "pglast/ast.pyx":5867
- *         return ast.BitString(structs.strVal(<structs.Value *> data))
+ *         return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_Null:
  *         return ast.Null(None)             # <<<<<<<<<<<<<<
  *     elif tag == structs.T_List:
@@ -74097,7 +74099,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
 
     /* "pglast/ast.pyx":5866
  *     elif tag == structs.T_BitString:
- *         return ast.BitString(structs.strVal(<structs.Value *> data))
+ *         return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_Null:             # <<<<<<<<<<<<<<
  *         return ast.Null(None)
  *     elif tag == structs.T_List:
@@ -78269,8 +78271,8 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data) {
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
   __Pyx_AddTraceback("pglast.parser.create", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
