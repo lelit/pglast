@@ -13,7 +13,11 @@ import subprocess
 
 from pycparser import c_ast, c_parser
 
-from pglast.parser import LONG_MAX
+try:
+    from pglast.parser import LONG_MAX
+except ModuleNotFoundError:
+    # bootstrap
+    from sys import maxsize as LONG_MAX
 
 
 PY_HEADER = """\

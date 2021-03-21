@@ -9,7 +9,11 @@
 from . import enums
 from .error import Error
 from .node import Missing, Node
-from .parser import fingerprint, get_postgresql_version, parse_sql, split
+try:
+    from .parser import fingerprint, get_postgresql_version, parse_sql, split
+except ModuleNotFoundError:
+    # bootstrap
+    pass
 
 
 # This is injected automatically at release time
