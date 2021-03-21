@@ -533,6 +533,92 @@ def alter_table_cmd_def_elem(node, output):
         output.print_node(node.arg)
 
 
+class AlterTSConfigTypePrinter(IntEnumPrinter):
+    enum = enums.AlterTSConfigType
+
+    def print_simple_name(self, node, output):
+        if isinstance(node, List):
+            node = node[0]
+        output.write(node.val.value)
+
+    def print_simple_list(self, nodes, output):
+        first = True
+        for node in nodes:
+            if not first:
+                output.write(', ')
+            else:
+                first = False
+            self.print_simple_name(node, output)
+
+    def ALTER_TSCONFIG_ADD_MAPPING(self, node, output):
+        output.newline()
+        output.space(2)
+        with output.push_indent():
+            output.write('ADD MAPPING FOR ')
+            self.print_simple_list(node.tokentype, output)
+            output.newline()
+        output.write(' WITH ')
+        self.print_simple_list(node.dicts, output)
+
+    def ALTER_TSCONFIG_ALTER_MAPPING_FOR_TOKEN(self, node, output):
+        output.newline()
+        output.space(2)
+        with output.push_indent():
+            output.write('ALTER MAPPING FOR ')
+            self.print_simple_list(node.tokentype, output)
+            output.newline()
+            output.write('WITH ')
+            self.print_simple_list(node.dicts, output)
+
+    def ALTER_TSCONFIG_REPLACE_DICT(self, node, output):
+        output.write('ALTER MAPPING REPLACE ')
+        old, new = node.dicts
+        self.print_simple_name(old, output)
+        output.write(' WITH ')
+        self.print_simple_name(new, output)
+
+    def ALTER_TSCONFIG_REPLACE_DICT_FOR_TOKEN(self, node, output):
+        output.write('ALTER MAPPING FOR ')
+        self.print_simple_list(node.tokentype, output)
+        output.write(' REPLACE ')
+        old, new = node.dicts
+        self.print_simple_name(old, output)
+        output.write(' WITH ')
+        self.print_simple_name(new, output)
+
+    def ALTER_TSCONFIG_DROP_MAPPING(self, node, output):
+        output.write('DROP MAPPING ')
+        if node.missing_ok:
+            output.write('IF EXISTS ')
+        output.write('FOR ')
+        self.print_simple_list(node.tokentype, output)
+
+
+alter_ts_config_type_printer = AlterTSConfigTypePrinter()
+
+
+@node_printer('AlterTSConfigurationStmt')
+def alter_ts_configuration_stmt(node, output):
+    output.write('ALTER TEXT SEARCH CONFIGURATION ')
+    output.print_name(node.cfgname)
+    output.write(' ')
+    alter_ts_config_type_printer(node.kind, node, output)
+
+
+@node_printer('AlterTSDictionaryStmt')
+def alter_ts_dictionary_stmt(node, output):
+    output.write('ALTER TEXT SEARCH DICTIONARY ')
+    output.print_name(node.dictname)
+    output.write(' (')
+    if len(node.options) > 1:
+        output.newline()
+        output.space(2 if output.comma_at_eoln else 4)
+    output.print_list(node.options)
+    if len(node.options) > 1:
+        output.newline()
+    output.write(')')
+
+
 @node_printer('ClusterStmt')
 def cluster_stmt(node, output):
     output.write('CLUSTER ')
@@ -728,6 +814,16 @@ class ConstrTypePrinter(IntEnumPrinter):
         output.swrite('GENERATED ALWAYS AS (')
         output.print_node(node.raw_expr)
         output.write(') STORED')
+
+    def CONSTR_IDENTITY(self, node, output):
+        output.swrite('GENERATED ')
+        if node.generated_when == enums.ATTRIBUTE_IDENTITY_ALWAYS:
+            output.write('ALWAYS ')
+        elif node.generated_when == enums.ATTRIBUTE_IDENTITY_BY_DEFAULT:
+            output.write('BY DEFAULT ')
+        output.write('AS IDENTITY (')
+        output.print_list(node.options)
+        output.write(')')
 
     def CONSTR_NOTNULL(self, node, output):
         output.swrite('NOT NULL')

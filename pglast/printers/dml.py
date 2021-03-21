@@ -664,6 +664,10 @@ def index_elem(node, output):
     if node.opclass:
         output.write(' ')
         output.print_name(node.opclass, '.')
+        if node.opclassopts:
+            output.write(' (')
+            output.print_list(node.opclassopts)
+            output.write(')')
     if node.ordering != enums.SortByDir.SORTBY_DEFAULT:
         if node.ordering == enums.SortByDir.SORTBY_ASC:
             output.swrite('ASC')
@@ -1273,23 +1277,25 @@ def sub_link(node, output):
     elif node.subLinkType == slt.ALL_SUBLINK:
         output.print_node(node.testexpr)
         output.write(' ')
-        output.writes(node.operName.string_value)
+        output.write(node.operName.string_value)
         output.write(' ALL ')
     elif node.subLinkType == slt.ANY_SUBLINK:
         output.print_node(node.testexpr)
-        output.write(' IN ')
-    elif node.subLinkType == slt.ROWCOMPARE_SUBLINK:  # pragma: no cover
-        # FIXME: figure out how the get here
-        raise NotImplementedError('SubLink of type %s not supported yet'
-                                  % slt.ROWCOMPARE_SUBLINK)
+        if node.operName:
+            output.write(' ')
+            output.write(node.operName.string_value)
+            output.write(' ANY ')
+        else:
+            output.write(' IN ')
     elif node.subLinkType == slt.EXPR_SUBLINK:
         pass
-    elif node.subLinkType == slt.MULTIEXPR_SUBLINK:  # pragma: no cover
+    elif node.subLinkType == slt.ARRAY_SUBLINK:
+        output.write('ARRAY')
+    elif node.subLinkType in (slt.MULTIEXPR_SUBLINK,
+                              slt.ROWCOMPARE_SUBLINK):  # pragma: no cover
         # FIXME: figure out how the get here
         raise NotImplementedError('SubLink of type %s not supported yet'
                                   % slt.MULTIEXPR_SUBLINK)
-    elif node.subLinkType == slt.ARRAY_SUBLINK:
-        output.write('ARRAY')
 
     output.write('(')
     with output.push_indent():
