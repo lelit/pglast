@@ -14,7 +14,7 @@ from ..printer import node_printer
 from . import IntEnumPrinter
 
 
-@node_printer("AccessPriv")
+@node_printer('AccessPriv')
 def access_priv(node, output):
     if node.priv_name is Missing:
         output.write('ALL PRIVILEGES')
@@ -400,6 +400,10 @@ class AlterTableTypePrinter(IntEnumPrinter):
         else:
             output.write(' DROP DEFAULT ')
 
+    def AT_DetachPartition(self, node, output):
+        output.write('DETACH PARTITION ')
+        output.print_name(node.def_)
+
     def AT_DisableRowSecurity(self, node, output):
         output.write(' DISABLE ROW LEVEL SECURITY ')
 
@@ -435,6 +439,9 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.print_name(node.name)
         output.write(' DROP NOT NULL ')
 
+    def AT_DropOf(self, node, output):
+        output.write('NOT OF')
+
     def AT_DropOids(self, node, output):
         output.write('SET WITHOUT OIDS')
 
@@ -444,6 +451,14 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_EnableTrig(self, node, output):
         output.write('ENABLE TRIGGER ')
         output.print_name(node.name)
+
+    def AT_ResetOptions(self, node, output):
+        output.write('ALTER COLUMN ')
+        output.print_name(node.name)
+        output.write(' RESET (')
+        with output.push_indent():
+            output.print_list(node.def_)
+        output.write(')')
 
     def AT_ResetRelOptions(self, node, output):
         output.write('RESET (')
@@ -477,10 +492,6 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write(' SET STORAGE ')
         output.write(node.def_.val.value)
 
-    def AT_ValidateConstraint(self, node, output):
-        output.write("VALIDATE CONSTRAINT ")
-        output.print_name(node.name)
-
     def AT_SetUnLogged(self, node, output):
         output.write('SET UNLOGGED')
 
@@ -494,6 +505,11 @@ class AlterTableTypePrinter(IntEnumPrinter):
         with output.push_indent():
             output.print_list(node.def_)
         output.write(')')
+
+    def AT_ValidateConstraint(self, node, output):
+        output.write('VALIDATE CONSTRAINT ')
+        output.print_name(node.name)
+
 
 
 alter_table_type_printer = AlterTableTypePrinter()
@@ -1081,7 +1097,7 @@ def create_function_option(node, output):
 
     if option == 'volatility':
         output.separator()
-        output.print_symbol(node.arg)
+        output.write(node.arg.val.value.upper())
         return
 
     if option == 'parallel':
@@ -1097,6 +1113,10 @@ def create_function_option(node, output):
     if option == 'set':
         output.separator()
         output.print_node(node.arg)
+        return
+
+    if option == 'window':
+        output.write('WINDOW')
         return
 
     output.writes(node.defname.value.upper())
@@ -1990,7 +2010,8 @@ def partition_bound_spec(node, output):
 @node_printer('PartitionCmd')
 def partition_cmd(node, output):
     output.print_node(node.name, is_name=True)
-    output.print_node(node.bound)
+    if node.bound:
+        output.print_node(node.bound)
 
 
 @node_printer('PartitionElem')
@@ -1998,7 +2019,9 @@ def partition_elem(node, output):
     if node.name:
         output.print_name(node.name)
     elif node.expr:
+        output.write('(')
         output.print_node(node.expr)
+        output.write(')')
     if node.collation:
         output.print_node(node.collation)
     if node.opclass:
@@ -2208,6 +2231,15 @@ def vacuum_relation(node, output):
         output.write(')')
 
 
+@node_printer('VariableShowStmt')
+def variable_show_statement(node, output):
+    output.write('SHOW ')
+    if node.name == 'all':
+        output.write('ALL')
+    else:
+        output.print_symbol(node.name)
+
+
 class ViewCheckOptionPrinter(IntEnumPrinter):
     enum = enums.ViewCheckOption
 
@@ -2241,7 +2273,20 @@ def view_stmt(node, output):
         output.write(')')
     output.newline()
     output.space(2)
+    if node.options:
+        output.write('WITH (')
+        output.print_list(node.options)
+        output.write(')')
+        output.newline()
+        output.space(2)
     output.write('AS ')
     with output.push_indent():
         output.print_node(node.query)
     view_check_option_printer(node.withCheckOption, node, output)
+
+
+@node_printer('ViewStmt', 'DefElem')
+def alter_operator_stmt_def_elem(node, output):
+    output.print_symbol(node.defname)
+    output.write(' = ')
+    output.print_symbol(node.arg)

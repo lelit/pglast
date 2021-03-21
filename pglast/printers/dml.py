@@ -184,7 +184,16 @@ def a_indices(node, output):
 
 @node_printer('A_Indirection')
 def a_indirection(node, output):
+    bracket = ((node.arg.node_tag in ('A_Expr', 'A_Indirection', 'FuncCall',
+                                      'RowExpr', 'TypeCast'))
+               or
+               (node.arg.node_tag == 'ColumnRef'
+                and node.indirection[0].node_tag != 'A_Indices'))
+    if bracket:
+        output.write('(')
     output.print_node(node.arg)
+    if bracket:
+        output.write(')')
     output.print_list(node.indirection, '', standalone_items=False)
 
 
@@ -614,6 +623,15 @@ def func_call(node, output):
     if node.over:
         output.swrite('OVER ')
         output.print_node(node.over)
+
+
+@node_printer('FuncCall', 'WindowDef')
+def func_call_window_def(node, output):
+    if node.name:
+        output.print_name(node.name)
+    else:
+        window_def(node, output)
+
 
 @node_printer('GroupingSet')
 def grouping_set(node, output):
@@ -1625,55 +1643,49 @@ def xml_serialize(node, output):
 
 @node_printer('WindowDef')
 def window_def(node, output):
-    empty = node.partitionClause is Missing and node.orderClause is Missing
     if node.name:
         output.print_name(node.name)
-        if not empty:
-            output.write(' AS ')
+        output.write(' AS ')
+    output.write('(')
     if node.refname:
-        output.write('(')
         output.print_name(node.refname)
-        output.write(')')
-        if not empty:
-            # FIXME: find a way to get here
-            output.write(' AS ')
-    if not empty or (node.name is Missing and node.refname is Missing):
-        output.write('(')
-        with output.push_indent():
+    with output.push_indent():
+        if node.partitionClause:
+            output.write('PARTITION BY ')
+            output.print_list(node.partitionClause)
+        if node.orderClause:
             if node.partitionClause:
-                output.write('PARTITION BY ')
-                output.print_list(node.partitionClause)
-            if node.orderClause:
-                if node.partitionClause:
-                    output.newline()
-                output.write('ORDER BY ')
-                output.print_list(node.orderClause)
-            if node.frameOptions & enums.FRAMEOPTION_NONDEFAULT:
-                if node.partitionClause or node.orderClause:
-                    output.newline()
-                fo = node.frameOptions
-                if fo & enums.FRAMEOPTION_RANGE:
-                    output.writes('RANGE')
-                elif fo & enums.FRAMEOPTION_ROWS:
-                    output.writes('ROWS')
-                if fo & enums.FRAMEOPTION_BETWEEN:
-                    output.writes('BETWEEN')
-                if fo & enums.FRAMEOPTION_START_UNBOUNDED_PRECEDING:
-                    output.writes('UNBOUNDED PRECEDING')
-                elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING:  # pragma: no cover
-                    # Disallowed
-                    assert False
-                    output.writes('UNBOUNDED FOLLOWING')
-                elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
-                    output.writes('CURRENT ROW')
-                elif fo & enums.FRAMEOPTION_START_OFFSET_PRECEDING:
-                    output.print_node(node.startOffset)
-                    output.swrites('PRECEDING')
-                elif fo & enums.FRAMEOPTION_START_OFFSET_FOLLOWING:
-                    output.print_node(node.startOffset)
-                    output.swrites('FOLLOWING')
-                if fo & enums.FRAMEOPTION_BETWEEN:
-                    output.writes('AND')
+                output.newline()
+            output.write('ORDER BY ')
+            output.print_list(node.orderClause)
+        if node.frameOptions & enums.FRAMEOPTION_NONDEFAULT:
+            if node.partitionClause or node.orderClause:
+                output.newline()
+            fo = node.frameOptions
+            if fo & enums.FRAMEOPTION_RANGE:
+                output.writes('RANGE')
+            elif fo & enums.FRAMEOPTION_ROWS:
+                output.writes('ROWS')
+            elif fo & enums.FRAMEOPTION_GROUPS:
+                output.writes('GROUPS')
+            if fo & enums.FRAMEOPTION_BETWEEN:
+                output.writes('BETWEEN')
+            if fo & enums.FRAMEOPTION_START_UNBOUNDED_PRECEDING:
+                output.writes('UNBOUNDED PRECEDING')
+            elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING:  # pragma: no cover
+                # Disallowed
+                assert False
+                output.writes('UNBOUNDED FOLLOWING')
+            elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
+                output.writes('CURRENT ROW')
+            elif fo & enums.FRAMEOPTION_START_OFFSET_PRECEDING:
+                output.print_node(node.startOffset)
+                output.swrites('PRECEDING')
+            elif fo & enums.FRAMEOPTION_START_OFFSET_FOLLOWING:
+                output.print_node(node.startOffset)
+                output.swrites('FOLLOWING')
+            if fo & enums.FRAMEOPTION_BETWEEN:
+                output.writes('AND')
                 if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING:  # pragma: no cover
                     # Disallowed
                     assert False
@@ -1688,7 +1700,13 @@ def window_def(node, output):
                 elif fo & enums.FRAMEOPTION_END_OFFSET_FOLLOWING:
                     output.print_node(node.endOffset)
                     output.swrites('FOLLOWING')
-        output.write(')')
+                if fo & enums.FRAMEOPTION_EXCLUDE_CURRENT_ROW:
+                    output.swrite('EXCLUDE CURRENT ROW')
+                elif fo & enums.FRAMEOPTION_EXCLUDE_GROUP:
+                    output.swrite('EXCLUDE GROUP')
+                elif fo & enums.FRAMEOPTION_EXCLUDE_TIES:
+                    output.swrite('EXCLUDE TIES')
+    output.write(')')
 
 
 @node_printer('WithClause')

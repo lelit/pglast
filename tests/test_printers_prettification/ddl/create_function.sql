@@ -11,7 +11,7 @@ CREATE OR REPLACE FUNCTION auth.login(usr varchar(16)
 AS $$
 SELECT u.id, u.first_name, u.last_name FROM auth.users u
 WHERE u.name = usr AND crypt(pwd, u.password) = u.password AND u.validity @> CURRENT_DATE;
-$$ LANGUAGE sql stable
+$$ LANGUAGE sql STABLE
 
 CREATE FUNCTION funcb(somearg text)
 RETURNS TABLE(c1 int, c2 text)
@@ -23,7 +23,7 @@ CREATE FUNCTION funcb(somearg text)
 RETURNS TABLE (c1 integer, c2 text)
 AS $$
 SELECT 1, 'Label 1'
-$$ LANGUAGE sql stable SECURITY INVOKER
+$$ LANGUAGE sql STABLE SECURITY INVOKER
 
 CREATE OR REPLACE FUNCTION auth.crypt_user_password()
 RETURNS TRIGGER AS $$
