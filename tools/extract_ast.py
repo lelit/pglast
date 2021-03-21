@@ -779,13 +779,13 @@ cdef create(void* data):
         elif name == 'Float':
             output.write('''\
     elif tag == structs.T_Float:
-        return ast.Float(Decimal(structs.strVal(<structs.Value *> data)))
+        return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
 ''')
 
         elif name == 'BitString':
             output.write('''\
     elif tag == structs.T_BitString:
-        return ast.BitString(structs.strVal(<structs.Value *> data))
+        return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
 ''')
 
         elif name == 'String':

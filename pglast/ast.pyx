@@ -5858,11 +5858,11 @@ cdef create(void* data):
     elif tag == structs.T_Integer:
         return ast.Integer(structs.intVal(<structs.Value *> data))
     elif tag == structs.T_Float:
-        return ast.Float(Decimal(structs.strVal(<structs.Value *> data)))
+        return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
     elif tag == structs.T_String:
         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
     elif tag == structs.T_BitString:
-        return ast.BitString(structs.strVal(<structs.Value *> data))
+        return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
     elif tag == structs.T_Null:
         return ast.Null(None)
     elif tag == structs.T_List:
