@@ -69,17 +69,6 @@ class Base:
         self._parent_node = parent
         self._parent_attribute = name
 
-    def __eq__(self, other):
-        cls = type(self)
-        if cls is type(other):
-            slots = []
-            while issubclass(cls, Base):
-                slots.extend(cls.__slots__)
-                assert len(cls.__bases__) == 1
-                cls = cls.__bases__[0]
-            return all(getattr(self, slot) == getattr(other, slot) for slot in slots)
-        return False
-
     def __str__(self):
         aname = self._parent_attribute
         if isinstance(aname, tuple):
@@ -147,6 +136,12 @@ class List(Base):
     def __getitem__(self, index):
         return Base(self._items[index], self.parent_node, (self.parent_attribute, index))
 
+    def __eq__(self, other):
+        cls = type(self)
+        if cls is type(other):
+            return self._items == other._items
+        return False
+
     @property
     def string_value(self):
         if len(self) != 1:
@@ -213,6 +208,12 @@ class Node(Base):
             if value is not None:
                 yield Base(value, self, attr)
 
+    def __eq__(self, other):
+        cls = type(self)
+        if cls is type(other):
+            return self.ast_node == other.ast_node
+        return False
+
     @property
     def attribute_names(self):
         "The names of the attributes present in the parse tree of the node."
@@ -277,7 +278,10 @@ class Scalar(Base):
         elif isinstance(other, type(value)):
             return value == other
         else:
-            return super().__eq__(other)
+            cls = type(self)
+            if cls is type(other):
+                return value == other._value
+        return False
 
     def __repr__(self):
         if isinstance(self._value, Enum):
