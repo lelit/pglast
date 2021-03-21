@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-latest-0-g6517eed
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-latest-0-g442b174
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021 Lele Gaifax

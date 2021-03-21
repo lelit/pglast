@@ -30,7 +30,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: A_ArrayExpr(elements=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L413>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L413>`__ parser node.
 
    .. attribute:: elements
       :type: tuple
@@ -45,7 +45,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: A_Const(val=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L286>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L286>`__ parser node.
 
    .. attribute:: val
       :type: Value
@@ -60,7 +60,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: A_Expr(kind=None, name=None, lexpr=None, rexpr=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L273>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L273>`__ parser node.
 
    .. attribute:: kind
       :type: A_Expr_Kind
@@ -88,7 +88,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: A_Indices(is_slice=None, lidx=None, uidx=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L380>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L380>`__ parser node.
 
    .. attribute:: is_slice
       :type: bool
@@ -108,7 +108,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: A_Indirection(arg=None, indirection=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L403>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L403>`__ parser node.
 
    .. attribute:: arg
       :type: Node
@@ -123,12 +123,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: A_Star()
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L369>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L369>`__ parser node.
 
 
 .. class:: AccessPriv(priv_name=None, cols=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1967>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1967>`__ parser node.
 
    .. attribute:: priv_name
       :type: str
@@ -143,7 +143,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: Aggref(aggargtypes=None, aggdirectargs=None, args=None, aggorder=None, aggdistinct=None, aggfilter=None, aggstar=None, aggvariadic=None, aggkind=None, agglevelsup=None, aggsplit=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L309>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L309>`__ parser node.
 
    .. attribute:: aggargtypes
       :type: tuple
@@ -209,7 +209,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: Alias(aliasname=None, colnames=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L39>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L39>`__ parser node.
 
    .. attribute:: aliasname
       :type: str
@@ -224,7 +224,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterCollationStmt(collname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1886>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1886>`__ parser node.
 
    .. attribute:: collname
       :type: tuple
@@ -232,7 +232,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterDatabaseSetStmt(dbname=None, setstmt=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3174>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3174>`__ parser node.
 
    .. attribute:: dbname
       :type: str
@@ -247,7 +247,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterDatabaseStmt(dbname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3167>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3167>`__ parser node.
 
    .. attribute:: dbname
       :type: str
@@ -262,7 +262,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterDefaultPrivilegesStmt(options=None, action=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1998>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1998>`__ parser node.
 
    .. attribute:: options
       :type: tuple
@@ -277,7 +277,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterDomainStmt(subtype=None, typeName=None, name=None, def_=None, behavior=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1900>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1900>`__ parser node.
 
    .. attribute:: subtype
       :type: str
@@ -316,7 +316,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterEnumStmt(typeName=None, oldVal=None, newVal=None, newValNeighbor=None, newValIsAfter=None, skipIfNewValExists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3109>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3109>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
@@ -351,7 +351,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterEventTrigStmt(trigname=None, tgenabled=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2473>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2473>`__ parser node.
 
    .. attribute:: trigname
       :type: str
@@ -367,7 +367,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterExtensionContentsStmt(extname=None, action=None, objtype=None, object=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2267>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2267>`__ parser node.
 
    .. attribute:: extname
       :type: str
@@ -392,7 +392,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterExtensionStmt(extname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2260>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2260>`__ parser node.
 
    .. attribute:: extname
       :type: str
@@ -405,7 +405,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterFdwStmt(fdwname=None, func_options=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2289>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2289>`__ parser node.
 
    .. attribute:: fdwname
       :type: str
@@ -425,7 +425,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterForeignServerStmt(servername=None, version=None, options=None, has_version=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2313>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2313>`__ parser node.
 
    .. attribute:: servername
       :type: str
@@ -450,7 +450,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterFunctionStmt(objtype=None, func=None, actions=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2870>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2870>`__ parser node.
 
    .. attribute:: objtype
       :type: ObjectType
@@ -468,7 +468,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterObjectDependsStmt(objectType=None, relation=None, object=None, extname=None, remove=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2938>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2938>`__ parser node.
 
    .. attribute:: objectType
       :type: ObjectType
@@ -498,7 +498,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterObjectSchemaStmt(objectType=None, relation=None, object=None, newschema=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2952>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2952>`__ parser node.
 
    .. attribute:: objectType
       :type: ObjectType
@@ -528,7 +528,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterOpFamilyStmt(opfamilyname=None, amname=None, isDrop=None, items=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2643>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2643>`__ parser node.
 
    .. attribute:: opfamilyname
       :type: tuple
@@ -553,7 +553,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterOperatorStmt(opername=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2979>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2979>`__ parser node.
 
    .. attribute:: opername
       :type: ObjectWithArgs*
@@ -568,7 +568,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterOwnerStmt(objectType=None, relation=None, object=None, newowner=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2966>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2966>`__ parser node.
 
    .. attribute:: objectType
       :type: ObjectType
@@ -593,7 +593,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterPolicyStmt(policy_name=None, table=None, roles=None, qual=None, with_check=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2407>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2407>`__ parser node.
 
    .. attribute:: policy_name
       :type: str
@@ -623,7 +623,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterPublicationStmt(pubname=None, options=None, tables=None, for_all_tables=None, tableAction=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3529>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3529>`__ parser node.
 
    .. attribute:: pubname
       :type: str
@@ -653,7 +653,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterRoleSetStmt(role=None, database=None, setstmt=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2528>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2528>`__ parser node.
 
    .. attribute:: role
       :type: RoleSpec*
@@ -673,7 +673,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterRoleStmt(role=None, options=None, action=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2520>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2520>`__ parser node.
 
    .. attribute:: role
       :type: RoleSpec*
@@ -693,7 +693,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterSeqStmt(sequence=None, options=None, for_identity=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2558>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2558>`__ parser node.
 
    .. attribute:: sequence
       :type: RangeVar*
@@ -714,7 +714,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterStatsStmt(defnames=None, stxstattarget=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2828>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2828>`__ parser node.
 
    .. attribute:: defnames
       :type: tuple
@@ -734,7 +734,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterSubscriptionStmt(kind=None, subname=None, conninfo=None, publication=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3561>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3561>`__ parser node.
 
    .. attribute:: kind
       :type: AlterSubscriptionType
@@ -764,7 +764,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterSystemStmt(setstmt=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3197>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3197>`__ parser node.
 
    .. attribute:: setstmt
       :type: VariableSetStmt*
@@ -774,7 +774,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterTSConfigurationStmt(kind=None, cfgname=None, tokentype=None, dicts=None, override=None, replace=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3502>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3502>`__ parser node.
 
    .. attribute:: kind
       :type: AlterTSConfigType
@@ -814,7 +814,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterTSDictionaryStmt(dictname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3483>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3483>`__ parser node.
 
    .. attribute:: dictname
       :type: tuple
@@ -829,7 +829,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterTableCmd(subtype=None, name=None, num=None, newowner=None, def_=None, behavior=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1866>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1866>`__ parser node.
 
    .. attribute:: subtype
       :type: AlterTableType
@@ -870,7 +870,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterTableMoveAllStmt(orig_tablespacename=None, objtype=None, roles=None, new_tablespacename=None, nowait=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2236>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2236>`__ parser node.
 
    .. attribute:: orig_tablespacename
       :type: str
@@ -894,7 +894,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterTableSpaceOptionsStmt(tablespacename=None, options=None, isReset=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2228>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2228>`__ parser node.
 
    .. attribute:: tablespacename
       :type: str
@@ -908,7 +908,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterTableStmt(relation=None, cmds=None, relkind=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1779>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1779>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -933,7 +933,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterTypeStmt(typeName=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2990>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2990>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
@@ -948,7 +948,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlterUserMappingStmt(user=None, servername=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2348>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2348>`__ parser node.
 
    .. attribute:: user
       :type: RoleSpec*
@@ -968,7 +968,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: AlternativeSubPlan(subplans=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L744>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L744>`__ parser node.
 
    .. attribute:: subplans
       :type: tuple
@@ -978,7 +978,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ArrayCoerceExpr(arg=None, elemexpr=None, resulttypmod=None, coerceformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L855>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L855>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1008,7 +1008,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ArrayExpr(elements=None, multidims=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L985>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L985>`__ parser node.
 
    .. attribute:: elements
       :type: tuple
@@ -1028,7 +1028,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: BoolExpr(boolop=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L579>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L579>`__ parser node.
 
    .. attribute:: boolop
       :type: BoolExprType
@@ -1046,7 +1046,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: BooleanTest(arg=None, booltesttype=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1239>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1239>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1066,7 +1066,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CallContext(atomic=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2910>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2910>`__ parser node.
 
    .. attribute:: atomic
       :type: bool
@@ -1074,7 +1074,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CallStmt(funccall=None, funcexpr=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2903>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2903>`__ parser node.
 
    .. attribute:: funccall
       :type: FuncCall*
@@ -1089,7 +1089,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CaseExpr(arg=None, args=None, defresult=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L927>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L927>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1114,7 +1114,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CaseTestExpr(typeMod=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L969>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L969>`__ parser node.
 
    .. attribute:: typeMod
       :type: int32
@@ -1124,7 +1124,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CaseWhen(expr=None, result=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L941>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L941>`__ parser node.
 
    .. attribute:: expr
       :type: Expr*
@@ -1144,12 +1144,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CheckPointStmt()
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3305>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3305>`__ parser node.
 
 
 .. class:: ClosePortalStmt(portalname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2735>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2735>`__ parser node.
 
    .. attribute:: portalname
       :type: str
@@ -1159,7 +1159,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ClusterStmt(relation=None, indexname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3213>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3213>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -1179,7 +1179,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CoalesceExpr(args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1081>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1081>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -1194,7 +1194,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CoerceToDomain(arg=None, resulttypmod=None, coercionformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1256>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1256>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1219,7 +1219,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CoerceToDomainValue(typeMod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1276>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1276>`__ parser node.
 
    .. attribute:: typeMod
       :type: int32
@@ -1234,7 +1234,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CoerceViaIO(arg=None, coerceformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L831>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L831>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1254,7 +1254,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CollateClause(arg=None, collname=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L307>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L307>`__ parser node.
 
    .. attribute:: arg
       :type: Node
@@ -1274,7 +1274,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CollateExpr(arg=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L897>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L897>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1289,7 +1289,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ColumnDef(colname=None, typeName=None, inhcount=None, is_local=None, is_not_null=None, is_from_type=None, storage=None, raw_default=None, cooked_default=None, identity=None, identitySequence=None, generated=None, collClause=None, constraints=None, fdwoptions=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L644>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L644>`__ parser node.
 
    .. attribute:: colname
       :type: str
@@ -1375,7 +1375,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ColumnRef(fields=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L233>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L233>`__ parser node.
 
    .. attribute:: fields
       :type: tuple
@@ -1390,7 +1390,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CommentStmt(objtype=None, object=None, comment=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2683>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2683>`__ parser node.
 
    .. attribute:: objtype
       :type: ObjectType
@@ -1410,7 +1410,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CommonTableExpr(ctename=None, aliascolnames=None, ctematerialized=None, ctequery=None, location=None, cterecursive=None, cterefcount=None, ctecolnames=None, ctecoltypes=None, ctecoltypmods=None, ctecolcollations=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1452>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1452>`__ parser node.
 
    .. attribute:: ctename
       :type: str
@@ -1471,7 +1471,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CompositeTypeStmt(typevar=None, coldeflist=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3076>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3076>`__ parser node.
 
    .. attribute:: typevar
       :type: RangeVar*
@@ -1486,7 +1486,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: Constraint(contype=None, conname=None, deferrable=None, initdeferred=None, location=None, is_no_inherit=None, raw_expr=None, cooked_expr=None, generated_when=None, keys=None, including=None, exclusions=None, options=None, indexname=None, indexspace=None, reset_default_tblspc=None, access_method=None, where_clause=None, pktable=None, fk_attrs=None, pk_attrs=None, fk_matchtype=None, fk_upd_action=None, fk_del_action=None, old_conpfeqop=None, skip_validation=None, initially_valid=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2155>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2155>`__ parser node.
 
    .. attribute:: contype
       :type: ConstrType
@@ -1627,7 +1627,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ConstraintsSetStmt(constraints=None, deferred=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3345>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3345>`__ parser node.
 
    .. attribute:: constraints
       :type: tuple
@@ -1640,7 +1640,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ConvertRowtypeExpr(arg=None, convertformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L880>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L880>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1660,7 +1660,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CopyStmt(relation=None, query=None, attlist=None, is_from=None, is_program=None, filename=None, options=None, whereClause=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2013>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2013>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -1707,7 +1707,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateAmStmt(amname=None, handler_name=None, amtype=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2421>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2421>`__ parser node.
 
    .. attribute:: amname
       :type: str
@@ -1727,7 +1727,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateCastStmt(sourcetype=None, targettype=None, func=None, context=None, inout=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3399>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3399>`__ parser node.
 
    .. attribute:: sourcetype
       :type: TypeName*
@@ -1747,7 +1747,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateConversionStmt(conversion_name=None, for_encoding_name=None, to_encoding_name=None, func_name=None, def_=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3385>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3385>`__ parser node.
 
    .. attribute:: conversion_name
       :type: tuple
@@ -1777,7 +1777,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateDomainStmt(domainname=None, typeName=None, collClause=None, constraints=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2587>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2587>`__ parser node.
 
    .. attribute:: domainname
       :type: tuple
@@ -1802,7 +1802,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateEnumStmt(typeName=None, vals=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3087>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3087>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
@@ -1817,7 +1817,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateEventTrigStmt(trigname=None, eventname=None, whenclause=None, funcname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2460>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2460>`__ parser node.
 
    .. attribute:: trigname
       :type: str
@@ -1842,7 +1842,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateExtensionStmt(extname=None, if_not_exists=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2251>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2251>`__ parser node.
 
    .. attribute:: extname
       :type: str
@@ -1860,7 +1860,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateFdwStmt(fdwname=None, func_options=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2281>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2281>`__ parser node.
 
    .. attribute:: fdwname
       :type: str
@@ -1880,7 +1880,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateForeignServerStmt(servername=None, servertype=None, version=None, fdwname=None, if_not_exists=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2302>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2302>`__ parser node.
 
    .. attribute:: servername
       :type: str
@@ -1915,7 +1915,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateForeignTableStmt(base=None, servername=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2327>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2327>`__ parser node.
 
    .. attribute:: base
       :type: CreateStmt
@@ -1929,7 +1929,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateFunctionStmt(is_procedure=None, replace=None, funcname=None, parameters=None, returnType=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2840>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2840>`__ parser node.
 
    .. attribute:: is_procedure
       :type: bool
@@ -1964,7 +1964,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateOpClassItem(itemtype=None, name=None, number=None, order_family=None, class_args=None, storedtype=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2615>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2615>`__ parser node.
 
    .. attribute:: itemtype
       :type: int
@@ -2000,7 +2000,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateOpClassStmt(opclassname=None, opfamilyname=None, amname=None, datatype=None, items=None, isDefault=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2600>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2600>`__ parser node.
 
    .. attribute:: opclassname
       :type: tuple
@@ -2035,7 +2035,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateOpFamilyStmt(opfamilyname=None, amname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2632>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2632>`__ parser node.
 
    .. attribute:: opfamilyname
       :type: tuple
@@ -2050,7 +2050,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreatePLangStmt(replace=None, plname=None, plhandler=None, plinline=None, plvalidator=None, pltrusted=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2485>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2485>`__ parser node.
 
    .. attribute:: replace
       :type: bool
@@ -2085,7 +2085,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreatePolicyStmt(policy_name=None, table=None, cmd_name=None, permissive=None, roles=None, qual=None, with_check=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2391>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2391>`__ parser node.
 
    .. attribute:: policy_name
       :type: str
@@ -2125,7 +2125,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreatePublicationStmt(pubname=None, options=None, tables=None, for_all_tables=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3520>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3520>`__ parser node.
 
    .. attribute:: pubname
       :type: str
@@ -2150,7 +2150,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateRangeStmt(typeName=None, params=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3098>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3098>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
@@ -2165,7 +2165,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateRoleStmt(stmt_type=None, role=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2512>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2512>`__ parser node.
 
    .. attribute:: stmt_type
       :type: RoleStmtType
@@ -2185,7 +2185,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateSchemaStmt(schemaname=None, authrole=None, schemaElts=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1760>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1760>`__ parser node.
 
    .. attribute:: schemaname
       :type: str
@@ -2210,7 +2210,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateSeqStmt(sequence=None, options=None, for_identity=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2548>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2548>`__ parser node.
 
    .. attribute:: sequence
       :type: RangeVar*
@@ -2231,7 +2231,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateStatsStmt(defnames=None, stat_types=None, exprs=None, relations=None, stxcomment=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2813>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2813>`__ parser node.
 
    .. attribute:: defnames
       :type: tuple
@@ -2266,7 +2266,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateStmt(relation=None, tableElts=None, inhRelations=None, partbound=None, partspec=None, ofTypename=None, constraints=None, options=None, oncommit=None, tablespacename=None, accessMethod=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2075>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2075>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -2332,7 +2332,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateSubscriptionStmt(subname=None, conninfo=None, publication=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3543>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3543>`__ parser node.
 
    .. attribute:: subname
       :type: str
@@ -2357,7 +2357,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateTableAsStmt(query=None, into=None, relkind=None, is_select_into=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3279>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3279>`__ parser node.
 
    .. attribute:: query
       :type: Node
@@ -2387,7 +2387,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateTableSpaceStmt(tablespacename=None, owner=None, location=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2212>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2212>`__ parser node.
 
    .. attribute:: tablespacename
       :type: str
@@ -2404,7 +2404,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateTransformStmt(replace=None, type_name=None, lang=None, fromsql=None, tosql=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3413>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3413>`__ parser node.
 
    .. attribute:: replace
       :type: bool
@@ -2424,7 +2424,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateTrigStmt(trigname=None, relation=None, funcname=None, args=None, row=None, timing=None, events=None, columns=None, whenClause=None, isconstraint=None, transitionRels=None, deferrable=None, initdeferred=None, constrrel=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2433>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2433>`__ parser node.
 
    .. attribute:: trigname
       :type: str
@@ -2499,7 +2499,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreateUserMappingStmt(user=None, servername=None, if_not_exists=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2339>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2339>`__ parser node.
 
    .. attribute:: user
       :type: RoleSpec*
@@ -2524,7 +2524,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CreatedbStmt(dbname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3156>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3156>`__ parser node.
 
    .. attribute:: dbname
       :type: str
@@ -2539,7 +2539,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: CurrentOfExpr(cvarno=None, cursor_name=None, cursor_param=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1313>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1313>`__ parser node.
 
    .. attribute:: cvarno
       :type: Index
@@ -2559,7 +2559,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DeallocateStmt(name=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3453>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3453>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -2569,7 +2569,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DeclareCursorStmt(portalname=None, options=None, query=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2723>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2723>`__ parser node.
 
    .. attribute:: portalname
       :type: str
@@ -2589,7 +2589,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DefElem(defnamespace=None, defname=None, arg=None, defaction=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L729>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L729>`__ parser node.
 
    .. attribute:: defnamespace
       :type: str
@@ -2617,7 +2617,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DefineStmt(kind=None, oldstyle=None, defnames=None, args=None, definition=None, if_not_exists=None, replace=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2571>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2571>`__ parser node.
 
    .. attribute:: kind
       :type: ObjectType
@@ -2657,7 +2657,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DeleteStmt(relation=None, usingClause=None, whereClause=None, returningList=None, withClause=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1546>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1546>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -2687,7 +2687,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DiscardStmt(target=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3323>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3323>`__ parser node.
 
    .. attribute:: target
       :type: DiscardMode
@@ -2695,7 +2695,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DoStmt(args=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2884>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2884>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -2705,7 +2705,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DropOwnedStmt(roles=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3463>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3463>`__ parser node.
 
    .. attribute:: roles
       :type: tuple
@@ -2716,7 +2716,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DropRoleStmt(roles=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2536>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2536>`__ parser node.
 
    .. attribute:: roles
       :type: tuple
@@ -2731,7 +2731,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DropStmt(objects=None, removeType=None, behavior=None, missing_ok=None, concurrent=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2657>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2657>`__ parser node.
 
    .. attribute:: objects
       :type: tuple
@@ -2761,7 +2761,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DropSubscriptionStmt(subname=None, missing_ok=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3571>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3571>`__ parser node.
 
    .. attribute:: subname
       :type: str
@@ -2781,7 +2781,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DropTableSpaceStmt(tablespacename=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2221>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2221>`__ parser node.
 
    .. attribute:: tablespacename
       :type: str
@@ -2794,7 +2794,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DropUserMappingStmt(user=None, servername=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2356>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2356>`__ parser node.
 
    .. attribute:: user
       :type: RoleSpec*
@@ -2814,7 +2814,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: DropdbStmt(dbname=None, missing_ok=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3185>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3185>`__ parser node.
 
    .. attribute:: dbname
       :type: str
@@ -2834,7 +2834,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ExecuteStmt(name=None, params=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3441>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3441>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -2849,7 +2849,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ExplainStmt(query=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3259>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3259>`__ parser node.
 
    .. attribute:: query
       :type: Node
@@ -2864,12 +2864,12 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: Expr()
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L136>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L136>`__ parser node.
 
 
 .. class:: FetchStmt(direction=None, howMany=None, portalname=None, ismove=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2758>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2758>`__ parser node.
 
    .. attribute:: direction
       :type: FetchDirection
@@ -2892,7 +2892,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: FieldSelect(arg=None, fieldnum=None, resulttypmod=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L759>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L759>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -2912,7 +2912,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: FieldStore(arg=None, newvals=None, fieldnums=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L788>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L788>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -2932,7 +2932,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: FromExpr(fromlist=None, quals=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1507>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1507>`__ parser node.
 
    .. attribute:: fromlist
       :type: tuple
@@ -2947,7 +2947,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: FuncCall(funcname=None, args=None, agg_order=None, agg_filter=None, agg_within_group=None, agg_star=None, agg_distinct=None, func_variadic=None, over=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L348>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L348>`__ parser node.
 
    .. attribute:: funcname
       :type: tuple
@@ -3002,7 +3002,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: FuncExpr(funcretset=None, funcvariadic=None, funcformat=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L466>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L466>`__ parser node.
 
    .. attribute:: funcretset
       :type: bool
@@ -3033,7 +3033,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: FunctionParameter(name=None, argType=None, mode=None, defexpr=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2861>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2861>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -3058,7 +3058,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: GrantRoleStmt(granted_roles=None, grantee_roles=None, is_grant=None, admin_opt=None, grantor=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1983>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1983>`__ parser node.
 
    .. attribute:: granted_roles
       :type: tuple
@@ -3093,7 +3093,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: GrantStmt(is_grant=None, targtype=None, objtype=None, objects=None, privileges=None, grantees=None, grant_option=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1930>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1930>`__ parser node.
 
    .. attribute:: is_grant
       :type: bool
@@ -3139,7 +3139,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: GroupingFunc(args=None, refs=None, cols=None, agglevelsup=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L356>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L356>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -3170,7 +3170,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: GroupingSet(kind=None, content=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1328>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1328>`__ parser node.
 
    .. attribute:: kind
       :type: GroupingSetKind
@@ -3184,7 +3184,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ImportForeignSchemaStmt(server_name=None, remote_schema=None, local_schema=None, list_type=None, table_list=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2376>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2376>`__ parser node.
 
    .. attribute:: server_name
       :type: str
@@ -3219,7 +3219,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: IndexElem(name=None, expr=None, indexcolname=None, collation=None, opclass=None, opclassopts=None, ordering=None, nulls_ordering=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L698>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L698>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -3264,7 +3264,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: IndexStmt(idxname=None, relation=None, accessMethod=None, tableSpace=None, indexParams=None, indexIncludingParams=None, options=None, whereClause=None, excludeOpNames=None, idxcomment=None, oldCreateSubid=None, oldFirstRelfilenodeSubid=None, unique=None, primary=None, isconstraint=None, deferrable=None, initdeferred=None, transformed=None, concurrent=None, if_not_exists=None, reset_default_tblspc=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2778>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2778>`__ parser node.
 
    .. attribute:: idxname
       :type: str
@@ -3377,7 +3377,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: InferClause(indexElems=None, whereClause=None, conname=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1414>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1414>`__ parser node.
 
    .. attribute:: indexElems
       :type: tuple
@@ -3402,7 +3402,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: InferenceElem(expr=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1342>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1342>`__ parser node.
 
    .. attribute:: expr
       :type: Node
@@ -3412,7 +3412,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: InlineCodeBlock(source_text=None, langIsTrusted=None, atomic=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2890>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2890>`__ parser node.
 
    .. attribute:: source_text
       :type: str
@@ -3432,7 +3432,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: InsertStmt(relation=None, cols=None, selectStmt=None, onConflictClause=None, returningList=None, withClause=None, override=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1530>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1530>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -3472,7 +3472,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: IntoClause(rel=None, colNames=None, accessMethod=None, options=None, onCommit=None, tableSpaceName=None, viewQuery=None, skipData=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L108>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L108>`__ parser node.
 
    .. attribute:: rel
       :type: RangeVar*
@@ -3517,7 +3517,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: JoinExpr(jointype=None, isNatural=None, larg=None, rarg=None, usingClause=None, quals=None, alias=None, rtindex=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1485>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1485>`__ parser node.
 
    .. attribute:: jointype
       :type: JoinType
@@ -3562,7 +3562,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ListenStmt(conditionname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3028>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3028>`__ parser node.
 
    .. attribute:: conditionname
       :type: str
@@ -3572,7 +3572,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: LoadStmt(filename=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3146>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3146>`__ parser node.
 
    .. attribute:: filename
       :type: str
@@ -3582,7 +3582,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: LockStmt(relations=None, mode=None, nowait=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3333>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3333>`__ parser node.
 
    .. attribute:: relations
       :type: tuple
@@ -3602,7 +3602,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: LockingClause(lockedRels=None, strength=None, waitPolicy=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L748>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L748>`__ parser node.
 
    .. attribute:: lockedRels
       :type: tuple
@@ -3620,7 +3620,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: MinMaxExpr(op=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1099>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1099>`__ parser node.
 
    .. attribute:: op
       :type: MinMaxOp
@@ -3640,7 +3640,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: MultiAssignRef(source=None, colno=None, ncolumns=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L456>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L456>`__ parser node.
 
    .. attribute:: source
       :type: Node
@@ -3660,7 +3660,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: NamedArgExpr(arg=None, name=None, argnumber=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L495>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L495>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -3685,7 +3685,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: NotifyStmt(conditionname=None, payload=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3017>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3017>`__ parser node.
 
    .. attribute:: conditionname
       :type: str
@@ -3700,7 +3700,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: NullTest(arg=None, nulltesttype=None, argisrow=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1216>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1216>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -3725,7 +3725,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ObjectWithArgs(objname=None, objargs=None, args_unspecified=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1950>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1950>`__ parser node.
 
    .. attribute:: objname
       :type: tuple
@@ -3747,7 +3747,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: OnConflictClause(action=None, infer=None, targetList=None, whereClause=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1429>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1429>`__ parser node.
 
    .. attribute:: action
       :type: OnConflictAction
@@ -3777,7 +3777,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: OnConflictExpr(action=None, arbiterElems=None, arbiterWhere=None, onConflictSet=None, onConflictWhere=None, exclRelIndex=None, exclRelTlist=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1523>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1523>`__ parser node.
 
    .. attribute:: action
       :type: OnConflictAction
@@ -3818,7 +3818,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: OpExpr(opretset=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L513>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L513>`__ parser node.
 
    .. attribute:: opretset
       :type: bool
@@ -3838,7 +3838,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: Param(paramkind=None, paramid=None, paramtypmod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L259>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L259>`__ parser node.
 
    .. attribute:: paramkind
       :type: ParamKind
@@ -3863,7 +3863,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ParamRef(number=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L243>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L243>`__ parser node.
 
    .. attribute:: number
       :type: int
@@ -3878,7 +3878,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: PartitionBoundSpec(strategy=None, is_default=None, modulus=None, remainder=None, listdatums=None, lowerdatums=None, upperdatums=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L811>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L811>`__ parser node.
 
    .. attribute:: strategy
       :type: str
@@ -3919,7 +3919,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: PartitionCmd(name=None, bound=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L858>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L858>`__ parser node.
 
    .. attribute:: name
       :type: RangeVar*
@@ -3934,7 +3934,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: PartitionElem(name=None, expr=None, collation=None, opclass=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L776>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L776>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -3964,7 +3964,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: PartitionRangeDatum(kind=None, value=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L844>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L844>`__ parser node.
 
    .. attribute:: kind
       :type: PartitionRangeDatumKind
@@ -3983,7 +3983,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: PartitionSpec(strategy=None, partParams=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L791>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L791>`__ parser node.
 
    .. attribute:: strategy
       :type: str
@@ -4004,7 +4004,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: PrepareStmt(name=None, argtypes=None, query=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3427>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3427>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -4024,7 +4024,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: Query(commandType=None, querySource=None, queryId=None, canSetTag=None, utilityStmt=None, resultRelation=None, hasAggs=None, hasWindowFuncs=None, hasTargetSRFs=None, hasSubLinks=None, hasDistinctOn=None, hasRecursive=None, hasModifyingCTE=None, hasForUpdate=None, hasRowSecurity=None, cteList=None, rtable=None, jointree=None, targetList=None, override=None, onConflict=None, returningList=None, groupClause=None, groupingSets=None, havingQual=None, windowClause=None, distinctClause=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, rowMarks=None, setOperations=None, constraintDeps=None, withCheckOptions=None, stmt_location=None, stmt_len=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L108>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L108>`__ parser node.
 
    .. attribute:: commandType
       :type: CmdType
@@ -4218,7 +4218,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeFunction(lateral=None, ordinality=None, is_rowsfrom=None, functions=None, alias=None, coldeflist=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L561>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L561>`__ parser node.
 
    .. attribute:: lateral
       :type: bool
@@ -4254,7 +4254,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeSubselect(lateral=None, subquery=None, alias=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L539>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L539>`__ parser node.
 
    .. attribute:: lateral
       :type: bool
@@ -4274,7 +4274,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeTableFunc(lateral=None, docexpr=None, rowexpr=None, namespaces=None, columns=None, alias=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L576>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L576>`__ parser node.
 
    .. attribute:: lateral
       :type: bool
@@ -4314,7 +4314,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeTableFuncCol(colname=None, typeName=None, for_ordinality=None, is_not_null=None, colexpr=None, coldefexpr=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L594>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L594>`__ parser node.
 
    .. attribute:: colname
       :type: str
@@ -4354,7 +4354,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeTableSample(relation=None, method=None, args=None, repeatable=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L616>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L616>`__ parser node.
 
    .. attribute:: relation
       :type: Node
@@ -4384,7 +4384,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeTblEntry(rtekind=None, relkind=None, rellockmode=None, tablesample=None, subquery=None, security_barrier=None, jointype=None, joinmergedcols=None, joinaliasvars=None, joinleftcols=None, joinrightcols=None, functions=None, funcordinality=None, tablefunc=None, values_lists=None, ctename=None, ctelevelsup=None, self_reference=None, coltypes=None, coltypmods=None, colcollations=None, enrname=None, enrtuples=None, alias=None, eref=None, lateral=None, inh=None, inFromCl=None, requiredPerms=None, selectedCols=None, insertedCols=None, updatedCols=None, extraUpdatedCols=None, securityQuals=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L977>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L977>`__ parser node.
 
    .. attribute:: rtekind
       :type: RTEKind
@@ -4555,7 +4555,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeTblFunction(funcexpr=None, funccolcount=None, funccolnames=None, funccoltypes=None, funccoltypmods=None, funccolcollations=None, funcparams=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1149>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1149>`__ parser node.
 
    .. attribute:: funcexpr
       :type: Node
@@ -4595,7 +4595,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeTblRef(rtindex=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1456>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1456>`__ parser node.
 
    .. attribute:: rtindex
       :type: int
@@ -4603,7 +4603,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RangeVar(catalogname=None, schemaname=None, relname=None, inh=None, relpersistence=None, alias=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L63>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L63>`__ parser node.
 
    .. attribute:: catalogname
       :type: str
@@ -4644,7 +4644,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RawStmt(stmt=None, stmt_location=None, stmt_len=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1510>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1510>`__ parser node.
 
    .. attribute:: stmt
       :type: Node
@@ -4664,7 +4664,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ReassignOwnedStmt(roles=None, newrole=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3473>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3473>`__ parser node.
 
    .. attribute:: roles
       :type: tuple
@@ -4675,7 +4675,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RefreshMatViewStmt(concurrent=None, skipData=None, relation=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3293>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3293>`__ parser node.
 
    .. attribute:: concurrent
       :type: bool
@@ -4695,7 +4695,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ReindexStmt(kind=None, relation=None, name=None, options=None, concurrent=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3370>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3370>`__ parser node.
 
    .. attribute:: kind
       :type: ReindexObjectType
@@ -4726,7 +4726,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RelabelType(arg=None, resulttypmod=None, relabelformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L811>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L811>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -4751,7 +4751,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RenameStmt(renameType=None, relationType=None, relation=None, object=None, subname=None, newname=None, behavior=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2920>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2920>`__ parser node.
 
    .. attribute:: renameType
       :type: ObjectType
@@ -4797,7 +4797,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ReplicaIdentityStmt(identity_type=None, name=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1859>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1859>`__ parser node.
 
    .. attribute:: identity_type
       :type: str
@@ -4808,7 +4808,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ResTarget(name=None, indirection=None, val=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L438>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L438>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -4833,7 +4833,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RoleSpec(roletype=None, rolename=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L326>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L326>`__ parser node.
 
    .. attribute:: roletype
       :type: RoleSpecType
@@ -4853,7 +4853,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RowCompareExpr(rctype=None, opnos=None, opfamilies=None, inputcollids=None, largs=None, rargs=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1067>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1067>`__ parser node.
 
    .. attribute:: rctype
       :type: RowCompareType
@@ -4888,7 +4888,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RowExpr(args=None, row_format=None, colnames=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1019>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1019>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -4913,7 +4913,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RowMarkClause(rti=None, strength=None, waitPolicy=None, pushedDown=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1384>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1384>`__ parser node.
 
    .. attribute:: rti
       :type: Index
@@ -4936,7 +4936,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: RuleStmt(relation=None, rulename=None, whereClause=None, event=None, instead=None, actions=None, replace=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3001>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3001>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -4976,7 +4976,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SQLValueFunction(op=None, typmod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1140>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1140>`__ parser node.
 
    .. attribute:: op
       :type: SQLValueFunctionOp
@@ -4994,7 +4994,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ScalarArrayOpExpr(useOr=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L556>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L556>`__ parser node.
 
    .. attribute:: useOr
       :type: bool
@@ -5014,7 +5014,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SecLabelStmt(objtype=None, object=None, provider=None, label=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2695>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2695>`__ parser node.
 
    .. attribute:: objtype
       :type: ObjectType
@@ -5039,7 +5039,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SelectStmt(distinctClause=None, intoClause=None, targetList=None, fromClause=None, whereClause=None, groupClause=None, havingClause=None, windowClause=None, valuesLists=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, lockingClause=None, withClause=None, op=None, all=None, larg=None, rarg=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1592>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1592>`__ parser node.
 
    .. attribute:: distinctClause
       :type: tuple
@@ -5140,7 +5140,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SetOperationStmt(op=None, all=None, larg=None, rarg=None, colTypes=None, colTypmods=None, colCollations=None, groupClauses=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1660>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1660>`__ parser node.
 
    .. attribute:: op
       :type: SetOperation
@@ -5185,7 +5185,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SetToDefault(typeMod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1292>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1292>`__ parser node.
 
    .. attribute:: typeMod
       :type: int32
@@ -5200,7 +5200,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SortBy(node=None, sortby_dir=None, sortby_nulls=None, useOp=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L467>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L467>`__ parser node.
 
    .. attribute:: node
       :type: Node
@@ -5230,7 +5230,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SortGroupClause(tleSortGroupRef=None, nulls_first=None, hashable=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1259>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1259>`__ parser node.
 
    .. attribute:: tleSortGroupRef
       :type: Index
@@ -5250,7 +5250,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SubLink(subLinkType=None, subLinkId=None, testexpr=None, operName=None, subselect=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L651>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L651>`__ parser node.
 
    .. attribute:: subLinkType
       :type: SubLinkType
@@ -5283,7 +5283,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SubPlan(subLinkType=None, testexpr=None, paramIds=None, plan_id=None, plan_name=None, firstColTypmod=None, useHashTable=None, unknownEqFalse=None, parallel_safe=None, setParam=None, parParam=None, args=None, startup_cost=None, per_call_cost=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L700>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L700>`__ parser node.
 
    .. attribute:: subLinkType
       :type: SubLinkType
@@ -5360,7 +5360,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: SubscriptingRef(reftypmod=None, refupperindexpr=None, reflowerindexpr=None, refexpr=None, refassgnexpr=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L415>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L415>`__ parser node.
 
    .. attribute:: reftypmod
       :type: int32
@@ -5395,7 +5395,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TableFunc(ns_uris=None, ns_names=None, docexpr=None, rowexpr=None, colnames=None, coltypes=None, coltypmods=None, colcollations=None, colexprs=None, coldefexprs=None, notnulls=None, ordinalitycol=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L82>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L82>`__ parser node.
 
    .. attribute:: ns_uris
       :type: tuple
@@ -5465,7 +5465,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TableLikeClause(relation=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L670>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L670>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -5478,7 +5478,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TableSampleClause(args=None, repeatable=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1169>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1169>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -5493,7 +5493,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TargetEntry(expr=None, resno=None, resname=None, ressortgroupref=None, resorigcol=None, resjunk=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1404>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1404>`__ parser node.
 
    .. attribute:: expr
       :type: Expr*
@@ -5530,7 +5530,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TransactionStmt(kind=None, options=None, savepoint_name=None, gid=None, chain=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3062>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3062>`__ parser node.
 
    .. attribute:: kind
       :type: TransactionStmtKind
@@ -5558,7 +5558,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TriggerTransition(name=None, isNew=None, isTable=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1486>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1486>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -5572,7 +5572,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TruncateStmt(relations=None, restart_seqs=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2671>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2671>`__ parser node.
 
    .. attribute:: relations
       :type: tuple
@@ -5592,7 +5592,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TypeCast(arg=None, typeName=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L296>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L296>`__ parser node.
 
    .. attribute:: arg
       :type: Node
@@ -5612,7 +5612,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: TypeName(names=None, setof=None, pct_type=None, typmods=None, typemod=None, arrayBounds=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L207>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L207>`__ parser node.
 
    .. attribute:: names
       :type: tuple
@@ -5652,7 +5652,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: UnlistenStmt(conditionname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3038>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3038>`__ parser node.
 
    .. attribute:: conditionname
       :type: str
@@ -5662,7 +5662,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: UpdateStmt(relation=None, targetList=None, whereClause=None, fromClause=None, returningList=None, withClause=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1560>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1560>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -5697,7 +5697,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: VacuumRelation(relation=None, va_cols=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3243>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3243>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -5712,7 +5712,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: VacuumStmt(options=None, rels=None, is_vacuumcmd=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3228>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3228>`__ parser node.
 
    .. attribute:: options
       :type: tuple
@@ -5732,7 +5732,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: Var(varno=None, varattno=None, vartypmod=None, varlevelsup=None, varnosyn=None, varattnosyn=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L181>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L181>`__ parser node.
 
    .. attribute:: varno
       :type: Index
@@ -5776,7 +5776,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: VariableSetStmt(kind=None, name=None, args=None, is_local=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2045>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2045>`__ parser node.
 
    .. attribute:: kind
       :type: VariableSetKind
@@ -5799,7 +5799,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: VariableShowStmt(name=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L2058>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L2058>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -5807,7 +5807,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: ViewStmt(view=None, aliases=None, query=None, replace=None, options=None, withCheckOption=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L3131>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L3131>`__ parser node.
 
    .. attribute:: view
       :type: RangeVar*
@@ -5842,7 +5842,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: WindowClause(name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, inRangeAsc=None, inRangeNullsFirst=None, winref=None, copiedOrder=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1353>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1353>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -5902,7 +5902,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: WindowDef(name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L485>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L485>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -5947,7 +5947,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: WindowFunc(args=None, aggfilter=None, winref=None, winstar=None, winagg=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L370>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L370>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -5982,7 +5982,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: WithCheckOption(kind=None, relname=None, polname=None, qual=None, cascaded=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1191>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1191>`__ parser node.
 
    .. attribute:: kind
       :type: WCOKind
@@ -6012,7 +6012,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: WithClause(ctes=None, recursive=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L1400>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L1400>`__ parser node.
 
    .. attribute:: ctes
       :type: tuple
@@ -6032,7 +6032,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: XmlExpr(op=None, name=None, named_args=None, arg_names=None, args=None, xmloption=None, typmod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/primnodes.h#L1178>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/primnodes.h#L1178>`__ parser node.
 
    .. attribute:: op
       :type: XmlExprOp
@@ -6075,7 +6075,7 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 
 .. class:: XmlSerialize(xmloption=None, expr=None, typeName=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/parsenodes.h#L759>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/parsenodes.h#L759>`__ parser node.
 
    .. attribute:: xmloption
       :type: XmlOptionType

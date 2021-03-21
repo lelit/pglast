@@ -9,7 +9,7 @@
  :mod:`pglast.enums.nodes` --- Constants extracted from `nodes.h`__
 ====================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h
+__ https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h
 
 .. module:: pglast.enums.nodes
    :synopsis: Constants extracted from nodes.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.AggSplit
 
-   Corresponds to the `AggSplit enum <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L780>`__.
+   Corresponds to the `AggSplit enum <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L780>`__.
 
    .. data:: AGGSPLIT_SIMPLE
 
@@ -28,7 +28,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.AggStrategy
 
-   Corresponds to the `AggStrategy enum <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L758>`__.
+   Corresponds to the `AggStrategy enum <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L758>`__.
 
    .. data:: AGG_PLAIN
 
@@ -41,7 +41,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.CmdType
 
-   Corresponds to the `CmdType enum <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L672>`__.
+   Corresponds to the `CmdType enum <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L672>`__.
 
    .. data:: CMD_UNKNOWN
 
@@ -60,7 +60,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.JoinType
 
-   Corresponds to the `JoinType enum <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L696>`__.
+   Corresponds to the `JoinType enum <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L696>`__.
 
    .. data:: JOIN_INNER
 
@@ -81,7 +81,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.LimitOption
 
-   Corresponds to the `LimitOption enum <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L835>`__.
+   Corresponds to the `LimitOption enum <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L835>`__.
 
    .. data:: LIMIT_OPTION_DEFAULT
 
@@ -92,7 +92,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.NodeTag
 
-   Corresponds to the `NodeTag enum <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L26>`__.
+   Corresponds to the `NodeTag enum <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L26>`__.
 
    .. data:: T_Invalid
 
@@ -941,7 +941,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.OnConflictAction
 
-   Corresponds to the `OnConflictAction enum <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L822>`__.
+   Corresponds to the `OnConflictAction enum <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L822>`__.
 
    .. data:: ONCONFLICT_NONE
 
@@ -952,7 +952,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.SetOpCmd
 
-   Corresponds to the `SetOpCmd enum <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L802>`__.
+   Corresponds to the `SetOpCmd enum <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L802>`__.
 
    .. data:: SETOPCMD_INTERSECT
 
@@ -965,7 +965,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.SetOpStrategy
 
-   Corresponds to the `SetOpStrategy enum <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L810>`__.
+   Corresponds to the `SetOpStrategy enum <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L810>`__.
 
    .. data:: SETOP_SORTED
 
@@ -974,16 +974,16 @@ __ https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/no
 
 .. data:: AGGSPLITOP_COMBINE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L774>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L774>`__.
 
 .. data:: AGGSPLITOP_SKIPFINAL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L775>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L775>`__.
 
 .. data:: AGGSPLITOP_SERIALIZE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L776>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L776>`__.
 
 .. data:: AGGSPLITOP_DESERIALIZE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/6517eed/src/postgres/include/nodes/nodes.h#L777>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/442b174/src/postgres/include/nodes/nodes.h#L777>`__.
