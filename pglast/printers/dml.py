@@ -334,7 +334,8 @@ def coalesce_expr(node, output):
 @node_printer('CollateClause')
 def collate_clause(node, output):
     if node.arg:
-        output.print_node(node.arg)
+        with output.expression():
+            output.print_node(node.arg)
     output.swrite('COLLATE ')
     output.print_name(node.collname, '.')
 
