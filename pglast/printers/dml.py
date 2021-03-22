@@ -1726,3 +1726,18 @@ def with_clause(node, output):
     if node.recursive:
         relindent -= output.write('RECURSIVE ')
     output.print_list(node.ctes, relative_indent=relindent)
+
+
+@node_printer('ListenStmt')
+def listen(node, output):
+    output.write('LISTEN ')
+    output.print_name(node.conditionname)
+
+
+@node_printer('UnlistenStmt')
+def listen(node, output):
+    output.write('UNLISTEN ')
+    if node.conditionname:
+        output.print_name(node.conditionname)
+    else:
+        output.write('*')
