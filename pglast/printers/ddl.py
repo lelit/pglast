@@ -1321,6 +1321,14 @@ def create_policy_stmt(node, output):
         output.print_node(node.with_check)
         output.write(')')
 
+@node_printer('CreateRangeStmt')
+def create_range_stmt(node, output):
+    output.write('CREATE TYPE ')
+    output.print_name(node.typeName)
+    output.write(' AS RANGE (')
+    output.print_list(node.params)
+    output.write(')')
+
 
 class RoleStmtTypePrinter(IntEnumPrinter):
     enum = enums.RoleStmtType
