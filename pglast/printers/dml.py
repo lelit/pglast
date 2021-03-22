@@ -428,6 +428,7 @@ def copy_stmt(node, output):
         output.write(')')
     if node.whereClause:
         output.newline()
+        output.write('WHERE ')
         output.print_node(node.whereClause)
 
 
