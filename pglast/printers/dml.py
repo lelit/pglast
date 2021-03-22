@@ -1415,6 +1415,7 @@ system_types = {
     'pg_catalog.timestamp':   ('timestamp', ''),
     'pg_catalog.timestamptz': ('timestamp', ' with time zone'),
     'pg_catalog.timetz':      ('time', ' with time zone'),
+    'pg_catalog.varbit':      ('varbit', ''),
     'pg_catalog.varchar':     ('varchar', ''),
 }
 
