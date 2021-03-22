@@ -452,6 +452,9 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write('ENABLE TRIGGER ')
         output.print_name(node.name)
 
+    def AT_ForceRowSecurity(self, node, output):
+        output.write('FORCE ROW LEVEL SECURITY ')
+
     def AT_ResetOptions(self, node, output):
         output.write('ALTER COLUMN ')
         output.print_name(node.name)
