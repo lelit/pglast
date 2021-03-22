@@ -406,7 +406,7 @@ def copy_stmt(node, output):
     if node.query:
         output.write(' (')
         with output.push_indent():
-            output.print_node(output.query)
+            output.print_node(node.query)
         output.write(')')
     if node.is_from:
         output.write(' FROM ')
