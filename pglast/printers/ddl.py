@@ -1375,6 +1375,10 @@ def create_role_stmt_def_elem(node, output):
         output.print_list(argv)
     elif option == 'superuser':
         output.write('SUPERUSER' if argv == 1 else 'NOSUPERUSER')
+    elif option == 'createdb':
+        output.write('CREATEDB' if argv == 1 else 'NOCREATEDB')
+    elif option == 'createrole':
+        output.write('CREATEROLE' if argv == 1 else 'NOCREATEROLE')
     else:
         raise NotImplementedError(option)
 
