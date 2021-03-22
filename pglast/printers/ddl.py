@@ -624,7 +624,8 @@ def cluster_stmt(node, output):
     output.write('CLUSTER ')
     if (node.options or 0) & enums.ClusterOption.CLUOPT_VERBOSE:
         output.write('VERBOSE ')
-    output.print_name(node.relation)
+    if node.relation:
+        output.print_name(node.relation)
     if node.indexname:
         output.write(' USING ')
         output.print_name(node.indexname)
