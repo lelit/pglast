@@ -455,6 +455,26 @@ def copy_stmt_def_elem(node, output):
     elif option == 'escape':
         output.write('ESCAPE ')
         output.print_node(argv)
+    elif option == 'force_quote':
+        output.write('FORCE_QUOTE ')
+        # If it is a list print it.
+        if isinstance(argv, List):
+           output.write('(')
+           output.print_list(argv, are_names=True)
+           output.write(')')
+        else:
+           output.write('* ')
+    elif option == 'force_null':
+        output.write('FORCE_NULL (')
+        output.print_list(argv, are_names=True)
+        output.write(')')
+    elif option == 'force_not_null':
+        output.write('FORCE_NOT_NULL (')
+        output.print_list(argv, are_names=True)
+        output.write(')')
+    elif option == 'encoding':
+        output.write('ENCODING ')
+        output.print_node(argv)
     else:
         raise NotImplementedError(option)
 
