@@ -1041,8 +1041,7 @@ def res_target(node, output):
     else:
         output.print_name(node.name)
     if node.indirection:
-        output.print_list(node.indirection, '', standalone_items=False)
-
+        print_indirection(node.indirection, output)
 
 @node_printer('RowExpr')
 def row_expr(node, output):
@@ -1488,6 +1487,12 @@ def update_stmt(node, output):
         if node.withClause:
             output.dedent()
 
+def print_indirection(node, output):
+    for idx, subnode in enumerate(node):
+        if idx > 0 and subnode.node_tag == 'String':
+            output.write('.')
+        output.print_node(subnode, is_name=True)
+
 
 @node_printer(('OnConflictClause', 'UpdateStmt'), 'ResTarget')
 def update_stmt_res_target(node, output):
@@ -1504,7 +1509,7 @@ def update_stmt_res_target(node, output):
         if node.name:
             output.print_name(node.name)
             if node.indirection:
-                output.print_list(node.indirection, '', standalone_items=False)
+                print_indirection(node.indirection, output)
             output.write(' = ')
         output.print_node(node.val)
 
