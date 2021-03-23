@@ -452,6 +452,9 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_ForceRowSecurity(self, node, output):
         output.write('FORCE ROW LEVEL SECURITY ')
 
+    def AT_ReplicaIdentity(self, node, output):
+        output.print_node(node.def_)
+
     def AT_ResetOptions(self, node, output):
         output.write('ALTER COLUMN ')
         output.print_name(node.name)
@@ -2297,6 +2300,18 @@ def range_var(node, output):
     if alias:
         output.write(' AS ')
         output.print_name(alias)
+
+
+@node_printer('ReplicaIdentityStmt')
+def replica_identity_stmt(node, output):
+    output.write('REPLICA IDENTITY ')
+    if node.identity_type == enums.REPLICA_IDENTITY_INDEX:
+        output.write('USING INDEX ')
+        output.print_name(node.name)
+    elif node.identity_type == enums.REPLICA_IDENTITY_DEFAULT:
+        output.write('DEFAULT')
+    elif node.identity_type == enums.REPLICA_IDENTITY_FULL:
+        output.write('FULL')
 
 
 @node_printer('RoleSpec')
