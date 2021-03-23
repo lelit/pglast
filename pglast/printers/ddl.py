@@ -2196,6 +2196,48 @@ def partition_spec(node, output):
     output.write(')')
 
 
+class ReindexKindPrinter(IntEnumPrinter):
+    enum = enums.ReindexObjectType
+
+
+    def _print_options(self, node, output):
+        if node.concurrent:
+            output.write('CONCURRENTLY ')
+
+    def REINDEX_OBJECT_TABLE(self, node, output):
+        output.write('TABLE ')
+        self._print_options(node, output)
+        output.print_node(node.relation)
+
+    def REINDEX_OBJECT_INDEX(self, node, output):
+        output.write('INDEX ')
+        self._print_options(node, output)
+        output.print_node(node.relation)
+
+    def REINDEX_OBJECT_SCHEMA(self, node, output):
+        output.write('SCHEMA ')
+        self._print_options(node, output)
+        output.print_name(node.name)
+
+    def REINDEX_OBJECT_SYSTEM(self, node, output):
+        output.write('SYSTEM ')
+        self._print_options(node, output)
+        output.print_name(node.name)
+
+    def REINDEX_OBJECT_DATABASE(self, node, output):
+        output.write('DATABASE ')
+        self._print_options(node, output)
+        output.print_name(node.name)
+
+reindex_kind_printer = ReindexKindPrinter()
+
+
+@node_printer('ReindexStmt')
+def reindex_stmt(node, output):
+    output.write('REINDEX ')
+    reindex_kind_printer(node.kind, node, output)
+
+
 @node_printer('RenameStmt')
 def rename_stmt(node, output):
     OT = enums.ObjectType
