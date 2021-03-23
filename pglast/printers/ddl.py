@@ -292,17 +292,7 @@ def alter_role_stmt(node, output):
     }
     output.write('ALTER ROLE ')
     output.print_node(node.role)
-    for opt in node.options:
-        optname, isbool = mapping[opt.defname.value]
-        if isbool:
-            if opt.arg.val.value == 1:
-                output.write(optname)
-            else:
-                output.write('NO')
-                output.write(optname)
-        else:
-            output.writes(optname)
-            output.print_node(opt.arg)
+    output.print_list(node.options, sep=' ')
 
 
 @node_printer('AlterSeqStmt')
@@ -1375,7 +1365,8 @@ def create_role_stmt(node, output):
 
 
 @node_printer('CreateRoleStmt', 'DefElem')
-def create_role_stmt_def_elem(node, output):
+@node_printer('AlterRoleStmt', 'DefElem')
+def create_or_alter_role_option(node, output):
     option = node.defname.value
     argv = node.arg
     if option == 'sysid':
@@ -1391,11 +1382,19 @@ def create_role_stmt_def_elem(node, output):
         output.write('IN ROLE ')
         output.print_list(argv)
     elif option == 'superuser':
-        output.write('SUPERUSER' if argv == 1 else 'NOSUPERUSER')
+        output.write('SUPERUSER' if argv.val == 1 else 'NOSUPERUSER')
     elif option == 'createdb':
-        output.write('CREATEDB' if argv == 1 else 'NOCREATEDB')
+        output.write('CREATEDB' if argv.val == 1 else 'NOCREATEDB')
     elif option == 'createrole':
-        output.write('CREATEROLE' if argv == 1 else 'NOCREATEROLE')
+        output.write('CREATEROLE' if argv.val == 1 else 'NOCREATEROLE')
+    elif option == 'canlogin':
+        output.write('LOGIN' if argv.val == 1 else 'NOLOGIN')
+    elif option == 'connectionlimit':
+        output.write('CONNECTION LIMIT ')
+        output.print_node(argv)
+    elif option == 'validUntil':
+        output.write('VALID UNTIL ')
+        output.print_node(argv)
     else:
         raise NotImplementedError(option)
 
