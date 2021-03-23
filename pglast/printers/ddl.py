@@ -527,6 +527,8 @@ def alter_table_cmd(node, output):
 
 
 @node_printer('AlterTableCmd', 'DefElem')
+@node_printer('CreateStmt', 'DefElem')
+@node_printer('IntoClause', 'DefElem')
 def alter_table_cmd_def_elem(node, output):
     if node.defnamespace:
         output.print_name(node.defnamespace)
@@ -2182,7 +2184,8 @@ def partition_elem(node, output):
         output.print_node(node.expr)
         output.write(')')
     if node.collation:
-        output.print_node(node.collation)
+        output.write('COLLATE ')
+        output.print_list(node.collation, are_names=True)
     if node.opclass:
         output.print_name(node.opclass)
 
