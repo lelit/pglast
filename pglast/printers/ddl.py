@@ -59,6 +59,7 @@ OBJECT_NAMES = {
     enums.ObjectType.OBJECT_PUBLICATION: 'PUBLICATION',
     enums.ObjectType.OBJECT_PUBLICATION_REL: 'PUBLICATION_REL',
     enums.ObjectType.OBJECT_ROLE: 'ROLE',
+    enums.ObjectType.OBJECT_ROUTINE: 'ROUTINE',
     enums.ObjectType.OBJECT_RULE: 'RULE',
     enums.ObjectType.OBJECT_SCHEMA: 'SCHEMA',
     enums.ObjectType.OBJECT_SEQUENCE: 'SEQUENCE',
