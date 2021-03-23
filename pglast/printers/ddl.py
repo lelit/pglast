@@ -1703,6 +1703,8 @@ def deallocate_stmt(node, output):
 @node_printer('DefineStmt')
 def define_stmt(node, output):
     output.write('CREATE ')
+    if node.replace:
+        output.write('OR REPLACE ')
     output.writes(OBJECT_NAMES[node.kind.value])
     if node.if_not_exists:
         output.write('IF NOT EXISTS ')
@@ -1728,7 +1730,10 @@ def define_stmt(node, output):
                 actual_args = args
                 orderby_args = []
         else:
-            actual_args = args[:count]
+            if count > 0:
+                actual_args = args[:count]
+            else:
+                actual_args = []
             # For aggregates, if we have a count != -1 BUT we don't have an arg
             # for that, add the last arg as an order by arg.
             if count == len(args):
