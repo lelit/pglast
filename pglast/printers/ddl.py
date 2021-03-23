@@ -79,6 +79,13 @@ OBJECT_NAMES = {
 }
 
 
+@node_printer('AlterCollationStmt')
+def alter_collation_stmt(node, output):
+    output.write('ALTER COLLATION ')
+    output.print_name(node.collname)
+    output.write(' REFRESH VERSION')
+
+
 @node_printer('AlterDatabaseStmt')
 def alter_database_stmt(node, output):
     output.write('ALTER DATABASE ')
