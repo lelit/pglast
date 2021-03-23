@@ -114,14 +114,15 @@ class AExprKindPrinter(IntEnumPrinter):
             else:
                 output.print_symbol(node.name)
                 output.write(' ')
-            if node.rexpr.node_tag == 'A_Expr':
-                if node.rexpr.kind == node.kind and node.rexpr.name == node.name:
-                    output.print_node(node.rexpr)
-                else:
-                    with output.expression():
+            if node.rexpr is not Missing:
+                if node.rexpr.node_tag == 'A_Expr':
+                    if node.rexpr.kind == node.kind and node.rexpr.name == node.name:
                         output.print_node(node.rexpr)
-            else:
-                output.print_node(node.rexpr)
+                    else:
+                        with output.expression():
+                            output.print_node(node.rexpr)
+                else:
+                    output.print_node(node.rexpr)
 
     def AEXPR_OP_ALL(self, node, output):
         output.print_node(node.lexpr)
