@@ -897,11 +897,11 @@ def create_am_stmt(node, output):
     output.write('CREATE ACCESS METHOD ')
     output.print_name(node.amname)
     # Index access method
-    if node.amtype == 'i':
+    if node.amtype == enums.AMTYPE_INDEX:
         output.write(' TYPE INDEX HANDLER ')
         output.print_name(node.handler_name)
     # Table access method
-    elif node.amtype == 't':
+    elif node.amtype == enums.AMTYPE_TABLE:
         output.write(' TYPE TABLE HANDLER ')
         output.print_name(node.handler_name)
     else:  # pragma: nocover

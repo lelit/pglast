@@ -72,7 +72,8 @@ PY_ENUMS := pglast/enums/lockoptions.py pglast/enums/lockdefs.py \
 	    pglast/enums/nodes.py pglast/enums/parsenodes.py \
 	    pglast/enums/pg_attribute.py pglast/enums/pg_class.py \
 	    pglast/enums/pg_trigger.py \
-	    pglast/enums/primnodes.py pglast/enums/xml.py
+	    pglast/enums/primnodes.py pglast/enums/xml.py \
+			pglast/enums/pg_am.py
 PG_INCLUDE_DIR := libpg_query/src/postgres/include
 
 .PHONY: enums
@@ -82,6 +83,8 @@ $(PY_ENUMS): tools/extract_enums.py libpg_query/pg_query.h
 pglast/enums/%.py: $(PG_INCLUDE_DIR)/nodes/%.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 pglast/enums/lockdefs.py: $(PG_INCLUDE_DIR)/storage/lockdefs.h
+	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
+pglast/enums/pg_am.py: $(PG_INCLUDE_DIR)/catalog/pg_am.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 pglast/enums/pg_attribute.py: $(PG_INCLUDE_DIR)/catalog/pg_attribute.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
