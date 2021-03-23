@@ -896,8 +896,13 @@ def constraint(node, output):
 def create_am_stmt(node, output):
     output.write('CREATE ACCESS METHOD ')
     output.print_name(node.amname)
+    # Index access method
     if node.amtype == 'i':
         output.write(' TYPE INDEX HANDLER ')
+        output.print_name(node.handler_name)
+    # Table access method
+    elif node.amtype == 't':
+        output.write(' TYPE TABLE HANDLER ')
         output.print_name(node.handler_name)
     else:  # pragma: nocover
         raise NotImplementedError
@@ -1557,7 +1562,7 @@ def create_stmt(node, output):
             output.print_name(node.tablespacename)
     if node.accessMethod:
         output.write(' USING ')
-        output.write(node.accessMethod.value)
+        output.print_name(node.accessMethod)
 
 
 @node_printer('CreateTableAsStmt')
@@ -1577,6 +1582,9 @@ def create_table_as_stmt(node, output):
         output.write(' (')
         output.print_name(into.colNames, ',')
         output.write(')')
+    if into.accessMethod:
+        output.write(' USING ')
+        output.print_name(into.accessMethod)
     output.newline()
     if into.options:
         if len(into.options) == 1 and into.options[0].defname == 'oids':
