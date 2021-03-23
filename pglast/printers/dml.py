@@ -296,6 +296,12 @@ def boolean_test(node, output):
     boolean_test_printer(node.booltesttype, node, output)
 
 
+@node_printer('CallStmt')
+def call_stmt(node, output):
+    output.write('CALL ')
+    output.print_node(node.funccall)
+
+
 @node_printer('CaseExpr')
 def case_expr(node, output):
     with output.push_indent():
