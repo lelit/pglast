@@ -830,9 +830,11 @@ class ConstrTypePrinter(IntEnumPrinter):
             output.write('ALWAYS ')
         elif node.generated_when == enums.ATTRIBUTE_IDENTITY_BY_DEFAULT:
             output.write('BY DEFAULT ')
-        output.write('AS IDENTITY (')
-        output.print_list(node.options)
-        output.write(')')
+        output.write('AS IDENTITY ')
+        if node.options:
+            output.write('(')
+            output.print_list(node.options)
+            output.write(')')
 
     def CONSTR_NOTNULL(self, node, output):
         output.swrite('NOT NULL')
