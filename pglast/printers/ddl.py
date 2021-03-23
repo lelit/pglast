@@ -689,6 +689,8 @@ def comment_stmt(node, output):
         output.print_name(nodes.pop(0))
         output.write(' LANGUAGE ')
         output.print_name(nodes)
+    elif node.objtype == otypes.OBJECT_AGGREGATE:
+        _object_with_args(node.object, output, empty_placeholder='*')
     elif isinstance(node.object, List):
         if node.object[0].node_tag != 'String':
             output.write(' (')
@@ -1697,18 +1699,37 @@ def define_stmt(node, output):
     output.print_list(node.defnames, '.', standalone_items=False, are_names=True,
                       is_symbol=node.kind == enums.ObjectType.OBJECT_OPERATOR)
     if node.args is not Missing:
-        output.write(' (')
         # args is actually a tuple (list-of-nodes, integer): the integer value, if different
         # from -1, is the number of nodes representing the actual arguments, remaining are
         # ORDER BY
         args, count = node.args
         count = count.val.value
+        output.write(' (')
         if count == -1:
-            output.print_list(args, standalone_items=False)
+            # Special case: if it's an aggregate, and the scalar is equal to
+            # None (not is, since it's a Scalar), write a star
+            if (node.kind.value == enums.ObjectType.OBJECT_AGGREGATE
+                and args == None):
+                output.write('*')
+                actual_args = []
+                orderby_args = []
+            else:
+                count = len(args)
+                actual_args = args
+                orderby_args = []
         else:
-            output.print_list(args[:count], standalone_items=False)
+            actual_args = args[:count]
+            # For aggregates, if we have a count != -1 BUT we don't have an arg
+            # for that, add the last arg as an order by arg.
+            if count == len(args):
+                orderby_args = actual_args[-1:]
+            else:
+                orderby_args = args[count:]
+        if actual_args:
+            output.print_list(actual_args, standalone_items=False)
+        if orderby_args:
             output.write(' ORDER BY ')
-            output.print_list(args[count:], standalone_items=False)
+            output.print_list(orderby_args, standalone_items=False)
         output.write(') ')
     if ((node.kind == enums.ObjectType.OBJECT_COLLATION
          and len(node.definition) == 1
@@ -2050,7 +2071,8 @@ def notify_stmt(node, output):
         output.write_quoted_string(node.payload.value)
 
 
-def _object_with_args(node, output, unquote_name=False, symbol=False, skip_empty_args=False):
+def _object_with_args(node, output, unquote_name=False, symbol=False,
+                      skip_empty_args=False, empty_placeholder=''):
     # Special treatment for OPERATOR object inside DROP or COMMENT
     if unquote_name:
         output.write(node.objname.string_value)
@@ -2066,7 +2088,9 @@ def _object_with_args(node, output, unquote_name=False, symbol=False, skip_empty
             output.print_list(node.objargs, ',', standalone_items=False)
             output.write(')')
         elif not skip_empty_args:
-            output.write(' ()')
+            output.write(' (')
+            output.write(empty_placeholder)
+            output.write(')')
 
 
 @node_printer('ObjectWithArgs')
