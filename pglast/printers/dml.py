@@ -437,16 +437,20 @@ def copy_stmt_def_elem(node, output):
     if option == 'format':
         output.write('FORMAT ')
         output.print_symbol(argv)
-    elif option == 'freeze' and argv.val == 1:
-        output.write('FREEZE 1')
+    elif option == 'freeze':
+        output.write(f'FREEZE')
+        if argv:
+            output.swrite(str(argv.val.value))
     elif option == 'delimiter':
         output.write('DELIMITER ')
         output.print_node(argv)
     elif option == 'null':
         output.write('NULL ')
         output.print_node(argv)
-    elif option == 'header' and argv.val == 1:
-        output.write('HEADER 1')
+    elif option == 'header':
+        output.write('HEADER')
+        if argv:
+            output.swrite(str(argv.val.value))
     elif option == 'quote':
         output.write('QUOTE ')
         output.print_node(argv)
