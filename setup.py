@@ -31,6 +31,7 @@ with (here / 'version.txt').open(encoding='utf-8') as f:
 
 LIBPG_QUERY_DIR = str(here / 'libpg_query')
 INCLUDE_DIR = str(here / 'libpg_query' / 'src' / 'postgres' / 'include')
+VENDOR_DIR = str(here / 'libpg_query' / 'vendor')
 
 
 class BuildLibPgQueryFirst(build_ext):
@@ -76,7 +77,7 @@ setup(
     ext_modules=cythonize([
         Extension('pglast.parser', [extension_source],
                   libraries=['pg_query'],
-                  include_dirs=[LIBPG_QUERY_DIR, INCLUDE_DIR],
+                  include_dirs=[LIBPG_QUERY_DIR, INCLUDE_DIR, VENDOR_DIR],
                   library_dirs=[LIBPG_QUERY_DIR]),
     ]),
 

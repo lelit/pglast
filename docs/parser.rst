@@ -76,6 +76,26 @@ underlying ``libpg_query`` library it links against.
    Parse the given `query`, a string with the ``plpgsql`` statement(s), and return the
    ``libpg_query``\ 's ``JSON``\ -serialized parse tree.
 
+.. function:: scan(query)
+
+   :param str query: The SQL statement
+   :returns: sequence of tuples
+
+   Split the given `query` into its *tokens*. Each token is a `namedtuple` with the following
+   slots:
+
+   start : int
+     the start offset
+
+   end : int
+     the end offset
+
+   name : str
+     the name of the offset
+
+   keyword : str
+     the keyword kind
+
 .. function:: split(query, with_parser=True, only_slices=False)
 
    :param str query: The SQL statement

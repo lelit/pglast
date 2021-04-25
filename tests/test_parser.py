@@ -9,7 +9,7 @@
 import pytest
 
 from pglast import Error, ast, parse_plpgsql, parse_sql
-from pglast.parser import ParseError, fingerprint, get_postgresql_version, split
+from pglast.parser import ParseError, fingerprint, get_postgresql_version, scan, split
 
 
 def test_basic():
@@ -101,3 +101,13 @@ def test_split():
     expected = ('select 1', 'select 2', 'select "€€€€ ·"', 'select 4')
     assert split(sql) == expected
     assert tuple(sql[s] for s in split(sql, only_slices=True)) == expected
+
+
+def test_scan():
+    sql = 'select /* something here */ 1'
+    expected = ((0, 6, 'SELECT', 'RESERVED_KEYWORD'),
+                (7, 27, 'C_COMMENT', 'NO_KEYWORD'),
+                (28, 29, 'ICONST', 'NO_KEYWORD'))
+    result = scan(sql)
+    assert result == expected
+    assert sql[result[1].start:result[1].end] == '/* something here */'

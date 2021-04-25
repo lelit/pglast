@@ -9,8 +9,10 @@
 #cython: language_level=3
 
 from cpython.bytes cimport PyBytes_AsStringAndSize, PyBytes_FromStringAndSize
-from libc.stdint cimport uint64_t
+from libc.stdint cimport int32_t, uint64_t, uint8_t
 from libc cimport limits
+
+from collections import namedtuple
 
 from . import Error
 from . cimport structs
@@ -87,6 +89,10 @@ cdef extern from "pg_query.h" nogil:
         char* query
         PgQueryError* error
 
+    ctypedef struct PgQueryScanResult:
+        PgQueryProtobuf pbuf
+        PgQueryError *error
+
     PgQueryParseResult pg_query_parse(const char* input)
     void pg_query_free_parse_result(PgQueryParseResult result)
 
@@ -106,6 +112,9 @@ cdef extern from "pg_query.h" nogil:
     PgQuerySplitResult pg_query_split_with_parser(const char* input)
     void pg_query_free_split_result(PgQuerySplitResult result)
 
+    PgQueryScanResult pg_query_scan(const char* input)
+    void pg_query_free_scan_result(PgQueryScanResult result)
+
 
 cdef extern from "src/pg_query_internal.h" nogil:
     ctypedef struct PgQueryInternalParsetreeAndError:
@@ -119,6 +128,44 @@ cdef extern from "src/pg_query_internal.h" nogil:
     void pg_query_exit_memory_context(MemoryContext ctx)
 
     PgQueryInternalParsetreeAndError pg_query_raw_parse(const char* input)
+
+
+cdef extern from "protobuf-c/protobuf-c.h":
+    ctypedef struct ProtobufCEnumDescriptor:
+        pass
+
+    ctypedef struct ProtobufCEnumValue:
+        const char* name
+        const char* c_name
+        int value
+
+    ProtobufCEnumValue* protobuf_c_enum_descriptor_get_value(const ProtobufCEnumDescriptor* d,
+                                                             int value)
+
+
+cdef extern from "protobuf/pg_query.pb-c.h" nogil:
+    ctypedef enum PgQuery__Token:
+        pass
+
+    ctypedef enum PgQuery__KeywordKind:
+        pass
+
+    ctypedef struct PgQuery__ScanToken:
+        int32_t start
+        int32_t end
+        PgQuery__Token token
+        PgQuery__KeywordKind keyword_kind
+
+    ctypedef struct PgQuery__ScanResult:
+        size_t n_tokens
+        PgQuery__ScanToken **tokens
+
+    ProtobufCEnumDescriptor pg_query__token__descriptor
+    ProtobufCEnumDescriptor pg_query__keyword_kind__descriptor
+
+    PgQuery__ScanResult* pg_query__scan_result__unpack(void* allocator, size_t len,
+                                                       const uint8_t* data)
+    void pg_query__scan_result__free_unpacked(PgQuery__ScanResult* message, void* allocator)
 
 
 LONG_MAX = limits.LONG_MAX
@@ -334,3 +381,52 @@ def deparse(bytes protobuf):
     finally:
         with nogil:
             pg_query_free_deparse_result(deparsed)
+
+
+Token = namedtuple('Token', ('start', 'end', 'name', 'kind'))
+
+
+def scan(str query):
+    cdef PgQueryScanResult scanned
+    cdef PgQuery__ScanResult* scan_result
+    cdef PgQuery__ScanToken* scan_token
+    cdef const ProtobufCEnumValue* tkind
+    cdef const ProtobufCEnumValue* kwkind
+    cdef const char* cstring
+    cdef size_t i
+
+    utf8 = query.encode('utf-8')
+    cstring = utf8
+
+    with nogil:
+        scanned = pg_query_scan(cstring)
+
+    try:
+        if scanned.error:
+            message = scanned.error.message.decode('utf8')
+            cursorpos = scanned.error.cursorpos
+            raise ParseError(message, cursorpos)
+
+        with nogil:
+            scan_result = pg_query__scan_result__unpack(NULL, scanned.pbuf.len,
+                                                        <uint8_t*> scanned.pbuf.data)
+
+        result = []
+
+        for i in range(scan_result.n_tokens):
+            scan_token = scan_result.tokens[i]
+            tkind = protobuf_c_enum_descriptor_get_value(&pg_query__token__descriptor,
+                                                         scan_token.token)
+            kwkind = protobuf_c_enum_descriptor_get_value(&pg_query__keyword_kind__descriptor,
+                                                          scan_token.keyword_kind)
+            result.append(Token(scan_token.start, scan_token.end,
+                                tkind.name.decode('ascii'), kwkind.name.decode('ascii')))
+
+        with nogil:
+            pg_query__scan_result__free_unpacked(scan_result, NULL)
+
+    finally:
+        with nogil:
+            pg_query_free_scan_result(scanned)
+
+    return tuple(result)
