@@ -3,7 +3,7 @@ create rule foo as on delete to bar do instead select baz(old.id, null::text) AS
 CREATE RULE foo AS
   ON DELETE TO bar
   DO INSTEAD SELECT baz(old.id
-                      , NULL::text) AS qux
+                      , CAST(NULL AS text)) AS qux
 
 create rule "XX" as on insert to bar do nothing
 =
