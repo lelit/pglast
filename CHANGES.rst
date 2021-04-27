@@ -9,6 +9,14 @@ V3
 3.0.dev0 (unreleased)
 ~~~~~~~~~~~~~~~~~~~~~
 
+- Expose the new ``pg_query_scan()`` function as ``parser.scan()``
+
+- Expose the ``pg_query_parse()`` function as ``parser.parse_sql_json()``
+
+- Expose the new ``pg_query_parse_protobuf()`` function as ``parser.parse_sql_protobuf()``
+
+- Expose the new ``pg_query_deparse_protobuf()`` function as ``parser.deparse_protobuf()``
+
 **Breaking changes**
 
 - Target PostgreSQL 13
@@ -28,6 +36,11 @@ V3
 - The ``pgpp --parse-tree`` output is a `pprint`__ represention of the ``AST``
 
   __ https://docs.python.org/3.9/library/pprint.html#pprint.pprint
+
+- The ``ParseError`` exception does not expose the ``location`` anymore, although its still
+  there, as the second argument (ie ``.args[1]``); furthermore, its value now corresponds to
+  the index in the original Unicode string, instead of the offset in the ``UTF-8``
+  representation passed to the underlying C function
 
 
 V2
