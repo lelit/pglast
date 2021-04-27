@@ -748,7 +748,7 @@ cdef create(void* data):
         return None
 
     cdef tuple t
-    cpdef int i
+    cdef int i
     cdef int tag = structs.nodeTag(data)
 
 ''')
