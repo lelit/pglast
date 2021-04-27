@@ -39,12 +39,13 @@ __ https://github.com/pganalyze/libpg_query
 Introduction
 ------------
 
-At the lower level the module exposes six ``libpg_query`` functions, ``parse_sql_json()``,
-``parse_sql_protobuf()``, ``parse_plpgsql_json()``, ``fingerprint()``, ``split()`` and
-``deparse()``; the first two take an ``SQL`` statement and return the correspondent *parse
-tree* respectively as a ``JSON`` encoded value and a ``Protobuf`` encoded value; the third
-function takes a ``PLpgSQL`` statement and returns the *parse tree* as ``JSON``, the fourth
-returns a *signature* of the given statement, the fifth returns a sequence of the single
+At the lower level the module exposes several ``libpg_query`` functions, ``parse_sql_json()``,
+``parse_sql_protobuf()``, ``parse_plpgsql_json()``, ``fingerprint()``, ``scan``, ``split()``
+and ``deparse_protobuf()``; the first two take an ``SQL`` statement and return the
+correspondent *parse tree* respectively as a ``JSON`` encoded value and a ``Protobuf`` encoded
+value; the third function takes a ``PLpgSQL`` statement and returns the *parse tree* as
+``JSON``, the fourth returns a sequence of *tokens* that compose a ``SQL`` statement, the fifth
+returns a *signature* of the given statement, the sixth returns a sequence of the single
 statements and the last one accepts a ``Protobuf``\ -serialized statement and reproduce the
 original ``SQL`` statement.
 
@@ -159,7 +160,7 @@ Version 2
 
 In late 2019, Ronan Dunklau opened `PR #62`__ against ``libpg_query``, that reimplemented the
 build machinery of the library to make it easier (read, semi-automatic) to support PostgreSQL
-v12, and `PR #36`__ to bring ``pglast`` in line.
+12, and `PR #36`__ to bring ``pglast`` in line.
 
 Since that version of PostgreSQL inevitably introduced some backward incompatibilities, I
 bumped the major version of ``pglast`` to better reflect the fact.
@@ -179,10 +180,12 @@ __ https://github.com/pganalyze/libpg_query/tree/10-latest
 Version 3
 #########
 
-In early 2021, Lukas put a considerable effort into evolving his library to target `PostgreSQL
-13, currently still a `work-in-progress`__. He introduced a richer `protobuf`__\-based AST
-serialization protocol, rewriting the underlying machinery so that the same code is used to
-generate either a ``JSON`` or a ``protobuf`` stream.
+In early 2021, Lukas put a considerable effort into evolving his library to target PostgreSQL
+13. He introduced a richer `protobuf`__\-based AST serialization protocol, rewriting the
+underlying machinery so that the same code is used to generate either a ``JSON`` or a
+``protobuf`` stream.
+
+__ https://developers.google.com/protocol-buffers
 
 The approach has obvious advantages, but unfortunately both formats come with different
 shortcomings, and I was not able to adapt ``pglast``. The ``JSON`` serialization has changed in
@@ -201,6 +204,3 @@ __ https://github.com/danielgtaylor/python-betterproto/issues/210
 
 After several attempts, I decided to follow a more rewarding way and implement a native Python
 wrapper layer on top of PG parser's nodes.
-
-__ https://github.com/pganalyze/libpg_query/tree/13-latest-develop
-__ https://developers.google.com/protocol-buffers
