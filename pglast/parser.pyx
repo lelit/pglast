@@ -398,7 +398,7 @@ def split(str stmts, bint with_parser=True, bint only_slices=False):
             pg_query_free_split_result(splitted)
 
 
-def deparse(bytes protobuf):
+def deparse_protobuf(bytes protobuf):
     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
 
     cdef PgQueryProtobuf tree

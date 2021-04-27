@@ -2287,7 +2287,6 @@ static const char __pyx_k_WCOKind[] = "WCOKind";
 static const char __pyx_k_XmlExpr[] = "XmlExpr";
 static const char __pyx_k_cstring[] = "cstring";
 static const char __pyx_k_decimal[] = "decimal";
-static const char __pyx_k_deparse[] = "deparse";
 static const char __pyx_k_indexes[] = "indexes";
 static const char __pyx_k_message[] = "message";
 static const char __pyx_k_prepare[] = "__prepare__";
@@ -2504,6 +2503,7 @@ static const char __pyx_k_RangeTblFunction[] = "RangeTblFunction";
 static const char __pyx_k_SQLValueFunction[] = "SQLValueFunction";
 static const char __pyx_k_SetOperationStmt[] = "SetOperationStmt";
 static const char __pyx_k_VariableShowStmt[] = "VariableShowStmt";
+static const char __pyx_k_deparse_protobuf[] = "deparse_protobuf";
 static const char __pyx_k_AlterDatabaseStmt[] = "AlterDatabaseStmt";
 static const char __pyx_k_AlterFunctionStmt[] = "AlterFunctionStmt";
 static const char __pyx_k_AlterOpFamilyStmt[] = "AlterOpFamilyStmt";
@@ -2875,7 +2875,7 @@ static PyObject *__pyx_n_s_cur_offset;
 static PyObject *__pyx_n_s_cursorpos;
 static PyObject *__pyx_n_s_decimal;
 static PyObject *__pyx_n_s_decode;
-static PyObject *__pyx_n_s_deparse;
+static PyObject *__pyx_n_s_deparse_protobuf;
 static PyObject *__pyx_n_s_deparsed;
 static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_doc;
@@ -2953,7 +2953,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
 static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
 static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
 static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_stmts, int __pyx_v_with_parser, int __pyx_v_only_slices); /* proto */
-static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_protobuf); /* proto */
+static PyObject *__pyx_pf_6pglast_6parser_14deparse_protobuf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_protobuf); /* proto */
 static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
 static __Pyx_CachedCFunction __pyx_umethod_PyUnicode_Type_index = {0, 0, 0, 0, 0};
 #if !CYTHON_COMPILING_IN_LIMITED_API
@@ -3301,7 +3301,7 @@ typedef struct {
   PyObject *__pyx_n_s_cursorpos;
   PyObject *__pyx_n_s_decimal;
   PyObject *__pyx_n_s_decode;
-  PyObject *__pyx_n_s_deparse;
+  PyObject *__pyx_n_s_deparse_protobuf;
   PyObject *__pyx_n_s_deparsed;
   PyObject *__pyx_n_s_dict;
   PyObject *__pyx_n_s_doc;
@@ -3726,7 +3726,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_cursorpos);
   Py_CLEAR(clear_module_state->__pyx_n_s_decimal);
   Py_CLEAR(clear_module_state->__pyx_n_s_decode);
-  Py_CLEAR(clear_module_state->__pyx_n_s_deparse);
+  Py_CLEAR(clear_module_state->__pyx_n_s_deparse_protobuf);
   Py_CLEAR(clear_module_state->__pyx_n_s_deparsed);
   Py_CLEAR(clear_module_state->__pyx_n_s_dict);
   Py_CLEAR(clear_module_state->__pyx_n_s_doc);
@@ -4138,7 +4138,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_cursorpos);
   Py_VISIT(traverse_module_state->__pyx_n_s_decimal);
   Py_VISIT(traverse_module_state->__pyx_n_s_decode);
-  Py_VISIT(traverse_module_state->__pyx_n_s_deparse);
+  Py_VISIT(traverse_module_state->__pyx_n_s_deparse_protobuf);
   Py_VISIT(traverse_module_state->__pyx_n_s_deparsed);
   Py_VISIT(traverse_module_state->__pyx_n_s_dict);
   Py_VISIT(traverse_module_state->__pyx_n_s_doc);
@@ -4547,7 +4547,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_cursorpos __pyx_mstate_global->__pyx_n_s_cursorpos
 #define __pyx_n_s_decimal __pyx_mstate_global->__pyx_n_s_decimal
 #define __pyx_n_s_decode __pyx_mstate_global->__pyx_n_s_decode
-#define __pyx_n_s_deparse __pyx_mstate_global->__pyx_n_s_deparse
+#define __pyx_n_s_deparse_protobuf __pyx_mstate_global->__pyx_n_s_deparse_protobuf
 #define __pyx_n_s_deparsed __pyx_mstate_global->__pyx_n_s_deparsed
 #define __pyx_n_s_dict __pyx_mstate_global->__pyx_n_s_dict
 #define __pyx_n_s_doc __pyx_mstate_global->__pyx_n_s_doc
@@ -82204,22 +82204,22 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
 /* "pglast/parser.pyx":401
  * 
  * 
- * def deparse(bytes protobuf):             # <<<<<<<<<<<<<<
+ * def deparse_protobuf(bytes protobuf):             # <<<<<<<<<<<<<<
  *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pglast_6parser_15deparse(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6pglast_6parser_15deparse_protobuf(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6pglast_6parser_14deparse, "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement.");
-static PyMethodDef __pyx_mdef_6pglast_6parser_15deparse = {"deparse", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pglast_6parser_15deparse, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pglast_6parser_14deparse};
-static PyObject *__pyx_pw_6pglast_6parser_15deparse(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_6pglast_6parser_14deparse_protobuf, "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement.");
+static PyMethodDef __pyx_mdef_6pglast_6parser_15deparse_protobuf = {"deparse_protobuf", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pglast_6parser_15deparse_protobuf, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pglast_6parser_14deparse_protobuf};
+static PyObject *__pyx_pw_6pglast_6parser_15deparse_protobuf(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -82236,7 +82236,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("deparse (wrapper)", 0);
+  __Pyx_RefNannySetupContext("deparse_protobuf (wrapper)", 0);
   {
     #if CYTHON_COMPILING_IN_LIMITED_API
     PyObject **__pyx_pyargnames[] = {&__pyx_n_s_protobuf,0};
@@ -82261,7 +82261,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "deparse") < 0)) __PYX_ERR(1, 401, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "deparse_protobuf") < 0)) __PYX_ERR(1, 401, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -82272,14 +82272,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("deparse", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 401, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("deparse_protobuf", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 401, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pglast.parser.deparse", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pglast.parser.deparse_protobuf", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_protobuf), (&PyBytes_Type), 1, "protobuf", 1))) __PYX_ERR(1, 401, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pglast_6parser_14deparse(__pyx_self, __pyx_v_protobuf);
+  __pyx_r = __pyx_pf_6pglast_6parser_14deparse_protobuf(__pyx_self, __pyx_v_protobuf);
 
   /* function exit code */
   goto __pyx_L0;
@@ -82290,7 +82290,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_protobuf) {
+static PyObject *__pyx_pf_6pglast_6parser_14deparse_protobuf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_protobuf) {
   PgQueryProtobuf __pyx_v_tree;
   PgQueryDeparseResult __pyx_v_deparsed;
   PyObject *__pyx_v_message = NULL;
@@ -82314,7 +82314,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("deparse", 0);
+  __Pyx_RefNannySetupContext("deparse_protobuf", 0);
 
   /* "pglast/parser.pyx":407
  *     cdef PgQueryDeparseResult deparsed
@@ -82590,7 +82590,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
   /* "pglast/parser.pyx":401
  * 
  * 
- * def deparse(bytes protobuf):             # <<<<<<<<<<<<<<
+ * def deparse_protobuf(bytes protobuf):             # <<<<<<<<<<<<<<
  *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
@@ -82601,7 +82601,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse(CYTHON_UNUSED PyObject *__py
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("pglast.parser.deparse", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pglast.parser.deparse_protobuf", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_message);
@@ -83596,7 +83596,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, __pyx_k_cursorpos, sizeof(__pyx_k_cursorpos), 0, 0, 1, 1},
   {0, __pyx_k_decimal, sizeof(__pyx_k_decimal), 0, 0, 1, 1},
   {0, __pyx_k_decode, sizeof(__pyx_k_decode), 0, 0, 1, 1},
-  {0, __pyx_k_deparse, sizeof(__pyx_k_deparse), 0, 0, 1, 1},
+  {0, __pyx_k_deparse_protobuf, sizeof(__pyx_k_deparse_protobuf), 0, 0, 1, 1},
   {0, __pyx_k_deparsed, sizeof(__pyx_k_deparsed), 0, 0, 1, 1},
   {0, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {0, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
@@ -83962,7 +83962,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cursorpos, __pyx_k_cursorpos, sizeof(__pyx_k_cursorpos), 0, 0, 1, 1},
   {&__pyx_n_s_decimal, __pyx_k_decimal, sizeof(__pyx_k_decimal), 0, 0, 1, 1},
   {&__pyx_n_s_decode, __pyx_k_decode, sizeof(__pyx_k_decode), 0, 0, 1, 1},
-  {&__pyx_n_s_deparse, __pyx_k_deparse, sizeof(__pyx_k_deparse), 0, 0, 1, 1},
+  {&__pyx_n_s_deparse_protobuf, __pyx_k_deparse_protobuf, sizeof(__pyx_k_deparse_protobuf), 0, 0, 1, 1},
   {&__pyx_n_s_deparsed, __pyx_k_deparsed, sizeof(__pyx_k_deparsed), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
@@ -84158,14 +84158,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "pglast/parser.pyx":401
  * 
  * 
- * def deparse(bytes protobuf):             # <<<<<<<<<<<<<<
+ * def deparse_protobuf(bytes protobuf):             # <<<<<<<<<<<<<<
  *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
   __pyx_tuple__20 = PyTuple_Pack(4, __pyx_n_s_protobuf, __pyx_n_s_tree, __pyx_n_s_deparsed, __pyx_n_s_message); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(1, 401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_deparse, 401, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(1, 401, __pyx_L1_error)
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_deparse_protobuf, 401, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(1, 401, __pyx_L1_error)
 
   /* "pglast/parser.pyx":422
  * 
@@ -84502,7 +84502,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitString(__pyx_string_tab[295], &__pyx_n_s_cursorpos) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[296], &__pyx_n_s_decimal) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[297], &__pyx_n_s_decode) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[298], &__pyx_n_s_deparse) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[298], &__pyx_n_s_deparse_protobuf) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[299], &__pyx_n_s_deparsed) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[300], &__pyx_n_s_dict) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[301], &__pyx_n_s_doc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
@@ -85233,13 +85233,13 @@ if (!__Pyx_RefNanny) {
   /* "pglast/parser.pyx":401
  * 
  * 
- * def deparse(bytes protobuf):             # <<<<<<<<<<<<<<
+ * def deparse_protobuf(bytes protobuf):             # <<<<<<<<<<<<<<
  *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_15deparse, 0, __pyx_n_s_deparse, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 401, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_15deparse_protobuf, 0, __pyx_n_s_deparse_protobuf, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_deparse, __pyx_t_2) < 0) __PYX_ERR(1, 401, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_deparse_protobuf, __pyx_t_2) < 0) __PYX_ERR(1, 401, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pglast/parser.pyx":422

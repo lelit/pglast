@@ -10,6 +10,7 @@ import pytest
 
 from pglast import Error, ast, parse_plpgsql, parse_sql
 from pglast.parser import ParseError, fingerprint, get_postgresql_version, scan, split
+from pglast.parser import deparse_protobuf, parse_sql_protobuf
 
 
 def test_basic():
@@ -114,3 +115,7 @@ def test_scan():
     sql = 'select 0.01 as "€"   -- one €-cent'
     assert [sql[t.start:t.end+1] for t in scan(sql)] == [
         'select', '0.01', 'as', '"€"', '-- one €-cent']
+
+
+def test_deparse_protobuf():
+    assert deparse_protobuf(parse_sql_protobuf('select 1')) == 'SELECT 1'
