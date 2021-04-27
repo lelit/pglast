@@ -10,6 +10,7 @@ import re
 
 from .. import enums
 from ..node import Missing, List, Node
+from ..ast import String
 from ..printer import node_printer
 from . import IntEnumPrinter
 
@@ -59,6 +60,7 @@ OBJECT_NAMES = {
     enums.ObjectType.OBJECT_PUBLICATION: 'PUBLICATION',
     enums.ObjectType.OBJECT_PUBLICATION_REL: 'PUBLICATION_REL',
     enums.ObjectType.OBJECT_ROLE: 'ROLE',
+    enums.ObjectType.OBJECT_ROUTINE: 'ROUTINE',
     enums.ObjectType.OBJECT_RULE: 'RULE',
     enums.ObjectType.OBJECT_SCHEMA: 'SCHEMA',
     enums.ObjectType.OBJECT_SEQUENCE: 'SEQUENCE',
@@ -77,6 +79,13 @@ OBJECT_NAMES = {
     enums.ObjectType.OBJECT_USER_MAPPING: 'USER_MAPPING',
     enums.ObjectType.OBJECT_VIEW: 'VIEW',
 }
+
+
+@node_printer('AlterCollationStmt')
+def alter_collation_stmt(node, output):
+    output.write('ALTER COLLATION ')
+    output.print_name(node.collname)
+    output.write(' REFRESH VERSION')
 
 
 @node_printer('AlterDatabaseStmt')
@@ -208,7 +217,6 @@ def alter_operator_stmt(node, output):
     output.print_list(node.options)
     output.write(')')
 
-
 @node_printer('AlterOperatorStmt', 'DefElem')
 def alter_operator_stmt_def_elem(node, output):
     if node.defnamespace:
@@ -257,8 +265,9 @@ def alter_policy_stmt(node, output):
     output.print_name(node.policy_name)
     output.write(' ON ')
     output.print_node(node.table)
-    output.write(' TO ')
-    output.print_list(node.roles, ',')
+    if node.roles:
+        output.write(' TO ')
+        output.print_list(node.roles, ',')
     if node.qual:
         output.write(' USING (')
         output.print_node(node.qual)
@@ -283,24 +292,25 @@ def alter_role_stmt(node, output):
         'createdb': ('CREATEDB', True),
         'bypassrls': ('BYPASSRLS', True)
     }
-    output.write('ALTER ROLE ')
-    output.print_node(node.role)
-    for opt in node.options:
-        optname, isbool = mapping[opt.defname.value]
-        if isbool:
-            if opt.arg.val.value == 1:
-                output.write(optname)
-            else:
-                output.write('NO')
-                output.write(optname)
-        else:
-            output.writes(optname)
-            output.print_node(opt.arg)
+    if len(node.options) == 1 and node.options[0].defname == 'rolemembers':
+        output.write('ALTER GROUP ')
+        output.print_node(node.role)
+        if node.action == 1:
+            output.write('ADD USER ')
+        elif node.action == -1:
+            output.write('DROP USER ')
+        output.print_list(node.options[0].arg, ',')
+    else:
+        output.write('ALTER ROLE ')
+        output.print_node(node.role)
+        output.print_list(node.options, sep=' ')
 
 
 @node_printer('AlterSeqStmt')
 def alter_seq_stmt(node, output):
     output.write('ALTER SEQUENCE ')
+    if node.missing_ok:
+        output.write('IF EXISTS ')
     output.print_node(node.sequence)
     if node.options:
         output.print_list(node.options, '')
@@ -322,6 +332,35 @@ def alter_table_stmt(node, output):
         output.print_list(node.cmds, ',', standalone_items=True)
 
 
+def alter_def_elem(node, output):
+    if node:
+        output.write(' OPTIONS (')
+        first = True
+        for option in node:
+            if first:
+                first = False
+            else:
+                output.write(',')
+            if option.defaction == enums.DefElemAction.DEFELEM_UNSPEC:
+                output.print_name(option.defname)
+                output.write(' ')
+                output.print_node(option.arg)
+            elif option.defaction == enums.DefElemAction.DEFELEM_SET:
+                output.write('SET ')
+                output.print_name(option.defname)
+                output.write(' ')
+                output.print_node(option.arg)
+            elif option.defaction == enums.DefElemAction.DEFELEM_ADD:
+                output.write('ADD ')
+                output.print_name(option.defname)
+                output.write(' ')
+                output.print_node(option.arg)
+            elif option.defaction == enums.DefElemAction.DEFELEM_DROP:
+                output.write('DROP ')
+                output.print_name(option.defname)
+        output.write(')')
+
+
 @node_printer('AlterTableStmt', 'RangeVar')
 def range_var(node, output):
     if node.parent_node.relkind == enums.ObjectType.OBJECT_TABLE and not node.inh:
@@ -334,6 +373,13 @@ def range_var(node, output):
     if alias:
         output.write(' AS ')
         output.print_name(alias)
+
+
+def print_drop_behavior(node, output):
+    if node.behavior == enums.DropBehavior.DROP_CASCADE:
+        output.write(' CASCADE')
+    elif node.behavior == enums.DropBehavior.DROP_RESTRICT:
+        pass
 
 
 class AlterTableTypePrinter(IntEnumPrinter):
@@ -452,6 +498,12 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write('ENABLE TRIGGER ')
         output.print_name(node.name)
 
+    def AT_ForceRowSecurity(self, node, output):
+        output.write('FORCE ROW LEVEL SECURITY ')
+
+    def AT_ReplicaIdentity(self, node, output):
+        output.print_node(node.def_)
+
     def AT_ResetOptions(self, node, output):
         output.write('ALTER COLUMN ')
         output.print_name(node.name)
@@ -510,7 +562,138 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write('VALIDATE CONSTRAINT ')
         output.print_name(node.name)
 
+    def AT_AlterColumnGenericOptions(self, node, output):
+        output.write('ALTER COLUMN ')
+        output.print_name(node.name)
+        alter_def_elem(node.def_, output)
 
+    def AT_GenericOptions(self, node, output):
+        alter_def_elem(node.def_, output)
+
+    def AT_SetTableSpace(self, node, output):
+        output.write('SET TABLESPACE ')
+        output.print_name(node.name)
+        print_drop_behavior(node, output)
+
+    def AT_DropExpression(self, node, output):
+        output.write('ALTER COLUMN ')
+        output.print_name(node.name)
+        output.write('DROP EXPRESSION')
+        if node.missing_ok:
+            output.write(' IF EXISTS')
+
+    def AT_AddIdentity(self, node, output):
+        output.write('ALTER COLUMN ')
+        if node.missing_ok:
+            output.write('IF EXISTS ')
+        output.print_name(node.name)
+        if node.num.value > 0:
+            output.print_node(node.num)
+        output.write(' ADD ')
+        if node.def_:
+            output.print_node(node.def_)
+        print_drop_behavior(node, output)
+
+    def AT_DropIdentity(self, node, output):
+        output.write('ALTER COLUMN ')
+        output.print_name(node.name)
+        if node.num.value > 0:
+            output.print_node(node.num)
+        output.write(' DROP IDENTITY ')
+        if node.missing_ok:
+            output.write('IF EXISTS ')
+        if node.def_:
+            output.print_node(node.def_)
+        print_drop_behavior(node, output)
+
+    def AT_NoForceRowSecurity(self, node, output):
+        output.write('NO FORCE ROW LEVEL SECURITY ')
+
+    def AT_EnableRule(self, node, output):
+        output.write('ENABLE RULE ')
+        output.print_name(node.name)
+
+    def AT_DisableRule(self, node, output):
+        output.write('DISABLE RULE ')
+        output.print_name(node.name)
+
+    def AT_EnableReplicaRule(self, node, output):
+        output.write('ENABLE REPLICA RULE ')
+        output.print_name(node.name)
+
+    def AT_DisableTrigUser(self, node, output):
+        output.write('DISABLE TRIGGER USER ')
+
+    def AT_EnableReplicaTrig(self, node, output):
+        output.write('ENABLE REPLICA TRIGGER ')
+
+    def AT_EnableAlwaysTrig(self, node, output):
+        output.write('ENABLE ALWAYS TRIGGER ')
+        output.print_name(node.name)
+
+    def AT_DisableTrigAll(self, node, output):
+        output.write('DISABLE TRIGGER ALL ')
+
+    def AT_SetIdentity(self, node, output):
+        output.write('ALTER COLUMN ')
+        if node.missing_ok:
+            output.write('IF EXISTS ')
+        output.print_name(node.name)
+        if node.num.value > 0:
+            output.print_node(node.num)
+        if node.def_ and isinstance(node.def_, List):
+            for elem in node.def_:
+                if elem.defname == 'restart' and elem.arg:
+                    output.write(f'RESTART {elem.arg.val}')
+                    output.write('RESTART')
+                elif elem.defname == 'restart' and (not elem.arg):
+                    output.write('RESTART')
+                elif elem.defname == 'generated':
+                    output.write('SET GENERATED ')
+                    if elem.arg.val == 97:
+                         output.write('ALWAYS')
+                    elif elem.arg.val == 100:
+                        output.write('BY DEFAULT')
+                else:
+                    output.write(' SET ')
+                    if elem.defname == 'as':
+                        output.write('AS ')
+                        output.print_name(elem.arg)
+                    elif elem.defname == 'cache':
+                        output.write('CACHE ')
+                        output.print_node(elem.arg)
+                    elif elem.defname == 'cycle':
+                        output.write('CYCLE')
+                    elif elem.defname == 'increment':
+                        output.write('INCREMENT BY ')
+                        output.print_node(elem.arg)
+                    elif elem.defname == 'maxvalue' and elem.arg:
+                        output.write('MAXVALUE ')
+                        output.print_node(elem.arg)
+                    elif elem.defname == 'minvalue' and (not elem.arg):
+                        output.write('NO MINVALUE')
+                    elif elem.defname == 'minvalue' and elem.arg:
+                        output.write('MINVALUE ')
+                        output.print_node(elem.arg)
+                    elif elem.defname == 'minvalue' and (not elem.arg):
+                        output.write('NO MINVALUE')
+                    elif elem.defname == 'owned_by':
+                        output.write('OWNED BY ')
+                        output.print_node(elem.arg)
+                    elif elem.defname == 'sequence_name':
+                        output.write('SEQUENCE NAME ')
+                        output.print_node(elem.arg)
+                    elif elem.defname == 'start':
+                        output.write('START WITH ')
+                        output.print_node(elem.arg)
+                    elif elem.defname == 'restart' and (not elem.arg):
+                        output.write('RESTART')
+                    elif elem.defname == 'restart' and elem.arg:
+                        output.write('RESTART ')
+                        output.print_node(elem.arg)
+        else:
+            output.print_node(node.def_)
+        print_drop_behavior(node, output)
 
 alter_table_type_printer = AlterTableTypePrinter()
 
@@ -521,8 +704,11 @@ def alter_table_cmd(node, output):
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
         output.swrite('CASCADE')
 
-
+@node_printer('IndexStmt', 'DefElem')
+@node_printer('CreatePublicationStmt', 'DefElem')
 @node_printer('AlterTableCmd', 'DefElem')
+@node_printer('CreateStmt', 'DefElem')
+@node_printer('IntoClause', 'DefElem')
 def alter_table_cmd_def_elem(node, output):
     if node.defnamespace:
         output.print_name(node.defnamespace)
@@ -619,12 +805,182 @@ def alter_ts_dictionary_stmt(node, output):
     output.write(')')
 
 
+@node_printer('AlterStatsStmt')
+def alter_stats_stmt(node, output):
+    output.write('ALTER STATISTICS ')
+    if node.missing_ok:
+        output.write('IF EXISTS ')
+    output.print_name(node.defnames)
+    output.write(' SET STATISTICS ')
+    output.print_node(node.stxstattarget)
+
+
+@node_printer('AlterSubscriptionStmt')
+def alter_subscription_stmt(node, output):
+    output.write('ALTER SUBSCRIPTION ')
+    output.print_name(node.subname)
+    if node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_OPTIONS:
+        output.write('SET (')
+        output.print_name(node.options)
+        output.write(')')
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_CONNECTION:
+        output.write('CONNECTION ')
+        output.print_node(node.conninfo)
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_REFRESH:
+        output.write('REFRESH PUBLICATION ')
+        if node.options:
+            output.print_name(node.options)
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_PUBLICATION:
+        output.write('SET PUBLICATION ')
+        output.print_name(node.publication)
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_ENABLED:
+        if node.options[0].arg.val.value == 1:
+            output.write('ENABLE')
+        elif node.options[0].arg.val.value == 2:
+            output.write('DISABLE')
+
+
+@node_printer('AlterPublicationStmt')
+def alter_publication_stmt(node, output):
+    output.write('ALTER PUBLICATION ')
+    output.print_name(node.pubname)
+    output.write(' ')
+    if node.tables:
+        if node.tableAction == enums.DefElemAction.DEFELEM_SET:
+            output.write('SET TABLE ')
+        elif node.tableAction == enums.DefElemAction.DEFELEM_ADD:
+            output.write('ADD TABLE ')
+        elif node.tableAction == enums.DefElemAction.DEFELEM_DROP:
+            output.write('DROP TABLE ')
+        output.print_list(node.tables, ',')
+    elif  node.options:
+        output.write('SET (')
+        output.print_list(node.options, ',')
+        output.write(')')
+
+
+@node_printer('AlterFdwStmt')
+def alter_fdw_stmt(node, output):
+    output.write('ALTER FOREIGN DATA WRAPPER ')
+    output.print_name(node.fdwname)
+    if node.func_options:
+        output.print_list(node.func_options, '')
+    if node.options:
+        alter_def_elem(node.options, output)
+
+
+@node_printer('AlterFdwStmt', 'DefElem')
+def alter_fdw_stmt_def_elem(node, output):
+    if node.defname == "handler":
+        if node.arg:
+            output.write('HANDLER ')
+        else:
+            output.write('NO HANDLER ')
+    elif node.defname == "validator":
+        if node.arg:
+            output.write('VALIDATOR ')
+        else:
+            output.write('NO VALIDATOR ')
+    if node.arg:
+        output.print_name(node.arg)
+
+@node_printer('AlterForeignServerStmt')
+def alter_foreign_server_stmt(node, output):
+    output.write('ALTER SERVER ')
+    output.print_name(node.servername)
+    if node.has_version:
+        output.write(' VERSION ')
+        if node.version:
+            output.print_node(node.version)
+        else:
+            output.write('NULL')
+    alter_def_elem(node.options, output)
+
+@node_printer('AlterUserMappingStmt')
+def alter_user_mapping_stmt(node, output):
+    output.write('ALTER USER MAPPING FOR ')
+    role_spec(node.user, output)
+    output.writes(' SERVER ')
+    output.write(node.servername.value)
+    alter_def_elem(node.options, output)
+
+
+@node_printer('AlterRoleSetStmt')
+def alter_role_set_stmt(node, output):
+    output.write('ALTER ROLE ')
+    if not node.role:
+        output.write('ALL')
+    else:
+        output.print_node(node.role)
+    output.write(' ')
+    if node.database:
+        output.write('IN DATABASE ')
+        output.print_name(node.database)
+        output.write(' ')
+    output.print_node(node.setstmt)
+
+
+@node_printer('AlterDomainStmt')
+def alter_domain_stmt(node, output):
+    output.write('ALTER DOMAIN ')
+    output.print_name(node.typeName)
+    if node.subtype == 'T':
+        if node.def_:
+            output.write(' SET DEFAULT ')
+            output.print_node(node.def_)
+        else:
+            output.write(' DROP DEFAULT')
+    elif node.subtype == 'N':
+        output.write(' DROP NOT NULL')
+    elif node.subtype == 'O':
+        output.write(' SET NOT NULL')
+    elif node.subtype == 'C':
+        output.write(' ADD ')
+        output.print_node(node.def_)
+    elif node.subtype == 'X':
+        output.write(' DROP CONSTRAINT ')
+        if node.missing_ok:
+            output.write('IF EXISTS ')
+        output.print_name(node.name)
+        if node.behavior == enums.DropBehavior.DROP_CASCADE:
+            output.write(' CASCADE')
+    elif node.subtype == 'V':
+        output.write(' VALIDATE CONSTRAINT ')
+        output.print_name(node.name)
+    else:
+        raise NotImplementedError
+
+
+@node_printer('AlterEventTrigStmt')
+def alter_event_trig_stmt(node, output):
+    output.write('ALTER EVENT TRIGGER ')
+    output.print_name(node.trigname)
+    if node.tgenabled == 'O':
+        output.write(' ENABLE')
+    elif node.tgenabled == 'A':
+        output.write(' ENABLE ALWAYS')
+    elif node.tgenabled == 'R':
+        output.write(' ENABLE REPLICA')
+    elif node.tgenabled == 'D':
+        output.write(' DISABLE')
+
+
+@node_printer('AlterTypeStmt')
+def alter_type_stmt(node, output):
+    output.write('ALTER TYPE ')
+    output.print_name(node.typeName)
+    output.write(' SET (')
+    output.print_list(node.options, ',')
+    output.write(')')
+
+
 @node_printer('ClusterStmt')
 def cluster_stmt(node, output):
     output.write('CLUSTER ')
     if (node.options or 0) & enums.ClusterOption.CLUOPT_VERBOSE:
         output.write('VERBOSE ')
-    output.print_name(node.relation)
+    if node.relation:
+        output.print_name(node.relation)
     if node.indexname:
         output.write(' USING ')
         output.print_name(node.indexname)
@@ -640,6 +996,10 @@ def column_def(node, output):
     else:
         if node.constraints:
             output.write('WITH OPTIONS ')
+    if node.fdwoptions:
+        output.write(' OPTIONS (')
+        output.print_list(node.fdwoptions, ',')
+        output.write(')')
     if node.collClause:
         output.print_node(node.collClause)
     if node.is_not_null:
@@ -678,6 +1038,8 @@ def comment_stmt(node, output):
         output.print_name(nodes.pop(0))
         output.write(' LANGUAGE ')
         output.print_name(nodes)
+    elif node.objtype == otypes.OBJECT_AGGREGATE:
+        _object_with_args(node.object, output, empty_placeholder='*')
     elif isinstance(node.object, List):
         if node.object[0].node_tag != 'String':
             output.write(' (')
@@ -821,9 +1183,11 @@ class ConstrTypePrinter(IntEnumPrinter):
             output.write('ALWAYS ')
         elif node.generated_when == enums.ATTRIBUTE_IDENTITY_BY_DEFAULT:
             output.write('BY DEFAULT ')
-        output.write('AS IDENTITY (')
-        output.print_list(node.options)
-        output.write(')')
+        output.write('AS IDENTITY ')
+        if node.options:
+            output.write('(')
+            output.print_list(node.options, '')
+            output.write(')')
 
     def CONSTR_NOTNULL(self, node, output):
         output.swrite('NOT NULL')
@@ -836,6 +1200,9 @@ class ConstrTypePrinter(IntEnumPrinter):
 
     def CONSTR_UNIQUE(self, node, output):
         output.swrite('UNIQUE')
+
+    def CONSTR_ATTR_IMMEDIATE(self, node, output):
+        output.swrite('INITIALLY IMMEDIATE')
 
 
 constr_type_printer = ConstrTypePrinter()
@@ -857,15 +1224,27 @@ def constraint(node, output):
         output.write(' (')
         output.print_name(node.keys, ',')
         output.write(')')
+    if node.including:
+        output.write(' INCLUDE (')
+        output.print_list(node.including, ',', are_names=True)
+        output.write(') ')
     if node.deferrable:
         output.swrite('DEFERRABLE')
     if node.initdeferred:
         output.swrite('INITIALLY DEFERRED')
     with output.push_indent():
         first = True
-        if node.options:
+        if node.options and node.contype == enums.ConstrType.CONSTR_UNIQUE: 
             output.write(' WITH (')
-            output.print_list(node.options)
+            firstOption = True
+            for option in node.options:
+                if firstOption:
+                    firstOption = False
+                else:
+                    output.write(',')
+                output.print_name(option.defname)
+                output.write(' = ')
+                output.print_node(option.arg)
             output.write(')')
             first = False
         if node.indexspace:
@@ -883,8 +1262,13 @@ def constraint(node, output):
 def create_am_stmt(node, output):
     output.write('CREATE ACCESS METHOD ')
     output.print_name(node.amname)
-    if node.amtype == 'i':
+    # Index access method
+    if node.amtype == enums.AMTYPE_INDEX:
         output.write(' TYPE INDEX HANDLER ')
+        output.print_name(node.handler_name)
+    # Table access method
+    elif node.amtype == enums.AMTYPE_TABLE:
+        output.write(' TYPE TABLE HANDLER ')
         output.print_name(node.handler_name)
     else:  # pragma: nocover
         raise NotImplementedError
@@ -1045,11 +1429,15 @@ def create_fdw_stmt(node, output):
             output.print_list(node.options)
             output.write(')')
 
-
+@node_printer('ColumnDef', 'DefElem')
+@node_printer('CreateUserMappingStmt', 'DefElem')
 @node_printer('CreateFdwStmt', 'DefElem')
 def create_fdw_stmt_def_elem(node, output):
-    if node.parent_attribute[0] == 'options':
-        output.write(node.defname.value)
+    if node.parent_attribute[0] == 'options' or node.parent_attribute[0] == 'fdwoptions':
+        if ' ' in node.defname.value:
+            output.write(f'"{node.defname.value}"')
+        else:
+            output.write(node.defname.value)
         output.write(' ')
         output.print_node(node.arg)
     else:
@@ -1073,7 +1461,9 @@ def create_foreign_server_stmt(node, output):
     output.write('FOREIGN DATA WRAPPER ')
     output.print_name(node.fdwname)
     if node.options:
+        output.write(' OPTIONS (')
         output.print_list(node.options)
+        output.write(')')
 
 
 @node_printer('CreateForeignTableStmt')
@@ -1093,8 +1483,12 @@ def create_foreign_table_stmt(node, output):
 
 
 @node_printer('CreateForeignTableStmt', 'DefElem')
+@node_printer('CreateForeignServerStmt', 'DefElem')
 def create_foreign_table_stmt_def_elem(node, output):
-    output.write(node.defname.value)
+    if ' ' in node.defname.value:
+        output.write(f'"{node.defname.value}"')
+    else:
+        output.write(node.defname.value)
     output.write(' ')
     output.print_node(node.arg)
 
@@ -1197,7 +1591,11 @@ def create_function_option(node, output):
         return
 
     if option == 'parallel':
-        output.swrite('PARALLEL SAFE')
+        if node.arg:
+            output.swrite('PARALLEL ')
+            output.print_name(node.arg)
+        else:
+            output.swrite('PARALLEL SAFE')
         return
 
     if option == 'leakproof':
@@ -1320,6 +1718,14 @@ def create_policy_stmt(node, output):
         output.print_node(node.with_check)
         output.write(')')
 
+@node_printer('CreateRangeStmt')
+def create_range_stmt(node, output):
+    output.write('CREATE TYPE ')
+    output.print_name(node.typeName)
+    output.write(' AS RANGE (')
+    output.print_list(node.params)
+    output.write(')')
+
 
 class RoleStmtTypePrinter(IntEnumPrinter):
     enum = enums.RoleStmtType
@@ -1349,7 +1755,8 @@ def create_role_stmt(node, output):
 
 
 @node_printer('CreateRoleStmt', 'DefElem')
-def create_role_stmt_def_elem(node, output):
+@node_printer('AlterRoleStmt', 'DefElem')
+def create_or_alter_role_option(node, output):
     option = node.defname.value
     argv = node.arg
     if option == 'sysid':
@@ -1365,7 +1772,31 @@ def create_role_stmt_def_elem(node, output):
         output.write('IN ROLE ')
         output.print_list(argv)
     elif option == 'superuser':
-        output.write('SUPERUSER' if argv == 1 else 'NOSUPERUSER')
+        output.write('SUPERUSER' if argv.val == 1 else 'NOSUPERUSER')
+    elif option == 'createdb':
+        output.write('CREATEDB' if argv.val == 1 else 'NOCREATEDB')
+    elif option == 'createrole':
+        output.write('CREATEROLE' if argv.val == 1 else 'NOCREATEROLE')
+    elif option == 'canlogin':
+        output.write('LOGIN' if argv.val == 1 else 'NOLOGIN')
+    elif option == 'connectionlimit':
+        output.write('CONNECTION LIMIT ')
+        output.print_node(argv)
+    elif option == 'validUntil':
+        output.write('VALID UNTIL ')
+        output.print_node(argv)
+    elif option == 'password':
+        output.write('PASSWORD ')
+        if argv:
+            output.print_node(argv)
+        else:
+            output.write('NULL')
+    elif option == 'inherit':
+        output.write('INHERIT' if argv.val == 1 else 'NOINHERIT')
+    elif option == 'isreplication':
+        output.write('REPLICATION' if argv.val == 1 else 'NOREPLICATION')
+    elif option == 'bypassrls':
+        output.write('BYPASSRLS' if argv.val == 1 else 'NOBYPASSRLS')
     else:
         raise NotImplementedError(option)
 
@@ -1391,7 +1822,9 @@ def create_schema_stmt(node, output):
 def create_seq_stmt(node, output):
     output.write('CREATE ')
     if node.sequence.relpersistence == enums.RELPERSISTENCE_TEMP:
-        output.writes('TEMPORARY')
+        output.writes('TEMPORARY ')
+    elif node.sequence.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
+        output.writes('UNLOGGED ')
     output.writes('SEQUENCE')
     if node.if_not_exists:
         output.writes('IF NOT EXISTS')
@@ -1405,7 +1838,7 @@ def create_seq_stmt(node, output):
         with output.push_indent():
             output.print_list(node.options, '')
 
-
+@node_printer('Constraint', 'DefElem')
 @node_printer('CreateSeqStmt', 'DefElem')
 @node_printer('AlterSeqStmt', 'DefElem')
 def create_seq_stmt_def_elem(node, output):
@@ -1423,6 +1856,11 @@ def create_seq_stmt_def_elem(node, output):
     elif option == 'start':
         output.write('START WITH ')
         output.print_node(node.arg)
+    elif option == 'restart':
+        output.write('RESTART')
+        if node.arg:
+            output.write(' WITH ')
+            output.print_node(node.arg)
     else:
         if node.arg is Missing:
             output.write('NO ')
@@ -1442,7 +1880,7 @@ def create_stats_stmt(node, output):
     output.print_name(node.defnames)
     if node.stat_types:
         output.write(' (')
-        output.print_list(node.stat_types)
+        output.print_name(node.stat_types)
         output.write(')')
     output.write(' ON ')
     output.print_list(node.exprs)
@@ -1532,7 +1970,7 @@ def create_stmt(node, output):
             output.print_name(node.tablespacename)
     if node.accessMethod:
         output.write(' USING ')
-        output.write(node.accessMethod.value)
+        output.print_name(node.accessMethod)
 
 
 @node_printer('CreateTableAsStmt')
@@ -1552,6 +1990,9 @@ def create_table_as_stmt(node, output):
         output.write(' (')
         output.print_name(into.colNames, ',')
         output.write(')')
+    if into.accessMethod:
+        output.write(' USING ')
+        output.print_name(into.accessMethod)
     output.newline()
     if into.options:
         if len(into.options) == 1 and into.options[0].defname == 'oids':
@@ -1631,6 +2072,10 @@ def create_trig_stmt(node, output):
             output.swrite('REFERENCING ')
             output.print_list(node.transitionRels, ' ')
 
+        if node.constrrel:
+            output.swrite('FROM ')
+            output.print_name(node.constrrel)
+
         output.newline()
         output.write('FOR EACH ')
 
@@ -1656,6 +2101,117 @@ def create_trig_stmt(node, output):
             output.write(')')
 
 
+@node_printer('CreateSubscriptionStmt', 'DefElem')
+def alter_operator_stmt_def_elem(node, output):
+    output.print_name(node.defname)
+    if node.arg:
+        output.write(' = ')
+        output.print_node(node.arg)
+
+
+@node_printer('CreateSubscriptionStmt')
+def create_subscription_stmt(node, output):
+    output.write('CREATE SUBSCRIPTION ')
+    output.print_name(node.subname)
+    output.write(' CONNECTION ')
+    if node.conninfo:
+        output.print_node(node.conninfo)
+    else:
+        output.write("''")
+    output.write(' PUBLICATION ')
+    output.print_name(node.publication, ',')
+    output.write(' ')
+    if node.options:
+        output.write('WITH (')
+        output.print_name(node.options, ',')
+        output.write(')')
+
+
+@node_printer('CurrentOfExpr')
+def current_of_expr(node, output):
+    output.write('CURRENT OF ')
+    output.print_name(node.cursor_name)
+
+
+@node_printer('CreatePublicationStmt')
+def create_publication_stmt(node, output):
+    output.write('CREATE PUBLICATION ')
+    output.print_name(node.pubname)
+    output.write(' ')
+    if node.tables:
+        output.write('FOR TABLE ')
+        output.print_list(node.tables, ',')
+    elif node.for_all_tables:
+        output.write('FOR ALL TABLES ')
+    if  node.options:
+        output.write('WITH (')
+        output.print_list(node.options, ',')
+        output.write(')')
+
+
+@node_printer('CreateTransformStmt')
+def create_transform_stmt(node, output):
+    output.write('CREATE ')
+    if node.replace:
+        output.write('OR REPLACE ')
+    output.write('TRANSFORM FOR ')
+    output.print_name(node.type_name)
+    output.write('LANGUAGE ')
+    output.print_name(node.lang)
+    output.write('(')
+    if node.fromsql:
+        output.write('FROM SQL WITH FUNCTION ')
+        output.print_node(node.fromsql)
+        if node.tosql:
+            output.write(', ')
+    if node.tosql:
+        output.write('TO SQL WITH FUNCTION ')
+        output.print_node(node.tosql)
+    output.write(')')
+
+@node_printer('CreatePublicationStmt', 'RangeVar')
+def range_var(node, output):
+    OT = enums.ObjectType
+    if not node.inh:
+        output.write('ONLY ')
+    if node.schemaname:
+        output.print_name(node.schemaname)
+        output.write('.')
+    output.print_name(node.relname)
+    alias = node.alias
+    if alias:
+        output.write(' AS ')
+        output.print_name(alias)
+
+
+@node_printer('ClosePortalStmt')
+def close_portal_stmt(node, output):
+    output.write('CLOSE ')
+    if node.portalname:
+        output.print_name(node.portalname)
+    else:
+        output.write('ALL')
+
+@node_printer('CheckPointStmt')
+def close_portal_stmt(node, output):
+    output.write('CHECKPOINT')
+
+
+@node_printer('CreateUserMappingStmt')
+def create_user_mapping_stmt(node, output):
+    output.write('CREATE USER MAPPING ')
+    if node.if_not_exists:
+        output.write('IF NOT EXISTS ')
+    output.write('FOR ')
+    role_spec(node.user, output)
+    output.writes(' SERVER')
+    output.write(node.servername.value)
+    if node.options:
+        output.write(' OPTIONS (')
+        output.print_list(node.options, ',')
+        output.write(')')
+
+
 @node_printer('DeallocateStmt')
 def deallocate_stmt(node, output):
     output.write('DEALLOCATE PREPARE ')
@@ -1668,24 +2224,48 @@ def deallocate_stmt(node, output):
 @node_printer('DefineStmt')
 def define_stmt(node, output):
     output.write('CREATE ')
+    if node.replace:
+        output.write('OR REPLACE ')
     output.writes(OBJECT_NAMES[node.kind.value])
     if node.if_not_exists:
         output.write('IF NOT EXISTS ')
     output.print_list(node.defnames, '.', standalone_items=False, are_names=True,
                       is_symbol=node.kind == enums.ObjectType.OBJECT_OPERATOR)
     if node.args is not Missing:
-        output.write(' (')
         # args is actually a tuple (list-of-nodes, integer): the integer value, if different
         # from -1, is the number of nodes representing the actual arguments, remaining are
         # ORDER BY
         args, count = node.args
         count = count.val.value
+        output.write(' (')
         if count == -1:
-            output.print_list(args, standalone_items=False)
+            # Special case: if it's an aggregate, and the scalar is equal to
+            # None (not is, since it's a Scalar), write a star
+            if (node.kind.value == enums.ObjectType.OBJECT_AGGREGATE
+                and args == None):
+                output.write('*')
+                actual_args = []
+                orderby_args = []
+            else:
+                count = len(args)
+                actual_args = args
+                orderby_args = []
         else:
-            output.print_list(args[:count], standalone_items=False)
+            if count > 0:
+                actual_args = args[:count]
+            else:
+                actual_args = []
+            # For aggregates, if we have a count != -1 BUT we don't have an arg
+            # for that, add the last arg as an order by arg.
+            if count == len(args):
+                orderby_args = actual_args[-1:]
+            else:
+                orderby_args = args[count:]
+        if actual_args:
+            output.print_list(actual_args, standalone_items=False)
+        if orderby_args:
             output.write(' ORDER BY ')
-            output.print_list(args[count:], standalone_items=False)
+            output.print_list(orderby_args, standalone_items=False)
         output.write(') ')
     if ((node.kind == enums.ObjectType.OBJECT_COLLATION
          and len(node.definition) == 1
@@ -1772,6 +2352,11 @@ def drop_db_stmt(node, output):
         output.write(' IF EXISTS')
     output.write(' ')
     output.print_name(node.dbname)
+    if node.options:
+        output.write(' (')
+        output.print_list(node.options)
+        output.write(')')
+
 
 
 @node_printer('DropOwnedStmt')
@@ -1837,8 +2422,6 @@ def drop_stmt(node, output):
             output.print_list(node.objects, ',', standalone_items=False, are_names=True)
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
         output.write(' CASCADE')
-    elif node.behavior == enums.DropBehavior.DROP_RESTRICT:
-        output.write(' RESTRICT')
 
 
 @node_printer('DropSubscriptionStmt')
@@ -1908,11 +2491,17 @@ def grant_stmt(node, output):
     else:
         output.write('REVOKE ')
         preposition = 'FROM'
+    if not node.is_grant and node.grant_option:
+        output.write('GRANT OPTION FOR ')
     if node.privileges:
         output.print_list(node.privileges)
     else:
         output.write('ALL PRIVILEGES')
-    object_name = OBJECT_NAMES[node.objtype.value]
+    # hack for OBJECT_FOREIGN_SERVER
+    if node.objtype.value == enums.ObjectType.OBJECT_FOREIGN_SERVER:
+        object_name = 'FOREIGN SERVER'
+    else:
+        object_name = OBJECT_NAMES[node.objtype.value]
     target = node.targtype
     output.newline()
     output.space(2)
@@ -1929,9 +2518,11 @@ def grant_stmt(node, output):
         output.write(preposition)
         output.space()
         output.print_list(node.grantees, are_names=True)
-        if node.grant_option:
+        if node.is_grant and node.grant_option:
             output.newline()
             output.write('WITH GRANT OPTION')
+        if node.behavior:
+            print_drop_behavior(node, output)
 
 
 @node_printer('GrantRoleStmt')
@@ -1950,6 +2541,27 @@ def grant_role_stmt(node, output):
     output.print_list(node.grantee_roles, ',')
     if node.admin_opt:
         output.write('WITH ADMIN OPTION')
+
+
+@node_printer('ImportForeignSchemaStmt')
+def import_foreign_schema_stmt(node, output):
+    output.write('IMPORT FOREIGN SCHEMA ')
+    output.print_name(node.remote_schema)
+    if node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_ALL:
+        pass
+    elif node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_LIMIT_TO:
+        output.write(' LIMIT TO (')
+        output.print_list(node.table_list)
+        output.write(')')
+    elif node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_EXCEPT:
+        output.write(' EXCEPT (')
+        output.print_list(node.table_list)
+        output.write(')')
+    output.writes(' FROM SERVER ')
+    output.print_name(node.server_name)
+    output.writes(' INTO ')
+    output.print_name(node.local_schema)
+    alter_def_elem(node.options, output)
 
 
 @node_printer('IndexStmt')
@@ -2027,10 +2639,17 @@ def notify_stmt(node, output):
         output.write_quoted_string(node.payload.value)
 
 
-def _object_with_args(node, output, unquote_name=False, symbol=False, skip_empty_args=False):
+def _object_with_args(node, output, unquote_name=False, symbol=False,
+                      skip_empty_args=False, empty_placeholder=''):
     # Special treatment for OPERATOR object inside DROP or COMMENT
     if unquote_name:
-        output.write(node.objname.string_value)
+        if len(node.objname) > 1:
+            for idx, name in enumerate(node.objname):
+                if idx > 0:
+                   output.write('.')
+                output.write(name.val.value)
+        else:
+            output.write(node.objname.string_value) 
         if not node.args_unspecified:
             output.write(' ')
     elif symbol:
@@ -2043,7 +2662,9 @@ def _object_with_args(node, output, unquote_name=False, symbol=False, skip_empty
             output.print_list(node.objargs, ',', standalone_items=False)
             output.write(')')
         elif not skip_empty_args:
-            output.write(' ()')
+            output.write(' (')
+            output.write(empty_placeholder)
+            output.write(')')
 
 
 @node_printer('ObjectWithArgs')
@@ -2077,7 +2698,10 @@ def object_with_args(node, output):
 @node_printer(('DropStmt',), 'ObjectWithArgs')
 def object_with_args(node, output):
     unquote_name = node.parent_node.removeType == enums.ObjectType.OBJECT_OPERATOR
-    _object_with_args(node, output, unquote_name=unquote_name)
+    if node.parent_node.removeType == enums.ObjectType.OBJECT_AGGREGATE:
+        _object_with_args(node, output, empty_placeholder='*', unquote_name=unquote_name)
+    else:
+        _object_with_args(node, output, unquote_name=unquote_name)
 
 
 @node_printer('PartitionBoundSpec')
@@ -2119,7 +2743,8 @@ def partition_elem(node, output):
         output.print_node(node.expr)
         output.write(')')
     if node.collation:
-        output.print_node(node.collation)
+        output.write('COLLATE ')
+        output.print_list(node.collation, are_names=True)
     if node.opclass:
         output.print_name(node.opclass)
 
@@ -2142,6 +2767,48 @@ def partition_spec(node, output):
     output.write(')')
 
 
+class ReindexKindPrinter(IntEnumPrinter):
+    enum = enums.ReindexObjectType
+
+
+    def _print_options(self, node, output):
+        if node.concurrent:
+            output.write('CONCURRENTLY ')
+
+    def REINDEX_OBJECT_TABLE(self, node, output):
+        output.write('TABLE ')
+        self._print_options(node, output)
+        output.print_node(node.relation)
+
+    def REINDEX_OBJECT_INDEX(self, node, output):
+        output.write('INDEX ')
+        self._print_options(node, output)
+        output.print_node(node.relation)
+
+    def REINDEX_OBJECT_SCHEMA(self, node, output):
+        output.write('SCHEMA ')
+        self._print_options(node, output)
+        output.print_name(node.name)
+
+    def REINDEX_OBJECT_SYSTEM(self, node, output):
+        output.write('SYSTEM ')
+        self._print_options(node, output)
+        output.print_name(node.name)
+
+    def REINDEX_OBJECT_DATABASE(self, node, output):
+        output.write('DATABASE ')
+        self._print_options(node, output)
+        output.print_name(node.name)
+
+reindex_kind_printer = ReindexKindPrinter()
+
+
+@node_printer('ReindexStmt')
+def reindex_stmt(node, output):
+    output.write('REINDEX ')
+    reindex_kind_printer(node.kind, node, output)
+
+
 @node_printer('RenameStmt')
 def rename_stmt(node, output):
     OT = enums.ObjectType
@@ -2149,6 +2816,10 @@ def rename_stmt(node, output):
     output.write('ALTER ')
     if objtype == OT.OBJECT_TABCONSTRAINT:
         output.write('TABLE')
+    elif objtype == OT.OBJECT_DOMCONSTRAINT:
+        output.write('DOMAIN')
+    elif objtype == OT.OBJECT_ROLE:
+        output.write('ROLE')
     else:
         output.write(OBJECT_NAMES[node.relationType
                                   if objtype in (OT.OBJECT_ATTRIBUTE, OT.OBJECT_COLUMN)
@@ -2156,9 +2827,9 @@ def rename_stmt(node, output):
     output.write(' ')
     if node.missing_ok:
         output.write('IF EXISTS ')
-    if objtype in (OT.OBJECT_SCHEMA, OT.OBJECT_DATABASE):
+    if objtype in (OT.OBJECT_SCHEMA, OT.OBJECT_DATABASE, OT.OBJECT_ROLE):
         output.print_name(node.subname)
-    elif objtype == OT.OBJECT_RULE:
+    elif objtype == OT.OBJECT_RULE or objtype == OT.OBJECT_POLICY or objtype == OT.OBJECT_TRIGGER:
         output.print_name(node.subname)
         output.write(' ON ')
         output.print_node(node.relation)
@@ -2181,6 +2852,9 @@ def rename_stmt(node, output):
     elif objtype == OT.OBJECT_ATTRIBUTE:
         output.write('ATTRIBUTE ')
         output.print_name(node.subname)
+    elif objtype == OT.OBJECT_DOMCONSTRAINT:
+        output.writes('CONSTRAINT')
+        output.print_name(node.subname)
     output.swrite('TO ')
     output.print_name(node.newname)
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
@@ -2201,6 +2875,18 @@ def range_var(node, output):
     if alias:
         output.write(' AS ')
         output.print_name(alias)
+
+
+@node_printer('ReplicaIdentityStmt')
+def replica_identity_stmt(node, output):
+    output.write('REPLICA IDENTITY ')
+    if node.identity_type == enums.REPLICA_IDENTITY_INDEX:
+        output.write('USING INDEX ')
+        output.print_name(node.name)
+    elif node.identity_type == enums.REPLICA_IDENTITY_DEFAULT:
+        output.write('DEFAULT')
+    elif node.identity_type == enums.REPLICA_IDENTITY_FULL:
+        output.write('FULL')
 
 
 @node_printer('RoleSpec')
@@ -2225,7 +2911,10 @@ EVENT_NAMES = {
 
 @node_printer('RuleStmt')
 def rule_stmt_printer(node, output):
-    output.write('CREATE RULE ')
+    output.write('CREATE ')
+    if node.replace:
+        output.write('OR REPLACE ')
+    output.write('RULE ')
     output.print_name(node.rulename)
     output.write(' AS')
     output.newline()
@@ -2259,6 +2948,41 @@ def rule_stmt_printer(node, output):
                     output.print_list(node.actions)
         else:
             output.write(' NOTHING')
+
+
+@node_printer('RefreshMatViewStmt')
+def refresh_mat_view_stmt(node, output):
+    output.write('REFRESH MATERIALIZED VIEW ')
+    if node.concurrent:
+        output.write('CONCURRENTLY ')
+    output.print_node(node.relation)
+    if node.skipData:
+        output.write('WITH NO DATA')
+
+
+@node_printer('ReassignOwnedStmt')
+def reassign_owned_stmt(node, output):
+    output.write('REASSIGN OWNED BY ')
+    output.print_list(node.roles, ',', are_names=False)
+    output.write(' TO ')
+    output.print_node(node.newrole)
+
+
+@node_printer('SecLabelStmt')
+def sec_label_stmt(node, output):
+    output.write('SECURITY LABEL ')
+    if node.provider:
+        output.write('FOR ')
+        output.print_name(node.provider)
+    output.write(' ON ')
+    output.write(OBJECT_NAMES[node.objtype.value])
+    output.write(' ')
+    output.print_name(node.object)
+    output.write(' IS ')
+    if node.label:
+        output.print_node(node.label)
+    else:
+        output.write('NULL')
 
 
 @node_printer('TableLikeClause')
@@ -2384,5 +3108,10 @@ def view_stmt(node, output):
 @node_printer('ViewStmt', 'DefElem')
 def alter_operator_stmt_def_elem(node, output):
     output.print_symbol(node.defname)
-    output.write(' = ')
-    output.print_symbol(node.arg)
+    if node.arg:
+        output.write(' = ')
+        output.print_symbol(node.arg)
+    if node.defaction:
+        if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
+            raise NotImplementedError
+

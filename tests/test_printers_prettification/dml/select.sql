@@ -124,8 +124,8 @@ LEFT JOIN (table3 AS cp INNER JOIN table4 AS c ON cp.company_id = c.id)
 SELECT pe.id
 FROM table1 AS pe
      INNER JOIN table2 AS pr ON pe.project_id = pr.id
-     LEFT JOIN table3 AS cp
-               INNER JOIN table4 AS c ON cp.company_id = c.id
+     LEFT JOIN (table3 AS cp
+                INNER JOIN table4 AS c ON cp.company_id = c.id)
         ON cp.person_id = pe.id
 
 SELECT sum(salary) OVER (x), avg(salary) OVER y
@@ -231,11 +231,11 @@ SELECT '1234567890\a'
 SELECT TIMESTAMP '2001-02-16 20:38:40' AT TIME ZONE 'MST'
 =
 SELECT pg_catalog.timezone('MST'
-                         , '2001-02-16 20:38:40'::timestamp)
+                         , CAST('2001-02-16 20:38:40' AS timestamp))
 
 SELECT TIMESTAMP '2001-02-16 20:38:40' AT TIME ZONE 'MST'
 =
-SELECT '2001-02-16 20:38:40'::timestamp AT TIME ZONE 'MST'
+SELECT CAST('2001-02-16 20:38:40' AS timestamp) AT TIME ZONE 'MST'
 :
 {'special_functions': True}
 
@@ -266,15 +266,15 @@ ORDER BY EXTRACT(YEAR FROM deliver_date) ASC
 SELECT (DATE '2001-02-16', DATE '2001-12-21') OVERLAPS
        (DATE '2001-10-30', DATE '2002-10-30')
 =
-SELECT pg_catalog."overlaps"('2001-02-16'::date
-                           , '2001-12-21'::date
-                           , '2001-10-30'::date
-                           , '2002-10-30'::date)
+SELECT pg_catalog."overlaps"(CAST('2001-02-16' AS date)
+                           , CAST('2001-12-21' AS date)
+                           , CAST('2001-10-30' AS date)
+                           , CAST('2002-10-30' AS date))
 
 SELECT (DATE '2001-02-16', DATE '2001-12-21') OVERLAPS
        (DATE '2001-10-30', DATE '2002-10-30')
 =
-SELECT ('2001-02-16'::date, '2001-12-21'::date) OVERLAPS ('2001-10-30'::date, '2002-10-30'::date)
+SELECT (CAST('2001-02-16' AS date), CAST('2001-12-21' AS date)) OVERLAPS (CAST('2001-10-30' AS date), CAST('2002-10-30' AS date))
 :
 {'special_functions': True}
 
