@@ -840,8 +840,8 @@ def join_expr(node, output):
         if node.rarg.node_tag == 'JoinExpr':
             output.indent(3, relative=False)
             # need this for:
-            # tests/test_printers_roundtrip.py::test_pg_regress_corpus[join.sql] - 
-            # AssertionError: Statement “select * from   int8_tbl x cross join (int4_tbl x cross join lateral (select x.f1) ss)” 
+            # tests/test_printers_roundtrip.py::test_pg_regress_corpus[join.sql] -
+            # AssertionError: Statement “select * from   int8_tbl x cross join (int4_tbl x cross join lateral (select x.f1) ss)”
             # from libpg_query/test/sql/postgres_regress/join.sql at line 1998
             if not node.rarg.alias:
                 output.write(' (')
@@ -1907,5 +1907,3 @@ def xml_serialize(node, output):
     output.write(' AS ')
     output.print_node(node.typeName)
     output.write(')')
-
-

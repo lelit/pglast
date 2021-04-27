@@ -1234,7 +1234,7 @@ def constraint(node, output):
         output.swrite('INITIALLY DEFERRED')
     with output.push_indent():
         first = True
-        if node.options and node.contype == enums.ConstrType.CONSTR_UNIQUE: 
+        if node.options and node.contype == enums.ConstrType.CONSTR_UNIQUE:
             output.write(' WITH (')
             firstOption = True
             for option in node.options:
@@ -2649,7 +2649,7 @@ def _object_with_args(node, output, unquote_name=False, symbol=False,
                    output.write('.')
                 output.write(name.val.value)
         else:
-            output.write(node.objname.string_value) 
+            output.write(node.objname.string_value)
         if not node.args_unspecified:
             output.write(' ')
     elif symbol:
@@ -3114,4 +3114,3 @@ def alter_operator_stmt_def_elem(node, output):
     if node.defaction:
         if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
             raise NotImplementedError
-

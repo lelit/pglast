@@ -73,7 +73,7 @@ PY_ENUMS := pglast/enums/lockoptions.py pglast/enums/lockdefs.py \
 	    pglast/enums/pg_attribute.py pglast/enums/pg_class.py \
 	    pglast/enums/pg_trigger.py \
 	    pglast/enums/primnodes.py pglast/enums/xml.py \
-			pglast/enums/pg_am.py
+	    pglast/enums/pg_am.py
 PG_INCLUDE_DIR := libpg_query/src/postgres/include
 
 .PHONY: enums
