@@ -332,6 +332,35 @@ def alter_table_stmt(node, output):
         output.print_list(node.cmds, ',', standalone_items=True)
 
 
+def alter_def_elem(node, output):
+    if node:
+        output.write(' OPTIONS (')
+        first = True
+        for option in node:
+            if first:
+                first = False
+            else:
+                output.write(',')
+            if option.defaction == enums.DefElemAction.DEFELEM_UNSPEC:
+                output.print_name(option.defname)
+                output.write(' ')
+                output.print_node(option.arg)
+            elif option.defaction == enums.DefElemAction.DEFELEM_SET:
+                output.write('SET ')
+                output.print_name(option.defname)
+                output.write(' ')
+                output.print_node(option.arg)
+            elif option.defaction == enums.DefElemAction.DEFELEM_ADD:
+                output.write('ADD ')
+                output.print_name(option.defname)
+                output.write(' ')
+                output.print_node(option.arg)
+            elif option.defaction == enums.DefElemAction.DEFELEM_DROP:
+                output.write('DROP ')
+                output.print_name(option.defname)
+        output.write(')')
+
+
 @node_printer('AlterTableStmt', 'RangeVar')
 def range_var(node, output):
     if node.parent_node.relkind == enums.ObjectType.OBJECT_TABLE and not node.inh:
@@ -345,11 +374,13 @@ def range_var(node, output):
         output.write(' AS ')
         output.print_name(alias)
 
+
 def print_drop_behavior(node, output):
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
         output.write(' CASCADE')
     elif node.behavior == enums.DropBehavior.DROP_RESTRICT:
         pass
+
 
 class AlterTableTypePrinter(IntEnumPrinter):
     enum = enums.AlterTableType
@@ -771,6 +802,175 @@ def alter_ts_dictionary_stmt(node, output):
     output.print_list(node.options)
     if len(node.options) > 1:
         output.newline()
+    output.write(')')
+
+
+@node_printer('AlterStatsStmt')
+def alter_stats_stmt(node, output):
+    output.write('ALTER STATISTICS ')
+    if node.missing_ok:
+        output.write('IF EXISTS ')
+    output.print_name(node.defnames)
+    output.write(' SET STATISTICS ')
+    output.print_node(node.stxstattarget)
+
+
+@node_printer('AlterSubscriptionStmt')
+def alter_subscription_stmt(node, output):
+    output.write('ALTER SUBSCRIPTION ')
+    output.print_name(node.subname)
+    if node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_OPTIONS:
+        output.write('SET (')
+        output.print_name(node.options)
+        output.write(')')
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_CONNECTION:
+        output.write('CONNECTION ')
+        output.print_node(node.conninfo)
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_REFRESH:
+        output.write('REFRESH PUBLICATION ')
+        if node.options:
+            output.print_name(node.options)
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_PUBLICATION:
+        output.write('SET PUBLICATION ')
+        output.print_name(node.publication)
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_ENABLED:
+        if node.options[0].arg.val.value == 1:
+            output.write('ENABLE')
+        elif node.options[0].arg.val.value == 2:
+            output.write('DISABLE')
+
+
+@node_printer('AlterPublicationStmt')
+def alter_publication_stmt(node, output):
+    output.write('ALTER PUBLICATION ')
+    output.print_name(node.pubname)
+    output.write(' ')
+    if node.tables:
+        if node.tableAction == enums.DefElemAction.DEFELEM_SET:
+            output.write('SET TABLE ')
+        elif node.tableAction == enums.DefElemAction.DEFELEM_ADD:
+            output.write('ADD TABLE ')
+        elif node.tableAction == enums.DefElemAction.DEFELEM_DROP:
+            output.write('DROP TABLE ')
+        output.print_list(node.tables, ',')
+    elif  node.options:
+        output.write('SET (')
+        output.print_list(node.options, ',')
+        output.write(')')
+
+
+@node_printer('AlterFdwStmt')
+def alter_fdw_stmt(node, output):
+    output.write('ALTER FOREIGN DATA WRAPPER ')
+    output.print_name(node.fdwname)
+    if node.func_options:
+        output.print_list(node.func_options, '')
+    if node.options:
+        alter_def_elem(node.options, output)
+
+
+@node_printer('AlterFdwStmt', 'DefElem')
+def alter_fdw_stmt_def_elem(node, output):
+    if node.defname == "handler":
+        if node.arg:
+            output.write('HANDLER ')
+        else:
+            output.write('NO HANDLER ')
+    elif node.defname == "validator":
+        if node.arg:
+            output.write('VALIDATOR ')
+        else:
+            output.write('NO VALIDATOR ')
+    if node.arg:
+        output.print_name(node.arg)
+
+@node_printer('AlterForeignServerStmt')
+def alter_foreign_server_stmt(node, output):
+    output.write('ALTER SERVER ')
+    output.print_name(node.servername)
+    if node.has_version:
+        output.write(' VERSION ')
+        if node.version:
+            output.print_node(node.version)
+        else:
+            output.write('NULL')
+    alter_def_elem(node.options, output)
+
+@node_printer('AlterUserMappingStmt')
+def alter_user_mapping_stmt(node, output):
+    output.write('ALTER USER MAPPING FOR ')
+    role_spec(node.user, output)
+    output.writes(' SERVER ')
+    output.write(node.servername.value)
+    alter_def_elem(node.options, output)
+
+
+@node_printer('AlterRoleSetStmt')
+def alter_role_set_stmt(node, output):
+    output.write('ALTER ROLE ')
+    if not node.role:
+        output.write('ALL')
+    else:
+        output.print_node(node.role)
+    output.write(' ')
+    if node.database:
+        output.write('IN DATABASE ')
+        output.print_name(node.database)
+        output.write(' ')
+    output.print_node(node.setstmt)
+
+
+@node_printer('AlterDomainStmt')
+def alter_domain_stmt(node, output):
+    output.write('ALTER DOMAIN ')
+    output.print_name(node.typeName)
+    if node.subtype == 'T':
+        if node.def_:
+            output.write(' SET DEFAULT ')
+            output.print_node(node.def_)
+        else:
+            output.write(' DROP DEFAULT')
+    elif node.subtype == 'N':
+        output.write(' DROP NOT NULL')
+    elif node.subtype == 'O':
+        output.write(' SET NOT NULL')
+    elif node.subtype == 'C':
+        output.write(' ADD ')
+        output.print_node(node.def_)
+    elif node.subtype == 'X':
+        output.write(' DROP CONSTRAINT ')
+        if node.missing_ok:
+            output.write('IF EXISTS ')
+        output.print_name(node.name)
+        if node.behavior == enums.DropBehavior.DROP_CASCADE:
+            output.write(' CASCADE')
+    elif node.subtype == 'V':
+        output.write(' VALIDATE CONSTRAINT ')
+        output.print_name(node.name)
+    else:
+        raise NotImplementedError
+
+
+@node_printer('AlterEventTrigStmt')
+def alter_event_trig_stmt(node, output):
+    output.write('ALTER EVENT TRIGGER ')
+    output.print_name(node.trigname)
+    if node.tgenabled == 'O':
+        output.write(' ENABLE')
+    elif node.tgenabled == 'A':
+        output.write(' ENABLE ALWAYS')
+    elif node.tgenabled == 'R':
+        output.write(' ENABLE REPLICA')
+    elif node.tgenabled == 'D':
+        output.write(' DISABLE')
+
+
+@node_printer('AlterTypeStmt')
+def alter_type_stmt(node, output):
+    output.write('ALTER TYPE ')
+    output.print_name(node.typeName)
+    output.write(' SET (')
+    output.print_list(node.options, ',')
     output.write(')')
 
 
@@ -1901,6 +2101,117 @@ def create_trig_stmt(node, output):
             output.write(')')
 
 
+@node_printer('CreateSubscriptionStmt', 'DefElem')
+def alter_operator_stmt_def_elem(node, output):
+    output.print_name(node.defname)
+    if node.arg:
+        output.write(' = ')
+        output.print_node(node.arg)
+
+
+@node_printer('CreateSubscriptionStmt')
+def create_subscription_stmt(node, output):
+    output.write('CREATE SUBSCRIPTION ')
+    output.print_name(node.subname)
+    output.write(' CONNECTION ')
+    if node.conninfo:
+        output.print_node(node.conninfo)
+    else:
+        output.write("''")
+    output.write(' PUBLICATION ')
+    output.print_name(node.publication, ',')
+    output.write(' ')
+    if node.options:
+        output.write('WITH (')
+        output.print_name(node.options, ',')
+        output.write(')')
+
+
+@node_printer('CurrentOfExpr')
+def current_of_expr(node, output):
+    output.write('CURRENT OF ')
+    output.print_name(node.cursor_name)
+
+
+@node_printer('CreatePublicationStmt')
+def create_publication_stmt(node, output):
+    output.write('CREATE PUBLICATION ')
+    output.print_name(node.pubname)
+    output.write(' ')
+    if node.tables:
+        output.write('FOR TABLE ')
+        output.print_list(node.tables, ',')
+    elif node.for_all_tables:
+        output.write('FOR ALL TABLES ')
+    if  node.options:
+        output.write('WITH (')
+        output.print_list(node.options, ',')
+        output.write(')')
+
+
+@node_printer('CreateTransformStmt')
+def create_transform_stmt(node, output):
+    output.write('CREATE ')
+    if node.replace:
+        output.write('OR REPLACE ')
+    output.write('TRANSFORM FOR ')
+    output.print_name(node.type_name)
+    output.write('LANGUAGE ')
+    output.print_name(node.lang)
+    output.write('(')
+    if node.fromsql:
+        output.write('FROM SQL WITH FUNCTION ')
+        output.print_node(node.fromsql)
+        if node.tosql:
+            output.write(', ')
+    if node.tosql:
+        output.write('TO SQL WITH FUNCTION ')
+        output.print_node(node.tosql)
+    output.write(')')
+
+@node_printer('CreatePublicationStmt', 'RangeVar')
+def range_var(node, output):
+    OT = enums.ObjectType
+    if not node.inh:
+        output.write('ONLY ')
+    if node.schemaname:
+        output.print_name(node.schemaname)
+        output.write('.')
+    output.print_name(node.relname)
+    alias = node.alias
+    if alias:
+        output.write(' AS ')
+        output.print_name(alias)
+
+
+@node_printer('ClosePortalStmt')
+def close_portal_stmt(node, output):
+    output.write('CLOSE ')
+    if node.portalname:
+        output.print_name(node.portalname)
+    else:
+        output.write('ALL')
+
+@node_printer('CheckPointStmt')
+def close_portal_stmt(node, output):
+    output.write('CHECKPOINT')
+
+
+@node_printer('CreateUserMappingStmt')
+def create_user_mapping_stmt(node, output):
+    output.write('CREATE USER MAPPING ')
+    if node.if_not_exists:
+        output.write('IF NOT EXISTS ')
+    output.write('FOR ')
+    role_spec(node.user, output)
+    output.writes(' SERVER')
+    output.write(node.servername.value)
+    if node.options:
+        output.write(' OPTIONS (')
+        output.print_list(node.options, ',')
+        output.write(')')
+
+
 @node_printer('DeallocateStmt')
 def deallocate_stmt(node, output):
     output.write('DEALLOCATE PREPARE ')
@@ -2111,8 +2422,6 @@ def drop_stmt(node, output):
             output.print_list(node.objects, ',', standalone_items=False, are_names=True)
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
         output.write(' CASCADE')
-    #elif node.behavior == enums.DropBehavior.DROP_RESTRICT:
-    #    output.write(' RESTRICT')
 
 
 @node_printer('DropSubscriptionStmt')
@@ -2189,7 +2498,7 @@ def grant_stmt(node, output):
     else:
         output.write('ALL PRIVILEGES')
     # hack for OBJECT_FOREIGN_SERVER
-    if node.objtype.value == 17:
+    if node.objtype.value == enums.ObjectType.OBJECT_FOREIGN_SERVER:
         object_name = 'FOREIGN SERVER'
     else:
         object_name = OBJECT_NAMES[node.objtype.value]
@@ -2232,6 +2541,27 @@ def grant_role_stmt(node, output):
     output.print_list(node.grantee_roles, ',')
     if node.admin_opt:
         output.write('WITH ADMIN OPTION')
+
+
+@node_printer('ImportForeignSchemaStmt')
+def import_foreign_schema_stmt(node, output):
+    output.write('IMPORT FOREIGN SCHEMA ')
+    output.print_name(node.remote_schema)
+    if node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_ALL:
+        pass
+    elif node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_LIMIT_TO:
+        output.write(' LIMIT TO (')
+        output.print_list(node.table_list)
+        output.write(')')
+    elif node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_EXCEPT:
+        output.write(' EXCEPT (')
+        output.print_list(node.table_list)
+        output.write(')')
+    output.writes(' FROM SERVER ')
+    output.print_name(node.server_name)
+    output.writes(' INTO ')
+    output.print_name(node.local_schema)
+    alter_def_elem(node.options, output)
 
 
 @node_printer('IndexStmt')
@@ -2530,6 +2860,7 @@ def rename_stmt(node, output):
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
         output.write(' CASCADE')
 
+
 @node_printer('RenameStmt', 'RangeVar')
 def range_var(node, output):
     OT = enums.ObjectType
@@ -2617,6 +2948,41 @@ def rule_stmt_printer(node, output):
                     output.print_list(node.actions)
         else:
             output.write(' NOTHING')
+
+
+@node_printer('RefreshMatViewStmt')
+def refresh_mat_view_stmt(node, output):
+    output.write('REFRESH MATERIALIZED VIEW ')
+    if node.concurrent:
+        output.write('CONCURRENTLY ')
+    output.print_node(node.relation)
+    if node.skipData:
+        output.write('WITH NO DATA')
+
+
+@node_printer('ReassignOwnedStmt')
+def reassign_owned_stmt(node, output):
+    output.write('REASSIGN OWNED BY ')
+    output.print_list(node.roles, ',', are_names=False)
+    output.write(' TO ')
+    output.print_node(node.newrole)
+
+
+@node_printer('SecLabelStmt')
+def sec_label_stmt(node, output):
+    output.write('SECURITY LABEL ')
+    if node.provider:
+        output.write('FOR ')
+        output.print_name(node.provider)
+    output.write(' ON ')
+    output.write(OBJECT_NAMES[node.objtype.value])
+    output.write(' ')
+    output.print_name(node.object)
+    output.write(' IS ')
+    if node.label:
+        output.print_node(node.label)
+    else:
+        output.write('NULL')
 
 
 @node_printer('TableLikeClause')
@@ -2738,6 +3104,7 @@ def view_stmt(node, output):
         output.print_node(node.query)
     view_check_option_printer(node.withCheckOption, node, output)
 
+
 @node_printer('ViewStmt', 'DefElem')
 def alter_operator_stmt_def_elem(node, output):
     output.print_symbol(node.defname)
@@ -2747,349 +3114,4 @@ def alter_operator_stmt_def_elem(node, output):
     if node.defaction:
         if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
             raise NotImplementedError
-
-@node_printer('AlterTypeStmt')
-def alter_type_stmt(node, output):
-    output.write('ALTER TYPE ')
-    output.print_name(node.typeName)
-    output.write(' SET (')
-    output.print_list(node.options, ',')
-    output.write(')')
-
-@node_printer('ReassignOwnedStmt')
-def reassign_owned_stmt(node, output):
-    output.write('REASSIGN OWNED BY ')
-    output.print_list(node.roles, ',', are_names=False)
-    output.write(' TO ')
-    output.print_node(node.newrole)
-
-@node_printer('AlterDomainStmt')
-def alter_domain_stmt(node, output):
-    output.write('ALTER DOMAIN ')
-    output.print_name(node.typeName)
-    if node.subtype == 'T':
-        if node.def_:
-            output.write(' SET DEFAULT ')
-            output.print_node(node.def_)
-        else:
-            output.write(' DROP DEFAULT')
-    elif node.subtype == 'N':
-        output.write(' DROP NOT NULL')
-    elif node.subtype == 'O':
-        output.write(' SET NOT NULL')
-    elif node.subtype == 'C':
-        output.write(' ADD ')
-        output.print_node(node.def_)
-    elif node.subtype == 'X':
-        output.write(' DROP CONSTRAINT ')
-        if node.missing_ok:
-            output.write('IF EXISTS ')
-        output.print_name(node.name)
-        if node.behavior == enums.DropBehavior.DROP_CASCADE:
-            output.write(' CASCADE')
-    elif node.subtype == 'V':
-        output.write(' VALIDATE CONSTRAINT ')
-        output.print_name(node.name)
-    else:
-        raise NotImplementedError
-
-@node_printer('AlterEventTrigStmt')
-def alter_event_trig_stmt(node, output):
-    output.write('ALTER EVENT TRIGGER ')
-    output.print_name(node.trigname)
-    if node.tgenabled == 'O':
-        output.write(' ENABLE')
-    elif node.tgenabled == 'A':
-        output.write(' ENABLE ALWAYS')
-    elif node.tgenabled == 'R':
-        output.write(' ENABLE REPLICA')
-    elif node.tgenabled == 'D':
-        output.write(' DISABLE')
-
-@node_printer('CreateUserMappingStmt')
-def create_user_mapping_stmt(node, output):
-    output.write('CREATE USER MAPPING ')
-    if node.if_not_exists:
-        output.write('IF NOT EXISTS ')
-    output.write('FOR ')
-    role_spec(node.user, output)
-    output.writes(' SERVER')
-    output.write(node.servername.value)
-    if node.options:
-        output.write(' OPTIONS (')
-        output.print_list(node.options, ',')
-        output.write(')')
-
-def alter_def_elem(node, output):
-    if node:
-        output.write(' OPTIONS (')
-        first = True
-        for option in node:
-            if first:
-                first = False
-            else:
-                output.write(',')
-            if option.defaction == enums.DefElemAction.DEFELEM_UNSPEC:
-                output.print_name(option.defname)
-                output.write(' ')
-                output.print_node(option.arg)
-            elif option.defaction == enums.DefElemAction.DEFELEM_SET:
-                output.write('SET ')
-                output.print_name(option.defname)
-                output.write(' ')
-                output.print_node(option.arg)
-            elif option.defaction == enums.DefElemAction.DEFELEM_ADD:
-                output.write('ADD ')
-                output.print_name(option.defname)
-                output.write(' ')
-                output.print_node(option.arg)
-            elif option.defaction == enums.DefElemAction.DEFELEM_DROP:
-                output.write('DROP ')
-                output.print_name(option.defname)
-        output.write(')')
-
-
-@node_printer('AlterFdwStmt')
-def alter_fdw_stmt(node, output):
-    output.write('ALTER FOREIGN DATA WRAPPER ')
-    output.print_name(node.fdwname)
-    if node.func_options:
-        output.print_list(node.func_options, '')
-    if node.options:
-        alter_def_elem(node.options, output)
-
-@node_printer('AlterFdwStmt', 'DefElem')
-def alter_fdw_stmt_def_elem(node, output):
-    if node.defname == "handler":
-        if node.arg:
-            output.write('HANDLER ')
-        else:
-            output.write('NO HANDLER ')
-    elif node.defname == "validator":
-        if node.arg:
-            output.write('VALIDATOR ')
-        else:
-            output.write('NO VALIDATOR ')
-    if node.arg:
-        output.print_name(node.arg)
-
-@node_printer('AlterForeignServerStmt')
-def alter_foreign_server_stmt(node, output):
-    output.write('ALTER SERVER ')
-    output.print_name(node.servername)
-    if node.has_version:
-        output.write(' VERSION ')
-        if node.version:
-            output.print_node(node.version)
-        else:
-            output.write('NULL')
-    alter_def_elem(node.options, output)
-
-@node_printer('AlterUserMappingStmt')
-def alter_user_mapping_stmt(node, output):
-    output.write('ALTER USER MAPPING FOR ')
-    role_spec(node.user, output)
-    output.writes(' SERVER ')
-    output.write(node.servername.value)
-    alter_def_elem(node.options, output)
-
-@node_printer('ImportForeignSchemaStmt')
-def import_foreign_schema_stmt(node, output):
-    output.write('IMPORT FOREIGN SCHEMA ')
-    output.print_name(node.remote_schema)
-    if node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_ALL:
-        pass
-    elif node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_LIMIT_TO:
-        output.write(' LIMIT TO (')
-        output.print_list(node.table_list)
-        output.write(')')
-    elif node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_EXCEPT:
-        output.write(' EXCEPT (')
-        output.print_list(node.table_list)
-        output.write(')')
-    output.writes(' FROM SERVER ')
-    output.print_name(node.server_name)
-    output.writes(' INTO ')
-    output.print_name(node.local_schema)
-    alter_def_elem(node.options, output)
-
-@node_printer('ClosePortalStmt')
-def close_portal_stmt(node, output):
-    output.write('CLOSE ')
-    if node.portalname:
-        output.print_name(node.portalname)
-    else:
-        output.write('ALL')
-
-@node_printer('CheckPointStmt')
-def close_portal_stmt(node, output):
-    output.write('CHECKPOINT')
-
-@node_printer('AlterRoleSetStmt')
-def alter_role_set_stmt(node, output):
-    output.write('ALTER ROLE ')
-    if not node.role:
-        output.write('ALL')
-    else:
-        output.print_node(node.role)
-    output.write(' ')
-    if node.database:
-        output.write('IN DATABASE ')
-        output.print_name(node.database)
-        output.write(' ')
-    output.print_node(node.setstmt)
-
-@node_printer('RefreshMatViewStmt')
-def refresh_mat_view_stmt(node, output):
-    output.write('REFRESH MATERIALIZED VIEW ')
-    if node.concurrent:
-        output.write('CONCURRENTLY ')
-    output.print_node(node.relation)
-    if node.skipData:
-        output.write('WITH NO DATA')
-
-@node_printer('CreateTransformStmt')
-def create_transform_stmt(node, output):
-    output.write('CREATE ')
-    if node.replace:
-        output.write('OR REPLACE ')
-    output.write('TRANSFORM FOR ')
-    output.print_name(node.type_name)
-    output.write('LANGUAGE ')
-    output.print_name(node.lang)
-    output.write('(')
-    if node.fromsql:
-        output.write('FROM SQL WITH FUNCTION ')
-        output.print_node(node.fromsql)
-        if node.tosql:
-            output.write(', ')
-    if node.tosql:
-        output.write('TO SQL WITH FUNCTION ')
-        output.print_node(node.tosql)
-    output.write(')')
-
-@node_printer('CreatePublicationStmt', 'RangeVar')
-def range_var(node, output):
-    OT = enums.ObjectType
-    if not node.inh:
-        output.write('ONLY ')
-    if node.schemaname:
-        output.print_name(node.schemaname)
-        output.write('.')
-    output.print_name(node.relname)
-    alias = node.alias
-    if alias:
-        output.write(' AS ')
-        output.print_name(alias)
-
-@node_printer('CreatePublicationStmt')
-def create_publication_stmt(node, output):
-    output.write('CREATE PUBLICATION ')
-    output.print_name(node.pubname)
-    output.write(' ')
-    if node.tables:
-        output.write('FOR TABLE ')
-        output.print_list(node.tables, ',')
-    elif node.for_all_tables:
-        output.write('FOR ALL TABLES ')
-    if  node.options:
-        output.write('WITH (')
-        output.print_list(node.options, ',')
-        output.write(')')
-
-@node_printer('AlterPublicationStmt')
-def alter_publication_stmt(node, output):
-    output.write('ALTER PUBLICATION ')
-    output.print_name(node.pubname)
-    output.write(' ')
-    if node.tables:
-        if node.tableAction == enums.DefElemAction.DEFELEM_SET:
-            output.write('SET TABLE ')
-        elif node.tableAction == enums.DefElemAction.DEFELEM_ADD:
-            output.write('ADD TABLE ')
-        elif node.tableAction == enums.DefElemAction.DEFELEM_DROP:
-            output.write('DROP TABLE ')
-        output.print_list(node.tables, ',')
-    elif  node.options:
-        output.write('SET (')
-        output.print_list(node.options, ',')
-        output.write(')')
-
-@node_printer('CreateSubscriptionStmt', 'DefElem')
-def alter_operator_stmt_def_elem(node, output):
-    output.print_name(node.defname)
-    if node.arg:
-        output.write(' = ')
-        output.print_node(node.arg)
-
-@node_printer('CreateSubscriptionStmt')
-def create_subscription_stmt(node, output):
-    output.write('CREATE SUBSCRIPTION ')
-    output.print_name(node.subname)
-    output.write(' CONNECTION ')
-    if node.conninfo:
-        output.print_node(node.conninfo)
-    else:
-        output.write("''")
-    output.write(' PUBLICATION ')
-    output.print_name(node.publication, ',')
-    output.write(' ')
-    if node.options:
-        output.write('WITH (')
-        output.print_name(node.options, ',')
-        output.write(')')
-
-@node_printer('CurrentOfExpr')
-def current_of_expr(node, output):
-    output.write('CURRENT OF ')
-    output.print_name(node.cursor_name)
-
-@node_printer('SecLabelStmt')
-def sec_label_stmt(node, output):
-    output.write('SECURITY LABEL ')
-    if node.provider:
-        output.write('FOR ')
-        output.print_name(node.provider)
-    output.write(' ON ')
-    output.write(OBJECT_NAMES[node.objtype.value])
-    output.write(' ')
-    output.print_name(node.object)
-    output.write(' IS ')
-    if node.label:
-        output.print_node(node.label)
-    else:
-        output.write('NULL')
-
-@node_printer('AlterStatsStmt')
-def alter_stats_stmt(node, output):
-    output.write('ALTER STATISTICS ')
-    if node.missing_ok:
-        output.write('IF EXISTS ')
-    output.print_name(node.defnames)
-    output.write(' SET STATISTICS ')
-    output.print_node(node.stxstattarget)
-
-@node_printer('AlterSubscriptionStmt')
-def alter_subscription_stmt(node, output):
-    output.write('ALTER SUBSCRIPTION ')
-    output.print_name(node.subname)
-    if node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_OPTIONS:
-        output.write('SET (')
-        output.print_name(node.options)
-        output.write(')')
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_CONNECTION:
-        output.write('CONNECTION ')
-        output.print_node(node.conninfo)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_REFRESH:
-        output.write('REFRESH PUBLICATION ')
-        if node.options:
-            output.print_name(node.options)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_PUBLICATION:
-        output.write('SET PUBLICATION ')
-        output.print_name(node.publication)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_ENABLED:
-        if node.options[0].arg.val.value == 1:
-            output.write('ENABLE')
-        elif node.options[0].arg.val.value == 2:
-            output.write('DISABLE')
 

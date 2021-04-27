@@ -684,6 +684,11 @@ def grouping_set(node, output):
     output.print_list(node.content, ',')
     output.write(')')
 
+@node_printer('GroupingFunc')
+def grouping_func(node, output):
+    output.write(' GROUPING(')
+    output.print_list(node.args)
+    output.write(')')
 
 @node_printer('IndexElem')
 def index_elem(node, output):
@@ -880,6 +885,12 @@ def locking_clause(node, output):
         output.swrite('NOWAIT')
 
 
+@node_printer('ListenStmt')
+def listen(node, output):
+    output.write('LISTEN ')
+    output.print_name(node.conditionname)
+
+
 @node_printer('MinMaxExpr')
 def min_max_expr(node, output):
     if node.op == enums.MinMaxOp.IS_GREATEST:
@@ -961,6 +972,35 @@ def on_conflict_clause(node, output):
                 output.space(2)
                 output.write('WHERE ')
                 output.print_node(node.whereClause)
+
+
+def print_transaction_mode_list(node, output):
+    first = True
+    for elem in node:
+        if first:
+            first = False
+        else:
+            output.write(', ')
+        if elem.defname == 'transaction_isolation':
+            output.write('ISOLATION LEVEL ')
+            if elem.arg.val.val == 'read uncommitted':
+                output.write('READ UNCOMMITTED')
+            elif elem.arg.val.val == 'read committed':
+                output.write('READ COMMITTED')
+            elif elem.arg.val.val == 'repeatable read':
+                output.write('REPEATABLE READ')
+            elif elem.arg.val.val == 'serializable':
+                output.write('SERIALIZABLE')
+        elif elem.defname == 'transaction_read_only':
+            if elem.arg.val.val == 1:
+                output.write('READ ONLY')
+            elif elem.arg.val.val == 0:
+                output.write('READ WRITE')
+        elif elem.defname == 'transaction_deferrable':
+            if elem.arg.val.val == 1:
+                output.write('DEFERRABLE')
+            elif elem.arg.val.val == 0:
+                output.write('NOT DEFERRABLE')
 
 
 @node_printer('RangeFunction')
@@ -1075,6 +1115,20 @@ def range_var(node, output):
     if alias:
         output.write(' AS ')
         output.print_name(alias)
+
+
+@node_printer('RangeTableSample')
+def range_table_sample(node, output):
+    output.print_node(node.relation)
+    output.write(' TABLESAMPLE ')
+    output.print_name(node.method, ' ')
+    output.write('(')
+    output.print_list(node.args, ' ')
+    output.write(') ')
+    if node.repeatable:
+        output.write('REPEATABLE (')
+        output.print_node(node.repeatable)
+        output.write(')')
 
 
 @node_printer('RawStmt')
@@ -1459,12 +1513,6 @@ def type_cast(node, output):
     output.print_node(node.typeName)
     output.write(')')
 
-@node_printer('GroupingFunc')
-def grouping_func(node, output):
-    output.write(' GROUPING(')
-    output.print_list(node.args)
-    output.write(')')
-
 # Constants taken from PG's include/utils/datetime.h: seem safe to assume they won't change
 
 MONTH = 1 << 1
@@ -1593,6 +1641,129 @@ def update_stmt(node, output):
         if node.withClause:
             output.dedent()
 
+
+@node_printer('UnlistenStmt')
+def listen(node, output):
+    output.write('UNLISTEN ')
+    if node.conditionname:
+        output.print_name(node.conditionname)
+    else:
+        output.write('*')
+
+
+@node_printer('VariableSetStmt')
+def variable_set_stmt(node, output):
+    vsk = enums.VariableSetKind
+    if node.kind == vsk.VAR_RESET:
+        output.write('RESET ')
+        output.print_name(node.name)
+    elif node.kind == vsk.VAR_RESET_ALL:
+        output.write('RESET ALL')
+    else:
+        output.write('SET ')
+        if node.is_local:
+            output.write('LOCAL ')
+        if node.name == 'timezone':
+            output.write('TIME ZONE ')
+        elif node.name == 'TRANSACTION':
+            output.write('TRANSACTION ')
+            print_transaction_mode_list(node.args, output)
+        elif node.name == 'SESSION CHARACTERISTICS':
+            output.write('SESSION CHARACTERISTICS AS TRANSACTION ')
+            print_transaction_mode_list(node.args, output)
+        elif node.name == 'TRANSACTION SNAPSHOT':
+            outout.write('TRANSACTION SNAPSHOT ')
+            otuout.print_list(node.args, ',')
+        else:
+            output.print_name(node.name)
+            output.write(' TO ')
+        if node.kind == vsk.VAR_SET_VALUE:
+            output.print_list(node.args)
+        elif node.kind == vsk.VAR_SET_DEFAULT:
+            output.write('DEFAULT')
+        elif node.kind == vsk.VAR_SET_MULTI:
+            pass
+        else:
+            raise NotImplementedError("SET statement of kind %s not implemented yet"
+                                      % node.kind)
+
+
+@node_printer('WithClause')
+def with_clause(node, output):
+    relindent = -3
+    if node.recursive:
+        relindent -= output.write('RECURSIVE ')
+    output.print_list(node.ctes, relative_indent=relindent)
+
+
+@node_printer('WindowDef')
+def window_def(node, output):
+    if node.name:
+        output.print_name(node.name)
+        output.write(' AS ')
+    output.write('(')
+    if node.refname:
+        output.print_name(node.refname)
+    with output.push_indent():
+        if node.partitionClause:
+            output.write('PARTITION BY ')
+            output.print_list(node.partitionClause)
+        if node.orderClause:
+            if node.partitionClause:
+                output.newline()
+            output.write('ORDER BY ')
+            output.print_list(node.orderClause)
+        if node.frameOptions & enums.FRAMEOPTION_NONDEFAULT:
+            if node.partitionClause or node.orderClause:
+                output.newline()
+            fo = node.frameOptions
+            if fo & enums.FRAMEOPTION_RANGE:
+                output.writes('RANGE')
+            elif fo & enums.FRAMEOPTION_ROWS:
+                output.writes('ROWS')
+            elif fo & enums.FRAMEOPTION_GROUPS:
+                output.writes('GROUPS')
+            if fo & enums.FRAMEOPTION_BETWEEN:
+                output.writes('BETWEEN')
+            if fo & enums.FRAMEOPTION_START_UNBOUNDED_PRECEDING:
+                output.writes('UNBOUNDED PRECEDING')
+            elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING:  # pragma: no cover
+                # Disallowed
+                assert False
+                output.writes('UNBOUNDED FOLLOWING')
+            elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
+                output.writes('CURRENT ROW')
+            elif fo & enums.FRAMEOPTION_START_OFFSET_PRECEDING:
+                output.print_node(node.startOffset)
+                output.swrites('PRECEDING')
+            elif fo & enums.FRAMEOPTION_START_OFFSET_FOLLOWING:
+                output.print_node(node.startOffset)
+                output.swrites('FOLLOWING')
+            if fo & enums.FRAMEOPTION_BETWEEN:
+                output.writes('AND')
+                if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING:  # pragma: no cover
+                    # Disallowed
+                    assert False
+                    output.writes('UNBOUNDED PRECEDING')
+                elif fo & enums.FRAMEOPTION_END_UNBOUNDED_FOLLOWING:
+                    output.writes('UNBOUNDED FOLLOWING')
+                elif fo & enums.FRAMEOPTION_END_CURRENT_ROW:
+                    output.writes('CURRENT ROW')
+                elif fo & enums.FRAMEOPTION_END_OFFSET_PRECEDING:
+                    output.print_node(node.endOffset)
+                    output.swrites('PRECEDING')
+                elif fo & enums.FRAMEOPTION_END_OFFSET_FOLLOWING:
+                    output.print_node(node.endOffset)
+                    output.swrites('FOLLOWING')
+                if fo & enums.FRAMEOPTION_EXCLUDE_CURRENT_ROW:
+                    output.swrite('EXCLUDE CURRENT ROW')
+                elif fo & enums.FRAMEOPTION_EXCLUDE_GROUP:
+                    output.swrite('EXCLUDE GROUP')
+                elif fo & enums.FRAMEOPTION_EXCLUDE_TIES:
+                    output.swrite('EXCLUDE TIES')
+    output.write(')')
+
+
 def print_indirection(node, output):
     for idx, subnode in enumerate(node):
         if subnode.node_tag == 'String':
@@ -1620,72 +1791,6 @@ def update_stmt_res_target(node, output):
                 print_indirection(node.indirection, output)
             output.write(' = ')
         output.print_node(node.val)
-
-
-def print_transcation_mode_list(node, output):
-    first = True
-    for elem in node:
-        if first:
-            first = False
-        else:
-            output.write(', ')
-        if elem.defname == 'transaction_isolation':
-            output.write('ISOLATION LEVEL ')
-            if elem.arg.val.val == 'read uncommitted':
-                output.write('READ UNCOMMITTED')
-            elif elem.arg.val.val == 'read committed':
-                output.write('READ COMMITTED')
-            elif elem.arg.val.val == 'repeatable read':
-                output.write('REPEATABLE READ')
-            elif elem.arg.val.val == 'serializable':
-                output.write('SERIALIZABLE')
-        elif elem.defname == 'transaction_read_only':
-            if elem.arg.val.val == 1:
-                output.write('READ ONLY')
-            elif elem.arg.val.val == 0:
-                output.write('READ WRITE')
-        elif elem.defname == 'transaction_deferrable':
-            if elem.arg.val.val == 1:
-                output.write('DEFERRABLE')
-            elif elem.arg.val.val == 0:
-                output.write('NOT DEFERRABLE')
-
-
-@node_printer('VariableSetStmt')
-def variable_set_stmt(node, output):
-    vsk = enums.VariableSetKind
-    if node.kind == vsk.VAR_RESET:
-        output.write('RESET ')
-        output.print_name(node.name)
-    elif node.kind == vsk.VAR_RESET_ALL:
-        output.write('RESET ALL')
-    else:
-        output.write('SET ')
-        if node.is_local:
-            output.write('LOCAL ')
-        if node.name == 'timezone':
-            output.write('TIME ZONE ')
-        elif node.name == 'TRANSACTION':
-            output.write('TRANSACTION ')
-            print_transcation_mode_list(node.args, output)
-        elif node.name == 'SESSION CHARACTERISTICS':
-            output.write('SESSION CHARACTERISTICS AS TRANSACTION ')
-            print_transcation_mode_list(node.args, output)
-        elif node.name == 'TRANSACTION SNAPSHOT':
-            outout.write('TRANSACTION SNAPSHOT ')
-            otuout.print_list(node.args, ',')
-        else:
-            output.print_name(node.name)
-            output.write(' TO ')
-        if node.kind == vsk.VAR_SET_VALUE:
-            output.print_list(node.args)
-        elif node.kind == vsk.VAR_SET_DEFAULT:
-            output.write('DEFAULT')
-        elif node.kind == vsk.VAR_SET_MULTI:
-            pass
-        else:
-            raise NotImplementedError("SET statement of kind %s not implemented yet"
-                                      % node.kind)
 
 
 class XmlOptionTypePrinter(IntEnumPrinter):
@@ -1800,105 +1905,3 @@ def xml_serialize(node, output):
     output.write(')')
 
 
-@node_printer('WindowDef')
-def window_def(node, output):
-    if node.name:
-        output.print_name(node.name)
-        output.write(' AS ')
-    output.write('(')
-    if node.refname:
-        output.print_name(node.refname)
-    with output.push_indent():
-        if node.partitionClause:
-            output.write('PARTITION BY ')
-            output.print_list(node.partitionClause)
-        if node.orderClause:
-            if node.partitionClause:
-                output.newline()
-            output.write('ORDER BY ')
-            output.print_list(node.orderClause)
-        if node.frameOptions & enums.FRAMEOPTION_NONDEFAULT:
-            if node.partitionClause or node.orderClause:
-                output.newline()
-            fo = node.frameOptions
-            if fo & enums.FRAMEOPTION_RANGE:
-                output.writes('RANGE')
-            elif fo & enums.FRAMEOPTION_ROWS:
-                output.writes('ROWS')
-            elif fo & enums.FRAMEOPTION_GROUPS:
-                output.writes('GROUPS')
-            if fo & enums.FRAMEOPTION_BETWEEN:
-                output.writes('BETWEEN')
-            if fo & enums.FRAMEOPTION_START_UNBOUNDED_PRECEDING:
-                output.writes('UNBOUNDED PRECEDING')
-            elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING:  # pragma: no cover
-                # Disallowed
-                assert False
-                output.writes('UNBOUNDED FOLLOWING')
-            elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
-                output.writes('CURRENT ROW')
-            elif fo & enums.FRAMEOPTION_START_OFFSET_PRECEDING:
-                output.print_node(node.startOffset)
-                output.swrites('PRECEDING')
-            elif fo & enums.FRAMEOPTION_START_OFFSET_FOLLOWING:
-                output.print_node(node.startOffset)
-                output.swrites('FOLLOWING')
-            if fo & enums.FRAMEOPTION_BETWEEN:
-                output.writes('AND')
-                if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING:  # pragma: no cover
-                    # Disallowed
-                    assert False
-                    output.writes('UNBOUNDED PRECEDING')
-                elif fo & enums.FRAMEOPTION_END_UNBOUNDED_FOLLOWING:
-                    output.writes('UNBOUNDED FOLLOWING')
-                elif fo & enums.FRAMEOPTION_END_CURRENT_ROW:
-                    output.writes('CURRENT ROW')
-                elif fo & enums.FRAMEOPTION_END_OFFSET_PRECEDING:
-                    output.print_node(node.endOffset)
-                    output.swrites('PRECEDING')
-                elif fo & enums.FRAMEOPTION_END_OFFSET_FOLLOWING:
-                    output.print_node(node.endOffset)
-                    output.swrites('FOLLOWING')
-                if fo & enums.FRAMEOPTION_EXCLUDE_CURRENT_ROW:
-                    output.swrite('EXCLUDE CURRENT ROW')
-                elif fo & enums.FRAMEOPTION_EXCLUDE_GROUP:
-                    output.swrite('EXCLUDE GROUP')
-                elif fo & enums.FRAMEOPTION_EXCLUDE_TIES:
-                    output.swrite('EXCLUDE TIES')
-    output.write(')')
-
-
-@node_printer('WithClause')
-def with_clause(node, output):
-    relindent = -3
-    if node.recursive:
-        relindent -= output.write('RECURSIVE ')
-    output.print_list(node.ctes, relative_indent=relindent)
-
-
-@node_printer('ListenStmt')
-def listen(node, output):
-    output.write('LISTEN ')
-    output.print_name(node.conditionname)
-
-
-@node_printer('UnlistenStmt')
-def listen(node, output):
-    output.write('UNLISTEN ')
-    if node.conditionname:
-        output.print_name(node.conditionname)
-    else:
-        output.write('*')
-
-@node_printer('RangeTableSample')
-def range_table_sample(node, output):
-    output.print_node(node.relation)
-    output.write(' TABLESAMPLE ')
-    output.print_name(node.method, ' ')
-    output.write('(')
-    output.print_list(node.args, ' ')
-    output.write(') ')
-    if node.repeatable:
-        output.write('REPEATABLE (')
-        output.print_node(node.repeatable)
-        output.write(')')
