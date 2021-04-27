@@ -100,6 +100,12 @@
 
    Pretty print a `node` of type `BooleanTest <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/primnodes.h#L1239>`__ to the `output` stream.
 
+.. index:: CallStmt
+
+.. function:: call_stmt(node, output)
+
+   Pretty print a `node` of type `CallStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2903>`__ to the `output` stream.
+
 .. index:: CaseExpr
 
 .. function:: case_expr(node, output)
@@ -217,6 +223,12 @@
 
    Pretty print a `node` of type `GroupingSet <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1328>`__ to the `output` stream.
 
+.. index:: GroupingFunc
+
+.. function:: grouping_func(node, output)
+
+   Pretty print a `node` of type `GroupingFunc <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/primnodes.h#L356>`__ to the `output` stream.
+
 .. index:: IndexElem
 
 .. function:: index_elem(node, output)
@@ -258,6 +270,12 @@
 .. function:: locking_clause(node, output)
 
    Pretty print a `node` of type `LockingClause <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L748>`__ to the `output` stream.
+
+.. index:: ListenStmt
+
+.. function:: listen(node, output)
+
+   Pretty print a `node` of type `ListenStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3028>`__ to the `output` stream.
 
 .. index:: MinMaxExpr
 
@@ -343,6 +361,12 @@
 .. function:: range_var(node, output)
 
    Pretty print a `node` of type `RangeVar <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/primnodes.h#L63>`__ to the `output` stream.
+
+.. index:: RangeTableSample
+
+.. function:: range_table_sample(node, output)
+
+   Pretty print a `node` of type `RangeTableSample <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L616>`__ to the `output` stream.
 
 .. index:: RawStmt
 
@@ -435,6 +459,30 @@
 
    Pretty print a `node` of type `UpdateStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1560>`__ to the `output` stream.
 
+.. index:: UnlistenStmt
+
+.. function:: listen(node, output)
+
+   Pretty print a `node` of type `UnlistenStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3038>`__ to the `output` stream.
+
+.. index:: VariableSetStmt
+
+.. function:: variable_set_stmt(node, output)
+
+   Pretty print a `node` of type `VariableSetStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2045>`__ to the `output` stream.
+
+.. index:: WithClause
+
+.. function:: with_clause(node, output)
+
+   Pretty print a `node` of type `WithClause <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1400>`__ to the `output` stream.
+
+.. index:: WindowDef
+
+.. function:: window_def(node, output)
+
+   Pretty print a `node` of type `WindowDef <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L485>`__ to the `output` stream.
+
 .. index::
    pair: OnConflictClause;ResTarget
 
@@ -444,12 +492,6 @@
 .. function:: update_stmt_res_target(node, output)
 
    Pretty print a `node` of type `ResTarget <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L438>`__, when it is inside a `OnConflictClause <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1429>`__ or a `UpdateStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1560>`__, to the `output` stream.
-
-.. index:: VariableSetStmt
-
-.. function:: variable_set_stmt(node, output)
-
-   Pretty print a `node` of type `VariableSetStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2045>`__ to the `output` stream.
 
 .. index:: XmlExpr
 
@@ -462,15 +504,3 @@
 .. function:: xml_serialize(node, output)
 
    Pretty print a `node` of type `XmlSerialize <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L759>`__ to the `output` stream.
-
-.. index:: WindowDef
-
-.. function:: window_def(node, output)
-
-   Pretty print a `node` of type `WindowDef <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L485>`__ to the `output` stream.
-
-.. index:: WithClause
-
-.. function:: with_clause(node, output)
-
-   Pretty print a `node` of type `WithClause <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1400>`__ to the `output` stream.
