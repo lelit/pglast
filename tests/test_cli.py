@@ -56,7 +56,7 @@ def test_cli_workhorse():
                 with pytest.raises(SystemExit) as status:
                     main([])
                 assert str(status.value.args[0]) == \
-                    'syntax error at or near "sometable", at location 21'
+                    'syntax error at or near "sometable", at index 20'
 
     with StringIO("Select foo,bar From sometable Where foo<>0") as input:
         with UnclosableStream() as output:

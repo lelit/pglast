@@ -43,34 +43,33 @@ def test_errors():
     with pytest.raises(Error) as exc:
         parse_sql('FooBar')
     assert exc.typename == 'ParseError'
-    assert exc.value.location == 1
-    assert 'syntax error ' in str(exc.value)
+    errmsg, index = exc.value.args
+    assert errmsg == 'syntax error at or near "FooBar"'
+    assert index == 0
 
     with pytest.raises(Error) as exc:
         parse_sql('SELECT foo FRON bar')
     assert exc.typename == 'ParseError'
-    assert exc.value.location == 17
-    errmsg = str(exc.value)
-    assert 'syntax error at or near "bar"' in errmsg
-    assert 'location 17' in errmsg
+    errmsg, index = exc.value.args
+    assert errmsg == 'syntax error at or near "bar"'
+    assert index == 16
+    assert str(exc.value) == f'{errmsg}, at index {index}'
 
     with pytest.raises(Error) as exc:
         parse_plpgsql('CREATE FUMCTION add (a integer, b integer)'
                       ' RETURNS integer AS $$ BEGIN RETURN a + b; END; $$'
                       ' LANGUAGE plpgsql')
     assert exc.typename == 'ParseError'
-    assert exc.value.location == 8
-    errmsg = str(exc.value)
-    assert 'syntax error at or near "FUMCTION"' in errmsg
-    assert 'location 8' in errmsg
+    errmsg, index = exc.value.args
+    assert errmsg == 'syntax error at or near "FUMCTION"'
+    assert index == 7
 
     with pytest.raises(Error) as exc:
         fingerprint('SELECT foo FRON bar')
     assert exc.typename == 'ParseError'
-    assert exc.value.location == 17
-    errmsg = str(exc.value)
-    assert 'syntax error at or near "bar"' in errmsg
-    assert 'location 17' in errmsg
+    errmsg, index = exc.value.args
+    assert errmsg == 'syntax error at or near "bar"'
+    assert index == 16
 
 
 def test_unicode():
@@ -105,9 +104,13 @@ def test_split():
 
 def test_scan():
     sql = 'select /* something here */ 1'
-    expected = ((0, 6, 'SELECT', 'RESERVED_KEYWORD'),
-                (7, 27, 'C_COMMENT', 'NO_KEYWORD'),
-                (28, 29, 'ICONST', 'NO_KEYWORD'))
+    expected = [( 0,  5, 'SELECT',    'RESERVED_KEYWORD'),
+                ( 7, 26, 'C_COMMENT', 'NO_KEYWORD'),
+                (28, 28, 'ICONST',    'NO_KEYWORD')]
     result = scan(sql)
     assert result == expected
-    assert sql[result[1].start:result[1].end] == '/* something here */'
+    assert sql[result[1].start:result[1].end+1] == '/* something here */'
+
+    sql = 'select 0.01 as "€"   -- one €-cent'
+    assert [sql[t.start:t.end+1] for t in scan(sql)] == [
+        'select', '0.01', 'as', '"€"', '-- one €-cent']

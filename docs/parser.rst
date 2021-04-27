@@ -85,10 +85,10 @@ underlying ``libpg_query`` library it links against.
    slots:
 
    start : int
-     the start offset
+     the index of the start of the token
 
    end : int
-     the end offset
+     the index of the end of the token
 
    name : str
      the name of the offset
