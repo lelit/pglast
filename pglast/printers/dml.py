@@ -1111,6 +1111,9 @@ def range_table_func_col(node, output):
 def range_var(node, output):
     if not node.inh:
         output.write('ONLY ')
+    if node.catalogname:
+        output.print_name(node.catalogname)
+        output.write('.')
     if node.schemaname:
         output.print_name(node.schemaname)
         output.write('.')

@@ -487,3 +487,5 @@ SELECT * FROM "table" INTERSECT ((SELECT * FROM "table") UNION (SELECT * FROM "t
 WITH k AS MATERIALIZED (select * from m) select * from k;
 
 WITH k AS NOT MATERIALIZED (select * from m) select * from k;
+
+select 1 from c.b.a
