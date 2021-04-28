@@ -135,7 +135,7 @@ def alter_default_privileges_stmt(node, output):
             roles = opt.arg
         elif optname == 'schemas':
             schemas = opt.arg
-        else:
+        else:  # pragma: no cover
             raise NotImplementedError('Option not implemented: %s' % optname)
     if roles is not None:
         output.newline()

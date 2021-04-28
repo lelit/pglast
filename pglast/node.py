@@ -16,7 +16,7 @@ class Missing:
     def __bool__(self):
         return False
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         return "MISSING"
 
     def __iter__(self):
@@ -69,7 +69,7 @@ class Base:
         self._parent_node = parent
         self._parent_attribute = name
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         aname = self._parent_attribute
         if isinstance(aname, tuple):
             aname = '%s[%d]' % aname
@@ -105,7 +105,7 @@ class List(Base):
     __slots__ = ('_items',)
 
     def _init(self, items, parent, name):
-        if not isinstance(items, (list, tuple)) or not items:
+        if not isinstance(items, (list, tuple)) or not items:  # pragma: no cover
             raise ValueError("Unexpected value for 'items', must be a non empty tuple or list,"
                              " got %r" % type(items))
         super()._init(parent, name)
@@ -118,7 +118,7 @@ class List(Base):
         return len(self) > 0
 
     def __repr__(self):
-        if not self:
+        if not self:  # pragma: no cover
             return '[]'
         # There's no guarantee that a list contains the same kind of objects,
         # so picking the first is rather arbitrary but serves the purpose, as
@@ -144,10 +144,10 @@ class List(Base):
 
     @property
     def string_value(self):
-        if len(self) != 1:
+        if len(self) != 1:  # pragma: no cover
             raise TypeError('%r does not contain a single String node' % self)
         node = self[0]
-        if node.node_tag != 'String':
+        if node.node_tag != 'String':  # pragma: no cover
             raise TypeError('%r does not contain a single String node' % self)
         return node.val.value
 
@@ -175,7 +175,7 @@ class Node(Base):
     __slots__ = ('node_tag', 'ast_node')
 
     def _init(self, details, parent=None, name=None):
-        if not isinstance(details, ast.Node):
+        if not isinstance(details, ast.Node):  # pragma: no cover
             raise ValueError("Unexpected value for 'details', must be a ast.Node")
         super()._init(parent, name)
         self.node_tag = details.__class__.__name__
@@ -192,7 +192,7 @@ class Node(Base):
         return '{%s}' % self.node_tag
 
     def __getitem__(self, attr):
-        if isinstance(attr, tuple):
+        if isinstance(attr, tuple):  # pragma: no cover
             attr, index = attr
             return self[attr][index]
         elif isinstance(attr, str):
@@ -244,7 +244,7 @@ class Scalar(Base):
         value = self._value
         if isinstance(value, int) and isinstance(other, int):
             return value & other
-        else:
+        else:  # pragma: no cover
             raise ValueError("Wrong operands for __and__: %r & %r"
                              % (type(value), type(other)))
 
@@ -283,7 +283,7 @@ class Scalar(Base):
                 return value == other._value
         return False
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         if isinstance(self._value, Enum):
             return repr(self._value)
         else:
