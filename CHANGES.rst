@@ -17,7 +17,14 @@ V3
 
 - Expose the new ``pg_query_deparse_protobuf()`` function as ``parser.deparse_protobuf()``
 
+- Honor the ``catalogname`` of a ``RangeVar`` if present (`issue #71`__)
+
+  __ https://github.com/lelit/pglast/issues/71
+
+
+~~~~~~~~~~~~~~~~~~~~
 **Breaking changes**
+~~~~~~~~~~~~~~~~~~~~
 
 - Target PostgreSQL 13
 
@@ -33,14 +40,15 @@ V3
   even ``Expr`` and ``Value`` are there. The latter impacts on ``pglast.node.Scalar``: for
   example it now may contain a ``ast.Integer`` instance instead of a Python ``int``
 
-- The ``pgpp --parse-tree`` output is a `pprint`__ represention of the ``AST``
+- The ``pgpp --parse-tree`` output is a `pprint`__ represention of the ``AST``, not a ``JSON``
+  string as before
 
   __ https://docs.python.org/3.9/library/pprint.html#pprint.pprint
 
-- The ``ParseError`` exception does not expose the ``location`` anymore, although its still
-  there, as the second argument (ie ``.args[1]``); furthermore, its value now corresponds to
-  the index in the original Unicode string, instead of the offset in the ``UTF-8``
-  representation passed to the underlying C function
+- The ``ParseError`` exception does not expose the ``location`` as an instance member anymore,
+  although its still there, as the second argument (ie ``.args[1]``); furthermore, its value
+  now corresponds to the index in the original Unicode string, instead of the offset in the
+  ``UTF-8`` representation passed to the underlying C function
 
 
 V2
