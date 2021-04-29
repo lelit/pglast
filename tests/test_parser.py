@@ -105,16 +105,20 @@ def test_split():
 
 def test_scan():
     sql = 'select /* something here */ 1'
-    expected = [( 0,  5, 'SELECT',    'RESERVED_KEYWORD'),
-                ( 7, 26, 'C_COMMENT', 'NO_KEYWORD'),
-                (28, 28, 'ICONST',    'NO_KEYWORD')]
     result = scan(sql)
-    assert result == expected
+    assert result == [( 0,  5, 'SELECT',    'RESERVED_KEYWORD'),
+                      ( 7, 26, 'C_COMMENT', 'NO_KEYWORD'),
+                      (28, 28, 'ICONST',    'NO_KEYWORD')]
     assert sql[result[1].start:result[1].end+1] == '/* something here */'
 
     sql = 'select 0.01 as "€"   -- one €-cent'
     assert [sql[t.start:t.end+1] for t in scan(sql)] == [
         'select', '0.01', 'as', '"€"', '-- one €-cent']
+
+    # Combining character
+    sql = 'SELECT 1 AS "\u0101\u0301" -- etc'
+    assert [sql[t.start:t.end+1] for t in scan(sql)] == [
+        'SELECT', '1', 'AS', '"ā́"', '-- etc']
 
 
 def test_deparse_protobuf():
