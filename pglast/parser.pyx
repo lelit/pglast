@@ -253,7 +253,7 @@ def parse_sql(str query):
     cdef const char *cstring
 
     utf8 = query.encode('utf-8')
-    fixup = Displacements(query)
+    offset_to_index = Displacements(query)
     cstring = utf8
 
     mctx = pg_query_enter_memory_context()
@@ -274,7 +274,7 @@ def parse_sql(str query):
             return ()
         else:
             message = parsed.error.message.decode('utf8')
-            raise ParseError(message, fixup(parsed.error.cursorpos-1))
+            raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
     finally:
         pg_query_exit_memory_context(mctx);
 
@@ -294,8 +294,8 @@ def parse_sql_json(str query):
     try:
         if parsed.error:
             message = parsed.error.message.decode('utf8')
-            fixup = Displacements(query)
-            raise ParseError(message, fixup(parsed.error.cursorpos-1))
+            offset_to_index = Displacements(query)
+            raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
 
         return parsed.parse_tree.decode('utf8')
     finally:
@@ -319,8 +319,8 @@ def parse_sql_protobuf(str query):
         if parsed.error:
             message = parsed.error.message.decode('utf8')
             cursorpos = parsed.error.cursorpos
-            fixup = Displacements(query)
-            raise ParseError(message, fixup(parsed.error.cursorpos-1))
+            offset_to_index = Displacements(query)
+            raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
 
         return PyBytes_FromStringAndSize(parsed.parse_tree.data, parsed.parse_tree.len)
     finally:
@@ -343,8 +343,8 @@ def parse_plpgsql_json(str query):
     try:
         if parsed.error:
             message = parsed.error.message.decode('utf8')
-            fixup = Displacements(query)
-            raise ParseError(message, fixup(parsed.error.cursorpos-1))
+            offset_to_index = Displacements(query)
+            raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
 
         return parsed.plpgsql_funcs.decode('utf8')
     finally:
@@ -367,8 +367,8 @@ def fingerprint(str query):
     try:
         if result.error:
             message = result.error.message.decode('utf8')
-            fixup = Displacements(query)
-            raise ParseError(message, fixup(result.error.cursorpos-1))
+            offset_to_index = Displacements(query)
+            raise ParseError(message, offset_to_index(result.error.cursorpos-1))
 
         return result.fingerprint_str.decode('ascii')
     finally:
@@ -407,8 +407,8 @@ def split(str stmts, bint with_parser=True, bint only_slices=False):
     try:
         if splitted.error:
             message = splitted.error.message.decode('utf8')
-            fixup = Displacements(stmts)
-            raise ParseError(message, fixup(splitted.error.cursorpos-1))
+            offset_to_index = Displacements(stmts)
+            raise ParseError(message, offset_to_index(splitted.error.cursorpos-1))
 
         result = []
         while i < splitted.n_stmts:
@@ -463,7 +463,7 @@ def scan(str query):
     cdef size_t i
 
     utf8 = query.encode('utf-8')
-    fixup = Displacements(query)
+    offset_to_index = Displacements(query)
     cstring = utf8
 
     with nogil:
@@ -472,7 +472,7 @@ def scan(str query):
     try:
         if scanned.error:
             message = scanned.error.message.decode('utf8')
-            raise ParseError(message, fixup(scanned.error.cursorpos-1))
+            raise ParseError(message, offset_to_index(scanned.error.cursorpos-1))
 
         with nogil:
             scan_result = pg_query__scan_result__unpack(NULL, scanned.pbuf.len,
@@ -487,7 +487,7 @@ def scan(str query):
             kwkind = protobuf_c_enum_descriptor_get_value(&pg_query__keyword_kind__descriptor,
                                                           scan_token.keyword_kind)
 
-            token = Token(fixup(scan_token.start), fixup(scan_token.end-1),
+            token = Token(offset_to_index(scan_token.start), offset_to_index(scan_token.end-1),
                           tkind.name.decode('ascii'), kwkind.name.decode('ascii'))
             Py_INCREF(token)
             PyList_SET_ITEM(result, i, token)
