@@ -486,7 +486,7 @@ def emit_list_attr(name, ctype, output):
     if data.{name} is not NULL:
         v_{name} = PyTuple_New(data.{name}.length)
         for i in range(data.{name}.length):
-            item = create(structs.list_nth(data.{name}, i))
+            item = create(structs.list_nth(data.{name}, i), offset_to_index)
             Py_INCREF(item)
             PyTuple_SET_ITEM(v_{name}, i, item)
     else:
@@ -496,13 +496,13 @@ def emit_list_attr(name, ctype, output):
 
 def emit_node_attr(name, ctype, output):
     output.write(f'''\
-    cdef v_{name} = create(&data.{name})
+    cdef v_{name} = create(&data.{name}, offset_to_index)
 ''')
 
 
 def emit_create_stmt_attr(name, ctype, output):
     output.write(f'''
-    cdef object v_{name} = create_CreateStmt(<structs.CreateStmt*> data)
+    cdef object v_{name} = create_CreateStmt(<structs.CreateStmt*> data, offset_to_index)
 ''')
 
 
@@ -510,7 +510,7 @@ def emit_nodeptr_attr(name, ctype, output):
     output.write(f'''\
     cdef object v_{name}
     if data.{name} is not NULL:
-        v_{name} = create(data.{name})
+        v_{name} = create(data.{name}, offset_to_index)
     else:
         v_{name} = None
 ''')
@@ -548,9 +548,58 @@ def emit_bitmapset_attr(name, ctype, output):
 ''')
 
 
-def emit_node_def(name, fields, enums, url, output, doc):
+def emit_location_attr(name, ctype, output):
+    output.write(f'''\
+    cdef object v_{name} = offset_to_index(data.{name})
+''')
+
+
+def emit_stmt_len_attr(name, ctype, output):
+    output.write(f'''\
+    cdef object v_{name} = offset_to_index(data.stmt_location + data.{name}) - offset_to_index(data.stmt_location)
+''')
+
+
+def emitter_for(fname, ctype, enums):
     from pglast import enums as eimpl
 
+    if fname == 'location' or fname == 'stmt_location':
+        emitter = emit_location_attr
+    elif fname == 'stmt_len':
+        emitter = emit_stmt_len_attr
+    elif ctype == 'List*':
+        emitter = emit_list_attr
+    elif ctype == 'CreateStmt':
+        emitter = emit_create_stmt_attr
+    elif ctype == 'Expr':
+        emitter = emit_no_attr
+        superclass = 'Expr'
+    elif ctype == 'NodeTag':
+        emitter = emit_no_attr
+    elif ctype == 'Value':
+        emitter = emit_value_attr
+    elif ctype == 'char*':
+        emitter = emit_str_attr
+    elif ctype == 'char':
+        emitter = emit_char_attr
+    elif ctype == 'bool':
+        emitter = emit_bool_attr
+    elif ctype == 'Bitmapset*':
+        emitter = emit_bitmapset_attr
+    elif ctype.endswith('*'):
+        emitter = emit_nodeptr_attr
+    elif ctype in enums:
+        if issubclass(getattr(eimpl, ctype), eimpl.IntEnum):
+            emitter = emit_int_enum_attr
+        else:
+            emitter = emit_str_enum_attr
+    else:
+        emitter = emit_generic_attr
+
+    return emitter
+
+
+def emit_node_def(name, fields, enums, url, output, doc):
     attrs = []
 
     superclass = 'Node'
@@ -568,34 +617,9 @@ def emit_node_def(name, fields, enums, url, output, doc):
         if iskeyword(fname):
             fname = f'{fname}_'
 
-        if ctype == 'List*':
-            emitter = emit_list_attr
-        elif ctype == 'CreateStmt':
-            emitter = emit_create_stmt_attr
-        elif ctype == 'Expr':
-            emitter = emit_no_attr
+        emitter = emitter_for(fname, ctype, enums)
+        if ctype == 'Expr':
             superclass = 'Expr'
-        elif ctype == 'NodeTag':
-            emitter = emit_no_attr
-        elif ctype == 'Value':
-            emitter = emit_value_attr
-        elif ctype == 'char*':
-            emitter = emit_str_attr
-        elif ctype == 'char':
-            emitter = emit_char_attr
-        elif ctype == 'bool':
-            emitter = emit_bool_attr
-        elif ctype == 'Bitmapset*':
-            emitter = emit_bitmapset_attr
-        elif ctype.endswith('*'):
-            emitter = emit_nodeptr_attr
-        elif ctype in enums:
-            if issubclass(getattr(eimpl, ctype), eimpl.IntEnum):
-                emitter = emit_int_enum_attr
-            else:
-                emitter = emit_str_enum_attr
-        else:
-            emitter = emit_generic_attr
 
         comment = field['comment']
         if comment:
@@ -698,31 +722,7 @@ def emit_node_create_function(nodes, enums, output):
             if iskeyword(fname):
                 fname = f'{fname}_'
 
-            if ctype == 'List*':
-                emitter = emit_list_attr
-            elif ctype == 'CreateStmt':
-                emitter = emit_create_stmt_attr
-            elif ctype == 'NodeTag':
-                emitter = emit_no_attr
-            elif ctype == 'Value':
-                emitter = emit_value_attr
-            elif ctype == 'char*':
-                emitter = emit_str_attr
-            elif ctype == 'char':
-                emitter = emit_char_attr
-            elif ctype == 'bool':
-                emitter = emit_bool_attr
-            elif ctype == 'Bitmapset*':
-                emitter = emit_bitmapset_attr
-            elif ctype.endswith('*'):
-                emitter = emit_nodeptr_attr
-            elif ctype in enums:
-                if issubclass(getattr(eimpl, ctype), eimpl.IntEnum):
-                    emitter = emit_int_enum_attr
-                else:
-                    emitter = emit_str_enum_attr
-            else:
-                emitter = emit_generic_attr
+            emitter = emitter_for(fname, ctype, enums)
 
             attrs.append((fname, ctype, emitter))
             if emitter is not emit_no_attr:
@@ -731,7 +731,7 @@ def emit_node_create_function(nodes, enums, output):
         output.write(f'''\
 
 
-cdef create_{name}(structs.{name}* data):
+cdef create_{name}(structs.{name}* data, offset_to_index):
 ''')
         for attr, ctype, emitter in attrs:
             emitter(attr, ctype, output)
@@ -743,7 +743,7 @@ cdef create_{name}(structs.{name}* data):
     output.write('''\
 
 
-cdef create(void* data):
+cdef create(void* data, offset_to_index):
     if data is NULL:
         return None
 
@@ -761,7 +761,7 @@ cdef create(void* data):
             output.write('    ')
             output.write('if' if first else 'elif')
             output.write(f' tag == structs.{tag.name}:\n')
-            output.write(f'        return create_{name}(<structs.{name}*> data)\n')
+            output.write(f'        return create_{name}(<structs.{name}*> data, offset_to_index)\n')
             first = False
 
         elif name == 'Null':
@@ -799,7 +799,7 @@ cdef create(void* data):
     elif tag == structs.T_List:
         t = PyTuple_New((<structs.List *> data).length)
         for i in range((<structs.List *> data).length):
-            item = create(structs.list_nth(<structs.List *> data, i))
+            item = create(structs.list_nth(<structs.List *> data, i), offset_to_index)
             Py_INCREF(item)
             PyTuple_SET_ITEM(t, i, item)
         return t

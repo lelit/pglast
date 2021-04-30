@@ -265,8 +265,7 @@ def parse_sql(str query):
         if parsed.tree is not NULL:
             stmts = PyTuple_New(parsed.tree.length)
             for i in range(parsed.tree.length):
-                # TODO: pass down the fixup function to correct the node's "location" slot
-                item = create(structs.list_nth(parsed.tree, i))
+                item = create(structs.list_nth(parsed.tree, i), offset_to_index)
                 Py_INCREF(item)
                 PyTuple_SET_ITEM(stmts, i, item)
             return stmts

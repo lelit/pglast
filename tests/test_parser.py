@@ -79,6 +79,33 @@ def test_unicode():
     assert target.name == "Naïve"
 
 
+def test_locations_fixup():
+    sql = 'SELECT 1 AS "Naïve" /* there is an  "ı" with a  \u0308 above */ FROM somewhere'
+
+    sql3 = ';'.join([sql]*3)
+    ptree = parse_sql(sql3)
+    assert len(ptree) == 3
+
+    raw = ptree[0]
+    assert raw.stmt_location == 0
+    assert raw.stmt_len == len(sql)
+    fromc = raw.stmt.fromClause[0]
+    assert sql3[fromc.location:].startswith('somewhere')
+
+    raw = ptree[1]
+    assert raw.stmt_location == len(sql)+1
+    assert raw.stmt_len == len(sql)
+    fromc = raw.stmt.fromClause[0]
+    assert sql3[fromc.location:].startswith('somewhere')
+
+    raw = ptree[2]
+    assert raw.stmt_location == len(sql)*2+2
+    # For the last stmt, the stmt_len is 0...
+    assert raw.stmt_len == 0
+    fromc = raw.stmt.fromClause[0]
+    assert sql3[fromc.location:].startswith('somewhere')
+
+
 def test_pg_version():
     pg_version = get_postgresql_version()
     assert isinstance(pg_version, tuple)
