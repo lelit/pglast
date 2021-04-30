@@ -8,7 +8,6 @@
 
 #cython: language_level=3
 
-from cpython.array cimport array
 from cpython.bytes cimport PyBytes_AsStringAndSize, PyBytes_FromStringAndSize
 from cpython.list cimport PyList_New, PyList_SET_ITEM
 from libc.stdint cimport int32_t, uint64_t, uint8_t
@@ -177,32 +176,51 @@ cdef class Displacements:
     """
     Helper class used to find the index of Unicode character from its offset in the
     corresponding UTF-8 encoded array.
+
+    Example:
+
+      >>> unicode = '€ 0.01'
+      >>> utf8 = unicode.encode('utf-8')
+      >>> d = pglast.parser.Displacements(unicode)
+      >>> for offset in range(len(utf8)):
+      ...   print(f'{offset} [{utf8[offset]:2x}] -> {d(offset)} [{unicode[d(offset)]}]')
+      ...
+      0 [e2] -> 0 [€]
+      1 [82] -> 0 [€]
+      2 [ac] -> 0 [€]
+      3 [20] -> 1 [ ]
+      4 [30] -> 2 [0]
+      5 [2e] -> 3 [.]
+      6 [30] -> 4 [0]
+      7 [31] -> 5 [1]
     """
 
-    cdef array offsets
-    cdef array positions
+    # Build a sequence of (offset, index) tuples, for each character in the original string
+    # that requires more than one byte once encoded in UTF-8. The sequence is kept in reverse
+    # order, because to compute the index for an arbitrary offset we simply find the first
+    # tuple with an offset less than or equal the given offset.
+
+    cdef tuple displacements
     cdef unsigned long max_offset
 
     def __init__(self, str s):
-        self.offsets = array('L')
-        self.positions = array('L')
-
-        cdef unsigned long pos = 0
+        cdef unsigned long idx = 0
         cdef unsigned long ofs = 0
+        cdef size_t c_len_in_utf8
+
+        disps = []
         for c in s:
             c_len_in_utf8 = len(c.encode('utf-8'))
             if c_len_in_utf8 > 1:
                 while c_len_in_utf8 > 0:
-                    self.offsets.append(ofs)
-                    self.positions.append(pos)
+                    disps.append((ofs, idx))
                     c_len_in_utf8 -= 1
                     ofs += 1
             else:
                 ofs += 1
-            pos += 1
+            idx += 1
         self.max_offset = ofs - 1
-        self.offsets.reverse()
-        self.positions.reverse()
+        self.displacements = tuple(reversed(disps))
 
     def __call__(self, offset):
         if not 0 <= offset <= self.max_offset:
@@ -211,13 +229,9 @@ cdef class Displacements:
             # end of the string. Return None in such case
             return None
 
-        cdef unsigned int offs = offset
-        cdef unsigned int i
-        cdef unsigned int o
-
-        for i, o in enumerate(self.offsets):
-            if o <= offs:
-                return self.positions[i] + (offs - o)
+        for o, i in self.displacements:
+            if o <= offset:
+                return i + (offset - o)
 
         return offset
 
