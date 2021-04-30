@@ -21,6 +21,13 @@ V3
 
   __ https://github.com/lelit/pglast/issues/71
 
+- Cover almost all ``SQL`` statements, testing against the whole ``PostgreSQL`` `regression
+  suite`__ (`issue #68`, `PR #72`__ and `PR #77`___), thanks to Ronan Dunklau and Hong Cheng
+
+  __ https://github.com/pganalyze/libpg_query/tree/13-latest/test/sql/postgres_regress_
+  __ https://github.com/lelit/pglast/issues/68
+  __ https://github.com/lelit/pglast/pull/72
+  __ https://github.com/lelit/pglast/pull/77
 
 ~~~~~~~~~~~~~~~~~~~~
 **Breaking changes**
@@ -38,7 +45,7 @@ V3
 - The ``parse_sql()`` function returns native Python objects, not a ``JSON`` string as before:
   all PG *nodes* are now represented by subclasses of ``pglast.ast.Node``, without exception,
   even ``Expr`` and ``Value`` are there. The latter impacts on ``pglast.node.Scalar``: for
-  example it now may contain a ``ast.Integer`` instance instead of a Python ``int``
+  example it now may contains a ``ast.Integer`` instance instead of a Python ``int``
 
 - The ``pgpp --parse-tree`` output is a `pprint`__ represention of the ``AST``, not a ``JSON``
   string as before
