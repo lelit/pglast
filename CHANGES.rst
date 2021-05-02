@@ -22,7 +22,7 @@ V3
   __ https://github.com/lelit/pglast/issues/71
 
 - Cover almost all ``SQL`` statements, testing against the whole ``PostgreSQL`` `regression
-  suite`__ (`issue #68`, `PR #72`__ and `PR #77`___), thanks to Ronan Dunklau and Hong Cheng
+  suite`__ (`issue #68`__, `PR #72`__ and `PR #77`__), thanks to Ronan Dunklau and Hong Cheng
 
   __ https://github.com/pganalyze/libpg_query/tree/13-latest/test/sql/postgres_regress_
   __ https://github.com/lelit/pglast/issues/68
