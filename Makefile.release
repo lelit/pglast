@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:53:18 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
 #
 
 BUMPER := $(VENVDIR)/bin/bump_version
@@ -21,16 +21,11 @@ assert-clean-tree:
 	@(test -z "$(shell git status -s --untracked=no)" || \
 	  (echo "UNCOMMITTED STUFF" && false))
 
-.PHONY: assert-master-branch
-assert-master-branch:
-	@(test "$(shell git rev-parse --abbrev-ref HEAD)" = "master" || \
-	  (echo "NOT IN MASTER BRANCH" && false))
-
 help::
 	@printf "release\n\tBump version number\n"
 
 .PHONY: release
-release: printers-doc assert-master-branch assert-clean-tree
+release: printers-doc assert-clean-tree
 	$(BUMPER) $(VERSION_TXT)
 	@echo ">>>"
 	@echo ">>> Do your duties (update CHANGES.rst for example), then"
@@ -80,7 +75,7 @@ help::
 	@printf "pypi-upload\n\tUpload the source distribution to PyPI\n"
 
 .PHONY: pypi-upload
-pypi-upload: assert-master-branch assert-clean-tree
+pypi-upload: assert-clean-tree
 	@$(PYTHON) setup.py sdist
 	$(TWINE) upload dist/pglast-$(VERSION).tar.gz
 
