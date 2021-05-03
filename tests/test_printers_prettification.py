@@ -3,7 +3,7 @@
 # :Created:   dom 17 mar 2019 10:46:03 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2019, 2020 Lele Gaifax
+# :Copyright: © 2019, 2020, 2021 Lele Gaifax
 #
 
 from ast import literal_eval
@@ -11,6 +11,7 @@ from pathlib import Path
 
 import pytest
 
+from pglast import scan
 from pglast.printer import IndentedStream
 import pglast.printers
 
@@ -82,10 +83,15 @@ def test_prettification(src, lineno, case):
     parts = case.split('\n=\n')
     original = parts[0].strip()
     parts = parts[1].split('\n:\n')
-    expected = parts[0].strip().replace('\\n\\\n', '\n')
+    expected = parts[0].strip().replace('\\n\\\n', '\n').replace('\\s', ' ')
     if len(parts) == 2:
         options = literal_eval(parts[1])
     else:
         options = {}
+    if options.pop('preserve_comments', False):
+        comments = options['comments'] = []
+        for token in scan(original):
+            if token.name in ('C_COMMENT', 'SQL_COMMENT'):
+                comments.append((token.start, original[token.start:token.end+1]))
     prettified = IndentedStream(**options)(original)
     assert expected == prettified, "%s:%d:%r != %r" % (src, lineno, expected, prettified)

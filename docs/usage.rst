@@ -346,8 +346,12 @@ In this case, you can use a variant that uses the lexical *scanner* instead:
    select 1 from
    select 2
 
-Reformat a ``SQL`` statement from the command line
-==================================================
+------------
+Command line
+------------
+
+Reformat a ``SQL`` statement
+============================
 
 .. code-block:: shell
 
@@ -357,8 +361,7 @@ Reformat a ``SQL`` statement from the command line
         , c
    FROM sometable
 
-   $ echo "select a, case when a=1 then 'singular' else 'plural' end from test" > /tmp/q.sql
-   $ pgpp /tmp/q.sql
+   $ pgpp -S "select a, case when a=1 then 'singular' else 'plural' end from test"
    SELECT a
         , CASE
             WHEN (a = 1)
@@ -386,8 +389,7 @@ Get a more compact representation
 
 .. code-block:: shell
 
-   $ echo "select a,b,c from st where a='longvalue1' and b='longvalue2'" \
-          | pgpp --compact 30
+   $ pgpp --compact 30 -S "select a,b,c from st where a='longvalue1' and b='longvalue2'"
    SELECT a, b, c
    FROM st
    WHERE (a = 'longvalue1')
@@ -395,18 +397,17 @@ Get a more compact representation
 
 .. code-block:: shell
 
-   $ echo "select a,b,c from st where a='longvalue1' and b='longvalue2'" \
-          | pgpp --compact 60
+   $ pgpp --compact 60 -S "select a,b,c from st where a='longvalue1' and b='longvalue2'"
    SELECT a, b, c
    FROM st
    WHERE (a = 'longvalue1') AND (b = 'longvalue2')
 
-Obtain the *parse tree* of a ``SQL`` statement from the command line
-====================================================================
+Obtain the *parse tree* of a ``SQL`` statement
+==============================================
 
 .. code-block:: shell
 
-   $ echo "select 1" | pgpp --parse-tree
+   $ pgpp --parse-tree --statement "select 1"
    [{'@': 'RawStmt',
      'stmt': {'@': 'SelectStmt',
               'all': False,
@@ -420,6 +421,21 @@ Obtain the *parse tree* of a ``SQL`` statement from the command line
      'stmt_len': 0,
      'stmt_location': 0}]
 
+Preserve comments
+=================
+
+.. code-block:: shell
+
+   $ pgpp --preserve-comments -S "/* Header */ select 1"
+   /* Header */
+   SELECT 1
+
+.. code-block:: shell
+
+   $ echo -e "--what?\nselect foo\n--where?\nfrom bar" | pgpp -C
+   /* what? */
+   SELECT foo
+   FROM /* where? */ bar
 
 ---
 

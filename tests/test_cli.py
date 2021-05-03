@@ -113,3 +113,9 @@ WHERE foo <> 0
 SELECT 'abc'
        'def'
 """
+
+    with StringIO("Select /* one */ 1") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--preserve-comments'])
+            assert output.getvalue() == "SELECT /* one */ 1\n"

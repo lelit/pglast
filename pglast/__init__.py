@@ -10,7 +10,7 @@ from . import enums
 from .error import Error
 from .node import Missing, Node
 try:
-    from .parser import fingerprint, get_postgresql_version, parse_sql, split
+    from .parser import fingerprint, get_postgresql_version, parse_sql, scan, split
 except ModuleNotFoundError:
     # bootstrap
     pass
@@ -31,12 +31,13 @@ def parse_plpgsql(statement):
     return loads(parse_plpgsql_json(statement))
 
 
-def prettify(statement, safety_belt=True, **options):
+def prettify(statement, safety_belt=True, preserve_comments=False, **options):
     r"""Render given `statement` into a prettified format.
 
     :param str statement: the SQL statement(s)
     :param bool safety_belt: whether to perform a safe check against bugs in pglast's
                              serialization
+    :param bool preserve_comments: whether comments shall be preserved, defaults to not
     :param \*\*options: any keyword option accepted by :class:`~.printer.IndentedStream`
                         constructor
     :returns: a string with the equivalent prettified statement(s)
@@ -52,6 +53,12 @@ def prettify(statement, safety_belt=True, **options):
     import warnings
     from .printer import IndentedStream
     from . import printers  # noqa
+
+    if preserve_comments:
+        comments = options['comments'] = []
+        for token in scan(statement):
+            if token.name in ('C_COMMENT', 'SQL_COMMENT'):
+                comments.append((token.start, statement[token.start:token.end+1]))
 
     orig_pt = parse_sql(statement)
     prettified = IndentedStream(**options)(Node(orig_pt))

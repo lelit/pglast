@@ -13,7 +13,7 @@ from sys import stderr
 
 from . import parse_plpgsql, parse_sql
 from .error import Error
-from .node import List, Node, Scalar
+from .node import List, Missing, Node, Scalar
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
 
 
@@ -197,6 +197,7 @@ class RawStream(OutputStream):
     :param bool semicolon_after_last_statement:
            ``False`` by default, when ``True`` add a semicolon after the last statement,
            otherwise it is emitted only as a separator between multiple statements
+    :param comments: optional sequence of tuples with the comments extracted from the statement
 
     This augments :class:`OutputStream` and implements the basic machinery needed to serialize
     the *parse tree* produced by :func:`~.parser.parse_sql()` back to a textual representation,
@@ -204,14 +205,16 @@ class RawStream(OutputStream):
     """
 
     def __init__(self, expression_level=0, separate_statements=1, special_functions=False,
-                 comma_at_eoln=False, semicolon_after_last_statement=False):
+                 comma_at_eoln=False, semicolon_after_last_statement=False,
+                 comments=None):
         super().__init__()
+        self.current_column = 0
         self.expression_level = expression_level
         self.separate_statements = separate_statements
         self.special_functions = special_functions
         self.comma_at_eoln = comma_at_eoln
         self.semicolon_after_last_statement = semicolon_after_last_statement
-        self.current_column = 0
+        self.comments = comments
 
     def show(self, where=stderr):  # pragma: no cover
         """Emit also current expression_level and a "pointer" showing current_column."""
@@ -248,8 +251,14 @@ class RawStream(OutputStream):
                 for _ in range(self.separate_statements):
                     self.newline()
             self.print_node(statement)
+
         if self.semicolon_after_last_statement:
             self.write(';')
+
+        if self.comments:
+            while self.comments:
+                self.print_comment(self.comments.pop(0)[1])
+
         return self.getvalue()
 
     def dedent(self):
@@ -342,6 +351,33 @@ class RawStream(OutputStream):
         else:
             self.write(str(value))
 
+    def print_comment(self, comment):
+        if comment.startswith('--'):
+            comment = comment[2:].strip()
+        else:
+            comment = comment[2:-2].strip()
+        if comment:
+            cc = self.current_column
+            is_before_anything = self.tell() == 0
+            # if not is_before_anything:
+            #     self.newline()
+            self.write('/* ')
+            lines = comment.splitlines()
+            if len(lines) > 1:
+                with self.push_indent():
+                    for line in lines:
+                        self.write(line)
+                        self.newline()
+            else:
+                self.write(lines[0])
+                self.write(' ')
+            self.write('*/')
+            if is_before_anything:
+                self.newline()
+            else:
+                self.space()
+            self.current_column = cc
+
     def print_name(self, nodes, sep='.'):
         "Helper method, execute :meth:`print_node` or :meth:`print_list` as needed."
 
@@ -367,6 +403,17 @@ class RawStream(OutputStream):
         :param bool is_symbol:
                whether this is the name of an *operator*, should not be double quoted
         """
+
+        if self.comments:
+            if hasattr(node, 'location'):
+                node_location = getattr(node, 'location')
+            elif hasattr(node, 'stmt_location'):
+                node_location = getattr(node, 'stmt_location')
+            else:
+                node_location = Missing
+            if node_location is not Missing:
+                if self.comments[0][0] <= node_location.value:
+                    self.print_comment(self.comments.pop(0)[1])
 
         if isinstance(node, Scalar):
             self._print_scalar(node, is_name, is_symbol)
@@ -526,7 +573,7 @@ class IndentedStream(RawStream):
 
         self.indentation_stack.append(self.current_indent)
         base_indent = (self.current_column if relative else self.current_indent)
-        assert base_indent + amount >= 0
+        assert base_indent + amount >= 0, f'base_indent={base_indent} amount={amount}'
         self.current_indent = base_indent + amount
 
     @contextmanager
@@ -559,6 +606,11 @@ class IndentedStream(RawStream):
         "Emit consecutive spaces."
 
         self.write(' '*count)
+
+    def print_comment(self, comment):
+        ci = self.current_indent
+        super().print_comment(comment)
+        self.current_indent = ci
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
                    are_names=False, is_symbol=False):

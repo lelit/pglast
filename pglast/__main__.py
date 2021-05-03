@@ -35,6 +35,7 @@ def workhorse(args):
         try:
             prettified = prettify(
                 statement,
+                preserve_comments=args.preserve_comments,
                 compact_lists_margin=args.compact_lists_margin,
                 split_string_literals_threshold=args.split_string_literals,
                 special_functions=args.special_functions,
@@ -77,6 +78,8 @@ def main(options=None):
                         ' after each item')
     parser.add_argument('-e', '--semicolon-after-last-statement', action='store_true',
                         default=False, help='end the last statement with a semicolon')
+    parser.add_argument('-C', '--preserve-comments', action='store_true',
+                        default=False, help="preserve comments in the statement")
     parser.add_argument('-S', '--statement',
                         help='the SQL statement')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),

@@ -369,3 +369,13 @@ INTERSECT
  GROUP BY y
  LIMIT 3)
 LIMIT 2
+
+/*
+header
+*/ select /*one*/ 1
+/*footer*/
+=
+/* header */
+SELECT /* one */ 1 /* footer */\s
+:
+{'preserve_comments': True}
