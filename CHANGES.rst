@@ -29,6 +29,10 @@ V3
   __ https://github.com/lelit/pglast/pull/72
   __ https://github.com/lelit/pglast/pull/77
 
+- New rudimentary support for the `preserve comments` feature (`issue #23`__)
+
+  __ https://github.com/lelit/pglast/issues/23
+
 ~~~~~~~~~~~~~~~~~~~~
 **Breaking changes**
 ~~~~~~~~~~~~~~~~~~~~
