@@ -24,7 +24,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install bison flex
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
@@ -66,8 +65,6 @@ jobs:
           CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
           CIBW_SKIP: "cp2* cp33* cp34* cp35* pp*"
-          # This is required only in the v2 branch, using rdunklau fork
-          CIBW_BEFORE_BUILD: "yum -y install bison flex"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
