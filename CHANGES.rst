@@ -6,7 +6,7 @@ Changes
 V3
 ##
 
-3.0.dev0 (unreleased)
+3.0.dev0 (2021-05-03)
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Expose the new ``pg_query_scan()`` function as ``parser.scan()``
