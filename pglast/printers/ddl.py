@@ -169,7 +169,7 @@ def alter_default_privileges_stmt(node, output):
         output.print_list(action.grantees, ',')
         if action.behavior == enums.DropBehavior.DROP_CASCADE:
             output.newline()
-            output.swrite('CASCADE')
+            output.write('CASCADE')
 
 
 @node_printer('AlterFunctionStmt')
@@ -375,13 +375,6 @@ def range_var(node, output):
         output.print_name(alias)
 
 
-def print_drop_behavior(node, output):
-    if node.behavior == enums.DropBehavior.DROP_CASCADE:
-        output.write(' CASCADE')
-    elif node.behavior == enums.DropBehavior.DROP_RESTRICT:
-        pass
-
-
 class AlterTableTypePrinter(IntEnumPrinter):
     enum = enums.AlterTableType
 
@@ -573,7 +566,8 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_SetTableSpace(self, node, output):
         output.write('SET TABLESPACE ')
         output.print_name(node.name)
-        print_drop_behavior(node, output)
+        if node.behavior == enums.DropBehavior.DROP_CASCADE:
+            output.write(' CASCADE')
 
     def AT_DropExpression(self, node, output):
         output.write('ALTER COLUMN ')
@@ -592,7 +586,8 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write(' ADD ')
         if node.def_:
             output.print_node(node.def_)
-        print_drop_behavior(node, output)
+        if node.behavior == enums.DropBehavior.DROP_CASCADE:
+            output.write(' CASCADE')
 
     def AT_DropIdentity(self, node, output):
         output.write('ALTER COLUMN ')
@@ -604,7 +599,8 @@ class AlterTableTypePrinter(IntEnumPrinter):
             output.write('IF EXISTS ')
         if node.def_:
             output.print_node(node.def_)
-        print_drop_behavior(node, output)
+        if node.behavior == enums.DropBehavior.DROP_CASCADE:
+            output.swrite('CASCADE')
 
     def AT_NoForceRowSecurity(self, node, output):
         output.write('NO FORCE ROW LEVEL SECURITY ')
@@ -2421,7 +2417,7 @@ def drop_stmt(node, output):
         else:
             output.print_list(node.objects, ',', standalone_items=False, are_names=True)
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
-        output.write(' CASCADE')
+        output.swrite('CASCADE')
 
 
 @node_printer('DropSubscriptionStmt')
@@ -2521,8 +2517,8 @@ def grant_stmt(node, output):
         if node.is_grant and node.grant_option:
             output.newline()
             output.write('WITH GRANT OPTION')
-        if node.behavior:
-            print_drop_behavior(node, output)
+        if node.behavior == enums.DropBehavior.DROP_CASCADE:
+            output.write(' CASCADE')
 
 
 @node_printer('GrantRoleStmt')
