@@ -637,59 +637,51 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.print_name(node.name)
         if node.num.value > 0:
             output.print_node(node.num)
-        if node.def_ and isinstance(node.def_, List):
-            for elem in node.def_:
-                if elem.defname == 'restart' and elem.arg:
-                    output.write(f'RESTART {elem.arg.val}')
-                    output.write('RESTART')
-                elif elem.defname == 'restart' and (not elem.arg):
-                    output.write('RESTART')
+        for elem in node.def_:
+            if elem.defname == 'restart':
+                output.write('RESTART')
+                if elem.arg:
+                    output.write(' WITH ')
+                    output.print_node(elem.arg)
+            else:
+                output.write(' SET ')
+                if elem.defname == 'cache':
+                    output.write('CACHE ')
+                    output.print_node(elem.arg)
+                elif elem.defname == 'cycle':
+                    if elem.arg.val.value == 0:
+                        output.write('NO ')
+                    output.write('CYCLE')
+                elif elem.defname == 'increment':
+                    output.write('INCREMENT BY ')
+                    output.print_node(elem.arg)
+                elif elem.defname == 'maxvalue':
+                    if not elem.arg:
+                        output.write('NO ')
+                    output.write('MAXVALUE')
+                    if elem.arg:
+                        output.write(' ')
+                        output.print_node(elem.arg)
+                elif elem.defname == 'minvalue':
+                    if not elem.arg:
+                        output.write('NO ')
+                    output.write('MINVALUE')
+                    if elem.arg:
+                        output.write(' ')
+                        output.print_node(elem.arg)
+                elif elem.defname == 'sequence_name':
+                    output.write('SEQUENCE NAME ')
+                    output.print_name(elem.arg)
+                elif elem.defname == 'start':
+                    output.write('START WITH ')
+                    output.print_node(elem.arg)
                 elif elem.defname == 'generated':
-                    output.write('SET GENERATED ')
+                    output.write('GENERATED ')
                     if elem.arg.val == 97:
-                         output.write('ALWAYS')
+                        output.write('ALWAYS')
                     elif elem.arg.val == 100:
                         output.write('BY DEFAULT')
-                else:
-                    output.write(' SET ')
-                    if elem.defname == 'as':
-                        output.write('AS ')
-                        output.print_name(elem.arg)
-                    elif elem.defname == 'cache':
-                        output.write('CACHE ')
-                        output.print_node(elem.arg)
-                    elif elem.defname == 'cycle':
-                        output.write('CYCLE')
-                    elif elem.defname == 'increment':
-                        output.write('INCREMENT BY ')
-                        output.print_node(elem.arg)
-                    elif elem.defname == 'maxvalue' and elem.arg:
-                        output.write('MAXVALUE ')
-                        output.print_node(elem.arg)
-                    elif elem.defname == 'minvalue' and (not elem.arg):
-                        output.write('NO MINVALUE')
-                    elif elem.defname == 'minvalue' and elem.arg:
-                        output.write('MINVALUE ')
-                        output.print_node(elem.arg)
-                    elif elem.defname == 'minvalue' and (not elem.arg):
-                        output.write('NO MINVALUE')
-                    elif elem.defname == 'owned_by':
-                        output.write('OWNED BY ')
-                        output.print_node(elem.arg)
-                    elif elem.defname == 'sequence_name':
-                        output.write('SEQUENCE NAME ')
-                        output.print_node(elem.arg)
-                    elif elem.defname == 'start':
-                        output.write('START WITH ')
-                        output.print_node(elem.arg)
-                    elif elem.defname == 'restart' and (not elem.arg):
-                        output.write('RESTART')
-                    elif elem.defname == 'restart' and elem.arg:
-                        output.write('RESTART ')
-                        output.print_node(elem.arg)
-        else:
-            output.print_node(node.def_)
-        print_drop_behavior(node, output)
+
 
 alter_table_type_printer = AlterTableTypePrinter()
 
