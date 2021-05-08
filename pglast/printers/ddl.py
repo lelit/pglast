@@ -2138,7 +2138,7 @@ def create_trig_stmt(node, output):
 
 
 @node_printer('CreateSubscriptionStmt', 'DefElem')
-def alter_operator_stmt_def_elem(node, output):
+def create_subscription_stmt_stmt_def_elem(node, output):
     output.print_name(node.defname)
     if node.arg:
         output.write(' = ')
@@ -2680,30 +2680,30 @@ def object_with_args(node, output):
 
 
 @node_printer(('AlterObjectSchemaStmt',), 'ObjectWithArgs')
-def object_with_args(node, output):
+def alter_object_schema_stmt_object_with_args(node, output):
     symbol = node.parent_node.objectType == enums.ObjectType.OBJECT_OPERATOR
     _object_with_args(node, output, symbol=symbol)
 
 
 @node_printer(('AlterOperatorStmt',), 'ObjectWithArgs')
-def object_with_args(node, output):
+def alter_operator_stmt_object_with_args(node, output):
     _object_with_args(node, output, unquote_name=True)
 
 
 @node_printer(('AlterOwnerStmt',), 'ObjectWithArgs')
-def object_with_args(node, output):
+def alter_owner_stmt_object_with_args(node, output):
     unquote_name = node.parent_node.objectType == enums.ObjectType.OBJECT_OPERATOR
     _object_with_args(node, output, unquote_name=unquote_name)
 
 
 @node_printer(('CommentStmt',), 'ObjectWithArgs')
-def object_with_args(node, output):
+def comment_stmt_object_with_args(node, output):
     unquote_name = node.parent_node.objtype == enums.ObjectType.OBJECT_OPERATOR
     _object_with_args(node, output, unquote_name=unquote_name)
 
 
 @node_printer(('DropStmt',), 'ObjectWithArgs')
-def object_with_args(node, output):
+def drop_stmt_object_with_args(node, output):
     unquote_name = node.parent_node.removeType == enums.ObjectType.OBJECT_OPERATOR
     if node.parent_node.removeType == enums.ObjectType.OBJECT_AGGREGATE:
         _object_with_args(node, output, empty_placeholder='*', unquote_name=unquote_name)
@@ -3113,7 +3113,7 @@ def view_stmt(node, output):
 
 
 @node_printer('ViewStmt', 'DefElem')
-def alter_operator_stmt_def_elem(node, output):
+def view_stmt_def_elem(node, output):
     output.print_symbol(node.defname)
     if node.arg:
         output.write(' = ')
