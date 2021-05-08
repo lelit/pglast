@@ -220,6 +220,7 @@ def alter_operator_stmt(node, output):
 @node_printer('AlterOperatorStmt', 'DefElem')
 def alter_operator_stmt_def_elem(node, output):
     if node.defnamespace:
+        # FIXME: find a way to get here
         output.print_name(node.defnamespace)
         output.write('.')
     output.print_name(node.defname)
@@ -371,6 +372,7 @@ def range_var(node, output):
     output.print_name(node.relname)
     alias = node.alias
     if alias:
+        # FIXME: find a way to get here
         output.write(' AS ')
         output.print_name(alias)
 
