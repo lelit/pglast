@@ -6,6 +6,7 @@
 /.emacs.desktop.lock
 /.pytest_cache/
 /build/
+/coverage.json
 /dist/
 /docs/_build/
 /emacs.desktop

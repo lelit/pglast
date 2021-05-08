@@ -137,11 +137,13 @@ help::
 	@printf "check\n\trun the test suite\n"
 
 PYTEST = $(VENVDIR)/bin/pytest $(PYTEST_OPTIONS)
+COVERAGE = $(VENVDIR)/bin/coverage
 
 .PHONY: check
 check: build
 	$(PYTEST) tests/
 	$(MAKE) -C docs SPHINXBUILD=$(SPHINXBUILD) doctest
+	$(COVERAGE) json -o $(TOPDIR)/coverage.json
 
 include Makefile.virtualenv
 include Makefile.release
