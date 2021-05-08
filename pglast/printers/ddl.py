@@ -1718,6 +1718,38 @@ def create_policy_stmt(node, output):
         output.print_node(node.with_check)
         output.write(')')
 
+
+@node_printer('CreatePublicationStmt')
+def create_publication_stmt(node, output):
+    output.write('CREATE PUBLICATION ')
+    output.print_name(node.pubname)
+    output.write(' ')
+    if node.tables:
+        output.write('FOR TABLE ')
+        output.print_list(node.tables, ',')
+    elif node.for_all_tables:
+        output.write('FOR ALL TABLES ')
+    if  node.options:
+        output.write('WITH (')
+        output.print_list(node.options, ',')
+        output.write(')')
+
+
+@node_printer('CreatePublicationStmt', 'RangeVar')
+def create_publication_stmt_range_var(node, output):
+    OT = enums.ObjectType
+    if not node.inh:
+        output.write('ONLY ')
+    if node.schemaname:
+        output.print_name(node.schemaname)
+        output.write('.')
+    output.print_name(node.relname)
+    alias = node.alias
+    if alias:
+        output.write(' AS ')
+        output.print_name(alias)
+
+
 @node_printer('CreateRangeStmt')
 def create_range_stmt(node, output):
     output.write('CREATE TYPE ')
@@ -2133,22 +2165,6 @@ def current_of_expr(node, output):
     output.print_name(node.cursor_name)
 
 
-@node_printer('CreatePublicationStmt')
-def create_publication_stmt(node, output):
-    output.write('CREATE PUBLICATION ')
-    output.print_name(node.pubname)
-    output.write(' ')
-    if node.tables:
-        output.write('FOR TABLE ')
-        output.print_list(node.tables, ',')
-    elif node.for_all_tables:
-        output.write('FOR ALL TABLES ')
-    if  node.options:
-        output.write('WITH (')
-        output.print_list(node.options, ',')
-        output.write(')')
-
-
 @node_printer('CreateTransformStmt')
 def create_transform_stmt(node, output):
     output.write('CREATE ')
@@ -2168,20 +2184,6 @@ def create_transform_stmt(node, output):
         output.write('TO SQL WITH FUNCTION ')
         output.print_node(node.tosql)
     output.write(')')
-
-@node_printer('CreatePublicationStmt', 'RangeVar')
-def range_var(node, output):
-    OT = enums.ObjectType
-    if not node.inh:
-        output.write('ONLY ')
-    if node.schemaname:
-        output.print_name(node.schemaname)
-        output.write('.')
-    output.print_name(node.relname)
-    alias = node.alias
-    if alias:
-        output.write(' AS ')
-        output.print_name(alias)
 
 
 @node_printer('ClosePortalStmt')
