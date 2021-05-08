@@ -741,31 +741,43 @@ class AlterTSConfigTypePrinter(IntEnumPrinter):
             output.write('ALTER MAPPING FOR ')
             self.print_simple_list(node.tokentype, output)
             output.newline()
-            output.write('WITH ')
-            self.print_simple_list(node.dicts, output)
+        output.write('WITH ')
+        self.print_simple_list(node.dicts, output)
 
     def ALTER_TSCONFIG_REPLACE_DICT(self, node, output):
-        output.write('ALTER MAPPING REPLACE ')
-        old, new = node.dicts
-        self.print_simple_name(old, output)
+        output.newline()
+        output.space(2)
+        with output.push_indent():
+            output.write('ALTER MAPPING REPLACE ')
+            old, new = node.dicts
+            self.print_simple_name(old, output)
+            output.newline()
         output.write(' WITH ')
         self.print_simple_name(new, output)
 
     def ALTER_TSCONFIG_REPLACE_DICT_FOR_TOKEN(self, node, output):
-        output.write('ALTER MAPPING FOR ')
-        self.print_simple_list(node.tokentype, output)
-        output.write(' REPLACE ')
-        old, new = node.dicts
-        self.print_simple_name(old, output)
+        output.newline()
+        output.space(2)
+        with output.push_indent():
+            output.write('ALTER MAPPING FOR ')
+            self.print_simple_list(node.tokentype, output)
+            output.newline()
+            output.write('REPLACE ')
+            old, new = node.dicts
+            self.print_simple_name(old, output)
+            output.newline()
         output.write(' WITH ')
         self.print_simple_name(new, output)
 
     def ALTER_TSCONFIG_DROP_MAPPING(self, node, output):
-        output.write('DROP MAPPING ')
-        if node.missing_ok:
-            output.write('IF EXISTS ')
-        output.write('FOR ')
-        self.print_simple_list(node.tokentype, output)
+        output.newline()
+        output.space(2)
+        with output.push_indent():
+            output.write('DROP MAPPING ')
+            if node.missing_ok:
+                output.write('IF EXISTS ')
+            output.write('FOR ')
+            self.print_simple_list(node.tokentype, output)
 
 
 alter_ts_config_type_printer = AlterTSConfigTypePrinter()
