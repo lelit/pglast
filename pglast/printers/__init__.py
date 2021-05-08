@@ -22,14 +22,15 @@ class IntEnumPrinter:
     def __call__(self, value, node, output):
         from ..node import Missing, Scalar
 
-        if value is Missing:
+        if value is Missing:  # pragma: no cover
+            # Should never happen, but better safe than sorry
             for symbol, member in self.enum.__members__.items():
                 if member.value == 0:
                     break
             else:
                 raise ValueError(f"Could not determine default value of class {self.enum!r}")
         elif isinstance(value, Scalar):
-            if isinstance(value.value, str):
+            if isinstance(value.value, str):  # pragma: no cover
                 # libpg_query 13+ emits enum names, not values
                 symbol = value.value
                 assert symbol in self.enum.__members__
@@ -37,10 +38,10 @@ class IntEnumPrinter:
                 symbol = self.value_to_symbol.get(value.value)
         else:
             symbol = value
-        if symbol is None:  # pragma: nocover
+        if symbol is None:  # pragma: no cover
             raise ValueError(f"Invalid value {value!r}, not in class {self.enum!r}")
         method = getattr(self, symbol, None)
-        if method is None:  # pragma: nocover
+        if method is None:  # pragma: no cover
             raise NotImplementedError(f"Printer for {symbol!r} of {self.enum!r} not"
                                       f" implemented yet")
         method(node, output)
