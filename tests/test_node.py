@@ -53,3 +53,39 @@ def test_scalar():
     constraint.fk_matchtype = '\00'
     node = Node(constraint)
     assert not node.fk_matchtype
+
+
+def test_traverse():
+    root = Node(parse_sql('SELECT a, b, c FROM sometable'))
+    assert [repr(n) for n in root.traverse()] == [
+        "{RawStmt}",
+        "{SelectStmt}",
+        "<False>",
+        "{RangeVar}",
+        "<True>",
+        "<20>",
+        "<'sometable'>",
+        "<'p'>",
+        "<LimitOption.LIMIT_OPTION_DEFAULT: 0>",
+        "<SetOperation.SETOP_NONE: 0>",
+        "{ResTarget}",
+        "<7>",
+        "{ColumnRef}",
+        "{String}",
+        "<'a'>",
+        "<7>",
+        "{ResTarget}",
+        "<10>",
+        "{ColumnRef}",
+        "{String}",
+        "<'b'>",
+        "<10>",
+        "{ResTarget}",
+        "<13>",
+        "{ColumnRef}",
+        "{String}",
+        "<'c'>",
+        "<13>",
+        "<0>",
+        "<0>",
+    ]
