@@ -692,6 +692,7 @@ def alter_table_cmd(node, output):
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
         output.swrite('CASCADE')
 
+
 @node_printer('IndexStmt', 'DefElem')
 @node_printer('CreatePublicationStmt', 'DefElem')
 @node_printer('AlterTableCmd', 'DefElem')
@@ -895,6 +896,7 @@ def alter_foreign_server_stmt(node, output):
         else:
             output.write('NULL')
     alter_def_elem(node.options, output)
+
 
 @node_printer('AlterUserMappingStmt')
 def alter_user_mapping_stmt(node, output):
@@ -1429,6 +1431,7 @@ def create_fdw_stmt(node, output):
             output.print_list(node.options)
             output.write(')')
 
+
 @node_printer('ColumnDef', 'DefElem')
 @node_printer('CreateUserMappingStmt', 'DefElem')
 @node_printer('CreateFdwStmt', 'DefElem')
@@ -1870,6 +1873,7 @@ def create_seq_stmt(node, output):
         with output.push_indent():
             output.print_list(node.options, '')
 
+
 @node_printer('Constraint', 'DefElem')
 @node_printer('CreateSeqStmt', 'DefElem')
 @node_printer('AlterSeqStmt', 'DefElem')
@@ -2193,6 +2197,7 @@ def close_portal_stmt(node, output):
         output.print_name(node.portalname)
     else:
         output.write('ALL')
+
 
 @node_printer('CheckPointStmt')
 def close_portal_stmt(node, output):
@@ -2772,7 +2777,6 @@ def partition_spec(node, output):
 class ReindexKindPrinter(IntEnumPrinter):
     enum = enums.ReindexObjectType
 
-
     def _print_options(self, node, output):
         if node.concurrent:
             output.write('CONCURRENTLY ')
@@ -2801,6 +2805,7 @@ class ReindexKindPrinter(IntEnumPrinter):
         output.write('DATABASE ')
         self._print_options(node, output)
         output.print_name(node.name)
+
 
 reindex_kind_printer = ReindexKindPrinter()
 
