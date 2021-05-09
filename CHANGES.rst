@@ -6,6 +6,14 @@ Changes
 V3
 ##
 
+3.0.dev1 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+- Fix ``AT_SetIdentity``, ``AT_EnableReplicaTrig`` and ``AlterSubscriptionStmt`` printers
+
+- Improve ``AlterTSConfigType`` and ``IntoClause`` printers
+
+
 3.0.dev0 (2021-05-03)
 ~~~~~~~~~~~~~~~~~~~~~
 
