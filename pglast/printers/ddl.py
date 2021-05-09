@@ -615,6 +615,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
 
     def AT_EnableReplicaTrig(self, node, output):
         output.write('ENABLE REPLICA TRIGGER ')
+        output.print_name(node.name)
 
     def AT_EnableAlwaysTrig(self, node, output):
         output.write('ENABLE ALWAYS TRIGGER ')
