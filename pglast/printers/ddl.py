@@ -611,7 +611,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.print_name(node.name)
 
     def AT_DisableTrigUser(self, node, output):
-        output.write('DISABLE TRIGGER USER ')
+        output.write('DISABLE TRIGGER USER')
 
     def AT_EnableReplicaTrig(self, node, output):
         output.write('ENABLE REPLICA TRIGGER ')
