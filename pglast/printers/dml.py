@@ -688,11 +688,13 @@ def grouping_set(node, output):
     output.print_list(node.content, ',')
     output.write(')')
 
+
 @node_printer('GroupingFunc')
 def grouping_func(node, output):
     output.write(' GROUPING(')
     output.print_list(node.args)
     output.write(')')
+
 
 @node_printer('IndexElem')
 def index_elem(node, output):
@@ -1154,6 +1156,7 @@ def res_target(node, output):
         output.print_name(node.name)
     if node.indirection:
         print_indirection(node.indirection, output)
+
 
 @node_printer('RowExpr')
 def row_expr(node, output):

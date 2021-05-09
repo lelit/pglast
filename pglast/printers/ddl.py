@@ -217,6 +217,7 @@ def alter_operator_stmt(node, output):
     output.print_list(node.options)
     output.write(')')
 
+
 @node_printer('AlterOperatorStmt', 'DefElem')
 def alter_operator_stmt_def_elem(node, output):
     if node.defnamespace:
