@@ -890,7 +890,7 @@ def locking_clause(node, output):
 
 
 @node_printer('ListenStmt')
-def listen(node, output):
+def listen_stmt(node, output):
     output.write('LISTEN ')
     output.print_name(node.conditionname)
 
@@ -1080,7 +1080,7 @@ def range_table_func(node, output):
 
 
 @node_printer('RangeTableFunc', 'ResTarget')
-def res_target(node, output):
+def range_table_func_res_target(node, output):
     if not node.name:
         output.write('DEFAULT ')
     output.print_node(node.val)
@@ -1650,7 +1650,7 @@ def update_stmt(node, output):
 
 
 @node_printer('UnlistenStmt')
-def listen(node, output):
+def unlisten_stmt(node, output):
     output.write('UNLISTEN ')
     if node.conditionname:
         output.print_name(node.conditionname)

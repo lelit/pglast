@@ -1074,7 +1074,7 @@ def composite_type_stmt(node, output):
 
 
 @node_printer('CompositeTypeStmt', 'RangeVar')
-def range_var(node, output):
+def composite_type_stmt_range_var(node, output):
     # Ignore the inh attribute, that in the normal implementation emits "ONLY" when it is False
     if node.schemaname:
         output.print_name(node.schemaname)
@@ -2871,7 +2871,7 @@ def rename_stmt(node, output):
 
 
 @node_printer('RenameStmt', 'RangeVar')
-def range_var(node, output):
+def rename_stmt_range_var(node, output):
     OT = enums.ObjectType
     if not node.inh and node.parent_node.renameType not in (OT.OBJECT_ATTRIBUTE,
                                                             OT.OBJECT_TYPE):
