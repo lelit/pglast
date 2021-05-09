@@ -820,17 +820,22 @@ def alter_subscription_stmt(node, output):
         output.write('CONNECTION ')
         output.print_node(node.conninfo)
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_REFRESH:
-        output.write('REFRESH PUBLICATION ')
+        output.write('REFRESH PUBLICATION')
         if node.options:
-            output.print_name(node.options)
+            output.write(' WITH (')
+            output.print_list(node.options)
+            output.write(')')
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_PUBLICATION:
         output.write('SET PUBLICATION ')
-        output.print_name(node.publication)
+        output.print_list(node.publication, ',', are_names=True)
+        output.write(' WITH (')
+        output.print_list(node.options)
+        output.write(')')
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_ENABLED:
-        if node.options[0].arg.val.value == 1:
-            output.write('ENABLE')
-        elif node.options[0].arg.val.value == 2:
+        if node.options[0].arg.val.value == 0:
             output.write('DISABLE')
+        elif node.options[0].arg.val.value == 1:
+            output.write('ENABLE')
 
 
 @node_printer('AlterPublicationStmt')
@@ -2094,12 +2099,16 @@ def create_trig_stmt(node, output):
             output.write(')')
 
 
+@node_printer('AlterSubscriptionStmt', 'DefElem')
 @node_printer('CreateSubscriptionStmt', 'DefElem')
 def create_subscription_stmt_stmt_def_elem(node, output):
     output.print_name(node.defname)
     if node.arg:
         output.write(' = ')
-        output.print_node(node.arg)
+        if node.arg.node_tag == 'String' and node.arg.val.value in ('true', 'false'):
+            output.write(node.arg.val.value)
+        else:
+            output.print_node(node.arg)
 
 
 @node_printer('CreateSubscriptionStmt')
