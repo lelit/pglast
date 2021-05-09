@@ -2440,7 +2440,6 @@ def function_parameter(node, output):
         elif node.mode == pm.FUNC_PARAM_TABLE:
             pass  # function output column
         else:  # pragma: nocover
-            import pdb; pdb.set_trace()
             raise NotImplementedError
     if node.name:
         output.print_name(node.name)
