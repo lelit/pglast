@@ -792,24 +792,34 @@ def insert_stmt(node, output):
 @node_printer('IntoClause')
 def into_clause(node, output):
     output.print_node(node.rel)
-    if node.accessMethod:
-        output.write(' USING ')
-        output.print_name(node.accessMethod)
-    if node.options:
-        output.write(' WITH (')
-        output.print_list(node.options)
+    if node.colNames:
+        output.write(' (')
+        output.print_name(node.colNames, ',')
         output.write(')')
-    if node.onCommit != enums.OnCommitAction.ONCOMMIT_NOOP:
-        output.write(' ON COMMIT ')
-        if node.onCommit == enums.OnCommitAction.ONCOMMIT_PRESERVE_ROWS:
-            output.write('PRESERVE ROWS')
-        elif node.onCommit == enums.OnCommitAction.ONCOMMIT_DELETE_ROWS:
-            output.write('DELETE ROWS')
-        elif node.onCommit == enums.OnCommitAction.ONCOMMIT_DROP:
-            output.write('DROP')
-    if node.tableSpaceName:
-        output.write(' TABLESPACE ')
-        output.print_name(node.tableSpaceName)
+    output.newline()
+    with output.push_indent(2):
+        if node.accessMethod:
+            output.write('USING ')
+            output.print_name(node.accessMethod)
+            output.newline()
+        if node.options:
+            output.write('WITH (')
+            output.print_list(node.options)
+            output.write(')')
+            output.newline()
+        if node.onCommit != enums.OnCommitAction.ONCOMMIT_NOOP:
+            output.write('ON COMMIT ')
+            if node.onCommit == enums.OnCommitAction.ONCOMMIT_PRESERVE_ROWS:
+                output.write('PRESERVE ROWS')
+            elif node.onCommit == enums.OnCommitAction.ONCOMMIT_DELETE_ROWS:
+                output.write('DELETE ROWS')
+            elif node.onCommit == enums.OnCommitAction.ONCOMMIT_DROP:
+                output.write('DROP')
+            output.newline()
+        if node.tableSpaceName:
+            output.write('TABLESPACE ')
+            output.print_name(node.tableSpaceName)
+            output.newline()
 
 
 @node_printer('JoinExpr')

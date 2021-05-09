@@ -252,6 +252,17 @@ CREATE UNLOGGED TABLE IF NOT EXISTS "SomeSchema".films2 (id, title) AS
 CREATE TABLE films_recent AS
   SELECT * FROM films WHERE date_prod >= '2002-01-01'
 
+CREATE TEMP TABLE films_recent ON COMMIT PRESERVE ROWS AS
+  SELECT * FROM films WHERE date_prod >= '2002-01-01'
+
+CREATE TEMP TABLE films_recent ON COMMIT DELETE ROWS AS
+  SELECT * FROM films WHERE date_prod >= '2002-01-01'
+
+CREATE TEMP TABLE films_recent ON COMMIT DROP AS
+  EXECUTE recentfilms('2002-01-01');
+
 CREATE TABLE test AS SELECT * FROM t1 LIMIT 1;
+
+CREATE TABLE test WITHOUT OIDS AS SELECT * FROM t1;
 
 create table t1 (id int) using heap;

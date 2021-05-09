@@ -70,3 +70,13 @@ CREATE TABLE measurement_y2016m07 PARTITION OF measurement (
   unitsales WITH OPTIONS DEFAULT 0
 ) FOR VALUES FROM ('2016-07-01') TO ('2016-08-01')
   TABLESPACE olddata
+
+CREATE TEMP TABLE films_recent (title, director) ON COMMIT DELETE ROWS AS
+  SELECT title, director FROM films WHERE date_prod >= '2002-01-01'
+=
+CREATE TEMPORARY TABLE films_recent (title, director)
+  ON COMMIT DELETE ROWS
+  AS SELECT title
+          , director
+     FROM films
+     WHERE date_prod >= '2002-01-01'

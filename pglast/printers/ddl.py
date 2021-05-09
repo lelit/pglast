@@ -2020,60 +2020,20 @@ def create_stmt(node, output):
 @node_printer('CreateTableAsStmt')
 def create_table_as_stmt(node, output):
     output.writes('CREATE')
-    into = node.into
-    rel = into.rel
-    if rel.relpersistence == enums.RELPERSISTENCE_TEMP:
+    if node.into.rel.relpersistence == enums.RELPERSISTENCE_TEMP:
         output.writes('TEMPORARY')
-    elif rel.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
+    elif node.into.rel.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
         output.writes('UNLOGGED')
     output.writes(OBJECT_NAMES[node.relkind.value])
     if node.if_not_exists:
         output.writes('IF NOT EXISTS')
-    output.print_node(rel)
-    if into.colNames:
-        output.write(' (')
-        output.print_name(into.colNames, ',')
-        output.write(')')
-    if into.accessMethod:
-        output.write(' USING ')
-        output.print_name(into.accessMethod)
-    output.newline()
-    if into.options:
-        if len(into.options) == 1 and into.options[0].defname == 'oids':
-            output.space(2)
-            output.write('WITH')
-            if into.options[0].arg.ival.value == 0:
-                output.write
-                output.write('OUT')
-            output.write(' OIDS')
-        else:
-            output.space(2)
-            output.write('WITH (')
-            output.print_list(into.options)
-            output.write(')')
-        output.newline()
-    if into.onCommit != enums.OnCommitAction.ONCOMMIT_NOOP:
-        output.space(2)
-        output.write('ON COMMIT ')
-        if into.onCommit == enums.OnCommitAction.ONCOMMIT_PRESERVE_ROWS:
-            output.write('PRESERVE ROWS')
-        elif into.onCommit == enums.OnCommitAction.ONCOMMIT_DELETE_ROWS:
-            output.write('DELETE ROWS')
-        elif into.onCommit == enums.OnCommitAction.ONCOMMIT_DROP:
-            output.write('DROP')
-        output.newline()
-    if into.tableSpaceName:
-        output.space(2)
-        output.write('TABLESPACE ')
-        output.print_name(into.tableSpaceName)
-        output.newline()
+    output.print_node(node.into)
     output.space(2)
     output.write('AS ')
     with output.push_indent():
         output.print_node(node.query)
     if node.into.skipData:
         output.newline()
-        output.space(2)
         output.write('WITH NO DATA')
 
 
