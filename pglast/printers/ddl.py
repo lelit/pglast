@@ -2144,7 +2144,7 @@ def create_transform_stmt(node, output):
     output.print_name(node.type_name)
     output.write('LANGUAGE ')
     output.print_name(node.lang)
-    output.write('(')
+    output.write(' (')
     if node.fromsql:
         output.write('FROM SQL WITH FUNCTION ')
         output.print_node(node.fromsql)
