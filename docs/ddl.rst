@@ -123,11 +123,11 @@
    Pretty print a `node` of type `AlterTableCmd <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1866>`__ to the `output` stream.
 
 .. index::
-   pair: IndexStmt;DefElem
+   pair: AlterTableCmd;DefElem
 
 .. function:: alter_table_cmd_def_elem(node, output)
 
-   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `IndexStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2778>`__, to the `output` stream.
+   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `AlterTableCmd <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1866>`__, to the `output` stream.
 
 .. index::
    pair: CreatePublicationStmt;DefElem
@@ -137,18 +137,18 @@
    Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `CreatePublicationStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3520>`__, to the `output` stream.
 
 .. index::
-   pair: AlterTableCmd;DefElem
-
-.. function:: alter_table_cmd_def_elem(node, output)
-
-   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `AlterTableCmd <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1866>`__, to the `output` stream.
-
-.. index::
    pair: CreateStmt;DefElem
 
 .. function:: alter_table_cmd_def_elem(node, output)
 
    Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `CreateStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2075>`__, to the `output` stream.
+
+.. index::
+   pair: IndexStmt;DefElem
+
+.. function:: alter_table_cmd_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `IndexStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2778>`__, to the `output` stream.
 
 .. index::
    pair: IntoClause;DefElem
@@ -236,6 +236,12 @@
 
    Pretty print a `node` of type `AlterTypeStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2990>`__ to the `output` stream.
 
+.. index:: CheckPointStmt
+
+.. function:: check_point_stmt(node, output)
+
+   Pretty print a `node` of type `CheckPointStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3305>`__ to the `output` stream.
+
 .. index:: ClusterStmt
 
 .. function:: cluster_stmt(node, output)
@@ -263,7 +269,7 @@
 .. index::
    pair: CompositeTypeStmt;RangeVar
 
-.. function:: range_var(node, output)
+.. function:: composite_type_stmt_range_var(node, output)
 
    Pretty print a `node` of type `RangeVar <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/primnodes.h#L63>`__, when it is inside a `CompositeTypeStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3076>`__, to the `output` stream.
 
@@ -444,6 +450,19 @@
 
    Pretty print a `node` of type `CreatePolicyStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2391>`__ to the `output` stream.
 
+.. index:: CreatePublicationStmt
+
+.. function:: create_publication_stmt(node, output)
+
+   Pretty print a `node` of type `CreatePublicationStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3520>`__ to the `output` stream.
+
+.. index::
+   pair: CreatePublicationStmt;RangeVar
+
+.. function:: create_publication_stmt_range_var(node, output)
+
+   Pretty print a `node` of type `RangeVar <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/primnodes.h#L63>`__, when it is inside a `CreatePublicationStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3520>`__, to the `output` stream.
+
 .. index:: CreateRangeStmt
 
 .. function:: create_range_stmt(node, output)
@@ -457,18 +476,18 @@
    Pretty print a `node` of type `CreateRoleStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2512>`__ to the `output` stream.
 
 .. index::
-   pair: CreateRoleStmt;DefElem
-
-.. function:: create_or_alter_role_option(node, output)
-
-   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `CreateRoleStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2512>`__, to the `output` stream.
-
-.. index::
    pair: AlterRoleStmt;DefElem
 
 .. function:: create_or_alter_role_option(node, output)
 
    Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `AlterRoleStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2520>`__, to the `output` stream.
+
+.. index::
+   pair: CreateRoleStmt;DefElem
+
+.. function:: create_or_alter_role_option(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `CreateRoleStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2512>`__, to the `output` stream.
 
 .. index:: CreateSchemaStmt
 
@@ -528,9 +547,16 @@
    Pretty print a `node` of type `CreateTrigStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2433>`__ to the `output` stream.
 
 .. index::
+   pair: AlterSubscriptionStmt;DefElem
+
+.. function:: create_subscription_stmt_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `AlterSubscriptionStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3561>`__, to the `output` stream.
+
+.. index::
    pair: CreateSubscriptionStmt;DefElem
 
-.. function:: alter_operator_stmt_def_elem(node, output)
+.. function:: create_subscription_stmt_stmt_def_elem(node, output)
 
    Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `CreateSubscriptionStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3543>`__, to the `output` stream.
 
@@ -546,36 +572,17 @@
 
    Pretty print a `node` of type `CurrentOfExpr <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/primnodes.h#L1313>`__ to the `output` stream.
 
-.. index:: CreatePublicationStmt
-
-.. function:: create_publication_stmt(node, output)
-
-   Pretty print a `node` of type `CreatePublicationStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3520>`__ to the `output` stream.
-
 .. index:: CreateTransformStmt
 
 .. function:: create_transform_stmt(node, output)
 
    Pretty print a `node` of type `CreateTransformStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3413>`__ to the `output` stream.
 
-.. index::
-   pair: CreatePublicationStmt;RangeVar
-
-.. function:: range_var(node, output)
-
-   Pretty print a `node` of type `RangeVar <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/primnodes.h#L63>`__, when it is inside a `CreatePublicationStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3520>`__, to the `output` stream.
-
 .. index:: ClosePortalStmt
 
 .. function:: close_portal_stmt(node, output)
 
    Pretty print a `node` of type `ClosePortalStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2735>`__ to the `output` stream.
-
-.. index:: CheckPointStmt
-
-.. function:: close_portal_stmt(node, output)
-
-   Pretty print a `node` of type `CheckPointStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3305>`__ to the `output` stream.
 
 .. index:: CreateUserMappingStmt
 
@@ -713,35 +720,35 @@
 .. index::
    pair: AlterObjectSchemaStmt;ObjectWithArgs
 
-.. function:: object_with_args(node, output)
+.. function:: alter_object_schema_stmt_object_with_args(node, output)
 
    Pretty print a `node` of type `ObjectWithArgs <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1950>`__, when it is inside a `AlterObjectSchemaStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2952>`__, to the `output` stream.
 
 .. index::
    pair: AlterOperatorStmt;ObjectWithArgs
 
-.. function:: object_with_args(node, output)
+.. function:: alter_operator_stmt_object_with_args(node, output)
 
    Pretty print a `node` of type `ObjectWithArgs <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1950>`__, when it is inside a `AlterOperatorStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2979>`__, to the `output` stream.
 
 .. index::
    pair: AlterOwnerStmt;ObjectWithArgs
 
-.. function:: object_with_args(node, output)
+.. function:: alter_owner_stmt_object_with_args(node, output)
 
    Pretty print a `node` of type `ObjectWithArgs <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1950>`__, when it is inside a `AlterOwnerStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2966>`__, to the `output` stream.
 
 .. index::
    pair: CommentStmt;ObjectWithArgs
 
-.. function:: object_with_args(node, output)
+.. function:: comment_stmt_object_with_args(node, output)
 
    Pretty print a `node` of type `ObjectWithArgs <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1950>`__, when it is inside a `CommentStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2683>`__, to the `output` stream.
 
 .. index::
    pair: DropStmt;ObjectWithArgs
 
-.. function:: object_with_args(node, output)
+.. function:: drop_stmt_object_with_args(node, output)
 
    Pretty print a `node` of type `ObjectWithArgs <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L1950>`__, when it is inside a `DropStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2657>`__, to the `output` stream.
 
@@ -790,7 +797,7 @@
 .. index::
    pair: RenameStmt;RangeVar
 
-.. function:: range_var(node, output)
+.. function:: rename_stmt_range_var(node, output)
 
    Pretty print a `node` of type `RangeVar <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/primnodes.h#L63>`__, when it is inside a `RenameStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2920>`__, to the `output` stream.
 
@@ -876,6 +883,6 @@
 .. index::
    pair: ViewStmt;DefElem
 
-.. function:: alter_operator_stmt_def_elem(node, output)
+.. function:: view_stmt_def_elem(node, output)
 
    Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `ViewStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3131>`__, to the `output` stream.

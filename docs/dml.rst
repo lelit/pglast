@@ -273,7 +273,7 @@
 
 .. index:: ListenStmt
 
-.. function:: listen(node, output)
+.. function:: listen_stmt(node, output)
 
    Pretty print a `node` of type `ListenStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3028>`__ to the `output` stream.
 
@@ -346,7 +346,7 @@
 .. index::
    pair: RangeTableFunc;ResTarget
 
-.. function:: res_target(node, output)
+.. function:: range_table_func_res_target(node, output)
 
    Pretty print a `node` of type `ResTarget <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L438>`__, when it is inside a `RangeTableFunc <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L576>`__, to the `output` stream.
 
@@ -461,7 +461,7 @@
 
 .. index:: UnlistenStmt
 
-.. function:: listen(node, output)
+.. function:: unlisten_stmt(node, output)
 
    Pretty print a `node` of type `UnlistenStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3038>`__ to the `output` stream.
 
