@@ -696,10 +696,10 @@ def alter_table_cmd(node, output):
         output.swrite('CASCADE')
 
 
-@node_printer('IndexStmt', 'DefElem')
-@node_printer('CreatePublicationStmt', 'DefElem')
 @node_printer('AlterTableCmd', 'DefElem')
+@node_printer('CreatePublicationStmt', 'DefElem')
 @node_printer('CreateStmt', 'DefElem')
+@node_printer('IndexStmt', 'DefElem')
 @node_printer('IntoClause', 'DefElem')
 def alter_table_cmd_def_elem(node, output):
     if node.defnamespace:
@@ -977,6 +977,11 @@ def alter_type_stmt(node, output):
     output.write(' SET (')
     output.print_list(node.options, ',')
     output.write(')')
+
+
+@node_printer('CheckPointStmt')
+def check_point_stmt(node, output):
+    output.write('CHECKPOINT')
 
 
 @node_printer('ClusterStmt')
@@ -1792,8 +1797,8 @@ def create_role_stmt(node, output):
         output.print_list(node.options, sep=' ')
 
 
-@node_printer('CreateRoleStmt', 'DefElem')
 @node_printer('AlterRoleStmt', 'DefElem')
+@node_printer('CreateRoleStmt', 'DefElem')
 def create_or_alter_role_option(node, output):
     option = node.defname.value
     argv = node.arg
@@ -2200,11 +2205,6 @@ def close_portal_stmt(node, output):
         output.print_name(node.portalname)
     else:
         output.write('ALL')
-
-
-@node_printer('CheckPointStmt')
-def close_portal_stmt(node, output):
-    output.write('CHECKPOINT')
 
 
 @node_printer('CreateUserMappingStmt')
