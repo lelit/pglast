@@ -569,8 +569,6 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_SetTableSpace(self, node, output):
         output.write('SET TABLESPACE ')
         output.print_name(node.name)
-        if node.behavior == enums.DropBehavior.DROP_CASCADE:
-            output.write(' CASCADE')
 
     def AT_DropExpression(self, node, output):
         output.write('ALTER COLUMN ')
@@ -581,16 +579,12 @@ class AlterTableTypePrinter(IntEnumPrinter):
 
     def AT_AddIdentity(self, node, output):
         output.write('ALTER COLUMN ')
-        if node.missing_ok:
-            output.write('IF EXISTS ')
         output.print_name(node.name)
         if node.num.value > 0:
             output.print_node(node.num)
         output.write(' ADD ')
         if node.def_:
             output.print_node(node.def_)
-        if node.behavior == enums.DropBehavior.DROP_CASCADE:
-            output.write(' CASCADE')
 
     def AT_DropIdentity(self, node, output):
         output.write('ALTER COLUMN ')
@@ -600,10 +594,6 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write(' DROP IDENTITY ')
         if node.missing_ok:
             output.write('IF EXISTS ')
-        if node.def_:
-            output.print_node(node.def_)
-        if node.behavior == enums.DropBehavior.DROP_CASCADE:
-            output.swrite('CASCADE')
 
     def AT_NoForceRowSecurity(self, node, output):
         output.write('NO FORCE ROW LEVEL SECURITY ')
@@ -635,8 +625,6 @@ class AlterTableTypePrinter(IntEnumPrinter):
 
     def AT_SetIdentity(self, node, output):
         output.write('ALTER COLUMN ')
-        if node.missing_ok:
-            output.write('IF EXISTS ')
         output.print_name(node.name)
         if node.num.value > 0:
             output.print_node(node.num)
