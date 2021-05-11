@@ -192,37 +192,6 @@ Parse an ``SQL`` statement and get its *AST* root node
    >>> print(root)
    None=[1*{RawStmt}]
 
-Recursively :meth:`traverse <pglast.node.Node.traverse>` the parse tree
-=======================================================================
-
-.. doctest::
-
-   >>> for node in root.traverse():
-   ...   print(node)
-   ...
-   None[0]={RawStmt}
-   stmt={SelectStmt}
-   all=<False>
-   fromClause[0]={RangeVar}
-   inh=<True>
-   location=<16>
-   relname=<'bar'>
-   relpersistence=<'p'>
-   limitOption=<LimitOption.LIMIT_OPTION_DEFAULT: 0>
-   op=<SetOperation.SETOP_NONE: 0>
-   targetList[0]={ResTarget}
-   location=<7>
-   val={ColumnRef}
-   fields[0]={String}
-   val=<'foo'>
-   location=<7>
-   stmt_len=<0>
-   stmt_location=<0>
-
-As you can see, the ``repr``\ esentation of each value is mnemonic: ``{some_tag}`` means a
-``Node`` with tag ``some_tag``, ``[X*{some_tag}]`` is a ``List`` containing `X` nodes of that
-particular kind\ [*]_ and ``<value>`` is a ``Scalar``.
-
 Get a particular node
 =====================
 
@@ -260,6 +229,77 @@ Iterate over nodes
    location=<16>
    relname=<'bar'>
    relpersistence=<'p'>
+
+Recursively :meth:`traverse <pglast.node.Node.traverse>` the parse tree
+=======================================================================
+
+.. doctest::
+
+   >>> for node in root.traverse():
+   ...   print(node)
+   ...
+   None[0]={RawStmt}
+   stmt={SelectStmt}
+   all=<False>
+   fromClause[0]={RangeVar}
+   inh=<True>
+   location=<16>
+   relname=<'bar'>
+   relpersistence=<'p'>
+   limitOption=<LimitOption.LIMIT_OPTION_DEFAULT: 0>
+   op=<SetOperation.SETOP_NONE: 0>
+   targetList[0]={ResTarget}
+   location=<7>
+   val={ColumnRef}
+   fields[0]={String}
+   val=<'foo'>
+   location=<7>
+   stmt_len=<0>
+   stmt_location=<0>
+
+As you can see, the ``repr``\ esentation of each value is mnemonic: ``{some_tag}`` means a
+``Node`` with tag ``some_tag``, ``[X*{some_tag}]`` is a ``List`` containing `X` nodes of that
+particular kind\ [*]_ and ``<value>`` is a ``Scalar``.
+
+More powerful way to :class:`visit <pglast.visitors.Visitor>` the AST tree
+==========================================================================
+
+.. doctest::
+
+   >>> from collections import Counter
+   >>> from pglast.visitors import Visitor
+   >>>
+   >>> class Stats(Visitor):
+   ...     def __call__(self, node):
+   ...         self.counters = Counter()
+   ...         super().__call__(node)
+   ...         return self.counters
+   ...
+   ...     def visit(self, path, node):
+   ...         self.counters.update((node.__class__.__name__,))
+   ...
+   >>> stats = Stats()
+   >>> print(stats(parse_sql('select 1')))
+   Counter({'RawStmt': 1, 'SelectStmt': 1, 'ResTarget': 1, 'A_Const': 1, 'Integer': 1})
+
+.. doctest::
+
+   >>> class NoisyVisitor(Visitor):
+   ...     def visit(self, path, node):
+   ...         prefix = ' → '.join(f'[{i}]' if isinstance(i, int) else i[1] for i in path)
+   ...         print(prefix, ':', node(depth=0))
+   ...
+   >>> visitor = NoisyVisitor()
+   >>> visitor(parse_sql('select a, b from c'))
+   [0] : {'@': 'RawStmt', 'stmt': Ellipsis, 'stmt_location': 0, 'stmt_len': 0}
+   [0] → stmt : {'@': 'SelectStmt', 'distinctClause': None, 'intoClause': None, ...
+   [0] → stmt → targetList → [0] : {'@': 'ResTarget', 'name': None, 'indirection': None, ...
+   [0] → stmt → targetList → [1] : {'@': 'ResTarget', 'name': None, 'indirection': None, ...
+   [0] → stmt → fromClause → [0] : {'@': 'RangeVar', 'catalogname': None, 'schemaname': None, ...
+   [0] → stmt → targetList → [0] → val : {'@': 'ColumnRef', 'fields': Ellipsis, 'location': 7}
+   [0] → stmt → targetList → [1] → val : {'@': 'ColumnRef', 'fields': Ellipsis, 'location': 10}
+   [0] → stmt → targetList → [0] → val → fields → [0] : {'@': 'String', 'val': 'a'}
+   [0] → stmt → targetList → [1] → val → fields → [0] : {'@': 'String', 'val': 'b'}
 
 Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement\ [*]_
 =============================================================================

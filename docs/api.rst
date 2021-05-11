@@ -27,3 +27,4 @@ This chapter briefly explains some implementation detail.
    printer
    printers
    sfuncs
+   visitors
