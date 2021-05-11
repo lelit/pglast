@@ -349,7 +349,7 @@ AST_RST_HEADER = f"""\
 The module implements a set of *data* classes, one for each ``C`` structure defined in the
 PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.h``.
 
-.. module:: pglast.parser.ast
+.. module:: pglast.ast
 
 .. autoclass:: Node
    :special-members: __repr__, __eq__, __call__, __setattr__
@@ -360,7 +360,6 @@ PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.
 .. autoclass:: Integer
 .. autoclass:: Null
 .. autoclass:: String
-
 
 """
 
