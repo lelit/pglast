@@ -193,7 +193,7 @@ Parse an ``SQL`` statement and get its *AST* root node
    None=[1*{RawStmt}]
 
 Recursively :meth:`traverse <pglast.node.Node.traverse>` the parse tree
-=========================================================================
+=======================================================================
 
 .. doctest::
 
@@ -262,7 +262,7 @@ Iterate over nodes
    relpersistence=<'p'>
 
 Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement\ [*]_
-===============================================================================
+=============================================================================
 
 .. doctest::
 
@@ -293,7 +293,7 @@ Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement\ [*]_
       OR (value = 1))
 
 Customize a :func:`node printer <pglast.printer.node_printer>`
-================================================================
+==============================================================
 
 .. doctest::
 

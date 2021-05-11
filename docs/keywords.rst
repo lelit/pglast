@@ -3,12 +3,12 @@
 .. :Created:   gio 10 ago 2017 13:16:54 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2021 Lele Gaifax
 ..
 
-===================================================================
+=================================================================
  :mod:`pglast.keywords` --- Various kinds of PostgreSQL keywords
-===================================================================
+=================================================================
 
 .. module:: pglast.keywords
    :synopsis: Various kinds of PostgreSQL keywords
