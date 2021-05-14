@@ -467,8 +467,10 @@ class RawStream(OutputStream):
                case the last one must be printed verbatim (e.g. ``"MySchema".===``)
         """
 
-        if isinstance(nodes, Node):
-            assert nodes.node_tag == 'List'
+        if isinstance(nodes, Node):  # pragma: no cover
+            if nodes.node_tag != 'List':
+                raise ValueError("Unexpected value for 'nodes', must be either a List instance"
+                                 " or a sequence of Node instances, got %r" % type(nodes))
             nodes = nodes.items
 
         if relative_indent is None:
@@ -652,8 +654,10 @@ class IndentedStream(RawStream):
                must be printed verbatim (such as ``"MySchema".===``)
         """
 
-        if isinstance(nodes, Node):
-            assert nodes.node_tag == 'List'
+        if isinstance(nodes, Node):  # pragma: no cover
+            if nodes.node_tag != 'List':
+                raise ValueError("Unexpected value for 'nodes', must be either a List instance"
+                                 " or a sequence of Node instances, got %r" % type(nodes))
             nodes = nodes.items
 
         if standalone_items is None:
