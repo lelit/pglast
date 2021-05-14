@@ -713,7 +713,7 @@ class IndentedStream(RawStream):
                     self.write("'%s'" % chunk)
                     if s:
                         self.newline()
-                    else:
+                    else:  # pragma: no cover
                         break
 
     def write(self, s):
