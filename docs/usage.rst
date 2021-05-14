@@ -435,8 +435,6 @@ Get a more compact representation
    WHERE (a = 'longvalue1')
      AND (b = 'longvalue2')
 
-.. code-block:: shell
-
    $ pgpp --compact 60 -S "select a,b,c from st where a='longvalue1' and b='longvalue2'"
    SELECT a, b, c
    FROM st
@@ -467,15 +465,25 @@ Preserve comments
 .. code-block:: shell
 
    $ pgpp --preserve-comments -S "/* Header */ select 1"
-   /* Header */
-   SELECT 1
-
-.. code-block:: shell
+   /* Header */ SELECT 1
 
    $ echo -e "--what?\nselect foo\n--where?\nfrom bar" | pgpp -C
-   /* what? */
+   --what?
    SELECT foo
-   FROM /* where? */ bar
+   FROM
+      --where?
+   bar
+
+   $ echo -e "--what?\nselect foo\n/*where?*/from bar\n--end" | pgpp -C
+   --what?
+   SELECT foo
+   FROM
+      /*where?*/ bar
+   --end
+
+.. note:: Preserving comments is always hard and far from a perfect science: not all AST nodes
+          carry their exact location, so it is not possible to differentiate between
+          ``SELECT * /*comment*/ FROM foo`` and ``SELECT * FROM /*comment*/ foo``.
 
 ---
 

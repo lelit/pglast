@@ -6,6 +6,7 @@
 # :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
 #
 
+from collections import namedtuple
 from contextlib import contextmanager
 from io import StringIO
 from re import match
@@ -23,6 +24,10 @@ NODE_PRINTERS = {}
 
 SPECIAL_FUNCTIONS = {}
 "Registry of specialized function printers, keyed by their qualified name."
+
+
+Comment = namedtuple('Comment', ('location', 'text', 'at_start_of_line', 'continue_previous'))
+"A structure to carry information about a single SQL comment."
 
 
 class PrinterAlreadyPresentError(Error):
@@ -257,7 +262,7 @@ class RawStream(OutputStream):
 
         if self.comments:
             while self.comments:
-                self.print_comment(self.comments.pop(0)[1])
+                self.print_comment(self.comments.pop(0))
 
         return self.getvalue()
 
@@ -352,31 +357,24 @@ class RawStream(OutputStream):
             self.write(str(value))
 
     def print_comment(self, comment):
-        if comment.startswith('--'):
-            comment = comment[2:].strip()
+        "Print the given `comment`, unconditionally in the ``C`` syntax, joining all lines."
+
+        is_sql_comment = comment.text.startswith('--')
+        if is_sql_comment:
+            text = comment.text[2:].strip()
         else:
-            comment = comment[2:-2].strip()
-        if comment:
-            cc = self.current_column
-            is_before_anything = self.tell() == 0
-            # if not is_before_anything:
-            #     self.newline()
-            self.write('/* ')
-            lines = comment.splitlines()
+            text = comment.text[2:-2].strip()
+        if text:
+            self.swrite('/*')
+            lines = text.splitlines()
             if len(lines) > 1:
                 with self.push_indent():
                     for line in lines:
                         self.write(line)
-                        self.newline()
+                        self.write(' ')
             else:
                 self.write(lines[0])
-                self.write(' ')
-            self.write('*/')
-            if is_before_anything:
-                self.newline()
-            else:
-                self.space()
-            self.current_column = cc
+            self.writes('*/')
 
     def print_name(self, nodes, sep='.'):
         "Helper method, execute :meth:`print_node` or :meth:`print_list` as needed."
@@ -412,8 +410,11 @@ class RawStream(OutputStream):
             else:
                 node_location = Missing
             if node_location is not Missing:
-                if self.comments[0][0] <= node_location.value:
-                    self.print_comment(self.comments.pop(0)[1])
+                nextc = self.comments[0]
+                if nextc.location <= node_location.value:
+                    self.print_comment(self.comments.pop(0))
+                    while self.comments and self.comments[0].continue_previous:
+                        self.print_comment(self.comments.pop(0))
 
         if isinstance(node, Scalar):
             self._print_scalar(node, is_name, is_symbol)
@@ -608,9 +609,30 @@ class IndentedStream(RawStream):
         self.write(' '*count)
 
     def print_comment(self, comment):
-        ci = self.current_indent
-        super().print_comment(comment)
-        self.current_indent = ci
+        is_sql_comment = comment.text.startswith('--')
+        if is_sql_comment:
+            text = comment.text[2:].strip()
+        else:
+            text = comment.text[2:-2].strip()
+        if text:
+            ci = self.current_indent
+            cc = self.current_column
+            if self.tell() != 0 and comment.at_start_of_line and not comment.continue_previous:
+                self.newline()
+            lines = comment.text.splitlines()
+            if len(lines) > 1:
+                with self.push_indent():
+                    for line in lines:
+                        self.write(line)
+                        self.newline()
+            else:
+                self.write(lines[0])
+                if is_sql_comment:
+                    self.newline()
+                else:
+                    self.space()
+            self.current_column = cc
+            self.current_indent = ci
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
                    are_names=False, is_symbol=False):

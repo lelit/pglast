@@ -375,7 +375,40 @@ header
 */ select /*one*/ 1
 /*footer*/
 =
-/* header */
-SELECT /* one */ 1 /* footer */\s
+/*
+header
+*/
+SELECT /*one*/ 1
+/*footer*/\s
 :
 {'preserve_comments': True}
+
+-- header 1
+-- header 2
+select /*one*/ 1
+/*
+long
+footer
+*/
+=
+-- header 1
+-- header 2
+SELECT /*one*/ 1
+/*
+long
+footer
+*/\
+:
+{'preserve_comments': True}
+
+-- header 1
+-- header 2
+select /*one*/ 1
+/*
+long
+footer
+*/
+=
+/*header 1*/ /*header 2*/ SELECT /*one*/ 1 /*long footer */
+:
+{'preserve_comments': True, 'raw_stream': True}

@@ -11,8 +11,8 @@ from pathlib import Path
 
 import pytest
 
-from pglast import scan
-from pglast.printer import IndentedStream
+from pglast import _extract_comments
+from pglast.printer import IndentedStream, RawStream
 import pglast.printers
 
 
@@ -73,6 +73,8 @@ def make_id(arg):
 #   INTERSECT
 #   \n\
 #   SELECT bar
+#
+# When it ends with a "\", it is replaced with a final newline.
 
 @pytest.mark.parametrize('src,lineno,case',
                          ((src, lineno, case)
@@ -84,14 +86,14 @@ def test_prettification(src, lineno, case):
     original = parts[0].strip()
     parts = parts[1].split('\n:\n')
     expected = parts[0].strip().replace('\\n\\\n', '\n').replace('\\s', ' ')
+    if expected.endswith('\\'):
+        expected = expected[:-1] + '\n'
     if len(parts) == 2:
         options = literal_eval(parts[1])
     else:
         options = {}
     if options.pop('preserve_comments', False):
-        comments = options['comments'] = []
-        for token in scan(original):
-            if token.name in ('C_COMMENT', 'SQL_COMMENT'):
-                comments.append((token.start, original[token.start:token.end+1]))
-    prettified = IndentedStream(**options)(original)
+        options['comments'] = _extract_comments(original)
+    raw = options.pop('raw_stream', False)
+    prettified = (RawStream if raw else IndentedStream)(**options)(original)
     assert expected == prettified, "%s:%d:%r != %r" % (src, lineno, expected, prettified)

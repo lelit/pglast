@@ -31,6 +31,33 @@ def parse_plpgsql(statement):
     return loads(parse_plpgsql_json(statement))
 
 
+def _extract_comments(statement):
+    from .printer import Comment
+
+    lines = []
+    lofs = 0
+    for line in statement.splitlines(True):
+        llen = len(line)
+        lines.append((lofs, lofs+llen, line))
+        lofs += llen
+    comments = []
+    continue_previous = False
+    for token in scan(statement):
+        if token.name in ('C_COMMENT', 'SQL_COMMENT'):
+            for bol_ofs, eol_ofs, line in lines:
+                if bol_ofs <= token.start < eol_ofs:
+                    break
+            else:
+                raise RuntimeError('Uhm, logic error!')
+            at_start_of_line = not line[:token.start - bol_ofs].strip()
+            text = statement[token.start:token.end+1]
+            comments.append(Comment(token.start, text, at_start_of_line, continue_previous))
+            continue_previous = True
+        else:
+            continue_previous = False
+    return comments
+
+
 def prettify(statement, safety_belt=True, preserve_comments=False, **options):
     r"""Render given `statement` into a prettified format.
 
@@ -51,14 +78,11 @@ def prettify(statement, safety_belt=True, preserve_comments=False, **options):
     # Intentional lazy imports, so the modules are loaded on demand
 
     import warnings
-    from .printer import IndentedStream
+    from .printer import Comment, IndentedStream
     from . import printers  # noqa
 
     if preserve_comments:
-        comments = options['comments'] = []
-        for token in scan(statement):
-            if token.name in ('C_COMMENT', 'SQL_COMMENT'):
-                comments.append((token.start, statement[token.start:token.end+1]))
+        options['comments'] = _extract_comments(statement)
 
     orig_pt = parse_sql(statement)
     prettified = IndentedStream(**options)(Node(orig_pt))
