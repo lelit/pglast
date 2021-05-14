@@ -13,6 +13,13 @@ V3
 
 - Improve ``AlterTSConfigType`` and ``IntoClause`` printers
 
+- New generic "visitor pattern" (`issue #51`__) exemplified by a new
+  ``referenced_relations()`` function (`issue #66`__)
+
+  __ https://github.com/lelit/pglast/issues/51
+  __ https://github.com/lelit/pglast/issues/66
+
+- Refine printing of SQL comments
 
 3.0.dev0 (2021-05-03)
 ~~~~~~~~~~~~~~~~~~~~~
