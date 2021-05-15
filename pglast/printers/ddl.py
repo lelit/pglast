@@ -3085,9 +3085,9 @@ def view_stmt(node, output):
     if node.replace:
         output.write('OR REPLACE ')
     if node.view.relpersistence == enums.RELPERSISTENCE_TEMP:
-        output.writes('TEMPORARY ')
+        output.write('TEMPORARY ')
     elif node.view.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
-        output.writes('UNLOGGED ')
+        output.write('UNLOGGED ')
     output.write('VIEW ')
     output.print_node(node.view)
     if node.aliases:
