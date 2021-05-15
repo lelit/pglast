@@ -78,7 +78,7 @@ def prettify(statement, safety_belt=True, preserve_comments=False, **options):
     # Intentional lazy imports, so the modules are loaded on demand
 
     import warnings
-    from .printer import Comment, IndentedStream
+    from .printer import IndentedStream
     from . import printers  # noqa
 
     if preserve_comments:

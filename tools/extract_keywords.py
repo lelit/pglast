@@ -3,14 +3,13 @@
 # :Created:   dom 06 ago 2017 23:34:53 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
 from collections import defaultdict
 from os.path import basename
 from pprint import pformat
 from re import match
-import subprocess
 
 
 HEADER = """\
@@ -36,6 +35,7 @@ def get_target_pg_version():
                                ' in libpg_query/Makefile!')
 
     return pg_version
+
 
 def extract_keywords(source):
     for line in source.splitlines():

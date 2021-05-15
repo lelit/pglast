@@ -140,7 +140,8 @@ def extract_defines(source):
 
     for line in source.splitlines():
         if line and line.startswith('#define'):
-            m = match(r"#define\s+([a-zA-Z_]+)\s+\(?(\d+\s*<<\s*\d+|(0x)?\d+|'[a-zA-Z]')\)?", line)
+            m = match(r"#define\s+([a-zA-Z_]+)\s+\(?(\d+\s*<<\s*\d+|(0x)?\d+|'[a-zA-Z]')\)?",
+                      line)
             if m is not None:
                 yield m.group(1), m.group(2)
             else:

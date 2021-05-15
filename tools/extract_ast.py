@@ -110,8 +110,6 @@ class Node:
         tuples and ``Enum`` instances become dictionaries with a special ``#`` key carrying the
         enum name.'''
 
-        from enum import Enum
-
         d = {{'@': self.__class__.__name__}}
         for a in self:
             v = getattr(self, a)
@@ -164,7 +162,8 @@ class Node:
                     value = set(value)
             elif ctype == 'List*':
                 G = globals()
-                value = tuple(G[i['@']](i) if isinstance(i, dict) and '@' in i else i for i in value)
+                value = tuple(G[i['@']](i) if isinstance(i, dict) and '@' in i else i
+                              for i in value)
             elif ctype != 'char*':
                 from pglast import enums
 
@@ -384,8 +383,6 @@ def extract_toc(header):
 
     content = header.read_text(encoding='utf-8')
 
-    in_typedef_enum = 0
-
     for lineno, line in enumerate(content.splitlines(), 1):
         if line.startswith(('struct ', 'typedef struct ')):
             m = match(r'(typedef )?struct\s+([\w_]+)', line)
@@ -431,7 +428,7 @@ def emit_struct_def(name, fields, output):
         empty = False
 
     if empty:
-        output.write(f'        pass\n')
+        output.write('        pass\n')
 
 
 def emit_generic_attr(name, ctype, output):
@@ -572,7 +569,6 @@ def emitter_for(fname, ctype, enums):
         emitter = emit_create_stmt_attr
     elif ctype == 'Expr':
         emitter = emit_no_attr
-        superclass = 'Expr'
     elif ctype == 'NodeTag':
         emitter = emit_no_attr
     elif ctype == 'Value':
@@ -649,6 +645,7 @@ def emit_node_def(name, fields, enums, url, output, doc):
 
 class {name}({superclass}):
     __slots__ = {{{', '.join(repr(a)+': '+repr(t) for a, t in real_attrs)}}}
+
 ''')
 
     if real_attrs:
@@ -738,7 +735,6 @@ cdef create_{name}(structs.{name}* data, offset_to_index):
     return ast.{name}({', '.join(f'v_{attr}' for attr, __ in real_attrs)})
 ''')
 
-
     output.write('''\
 
 
@@ -752,7 +748,6 @@ cdef create(void* data, offset_to_index):
 
 ''')
 
-    tags = sorted(eimpl.NodeTag)
     first = True
     for tag in eimpl.NodeTag:
         name = tag.name[2:]
@@ -887,7 +882,9 @@ def _fixup_attribute_types_in_slots():
 
     for cls in traverse_sub_classes(Node):
         slots = cls.__slots__
-        if not (slots and isinstance(slots, dict) and isinstance(next(iter(slots.values())), str)):
+        if not (slots
+                and isinstance(slots, dict)
+                and isinstance(next(iter(slots.values())), str)):
             continue
         for attr in slots:
             adaptor = None

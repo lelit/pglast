@@ -119,7 +119,7 @@ def alter_extension_stmt_def_elem(node, output):
 
 
 @node_printer('AlterExtensionContentsStmt')
-def alter_database_set_stmt(node, output):
+def alter_extension_contents_stmt(node, output):
     output.write('ALTER EXTENSION ')
     output.print_name(node.extname)
     if node.action == -1:
@@ -871,7 +871,7 @@ def alter_publication_stmt(node, output):
         elif node.tableAction == enums.DefElemAction.DEFELEM_DROP:
             output.write('DROP TABLE ')
         output.print_list(node.tables, ',')
-    elif  node.options:
+    elif node.options:
         output.write('SET (')
         output.print_list(node.options, ',')
         output.write(')')
@@ -901,6 +901,7 @@ def alter_fdw_stmt_def_elem(node, output):
             output.writes('NO VALIDATOR')
     if node.arg:
         output.print_name(node.arg)
+
 
 @node_printer('AlterForeignServerStmt')
 def alter_foreign_server_stmt(node, output):
@@ -1757,7 +1758,7 @@ def create_publication_stmt(node, output):
         output.print_list(node.tables, ',')
     elif node.for_all_tables:
         output.write('FOR ALL TABLES ')
-    if  node.options:
+    if node.options:
         output.write('WITH (')
         output.print_list(node.options, ',')
         output.write(')')
@@ -2231,8 +2232,8 @@ def define_stmt(node, output):
         if count == -1:
             # Special case: if it's an aggregate, and the scalar is equal to
             # None (not is, since it's a Scalar), write a star
-            if (node.kind.value == enums.ObjectType.OBJECT_AGGREGATE
-                and args == None):
+            if ((node.kind.value == enums.ObjectType.OBJECT_AGGREGATE
+                 and args == None)):
                 output.write('*')
                 actual_args = []
                 orderby_args = []
@@ -2346,7 +2347,6 @@ def drop_db_stmt(node, output):
         output.write(' (')
         output.print_list(node.options)
         output.write(')')
-
 
 
 @node_printer('DropOwnedStmt')

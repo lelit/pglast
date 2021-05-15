@@ -1539,6 +1539,7 @@ def type_cast(node, output):
     output.print_node(node.typeName)
     output.write(')')
 
+
 # Constants taken from PG's include/utils/datetime.h: seem safe to assume they won't change
 
 MONTH = 1 << 1
