@@ -11,3 +11,7 @@ WITH (FORMAT csv
     , DELIMITER '|'
     , NULL '~'
     , FREEZE 0)
+
+COPY country TO PROGRAM 'gzip > /usr1/proj/bray/sql/country_data.gz'
+=
+COPY country TO PROGRAM 'gzip > /usr1/proj/bray/sql/country_data.gz'
