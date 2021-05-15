@@ -1692,9 +1692,8 @@ def create_opclass_item(node, output):
     elif node.itemtype == enums.OPCLASS_ITEM_STORAGETYPE:
         output.write('STORAGE ')
         output.print_name(node.storedtype)
-    else:
-        raise ValueError('Invalid OpClassItem type: %d' %
-                         node.itemtype._value)
+    else:  # pragma: no cover
+        raise NotImplementedError('Unhandled OpClassItem type: %s' % node.itemtype)
 
 
 @node_printer('CreateOpFamilyStmt')
@@ -1998,14 +1997,14 @@ def create_stmt(node, output):
         if node.partbound:
             if first:
                 first = False
-            else:  # pragma: nocover
+            else:  # pragma: no cover
                 output.newline()
             output.write(' ')
             output.print_node(node.partbound)
         if node.partspec:
             if first:
                 first = False
-            else:  # pragma: nocover
+            else:
                 output.newline()
             output.write(' PARTITION BY ')
             output.print_node(node.partspec)
@@ -2308,8 +2307,8 @@ def define_stmt_def_elem(node, output):
                 output.print_symbol(node.arg)
         else:
             output.print_node(node.arg)
-    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
-        raise NotImplementedError
+    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: no cover
+        raise NotImplementedError('Unhandled defaction: %s' % node.defaction)
 
 
 class DiscardModePrinter(IntEnumPrinter):
