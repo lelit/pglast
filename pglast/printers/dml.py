@@ -1295,10 +1295,14 @@ def select_stmt(node, output):
             elif node.limitOption == enums.LimitOption.LIMIT_OPTION_WITH_TIES:
                 output.write('FETCH FIRST ')
             # FIXME do we need add '()' for all ?
-            if node.limitCount and node.limitCount.node_tag == "A_Expr" and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP:
-                    output.write('(')
+            if ((node.limitCount
+                 and node.limitCount.node_tag == "A_Expr"
+                 and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP)):
+                output.write('(')
             output.print_node(node.limitCount)
-            if node.limitCount and node.limitCount.node_tag == "A_Expr"  and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP:
+            if ((node.limitCount
+                 and node.limitCount.node_tag == "A_Expr"
+                 and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP)):
                 output.write(')')
             if node.limitOption == enums.LimitOption.LIMIT_OPTION_WITH_TIES:
                 output.write(' ROWS WITH TIES ')
@@ -1516,12 +1520,14 @@ def truncate_stmt(node, output):
 def type_cast(node, output):
     if node.arg.node_tag == 'A_Const':
         # Special case for boolean constants
-        if (node.arg.val.node_tag != 'Null' and node.arg.val.val.value in ('t', 'f')
-            and '.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bool'):
-            output.write('TRUE' if node.arg.val.val.value == 't' else 'FALSE')
+        if ((node.arg.val.node_tag != 'Null'
+             and node.arg.val.val.value in ('t', 'f')
+             and '.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bool')):
+            output.write('TRUE' if node.arg.val.val == 't' else 'FALSE')
             return
         # Special case for bpchar
-        elif '.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bpchar' and not node.typeName.typmods:
+        elif (('.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bpchar'
+               and not node.typeName.typmods)):
             output.write('char ')
             output.print_node(node.arg)
             return

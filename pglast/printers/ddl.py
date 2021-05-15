@@ -2818,7 +2818,9 @@ def rename_stmt(node, output):
         output.write('IF EXISTS ')
     if objtype in (OT.OBJECT_SCHEMA, OT.OBJECT_DATABASE, OT.OBJECT_ROLE):
         output.print_name(node.subname)
-    elif objtype == OT.OBJECT_RULE or objtype == OT.OBJECT_POLICY or objtype == OT.OBJECT_TRIGGER:
+    elif (objtype == OT.OBJECT_RULE
+          or objtype == OT.OBJECT_POLICY
+          or objtype == OT.OBJECT_TRIGGER):
         output.print_name(node.subname)
         output.write(' ON ')
         output.print_node(node.relation)
