@@ -1308,8 +1308,8 @@ def create_am_stmt(node, output):
     elif node.amtype == enums.AMTYPE_TABLE:
         output.write(' TYPE TABLE HANDLER ')
         output.print_name(node.handler_name)
-    else:  # pragma: nocover
-        raise NotImplementedError
+    else:  # pragma: no cover
+        raise NotImplementedError('Unhandled amtype: %s' % node.amtype)
 
 
 @node_printer('CreatedbStmt')
@@ -2295,8 +2295,8 @@ def def_elem(node, output):
             output.write(node.arg.string_value)
         else:
             output.print_node(node.arg)
-    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
-        raise NotImplementedError
+    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: no cover
+        raise NotImplementedError('Unhandled defaction: %s' % node.defaction)
 
 
 @node_printer('DefineStmt', 'DefElem')
@@ -3115,5 +3115,5 @@ def view_stmt_def_elem(node, output):
         output.write(' = ')
         output.print_symbol(node.arg)
     if node.defaction:
-        if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
-            raise NotImplementedError
+        if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: no cover
+            raise NotImplementedError('Unhandled defaction: %s' % node.defaction)
