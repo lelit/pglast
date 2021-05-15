@@ -311,18 +311,6 @@ def alter_policy_stmt(node, output):
 
 @node_printer('AlterRoleStmt')
 def alter_role_stmt(node, output):
-    mapping = {
-        'canlogin': ('LOGIN', True),
-        'password': ('PASSWORD', False),
-        'inherit': ('INHERIT', True),
-        'connectionlimit': ('CONNECTION LIMIT', False),
-        'validUntil': ('VALID UNTIL', False),
-        'superuser': ('SUPERUSER', True),
-        'createrole': ('CREATEROLE', True),
-        'isreplication': ('REPLICATION', True),
-        'createdb': ('CREATEDB', True),
-        'bypassrls': ('BYPASSRLS', True)
-    }
     if len(node.options) == 1 and node.options[0].defname == 'rolemembers':
         output.write('ALTER GROUP ')
         output.print_node(node.role)
@@ -1777,7 +1765,6 @@ def create_publication_stmt(node, output):
 
 @node_printer('CreatePublicationStmt', 'RangeVar')
 def create_publication_stmt_range_var(node, output):
-    OT = enums.ObjectType
     if not node.inh:
         output.write('ONLY ')
     if node.schemaname:
