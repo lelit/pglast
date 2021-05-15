@@ -904,14 +904,14 @@ def alter_fdw_stmt(node, output):
 def alter_fdw_stmt_def_elem(node, output):
     if node.defname == "handler":
         if node.arg:
-            output.write('HANDLER ')
+            output.writes('HANDLER')
         else:
-            output.write('NO HANDLER ')
+            output.writes('NO HANDLER')
     elif node.defname == "validator":
         if node.arg:
-            output.write('VALIDATOR ')
+            output.writes('VALIDATOR')
         else:
-            output.write('NO VALIDATOR ')
+            output.writes('NO VALIDATOR')
     if node.arg:
         output.print_name(node.arg)
 
