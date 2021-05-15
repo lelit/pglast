@@ -611,6 +611,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write('ALTER COLUMN ')
         output.print_name(node.name)
         if node.num.value > 0:
+            # FIXME: find a way to get here
             output.print_node(node.num)
         output.write(' ADD ')
         if node.def_:
@@ -620,6 +621,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write('ALTER COLUMN ')
         output.print_name(node.name)
         if node.num.value > 0:
+            # FIXME: find a way to get here
             output.print_node(node.num)
         output.write(' DROP IDENTITY ')
         if node.missing_ok:
@@ -658,6 +660,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write('ALTER COLUMN ')
         output.print_name(node.name)
         if node.num.value > 0:
+            # FIXME: find a way to get here
             output.print_node(node.num)
         for elem in node.def_:
             if elem.defname == 'restart':
@@ -1112,6 +1115,7 @@ def composite_type_stmt_range_var(node, output):
     output.print_name(node.relname)
     alias = node.alias
     if alias:
+        # FIXME: find a way to get here
         output.write(' AS ')
         output.print_name(alias)
 
@@ -1434,6 +1438,7 @@ def create_extension_stmt_def_elem(node, output):
             output.write('CASCADE')
     elif option == 'old_version':
         output.write('from ')
+        # FIXME: find a way to get here
         output.print_node(node.arg)
     elif option == 'new_version':
         output.write('version ')
@@ -1444,6 +1449,7 @@ def create_extension_stmt_def_elem(node, output):
         if option == 'schema':
             output.print_name(node.arg)
         else:
+            # FIXME: find a way to get here
             output.print_node(node.arg)
 
 
@@ -1630,6 +1636,7 @@ def create_function_option(node, output):
             output.swrite('PARALLEL ')
             output.print_name(node.arg)
         else:
+            # Backward compatibility, with recent PG the arg is always there
             output.swrite('PARALLEL SAFE')
         return
 
