@@ -1437,14 +1437,14 @@ def create_extension_stmt_def_elem(node, output):
         if node.arg.val.value == 1:
             output.write('CASCADE')
     elif option == 'old_version':
-        output.write('from ')
         # FIXME: find a way to get here
+        output.write('FROM ')
         output.print_node(node.arg)
     elif option == 'new_version':
-        output.write('version ')
+        output.write('VERSION ')
         output.print_node(node.arg)
     else:
-        output.write(option)
+        output.write(option.upper())
         output.write(' ')
         if option == 'schema':
             output.print_name(node.arg)
