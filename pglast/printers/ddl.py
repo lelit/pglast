@@ -9,8 +9,7 @@
 import re
 
 from .. import enums
-from ..node import Missing, List, Node
-from ..ast import String
+from ..node import Missing, List
 from ..printer import node_printer
 from . import IntEnumPrinter
 
