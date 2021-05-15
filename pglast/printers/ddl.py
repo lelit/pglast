@@ -102,6 +102,36 @@ def alter_database_set_stmt(node, output):
     output.print_node(node.setstmt)
 
 
+@node_printer('AlterExtensionStmt')
+def alter_extension_stmt(node, output):
+    output.write('ALTER EXTENSION ')
+    output.print_name(node.extname)
+    output.print_list(node.options, '')
+
+
+@node_printer('AlterExtensionStmt', 'DefElem')
+def alter_extension_stmt_def_elem(node, output):
+    option = node.defname.value
+    if option == 'new_version':
+        output.write('UPDATE TO ')
+        output.print_node(node.arg)
+    else:
+        raise NotImplementedError('Option not implemented: %s' % option)
+
+
+@node_printer('AlterExtensionContentsStmt')
+def alter_database_set_stmt(node, output):
+    output.write('ALTER EXTENSION ')
+    output.print_name(node.extname)
+    if node.action == -1:
+        output.write(' DROP ')
+    else:
+        output.write(' ADD ')
+    output.write(OBJECT_NAMES[node.objtype.value])
+    output.write(' ')
+    output.print_node(node.object)
+
+
 @node_printer('AlterEnumStmt')
 def alter_enum_stmt(node, output):
     output.write('ALTER TYPE ')
