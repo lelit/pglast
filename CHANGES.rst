@@ -21,6 +21,8 @@ V3
 
 - Refine printing of SQL comments
 
+- Implement ``AlterExtensionStmt`` printer
+
 3.0.dev0 (2021-05-03)
 ~~~~~~~~~~~~~~~~~~~~~
 
