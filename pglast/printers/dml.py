@@ -1520,7 +1520,7 @@ def type_cast(node, output):
             and '.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bool'):
             output.write('TRUE' if node.arg.val.val.value == 't' else 'FALSE')
             return
-        # Specical case for bpchar
+        # Special case for bpchar
         elif '.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bpchar' and not node.typeName.typmods:
             output.write('char ')
             output.print_node(node.arg)

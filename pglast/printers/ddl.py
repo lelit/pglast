@@ -1942,7 +1942,7 @@ def create_seq_stmt_def_elem(node, output):
         if node.arg is not Missing:
             output.write(' ')
             output.print_node(node.arg)
-    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
+    if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: no cover
         raise NotImplementedError('Unhandled defaction: %s' % node.defaction)
 
 
@@ -2475,7 +2475,7 @@ def function_parameter(node, output):
             output.write('VARIADIC ')
         elif node.mode == pm.FUNC_PARAM_TABLE:
             pass  # function output column
-        else:  # pragma: nocover
+        else:  # pragma: no cover
             raise NotImplementedError('Unhandled mode: %s' % node.mode)
     if node.name:
         output.print_name(node.name)
