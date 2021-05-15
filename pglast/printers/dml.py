@@ -451,7 +451,7 @@ def copy_stmt_def_elem(node, output):
         output.write('FORMAT ')
         output.print_symbol(argv)
     elif option == 'freeze':
-        output.write(f'FREEZE')
+        output.write('FREEZE')
         if argv:
             output.swrite(str(argv.val.value))
     elif option == 'delimiter':
