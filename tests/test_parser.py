@@ -154,7 +154,7 @@ def test_scan():
                       ( 7,  7, 'UNKNOWN',   'NO_KEYWORD'),
                       ( 8,  8, 'IDENT',     'NO_KEYWORD'),
                       (10, 10, 'ICONST',    'NO_KEYWORD')]
-    assert sql[result[1].start:result[1].end+1] == '\\'
+    assert sql[result[1].start] == '\\'
 
 
 def test_deparse_protobuf():
