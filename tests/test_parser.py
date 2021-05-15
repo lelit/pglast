@@ -147,6 +147,15 @@ def test_scan():
     assert [sql[t.start:t.end+1] for t in scan(sql)] == [
         'SELECT', '1', 'AS', '"ā́"', '-- etc']
 
+    # Invalid input, see https://github.com/pganalyze/libpg_query/issues/108
+    sql = 'SELECT \\s 1'
+    result = scan(sql)
+    assert result == [( 0,  5, 'SELECT',    'RESERVED_KEYWORD'),
+                      ( 7,  7, 'UNKNOWN',   'NO_KEYWORD'),
+                      ( 8,  8, 'IDENT',     'NO_KEYWORD'),
+                      (10, 10, 'ICONST',    'NO_KEYWORD')]
+    assert sql[result[1].start:result[1].end+1] == '\\'
+
 
 def test_deparse_protobuf():
     assert deparse_protobuf(parse_sql_protobuf('select 1')) == 'SELECT 1'

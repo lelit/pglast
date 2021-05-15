@@ -487,7 +487,8 @@ def scan(str query):
                                                           scan_token.keyword_kind)
 
             token = Token(offset_to_index(scan_token.start), offset_to_index(scan_token.end-1),
-                          tkind.name.decode('ascii'), kwkind.name.decode('ascii'))
+                          tkind.name.decode('ascii') if tkind != NULL else "UNKNOWN",
+                          kwkind.name.decode('ascii'))
             Py_INCREF(token)
             PyList_SET_ITEM(result, i, token)
 
