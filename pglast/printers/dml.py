@@ -500,16 +500,16 @@ def declare_cursor_stmt(node, output):
     output.print_name(node.portalname)
     output.write(' ')
     if node.options & enums.CURSOR_OPT_BINARY:
-        output.write('BINARY ')
+        output.writes('BINARY')
     if node.options & enums.CURSOR_OPT_SCROLL:
-        output.write('SCROLL ')
+        output.writes('SCROLL')
     elif node.options & enums.CURSOR_OPT_NO_SCROLL:
-        output.write('NO SCROLL ')
+        output.writes('NO SCROLL')
     if node.options & enums.CURSOR_OPT_INSENSITIVE:
-        output.write('INSENSITIVE ')
-    output.write('CURSOR ')
+        output.writes('INSENSITIVE')
+    output.writes('CURSOR')
     if node.options & enums.CURSOR_OPT_HOLD:
-        output.write('WITH HOLD ')
+        output.writes('WITH HOLD')
     output.newline()
     output.space(2)
     output.write('FOR ')

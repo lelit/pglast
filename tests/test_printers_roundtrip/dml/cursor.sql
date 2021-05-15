@@ -1,0 +1,1 @@
+DECLARE c INSENSITIVE CURSOR FOR SELECT ctid,cmin,* FROM combocidtest
