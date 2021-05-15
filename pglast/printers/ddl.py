@@ -1871,7 +1871,7 @@ def create_or_alter_role_option(node, output):
     elif option == 'bypassrls':
         output.write('BYPASSRLS' if argv.val == 1 else 'NOBYPASSRLS')
     else:
-        raise NotImplementedError(option)
+        raise NotImplementedError('Unhandled option: %s' % option)
 
 
 @node_printer('CreateSchemaStmt')
@@ -1943,7 +1943,7 @@ def create_seq_stmt_def_elem(node, output):
             output.write(' ')
             output.print_node(node.arg)
     if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: nocover
-        raise NotImplementedError
+        raise NotImplementedError('Unhandled defaction: %s' % node.defaction)
 
 
 @node_printer('CreateStatsStmt')
@@ -2476,7 +2476,7 @@ def function_parameter(node, output):
         elif node.mode == pm.FUNC_PARAM_TABLE:
             pass  # function output column
         else:  # pragma: nocover
-            raise NotImplementedError
+            raise NotImplementedError('Unhandled mode: %s' % node.mode)
     if node.name:
         output.print_name(node.name)
         output.write(' ')
