@@ -149,7 +149,7 @@ class AExprKindPrinter(IntEnumPrinter):
         # a “nameless dummy node for parentheses”. What does that mean? I wasn't able to
         # “produce” it in any way...
         raise NotImplementedError("Expression of kind %s not implemented yet"
-                                  % aek.AEXPR_PAREN)
+                                  % self.enum.AEXPR_PAREN)
 
     def AEXPR_SIMILAR(self, node, output):
         output.print_node(node.lexpr)
