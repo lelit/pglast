@@ -372,7 +372,7 @@ def alter_def_elem(node, output):
             if first:
                 first = False
             else:
-                output.write(',')
+                output.write(', ')
             if option.defaction == enums.DefElemAction.DEFELEM_UNSPEC:
                 output.print_name(option.defname)
                 output.write(' ')
@@ -1279,7 +1279,7 @@ def constraint(node, output):
                 if firstOption:
                     firstOption = False
                 else:
-                    output.write(',')
+                    output.write(', ')
                 output.print_name(option.defname)
                 output.write(' = ')
                 output.print_node(option.arg)
