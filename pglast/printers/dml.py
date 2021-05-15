@@ -474,11 +474,11 @@ def copy_stmt_def_elem(node, output):
         output.write('FORCE_QUOTE ')
         # If it is a list print it.
         if isinstance(argv, List):
-           output.write('(')
-           output.print_list(argv, are_names=True)
-           output.write(')')
+            output.write('(')
+            output.print_list(argv, are_names=True)
+            output.write(')')
         else:
-           output.write('* ')
+            output.write('* ')
     elif option == 'force_null':
         output.write('FORCE_NULL (')
         output.print_list(argv, are_names=True)

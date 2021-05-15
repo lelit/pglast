@@ -2635,7 +2635,7 @@ def _object_with_args(node, output, unquote_name=False, symbol=False,
         if len(node.objname) > 1:
             for idx, name in enumerate(node.objname):
                 if idx > 0:
-                   output.write('.')
+                    output.write('.')
                 output.write(name.val.value)
         else:
             output.write(node.objname.string_value)
