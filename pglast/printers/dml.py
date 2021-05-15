@@ -1692,8 +1692,8 @@ def variable_set_stmt(node, output):
             output.write('SESSION CHARACTERISTICS AS TRANSACTION ')
             print_transaction_mode_list(node.args, output)
         elif node.name == 'TRANSACTION SNAPSHOT':
-            outout.write('TRANSACTION SNAPSHOT ')
-            otuout.print_list(node.args, ',')
+            output.write('TRANSACTION SNAPSHOT ')
+            output.print_list(node.args, ',')
         else:
             output.print_name(node.name)
             output.write(' TO ')
