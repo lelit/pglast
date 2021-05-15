@@ -1181,7 +1181,7 @@ def row_expr(node, output):
         output.write(')')
     else:
         raise NotImplementedError('Coercion type not implemented: %s' %
-                                  coerciontype)
+                                  node.row_format)
 
 
 def _select_needs_to_be_wrapped_in_parens(node):
@@ -1434,7 +1434,7 @@ def sub_link(node, output):
                               slt.ROWCOMPARE_SUBLINK):  # pragma: no cover
         # FIXME: figure out how the get here
         raise NotImplementedError('SubLink of type %s not supported yet'
-                                  % slt.MULTIEXPR_SUBLINK)
+                                  % node.subLinkType)
 
     output.write('(')
     with output.push_indent():
