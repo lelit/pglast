@@ -6,7 +6,7 @@ Changes
 V3
 ##
 
-3.0.dev1 (unreleased)
+3.0.dev1 (2021-05-16)
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Fix ``AT_SetIdentity``, ``AT_EnableReplicaTrig`` and ``AlterSubscriptionStmt`` printers
