@@ -36,6 +36,25 @@
 
    Pretty print a `node` of type `AlterDatabaseSetStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L3174>`__ to the `output` stream.
 
+.. index:: AlterExtensionStmt
+
+.. function:: alter_extension_stmt(node, output)
+
+   Pretty print a `node` of type `AlterExtensionStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2260>`__ to the `output` stream.
+
+.. index::
+   pair: AlterExtensionStmt;DefElem
+
+.. function:: alter_extension_stmt_def_elem(node, output)
+
+   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `AlterExtensionStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2260>`__, to the `output` stream.
+
+.. index:: AlterExtensionContentsStmt
+
+.. function:: alter_extension_contents_stmt(node, output)
+
+   Pretty print a `node` of type `AlterExtensionContentsStmt <https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes/parsenodes.h#L2267>`__ to the `output` stream.
+
 .. index:: AlterEnumStmt
 
 .. function:: alter_enum_stmt(node, output)
