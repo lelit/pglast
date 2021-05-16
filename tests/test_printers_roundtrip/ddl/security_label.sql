@@ -1,0 +1,1 @@
+SECURITY LABEL FOR selinux ON TABLE mytable IS NULL

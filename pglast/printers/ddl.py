@@ -1772,10 +1772,10 @@ def create_publication_stmt_range_var(node, output):
         output.print_name(node.schemaname)
         output.write('.')
     output.print_name(node.relname)
-    alias = node.alias
-    if alias:
+    if node.alias:
+        # FIXME: find a way to get here
         output.write(' AS ')
-        output.print_name(alias)
+        output.print_name(node.alias)
 
 
 @node_printer('CreateRangeStmt')
@@ -2278,10 +2278,7 @@ def def_elem(node, output):
     output.print_symbol(node.defname)
     if node.arg is not Missing:
         output.write(' = ')
-        if isinstance(node.arg, List):
-            output.write(node.arg.string_value)
-        else:
-            output.print_node(node.arg)
+        output.print_node(node.arg)
     if node.defaction != enums.DefElemAction.DEFELEM_UNSPEC:  # pragma: no cover
         raise NotImplementedError('Unhandled defaction: %s' % node.defaction)
 
@@ -2740,6 +2737,7 @@ def partition_elem(node, output):
 
 @node_printer('PartitionRangeDatum')
 def partition_range_datum(node, output):
+    # FIXME: find a way to get here, apparently these have been replaced by ColumRef
     if node.kind == enums.PartitionRangeDatumKind.PARTITION_RANGE_DATUM_MINVALUE:
         output.write('MINVALUE')
     elif node.kind == enums.PartitionRangeDatumKind.PARTITION_RANGE_DATUM_MAXVALUE:
@@ -2864,6 +2862,7 @@ def rename_stmt_range_var(node, output):
     output.print_name(node.relname)
     alias = node.alias
     if alias:
+        # FIXME: find a way to get here
         output.write(' AS ')
         output.print_name(alias)
 
