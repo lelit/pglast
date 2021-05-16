@@ -40,9 +40,9 @@ class Node:
     __slots__ = ()
 
     def __init__(self, data):
-        if not isinstance(data, dict):
+        if not isinstance(data, dict):  # pragma: no cover
             raise ValueError(f'Bad argument, expected a dictionary, got {{type(data)!r}}')
-        if '@' not in data:
+        if '@' not in data:  # pragma: no cover
             raise ValueError('Bad argument, expected a dictionary with a "@" key')
         if data['@'] != self.__class__.__name__:
             raise ValueError(f'Bad argument, wrong "@" value, expected {{self.__class__.__name__!r}}, got {{data["@"]!r}}')

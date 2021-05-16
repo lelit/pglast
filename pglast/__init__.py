@@ -11,7 +11,7 @@ from .error import Error
 from .node import Missing, Node
 try:
     from .parser import fingerprint, get_postgresql_version, parse_sql, scan, split
-except ModuleNotFoundError:
+except ModuleNotFoundError:  # pragma: no cover
     # bootstrap
     pass
 
@@ -47,7 +47,7 @@ def _extract_comments(statement):
             for bol_ofs, eol_ofs, line in lines:
                 if bol_ofs <= token.start < eol_ofs:
                     break
-            else:
+            else:  # pragma: no cover
                 raise RuntimeError('Uhm, logic error!')
             at_start_of_line = not line[:token.start - bol_ofs].strip()
             text = statement[token.start:token.end+1]
