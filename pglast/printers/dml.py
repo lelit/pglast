@@ -719,7 +719,7 @@ def index_elem(node, output):
             output.swrite('ASC')
         elif node.ordering == enums.SortByDir.SORTBY_DESC:
             output.swrite('DESC')
-        elif node.ordering == enums.SortByDir.SORTBY_USING:
+        else:  # pragma: no cover
             raise NotImplementedError('Unhandled ordering: %s' % node.ordering)
     if node.nulls_ordering != enums.SortByNulls.SORTBY_NULLS_DEFAULT:
         output.swrite('NULLS ')
