@@ -493,3 +493,5 @@ select 1 from c.b.a
 SELECT * INTO films_recent FROM films WHERE date_prod >= '2002-01-01'
 
 SELECT * INTO TEMP films_recent FROM films WHERE date_prod >= '2002-01-01'
+
+SELECT 1 INTO UNLOGGED foo

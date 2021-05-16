@@ -1089,6 +1089,7 @@ def range_table_func(node, output):
         output.print_list(node.columns)
         output.write(')')
     if node.alias:
+        # FIXME: find a way to get here
         output.write(' AS ')
         output.print_node(node.alias)
 
@@ -1504,8 +1505,8 @@ def transaction_stmt_def_elem(node, output):
         if argv.val.value == 0:
             output.write('NOT ')
         output.write('DEFERRABLE')
-    else:
-        output.print_name(node.arg)
+    else:  # pragma: no cover
+        raise NotImplementedError('Unhandled defname value %r' % value)
 
 
 @node_printer('TruncateStmt')

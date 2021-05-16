@@ -1623,7 +1623,7 @@ def create_function_option(node, output):
         if node.arg:
             output.swrite('PARALLEL ')
             output.print_name(node.arg)
-        else:
+        else:  # pragma: no cover
             # Backward compatibility, with recent PG the arg is always there
             output.swrite('PARALLEL SAFE')
         return
