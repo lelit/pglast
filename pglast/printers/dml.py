@@ -946,9 +946,10 @@ def null_test(node, output):
 
 @node_printer('ParamRef')
 def param_ref(node, output):
-    if node.number is Missing:
+    if node.number is Missing:  # pragma: no cover
         # NB: standard PG does not allow "?"-style param placeholders, this is a minor
-        # deviation introduced by libpg_query
+        # deviation introduced by libpg_query; in version 2 apparently the case is merged
+        # back to the standard style below
         output.write('?')
     else:
         output.write('$%d' % node.number.value)
