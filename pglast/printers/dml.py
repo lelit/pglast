@@ -671,20 +671,21 @@ def func_call_window_def(node, output):
 
 @node_printer('GroupingSet')
 def grouping_set(node, output):
-    if node.kind == enums.GroupingSetKind.GROUPING_SET_CUBE:
+    kind = node.kind
+    if kind == enums.GroupingSetKind.GROUPING_SET_CUBE:
         output.write('CUBE (')
-    elif node.kind == enums.GroupingSetKind.GROUPING_SET_ROLLUP:
+    elif kind == enums.GroupingSetKind.GROUPING_SET_ROLLUP:
         output.write('ROLLUP (')
-    elif node.kind == enums.GroupingSetKind.GROUPING_SET_SETS:
+    elif kind == enums.GroupingSetKind.GROUPING_SET_SETS:
         output.write('GROUPING SETS (')
-    # No idea how to reach those last two branches
-    elif node.kind == enums.GroupingSetKind.GROUPING_SET_SIMPLE:
-        output.write('SIMPLE (')
-    elif node.kind == enums.GroupingSetKind.GROUPING_SET_EMPTY:
+    elif kind == enums.GroupingSetKind.GROUPING_SET_EMPTY:
         output.write('()')
         return
-    else:
-        raise NotImplementedError('Empty groupingsetkind not implemented')
+    elif kind == enums.GroupingSetKind.GROUPING_SET_SIMPLE:
+        # No idea how to reach this branch
+        output.write('SIMPLE (')
+    else:  # pragma: no cover
+        raise NotImplementedError('Unhandled grouping set kind: %s' % kind)
     output.print_list(node.content, ',')
     output.write(')')
 
