@@ -11,8 +11,16 @@
  :mod:`pglast.ast` --- Python classes representing PG parser nodes
 ===================================================================
 
-The module implements a set of *data* classes, one for each ``C`` structure defined in the
-PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.h``.
+The module implements a set of *data* classes, one for each ``C`` structure defined in several
+PostgreSQL headers, primarily those in the `include/nodes/`__ directory.
+
+__ https://github.com/pganalyze/libpg_query/blob/b2790f8/src/postgres/include/nodes
+
+The :class:`pglast.ast.Node` (not to be confused with :class:`pglast.node.Node` which is just a
+*readonly* generic wrapper) is an abstract class that implements the common behaviour of all
+the concrete classes. In particular any node can be :meth:`compared <pglast.ast.Node.__eq__>`
+with another instance, is able to :meth:`serialize <pglast.ast.Node.__call__>` itself and can
+be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. module:: pglast.ast
 

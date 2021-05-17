@@ -6,6 +6,8 @@
 .. :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 ..
 
+.. _usage:
+
 ===================
  Examples of usage
 ===================
@@ -301,8 +303,8 @@ More powerful way to :class:`visit <pglast.visitors.Visitor>` the AST tree
    [0] → stmt → targetList → [0] → val → fields → [0] : {'@': 'String', 'val': 'a'}
    [0] → stmt → targetList → [1] → val → fields → [0] : {'@': 'String', 'val': 'b'}
 
-Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement\ [*]_
-=============================================================================
+Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement
+=======================================================================
 
 .. doctest::
 
@@ -385,6 +387,8 @@ In this case, you can use a variant that uses the lexical *scanner* instead:
    ...
    select 1 from
    select 2
+
+.. _cli:
 
 ------------
 Command line
@@ -487,10 +491,6 @@ Preserve comments
 
 ---
 
-.. [*] This is an approximation, because in principle a list could contain different kinds of
+.. [*] This is an approximation, because in principle a list can contain different kinds of
        nodes, or even sub-lists in some cases: the ``List`` representation arbitrarily shows
        the tag of the first object.
-
-.. [*] Currently this covers most `DML` statements such as ``SELECT``\ s, ``INSERT``\ s,
-       ``DELETE``\ s and ``UPDATE``\ s, fulfilling my needs, but I'd like to extend it to
-       handle also `DDL` statements and, why not, `PLpgSQL` instructions too.

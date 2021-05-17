@@ -345,8 +345,16 @@ AST_RST_HEADER = f"""\
  :mod:`pglast.ast` --- Python classes representing PG parser nodes
 ===================================================================
 
-The module implements a set of *data* classes, one for each ``C`` structure defined in the
-PostgreSQL headers ``include/nodes/primnodes.h`` and ``include/nodes/parsenodes.h``.
+The module implements a set of *data* classes, one for each ``C`` structure defined in several
+PostgreSQL headers, primarily those in the `include/nodes/`__ directory.
+
+__ %ssrc/postgres/include/nodes
+
+The :class:`pglast.ast.Node` (not to be confused with :class:`pglast.node.Node` which is just a
+*readonly* generic wrapper) is an abstract class that implements the common behaviour of all
+the concrete classes. In particular any node can be :meth:`compared <pglast.ast.Node.__eq__>`
+with another instance, is able to :meth:`serialize <pglast.ast.Node.__call__>` itself and can
+be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. module:: pglast.ast
 
@@ -863,7 +871,7 @@ def workhorse(args):
          args.rstdoc.open('w', encoding='utf-8') as doc:
         output.write(AST_PY_HEADER % libpg_query_version)
 
-        doc.write(AST_RST_HEADER)
+        doc.write(AST_RST_HEADER % libpg_query_baseurl)
 
         for name, fields in sorted(nodes):
             header, lineno = linenos[name]
