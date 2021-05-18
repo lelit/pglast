@@ -18,7 +18,7 @@ __ https://github.com/pganalyze/libpg_query
 2. :func:`pglast.parser.parse_sql_protobuf()`
 3. :func:`pglast.parser.parse_plpgsql_json()`
 4. :func:`pglast.parser.fingerprint()`
-5. :func:`pglast.parser.scan`
+5. :func:`pglast.parser.scan()`
 6. :func:`pglast.parser.split()`
 7. :func:`pglast.parser.deparse_protobuf()`
 
