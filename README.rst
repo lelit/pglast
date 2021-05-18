@@ -28,7 +28,7 @@ __ https://pglast.readthedocs.io/en/v3/development.html#history
 .. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=v3
    :target: https://readthedocs.org/projects/pglast/builds/
    :alt: Documentation status
-.. |codecov| image:: https://codecov.io/gh/lelit/pglast/v3/master/graph/badge.svg?token=A90D8tWnft
+.. |codecov| image:: https://codecov.io/gh/lelit/pglast/branch/v3/graph/badge.svg?token=A90D8tWnft
    :target: https://codecov.io/gh/lelit/pglast
    :alt: Test coverage status
 
