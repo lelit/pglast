@@ -69,33 +69,34 @@ __ https://en.wikipedia.org/wiki/Zero-copy
 Version 2
 #########
 
-In late 2019, Ronan Dunklau opened `PR #62`__ against ``libpg_query``, that reimplemented the
+In late 2019, Ronan__ opened `PR #62`__ against ``libpg_query``, that reimplemented the
 build machinery of the library to make it easier (read, semi-automatic) to support PostgreSQL
 12, and `PR #36`__ to bring ``pglast`` in line.
+
+__ https://github.com/rdunklau
+__ https://github.com/pganalyze/libpg_query/pull/62
+__ https://github.com/lelit/pglast/pull/36
 
 Since that version of PostgreSQL inevitably introduced some backward incompatibilities, I
 bumped the major version of ``pglast`` to better reflect the fact.
 
-As I'm writing this, the fate of ``PR #62`` is still unclear, so for the time being I switched
-the ``libpg_query`` submodule to Ronan's fork.
+This version only had some `development releases`__, since ``PR #62`` has been superseded__.
 
-I'm going to keep version 1 aligned to the original Lukas' `PG 10 branch`__.
+__ https://pypi.org/project/pglast/2.0.dev3/
+__ https://github.com/pganalyze/libpg_query/pull/62#issuecomment-801659703
 
 .. important:: This version requires Python 3.6 or greater, due to usage of `f-strings`.
-
-__ https://github.com/pganalyze/libpg_query/pull/62
-__ https://github.com/lelit/pglast/pull/36
-__ https://github.com/pganalyze/libpg_query/tree/10-latest
 
 
 Version 3
 #########
 
-In early 2021, Lukas put a considerable effort into evolving his library to target PostgreSQL
+In early 2021, Lukas__ put a considerable effort into evolving his library to target PostgreSQL
 13. He introduced a richer `protobuf`__\-based AST serialization protocol, rewriting the
 underlying machinery so that the same code is used to generate either a ``JSON`` or a
 ``protobuf`` stream.
 
+__ https://github.com/lfittl
 __ https://developers.google.com/protocol-buffers
 
 The approach has obvious advantages, but unfortunately both formats come with different
@@ -116,6 +117,12 @@ __ https://github.com/danielgtaylor/python-betterproto/issues/210
 After several attempts, I decided to follow a more rewarding way and implement a native Python
 wrapper layer on top of PG parser's nodes, :mod:`pglast.ast`.
 
+Ronan and Hong__ helped a lot respectively with `PR #72`__ and `PR #77`__. Last but not least,
+https://bit.io/ kindly sponsored the project.
+
+__ https://github.com/hcheng2002cn
+__ https://github.com/lelit/pglast/pull/72
+__ https://github.com/lelit/pglast/pull/77
 
 .. toctree::
    :maxdepth: 2
