@@ -41,8 +41,13 @@ jobs:
 
       - name: Execute the test suite
         run: |
-          python -m pytest tests/
+          python -m pytest --cov-report=xml tests/
           make -C docs doctest
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
 
   build_wheels:
     name: Build wheels
