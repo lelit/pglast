@@ -21,12 +21,3 @@ Alternatively you can clone the repository::
 and install from there::
 
   $ pip install ./pglast
-
-Development
------------
-
-There is a set of *makefiles* implementing the most common operations, a ``make help`` will
-show a brief table of contents. A comprehensive test suite, based on pytest__, covers 99% of
-the source lines.
-
-__ https://docs.pytest.org/en/latest/
