@@ -16,17 +16,21 @@ PostgreSQL Languages AST and statements prettifier
 :Author: Lele Gaifax
 :Contact: lele@metapensiero.it
 :License: `GNU General Public License version 3 or later`__
-:Status: |build| |doc|
+:Status: |build| |doc| |codecov|
 :Version: `3`__
 
 __ https://www.gnu.org/licenses/gpl.html
+__ https://pglast.readthedocs.io/en/v3/introduction.html#version-3
+
 .. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v3
    :target: https://github.com/lelit/pglast/actions/workflows/ci.yml
    :alt: Build status
 .. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=v3
    :target: https://readthedocs.org/projects/pglast/builds/
    :alt: Documentation status
-__ `Version 3`_
+.. |codecov| image:: https://codecov.io/gh/lelit/pglast/v3/master/graph/badge.svg?token=A90D8tWnft
+   :target: https://codecov.io/gh/lelit/pglast
+   :alt: Test coverage status
 
 This is a Python 3 module that exposes the *parse tree* of a PostgreSQL__ statement (extracted
 by the almost standard PG parser repackaged as a standalone static library by `libpg_query`__)
@@ -60,10 +64,11 @@ Development
 -----------
 
 There is a set of *makefiles* implementing the most common operations, a ``make help`` will
-show a brief table of contents. A comprehensive test suite, based on pytest__, covers 98% of
-the source lines.
+show a brief table of contents. A comprehensive test suite, based on pytest__, covers__ nearly
+99% of the source lines.
 
 __ https://docs.pytest.org/en/latest/
+__ https://codecov.io/gh/lelit/pglast/branch/v3/
 
 
 Documentation
