@@ -20,7 +20,7 @@ PostgreSQL Languages AST and statements prettifier
 :Version: `3`__
 
 __ https://www.gnu.org/licenses/gpl.html
-__ https://pglast.readthedocs.io/en/v3/introduction.html#version-3
+__ https://pglast.readthedocs.io/en/v3/development.html#history
 
 .. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v3
    :target: https://github.com/lelit/pglast/actions/workflows/ci.yml
