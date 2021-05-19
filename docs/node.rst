@@ -14,8 +14,8 @@ This module implements a set of classes that make it easier to deal with the :mo
 nodes.
 
 The :class:`pglast.node.Node` wraps a single :class:`pglast.ast.Node` adding a reference to the
-parent node; the :pglast.node.List` wraps a sequence of them and
-:class:`pglast.node.Scalar`represents plain values such a *strings*, *integers*, *booleans* or
+parent node; the class:`pglast.node.List` wraps a sequence of them and
+:class:`pglast.node.Scalar` represents plain values such a *strings*, *integers*, *booleans* or
 *none*.
 
 Every node is identified by a *tag*, a string label that characterizes its content, exposed as
