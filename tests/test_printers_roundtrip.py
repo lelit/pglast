@@ -72,21 +72,30 @@ def test_printers_roundtrip(src, lineno, statement):
     print(indented)
 
 
-def test_stream_call_with_single_node():
-    # See https://github.com/lelit/pglast/pull/10
-    parsed = parse_sql('select a from x; select b from y')
-    node = Node(parsed[0])
-    result = RawStream()(node)
-    assert result == 'SELECT a FROM x'
-    node = Node(parsed[1])
-    result = RawStream()(node)
-    assert result == 'SELECT b FROM y'
+@pytest.mark.parametrize('src,lineno,statement',
+                         ((src, lineno, statement)
+                          for src in sorted(tests_dir.glob('**/*.sql'))
+                          for (lineno, statement) in statements(src)),
+                         ids=make_id)
+def test_stream_call_with_single_node(src, lineno, statement):
+    # See https://github.com/lelit/pglast/pull/10 and https://github.com/lelit/pglast/issues/79
+    try:
+        parsed = parse_sql(statement)
+    except:  # noqa
+        raise RuntimeError("%s:%d:Could not parse %r" % (src, lineno, statement))
+    for rawstmt in parsed:
+        stmt = rawstmt.stmt
+        try:
+            RawStream()(Node(stmt))
+        except Exception:
+            raise AssertionError('Could not serialize single statement %r' % stmt)
 
 
 pg_regressions_dir = this_dir / '..' / 'libpg_query' / 'test' / 'sql' / 'postgres_regress'
 
 # Following scripts contain intentional errors, and it's difficult to isolate them
 skip_due_syntax_error = {'unicode.sql'}
+
 
 @pytest.mark.parametrize('filename',
                          (src.name for src in sorted(pg_regressions_dir.glob('*.sql'))
@@ -98,7 +107,7 @@ def test_pg_regress_corpus(filename):
     source = src.read_text()
     try:
         slices = split(source, with_parser=False, only_slices=True)
-    except Exception as e:
+    except Exception:
         return
 
     for slice in slices:
