@@ -1952,7 +1952,7 @@ def create_stats_stmt(node, output):
 @node_printer('CreateStmt')
 def create_stmt(node, output):
     output.writes('CREATE')
-    # NB: parent_node may None iff we are dealing with a single concrete statement, not with
+    # NB: parent_node may be None iff we are dealing with a single concrete statement, not with
     # the ephemeral RawStmt returned by parse_sql(); in all other cases in this source where
     # we access the parent_node we are actually in a "contextualized printer", that can only be
     # entered when there is a parent node
