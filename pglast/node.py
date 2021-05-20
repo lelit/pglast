@@ -6,6 +6,7 @@
 # :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
 #
 
+from collections import namedtuple
 from decimal import Decimal
 from enum import Enum
 
@@ -28,6 +29,10 @@ class Missing:
 
 Missing = Missing()
 "Singleton returned when trying to get a non-existing attribute out of a :class:`Node`."
+
+
+Comment = namedtuple('Comment', ('location', 'text', 'at_start_of_line', 'continue_previous'))
+"A structure to carry information about a single SQL comment."
 
 
 class Base:

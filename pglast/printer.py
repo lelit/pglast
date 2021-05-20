@@ -6,101 +6,15 @@
 # :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
 #
 
-from collections import namedtuple
 from contextlib import contextmanager
 from io import StringIO
 from re import match
 from sys import stderr
 
 from . import parse_plpgsql, parse_sql
-from .error import Error
 from .node import List, Missing, Node, Scalar
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
-
-
-NODE_PRINTERS = {}
-"Registry of specialized printers, keyed by their `tag`."
-
-
-SPECIAL_FUNCTIONS = {}
-"Registry of specialized function printers, keyed by their qualified name."
-
-
-Comment = namedtuple('Comment', ('location', 'text', 'at_start_of_line', 'continue_previous'))
-"A structure to carry information about a single SQL comment."
-
-
-class PrinterAlreadyPresentError(Error):
-    "Exception raised trying to register another function for a tag already present."
-
-
-def get_printer_for_node_tag(parent_node_tag, node_tag):
-    """Get specific printer implementation for given `node_tag`.
-
-    If there is a more specific printer for it, when it's inside a particular
-    `parent_node_tag`, return that instead.
-    """
-
-    printer = NODE_PRINTERS.get((parent_node_tag, node_tag))
-    if printer is None:
-        printer = NODE_PRINTERS.get(node_tag)
-        if printer is None:
-            raise NotImplementedError("Printer for node %r is not implemented yet"
-                                      % node_tag)
-    return printer
-
-
-def node_printer(*node_tags, override=False):
-    r"""Decorator to register a specific printer implementation for given `node_tag`.
-
-    :param \*node_tags: one or two node tags
-    :param bool override:
-           when ``True`` the function will be registered even if already present in the
-           :data:`NODE_PRINTERS` registry
-
-    When `node_tags` contains a single item then the decorated function is the *generic* one,
-    and it will be registered in :data:`NODE_PRINTERS` with that key alone. Otherwise it must
-    contain two elements: the first may be either a scalar value or a sequence of parent tags,
-    and the function will be registered under the key ``(parent_tag, tag)``.
-    """
-
-    def decorator(impl):
-        if len(node_tags) == 1:
-            parent_tags = (None,)
-            tag = node_tags[0]
-        elif len(node_tags) == 2:
-            parent_tags, tag = node_tags
-            if not isinstance(parent_tags, (list, tuple)):
-                parent_tags = (parent_tags,)
-        else:
-            raise ValueError("Must specify one or two tags, got %d instead" % len(node_tags))
-
-        for parent_tag in parent_tags:
-            t = tag if parent_tag is None else (parent_tag, tag)
-            if not override and t in NODE_PRINTERS:
-                raise PrinterAlreadyPresentError("A printer is already registered for tag %r"
-                                                 % t)
-            NODE_PRINTERS[t] = impl
-        return impl
-    return decorator
-
-
-def special_function(name, override=False):
-    """Decorator to declare a particular PostgreSQL function `name` as *special*, with a
-    specific printer.
-
-    :param str name: the qualified name of the PG function
-    :param bool override: when ``True`` the function will be registered even if already
-                          present in the :data:`SPECIAL_FUNCTIONS` registry
-    """
-
-    def decorator(impl):
-        if not override and name in SPECIAL_FUNCTIONS:
-            raise PrinterAlreadyPresentError("A printer is already registered for function %r"
-                                             % name)
-        SPECIAL_FUNCTIONS[name] = impl
-        return impl
-    return decorator
+from .printers import get_printer_for_node_tag, get_special_function
 
 
 class OutputStream(StringIO):
@@ -280,7 +194,7 @@ class RawStream(OutputStream):
         """
 
         if self.special_functions:
-            return SPECIAL_FUNCTIONS.get(name)
+            return get_special_function(name)
 
     def indent(self, amount=0, relative=True):
         "Do nothing, shall be overridden by the prettifier subclass."

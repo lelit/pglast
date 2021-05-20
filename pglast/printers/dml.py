@@ -8,8 +8,7 @@
 
 from .. import enums
 from ..node import Missing, List
-from ..printer import node_printer
-from . import IntEnumPrinter
+from . import IntEnumPrinter, node_printer
 
 
 @node_printer('A_ArrayExpr')

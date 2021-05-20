@@ -8,7 +8,7 @@
 
 from . import enums
 from .error import Error
-from .node import Missing, Node
+from .node import Comment, Missing, Node
 try:
     from .parser import fingerprint, get_postgresql_version, parse_sql, scan, split
 except ModuleNotFoundError:  # pragma: no cover
@@ -32,8 +32,6 @@ def parse_plpgsql(statement):
 
 
 def _extract_comments(statement):
-    from .printer import Comment
-
     lines = []
     lofs = 0
     for line in statement.splitlines(True):

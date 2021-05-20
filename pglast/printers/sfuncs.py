@@ -6,7 +6,7 @@
 # :Copyright: © 2017, 2018, 2021 Lele Gaifax
 #
 
-from ..printer import special_function
+from . import special_function
 
 
 @special_function('pg_catalog.date_part')

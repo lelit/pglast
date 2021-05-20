@@ -3,18 +3,30 @@
 .. :Created:   gio 10 ago 2017 13:23:18 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2021 Lele Gaifax
 ..
 
-============================================================
+==========================================================
  :mod:`pglast.printers` --- Specialized printer functions
-============================================================
+==========================================================
 
 .. module:: pglast.printers
    :synopsis: Specialized printer functions
 
 This module implements the specialized functions that for any given *tag* define how the
 associated :class:`~.node.Node` will be serialized.
+
+.. autodata:: NODE_PRINTERS
+
+.. autodata:: SPECIAL_FUNCTIONS
+
+.. autoexception:: PrinterAlreadyPresentError
+
+.. autofunction:: get_printer_for_node_tag
+
+.. autofunction:: node_printer
+
+.. autofunction:: special_function
 
 .. toctree::
    :maxdepth: 2
