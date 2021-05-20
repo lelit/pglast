@@ -24,7 +24,7 @@ This chapter briefly explains some implementation detail.
    enums
    keywords
    node
-   printer
+   stream
    printers
    sfuncs
    visitors

@@ -35,7 +35,7 @@ instead of ``JSON`` returns the syntax tree represented by a hierarchy of instan
 classes implemented in the :mod:`pglast.ast` module.
 
 On top of that, the module implements two serializations, one that transforms a ``Node`` into a
-:class:`raw <pglast.printer.RawStream>` textual representation and another that returns a
-:class:`prettified <pglast.printer.IndentedStream` representation. The latter is exposed by the
+:class:`raw <pglast.stream.RawStream>` textual representation and another that returns a
+:class:`prettified <pglast.stream.IndentedStream` representation. The latter is exposed by the
 ``pgpp`` CLI tool, see the :ref:`Command line <cli>` section of the :ref:`examples of usage
 <usage>`.

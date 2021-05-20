@@ -12,12 +12,8 @@ from pathlib import Path
 import pytest
 
 from pglast import _extract_comments
-from pglast.printer import IndentedStream, RawStream
-import pglast.printers
-
-
-# Make pyflakes happy
-pglast.printers
+from pglast.stream import IndentedStream, RawStream
+import pglast.printers  # noqa
 
 
 this = Path(__file__)

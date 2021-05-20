@@ -1,16 +1,16 @@
 .. -*- coding: utf-8 -*-
-.. :Project:   pglast -- Printer documentation
+.. :Project:   pglast -- Stream documentation
 .. :Created:   gio 10 ago 2017 10:58:06 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
 .. :Copyright: © 2017, 2018, 2021 Lele Gaifax
 ..
 
-=======================================================
- :mod:`pglast.printer` --- The serialization machinery
-=======================================================
+======================================================
+ :mod:`pglast.stream` --- The serialization machinery
+======================================================
 
-.. module:: pglast.printer
+.. module:: pglast.stream
    :synopsis: The serialization machinery
 
 .. autoclass:: OutputStream

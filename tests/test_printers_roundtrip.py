@@ -13,12 +13,8 @@ import pytest
 
 from pglast import Node, parse_sql, split
 from pglast.parser import ParseError
-from pglast.printer import RawStream, IndentedStream
-import pglast.printers
-
-
-# Make pyflakes happy
-pglast.printers
+from pglast.stream import RawStream, IndentedStream
+import pglast.printers  # noqa
 
 
 this = Path(__file__)

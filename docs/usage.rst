@@ -334,8 +334,8 @@ Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement
    WHERE ((value IS NULL)
       OR (value = 1))
 
-Customize a :func:`node printer <pglast.printer.node_printer>`
-==============================================================
+Customize a :func:`node printer <pglast.printers.node_printer>`
+===============================================================
 
 .. doctest::
 
@@ -344,7 +344,7 @@ Customize a :func:`node printer <pglast.printer.node_printer>`
    UPDATE translations
    SET italian = $2
    WHERE word = $1
-   >>> from pglast.printer import node_printer
+   >>> from pglast.printers import node_printer
    >>> @node_printer('ParamRef', override=True)
    ... def replace_param_ref(node, output):
    ...     output.write(repr(args[node.number.value - 1]))

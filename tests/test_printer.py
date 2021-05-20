@@ -8,9 +8,9 @@
 
 import pytest
 
-from pglast import printer
 from pglast.printers import NODE_PRINTERS, PrinterAlreadyPresentError, SPECIAL_FUNCTIONS
 from pglast.printers import get_printer_for_node_tag, node_printer, special_function
+from pglast.stream import IndentedStream, OutputStream, RawStream
 
 
 def test_registry():
@@ -67,7 +67,7 @@ def test_registry():
 
 
 def test_output_stream():
-    output = printer.OutputStream()
+    output = OutputStream()
     output.writes('SELECT *')
     output.writes(' FROM')
     output.writes('table ')
@@ -84,7 +84,7 @@ def test_raw_stream_with_sql():
         def raw_stmt(node, output):
             output.write('Yeah')
 
-        output = printer.RawStream()
+        output = RawStream()
         result = output('SELECT 1; SELECT 2')
         assert result == 'Yeah; Yeah'
     finally:
@@ -96,7 +96,7 @@ def test_raw_stream_with_sql():
 
 def test_raw_stream_invalid_call():
     with pytest.raises(ValueError):
-        printer.RawStream()(1)
+        RawStream()(1)
 
 
 def test_indented_stream_with_sql():
@@ -106,11 +106,11 @@ def test_indented_stream_with_sql():
         def raw_stmt(node, output):
             output.write('Yeah')
 
-        output = printer.IndentedStream()
+        output = IndentedStream()
         result = output('SELECT 1; SELECT 2')
         assert result == 'Yeah;\n\nYeah'
 
-        output = printer.IndentedStream(separate_statements=False)
+        output = IndentedStream(separate_statements=False)
         result = output('SELECT 1; SELECT 2')
         assert result == 'Yeah;\nYeah'
     finally:
@@ -128,7 +128,7 @@ def test_separate_statements():
         def raw_stmt(node, output):
             output.write('Yeah')
 
-        output = printer.IndentedStream(separate_statements=2)
+        output = IndentedStream(separate_statements=2)
         result = output('SELECT 1; SELECT 2')
         assert result == 'Yeah;\n\n\nYeah'
     finally:
@@ -139,7 +139,7 @@ def test_separate_statements():
 
 
 def test_special_function():
-    output = printer.RawStream(special_functions=True)
+    output = RawStream(special_functions=True)
 
     assert output.get_printer_for_function('foo.test_function') is None
 

@@ -63,7 +63,7 @@ def prettify(statement, safety_belt=True, preserve_comments=False, **options):
     :param bool safety_belt: whether to perform a safe check against bugs in pglast's
                              serialization
     :param bool preserve_comments: whether comments shall be preserved, defaults to not
-    :param \*\*options: any keyword option accepted by :class:`~.printer.IndentedStream`
+    :param \*\*options: any keyword option accepted by :class:`~.stream.IndentedStream`
                         constructor
     :returns: a string with the equivalent prettified statement(s)
 
@@ -76,7 +76,7 @@ def prettify(statement, safety_belt=True, preserve_comments=False, **options):
     # Intentional lazy imports, so the modules are loaded on demand
 
     import warnings
-    from .printer import IndentedStream
+    from .stream import IndentedStream
     from . import printers  # noqa
 
     if preserve_comments:
