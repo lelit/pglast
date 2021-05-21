@@ -189,7 +189,7 @@ Parse an ``SQL`` statement and get its *AST* root node
 
 .. doctest::
 
-   >>> from pglast import Node, parse_sql
+   >>> from pglast import Node
    >>> root = Node(parse_sql('SELECT foo FROM bar'))
    >>> print(root)
    None=[1*{RawStmt}]
