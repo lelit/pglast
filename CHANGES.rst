@@ -5,8 +5,8 @@
 Changes
 -------
 
-V3
-##
+Version 3
+#########
 
 3.0.dev2 (unreleased)
 ~~~~~~~~~~~~~~~~~~~~~
@@ -25,6 +25,7 @@ V3
   directly exposed by the ``printers`` subpackage while serialization classes are now in the
   new ``stream`` module
 
+
 3.0.dev1 (2021-05-16)
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -41,6 +42,7 @@ V3
 - Refine printing of SQL comments
 
 - Implement ``AlterExtensionStmt`` printer
+
 
 3.0.dev0 (2021-05-03)
 ~~~~~~~~~~~~~~~~~~~~~
@@ -98,8 +100,8 @@ V3
   ``UTF-8`` representation passed to the underlying C function
 
 
-V2
-##
+Version 2
+#########
 
 2.0.dev3 (2021-02-20)
 ~~~~~~~~~~~~~~~~~~~~~
@@ -157,8 +159,8 @@ V2
   __ https://github.com/lelit/pglast/pull/62
 
 
-V1
-##
+Version 1
+#########
 
 1.17 (2021-02-20)
 ~~~~~~~~~~~~~~~~~
