@@ -25,7 +25,8 @@ parser. Each node is represented by a corresponding Python class in the module
 Parse an ``SQL`` statement and get its *AST* root node
 ======================================================
 
-The function :func:`pglast.parser.parse_sql` returns one or more ``RawStmt`` instances:
+The function :func:`~pglast.parser.parse_sql` returns a tuple containing one or more
+:class:`~pglast.ast.RawStmt` instances:
 
 .. doctest::
 
