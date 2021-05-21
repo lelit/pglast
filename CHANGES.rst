@@ -8,6 +8,23 @@ Changes
 V3
 ##
 
+3.0.dev2 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+- Fix bug in CreateStmt printer (`issue #79`__)
+
+  __ https://github.com/lelit/pglast/issues/79
+
+- Make it possible to pass also concrete ``ast.Node``\ s to ``RawStream```
+
+~~~~~~~~~~~~~~~~~~~
+**Breaking change**
+~~~~~~~~~~~~~~~~~~~
+
+- To reduce confusion, the ``printer`` module has been removed: print-specific stuff is now
+  directly exposed by the ``printers`` subpackage while serialization classes are now in the
+  new ``stream`` module
+
 3.0.dev1 (2021-05-16)
 ~~~~~~~~~~~~~~~~~~~~~
 
