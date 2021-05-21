@@ -8,6 +8,7 @@
 
 import pytest
 
+from pglast import ast, node, parse_sql
 from pglast.printers import NODE_PRINTERS, PrinterAlreadyPresentError, SPECIAL_FUNCTIONS
 from pglast.printers import node_printer, special_function
 from pglast.stream import IndentedStream, OutputStream, RawStream
@@ -34,6 +35,46 @@ def test_raw_stream_with_sql():
         output = RawStream()
         result = output('SELECT 1; SELECT 2')
         assert result == 'Yeah; Yeah'
+    finally:
+        if raw_stmt_printer is not None:
+            NODE_PRINTERS['RawStmt'] = raw_stmt_printer
+        else:
+            NODE_PRINTERS.pop('RawStmt', None)
+
+
+def test_raw_stream_with_node():
+    raw_stmt_printer = NODE_PRINTERS.pop('RawStmt', None)
+    try:
+        @node_printer('RawStmt')
+        def raw_stmt(node, output):
+            output.write('Yeah')
+
+        root = parse_sql('SELECT 1')
+        output = RawStream()
+        result = output(node.Node(root))
+        assert result == 'Yeah'
+    finally:
+        if raw_stmt_printer is not None:
+            NODE_PRINTERS['RawStmt'] = raw_stmt_printer
+        else:
+            NODE_PRINTERS.pop('RawStmt', None)
+
+
+def test_raw_stream_with_ast_node():
+    raw_stmt_printer = NODE_PRINTERS.pop('RawStmt', None)
+    try:
+        @node_printer('RawStmt')
+        def raw_stmt(node, output):
+            output.write('Yeah')
+
+        root = parse_sql('SELECT 1')
+        output = RawStream()
+        result = output(root)
+        assert result == 'Yeah'
+
+        output = RawStream()
+        result = output(root[0])
+        assert result == 'Yeah'
     finally:
         if raw_stmt_printer is not None:
             NODE_PRINTERS['RawStmt'] = raw_stmt_printer

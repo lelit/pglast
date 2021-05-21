@@ -306,6 +306,12 @@ More powerful way to :class:`visit <pglast.visitors.Visitor>` the AST tree
 Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement
 =======================================================================
 
+The easy way
+------------
+
+The :func:`~pglast.prettify()` takes a textual ``SQL`` statement and returns its equivalent
+once *reprinted* with a focus on readability.
+
 .. doctest::
 
    >>> from pglast import prettify
@@ -333,6 +339,36 @@ Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement
    FROM sometable
    WHERE ((value IS NULL)
       OR (value = 1))
+
+Under the cover
+---------------
+
+The function above is a simple wrapper to the :class:`~pglast.stream.IndentedStream` class,
+that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
+
+.. doctest::
+
+   >>> from pglast.stream import IndentedStream, RawStream
+   >>> print(IndentedStream(comma_at_eoln=True)('select a,b,c from sometable'))
+   SELECT a,
+          b,
+          c
+   FROM sometable
+
+.. doctest::
+
+   >>> print(IndentedStream()(root))
+   SELECT foo
+   FROM bar
+
+.. doctest::
+
+   >>> sql = 'select a.x, b.y from a join b on a.bid = b.id'
+   >>> astnode = parse_sql(sql)[0].stmt
+   >>> astnode
+   <SelectStmt targetList=(<ResTarget val=<ColumnRef fields=(<String val='a'>, <String val='x'>)>>...
+   >>> print(RawStream()(astnode.fromClause))
+   a INNER JOIN b ON a.bid = b.id
 
 Customize a :func:`node printer <pglast.printers.node_printer>`
 ===============================================================

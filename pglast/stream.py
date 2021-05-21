@@ -147,18 +147,30 @@ class RawStream(OutputStream):
     def __call__(self, sql, plpgsql=False):
         """Main entry point: execute :meth:`print_node` on each statement in `sql`.
 
-        :param sql: either the source SQL in textual form, or a :class:`~.node.Node` instance
+        :param sql: the SQL statement
         :param bool plpgsql: whether `sql` is really a ``plpgsql`` statement
         :returns: a string with the equivalent SQL obtained by serializing the syntax tree
+
+        The `sql` statement may be either a ``str`` containing the ``SQL`` in textual form, or
+        a :class:`.node.Node` instance, or a :class:`.node.List` instance containing
+        :class:`.node.Node` instances, or a concrete :class:`.ast.Node` instance or a tuple of
+        them.
         """
+
+        from . import ast
 
         if isinstance(sql, str):
             sql = Node(parse_plpgsql(sql) if plpgsql else parse_sql(sql))
         elif isinstance(sql, Node):
-            sql = [sql]
+            sql = (sql,)
+        elif isinstance(sql, ast.Node):
+            sql = (Node(sql),)
+        elif isinstance(sql, tuple) and sql and isinstance(sql[0], ast.Node):
+            sql = (Node(n) for n in sql)
         elif not isinstance(sql, List):
             raise ValueError("Unexpected value for 'sql', must be either a string,"
-                             " a Node instance or a List instance, got %r" % type(sql))
+                             " a node.Node instance, a node.List, an ast.Node or tuple of"
+                             " them, got %r" % type(sql))
 
         first = True
         for statement in sql:
