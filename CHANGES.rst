@@ -25,6 +25,8 @@ Version 3
   directly exposed by the ``printers`` subpackage while serialization classes are now in the
   new ``stream`` module
 
+- The default value for the ``safety_belt`` option of the ``printify()`` function is now
+  ``False``
 
 3.0.dev1 (2021-05-16)
 ~~~~~~~~~~~~~~~~~~~~~
