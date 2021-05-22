@@ -56,7 +56,7 @@ def _extract_comments(statement):
     return comments
 
 
-def prettify(statement, safety_belt=True, preserve_comments=False, **options):
+def prettify(statement, safety_belt=False, preserve_comments=False, **options):
     r"""Render given `statement` into a prettified format.
 
     :param str statement: the SQL statement(s)
@@ -69,13 +69,11 @@ def prettify(statement, safety_belt=True, preserve_comments=False, **options):
 
     When `safety_belt` is ``True``, the resulting statement is parsed again and its *AST*
     compared with the original statement: if they don't match, a warning is emitted and the
-    original statement is returned. This is a transient protection against possible bugs in the
-    serialization machinery that may disappear before 1.0.
+    original statement is returned. By default it is ``False``, so no double check is done.
     """
 
     # Intentional lazy imports, so the modules are loaded on demand
 
-    import warnings
     from .stream import IndentedStream
     from . import printers  # noqa
 
@@ -85,18 +83,27 @@ def prettify(statement, safety_belt=True, preserve_comments=False, **options):
     orig_pt = parse_sql(statement)
     prettified = IndentedStream(**options)(Node(orig_pt))
     if safety_belt:
+        from logging import getLogger
+        import warnings
+
         try:
             pretty_pt = parse_sql(prettified)
-        except Error as e:  # pragma: no cover
-            print(prettified)
-            warnings.warn("Detected a bug in pglast serialization, please report: %s\n%s"
-                          % (e, prettified), RuntimeWarning)
+        except Error as e:
+            logger = getLogger(__file__)
+            logger.warning("Detected a bug in pglast serialization, original statement:\n\n"
+                           "%s\n\nhas been serialized to the following invalid one:\n\n%s",
+                           statement, prettified)
+            warnings.warn(f"Detected a bug in pglast serialization, please report: {e}",
+                          RuntimeWarning)
             return statement
 
-        if pretty_pt != orig_pt:  # pragma: no cover
-            print(prettified)
+        if pretty_pt != orig_pt:
+            logger = getLogger(__file__)
+            logger.warning("Detected a non-cosmetic difference between this original"
+                           " statement:\n\n%s\n\nand the prettified one:\n\n%s",
+                           statement, prettified)
             warnings.warn("Detected a non-cosmetic difference between original and"
-                          " prettified statements, please report", RuntimeWarning)
+                          " prettified statements, please report",  RuntimeWarning)
             return statement
 
     return prettified
