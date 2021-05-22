@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.0.dev2 (unreleased)
+3.0.dev2 (2021-05-22)
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Fix bug in CreateStmt printer (`issue #79`__)
