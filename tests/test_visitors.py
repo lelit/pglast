@@ -39,7 +39,6 @@ def test_visitor_class():
     raw = parse_sql('select 1')
     assert counter(raw) == 5
 
-    stmt = raw[0].stmt
     assert counter(raw[0].stmt) == 4
 
     with pytest.raises(ValueError):
