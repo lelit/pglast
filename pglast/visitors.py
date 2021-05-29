@@ -102,12 +102,9 @@ class VisitingPath:
         path = self
         while True:
             ancestors.append(path.member)
-            if path.parent_path is path.member is None:  # pragma: no branch
-                break
-            else:
-                path = path.parent_path
-
-        return reversed(ancestors)
+            if path.parent_path is path.member is None:
+                return reversed(ancestors)
+            path = path.parent_path
 
     def __repr__(self):
         return ' → '.join('ROOT' if m is None else str(m) for m in self)
