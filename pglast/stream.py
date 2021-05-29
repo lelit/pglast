@@ -48,11 +48,12 @@ class OutputStream(StringIO):
         :param nextc: either None or the next character that will be written
         :return: the number of characters written to the stream
 
-        If the last character written was not a space, and `nextc` is either ``None`` or
-        a *special character*, then emit a single whitespace.
+        If the last character written was neither a space nor an open parentheses, and `nextc`
+        is either ``None`` or a *special character*, then emit a single whitespace.
         """
 
-        if not self.last_emitted_char.isspace():
+        lec = self.last_emitted_char
+        if not lec.isspace() and lec != '(':
             if nextc is None or nextc.isalnum() or nextc in _special_chars:
                 return self.write(' ')
         return 0
