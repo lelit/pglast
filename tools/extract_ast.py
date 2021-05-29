@@ -673,8 +673,15 @@ class {name}({superclass}):
             for a, v in real_attrs:
                 output.write(f'            self.{a} = {a}\n')
         else:
+            output.write(f'''
+        if (({real_attrs[0][0]} is not None
+             and isinstance({real_attrs[0][0]}, dict)
+             and '@' in {real_attrs[0][0]})):
+            super().__init__({real_attrs[0][0]})
+        else:
+''')
             for a, v in real_attrs:
-                output.write(f'        self.{a} = {a}\n')
+                output.write(f'            self.{a} = {a}\n')
     else:
         output.write('''\
     def __init__(self):  # pragma: no cover
