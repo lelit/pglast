@@ -272,10 +272,11 @@ class Visitor:
                 index += 1
 
             if is_sequence and sequence_changed:
-                if ancestors.member is not None:
-                    setattr(ancestors[0], ancestors.member, new_nodes or None)
+                parent = ancestors[0]
+                if parent is not None:
+                    setattr(parent, ancestors.member, tuple(new_nodes) if new_nodes else None)
                 else:
-                    self.root = new_nodes or None
+                    self.root = tuple(new_nodes) if new_nodes else None
 
     visit = None
     """
