@@ -34,6 +34,19 @@ def test_setattr():
     raw.stmt = {'@': 'SelectStmt', 'all': True}
     with pytest.raises(ValueError):
         raw.stmt = {'@': 'SelectStmt', 'all': 'foo'}
+    raw.stmt = {'@': 'SelectStmt',
+                'fromClause': ({'@': 'RangeVar',
+                                'relname': 'sometable',
+                                'relpersistence': 'p'},)}
+    raw.stmt = {'@': 'SelectStmt',
+                'fromClause': ({'@': 'RangeVar',
+                                'relname': 'sometable',
+                                'relpersistence': ord('p')},)}
+    with pytest.raises(ValueError):
+        raw.stmt = {'@': 'SelectStmt',
+                    'fromClause': ({'@': 'RangeVar',
+                                    'relname': 'sometable',
+                                    'relpersistence': 'foo'},)}
     raw.stmt = {'@': 'VariableShowStmt', 'name': 'all'}
     with pytest.raises(ValueError):
         raw.stmt = {'@': 'VariableShowStmt', 'name': True}
@@ -53,3 +66,5 @@ def test_setattr():
                                                        'value': -1}}
     raw.stmt = {'@': 'FunctionParameter'}
     raw.stmt.argType = {'@': 'TypeName'}
+    raw.stmt = ast.CreateForeignTableStmt()
+    raw.stmt.base = {'@': 'CreateStmt'}
