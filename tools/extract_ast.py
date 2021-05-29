@@ -149,23 +149,6 @@ class Node:
 
             if adaptor is not None:
                 value = adaptor(value)
-            elif ctype == 'Node*':
-                if isinstance(value, dict) and '@' in value:
-                    value = globals()[value['@']](value)
-            elif ctype == 'char':
-                if isinstance(value, int):
-                    value = chr(value)
-                elif len(value) != 1:
-                    raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}.{{name}}, expected a single char, got {{value!r}}')
-            elif ctype == 'bool':
-                value = bool(value)
-            elif ctype == 'Bitmapset*':
-                if isinstance(value, (list, tuple)):
-                    value = set(value)
-            elif ctype == 'List*':
-                G = globals()
-                value = tuple(G[i['@']](i) if isinstance(i, dict) and '@' in i else i
-                              for i in value)
             elif ctype != 'char*':
                 from pglast import enums
 
