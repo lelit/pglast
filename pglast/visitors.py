@@ -57,10 +57,13 @@ class VisitingPath:
 
     Example:
 
+    .. testsetup:: *
+
+        from pglast import parse_sql
+        from pglast.visitors import VisitingPath
+
     .. doctest::
 
-        >>> from pglast import parse_sql
-        >>>
         >>> tree = parse_sql('select 1')
         >>> root = VisitingPath()
         >>> root
@@ -68,6 +71,7 @@ class VisitingPath:
         >>> root@tree is tree
         True
         >>> root[0] is None
+        True
         >>> select_stmt_path = root / (root, 0) / (tree[0], 'stmt')
         >>> select_stmt_path
         ROOT → 0 → stmt
