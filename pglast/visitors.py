@@ -264,8 +264,9 @@ class Visitor:
                             new_node = action
 
                     if not is_sequence:
-                        if ancestors.member is not None:
-                            setattr(snode, ancestors.member, new_node)
+                        parent = ancestors[0]
+                        if parent is not None:
+                            setattr(parent, ancestors.member, new_node)
                         else:
                             self.root = new_node
                 index += 1
