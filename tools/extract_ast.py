@@ -906,7 +906,7 @@ def _fixup_attribute_types_in_slots():
                     if isinstance(value, int):
                         value = chr(value)
                     elif len(value) != 1:
-                        raise ValueError(f'Bad value for attribute {{cls.__name__}}.{{attr}}, expected a single char, got {{value!r}}')
+                        raise ValueError(f'Bad value for attribute {cls.__name__}.{attr}, expected a single char, got {value!r}')
                     return value
             elif ctype == 'char*':
                 ptype = str
