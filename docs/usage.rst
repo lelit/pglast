@@ -345,7 +345,7 @@ that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
    ...         super().__call__(node)
    ...         return self.counters
    ...
-   ...     def visit(self, path, node):
+   ...     def visit(self, ancestors, node):
    ...         self.counters.update((node.__class__.__name__,))
    ...
    >>> stats = Stats()
@@ -355,8 +355,8 @@ that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
 .. doctest::
 
    >>> class NoisyVisitor(Visitor):
-   ...     def visit(self, path, node):
-   ...         print(path, ':', node(depth=0))
+   ...     def visit(self, ancestors, node):
+   ...         print(ancestors, ':', node(depth=0))
    ...
    >>> visitor = NoisyVisitor()
    >>> visitor(parse_sql('select a, b from c'))
@@ -377,7 +377,7 @@ that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
    >>> from pglast.visitors import Delete
    >>>
    >>> class DropNullConstraint(Visitor):
-   ...     def visit_Constraint(self, path, node):
+   ...     def visit_Constraint(self, ancestors, node):
    ...         if node.contype == enums.ConstrType.CONSTR_NULL:
    ...             return Delete
    ...

@@ -29,7 +29,7 @@ def test_visiting_path():
     from types import SimpleNamespace as SN
 
     root = SN(list=[SN(a='a'), SN(b='b')])
-    proot = visitors.VisitingPath()
+    proot = visitors.Ancestor()
     assert proot @ root is root
     assert None in proot
     assert list(proot) == [None]
@@ -71,7 +71,7 @@ def test_count_all_nodes():
             super().__call__(node)
             return self.count
 
-        def visit(self, path, node):
+        def visit(self, ancestors, node):
             self.count += 1
 
     counter = CountNodes()
@@ -92,7 +92,7 @@ def test_skip_action():
             super().__call__(node)
             return self.count
 
-        def visit(self, path, node):
+        def visit(self, ancestors, node):
             if node.__class__.__name__ == 'A_Expr':
                 return visitors.Skip
             self.count += 1
@@ -105,7 +105,7 @@ def test_skip_action():
 
 def test_delete_action():
     class DropNullConstraint(visitors.Visitor):
-        def visit_Constraint(self, path, node):
+        def visit_Constraint(self, ancestors, node):
             if node.contype == enums.ConstrType.CONSTR_NULL:
                 return visitors.Delete
 
@@ -120,14 +120,14 @@ def test_delete_action():
 
 def test_alter_node():
     class AddNullConstraint(visitors.Visitor):
-        def visit_ColumnDef(self, path, node):
+        def visit_ColumnDef(self, ancestors, node):
             if node.colname == 'a':
                 node.constraints = (
                     {'@': 'Constraint',
                      'contype': {'#': 'ConstrType', 'name': 'CONSTR_NOTNULL'}},)
 
-        def visit_Constraint(self, path, node):
-            if path[1].colname == 'b':
+        def visit_Constraint(self, ancestors, node):
+            if ancestors[1].colname == 'b':
                 return ast.Constraint(
                     contype=enums.ConstrType.CONSTR_CHECK,
                     raw_expr=ast.A_Expr(kind=enums.A_Expr_Kind.AEXPR_OP,
@@ -142,7 +142,7 @@ def test_alter_node():
 
 def test_replace_root_node():
     class AndNowForSomethingCompletelyDifferent(visitors.Visitor):
-        def visit_RawStmt(self, path, node):
+        def visit_RawStmt(self, ancestors, node):
             return ast.RawStmt(stmt=ast.VariableShowStmt(name='all'))
 
     raw = parse_sql('select 1')

@@ -42,7 +42,7 @@ class Skip(Action):
     "Marker used to tell the iterator to not descend into the current node."
 
 
-class VisitingPath:
+class Ancestor:
     """Simple object to keep track of the node's ancestors while it's being visited.
 
     An instance of this class represent a particular ancestor in the hierarchy chain: it
@@ -50,22 +50,25 @@ class VisitingPath:
     :class:`.ast.Node` instance and a *member*, either the attribute name or sequential index
     in the parent node.
 
-    Iterating a path yields the sequence of involved *members*. Accessing it by index returns
-    the nth node up in the hierarchy. When applied (using the ``@`` operator) to an
-    :class:`.ast.Node` instance will traverse that node returning the leaf one corresponding to
-    the whole chain.
+    Iteration yields the sequence of involved *members*, that is the path starting from the
+    root of the AST tree that leads to leaf node.
+
+    Accessing an instance with a positive index returns the nth node up in the hierarchy.
+
+    When applied (using the ``@`` operator) to an :class:`.ast.Node` instance will traverse
+    that node returning the leaf one corresponding to the whole chain.
 
     Example:
 
     .. testsetup:: *
 
         from pglast import parse_sql
-        from pglast.visitors import VisitingPath
+        from pglast.visitors import Ancestor
 
     .. doctest::
 
         >>> tree = parse_sql('select 1')
-        >>> root = VisitingPath()
+        >>> root = Ancestor()
         >>> root
         ROOT
         >>> root@tree is tree
@@ -89,8 +92,8 @@ class VisitingPath:
         True
     """
 
-    def __init__(self, parent_path=None, node=None, member=None):
-        self.parent_path = parent_path
+    def __init__(self, parent=None, node=None, member=None):
+        self.parent = parent
         self.node = node
         self.member = member
 
@@ -102,9 +105,9 @@ class VisitingPath:
         path = self
         while True:
             ancestors.append(path.member)
-            if path.parent_path is path.member is None:
+            if path.parent is path.member is None:
                 return reversed(ancestors)
-            path = path.parent_path
+            path = path.parent
 
     def __repr__(self):
         return ' → '.join('ROOT' if m is None else str(m) for m in self)
@@ -112,17 +115,17 @@ class VisitingPath:
     def __getitem__(self, n):
         path = self
         while n > 0:
-            path = path.parent_path
+            path = path.parent
             n -= 1
         return path.node
 
     def __truediv__(self, node_and_member):
-        "Create a new child of this path pointing to the given `member` node."
+        "Create a new instance pointing to the given child node."
 
-        return VisitingPath(self, *node_and_member)
+        return Ancestor(self, *node_and_member)
 
     def __matmul__(self, root):
-        "Resolve the path against the given `root` node, returning the leaf node."
+        "Resolve the ancestry chain against the given `root` node, returning the leaf node."
 
         node = root
         for member in self:
@@ -157,9 +160,10 @@ class Visitor:
     ``visit_XYZ`` method if it is implemented, falling back to the default ``visit`` method. If
     none of them are defined, the node will be ignored.
 
-    The ``visit_XYZ`` methods receive two arguments: the *hierarchy path* of the node, an
-    instance of :class:`VisitingPath` and the :class:`Node <.ast.Node>` instance itself. They
-    may return nothing, an *action* or a new node that will replace the original one.
+    The ``visit_XYZ`` methods receive two arguments: the *ancestry chain* of the node, an
+    instance of :class:`Ancestor` and the :class:`Node <.ast.Node>` instance itself. The
+    methods may return either ``None``, an *action* or a new node that will replace the
+    original one.
 
     __ https://en.wikipedia.org/wiki/Breadth-first_search
     """
@@ -183,18 +187,18 @@ class Visitor:
 
         generator = self.iterate(root)
         try:
-            path, node = generator.send(None)
+            ancestors, node = generator.send(None)
         except StopIteration:
             return
 
         while True:
             method = by_ast_class.get(node.__class__, default_method)
             if method is not None:
-                result = method(path, node)
+                result = method(ancestors, node)
             else:
                 result = None
             try:
-                path, node = generator.send(Continue if result is None else result)
+                ancestors, node = generator.send(Continue if result is None else result)
             except StopIteration:
                 break
 
@@ -205,19 +209,19 @@ class Visitor:
 
         :param node: either a :class:`Node <pglast.ast.Node>` instance or a tuple of those
 
-        This is a generator, that yields ``Node`` instances together with their *hierarchy
-        path* as it finds them while traversing the tree.
+        This is a generator, that yields ``Node`` instances together with their *ancestors
+        chain* as it finds them while traversing the tree.
         """
 
         todo = deque()
 
         if visitable(node):
-            todo.append((VisitingPath(), node))
+            todo.append((Ancestor(), node))
         else:
             raise ValueError('Bad argument, expected a ast.Node instance or a tuple')
 
         while todo:
-            path, node = todo.popleft()
+            ancestors, node = todo.popleft()
 
             is_sequence = isinstance(node, tuple)
             if is_sequence:
@@ -232,10 +236,10 @@ class Visitor:
             while nodes:
                 snode = nodes.pop(0)
                 if is_sequence:
-                    spath = path / (node, index)
+                    sancestors = ancestors / (node, index)
                 else:
-                    spath = path
-                action = yield spath, snode
+                    sancestors = ancestors
+                action = yield sancestors, snode
                 if action is Continue:
                     if is_sequence:
                         new_nodes.append(snode)
@@ -243,7 +247,7 @@ class Visitor:
                     for attr in snode:
                         value = getattr(snode, attr)
                         if visitable(value):
-                            todo.append((spath / (snode, attr), value))
+                            todo.append((sancestors / (snode, attr), value))
                 elif action is Skip:
                     if is_sequence:
                         new_nodes.append(snode)
@@ -260,15 +264,15 @@ class Visitor:
                             new_node = action
 
                     if not is_sequence:
-                        if path.member is not None:
-                            setattr(snode, path.member, new_node)
+                        if ancestors.member is not None:
+                            setattr(snode, ancestors.member, new_node)
                         else:
                             self.root = new_node
                 index += 1
 
             if is_sequence and sequence_changed:
-                if path.member is not None:
-                    setattr(path[0], path.member, new_nodes or None)
+                if ancestors.member is not None:
+                    setattr(ancestors[0], ancestors.member, new_nodes or None)
                 else:
                     self.root = new_nodes or None
 
@@ -292,18 +296,18 @@ class RelationNames(Visitor):
         super().__call__(node)
         return self.rnames - self.ctenames
 
-    def visit_CommonTableExpr(self, path, node):
+    def visit_CommonTableExpr(self, ancestors, node):
         "Collect CTE names."
 
         self.ctenames.add(node.ctename)
 
-    def visit_DropStmt(self, path, node):
+    def visit_DropStmt(self, ancestors, node):
         from .enums import ObjectType
         if node.removeType in (ObjectType.OBJECT_TABLE, ObjectType.OBJECT_VIEW):
             for obj in node.objects:
                 self.rnames.add('.'.join(n.val for n in obj))
 
-    def visit_RangeVar(self, path, node):
+    def visit_RangeVar(self, ancestors, node):
         "Collect relation names."
 
         tname = node.relname
