@@ -105,7 +105,7 @@ class Ancestor:
         path = self
         while True:
             ancestors.append(path.member)
-            if path.parent is path.member is None:
+            if path.parent is None:
                 return reversed(ancestors)
             path = path.parent
 
