@@ -64,17 +64,18 @@ def test_empty_visitor():
     assert v(()) is None
 
 
+class CountAllNodes(visitors.Visitor):
+    def __call__(self, node):
+        self.count = 0
+        super().__call__(node)
+        return self.count
+
+    def visit(self, ancestors, node):
+        self.count += 1
+
+
 def test_count_all_nodes():
-    class CountNodes(visitors.Visitor):
-        def __call__(self, node):
-            self.count = 0
-            super().__call__(node)
-            return self.count
-
-        def visit(self, ancestors, node):
-            self.count += 1
-
-    counter = CountNodes()
+    counter = CountAllNodes()
 
     raw = parse_sql('select 1')
     assert counter(raw) == 5
@@ -86,21 +87,48 @@ def test_count_all_nodes():
 
 
 def test_skip_action():
-    class CountNodes(visitors.Visitor):
+    sql = 'select 1 where a = 1'
+
+    all_nodes_count = CountAllNodes()(parse_sql(sql))
+    assert all_nodes_count == 11
+
+    class CountNodesSkippingExprs(visitors.Visitor):
         def __call__(self, node):
             self.count = 0
+            self.exprs = 0
             super().__call__(node)
-            return self.count
+            return self.count, self.exprs
 
         def visit(self, ancestors, node):
             if node.__class__.__name__ == 'A_Expr':
+                self.exprs += CountAllNodes()(node)
                 return visitors.Skip
             self.count += 1
 
-    counter = CountNodes()
+    counter = CountNodesSkippingExprs()
+
+    raw = parse_sql(sql)
+    nodes, exprs = counter(raw)
+    assert nodes == all_nodes_count - exprs
+
+    class CountNodesSkippingTargets(visitors.Visitor):
+        def __call__(self, node):
+            self.count = 0
+            self.targets = 0
+            super().__call__(node)
+            return self.count, self.targets
+
+        def visit(self, ancestors, node):
+            if node.__class__.__name__ == 'ResTarget':
+                self.targets += CountAllNodes()(node)
+                return visitors.Skip
+            self.count += 1
+
+    counter = CountNodesSkippingTargets()
 
     raw = parse_sql('select 1 where a = 1')
-    assert counter(raw) == 5
+    nodes, targets = counter(raw)
+    assert nodes == all_nodes_count - targets
 
 
 def test_delete_action():
@@ -139,11 +167,23 @@ def test_alter_node():
     AddNullConstraint()(raw)
     assert RawStream()(raw) == 'CREATE TABLE foo (a integer NOT NULL, b integer CHECK (b > 0))'
 
+    class DoubleAllIntegers(visitors.Visitor):
+        def visit_Integer(self, ancestors, node):
+            return ast.Integer(node.val * 2)
+
+    raw = parse_sql('select 21')
+    DoubleAllIntegers()(raw)
+    assert RawStream()(raw) == 'SELECT 42'
+
 
 def test_replace_root_node():
     class AndNowForSomethingCompletelyDifferent(visitors.Visitor):
         def visit_RawStmt(self, ancestors, node):
             return ast.RawStmt(stmt=ast.VariableShowStmt(name='all'))
+
+    raw = parse_sql('select 1')
+    new_root = AndNowForSomethingCompletelyDifferent()(raw)
+    assert RawStream()(new_root) == 'SHOW ALL'
 
     raw = parse_sql('select 1')
     new_root = AndNowForSomethingCompletelyDifferent()(raw[0])
