@@ -26,6 +26,8 @@ AST_PY_HEADER = f"""\
 # :Copyright: © {CYEARS} Lele Gaifax
 #
 
+# flake8: noqa
+
 from collections import namedtuple
 from decimal import Decimal
 from enum import Enum
@@ -248,7 +250,6 @@ class String(Value):
     '''Implement the ``T_String`` variant of the :class:`Value` union.'''
 
     __slots__ = {{'val': SlotTypeInfo('char*', str, None)}}
-
 """
 
 
@@ -906,15 +907,18 @@ def _fixup_attribute_types_in_slots():
             ctype = slots[attr]
             if ctype == 'List*':
                 ptype = (list, tuple)
-                adaptor = lambda value: tuple(G[i['@']](i)
-                                              if isinstance(i, dict) and '@' in i
-                                              else i
-                                              for i in value)
+
+                def adaptor(value):
+                    return tuple(G[i['@']](i)
+                                 if isinstance(i, dict) and '@' in i
+                                 else i
+                                 for i in value)
             elif ctype == 'bool':
                 ptype = (bool, int)
                 adaptor = bool
             elif ctype == 'char':
                 ptype = (str, int)
+
                 def adaptor(value):
                     if isinstance(value, int):
                         value = chr(value)
@@ -925,6 +929,7 @@ def _fixup_attribute_types_in_slots():
                 ptype = str
             elif ctype in ('Expr*', 'Node*'):
                 ptype = (dict, list, tuple, Node)
+
                 def adaptor(value):
                     if isinstance(value, dict):
                         if '@' in value:
@@ -944,6 +949,7 @@ def _fixup_attribute_types_in_slots():
                 ptype = float
             elif ctype == 'CreateStmt':
                 ptype = (dict, CreateStmt)
+
                 def adaptor(value):
                     if isinstance(value, dict):
                         if '@' in value:
@@ -951,7 +957,12 @@ def _fixup_attribute_types_in_slots():
                     return value
             elif ctype == 'Bitmapset*':
                 ptype = (list, set, tuple)
-                adaptor = lambda value: set(value) if isinstance(value, (list, tuple)) else value
+
+                def adaptor(value):
+                    if isinstance(value, (list, tuple)):
+                        return set(value)
+                    else:
+                        return value
             else:
                 from pglast import enums
 
@@ -965,6 +976,7 @@ def _fixup_attribute_types_in_slots():
                         else:
                             ptype = (dict, ptype)
             slots[attr] = SlotTypeInfo(ctype, ptype, adaptor)
+
 
 _fixup_attribute_types_in_slots()
 del _fixup_attribute_types_in_slots
