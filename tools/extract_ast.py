@@ -972,7 +972,7 @@ def _fixup_attribute_types_in_slots():
                     if ctype.endswith('*'):
                         ptype = G.get(ctype[:-1])
                         if ptype is None:
-                            raise NotImplementedError(f'unknown {{ctype!r}}') from None
+                            raise NotImplementedError(f'unknown {ctype!r}') from None
                         else:
                             ptype = (dict, ptype)
             slots[attr] = SlotTypeInfo(ctype, ptype, adaptor)
