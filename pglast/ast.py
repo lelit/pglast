@@ -5,6 +5,8 @@
 # :Copyright: © 2021 Lele Gaifax
 #
 
+# flake8: noqa
+
 from collections import namedtuple
 from decimal import Decimal
 from enum import Enum
@@ -126,23 +128,6 @@ class Node:
 
             if adaptor is not None:
                 value = adaptor(value)
-            elif ctype == 'Node*':
-                if isinstance(value, dict) and '@' in value:
-                    value = globals()[value['@']](value)
-            elif ctype == 'char':
-                if isinstance(value, int):
-                    value = chr(value)
-                elif len(value) != 1:
-                    raise ValueError(f'Bad value for attribute {self.__class__.__name__}.{name}, expected a single char, got {value!r}')
-            elif ctype == 'bool':
-                value = bool(value)
-            elif ctype == 'Bitmapset*':
-                if isinstance(value, (list, tuple)):
-                    value = set(value)
-            elif ctype == 'List*':
-                G = globals()
-                value = tuple(G[i['@']](i) if isinstance(i, dict) and '@' in i else i
-                              for i in value)
             elif ctype != 'char*':
                 from pglast import enums
 
@@ -227,7 +212,6 @@ class String(Value):
     '''Implement the ``T_String`` variant of the :class:`Value` union.'''
 
     __slots__ = {'val': SlotTypeInfo('char*', str, None)}
-
 
 
 class A_ArrayExpr(Node):
@@ -367,7 +351,13 @@ class AlterCollationStmt(Node):
     __slots__ = {'collname': 'List*'}
 
     def __init__(self, collname=None):  # pragma: no cover
-        self.collname = collname
+
+        if ((collname is not None
+             and isinstance(collname, dict)
+             and '@' in collname)):
+            super().__init__(collname)
+        else:
+            self.collname = collname
 
 
 class AlterDatabaseSetStmt(Node):
@@ -734,7 +724,13 @@ class AlterSystemStmt(Node):
     __slots__ = {'setstmt': 'VariableSetStmt*'}
 
     def __init__(self, setstmt=None):  # pragma: no cover
-        self.setstmt = setstmt
+
+        if ((setstmt is not None
+             and isinstance(setstmt, dict)
+             and '@' in setstmt)):
+            super().__init__(setstmt)
+        else:
+            self.setstmt = setstmt
 
 
 class AlterTSConfigurationStmt(Node):
@@ -870,7 +866,13 @@ class AlternativeSubPlan(Expr):
     __slots__ = {'subplans': 'List*'}
 
     def __init__(self, subplans=None):  # pragma: no cover
-        self.subplans = subplans
+
+        if ((subplans is not None
+             and isinstance(subplans, dict)
+             and '@' in subplans)):
+            super().__init__(subplans)
+        else:
+            self.subplans = subplans
 
 
 class ArrayCoerceExpr(Expr):
@@ -939,7 +941,13 @@ class CallContext(Node):
     __slots__ = {'atomic': 'bool'}
 
     def __init__(self, atomic=None):  # pragma: no cover
-        self.atomic = atomic
+
+        if ((atomic is not None
+             and isinstance(atomic, dict)
+             and '@' in atomic)):
+            super().__init__(atomic)
+        else:
+            self.atomic = atomic
 
 
 class CallStmt(Node):
@@ -976,7 +984,13 @@ class CaseTestExpr(Expr):
     __slots__ = {'typeMod': 'int32'}
 
     def __init__(self, typeMod=None):  # pragma: no cover
-        self.typeMod = typeMod
+
+        if ((typeMod is not None
+             and isinstance(typeMod, dict)
+             and '@' in typeMod)):
+            super().__init__(typeMod)
+        else:
+            self.typeMod = typeMod
 
 
 class CaseWhen(Expr):
@@ -1005,7 +1019,13 @@ class ClosePortalStmt(Node):
     __slots__ = {'portalname': 'char*'}
 
     def __init__(self, portalname=None):  # pragma: no cover
-        self.portalname = portalname
+
+        if ((portalname is not None
+             and isinstance(portalname, dict)
+             and '@' in portalname)):
+            super().__init__(portalname)
+        else:
+            self.portalname = portalname
 
 
 class ClusterStmt(Node):
@@ -1816,7 +1836,13 @@ class DeallocateStmt(Node):
     __slots__ = {'name': 'char*'}
 
     def __init__(self, name=None):  # pragma: no cover
-        self.name = name
+
+        if ((name is not None
+             and isinstance(name, dict)
+             and '@' in name)):
+            super().__init__(name)
+        else:
+            self.name = name
 
 
 class DeclareCursorStmt(Node):
@@ -1891,14 +1917,26 @@ class DiscardStmt(Node):
     __slots__ = {'target': 'DiscardMode'}
 
     def __init__(self, target=None):  # pragma: no cover
-        self.target = target
+
+        if ((target is not None
+             and isinstance(target, dict)
+             and '@' in target)):
+            super().__init__(target)
+        else:
+            self.target = target
 
 
 class DoStmt(Node):
     __slots__ = {'args': 'List*'}
 
     def __init__(self, args=None):  # pragma: no cover
-        self.args = args
+
+        if ((args is not None
+             and isinstance(args, dict)
+             and '@' in args)):
+            super().__init__(args)
+        else:
+            self.args = args
 
 
 class DropOwnedStmt(Node):
@@ -2316,7 +2354,13 @@ class InferenceElem(Expr):
     __slots__ = {'expr': 'Node*'}
 
     def __init__(self, expr=None):  # pragma: no cover
-        self.expr = expr
+
+        if ((expr is not None
+             and isinstance(expr, dict)
+             and '@' in expr)):
+            super().__init__(expr)
+        else:
+            self.expr = expr
 
 
 class InlineCodeBlock(Node):
@@ -2397,14 +2441,26 @@ class ListenStmt(Node):
     __slots__ = {'conditionname': 'char*'}
 
     def __init__(self, conditionname=None):  # pragma: no cover
-        self.conditionname = conditionname
+
+        if ((conditionname is not None
+             and isinstance(conditionname, dict)
+             and '@' in conditionname)):
+            super().__init__(conditionname)
+        else:
+            self.conditionname = conditionname
 
 
 class LoadStmt(Node):
     __slots__ = {'filename': 'char*'}
 
     def __init__(self, filename=None):  # pragma: no cover
-        self.filename = filename
+
+        if ((filename is not None
+             and isinstance(filename, dict)
+             and '@' in filename)):
+            super().__init__(filename)
+        else:
+            self.filename = filename
 
 
 class LockStmt(Node):
@@ -2911,7 +2967,13 @@ class RangeTblRef(Node):
     __slots__ = {'rtindex': 'int'}
 
     def __init__(self, rtindex=None):  # pragma: no cover
-        self.rtindex = rtindex
+
+        if ((rtindex is not None
+             and isinstance(rtindex, dict)
+             and '@' in rtindex)):
+            super().__init__(rtindex)
+        else:
+            self.rtindex = rtindex
 
 
 class RangeVar(Node):
@@ -3504,7 +3566,13 @@ class UnlistenStmt(Node):
     __slots__ = {'conditionname': 'char*'}
 
     def __init__(self, conditionname=None):  # pragma: no cover
-        self.conditionname = conditionname
+
+        if ((conditionname is not None
+             and isinstance(conditionname, dict)
+             and '@' in conditionname)):
+            super().__init__(conditionname)
+        else:
+            self.conditionname = conditionname
 
 
 class UpdateStmt(Node):
@@ -3593,7 +3661,13 @@ class VariableShowStmt(Node):
     __slots__ = {'name': 'char*'}
 
     def __init__(self, name=None):  # pragma: no cover
-        self.name = name
+
+        if ((name is not None
+             and isinstance(name, dict)
+             and '@' in name)):
+            super().__init__(name)
+        else:
+            self.name = name
 
 
 class ViewStmt(Node):
@@ -3762,15 +3836,18 @@ def _fixup_attribute_types_in_slots():
             ctype = slots[attr]
             if ctype == 'List*':
                 ptype = (list, tuple)
-                adaptor = lambda value: tuple(G[i['@']](i)
-                                              if isinstance(i, dict) and '@' in i
-                                              else i
-                                              for i in value)
+
+                def adaptor(value):
+                    return tuple(G[i['@']](i)
+                                 if isinstance(i, dict) and '@' in i
+                                 else i
+                                 for i in value)
             elif ctype == 'bool':
                 ptype = (bool, int)
                 adaptor = bool
             elif ctype == 'char':
                 ptype = (str, int)
+
                 def adaptor(value):
                     if isinstance(value, int):
                         value = chr(value)
@@ -3781,6 +3858,7 @@ def _fixup_attribute_types_in_slots():
                 ptype = str
             elif ctype in ('Expr*', 'Node*'):
                 ptype = (dict, list, tuple, Node)
+
                 def adaptor(value):
                     if isinstance(value, dict):
                         if '@' in value:
@@ -3800,6 +3878,7 @@ def _fixup_attribute_types_in_slots():
                 ptype = float
             elif ctype == 'CreateStmt':
                 ptype = (dict, CreateStmt)
+
                 def adaptor(value):
                     if isinstance(value, dict):
                         if '@' in value:
@@ -3807,7 +3886,12 @@ def _fixup_attribute_types_in_slots():
                     return value
             elif ctype == 'Bitmapset*':
                 ptype = (list, set, tuple)
-                adaptor = lambda value: set(value) if isinstance(value, (list, tuple)) else value
+
+                def adaptor(value):
+                    if isinstance(value, (list, tuple)):
+                        return set(value)
+                    else:
+                        return value
             else:
                 from pglast import enums
 
@@ -3817,10 +3901,11 @@ def _fixup_attribute_types_in_slots():
                     if ctype.endswith('*'):
                         ptype = G.get(ctype[:-1])
                         if ptype is None:
-                            raise NotImplementedError(f'unknown {{ctype!r}}') from None
+                            raise NotImplementedError(f'unknown {ctype!r}') from None
                         else:
                             ptype = (dict, ptype)
             slots[attr] = SlotTypeInfo(ctype, ptype, adaptor)
+
 
 _fixup_attribute_types_in_slots()
 del _fixup_attribute_types_in_slots
