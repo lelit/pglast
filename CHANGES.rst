@@ -8,10 +8,18 @@ Changes
 Version 3
 #########
 
+3.0.dev3 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+- Fix glitch in the ``RawStream``, avoiding spurious space after an open parenthesis
+
+- Improve the ``Visitor`` class, to make it easier altering the original tree
+
+
 3.0.dev2 (2021-05-22)
 ~~~~~~~~~~~~~~~~~~~~~
 
-- Fix bug in CreateStmt printer (`issue #79`__)
+- Fix bug in ``CreateStmt`` printer (`issue #79`__)
 
   __ https://github.com/lelit/pglast/issues/79
 
@@ -27,6 +35,7 @@ Version 3
 
 - The default value for the ``safety_belt`` option of the ``printify()`` function is now
   ``False``
+
 
 3.0.dev1 (2021-05-16)
 ~~~~~~~~~~~~~~~~~~~~~
