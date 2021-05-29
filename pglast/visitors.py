@@ -12,6 +12,134 @@ from inspect import getmembers, ismethod
 from . import ast
 
 
+class ActionMeta(type):
+    "Metaclass used to implement action singleton."
+
+    def __repr__(cls):
+        return cls.__name__
+
+
+class Action(metaclass=ActionMeta):
+    "Abstract action singleton."
+
+    def __new__(cls):  # pragma: no cover
+        return cls
+
+
+class Add(Action):
+    "Marker used to tell the iterator to insert nodes in the current sequence."
+
+
+class Continue(Action):
+    "Marker used to tell the iterator to keep going."
+
+
+class Delete(Action):
+    "Marker used to tell the iterator to delete current node."
+
+
+class Skip(Action):
+    "Marker used to tell the iterator to not descend into the current node."
+
+
+class VisitingPath:
+    """Simple object to keep track of the node's ancestors while it's being visited.
+
+    An instance of this class represent a particular ancestor in the hierarchy chain: it
+    carries a reference that points to the higher item in the chain, the associated
+    :class:`.ast.Node` instance and a *member*, either the attribute name or sequential index
+    in the parent node.
+
+    Iterating a path yields the sequence of involved *members*. Accessing it by index returns
+    the nth node up in the hierarchy. When applied (using the ``@`` operator) to an
+    :class:`.ast.Node` instance will traverse that node returning the leaf one corresponding to
+    the whole chain.
+
+    Example:
+
+    .. doctest::
+
+        >>> from pglast import parse_sql
+        >>>
+        >>> tree = parse_sql('select 1')
+        >>> root = VisitingPath()
+        >>> root
+        ROOT
+        >>> root@tree is tree
+        True
+        >>> root[0] is None
+        >>> select_stmt_path = root / (root, 0) / (tree[0], 'stmt')
+        >>> select_stmt_path
+        ROOT → 0 → stmt
+        >>> select_stmt_path@tree is tree[0].stmt
+        True
+        >>> select_stmt_path[0] is tree[0]
+        True
+        >>> columns_path = select_stmt_path / (tree[0].stmt, 'targetList')
+        >>> first_col_path = columns_path / (tree[0].stmt.targetList[0], 0)
+        >>> first_col_path
+        ROOT → 0 → stmt → targetList → 0
+        >>> first_col_path[0]
+        <ResTarget val=<A_Const val=<Integer val=1>>>
+        >>> first_col_path[1] is columns_path[0]
+        True
+    """
+
+    def __init__(self, parent_path=None, node=None, member=None):
+        self.parent_path = parent_path
+        self.node = node
+        self.member = member
+
+    def __iter__(self):
+        "Iterate over each step, yielding either an attribute name or a sequence index."
+
+        ancestors = []
+
+        path = self
+        while True:
+            ancestors.append(path.member)
+            if path.parent_path is path.member is None:  # pragma: no branch
+                break
+            else:
+                path = path.parent_path
+
+        return reversed(ancestors)
+
+    def __repr__(self):
+        return ' → '.join('ROOT' if m is None else str(m) for m in self)
+
+    def __getitem__(self, n):
+        path = self
+        while n > 0:
+            path = path.parent_path
+            n -= 1
+        return path.node
+
+    def __truediv__(self, node_and_member):
+        "Create a new child of this path pointing to the given `member` node."
+
+        return VisitingPath(self, *node_and_member)
+
+    def __matmul__(self, root):
+        "Resolve the path against the given `root` node, returning the leaf node."
+
+        node = root
+        for member in self:
+            if member is not None:
+                if isinstance(member, int):
+                    node = node[member]
+                else:
+                    node = getattr(node, member)
+        return node
+
+
+def visitable(node):
+    "Determine whether the given `node` is visitable or not."
+
+    return (isinstance(node, ast.Node)
+            or (isinstance(node, tuple) and all(isinstance(item, ast.Node) for item in node)))
+
+
 class Visitor:
     """Base class implementing the `visitor pattern`__.
 
@@ -28,17 +156,17 @@ class Visitor:
     ``visit_XYZ`` method if it is implemented, falling back to the default ``visit`` method. If
     none of them are defined, the node will be ignored.
 
-    The ``visit_XYZ`` methods receive two arguments: the *hierarchy path* of the node and the
-    :class:`Node <.ast.Node>` instance itself. The `path` is a sequence of tuples, each
-    containing either one or two slots: in the former case it is an integer index within a list
-    of nodes, in the other case it indicates the *parent* node and the corresponding
-    *attribute*.
+    The ``visit_XYZ`` methods receive two arguments: the *hierarchy path* of the node, an
+    instance of :class:`VisitingPath` and the :class:`Node <.ast.Node>` instance itself. They
+    may return nothing, an *action* or a new node that will replace the original one.
 
     __ https://en.wikipedia.org/wiki/Breadth-first_search
     """
 
     def __call__(self, root):
         "Iteratively visit the `root` node calling related ``visit_XYZ`` methods."
+
+        self.root = root
 
         by_ast_class = {}
         for name, method in getmembers(self, ismethod):
@@ -52,10 +180,24 @@ class Visitor:
 
         default_method = self.visit
 
-        for path, node in self.iterate(root):
+        generator = self.iterate(root)
+        try:
+            path, node = generator.send(None)
+        except StopIteration:
+            return
+
+        while True:
             method = by_ast_class.get(node.__class__, default_method)
             if method is not None:
-                method(path, node)
+                result = method(path, node)
+            else:
+                result = None
+            try:
+                path, node = generator.send(Continue if result is None else result)
+            except StopIteration:
+                break
+
+        return self.root
 
     def iterate(self, node):
         """Iterate thru `node`'s AST using a breadth-first traversing.
@@ -68,29 +210,66 @@ class Visitor:
 
         todo = deque()
 
-        if isinstance(node, ast.Node):
-            todo.append(((), node))
-        elif isinstance(node, tuple):
-            for index, item in enumerate(node):
-                if isinstance(item, ast.Node):
-                    todo.append(((index,), item))
+        if visitable(node):
+            todo.append((VisitingPath(), node))
         else:
             raise ValueError('Bad argument, expected a ast.Node instance or a tuple')
 
         while todo:
             path, node = todo.popleft()
 
-            yield path, node
+            is_sequence = isinstance(node, tuple)
+            if is_sequence:
+                nodes = list(node)
+                new_nodes = []
+            else:
+                nodes = [node]
+                new_nodes = None
+            sequence_changed = False
 
-            for attr in node:
-                value = getattr(node, attr)
-                if isinstance(value, ast.Node):
-                    todo.append((path + ((node, attr),), value))
-                elif isinstance(value, tuple):
-                    spath = path + ((node, attr),)
-                    for index, item in enumerate(value):
-                        if isinstance(item, ast.Node):
-                            todo.append((spath + (index,), item))
+            index = 0
+            while nodes:
+                snode = nodes.pop(0)
+                if is_sequence:
+                    spath = path / (node, index)
+                else:
+                    spath = path
+                action = yield spath, snode
+                if action is Continue:
+                    if is_sequence:
+                        new_nodes.append(snode)
+
+                    for attr in snode:
+                        value = getattr(snode, attr)
+                        if visitable(value):
+                            todo.append((spath / (snode, attr), value))
+                elif action is Skip:
+                    if is_sequence:
+                        new_nodes.append(snode)
+                else:
+                    if action is Delete:
+                        if is_sequence:
+                            sequence_changed = True
+                        new_node = None
+                    elif action is not snode:
+                        if is_sequence:
+                            sequence_changed = True
+                            new_nodes.append(action)
+                        else:
+                            new_node = action
+
+                    if not is_sequence:
+                        if path.member is not None:
+                            setattr(snode, path.member, new_node)
+                        else:
+                            self.root = new_node
+                index += 1
+
+            if is_sequence and sequence_changed:
+                if path.member is not None:
+                    setattr(path[0], path.member, new_nodes or None)
+                else:
+                    self.root = new_nodes or None
 
     visit = None
     """

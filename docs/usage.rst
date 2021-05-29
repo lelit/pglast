@@ -264,46 +264,6 @@ As you can see, the ``repr``\ esentation of each value is mnemonic: ``{some_tag}
 ``Node`` with tag ``some_tag``, ``[X*{some_tag}]`` is a ``List`` containing `X` nodes of that
 particular kind\ [*]_ and ``<value>`` is a ``Scalar``.
 
-More powerful way to :class:`visit <pglast.visitors.Visitor>` the AST tree
-==========================================================================
-
-.. doctest::
-
-   >>> from collections import Counter
-   >>> from pglast.visitors import Visitor
-   >>>
-   >>> class Stats(Visitor):
-   ...     def __call__(self, node):
-   ...         self.counters = Counter()
-   ...         super().__call__(node)
-   ...         return self.counters
-   ...
-   ...     def visit(self, path, node):
-   ...         self.counters.update((node.__class__.__name__,))
-   ...
-   >>> stats = Stats()
-   >>> print(stats(parse_sql('select 1')))
-   Counter({'RawStmt': 1, 'SelectStmt': 1, 'ResTarget': 1, 'A_Const': 1, 'Integer': 1})
-
-.. doctest::
-
-   >>> class NoisyVisitor(Visitor):
-   ...     def visit(self, path, node):
-   ...         prefix = ' → '.join(f'[{i}]' if isinstance(i, int) else i[1] for i in path)
-   ...         print(prefix, ':', node(depth=0))
-   ...
-   >>> visitor = NoisyVisitor()
-   >>> visitor(parse_sql('select a, b from c'))
-   [0] : {'@': 'RawStmt', 'stmt': Ellipsis, 'stmt_location': 0, 'stmt_len': 0}
-   [0] → stmt : {'@': 'SelectStmt', 'distinctClause': None, 'intoClause': None, ...
-   [0] → stmt → targetList → [0] : {'@': 'ResTarget', 'name': None, 'indirection': None, ...
-   [0] → stmt → targetList → [1] : {'@': 'ResTarget', 'name': None, 'indirection': None, ...
-   [0] → stmt → fromClause → [0] : {'@': 'RangeVar', 'catalogname': None, 'schemaname': None, ...
-   [0] → stmt → targetList → [0] → val : {'@': 'ColumnRef', 'fields': Ellipsis, 'location': 7}
-   [0] → stmt → targetList → [1] → val : {'@': 'ColumnRef', 'fields': Ellipsis, 'location': 10}
-   [0] → stmt → targetList → [0] → val → fields → [0] : {'@': 'String', 'val': 'a'}
-   [0] → stmt → targetList → [1] → val → fields → [0] : {'@': 'String', 'val': 'b'}
-
 Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement
 =======================================================================
 
@@ -370,6 +330,62 @@ that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
    <SelectStmt targetList=(<ResTarget val=<ColumnRef fields=(<String val='a'>, <String val='x'>)>>...
    >>> print(RawStream()(astnode.fromClause))
    a INNER JOIN b ON a.bid = b.id
+
+:class:`Visit <pglast.visitors.Visitor>` or modify the AST tree
+===============================================================
+
+.. doctest::
+
+   >>> from collections import Counter
+   >>> from pglast.visitors import Visitor
+   >>>
+   >>> class Stats(Visitor):
+   ...     def __call__(self, node):
+   ...         self.counters = Counter()
+   ...         super().__call__(node)
+   ...         return self.counters
+   ...
+   ...     def visit(self, path, node):
+   ...         self.counters.update((node.__class__.__name__,))
+   ...
+   >>> stats = Stats()
+   >>> print(stats(parse_sql('select 1')))
+   Counter({'RawStmt': 1, 'SelectStmt': 1, 'ResTarget': 1, 'A_Const': 1, 'Integer': 1})
+
+.. doctest::
+
+   >>> class NoisyVisitor(Visitor):
+   ...     def visit(self, path, node):
+   ...         print(path, ':', node(depth=0))
+   ...
+   >>> visitor = NoisyVisitor()
+   >>> visitor(parse_sql('select a, b from c'))
+   ROOT → 0 : {'@': 'RawStmt', 'stmt': Ellipsis, 'stmt_location': 0, 'stmt_len': 0}
+   ROOT → 0 → stmt : {'@': 'SelectStmt', 'distinctClause': None, 'intoClause': None, ...
+   ROOT → 0 → stmt → targetList → 0 : {'@': 'ResTarget', 'name': None, 'indirection': None, ...
+   ROOT → 0 → stmt → targetList → 1 : {'@': 'ResTarget', 'name': None, 'indirection': None, ...
+   ROOT → 0 → stmt → fromClause → 0 : {'@': 'RangeVar', 'catalogname': None, 'schemaname': None, ...
+   ROOT → 0 → stmt → targetList → 0 → val : {'@': 'ColumnRef', 'fields': Ellipsis, 'location': 7}
+   ROOT → 0 → stmt → targetList → 1 → val : {'@': 'ColumnRef', 'fields': Ellipsis, 'location': 10}
+   ROOT → 0 → stmt → targetList → 0 → val → fields → 0 : {'@': 'String', 'val': 'a'}
+   ROOT → 0 → stmt → targetList → 1 → val → fields → 0 : {'@': 'String', 'val': 'b'}
+   (<RawStmt stmt=<SelectStmt ...
+
+.. doctest::
+
+   >>> from pglast import enums
+   >>> from pglast.visitors import Delete
+   >>>
+   >>> class DropNullConstraint(Visitor):
+   ...     def visit_Constraint(self, path, node):
+   ...         if node.contype == enums.ConstrType.CONSTR_NULL:
+   ...             return Delete
+   ...
+   >>> raw = parse_sql('create table foo (a integer null, b integer not null)')
+   >>> DropNullConstraint()(raw)
+   (<RawStmt stmt=<CreateStmt ...
+   >>> print(RawStream()(raw))
+   CREATE TABLE foo (a integer, b integer NOT NULL)
 
 Customize a :func:`node printer <pglast.printers.node_printer>`
 ===============================================================

@@ -10,11 +10,6 @@
  :mod:`pglast.visitors` --- Other ways to inspect and manipulate the AST
 =========================================================================
 
-.. module:: pglast.visitors
+.. automodule:: pglast.visitors
    :synopsis: Other ways to inspect and manipulate the AST
-
-.. autoclass:: Visitor
    :members:
-   :special-members: __call__
-
-.. autofunction:: referenced_relations
