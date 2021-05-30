@@ -8,6 +8,8 @@
 
 from contextlib import _RedirectStream, redirect_stdout
 from io import StringIO
+from os import unlink
+from tempfile import NamedTemporaryFile
 
 import pytest
 
@@ -49,6 +51,14 @@ SELECT foo
 FROM sometable
 WHERE foo <> 0
 """
+
+    output = NamedTemporaryFile(delete=False)
+    try:
+        main(['-S', "select 1", '-', output.name])
+        with open(output.name) as f:
+            assert f.read() == "SELECT 1\n"
+    finally:
+        unlink(output.name)
 
     with StringIO("Select 1") as input:
         with UnclosableStream() as output:
