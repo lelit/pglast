@@ -275,11 +275,6 @@ class Scalar(Base):
     def __eq__(self, other):
         value = self._value
         if isinstance(other, Enum):
-            # Handle the FunctionParameterMode case, when the value is an integer while the
-            # enum is actually a character
-            if isinstance(value, int) and isinstance(other.value, str):
-                assert len(other.value) == 1
-                return value == ord(other.value)
             return value == other
         elif isinstance(other, type(value)):
             return value == other
