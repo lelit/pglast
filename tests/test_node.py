@@ -53,6 +53,7 @@ def test_scalar():
     constraint.fk_matchtype = '\00'
     node = Node(constraint)
     assert not node.fk_matchtype
+    assert node.fk_matchtype != 1
 
 
 def test_traverse():
