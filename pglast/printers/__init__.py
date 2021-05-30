@@ -74,7 +74,7 @@ def node_printer(*node_tags, override=False, check_tags=True):
             if not isinstance(parent_tags, (list, tuple)):
                 parent_tags = (parent_tags,)
         else:
-            raise ValueError("Must specify one or two tags, got %d instead" % len(node_tags))
+            raise ValueError(f'Must specify one or two tags, got {len(node_tags)} instead')
 
         for parent_tag in parent_tags:
             t = tag if parent_tag is None else (parent_tag, tag)
