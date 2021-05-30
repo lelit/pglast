@@ -191,7 +191,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: bool
 
       True if variadic arguments have been
-      * combined into an array last argument
+      combined into an array last argument
 
    .. attribute:: aggkind
       :type: str
@@ -369,7 +369,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: str
 
       Trigger's firing configuration WRT
-      * session_replication_role
+      session_replication_role
 
 
 .. class:: AlterExtensionContentsStmt(extname=None, action=None, objtype=None, object=None)
@@ -847,13 +847,13 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: str
 
       Column, constraint, or trigger to act on,
-      * or tablespace
+      or tablespace
 
    .. attribute:: num
       :type: int16
 
       Attribute number for columns referenced by
-      * number
+      number
 
    .. attribute:: newowner
       :type: RoleSpec*
@@ -862,7 +862,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: Node
 
       Definition of new column, index,
-      * constraint, or parent table
+      constraint, or parent table
 
    .. attribute:: behavior
       :type: DropBehavior
@@ -1352,7 +1352,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: RangeVar*
 
       To store identity sequence name for
-      * ALTER TABLE ... ADD COLUMN
+      ALTER TABLE ... ADD COLUMN
 
    .. attribute:: generated
       :type: str
@@ -1453,7 +1453,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: int
 
       Number of RTEs referencing this CTE
-      * (excluding internal self-references)
+      (excluding internal self-references)
 
    .. attribute:: ctecolnames
       :type: tuple
@@ -1542,13 +1542,13 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       String nodes naming referenced key
-      * column(s)
+      column(s)
 
    .. attribute:: including
       :type: tuple
 
       String nodes naming referenced nonkey
-      * column(s)
+      column(s)
 
    .. attribute:: exclusions
       :type: tuple
@@ -1574,7 +1574,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: bool
 
       Reset default_tablespace prior to
-      * creating the index
+      creating the index
 
    .. attribute:: access_method
       :type: str
@@ -1678,13 +1678,13 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: Node
 
       The query (SELECT or DML statement with
-      * RETURNING) to copy, as a raw parse tree
+      RETURNING) to copy, as a raw parse tree
 
    .. attribute:: attlist
       :type: tuple
 
       List of column names (as Strings), or NIL
-      * for all columns
+      for all columns
 
    .. attribute:: is_from
       :type: bool
@@ -1997,7 +1997,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       Amproclefttype/amprocrighttype or
-      * amoplefttype/amoprighttype
+      amoplefttype/amoprighttype
 
    .. attribute:: storedtype
       :type: TypeName*
@@ -2289,7 +2289,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       Relations to inherit from (list of
-      * inhRelation)
+      inhRelation)
 
    .. attribute:: partbound
       :type: PartitionBoundSpec*
@@ -3020,7 +3020,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: bool
 
       True if variadic arguments have been
-      * combined into an array last argument
+      combined into an array last argument
 
    .. attribute:: funcformat
       :type: CoercionForm
@@ -3121,7 +3121,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       List of RangeVar nodes, ObjectWithArgs
-      * nodes, or plain names (as Value strings)
+      nodes, or plain names (as Value strings)
 
    .. attribute:: privileges
       :type: tuple
@@ -3152,7 +3152,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       Arguments, not evaluated but kept for
-      * benefit of EXPLAIN etc.
+      benefit of EXPLAIN etc.
 
    .. attribute:: refs
       :type: tuple
@@ -3302,7 +3302,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       Additional columns to index: a list
-      * of IndexElem
+      of IndexElem
 
    .. attribute:: options
       :type: tuple
@@ -3333,7 +3333,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: SubTransactionId
 
       Rd_firstRelfilenodeSubid of
-      * oldNode
+      oldNode
 
    .. attribute:: unique
       :type: bool
@@ -3379,7 +3379,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: bool
 
       Reset default_tablespace prior to
-      * executing
+      executing
 
 
 .. class:: InferClause(indexElems=None, whereClause=None, conname=None, location=None)
@@ -3748,8 +3748,8 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: bool
 
       Argument list was omitted, so name must
-      * be unique (note that objargs == NIL
-      * means zero args)
+      be unique (note that objargs == NIL
+      means zero args)
 
 
 .. class:: OnConflictClause(action=None, infer=None, targetList=None, whereClause=None, location=None)
@@ -3795,7 +3795,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       Unique index arbiter list (of
-      * InferenceElem's)
+      InferenceElem's)
 
    .. attribute:: arbiterWhere
       :type: Node
@@ -3980,7 +3980,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: Node
 
       Const (or A_Const in raw tree), if kind is
-      * PARTITION_RANGE_DATUM_VALUE, else NULL
+      PARTITION_RANGE_DATUM_VALUE, else NULL
 
    .. attribute:: location
       :type: int
@@ -3996,7 +3996,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: str
 
       Partitioning strategy ('hash', 'list' or
-      * 'range')
+      'range')
 
    .. attribute:: partParams
       :type: tuple
@@ -4062,7 +4062,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: int
 
       Rtable index of target relation for
-      * INSERT/UPDATE/DELETE; 0 for SELECT
+      INSERT/UPDATE/DELETE; 0 for SELECT
 
    .. attribute:: hasAggs
       :type: bool
@@ -4198,19 +4198,19 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: Node
 
       Set-operation tree if this is top level of
-      * a UNION/INTERSECT/EXCEPT query
+      a UNION/INTERSECT/EXCEPT query
 
    .. attribute:: constraintDeps
       :type: tuple
 
       A list of pg_constraint OIDs that the query
-      * depends on to be semantically valid
+      depends on to be semantically valid
 
    .. attribute:: withCheckOptions
       :type: tuple
 
       A list of WithCheckOption's (added
-      * during rewrite)
+      during rewrite)
 
    .. attribute:: stmt_location
       :type: int
@@ -4256,7 +4256,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       List of ColumnDef nodes to describe result
-      * of function returning RECORD
+      of function returning RECORD
 
 
 .. class:: RangeSubselect(lateral=None, subquery=None, alias=None)
@@ -4631,7 +4631,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: bool
 
       Expand rel by inheritance? recursively act
-      * on children?
+      on children?
 
    .. attribute:: relpersistence
       :type: str
@@ -4708,7 +4708,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: ReindexObjectType
 
       REINDEX_OBJECT_INDEX, REINDEX_OBJECT_TABLE,
-      * etc.
+      etc.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -4784,7 +4784,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: str
 
       Name of contained object (column, rule,
-      * trigger, etc)
+      trigger, etc)
 
    .. attribute:: newname
       :type: str
@@ -5052,7 +5052,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       NULL, list of DISTINCT ON exprs, or
-      * lcons(NIL,NIL) for all (SELECT DISTINCT)
+      lcons(NIL,NIL) for all (SELECT DISTINCT)
 
    .. attribute:: intoClause
       :type: IntoClause*
@@ -5324,14 +5324,14 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: bool
 
       True to store subselect output in a hash
-      * table (implies we are doing "IN")
+      table (implies we are doing "IN")
 
    .. attribute:: unknownEqFalse
       :type: bool
 
       True if it's okay to return FALSE when the
-      * spec result is UNKNOWN; this allows much
-      * simpler handling of null values
+      spec result is UNKNOWN; this allows much
+      simpler handling of null values
 
    .. attribute:: parallel_safe
       :type: bool
@@ -5342,7 +5342,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       Initplan subqueries have to set these
-      * Params for parent plan
+      Params for parent plan
 
    .. attribute:: parParam
       :type: tuple
@@ -5378,26 +5378,26 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       Expressions that evaluate to upper
-      * container indexes
+      container indexes
 
    .. attribute:: reflowerindexpr
       :type: tuple
 
       Expressions that evaluate to lower
-      * container indexes, or NIL for single
-      * container element
+      container indexes, or NIL for single
+      container element
 
    .. attribute:: refexpr
       :type: Expr*
 
       The expression that evaluates to a
-      * container value
+      container value
 
    .. attribute:: refassgnexpr
       :type: Expr*
 
       Expression for the source value, or NULL if
-      * fetch
+      fetch
 
 
 .. class:: TableFunc(ns_uris=None, ns_names=None, docexpr=None, rowexpr=None, colnames=None, coltypes=None, coltypmods=None, colcollations=None, colexprs=None, coldefexprs=None, notnulls=None, ordinalitycol=None, location=None)
@@ -5521,7 +5521,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: Index
 
       Nonzero if referenced by a sort/group
-      * clause
+      clause
 
    .. attribute:: resorigcol
       :type: AttrNumber
@@ -5532,7 +5532,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: bool
 
       Set to true to eliminate the attribute from
-      * final target list
+      final target list
 
 
 .. class:: TransactionStmt(kind=None, options=None, savepoint_name=None, gid=None, chain=None)
@@ -5745,13 +5745,13 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: Index
 
       Index of this var's relation in the range
-      * table, or INNER_VAR/OUTER_VAR/INDEX_VAR
+      table, or INNER_VAR/OUTER_VAR/INDEX_VAR
 
    .. attribute:: varattno
       :type: AttrNumber
 
       Attribute number of this var, or zero for
-      * all attrs ("whole-row Var")
+      all attrs ("whole-row Var")
 
    .. attribute:: vartypmod
       :type: int32
@@ -5762,8 +5762,8 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: Index
 
       For subquery variables referencing outer
-      * relations; 0 in a normal var, >0 means N
-      * levels up
+      relations; 0 in a normal var, >0 means N
+      levels up
 
    .. attribute:: varnosyn
       :type: Index

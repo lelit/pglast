@@ -5,8 +5,6 @@
 # :Copyright: © 2021 Lele Gaifax
 #
 
-# flake8: noqa
-
 from collections import namedtuple
 from decimal import Decimal
 from enum import Enum
@@ -26,7 +24,8 @@ class Node:
         if '@' not in data:  # pragma: no cover
             raise ValueError('Bad argument, expected a dictionary with a "@" key')
         if data['@'] != self.__class__.__name__:
-            raise ValueError(f'Bad argument, wrong "@" value, expected {self.__class__.__name__!r}, got {data["@"]!r}')
+            raise ValueError(f'Bad argument, wrong "@" value, expected'
+                             f' {self.__class__.__name__!r}, got {data["@"]!r}')
 
         G = globals()
         for a in self:
@@ -86,10 +85,10 @@ class Node:
         :param bool enum_name: whether Enums will be rendered as their name only
         :return: a :class:`dict` instance
 
-        This performs a top-down recursive visit to the whole AST tree: each ``Node`` instance
-        becomes a dictionary with a special ``@`` key carrying the node type, lists becomes
-        tuples and ``Enum`` instances become dictionaries with a special ``#`` key carrying the
-        enum name.'''
+        This performs a top-down recursive visit to the whole AST tree: each :class:`Node`
+        instance becomes a dictionary with a special ``@`` key carrying the node type, lists
+        becomes tuples and ``Enum`` instances become dictionaries with a special ``#`` key
+        carrying the enum name.'''
 
         d = {'@': self.__class__.__name__}
         for a in self:
@@ -124,7 +123,9 @@ class Node:
             if not isinstance(ptype, tuple):
                 ptype = (ptype,)
             if not isinstance(value, ptype):
-                raise ValueError(f'Bad value for attribute {self.__class__.__name__}.{name}, expected {ptype}, got {type(value)}: {value!r}')
+                raise ValueError(f'Bad value for attribute {self.__class__.__name__}'
+                                 f'.{name}, expected {ptype}, got {type(value)}:'
+                                 f' {value!r}')
 
             if adaptor is not None:
                 value = adaptor(value)
@@ -136,25 +137,35 @@ class Node:
                     if not isinstance(value, enum):
                         if isinstance(value, dict) and '#' in value:
                             if value['#'] != ctype:
-                                raise ValueError(f'Bad value for attribute {self.__class__.__name__}.{name}, expected a {ptype}, got {value!r}') from None
+                                raise ValueError(f'Bad value for attribute'
+                                                 f' {self.__class__.__name__}.{name},'
+                                                 f' expected a {ptype}, got'
+                                                 f' {value!r}') from None
                             if 'name' in value:
                                 value = value['name']
                             elif 'value' in value:
                                 value = value['value']
                             else:
-                                raise ValueError(f'Bad value for attribute {self.__class__.__name__}.{name}, expected a {ptype}, got {value!r}') from None
+                                raise ValueError(f'Bad value for attribute'
+                                                 f' {self.__class__.__name__}.{name},'
+                                                 f' expected a {ptype}, got'
+                                                 f' {value!r}') from None
                         try:
                             if isinstance(value, str) and len(value) > 1:
                                 value = enum[value]
                             else:
                                 value = enum(value)
                         except (KeyError, ValueError):
-                            raise ValueError(f'Bad value for attribute {self.__class__.__name__}.{name}, expected a {ptype}, got {value!r}') from None
+                            raise ValueError(f'Bad value for attribute'
+                                             f' {self.__class__.__name__}.{name},'
+                                             f' expected a {ptype}, got'
+                                             f' {value!r}') from None
                 else:
                     if ctype.endswith('*'):
                         cls = globals().get(ctype[:-1])
                         if cls is None:
-                            raise NotImplementedError(f'Unhandled {ctype!r} for attribute {self.__class__.__name__}.{name}')
+                            raise NotImplementedError(f'Unhandled {ctype!r} for attribute'
+                                                      f' {self.__class__.__name__}.{name}')
                         if isinstance(value, dict) and '@' in value:
                             value = cls(value)
 
@@ -215,11 +226,11 @@ class String(Value):
 
 
 class A_ArrayExpr(Node):
-    __slots__ = {'elements': 'List*', 'location': 'int'}
+    __slots__ = {'elements': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, elements=None, location=None):  # pragma: no cover
+    def __init__(self, elements=None, location=None):  # pragma: no cover  # noqa: E501
         if ((elements is not None
-             and location is None
+             and location is None  # noqa: E501
              and isinstance(elements, dict)
              and '@' in elements)):
             super().__init__(elements)
@@ -229,11 +240,11 @@ class A_ArrayExpr(Node):
 
 
 class A_Const(Node):
-    __slots__ = {'val': 'Value', 'location': 'int'}
+    __slots__ = {'val': 'Value', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, val=None, location=None):  # pragma: no cover
+    def __init__(self, val=None, location=None):  # pragma: no cover  # noqa: E501
         if ((val is not None
-             and location is None
+             and location is None  # noqa: E501
              and isinstance(val, dict)
              and '@' in val)):
             super().__init__(val)
@@ -243,11 +254,11 @@ class A_Const(Node):
 
 
 class A_Expr(Node):
-    __slots__ = {'kind': 'A_Expr_Kind', 'name': 'List*', 'lexpr': 'Node*', 'rexpr': 'Node*', 'location': 'int'}
+    __slots__ = {'kind': 'A_Expr_Kind', 'name': 'List*', 'lexpr': 'Node*', 'rexpr': 'Node*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, kind=None, name=None, lexpr=None, rexpr=None, location=None):  # pragma: no cover
+    def __init__(self, kind=None, name=None, lexpr=None, rexpr=None, location=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and name is lexpr is rexpr is location is None
+             and name is lexpr is rexpr is location is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -260,11 +271,11 @@ class A_Expr(Node):
 
 
 class A_Indices(Node):
-    __slots__ = {'is_slice': 'bool', 'lidx': 'Node*', 'uidx': 'Node*'}
+    __slots__ = {'is_slice': 'bool', 'lidx': 'Node*', 'uidx': 'Node*'}  # noqa: E501
 
-    def __init__(self, is_slice=None, lidx=None, uidx=None):  # pragma: no cover
+    def __init__(self, is_slice=None, lidx=None, uidx=None):  # pragma: no cover  # noqa: E501
         if ((is_slice is not None
-             and lidx is uidx is None
+             and lidx is uidx is None  # noqa: E501
              and isinstance(is_slice, dict)
              and '@' in is_slice)):
             super().__init__(is_slice)
@@ -275,11 +286,11 @@ class A_Indices(Node):
 
 
 class A_Indirection(Node):
-    __slots__ = {'arg': 'Node*', 'indirection': 'List*'}
+    __slots__ = {'arg': 'Node*', 'indirection': 'List*'}  # noqa: E501
 
-    def __init__(self, arg=None, indirection=None):  # pragma: no cover
+    def __init__(self, arg=None, indirection=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and indirection is None
+             and indirection is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -289,18 +300,18 @@ class A_Indirection(Node):
 
 
 class A_Star(Node):
-    __slots__ = {}
+    __slots__ = {}  # noqa: E501
 
     def __init__(self):  # pragma: no cover
         pass
 
 
 class AccessPriv(Node):
-    __slots__ = {'priv_name': 'char*', 'cols': 'List*'}
+    __slots__ = {'priv_name': 'char*', 'cols': 'List*'}  # noqa: E501
 
-    def __init__(self, priv_name=None, cols=None):  # pragma: no cover
+    def __init__(self, priv_name=None, cols=None):  # pragma: no cover  # noqa: E501
         if ((priv_name is not None
-             and cols is None
+             and cols is None  # noqa: E501
              and isinstance(priv_name, dict)
              and '@' in priv_name)):
             super().__init__(priv_name)
@@ -310,11 +321,11 @@ class AccessPriv(Node):
 
 
 class Aggref(Expr):
-    __slots__ = {'aggargtypes': 'List*', 'aggdirectargs': 'List*', 'args': 'List*', 'aggorder': 'List*', 'aggdistinct': 'List*', 'aggfilter': 'Expr*', 'aggstar': 'bool', 'aggvariadic': 'bool', 'aggkind': 'char', 'agglevelsup': 'Index', 'aggsplit': 'AggSplit', 'location': 'int'}
+    __slots__ = {'aggargtypes': 'List*', 'aggdirectargs': 'List*', 'args': 'List*', 'aggorder': 'List*', 'aggdistinct': 'List*', 'aggfilter': 'Expr*', 'aggstar': 'bool', 'aggvariadic': 'bool', 'aggkind': 'char', 'agglevelsup': 'Index', 'aggsplit': 'AggSplit', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, aggargtypes=None, aggdirectargs=None, args=None, aggorder=None, aggdistinct=None, aggfilter=None, aggstar=None, aggvariadic=None, aggkind=None, agglevelsup=None, aggsplit=None, location=None):  # pragma: no cover
+    def __init__(self, aggargtypes=None, aggdirectargs=None, args=None, aggorder=None, aggdistinct=None, aggfilter=None, aggstar=None, aggvariadic=None, aggkind=None, agglevelsup=None, aggsplit=None, location=None):  # pragma: no cover  # noqa: E501
         if ((aggargtypes is not None
-             and aggdirectargs is args is aggorder is aggdistinct is aggfilter is aggstar is aggvariadic is aggkind is agglevelsup is aggsplit is location is None
+             and aggdirectargs is args is aggorder is aggdistinct is aggfilter is aggstar is aggvariadic is aggkind is agglevelsup is aggsplit is location is None  # noqa: E501
              and isinstance(aggargtypes, dict)
              and '@' in aggargtypes)):
             super().__init__(aggargtypes)
@@ -334,11 +345,11 @@ class Aggref(Expr):
 
 
 class Alias(Node):
-    __slots__ = {'aliasname': 'char*', 'colnames': 'List*'}
+    __slots__ = {'aliasname': 'char*', 'colnames': 'List*'}  # noqa: E501
 
-    def __init__(self, aliasname=None, colnames=None):  # pragma: no cover
+    def __init__(self, aliasname=None, colnames=None):  # pragma: no cover  # noqa: E501
         if ((aliasname is not None
-             and colnames is None
+             and colnames is None  # noqa: E501
              and isinstance(aliasname, dict)
              and '@' in aliasname)):
             super().__init__(aliasname)
@@ -348,9 +359,9 @@ class Alias(Node):
 
 
 class AlterCollationStmt(Node):
-    __slots__ = {'collname': 'List*'}
+    __slots__ = {'collname': 'List*'}  # noqa: E501
 
-    def __init__(self, collname=None):  # pragma: no cover
+    def __init__(self, collname=None):  # pragma: no cover  # noqa: E501
 
         if ((collname is not None
              and isinstance(collname, dict)
@@ -361,11 +372,11 @@ class AlterCollationStmt(Node):
 
 
 class AlterDatabaseSetStmt(Node):
-    __slots__ = {'dbname': 'char*', 'setstmt': 'VariableSetStmt*'}
+    __slots__ = {'dbname': 'char*', 'setstmt': 'VariableSetStmt*'}  # noqa: E501
 
-    def __init__(self, dbname=None, setstmt=None):  # pragma: no cover
+    def __init__(self, dbname=None, setstmt=None):  # pragma: no cover  # noqa: E501
         if ((dbname is not None
-             and setstmt is None
+             and setstmt is None  # noqa: E501
              and isinstance(dbname, dict)
              and '@' in dbname)):
             super().__init__(dbname)
@@ -375,11 +386,11 @@ class AlterDatabaseSetStmt(Node):
 
 
 class AlterDatabaseStmt(Node):
-    __slots__ = {'dbname': 'char*', 'options': 'List*'}
+    __slots__ = {'dbname': 'char*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, dbname=None, options=None):  # pragma: no cover
+    def __init__(self, dbname=None, options=None):  # pragma: no cover  # noqa: E501
         if ((dbname is not None
-             and options is None
+             and options is None  # noqa: E501
              and isinstance(dbname, dict)
              and '@' in dbname)):
             super().__init__(dbname)
@@ -389,11 +400,11 @@ class AlterDatabaseStmt(Node):
 
 
 class AlterDefaultPrivilegesStmt(Node):
-    __slots__ = {'options': 'List*', 'action': 'GrantStmt*'}
+    __slots__ = {'options': 'List*', 'action': 'GrantStmt*'}  # noqa: E501
 
-    def __init__(self, options=None, action=None):  # pragma: no cover
+    def __init__(self, options=None, action=None):  # pragma: no cover  # noqa: E501
         if ((options is not None
-             and action is None
+             and action is None  # noqa: E501
              and isinstance(options, dict)
              and '@' in options)):
             super().__init__(options)
@@ -403,11 +414,11 @@ class AlterDefaultPrivilegesStmt(Node):
 
 
 class AlterDomainStmt(Node):
-    __slots__ = {'subtype': 'char', 'typeName': 'List*', 'name': 'char*', 'def_': 'Node*', 'behavior': 'DropBehavior', 'missing_ok': 'bool'}
+    __slots__ = {'subtype': 'char', 'typeName': 'List*', 'name': 'char*', 'def_': 'Node*', 'behavior': 'DropBehavior', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, subtype=None, typeName=None, name=None, def_=None, behavior=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, subtype=None, typeName=None, name=None, def_=None, behavior=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((subtype is not None
-             and typeName is name is def_ is behavior is missing_ok is None
+             and typeName is name is def_ is behavior is missing_ok is None  # noqa: E501
              and isinstance(subtype, dict)
              and '@' in subtype)):
             super().__init__(subtype)
@@ -421,11 +432,11 @@ class AlterDomainStmt(Node):
 
 
 class AlterEnumStmt(Node):
-    __slots__ = {'typeName': 'List*', 'oldVal': 'char*', 'newVal': 'char*', 'newValNeighbor': 'char*', 'newValIsAfter': 'bool', 'skipIfNewValExists': 'bool'}
+    __slots__ = {'typeName': 'List*', 'oldVal': 'char*', 'newVal': 'char*', 'newValNeighbor': 'char*', 'newValIsAfter': 'bool', 'skipIfNewValExists': 'bool'}  # noqa: E501
 
-    def __init__(self, typeName=None, oldVal=None, newVal=None, newValNeighbor=None, newValIsAfter=None, skipIfNewValExists=None):  # pragma: no cover
+    def __init__(self, typeName=None, oldVal=None, newVal=None, newValNeighbor=None, newValIsAfter=None, skipIfNewValExists=None):  # pragma: no cover  # noqa: E501
         if ((typeName is not None
-             and oldVal is newVal is newValNeighbor is newValIsAfter is skipIfNewValExists is None
+             and oldVal is newVal is newValNeighbor is newValIsAfter is skipIfNewValExists is None  # noqa: E501
              and isinstance(typeName, dict)
              and '@' in typeName)):
             super().__init__(typeName)
@@ -439,11 +450,11 @@ class AlterEnumStmt(Node):
 
 
 class AlterEventTrigStmt(Node):
-    __slots__ = {'trigname': 'char*', 'tgenabled': 'char'}
+    __slots__ = {'trigname': 'char*', 'tgenabled': 'char'}  # noqa: E501
 
-    def __init__(self, trigname=None, tgenabled=None):  # pragma: no cover
+    def __init__(self, trigname=None, tgenabled=None):  # pragma: no cover  # noqa: E501
         if ((trigname is not None
-             and tgenabled is None
+             and tgenabled is None  # noqa: E501
              and isinstance(trigname, dict)
              and '@' in trigname)):
             super().__init__(trigname)
@@ -453,11 +464,11 @@ class AlterEventTrigStmt(Node):
 
 
 class AlterExtensionContentsStmt(Node):
-    __slots__ = {'extname': 'char*', 'action': 'int', 'objtype': 'ObjectType', 'object': 'Node*'}
+    __slots__ = {'extname': 'char*', 'action': 'int', 'objtype': 'ObjectType', 'object': 'Node*'}  # noqa: E501
 
-    def __init__(self, extname=None, action=None, objtype=None, object=None):  # pragma: no cover
+    def __init__(self, extname=None, action=None, objtype=None, object=None):  # pragma: no cover  # noqa: E501
         if ((extname is not None
-             and action is objtype is object is None
+             and action is objtype is object is None  # noqa: E501
              and isinstance(extname, dict)
              and '@' in extname)):
             super().__init__(extname)
@@ -469,11 +480,11 @@ class AlterExtensionContentsStmt(Node):
 
 
 class AlterExtensionStmt(Node):
-    __slots__ = {'extname': 'char*', 'options': 'List*'}
+    __slots__ = {'extname': 'char*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, extname=None, options=None):  # pragma: no cover
+    def __init__(self, extname=None, options=None):  # pragma: no cover  # noqa: E501
         if ((extname is not None
-             and options is None
+             and options is None  # noqa: E501
              and isinstance(extname, dict)
              and '@' in extname)):
             super().__init__(extname)
@@ -483,11 +494,11 @@ class AlterExtensionStmt(Node):
 
 
 class AlterFdwStmt(Node):
-    __slots__ = {'fdwname': 'char*', 'func_options': 'List*', 'options': 'List*'}
+    __slots__ = {'fdwname': 'char*', 'func_options': 'List*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, fdwname=None, func_options=None, options=None):  # pragma: no cover
+    def __init__(self, fdwname=None, func_options=None, options=None):  # pragma: no cover  # noqa: E501
         if ((fdwname is not None
-             and func_options is options is None
+             and func_options is options is None  # noqa: E501
              and isinstance(fdwname, dict)
              and '@' in fdwname)):
             super().__init__(fdwname)
@@ -498,11 +509,11 @@ class AlterFdwStmt(Node):
 
 
 class AlterForeignServerStmt(Node):
-    __slots__ = {'servername': 'char*', 'version': 'char*', 'options': 'List*', 'has_version': 'bool'}
+    __slots__ = {'servername': 'char*', 'version': 'char*', 'options': 'List*', 'has_version': 'bool'}  # noqa: E501
 
-    def __init__(self, servername=None, version=None, options=None, has_version=None):  # pragma: no cover
+    def __init__(self, servername=None, version=None, options=None, has_version=None):  # pragma: no cover  # noqa: E501
         if ((servername is not None
-             and version is options is has_version is None
+             and version is options is has_version is None  # noqa: E501
              and isinstance(servername, dict)
              and '@' in servername)):
             super().__init__(servername)
@@ -514,11 +525,11 @@ class AlterForeignServerStmt(Node):
 
 
 class AlterFunctionStmt(Node):
-    __slots__ = {'objtype': 'ObjectType', 'func': 'ObjectWithArgs*', 'actions': 'List*'}
+    __slots__ = {'objtype': 'ObjectType', 'func': 'ObjectWithArgs*', 'actions': 'List*'}  # noqa: E501
 
-    def __init__(self, objtype=None, func=None, actions=None):  # pragma: no cover
+    def __init__(self, objtype=None, func=None, actions=None):  # pragma: no cover  # noqa: E501
         if ((objtype is not None
-             and func is actions is None
+             and func is actions is None  # noqa: E501
              and isinstance(objtype, dict)
              and '@' in objtype)):
             super().__init__(objtype)
@@ -529,11 +540,11 @@ class AlterFunctionStmt(Node):
 
 
 class AlterObjectDependsStmt(Node):
-    __slots__ = {'objectType': 'ObjectType', 'relation': 'RangeVar*', 'object': 'Node*', 'extname': 'Value*', 'remove': 'bool'}
+    __slots__ = {'objectType': 'ObjectType', 'relation': 'RangeVar*', 'object': 'Node*', 'extname': 'Value*', 'remove': 'bool'}  # noqa: E501
 
-    def __init__(self, objectType=None, relation=None, object=None, extname=None, remove=None):  # pragma: no cover
+    def __init__(self, objectType=None, relation=None, object=None, extname=None, remove=None):  # pragma: no cover  # noqa: E501
         if ((objectType is not None
-             and relation is object is extname is remove is None
+             and relation is object is extname is remove is None  # noqa: E501
              and isinstance(objectType, dict)
              and '@' in objectType)):
             super().__init__(objectType)
@@ -546,11 +557,11 @@ class AlterObjectDependsStmt(Node):
 
 
 class AlterObjectSchemaStmt(Node):
-    __slots__ = {'objectType': 'ObjectType', 'relation': 'RangeVar*', 'object': 'Node*', 'newschema': 'char*', 'missing_ok': 'bool'}
+    __slots__ = {'objectType': 'ObjectType', 'relation': 'RangeVar*', 'object': 'Node*', 'newschema': 'char*', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, objectType=None, relation=None, object=None, newschema=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, objectType=None, relation=None, object=None, newschema=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((objectType is not None
-             and relation is object is newschema is missing_ok is None
+             and relation is object is newschema is missing_ok is None  # noqa: E501
              and isinstance(objectType, dict)
              and '@' in objectType)):
             super().__init__(objectType)
@@ -563,11 +574,11 @@ class AlterObjectSchemaStmt(Node):
 
 
 class AlterOpFamilyStmt(Node):
-    __slots__ = {'opfamilyname': 'List*', 'amname': 'char*', 'isDrop': 'bool', 'items': 'List*'}
+    __slots__ = {'opfamilyname': 'List*', 'amname': 'char*', 'isDrop': 'bool', 'items': 'List*'}  # noqa: E501
 
-    def __init__(self, opfamilyname=None, amname=None, isDrop=None, items=None):  # pragma: no cover
+    def __init__(self, opfamilyname=None, amname=None, isDrop=None, items=None):  # pragma: no cover  # noqa: E501
         if ((opfamilyname is not None
-             and amname is isDrop is items is None
+             and amname is isDrop is items is None  # noqa: E501
              and isinstance(opfamilyname, dict)
              and '@' in opfamilyname)):
             super().__init__(opfamilyname)
@@ -579,11 +590,11 @@ class AlterOpFamilyStmt(Node):
 
 
 class AlterOperatorStmt(Node):
-    __slots__ = {'opername': 'ObjectWithArgs*', 'options': 'List*'}
+    __slots__ = {'opername': 'ObjectWithArgs*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, opername=None, options=None):  # pragma: no cover
+    def __init__(self, opername=None, options=None):  # pragma: no cover  # noqa: E501
         if ((opername is not None
-             and options is None
+             and options is None  # noqa: E501
              and isinstance(opername, dict)
              and '@' in opername)):
             super().__init__(opername)
@@ -593,11 +604,11 @@ class AlterOperatorStmt(Node):
 
 
 class AlterOwnerStmt(Node):
-    __slots__ = {'objectType': 'ObjectType', 'relation': 'RangeVar*', 'object': 'Node*', 'newowner': 'RoleSpec*'}
+    __slots__ = {'objectType': 'ObjectType', 'relation': 'RangeVar*', 'object': 'Node*', 'newowner': 'RoleSpec*'}  # noqa: E501
 
-    def __init__(self, objectType=None, relation=None, object=None, newowner=None):  # pragma: no cover
+    def __init__(self, objectType=None, relation=None, object=None, newowner=None):  # pragma: no cover  # noqa: E501
         if ((objectType is not None
-             and relation is object is newowner is None
+             and relation is object is newowner is None  # noqa: E501
              and isinstance(objectType, dict)
              and '@' in objectType)):
             super().__init__(objectType)
@@ -609,11 +620,11 @@ class AlterOwnerStmt(Node):
 
 
 class AlterPolicyStmt(Node):
-    __slots__ = {'policy_name': 'char*', 'table': 'RangeVar*', 'roles': 'List*', 'qual': 'Node*', 'with_check': 'Node*'}
+    __slots__ = {'policy_name': 'char*', 'table': 'RangeVar*', 'roles': 'List*', 'qual': 'Node*', 'with_check': 'Node*'}  # noqa: E501
 
-    def __init__(self, policy_name=None, table=None, roles=None, qual=None, with_check=None):  # pragma: no cover
+    def __init__(self, policy_name=None, table=None, roles=None, qual=None, with_check=None):  # pragma: no cover  # noqa: E501
         if ((policy_name is not None
-             and table is roles is qual is with_check is None
+             and table is roles is qual is with_check is None  # noqa: E501
              and isinstance(policy_name, dict)
              and '@' in policy_name)):
             super().__init__(policy_name)
@@ -626,11 +637,11 @@ class AlterPolicyStmt(Node):
 
 
 class AlterPublicationStmt(Node):
-    __slots__ = {'pubname': 'char*', 'options': 'List*', 'tables': 'List*', 'for_all_tables': 'bool', 'tableAction': 'DefElemAction'}
+    __slots__ = {'pubname': 'char*', 'options': 'List*', 'tables': 'List*', 'for_all_tables': 'bool', 'tableAction': 'DefElemAction'}  # noqa: E501
 
-    def __init__(self, pubname=None, options=None, tables=None, for_all_tables=None, tableAction=None):  # pragma: no cover
+    def __init__(self, pubname=None, options=None, tables=None, for_all_tables=None, tableAction=None):  # pragma: no cover  # noqa: E501
         if ((pubname is not None
-             and options is tables is for_all_tables is tableAction is None
+             and options is tables is for_all_tables is tableAction is None  # noqa: E501
              and isinstance(pubname, dict)
              and '@' in pubname)):
             super().__init__(pubname)
@@ -643,11 +654,11 @@ class AlterPublicationStmt(Node):
 
 
 class AlterRoleSetStmt(Node):
-    __slots__ = {'role': 'RoleSpec*', 'database': 'char*', 'setstmt': 'VariableSetStmt*'}
+    __slots__ = {'role': 'RoleSpec*', 'database': 'char*', 'setstmt': 'VariableSetStmt*'}  # noqa: E501
 
-    def __init__(self, role=None, database=None, setstmt=None):  # pragma: no cover
+    def __init__(self, role=None, database=None, setstmt=None):  # pragma: no cover  # noqa: E501
         if ((role is not None
-             and database is setstmt is None
+             and database is setstmt is None  # noqa: E501
              and isinstance(role, dict)
              and '@' in role)):
             super().__init__(role)
@@ -658,11 +669,11 @@ class AlterRoleSetStmt(Node):
 
 
 class AlterRoleStmt(Node):
-    __slots__ = {'role': 'RoleSpec*', 'options': 'List*', 'action': 'int'}
+    __slots__ = {'role': 'RoleSpec*', 'options': 'List*', 'action': 'int'}  # noqa: E501
 
-    def __init__(self, role=None, options=None, action=None):  # pragma: no cover
+    def __init__(self, role=None, options=None, action=None):  # pragma: no cover  # noqa: E501
         if ((role is not None
-             and options is action is None
+             and options is action is None  # noqa: E501
              and isinstance(role, dict)
              and '@' in role)):
             super().__init__(role)
@@ -673,11 +684,11 @@ class AlterRoleStmt(Node):
 
 
 class AlterSeqStmt(Node):
-    __slots__ = {'sequence': 'RangeVar*', 'options': 'List*', 'for_identity': 'bool', 'missing_ok': 'bool'}
+    __slots__ = {'sequence': 'RangeVar*', 'options': 'List*', 'for_identity': 'bool', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, sequence=None, options=None, for_identity=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, sequence=None, options=None, for_identity=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((sequence is not None
-             and options is for_identity is missing_ok is None
+             and options is for_identity is missing_ok is None  # noqa: E501
              and isinstance(sequence, dict)
              and '@' in sequence)):
             super().__init__(sequence)
@@ -689,11 +700,11 @@ class AlterSeqStmt(Node):
 
 
 class AlterStatsStmt(Node):
-    __slots__ = {'defnames': 'List*', 'stxstattarget': 'int', 'missing_ok': 'bool'}
+    __slots__ = {'defnames': 'List*', 'stxstattarget': 'int', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, defnames=None, stxstattarget=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, defnames=None, stxstattarget=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((defnames is not None
-             and stxstattarget is missing_ok is None
+             and stxstattarget is missing_ok is None  # noqa: E501
              and isinstance(defnames, dict)
              and '@' in defnames)):
             super().__init__(defnames)
@@ -704,11 +715,11 @@ class AlterStatsStmt(Node):
 
 
 class AlterSubscriptionStmt(Node):
-    __slots__ = {'kind': 'AlterSubscriptionType', 'subname': 'char*', 'conninfo': 'char*', 'publication': 'List*', 'options': 'List*'}
+    __slots__ = {'kind': 'AlterSubscriptionType', 'subname': 'char*', 'conninfo': 'char*', 'publication': 'List*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, kind=None, subname=None, conninfo=None, publication=None, options=None):  # pragma: no cover
+    def __init__(self, kind=None, subname=None, conninfo=None, publication=None, options=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and subname is conninfo is publication is options is None
+             and subname is conninfo is publication is options is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -721,9 +732,9 @@ class AlterSubscriptionStmt(Node):
 
 
 class AlterSystemStmt(Node):
-    __slots__ = {'setstmt': 'VariableSetStmt*'}
+    __slots__ = {'setstmt': 'VariableSetStmt*'}  # noqa: E501
 
-    def __init__(self, setstmt=None):  # pragma: no cover
+    def __init__(self, setstmt=None):  # pragma: no cover  # noqa: E501
 
         if ((setstmt is not None
              and isinstance(setstmt, dict)
@@ -734,11 +745,11 @@ class AlterSystemStmt(Node):
 
 
 class AlterTSConfigurationStmt(Node):
-    __slots__ = {'kind': 'AlterTSConfigType', 'cfgname': 'List*', 'tokentype': 'List*', 'dicts': 'List*', 'override': 'bool', 'replace': 'bool', 'missing_ok': 'bool'}
+    __slots__ = {'kind': 'AlterTSConfigType', 'cfgname': 'List*', 'tokentype': 'List*', 'dicts': 'List*', 'override': 'bool', 'replace': 'bool', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, kind=None, cfgname=None, tokentype=None, dicts=None, override=None, replace=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, kind=None, cfgname=None, tokentype=None, dicts=None, override=None, replace=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and cfgname is tokentype is dicts is override is replace is missing_ok is None
+             and cfgname is tokentype is dicts is override is replace is missing_ok is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -753,11 +764,11 @@ class AlterTSConfigurationStmt(Node):
 
 
 class AlterTSDictionaryStmt(Node):
-    __slots__ = {'dictname': 'List*', 'options': 'List*'}
+    __slots__ = {'dictname': 'List*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, dictname=None, options=None):  # pragma: no cover
+    def __init__(self, dictname=None, options=None):  # pragma: no cover  # noqa: E501
         if ((dictname is not None
-             and options is None
+             and options is None  # noqa: E501
              and isinstance(dictname, dict)
              and '@' in dictname)):
             super().__init__(dictname)
@@ -767,11 +778,11 @@ class AlterTSDictionaryStmt(Node):
 
 
 class AlterTableCmd(Node):
-    __slots__ = {'subtype': 'AlterTableType', 'name': 'char*', 'num': 'int16', 'newowner': 'RoleSpec*', 'def_': 'Node*', 'behavior': 'DropBehavior', 'missing_ok': 'bool'}
+    __slots__ = {'subtype': 'AlterTableType', 'name': 'char*', 'num': 'int16', 'newowner': 'RoleSpec*', 'def_': 'Node*', 'behavior': 'DropBehavior', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, subtype=None, name=None, num=None, newowner=None, def_=None, behavior=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, subtype=None, name=None, num=None, newowner=None, def_=None, behavior=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((subtype is not None
-             and name is num is newowner is def_ is behavior is missing_ok is None
+             and name is num is newowner is def_ is behavior is missing_ok is None  # noqa: E501
              and isinstance(subtype, dict)
              and '@' in subtype)):
             super().__init__(subtype)
@@ -786,11 +797,11 @@ class AlterTableCmd(Node):
 
 
 class AlterTableMoveAllStmt(Node):
-    __slots__ = {'orig_tablespacename': 'char*', 'objtype': 'ObjectType', 'roles': 'List*', 'new_tablespacename': 'char*', 'nowait': 'bool'}
+    __slots__ = {'orig_tablespacename': 'char*', 'objtype': 'ObjectType', 'roles': 'List*', 'new_tablespacename': 'char*', 'nowait': 'bool'}  # noqa: E501
 
-    def __init__(self, orig_tablespacename=None, objtype=None, roles=None, new_tablespacename=None, nowait=None):  # pragma: no cover
+    def __init__(self, orig_tablespacename=None, objtype=None, roles=None, new_tablespacename=None, nowait=None):  # pragma: no cover  # noqa: E501
         if ((orig_tablespacename is not None
-             and objtype is roles is new_tablespacename is nowait is None
+             and objtype is roles is new_tablespacename is nowait is None  # noqa: E501
              and isinstance(orig_tablespacename, dict)
              and '@' in orig_tablespacename)):
             super().__init__(orig_tablespacename)
@@ -803,11 +814,11 @@ class AlterTableMoveAllStmt(Node):
 
 
 class AlterTableSpaceOptionsStmt(Node):
-    __slots__ = {'tablespacename': 'char*', 'options': 'List*', 'isReset': 'bool'}
+    __slots__ = {'tablespacename': 'char*', 'options': 'List*', 'isReset': 'bool'}  # noqa: E501
 
-    def __init__(self, tablespacename=None, options=None, isReset=None):  # pragma: no cover
+    def __init__(self, tablespacename=None, options=None, isReset=None):  # pragma: no cover  # noqa: E501
         if ((tablespacename is not None
-             and options is isReset is None
+             and options is isReset is None  # noqa: E501
              and isinstance(tablespacename, dict)
              and '@' in tablespacename)):
             super().__init__(tablespacename)
@@ -818,11 +829,11 @@ class AlterTableSpaceOptionsStmt(Node):
 
 
 class AlterTableStmt(Node):
-    __slots__ = {'relation': 'RangeVar*', 'cmds': 'List*', 'relkind': 'ObjectType', 'missing_ok': 'bool'}
+    __slots__ = {'relation': 'RangeVar*', 'cmds': 'List*', 'relkind': 'ObjectType', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, relation=None, cmds=None, relkind=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, relation=None, cmds=None, relkind=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and cmds is relkind is missing_ok is None
+             and cmds is relkind is missing_ok is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -834,11 +845,11 @@ class AlterTableStmt(Node):
 
 
 class AlterTypeStmt(Node):
-    __slots__ = {'typeName': 'List*', 'options': 'List*'}
+    __slots__ = {'typeName': 'List*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, typeName=None, options=None):  # pragma: no cover
+    def __init__(self, typeName=None, options=None):  # pragma: no cover  # noqa: E501
         if ((typeName is not None
-             and options is None
+             and options is None  # noqa: E501
              and isinstance(typeName, dict)
              and '@' in typeName)):
             super().__init__(typeName)
@@ -848,11 +859,11 @@ class AlterTypeStmt(Node):
 
 
 class AlterUserMappingStmt(Node):
-    __slots__ = {'user': 'RoleSpec*', 'servername': 'char*', 'options': 'List*'}
+    __slots__ = {'user': 'RoleSpec*', 'servername': 'char*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, user=None, servername=None, options=None):  # pragma: no cover
+    def __init__(self, user=None, servername=None, options=None):  # pragma: no cover  # noqa: E501
         if ((user is not None
-             and servername is options is None
+             and servername is options is None  # noqa: E501
              and isinstance(user, dict)
              and '@' in user)):
             super().__init__(user)
@@ -863,9 +874,9 @@ class AlterUserMappingStmt(Node):
 
 
 class AlternativeSubPlan(Expr):
-    __slots__ = {'subplans': 'List*'}
+    __slots__ = {'subplans': 'List*'}  # noqa: E501
 
-    def __init__(self, subplans=None):  # pragma: no cover
+    def __init__(self, subplans=None):  # pragma: no cover  # noqa: E501
 
         if ((subplans is not None
              and isinstance(subplans, dict)
@@ -876,11 +887,11 @@ class AlternativeSubPlan(Expr):
 
 
 class ArrayCoerceExpr(Expr):
-    __slots__ = {'arg': 'Expr*', 'elemexpr': 'Expr*', 'resulttypmod': 'int32', 'coerceformat': 'CoercionForm', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'elemexpr': 'Expr*', 'resulttypmod': 'int32', 'coerceformat': 'CoercionForm', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, elemexpr=None, resulttypmod=None, coerceformat=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, elemexpr=None, resulttypmod=None, coerceformat=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and elemexpr is resulttypmod is coerceformat is location is None
+             and elemexpr is resulttypmod is coerceformat is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -893,11 +904,11 @@ class ArrayCoerceExpr(Expr):
 
 
 class ArrayExpr(Expr):
-    __slots__ = {'elements': 'List*', 'multidims': 'bool', 'location': 'int'}
+    __slots__ = {'elements': 'List*', 'multidims': 'bool', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, elements=None, multidims=None, location=None):  # pragma: no cover
+    def __init__(self, elements=None, multidims=None, location=None):  # pragma: no cover  # noqa: E501
         if ((elements is not None
-             and multidims is location is None
+             and multidims is location is None  # noqa: E501
              and isinstance(elements, dict)
              and '@' in elements)):
             super().__init__(elements)
@@ -908,11 +919,11 @@ class ArrayExpr(Expr):
 
 
 class BoolExpr(Expr):
-    __slots__ = {'boolop': 'BoolExprType', 'args': 'List*', 'location': 'int'}
+    __slots__ = {'boolop': 'BoolExprType', 'args': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, boolop=None, args=None, location=None):  # pragma: no cover
+    def __init__(self, boolop=None, args=None, location=None):  # pragma: no cover  # noqa: E501
         if ((boolop is not None
-             and args is location is None
+             and args is location is None  # noqa: E501
              and isinstance(boolop, dict)
              and '@' in boolop)):
             super().__init__(boolop)
@@ -923,11 +934,11 @@ class BoolExpr(Expr):
 
 
 class BooleanTest(Expr):
-    __slots__ = {'arg': 'Expr*', 'booltesttype': 'BoolTestType', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'booltesttype': 'BoolTestType', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, booltesttype=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, booltesttype=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and booltesttype is location is None
+             and booltesttype is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -938,9 +949,9 @@ class BooleanTest(Expr):
 
 
 class CallContext(Node):
-    __slots__ = {'atomic': 'bool'}
+    __slots__ = {'atomic': 'bool'}  # noqa: E501
 
-    def __init__(self, atomic=None):  # pragma: no cover
+    def __init__(self, atomic=None):  # pragma: no cover  # noqa: E501
 
         if ((atomic is not None
              and isinstance(atomic, dict)
@@ -951,11 +962,11 @@ class CallContext(Node):
 
 
 class CallStmt(Node):
-    __slots__ = {'funccall': 'FuncCall*', 'funcexpr': 'FuncExpr*'}
+    __slots__ = {'funccall': 'FuncCall*', 'funcexpr': 'FuncExpr*'}  # noqa: E501
 
-    def __init__(self, funccall=None, funcexpr=None):  # pragma: no cover
+    def __init__(self, funccall=None, funcexpr=None):  # pragma: no cover  # noqa: E501
         if ((funccall is not None
-             and funcexpr is None
+             and funcexpr is None  # noqa: E501
              and isinstance(funccall, dict)
              and '@' in funccall)):
             super().__init__(funccall)
@@ -965,11 +976,11 @@ class CallStmt(Node):
 
 
 class CaseExpr(Expr):
-    __slots__ = {'arg': 'Expr*', 'args': 'List*', 'defresult': 'Expr*', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'args': 'List*', 'defresult': 'Expr*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, args=None, defresult=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, args=None, defresult=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and args is defresult is location is None
+             and args is defresult is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -981,9 +992,9 @@ class CaseExpr(Expr):
 
 
 class CaseTestExpr(Expr):
-    __slots__ = {'typeMod': 'int32'}
+    __slots__ = {'typeMod': 'int32'}  # noqa: E501
 
-    def __init__(self, typeMod=None):  # pragma: no cover
+    def __init__(self, typeMod=None):  # pragma: no cover  # noqa: E501
 
         if ((typeMod is not None
              and isinstance(typeMod, dict)
@@ -994,11 +1005,11 @@ class CaseTestExpr(Expr):
 
 
 class CaseWhen(Expr):
-    __slots__ = {'expr': 'Expr*', 'result': 'Expr*', 'location': 'int'}
+    __slots__ = {'expr': 'Expr*', 'result': 'Expr*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, expr=None, result=None, location=None):  # pragma: no cover
+    def __init__(self, expr=None, result=None, location=None):  # pragma: no cover  # noqa: E501
         if ((expr is not None
-             and result is location is None
+             and result is location is None  # noqa: E501
              and isinstance(expr, dict)
              and '@' in expr)):
             super().__init__(expr)
@@ -1009,16 +1020,16 @@ class CaseWhen(Expr):
 
 
 class CheckPointStmt(Node):
-    __slots__ = {}
+    __slots__ = {}  # noqa: E501
 
     def __init__(self):  # pragma: no cover
         pass
 
 
 class ClosePortalStmt(Node):
-    __slots__ = {'portalname': 'char*'}
+    __slots__ = {'portalname': 'char*'}  # noqa: E501
 
-    def __init__(self, portalname=None):  # pragma: no cover
+    def __init__(self, portalname=None):  # pragma: no cover  # noqa: E501
 
         if ((portalname is not None
              and isinstance(portalname, dict)
@@ -1029,11 +1040,11 @@ class ClosePortalStmt(Node):
 
 
 class ClusterStmt(Node):
-    __slots__ = {'relation': 'RangeVar*', 'indexname': 'char*', 'options': 'int'}
+    __slots__ = {'relation': 'RangeVar*', 'indexname': 'char*', 'options': 'int'}  # noqa: E501
 
-    def __init__(self, relation=None, indexname=None, options=None):  # pragma: no cover
+    def __init__(self, relation=None, indexname=None, options=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and indexname is options is None
+             and indexname is options is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -1044,11 +1055,11 @@ class ClusterStmt(Node):
 
 
 class CoalesceExpr(Expr):
-    __slots__ = {'args': 'List*', 'location': 'int'}
+    __slots__ = {'args': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, args=None, location=None):  # pragma: no cover
+    def __init__(self, args=None, location=None):  # pragma: no cover  # noqa: E501
         if ((args is not None
-             and location is None
+             and location is None  # noqa: E501
              and isinstance(args, dict)
              and '@' in args)):
             super().__init__(args)
@@ -1058,11 +1069,11 @@ class CoalesceExpr(Expr):
 
 
 class CoerceToDomain(Expr):
-    __slots__ = {'arg': 'Expr*', 'resulttypmod': 'int32', 'coercionformat': 'CoercionForm', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'resulttypmod': 'int32', 'coercionformat': 'CoercionForm', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, resulttypmod=None, coercionformat=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, resulttypmod=None, coercionformat=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and resulttypmod is coercionformat is location is None
+             and resulttypmod is coercionformat is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -1074,11 +1085,11 @@ class CoerceToDomain(Expr):
 
 
 class CoerceToDomainValue(Expr):
-    __slots__ = {'typeMod': 'int32', 'location': 'int'}
+    __slots__ = {'typeMod': 'int32', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, typeMod=None, location=None):  # pragma: no cover
+    def __init__(self, typeMod=None, location=None):  # pragma: no cover  # noqa: E501
         if ((typeMod is not None
-             and location is None
+             and location is None  # noqa: E501
              and isinstance(typeMod, dict)
              and '@' in typeMod)):
             super().__init__(typeMod)
@@ -1088,11 +1099,11 @@ class CoerceToDomainValue(Expr):
 
 
 class CoerceViaIO(Expr):
-    __slots__ = {'arg': 'Expr*', 'coerceformat': 'CoercionForm', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'coerceformat': 'CoercionForm', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, coerceformat=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, coerceformat=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and coerceformat is location is None
+             and coerceformat is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -1103,11 +1114,11 @@ class CoerceViaIO(Expr):
 
 
 class CollateClause(Node):
-    __slots__ = {'arg': 'Node*', 'collname': 'List*', 'location': 'int'}
+    __slots__ = {'arg': 'Node*', 'collname': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, collname=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, collname=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and collname is location is None
+             and collname is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -1118,11 +1129,11 @@ class CollateClause(Node):
 
 
 class CollateExpr(Expr):
-    __slots__ = {'arg': 'Expr*', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and location is None
+             and location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -1132,11 +1143,11 @@ class CollateExpr(Expr):
 
 
 class ColumnDef(Node):
-    __slots__ = {'colname': 'char*', 'typeName': 'TypeName*', 'inhcount': 'int', 'is_local': 'bool', 'is_not_null': 'bool', 'is_from_type': 'bool', 'storage': 'char', 'raw_default': 'Node*', 'cooked_default': 'Node*', 'identity': 'char', 'identitySequence': 'RangeVar*', 'generated': 'char', 'collClause': 'CollateClause*', 'constraints': 'List*', 'fdwoptions': 'List*', 'location': 'int'}
+    __slots__ = {'colname': 'char*', 'typeName': 'TypeName*', 'inhcount': 'int', 'is_local': 'bool', 'is_not_null': 'bool', 'is_from_type': 'bool', 'storage': 'char', 'raw_default': 'Node*', 'cooked_default': 'Node*', 'identity': 'char', 'identitySequence': 'RangeVar*', 'generated': 'char', 'collClause': 'CollateClause*', 'constraints': 'List*', 'fdwoptions': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, colname=None, typeName=None, inhcount=None, is_local=None, is_not_null=None, is_from_type=None, storage=None, raw_default=None, cooked_default=None, identity=None, identitySequence=None, generated=None, collClause=None, constraints=None, fdwoptions=None, location=None):  # pragma: no cover
+    def __init__(self, colname=None, typeName=None, inhcount=None, is_local=None, is_not_null=None, is_from_type=None, storage=None, raw_default=None, cooked_default=None, identity=None, identitySequence=None, generated=None, collClause=None, constraints=None, fdwoptions=None, location=None):  # pragma: no cover  # noqa: E501
         if ((colname is not None
-             and typeName is inhcount is is_local is is_not_null is is_from_type is storage is raw_default is cooked_default is identity is identitySequence is generated is collClause is constraints is fdwoptions is location is None
+             and typeName is inhcount is is_local is is_not_null is is_from_type is storage is raw_default is cooked_default is identity is identitySequence is generated is collClause is constraints is fdwoptions is location is None  # noqa: E501
              and isinstance(colname, dict)
              and '@' in colname)):
             super().__init__(colname)
@@ -1160,11 +1171,11 @@ class ColumnDef(Node):
 
 
 class ColumnRef(Node):
-    __slots__ = {'fields': 'List*', 'location': 'int'}
+    __slots__ = {'fields': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, fields=None, location=None):  # pragma: no cover
+    def __init__(self, fields=None, location=None):  # pragma: no cover  # noqa: E501
         if ((fields is not None
-             and location is None
+             and location is None  # noqa: E501
              and isinstance(fields, dict)
              and '@' in fields)):
             super().__init__(fields)
@@ -1174,11 +1185,11 @@ class ColumnRef(Node):
 
 
 class CommentStmt(Node):
-    __slots__ = {'objtype': 'ObjectType', 'object': 'Node*', 'comment': 'char*'}
+    __slots__ = {'objtype': 'ObjectType', 'object': 'Node*', 'comment': 'char*'}  # noqa: E501
 
-    def __init__(self, objtype=None, object=None, comment=None):  # pragma: no cover
+    def __init__(self, objtype=None, object=None, comment=None):  # pragma: no cover  # noqa: E501
         if ((objtype is not None
-             and object is comment is None
+             and object is comment is None  # noqa: E501
              and isinstance(objtype, dict)
              and '@' in objtype)):
             super().__init__(objtype)
@@ -1189,11 +1200,11 @@ class CommentStmt(Node):
 
 
 class CommonTableExpr(Node):
-    __slots__ = {'ctename': 'char*', 'aliascolnames': 'List*', 'ctematerialized': 'CTEMaterialize', 'ctequery': 'Node*', 'location': 'int', 'cterecursive': 'bool', 'cterefcount': 'int', 'ctecolnames': 'List*', 'ctecoltypes': 'List*', 'ctecoltypmods': 'List*', 'ctecolcollations': 'List*'}
+    __slots__ = {'ctename': 'char*', 'aliascolnames': 'List*', 'ctematerialized': 'CTEMaterialize', 'ctequery': 'Node*', 'location': 'int', 'cterecursive': 'bool', 'cterefcount': 'int', 'ctecolnames': 'List*', 'ctecoltypes': 'List*', 'ctecoltypmods': 'List*', 'ctecolcollations': 'List*'}  # noqa: E501
 
-    def __init__(self, ctename=None, aliascolnames=None, ctematerialized=None, ctequery=None, location=None, cterecursive=None, cterefcount=None, ctecolnames=None, ctecoltypes=None, ctecoltypmods=None, ctecolcollations=None):  # pragma: no cover
+    def __init__(self, ctename=None, aliascolnames=None, ctematerialized=None, ctequery=None, location=None, cterecursive=None, cterefcount=None, ctecolnames=None, ctecoltypes=None, ctecoltypmods=None, ctecolcollations=None):  # pragma: no cover  # noqa: E501
         if ((ctename is not None
-             and aliascolnames is ctematerialized is ctequery is location is cterecursive is cterefcount is ctecolnames is ctecoltypes is ctecoltypmods is ctecolcollations is None
+             and aliascolnames is ctematerialized is ctequery is location is cterecursive is cterefcount is ctecolnames is ctecoltypes is ctecoltypmods is ctecolcollations is None  # noqa: E501
              and isinstance(ctename, dict)
              and '@' in ctename)):
             super().__init__(ctename)
@@ -1212,11 +1223,11 @@ class CommonTableExpr(Node):
 
 
 class CompositeTypeStmt(Node):
-    __slots__ = {'typevar': 'RangeVar*', 'coldeflist': 'List*'}
+    __slots__ = {'typevar': 'RangeVar*', 'coldeflist': 'List*'}  # noqa: E501
 
-    def __init__(self, typevar=None, coldeflist=None):  # pragma: no cover
+    def __init__(self, typevar=None, coldeflist=None):  # pragma: no cover  # noqa: E501
         if ((typevar is not None
-             and coldeflist is None
+             and coldeflist is None  # noqa: E501
              and isinstance(typevar, dict)
              and '@' in typevar)):
             super().__init__(typevar)
@@ -1226,11 +1237,11 @@ class CompositeTypeStmt(Node):
 
 
 class Constraint(Node):
-    __slots__ = {'contype': 'ConstrType', 'conname': 'char*', 'deferrable': 'bool', 'initdeferred': 'bool', 'location': 'int', 'is_no_inherit': 'bool', 'raw_expr': 'Node*', 'cooked_expr': 'char*', 'generated_when': 'char', 'keys': 'List*', 'including': 'List*', 'exclusions': 'List*', 'options': 'List*', 'indexname': 'char*', 'indexspace': 'char*', 'reset_default_tblspc': 'bool', 'access_method': 'char*', 'where_clause': 'Node*', 'pktable': 'RangeVar*', 'fk_attrs': 'List*', 'pk_attrs': 'List*', 'fk_matchtype': 'char', 'fk_upd_action': 'char', 'fk_del_action': 'char', 'old_conpfeqop': 'List*', 'skip_validation': 'bool', 'initially_valid': 'bool'}
+    __slots__ = {'contype': 'ConstrType', 'conname': 'char*', 'deferrable': 'bool', 'initdeferred': 'bool', 'location': 'int', 'is_no_inherit': 'bool', 'raw_expr': 'Node*', 'cooked_expr': 'char*', 'generated_when': 'char', 'keys': 'List*', 'including': 'List*', 'exclusions': 'List*', 'options': 'List*', 'indexname': 'char*', 'indexspace': 'char*', 'reset_default_tblspc': 'bool', 'access_method': 'char*', 'where_clause': 'Node*', 'pktable': 'RangeVar*', 'fk_attrs': 'List*', 'pk_attrs': 'List*', 'fk_matchtype': 'char', 'fk_upd_action': 'char', 'fk_del_action': 'char', 'old_conpfeqop': 'List*', 'skip_validation': 'bool', 'initially_valid': 'bool'}  # noqa: E501
 
-    def __init__(self, contype=None, conname=None, deferrable=None, initdeferred=None, location=None, is_no_inherit=None, raw_expr=None, cooked_expr=None, generated_when=None, keys=None, including=None, exclusions=None, options=None, indexname=None, indexspace=None, reset_default_tblspc=None, access_method=None, where_clause=None, pktable=None, fk_attrs=None, pk_attrs=None, fk_matchtype=None, fk_upd_action=None, fk_del_action=None, old_conpfeqop=None, skip_validation=None, initially_valid=None):  # pragma: no cover
+    def __init__(self, contype=None, conname=None, deferrable=None, initdeferred=None, location=None, is_no_inherit=None, raw_expr=None, cooked_expr=None, generated_when=None, keys=None, including=None, exclusions=None, options=None, indexname=None, indexspace=None, reset_default_tblspc=None, access_method=None, where_clause=None, pktable=None, fk_attrs=None, pk_attrs=None, fk_matchtype=None, fk_upd_action=None, fk_del_action=None, old_conpfeqop=None, skip_validation=None, initially_valid=None):  # pragma: no cover  # noqa: E501
         if ((contype is not None
-             and conname is deferrable is initdeferred is location is is_no_inherit is raw_expr is cooked_expr is generated_when is keys is including is exclusions is options is indexname is indexspace is reset_default_tblspc is access_method is where_clause is pktable is fk_attrs is pk_attrs is fk_matchtype is fk_upd_action is fk_del_action is old_conpfeqop is skip_validation is initially_valid is None
+             and conname is deferrable is initdeferred is location is is_no_inherit is raw_expr is cooked_expr is generated_when is keys is including is exclusions is options is indexname is indexspace is reset_default_tblspc is access_method is where_clause is pktable is fk_attrs is pk_attrs is fk_matchtype is fk_upd_action is fk_del_action is old_conpfeqop is skip_validation is initially_valid is None  # noqa: E501
              and isinstance(contype, dict)
              and '@' in contype)):
             super().__init__(contype)
@@ -1265,11 +1276,11 @@ class Constraint(Node):
 
 
 class ConstraintsSetStmt(Node):
-    __slots__ = {'constraints': 'List*', 'deferred': 'bool'}
+    __slots__ = {'constraints': 'List*', 'deferred': 'bool'}  # noqa: E501
 
-    def __init__(self, constraints=None, deferred=None):  # pragma: no cover
+    def __init__(self, constraints=None, deferred=None):  # pragma: no cover  # noqa: E501
         if ((constraints is not None
-             and deferred is None
+             and deferred is None  # noqa: E501
              and isinstance(constraints, dict)
              and '@' in constraints)):
             super().__init__(constraints)
@@ -1279,11 +1290,11 @@ class ConstraintsSetStmt(Node):
 
 
 class ConvertRowtypeExpr(Expr):
-    __slots__ = {'arg': 'Expr*', 'convertformat': 'CoercionForm', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'convertformat': 'CoercionForm', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, convertformat=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, convertformat=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and convertformat is location is None
+             and convertformat is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -1294,11 +1305,11 @@ class ConvertRowtypeExpr(Expr):
 
 
 class CopyStmt(Node):
-    __slots__ = {'relation': 'RangeVar*', 'query': 'Node*', 'attlist': 'List*', 'is_from': 'bool', 'is_program': 'bool', 'filename': 'char*', 'options': 'List*', 'whereClause': 'Node*'}
+    __slots__ = {'relation': 'RangeVar*', 'query': 'Node*', 'attlist': 'List*', 'is_from': 'bool', 'is_program': 'bool', 'filename': 'char*', 'options': 'List*', 'whereClause': 'Node*'}  # noqa: E501
 
-    def __init__(self, relation=None, query=None, attlist=None, is_from=None, is_program=None, filename=None, options=None, whereClause=None):  # pragma: no cover
+    def __init__(self, relation=None, query=None, attlist=None, is_from=None, is_program=None, filename=None, options=None, whereClause=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and query is attlist is is_from is is_program is filename is options is whereClause is None
+             and query is attlist is is_from is is_program is filename is options is whereClause is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -1314,11 +1325,11 @@ class CopyStmt(Node):
 
 
 class CreateAmStmt(Node):
-    __slots__ = {'amname': 'char*', 'handler_name': 'List*', 'amtype': 'char'}
+    __slots__ = {'amname': 'char*', 'handler_name': 'List*', 'amtype': 'char'}  # noqa: E501
 
-    def __init__(self, amname=None, handler_name=None, amtype=None):  # pragma: no cover
+    def __init__(self, amname=None, handler_name=None, amtype=None):  # pragma: no cover  # noqa: E501
         if ((amname is not None
-             and handler_name is amtype is None
+             and handler_name is amtype is None  # noqa: E501
              and isinstance(amname, dict)
              and '@' in amname)):
             super().__init__(amname)
@@ -1329,11 +1340,11 @@ class CreateAmStmt(Node):
 
 
 class CreateCastStmt(Node):
-    __slots__ = {'sourcetype': 'TypeName*', 'targettype': 'TypeName*', 'func': 'ObjectWithArgs*', 'context': 'CoercionContext', 'inout': 'bool'}
+    __slots__ = {'sourcetype': 'TypeName*', 'targettype': 'TypeName*', 'func': 'ObjectWithArgs*', 'context': 'CoercionContext', 'inout': 'bool'}  # noqa: E501
 
-    def __init__(self, sourcetype=None, targettype=None, func=None, context=None, inout=None):  # pragma: no cover
+    def __init__(self, sourcetype=None, targettype=None, func=None, context=None, inout=None):  # pragma: no cover  # noqa: E501
         if ((sourcetype is not None
-             and targettype is func is context is inout is None
+             and targettype is func is context is inout is None  # noqa: E501
              and isinstance(sourcetype, dict)
              and '@' in sourcetype)):
             super().__init__(sourcetype)
@@ -1346,11 +1357,11 @@ class CreateCastStmt(Node):
 
 
 class CreateConversionStmt(Node):
-    __slots__ = {'conversion_name': 'List*', 'for_encoding_name': 'char*', 'to_encoding_name': 'char*', 'func_name': 'List*', 'def_': 'bool'}
+    __slots__ = {'conversion_name': 'List*', 'for_encoding_name': 'char*', 'to_encoding_name': 'char*', 'func_name': 'List*', 'def_': 'bool'}  # noqa: E501
 
-    def __init__(self, conversion_name=None, for_encoding_name=None, to_encoding_name=None, func_name=None, def_=None):  # pragma: no cover
+    def __init__(self, conversion_name=None, for_encoding_name=None, to_encoding_name=None, func_name=None, def_=None):  # pragma: no cover  # noqa: E501
         if ((conversion_name is not None
-             and for_encoding_name is to_encoding_name is func_name is def_ is None
+             and for_encoding_name is to_encoding_name is func_name is def_ is None  # noqa: E501
              and isinstance(conversion_name, dict)
              and '@' in conversion_name)):
             super().__init__(conversion_name)
@@ -1363,11 +1374,11 @@ class CreateConversionStmt(Node):
 
 
 class CreateDomainStmt(Node):
-    __slots__ = {'domainname': 'List*', 'typeName': 'TypeName*', 'collClause': 'CollateClause*', 'constraints': 'List*'}
+    __slots__ = {'domainname': 'List*', 'typeName': 'TypeName*', 'collClause': 'CollateClause*', 'constraints': 'List*'}  # noqa: E501
 
-    def __init__(self, domainname=None, typeName=None, collClause=None, constraints=None):  # pragma: no cover
+    def __init__(self, domainname=None, typeName=None, collClause=None, constraints=None):  # pragma: no cover  # noqa: E501
         if ((domainname is not None
-             and typeName is collClause is constraints is None
+             and typeName is collClause is constraints is None  # noqa: E501
              and isinstance(domainname, dict)
              and '@' in domainname)):
             super().__init__(domainname)
@@ -1379,11 +1390,11 @@ class CreateDomainStmt(Node):
 
 
 class CreateEnumStmt(Node):
-    __slots__ = {'typeName': 'List*', 'vals': 'List*'}
+    __slots__ = {'typeName': 'List*', 'vals': 'List*'}  # noqa: E501
 
-    def __init__(self, typeName=None, vals=None):  # pragma: no cover
+    def __init__(self, typeName=None, vals=None):  # pragma: no cover  # noqa: E501
         if ((typeName is not None
-             and vals is None
+             and vals is None  # noqa: E501
              and isinstance(typeName, dict)
              and '@' in typeName)):
             super().__init__(typeName)
@@ -1393,11 +1404,11 @@ class CreateEnumStmt(Node):
 
 
 class CreateEventTrigStmt(Node):
-    __slots__ = {'trigname': 'char*', 'eventname': 'char*', 'whenclause': 'List*', 'funcname': 'List*'}
+    __slots__ = {'trigname': 'char*', 'eventname': 'char*', 'whenclause': 'List*', 'funcname': 'List*'}  # noqa: E501
 
-    def __init__(self, trigname=None, eventname=None, whenclause=None, funcname=None):  # pragma: no cover
+    def __init__(self, trigname=None, eventname=None, whenclause=None, funcname=None):  # pragma: no cover  # noqa: E501
         if ((trigname is not None
-             and eventname is whenclause is funcname is None
+             and eventname is whenclause is funcname is None  # noqa: E501
              and isinstance(trigname, dict)
              and '@' in trigname)):
             super().__init__(trigname)
@@ -1409,11 +1420,11 @@ class CreateEventTrigStmt(Node):
 
 
 class CreateExtensionStmt(Node):
-    __slots__ = {'extname': 'char*', 'if_not_exists': 'bool', 'options': 'List*'}
+    __slots__ = {'extname': 'char*', 'if_not_exists': 'bool', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, extname=None, if_not_exists=None, options=None):  # pragma: no cover
+    def __init__(self, extname=None, if_not_exists=None, options=None):  # pragma: no cover  # noqa: E501
         if ((extname is not None
-             and if_not_exists is options is None
+             and if_not_exists is options is None  # noqa: E501
              and isinstance(extname, dict)
              and '@' in extname)):
             super().__init__(extname)
@@ -1424,11 +1435,11 @@ class CreateExtensionStmt(Node):
 
 
 class CreateFdwStmt(Node):
-    __slots__ = {'fdwname': 'char*', 'func_options': 'List*', 'options': 'List*'}
+    __slots__ = {'fdwname': 'char*', 'func_options': 'List*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, fdwname=None, func_options=None, options=None):  # pragma: no cover
+    def __init__(self, fdwname=None, func_options=None, options=None):  # pragma: no cover  # noqa: E501
         if ((fdwname is not None
-             and func_options is options is None
+             and func_options is options is None  # noqa: E501
              and isinstance(fdwname, dict)
              and '@' in fdwname)):
             super().__init__(fdwname)
@@ -1439,11 +1450,11 @@ class CreateFdwStmt(Node):
 
 
 class CreateForeignServerStmt(Node):
-    __slots__ = {'servername': 'char*', 'servertype': 'char*', 'version': 'char*', 'fdwname': 'char*', 'if_not_exists': 'bool', 'options': 'List*'}
+    __slots__ = {'servername': 'char*', 'servertype': 'char*', 'version': 'char*', 'fdwname': 'char*', 'if_not_exists': 'bool', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, servername=None, servertype=None, version=None, fdwname=None, if_not_exists=None, options=None):  # pragma: no cover
+    def __init__(self, servername=None, servertype=None, version=None, fdwname=None, if_not_exists=None, options=None):  # pragma: no cover  # noqa: E501
         if ((servername is not None
-             and servertype is version is fdwname is if_not_exists is options is None
+             and servertype is version is fdwname is if_not_exists is options is None  # noqa: E501
              and isinstance(servername, dict)
              and '@' in servername)):
             super().__init__(servername)
@@ -1457,11 +1468,11 @@ class CreateForeignServerStmt(Node):
 
 
 class CreateForeignTableStmt(Node):
-    __slots__ = {'base': 'CreateStmt', 'servername': 'char*', 'options': 'List*'}
+    __slots__ = {'base': 'CreateStmt', 'servername': 'char*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, base=None, servername=None, options=None):  # pragma: no cover
+    def __init__(self, base=None, servername=None, options=None):  # pragma: no cover  # noqa: E501
         if ((base is not None
-             and servername is options is None
+             and servername is options is None  # noqa: E501
              and isinstance(base, dict)
              and '@' in base)):
             super().__init__(base)
@@ -1472,11 +1483,11 @@ class CreateForeignTableStmt(Node):
 
 
 class CreateFunctionStmt(Node):
-    __slots__ = {'is_procedure': 'bool', 'replace': 'bool', 'funcname': 'List*', 'parameters': 'List*', 'returnType': 'TypeName*', 'options': 'List*'}
+    __slots__ = {'is_procedure': 'bool', 'replace': 'bool', 'funcname': 'List*', 'parameters': 'List*', 'returnType': 'TypeName*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, is_procedure=None, replace=None, funcname=None, parameters=None, returnType=None, options=None):  # pragma: no cover
+    def __init__(self, is_procedure=None, replace=None, funcname=None, parameters=None, returnType=None, options=None):  # pragma: no cover  # noqa: E501
         if ((is_procedure is not None
-             and replace is funcname is parameters is returnType is options is None
+             and replace is funcname is parameters is returnType is options is None  # noqa: E501
              and isinstance(is_procedure, dict)
              and '@' in is_procedure)):
             super().__init__(is_procedure)
@@ -1490,11 +1501,11 @@ class CreateFunctionStmt(Node):
 
 
 class CreateOpClassItem(Node):
-    __slots__ = {'itemtype': 'int', 'name': 'ObjectWithArgs*', 'number': 'int', 'order_family': 'List*', 'class_args': 'List*', 'storedtype': 'TypeName*'}
+    __slots__ = {'itemtype': 'int', 'name': 'ObjectWithArgs*', 'number': 'int', 'order_family': 'List*', 'class_args': 'List*', 'storedtype': 'TypeName*'}  # noqa: E501
 
-    def __init__(self, itemtype=None, name=None, number=None, order_family=None, class_args=None, storedtype=None):  # pragma: no cover
+    def __init__(self, itemtype=None, name=None, number=None, order_family=None, class_args=None, storedtype=None):  # pragma: no cover  # noqa: E501
         if ((itemtype is not None
-             and name is number is order_family is class_args is storedtype is None
+             and name is number is order_family is class_args is storedtype is None  # noqa: E501
              and isinstance(itemtype, dict)
              and '@' in itemtype)):
             super().__init__(itemtype)
@@ -1508,11 +1519,11 @@ class CreateOpClassItem(Node):
 
 
 class CreateOpClassStmt(Node):
-    __slots__ = {'opclassname': 'List*', 'opfamilyname': 'List*', 'amname': 'char*', 'datatype': 'TypeName*', 'items': 'List*', 'isDefault': 'bool'}
+    __slots__ = {'opclassname': 'List*', 'opfamilyname': 'List*', 'amname': 'char*', 'datatype': 'TypeName*', 'items': 'List*', 'isDefault': 'bool'}  # noqa: E501
 
-    def __init__(self, opclassname=None, opfamilyname=None, amname=None, datatype=None, items=None, isDefault=None):  # pragma: no cover
+    def __init__(self, opclassname=None, opfamilyname=None, amname=None, datatype=None, items=None, isDefault=None):  # pragma: no cover  # noqa: E501
         if ((opclassname is not None
-             and opfamilyname is amname is datatype is items is isDefault is None
+             and opfamilyname is amname is datatype is items is isDefault is None  # noqa: E501
              and isinstance(opclassname, dict)
              and '@' in opclassname)):
             super().__init__(opclassname)
@@ -1526,11 +1537,11 @@ class CreateOpClassStmt(Node):
 
 
 class CreateOpFamilyStmt(Node):
-    __slots__ = {'opfamilyname': 'List*', 'amname': 'char*'}
+    __slots__ = {'opfamilyname': 'List*', 'amname': 'char*'}  # noqa: E501
 
-    def __init__(self, opfamilyname=None, amname=None):  # pragma: no cover
+    def __init__(self, opfamilyname=None, amname=None):  # pragma: no cover  # noqa: E501
         if ((opfamilyname is not None
-             and amname is None
+             and amname is None  # noqa: E501
              and isinstance(opfamilyname, dict)
              and '@' in opfamilyname)):
             super().__init__(opfamilyname)
@@ -1540,11 +1551,11 @@ class CreateOpFamilyStmt(Node):
 
 
 class CreatePLangStmt(Node):
-    __slots__ = {'replace': 'bool', 'plname': 'char*', 'plhandler': 'List*', 'plinline': 'List*', 'plvalidator': 'List*', 'pltrusted': 'bool'}
+    __slots__ = {'replace': 'bool', 'plname': 'char*', 'plhandler': 'List*', 'plinline': 'List*', 'plvalidator': 'List*', 'pltrusted': 'bool'}  # noqa: E501
 
-    def __init__(self, replace=None, plname=None, plhandler=None, plinline=None, plvalidator=None, pltrusted=None):  # pragma: no cover
+    def __init__(self, replace=None, plname=None, plhandler=None, plinline=None, plvalidator=None, pltrusted=None):  # pragma: no cover  # noqa: E501
         if ((replace is not None
-             and plname is plhandler is plinline is plvalidator is pltrusted is None
+             and plname is plhandler is plinline is plvalidator is pltrusted is None  # noqa: E501
              and isinstance(replace, dict)
              and '@' in replace)):
             super().__init__(replace)
@@ -1558,11 +1569,11 @@ class CreatePLangStmt(Node):
 
 
 class CreatePolicyStmt(Node):
-    __slots__ = {'policy_name': 'char*', 'table': 'RangeVar*', 'cmd_name': 'char*', 'permissive': 'bool', 'roles': 'List*', 'qual': 'Node*', 'with_check': 'Node*'}
+    __slots__ = {'policy_name': 'char*', 'table': 'RangeVar*', 'cmd_name': 'char*', 'permissive': 'bool', 'roles': 'List*', 'qual': 'Node*', 'with_check': 'Node*'}  # noqa: E501
 
-    def __init__(self, policy_name=None, table=None, cmd_name=None, permissive=None, roles=None, qual=None, with_check=None):  # pragma: no cover
+    def __init__(self, policy_name=None, table=None, cmd_name=None, permissive=None, roles=None, qual=None, with_check=None):  # pragma: no cover  # noqa: E501
         if ((policy_name is not None
-             and table is cmd_name is permissive is roles is qual is with_check is None
+             and table is cmd_name is permissive is roles is qual is with_check is None  # noqa: E501
              and isinstance(policy_name, dict)
              and '@' in policy_name)):
             super().__init__(policy_name)
@@ -1577,11 +1588,11 @@ class CreatePolicyStmt(Node):
 
 
 class CreatePublicationStmt(Node):
-    __slots__ = {'pubname': 'char*', 'options': 'List*', 'tables': 'List*', 'for_all_tables': 'bool'}
+    __slots__ = {'pubname': 'char*', 'options': 'List*', 'tables': 'List*', 'for_all_tables': 'bool'}  # noqa: E501
 
-    def __init__(self, pubname=None, options=None, tables=None, for_all_tables=None):  # pragma: no cover
+    def __init__(self, pubname=None, options=None, tables=None, for_all_tables=None):  # pragma: no cover  # noqa: E501
         if ((pubname is not None
-             and options is tables is for_all_tables is None
+             and options is tables is for_all_tables is None  # noqa: E501
              and isinstance(pubname, dict)
              and '@' in pubname)):
             super().__init__(pubname)
@@ -1593,11 +1604,11 @@ class CreatePublicationStmt(Node):
 
 
 class CreateRangeStmt(Node):
-    __slots__ = {'typeName': 'List*', 'params': 'List*'}
+    __slots__ = {'typeName': 'List*', 'params': 'List*'}  # noqa: E501
 
-    def __init__(self, typeName=None, params=None):  # pragma: no cover
+    def __init__(self, typeName=None, params=None):  # pragma: no cover  # noqa: E501
         if ((typeName is not None
-             and params is None
+             and params is None  # noqa: E501
              and isinstance(typeName, dict)
              and '@' in typeName)):
             super().__init__(typeName)
@@ -1607,11 +1618,11 @@ class CreateRangeStmt(Node):
 
 
 class CreateRoleStmt(Node):
-    __slots__ = {'stmt_type': 'RoleStmtType', 'role': 'char*', 'options': 'List*'}
+    __slots__ = {'stmt_type': 'RoleStmtType', 'role': 'char*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, stmt_type=None, role=None, options=None):  # pragma: no cover
+    def __init__(self, stmt_type=None, role=None, options=None):  # pragma: no cover  # noqa: E501
         if ((stmt_type is not None
-             and role is options is None
+             and role is options is None  # noqa: E501
              and isinstance(stmt_type, dict)
              and '@' in stmt_type)):
             super().__init__(stmt_type)
@@ -1622,11 +1633,11 @@ class CreateRoleStmt(Node):
 
 
 class CreateSchemaStmt(Node):
-    __slots__ = {'schemaname': 'char*', 'authrole': 'RoleSpec*', 'schemaElts': 'List*', 'if_not_exists': 'bool'}
+    __slots__ = {'schemaname': 'char*', 'authrole': 'RoleSpec*', 'schemaElts': 'List*', 'if_not_exists': 'bool'}  # noqa: E501
 
-    def __init__(self, schemaname=None, authrole=None, schemaElts=None, if_not_exists=None):  # pragma: no cover
+    def __init__(self, schemaname=None, authrole=None, schemaElts=None, if_not_exists=None):  # pragma: no cover  # noqa: E501
         if ((schemaname is not None
-             and authrole is schemaElts is if_not_exists is None
+             and authrole is schemaElts is if_not_exists is None  # noqa: E501
              and isinstance(schemaname, dict)
              and '@' in schemaname)):
             super().__init__(schemaname)
@@ -1638,11 +1649,11 @@ class CreateSchemaStmt(Node):
 
 
 class CreateSeqStmt(Node):
-    __slots__ = {'sequence': 'RangeVar*', 'options': 'List*', 'for_identity': 'bool', 'if_not_exists': 'bool'}
+    __slots__ = {'sequence': 'RangeVar*', 'options': 'List*', 'for_identity': 'bool', 'if_not_exists': 'bool'}  # noqa: E501
 
-    def __init__(self, sequence=None, options=None, for_identity=None, if_not_exists=None):  # pragma: no cover
+    def __init__(self, sequence=None, options=None, for_identity=None, if_not_exists=None):  # pragma: no cover  # noqa: E501
         if ((sequence is not None
-             and options is for_identity is if_not_exists is None
+             and options is for_identity is if_not_exists is None  # noqa: E501
              and isinstance(sequence, dict)
              and '@' in sequence)):
             super().__init__(sequence)
@@ -1654,11 +1665,11 @@ class CreateSeqStmt(Node):
 
 
 class CreateStatsStmt(Node):
-    __slots__ = {'defnames': 'List*', 'stat_types': 'List*', 'exprs': 'List*', 'relations': 'List*', 'stxcomment': 'char*', 'if_not_exists': 'bool'}
+    __slots__ = {'defnames': 'List*', 'stat_types': 'List*', 'exprs': 'List*', 'relations': 'List*', 'stxcomment': 'char*', 'if_not_exists': 'bool'}  # noqa: E501
 
-    def __init__(self, defnames=None, stat_types=None, exprs=None, relations=None, stxcomment=None, if_not_exists=None):  # pragma: no cover
+    def __init__(self, defnames=None, stat_types=None, exprs=None, relations=None, stxcomment=None, if_not_exists=None):  # pragma: no cover  # noqa: E501
         if ((defnames is not None
-             and stat_types is exprs is relations is stxcomment is if_not_exists is None
+             and stat_types is exprs is relations is stxcomment is if_not_exists is None  # noqa: E501
              and isinstance(defnames, dict)
              and '@' in defnames)):
             super().__init__(defnames)
@@ -1672,11 +1683,11 @@ class CreateStatsStmt(Node):
 
 
 class CreateStmt(Node):
-    __slots__ = {'relation': 'RangeVar*', 'tableElts': 'List*', 'inhRelations': 'List*', 'partbound': 'PartitionBoundSpec*', 'partspec': 'PartitionSpec*', 'ofTypename': 'TypeName*', 'constraints': 'List*', 'options': 'List*', 'oncommit': 'OnCommitAction', 'tablespacename': 'char*', 'accessMethod': 'char*', 'if_not_exists': 'bool'}
+    __slots__ = {'relation': 'RangeVar*', 'tableElts': 'List*', 'inhRelations': 'List*', 'partbound': 'PartitionBoundSpec*', 'partspec': 'PartitionSpec*', 'ofTypename': 'TypeName*', 'constraints': 'List*', 'options': 'List*', 'oncommit': 'OnCommitAction', 'tablespacename': 'char*', 'accessMethod': 'char*', 'if_not_exists': 'bool'}  # noqa: E501
 
-    def __init__(self, relation=None, tableElts=None, inhRelations=None, partbound=None, partspec=None, ofTypename=None, constraints=None, options=None, oncommit=None, tablespacename=None, accessMethod=None, if_not_exists=None):  # pragma: no cover
+    def __init__(self, relation=None, tableElts=None, inhRelations=None, partbound=None, partspec=None, ofTypename=None, constraints=None, options=None, oncommit=None, tablespacename=None, accessMethod=None, if_not_exists=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and tableElts is inhRelations is partbound is partspec is ofTypename is constraints is options is oncommit is tablespacename is accessMethod is if_not_exists is None
+             and tableElts is inhRelations is partbound is partspec is ofTypename is constraints is options is oncommit is tablespacename is accessMethod is if_not_exists is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -1696,11 +1707,11 @@ class CreateStmt(Node):
 
 
 class CreateSubscriptionStmt(Node):
-    __slots__ = {'subname': 'char*', 'conninfo': 'char*', 'publication': 'List*', 'options': 'List*'}
+    __slots__ = {'subname': 'char*', 'conninfo': 'char*', 'publication': 'List*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, subname=None, conninfo=None, publication=None, options=None):  # pragma: no cover
+    def __init__(self, subname=None, conninfo=None, publication=None, options=None):  # pragma: no cover  # noqa: E501
         if ((subname is not None
-             and conninfo is publication is options is None
+             and conninfo is publication is options is None  # noqa: E501
              and isinstance(subname, dict)
              and '@' in subname)):
             super().__init__(subname)
@@ -1712,11 +1723,11 @@ class CreateSubscriptionStmt(Node):
 
 
 class CreateTableAsStmt(Node):
-    __slots__ = {'query': 'Node*', 'into': 'IntoClause*', 'relkind': 'ObjectType', 'is_select_into': 'bool', 'if_not_exists': 'bool'}
+    __slots__ = {'query': 'Node*', 'into': 'IntoClause*', 'relkind': 'ObjectType', 'is_select_into': 'bool', 'if_not_exists': 'bool'}  # noqa: E501
 
-    def __init__(self, query=None, into=None, relkind=None, is_select_into=None, if_not_exists=None):  # pragma: no cover
+    def __init__(self, query=None, into=None, relkind=None, is_select_into=None, if_not_exists=None):  # pragma: no cover  # noqa: E501
         if ((query is not None
-             and into is relkind is is_select_into is if_not_exists is None
+             and into is relkind is is_select_into is if_not_exists is None  # noqa: E501
              and isinstance(query, dict)
              and '@' in query)):
             super().__init__(query)
@@ -1729,11 +1740,11 @@ class CreateTableAsStmt(Node):
 
 
 class CreateTableSpaceStmt(Node):
-    __slots__ = {'tablespacename': 'char*', 'owner': 'RoleSpec*', 'location': 'char*', 'options': 'List*'}
+    __slots__ = {'tablespacename': 'char*', 'owner': 'RoleSpec*', 'location': 'char*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, tablespacename=None, owner=None, location=None, options=None):  # pragma: no cover
+    def __init__(self, tablespacename=None, owner=None, location=None, options=None):  # pragma: no cover  # noqa: E501
         if ((tablespacename is not None
-             and owner is location is options is None
+             and owner is location is options is None  # noqa: E501
              and isinstance(tablespacename, dict)
              and '@' in tablespacename)):
             super().__init__(tablespacename)
@@ -1745,11 +1756,11 @@ class CreateTableSpaceStmt(Node):
 
 
 class CreateTransformStmt(Node):
-    __slots__ = {'replace': 'bool', 'type_name': 'TypeName*', 'lang': 'char*', 'fromsql': 'ObjectWithArgs*', 'tosql': 'ObjectWithArgs*'}
+    __slots__ = {'replace': 'bool', 'type_name': 'TypeName*', 'lang': 'char*', 'fromsql': 'ObjectWithArgs*', 'tosql': 'ObjectWithArgs*'}  # noqa: E501
 
-    def __init__(self, replace=None, type_name=None, lang=None, fromsql=None, tosql=None):  # pragma: no cover
+    def __init__(self, replace=None, type_name=None, lang=None, fromsql=None, tosql=None):  # pragma: no cover  # noqa: E501
         if ((replace is not None
-             and type_name is lang is fromsql is tosql is None
+             and type_name is lang is fromsql is tosql is None  # noqa: E501
              and isinstance(replace, dict)
              and '@' in replace)):
             super().__init__(replace)
@@ -1762,11 +1773,11 @@ class CreateTransformStmt(Node):
 
 
 class CreateTrigStmt(Node):
-    __slots__ = {'trigname': 'char*', 'relation': 'RangeVar*', 'funcname': 'List*', 'args': 'List*', 'row': 'bool', 'timing': 'int16', 'events': 'int16', 'columns': 'List*', 'whenClause': 'Node*', 'isconstraint': 'bool', 'transitionRels': 'List*', 'deferrable': 'bool', 'initdeferred': 'bool', 'constrrel': 'RangeVar*'}
+    __slots__ = {'trigname': 'char*', 'relation': 'RangeVar*', 'funcname': 'List*', 'args': 'List*', 'row': 'bool', 'timing': 'int16', 'events': 'int16', 'columns': 'List*', 'whenClause': 'Node*', 'isconstraint': 'bool', 'transitionRels': 'List*', 'deferrable': 'bool', 'initdeferred': 'bool', 'constrrel': 'RangeVar*'}  # noqa: E501
 
-    def __init__(self, trigname=None, relation=None, funcname=None, args=None, row=None, timing=None, events=None, columns=None, whenClause=None, isconstraint=None, transitionRels=None, deferrable=None, initdeferred=None, constrrel=None):  # pragma: no cover
+    def __init__(self, trigname=None, relation=None, funcname=None, args=None, row=None, timing=None, events=None, columns=None, whenClause=None, isconstraint=None, transitionRels=None, deferrable=None, initdeferred=None, constrrel=None):  # pragma: no cover  # noqa: E501
         if ((trigname is not None
-             and relation is funcname is args is row is timing is events is columns is whenClause is isconstraint is transitionRels is deferrable is initdeferred is constrrel is None
+             and relation is funcname is args is row is timing is events is columns is whenClause is isconstraint is transitionRels is deferrable is initdeferred is constrrel is None  # noqa: E501
              and isinstance(trigname, dict)
              and '@' in trigname)):
             super().__init__(trigname)
@@ -1788,11 +1799,11 @@ class CreateTrigStmt(Node):
 
 
 class CreateUserMappingStmt(Node):
-    __slots__ = {'user': 'RoleSpec*', 'servername': 'char*', 'if_not_exists': 'bool', 'options': 'List*'}
+    __slots__ = {'user': 'RoleSpec*', 'servername': 'char*', 'if_not_exists': 'bool', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, user=None, servername=None, if_not_exists=None, options=None):  # pragma: no cover
+    def __init__(self, user=None, servername=None, if_not_exists=None, options=None):  # pragma: no cover  # noqa: E501
         if ((user is not None
-             and servername is if_not_exists is options is None
+             and servername is if_not_exists is options is None  # noqa: E501
              and isinstance(user, dict)
              and '@' in user)):
             super().__init__(user)
@@ -1804,11 +1815,11 @@ class CreateUserMappingStmt(Node):
 
 
 class CreatedbStmt(Node):
-    __slots__ = {'dbname': 'char*', 'options': 'List*'}
+    __slots__ = {'dbname': 'char*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, dbname=None, options=None):  # pragma: no cover
+    def __init__(self, dbname=None, options=None):  # pragma: no cover  # noqa: E501
         if ((dbname is not None
-             and options is None
+             and options is None  # noqa: E501
              and isinstance(dbname, dict)
              and '@' in dbname)):
             super().__init__(dbname)
@@ -1818,11 +1829,11 @@ class CreatedbStmt(Node):
 
 
 class CurrentOfExpr(Expr):
-    __slots__ = {'cvarno': 'Index', 'cursor_name': 'char*', 'cursor_param': 'int'}
+    __slots__ = {'cvarno': 'Index', 'cursor_name': 'char*', 'cursor_param': 'int'}  # noqa: E501
 
-    def __init__(self, cvarno=None, cursor_name=None, cursor_param=None):  # pragma: no cover
+    def __init__(self, cvarno=None, cursor_name=None, cursor_param=None):  # pragma: no cover  # noqa: E501
         if ((cvarno is not None
-             and cursor_name is cursor_param is None
+             and cursor_name is cursor_param is None  # noqa: E501
              and isinstance(cvarno, dict)
              and '@' in cvarno)):
             super().__init__(cvarno)
@@ -1833,9 +1844,9 @@ class CurrentOfExpr(Expr):
 
 
 class DeallocateStmt(Node):
-    __slots__ = {'name': 'char*'}
+    __slots__ = {'name': 'char*'}  # noqa: E501
 
-    def __init__(self, name=None):  # pragma: no cover
+    def __init__(self, name=None):  # pragma: no cover  # noqa: E501
 
         if ((name is not None
              and isinstance(name, dict)
@@ -1846,11 +1857,11 @@ class DeallocateStmt(Node):
 
 
 class DeclareCursorStmt(Node):
-    __slots__ = {'portalname': 'char*', 'options': 'int', 'query': 'Node*'}
+    __slots__ = {'portalname': 'char*', 'options': 'int', 'query': 'Node*'}  # noqa: E501
 
-    def __init__(self, portalname=None, options=None, query=None):  # pragma: no cover
+    def __init__(self, portalname=None, options=None, query=None):  # pragma: no cover  # noqa: E501
         if ((portalname is not None
-             and options is query is None
+             and options is query is None  # noqa: E501
              and isinstance(portalname, dict)
              and '@' in portalname)):
             super().__init__(portalname)
@@ -1861,11 +1872,11 @@ class DeclareCursorStmt(Node):
 
 
 class DefElem(Node):
-    __slots__ = {'defnamespace': 'char*', 'defname': 'char*', 'arg': 'Node*', 'defaction': 'DefElemAction', 'location': 'int'}
+    __slots__ = {'defnamespace': 'char*', 'defname': 'char*', 'arg': 'Node*', 'defaction': 'DefElemAction', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, defnamespace=None, defname=None, arg=None, defaction=None, location=None):  # pragma: no cover
+    def __init__(self, defnamespace=None, defname=None, arg=None, defaction=None, location=None):  # pragma: no cover  # noqa: E501
         if ((defnamespace is not None
-             and defname is arg is defaction is location is None
+             and defname is arg is defaction is location is None  # noqa: E501
              and isinstance(defnamespace, dict)
              and '@' in defnamespace)):
             super().__init__(defnamespace)
@@ -1878,11 +1889,11 @@ class DefElem(Node):
 
 
 class DefineStmt(Node):
-    __slots__ = {'kind': 'ObjectType', 'oldstyle': 'bool', 'defnames': 'List*', 'args': 'List*', 'definition': 'List*', 'if_not_exists': 'bool', 'replace': 'bool'}
+    __slots__ = {'kind': 'ObjectType', 'oldstyle': 'bool', 'defnames': 'List*', 'args': 'List*', 'definition': 'List*', 'if_not_exists': 'bool', 'replace': 'bool'}  # noqa: E501
 
-    def __init__(self, kind=None, oldstyle=None, defnames=None, args=None, definition=None, if_not_exists=None, replace=None):  # pragma: no cover
+    def __init__(self, kind=None, oldstyle=None, defnames=None, args=None, definition=None, if_not_exists=None, replace=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and oldstyle is defnames is args is definition is if_not_exists is replace is None
+             and oldstyle is defnames is args is definition is if_not_exists is replace is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -1897,11 +1908,11 @@ class DefineStmt(Node):
 
 
 class DeleteStmt(Node):
-    __slots__ = {'relation': 'RangeVar*', 'usingClause': 'List*', 'whereClause': 'Node*', 'returningList': 'List*', 'withClause': 'WithClause*'}
+    __slots__ = {'relation': 'RangeVar*', 'usingClause': 'List*', 'whereClause': 'Node*', 'returningList': 'List*', 'withClause': 'WithClause*'}  # noqa: E501
 
-    def __init__(self, relation=None, usingClause=None, whereClause=None, returningList=None, withClause=None):  # pragma: no cover
+    def __init__(self, relation=None, usingClause=None, whereClause=None, returningList=None, withClause=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and usingClause is whereClause is returningList is withClause is None
+             and usingClause is whereClause is returningList is withClause is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -1914,9 +1925,9 @@ class DeleteStmt(Node):
 
 
 class DiscardStmt(Node):
-    __slots__ = {'target': 'DiscardMode'}
+    __slots__ = {'target': 'DiscardMode'}  # noqa: E501
 
-    def __init__(self, target=None):  # pragma: no cover
+    def __init__(self, target=None):  # pragma: no cover  # noqa: E501
 
         if ((target is not None
              and isinstance(target, dict)
@@ -1927,9 +1938,9 @@ class DiscardStmt(Node):
 
 
 class DoStmt(Node):
-    __slots__ = {'args': 'List*'}
+    __slots__ = {'args': 'List*'}  # noqa: E501
 
-    def __init__(self, args=None):  # pragma: no cover
+    def __init__(self, args=None):  # pragma: no cover  # noqa: E501
 
         if ((args is not None
              and isinstance(args, dict)
@@ -1940,11 +1951,11 @@ class DoStmt(Node):
 
 
 class DropOwnedStmt(Node):
-    __slots__ = {'roles': 'List*', 'behavior': 'DropBehavior'}
+    __slots__ = {'roles': 'List*', 'behavior': 'DropBehavior'}  # noqa: E501
 
-    def __init__(self, roles=None, behavior=None):  # pragma: no cover
+    def __init__(self, roles=None, behavior=None):  # pragma: no cover  # noqa: E501
         if ((roles is not None
-             and behavior is None
+             and behavior is None  # noqa: E501
              and isinstance(roles, dict)
              and '@' in roles)):
             super().__init__(roles)
@@ -1954,11 +1965,11 @@ class DropOwnedStmt(Node):
 
 
 class DropRoleStmt(Node):
-    __slots__ = {'roles': 'List*', 'missing_ok': 'bool'}
+    __slots__ = {'roles': 'List*', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, roles=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, roles=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((roles is not None
-             and missing_ok is None
+             and missing_ok is None  # noqa: E501
              and isinstance(roles, dict)
              and '@' in roles)):
             super().__init__(roles)
@@ -1968,11 +1979,11 @@ class DropRoleStmt(Node):
 
 
 class DropStmt(Node):
-    __slots__ = {'objects': 'List*', 'removeType': 'ObjectType', 'behavior': 'DropBehavior', 'missing_ok': 'bool', 'concurrent': 'bool'}
+    __slots__ = {'objects': 'List*', 'removeType': 'ObjectType', 'behavior': 'DropBehavior', 'missing_ok': 'bool', 'concurrent': 'bool'}  # noqa: E501
 
-    def __init__(self, objects=None, removeType=None, behavior=None, missing_ok=None, concurrent=None):  # pragma: no cover
+    def __init__(self, objects=None, removeType=None, behavior=None, missing_ok=None, concurrent=None):  # pragma: no cover  # noqa: E501
         if ((objects is not None
-             and removeType is behavior is missing_ok is concurrent is None
+             and removeType is behavior is missing_ok is concurrent is None  # noqa: E501
              and isinstance(objects, dict)
              and '@' in objects)):
             super().__init__(objects)
@@ -1985,11 +1996,11 @@ class DropStmt(Node):
 
 
 class DropSubscriptionStmt(Node):
-    __slots__ = {'subname': 'char*', 'missing_ok': 'bool', 'behavior': 'DropBehavior'}
+    __slots__ = {'subname': 'char*', 'missing_ok': 'bool', 'behavior': 'DropBehavior'}  # noqa: E501
 
-    def __init__(self, subname=None, missing_ok=None, behavior=None):  # pragma: no cover
+    def __init__(self, subname=None, missing_ok=None, behavior=None):  # pragma: no cover  # noqa: E501
         if ((subname is not None
-             and missing_ok is behavior is None
+             and missing_ok is behavior is None  # noqa: E501
              and isinstance(subname, dict)
              and '@' in subname)):
             super().__init__(subname)
@@ -2000,11 +2011,11 @@ class DropSubscriptionStmt(Node):
 
 
 class DropTableSpaceStmt(Node):
-    __slots__ = {'tablespacename': 'char*', 'missing_ok': 'bool'}
+    __slots__ = {'tablespacename': 'char*', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, tablespacename=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, tablespacename=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((tablespacename is not None
-             and missing_ok is None
+             and missing_ok is None  # noqa: E501
              and isinstance(tablespacename, dict)
              and '@' in tablespacename)):
             super().__init__(tablespacename)
@@ -2014,11 +2025,11 @@ class DropTableSpaceStmt(Node):
 
 
 class DropUserMappingStmt(Node):
-    __slots__ = {'user': 'RoleSpec*', 'servername': 'char*', 'missing_ok': 'bool'}
+    __slots__ = {'user': 'RoleSpec*', 'servername': 'char*', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, user=None, servername=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, user=None, servername=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((user is not None
-             and servername is missing_ok is None
+             and servername is missing_ok is None  # noqa: E501
              and isinstance(user, dict)
              and '@' in user)):
             super().__init__(user)
@@ -2029,11 +2040,11 @@ class DropUserMappingStmt(Node):
 
 
 class DropdbStmt(Node):
-    __slots__ = {'dbname': 'char*', 'missing_ok': 'bool', 'options': 'List*'}
+    __slots__ = {'dbname': 'char*', 'missing_ok': 'bool', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, dbname=None, missing_ok=None, options=None):  # pragma: no cover
+    def __init__(self, dbname=None, missing_ok=None, options=None):  # pragma: no cover  # noqa: E501
         if ((dbname is not None
-             and missing_ok is options is None
+             and missing_ok is options is None  # noqa: E501
              and isinstance(dbname, dict)
              and '@' in dbname)):
             super().__init__(dbname)
@@ -2044,11 +2055,11 @@ class DropdbStmt(Node):
 
 
 class ExecuteStmt(Node):
-    __slots__ = {'name': 'char*', 'params': 'List*'}
+    __slots__ = {'name': 'char*', 'params': 'List*'}  # noqa: E501
 
-    def __init__(self, name=None, params=None):  # pragma: no cover
+    def __init__(self, name=None, params=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and params is None
+             and params is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -2058,11 +2069,11 @@ class ExecuteStmt(Node):
 
 
 class ExplainStmt(Node):
-    __slots__ = {'query': 'Node*', 'options': 'List*'}
+    __slots__ = {'query': 'Node*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, query=None, options=None):  # pragma: no cover
+    def __init__(self, query=None, options=None):  # pragma: no cover  # noqa: E501
         if ((query is not None
-             and options is None
+             and options is None  # noqa: E501
              and isinstance(query, dict)
              and '@' in query)):
             super().__init__(query)
@@ -2072,18 +2083,18 @@ class ExplainStmt(Node):
 
 
 class Expr(Node):
-    __slots__ = {}
+    __slots__ = {}  # noqa: E501
 
     def __init__(self):  # pragma: no cover
         pass
 
 
 class FetchStmt(Node):
-    __slots__ = {'direction': 'FetchDirection', 'howMany': 'long', 'portalname': 'char*', 'ismove': 'bool'}
+    __slots__ = {'direction': 'FetchDirection', 'howMany': 'long', 'portalname': 'char*', 'ismove': 'bool'}  # noqa: E501
 
-    def __init__(self, direction=None, howMany=None, portalname=None, ismove=None):  # pragma: no cover
+    def __init__(self, direction=None, howMany=None, portalname=None, ismove=None):  # pragma: no cover  # noqa: E501
         if ((direction is not None
-             and howMany is portalname is ismove is None
+             and howMany is portalname is ismove is None  # noqa: E501
              and isinstance(direction, dict)
              and '@' in direction)):
             super().__init__(direction)
@@ -2095,11 +2106,11 @@ class FetchStmt(Node):
 
 
 class FieldSelect(Expr):
-    __slots__ = {'arg': 'Expr*', 'fieldnum': 'AttrNumber', 'resulttypmod': 'int32'}
+    __slots__ = {'arg': 'Expr*', 'fieldnum': 'AttrNumber', 'resulttypmod': 'int32'}  # noqa: E501
 
-    def __init__(self, arg=None, fieldnum=None, resulttypmod=None):  # pragma: no cover
+    def __init__(self, arg=None, fieldnum=None, resulttypmod=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and fieldnum is resulttypmod is None
+             and fieldnum is resulttypmod is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -2110,11 +2121,11 @@ class FieldSelect(Expr):
 
 
 class FieldStore(Expr):
-    __slots__ = {'arg': 'Expr*', 'newvals': 'List*', 'fieldnums': 'List*'}
+    __slots__ = {'arg': 'Expr*', 'newvals': 'List*', 'fieldnums': 'List*'}  # noqa: E501
 
-    def __init__(self, arg=None, newvals=None, fieldnums=None):  # pragma: no cover
+    def __init__(self, arg=None, newvals=None, fieldnums=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and newvals is fieldnums is None
+             and newvals is fieldnums is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -2125,11 +2136,11 @@ class FieldStore(Expr):
 
 
 class FromExpr(Node):
-    __slots__ = {'fromlist': 'List*', 'quals': 'Node*'}
+    __slots__ = {'fromlist': 'List*', 'quals': 'Node*'}  # noqa: E501
 
-    def __init__(self, fromlist=None, quals=None):  # pragma: no cover
+    def __init__(self, fromlist=None, quals=None):  # pragma: no cover  # noqa: E501
         if ((fromlist is not None
-             and quals is None
+             and quals is None  # noqa: E501
              and isinstance(fromlist, dict)
              and '@' in fromlist)):
             super().__init__(fromlist)
@@ -2139,11 +2150,11 @@ class FromExpr(Node):
 
 
 class FuncCall(Node):
-    __slots__ = {'funcname': 'List*', 'args': 'List*', 'agg_order': 'List*', 'agg_filter': 'Node*', 'agg_within_group': 'bool', 'agg_star': 'bool', 'agg_distinct': 'bool', 'func_variadic': 'bool', 'over': 'WindowDef*', 'location': 'int'}
+    __slots__ = {'funcname': 'List*', 'args': 'List*', 'agg_order': 'List*', 'agg_filter': 'Node*', 'agg_within_group': 'bool', 'agg_star': 'bool', 'agg_distinct': 'bool', 'func_variadic': 'bool', 'over': 'WindowDef*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, funcname=None, args=None, agg_order=None, agg_filter=None, agg_within_group=None, agg_star=None, agg_distinct=None, func_variadic=None, over=None, location=None):  # pragma: no cover
+    def __init__(self, funcname=None, args=None, agg_order=None, agg_filter=None, agg_within_group=None, agg_star=None, agg_distinct=None, func_variadic=None, over=None, location=None):  # pragma: no cover  # noqa: E501
         if ((funcname is not None
-             and args is agg_order is agg_filter is agg_within_group is agg_star is agg_distinct is func_variadic is over is location is None
+             and args is agg_order is agg_filter is agg_within_group is agg_star is agg_distinct is func_variadic is over is location is None  # noqa: E501
              and isinstance(funcname, dict)
              and '@' in funcname)):
             super().__init__(funcname)
@@ -2161,11 +2172,11 @@ class FuncCall(Node):
 
 
 class FuncExpr(Expr):
-    __slots__ = {'funcretset': 'bool', 'funcvariadic': 'bool', 'funcformat': 'CoercionForm', 'args': 'List*', 'location': 'int'}
+    __slots__ = {'funcretset': 'bool', 'funcvariadic': 'bool', 'funcformat': 'CoercionForm', 'args': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, funcretset=None, funcvariadic=None, funcformat=None, args=None, location=None):  # pragma: no cover
+    def __init__(self, funcretset=None, funcvariadic=None, funcformat=None, args=None, location=None):  # pragma: no cover  # noqa: E501
         if ((funcretset is not None
-             and funcvariadic is funcformat is args is location is None
+             and funcvariadic is funcformat is args is location is None  # noqa: E501
              and isinstance(funcretset, dict)
              and '@' in funcretset)):
             super().__init__(funcretset)
@@ -2178,11 +2189,11 @@ class FuncExpr(Expr):
 
 
 class FunctionParameter(Node):
-    __slots__ = {'name': 'char*', 'argType': 'TypeName*', 'mode': 'FunctionParameterMode', 'defexpr': 'Node*'}
+    __slots__ = {'name': 'char*', 'argType': 'TypeName*', 'mode': 'FunctionParameterMode', 'defexpr': 'Node*'}  # noqa: E501
 
-    def __init__(self, name=None, argType=None, mode=None, defexpr=None):  # pragma: no cover
+    def __init__(self, name=None, argType=None, mode=None, defexpr=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and argType is mode is defexpr is None
+             and argType is mode is defexpr is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -2194,11 +2205,11 @@ class FunctionParameter(Node):
 
 
 class GrantRoleStmt(Node):
-    __slots__ = {'granted_roles': 'List*', 'grantee_roles': 'List*', 'is_grant': 'bool', 'admin_opt': 'bool', 'grantor': 'RoleSpec*', 'behavior': 'DropBehavior'}
+    __slots__ = {'granted_roles': 'List*', 'grantee_roles': 'List*', 'is_grant': 'bool', 'admin_opt': 'bool', 'grantor': 'RoleSpec*', 'behavior': 'DropBehavior'}  # noqa: E501
 
-    def __init__(self, granted_roles=None, grantee_roles=None, is_grant=None, admin_opt=None, grantor=None, behavior=None):  # pragma: no cover
+    def __init__(self, granted_roles=None, grantee_roles=None, is_grant=None, admin_opt=None, grantor=None, behavior=None):  # pragma: no cover  # noqa: E501
         if ((granted_roles is not None
-             and grantee_roles is is_grant is admin_opt is grantor is behavior is None
+             and grantee_roles is is_grant is admin_opt is grantor is behavior is None  # noqa: E501
              and isinstance(granted_roles, dict)
              and '@' in granted_roles)):
             super().__init__(granted_roles)
@@ -2212,11 +2223,11 @@ class GrantRoleStmt(Node):
 
 
 class GrantStmt(Node):
-    __slots__ = {'is_grant': 'bool', 'targtype': 'GrantTargetType', 'objtype': 'ObjectType', 'objects': 'List*', 'privileges': 'List*', 'grantees': 'List*', 'grant_option': 'bool', 'behavior': 'DropBehavior'}
+    __slots__ = {'is_grant': 'bool', 'targtype': 'GrantTargetType', 'objtype': 'ObjectType', 'objects': 'List*', 'privileges': 'List*', 'grantees': 'List*', 'grant_option': 'bool', 'behavior': 'DropBehavior'}  # noqa: E501
 
-    def __init__(self, is_grant=None, targtype=None, objtype=None, objects=None, privileges=None, grantees=None, grant_option=None, behavior=None):  # pragma: no cover
+    def __init__(self, is_grant=None, targtype=None, objtype=None, objects=None, privileges=None, grantees=None, grant_option=None, behavior=None):  # pragma: no cover  # noqa: E501
         if ((is_grant is not None
-             and targtype is objtype is objects is privileges is grantees is grant_option is behavior is None
+             and targtype is objtype is objects is privileges is grantees is grant_option is behavior is None  # noqa: E501
              and isinstance(is_grant, dict)
              and '@' in is_grant)):
             super().__init__(is_grant)
@@ -2232,11 +2243,11 @@ class GrantStmt(Node):
 
 
 class GroupingFunc(Expr):
-    __slots__ = {'args': 'List*', 'refs': 'List*', 'cols': 'List*', 'agglevelsup': 'Index', 'location': 'int'}
+    __slots__ = {'args': 'List*', 'refs': 'List*', 'cols': 'List*', 'agglevelsup': 'Index', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, args=None, refs=None, cols=None, agglevelsup=None, location=None):  # pragma: no cover
+    def __init__(self, args=None, refs=None, cols=None, agglevelsup=None, location=None):  # pragma: no cover  # noqa: E501
         if ((args is not None
-             and refs is cols is agglevelsup is location is None
+             and refs is cols is agglevelsup is location is None  # noqa: E501
              and isinstance(args, dict)
              and '@' in args)):
             super().__init__(args)
@@ -2249,11 +2260,11 @@ class GroupingFunc(Expr):
 
 
 class GroupingSet(Node):
-    __slots__ = {'kind': 'GroupingSetKind', 'content': 'List*', 'location': 'int'}
+    __slots__ = {'kind': 'GroupingSetKind', 'content': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, kind=None, content=None, location=None):  # pragma: no cover
+    def __init__(self, kind=None, content=None, location=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and content is location is None
+             and content is location is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -2264,11 +2275,11 @@ class GroupingSet(Node):
 
 
 class ImportForeignSchemaStmt(Node):
-    __slots__ = {'server_name': 'char*', 'remote_schema': 'char*', 'local_schema': 'char*', 'list_type': 'ImportForeignSchemaType', 'table_list': 'List*', 'options': 'List*'}
+    __slots__ = {'server_name': 'char*', 'remote_schema': 'char*', 'local_schema': 'char*', 'list_type': 'ImportForeignSchemaType', 'table_list': 'List*', 'options': 'List*'}  # noqa: E501
 
-    def __init__(self, server_name=None, remote_schema=None, local_schema=None, list_type=None, table_list=None, options=None):  # pragma: no cover
+    def __init__(self, server_name=None, remote_schema=None, local_schema=None, list_type=None, table_list=None, options=None):  # pragma: no cover  # noqa: E501
         if ((server_name is not None
-             and remote_schema is local_schema is list_type is table_list is options is None
+             and remote_schema is local_schema is list_type is table_list is options is None  # noqa: E501
              and isinstance(server_name, dict)
              and '@' in server_name)):
             super().__init__(server_name)
@@ -2282,11 +2293,11 @@ class ImportForeignSchemaStmt(Node):
 
 
 class IndexElem(Node):
-    __slots__ = {'name': 'char*', 'expr': 'Node*', 'indexcolname': 'char*', 'collation': 'List*', 'opclass': 'List*', 'opclassopts': 'List*', 'ordering': 'SortByDir', 'nulls_ordering': 'SortByNulls'}
+    __slots__ = {'name': 'char*', 'expr': 'Node*', 'indexcolname': 'char*', 'collation': 'List*', 'opclass': 'List*', 'opclassopts': 'List*', 'ordering': 'SortByDir', 'nulls_ordering': 'SortByNulls'}  # noqa: E501
 
-    def __init__(self, name=None, expr=None, indexcolname=None, collation=None, opclass=None, opclassopts=None, ordering=None, nulls_ordering=None):  # pragma: no cover
+    def __init__(self, name=None, expr=None, indexcolname=None, collation=None, opclass=None, opclassopts=None, ordering=None, nulls_ordering=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and expr is indexcolname is collation is opclass is opclassopts is ordering is nulls_ordering is None
+             and expr is indexcolname is collation is opclass is opclassopts is ordering is nulls_ordering is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -2302,11 +2313,11 @@ class IndexElem(Node):
 
 
 class IndexStmt(Node):
-    __slots__ = {'idxname': 'char*', 'relation': 'RangeVar*', 'accessMethod': 'char*', 'tableSpace': 'char*', 'indexParams': 'List*', 'indexIncludingParams': 'List*', 'options': 'List*', 'whereClause': 'Node*', 'excludeOpNames': 'List*', 'idxcomment': 'char*', 'oldCreateSubid': 'SubTransactionId', 'oldFirstRelfilenodeSubid': 'SubTransactionId', 'unique': 'bool', 'primary': 'bool', 'isconstraint': 'bool', 'deferrable': 'bool', 'initdeferred': 'bool', 'transformed': 'bool', 'concurrent': 'bool', 'if_not_exists': 'bool', 'reset_default_tblspc': 'bool'}
+    __slots__ = {'idxname': 'char*', 'relation': 'RangeVar*', 'accessMethod': 'char*', 'tableSpace': 'char*', 'indexParams': 'List*', 'indexIncludingParams': 'List*', 'options': 'List*', 'whereClause': 'Node*', 'excludeOpNames': 'List*', 'idxcomment': 'char*', 'oldCreateSubid': 'SubTransactionId', 'oldFirstRelfilenodeSubid': 'SubTransactionId', 'unique': 'bool', 'primary': 'bool', 'isconstraint': 'bool', 'deferrable': 'bool', 'initdeferred': 'bool', 'transformed': 'bool', 'concurrent': 'bool', 'if_not_exists': 'bool', 'reset_default_tblspc': 'bool'}  # noqa: E501
 
-    def __init__(self, idxname=None, relation=None, accessMethod=None, tableSpace=None, indexParams=None, indexIncludingParams=None, options=None, whereClause=None, excludeOpNames=None, idxcomment=None, oldCreateSubid=None, oldFirstRelfilenodeSubid=None, unique=None, primary=None, isconstraint=None, deferrable=None, initdeferred=None, transformed=None, concurrent=None, if_not_exists=None, reset_default_tblspc=None):  # pragma: no cover
+    def __init__(self, idxname=None, relation=None, accessMethod=None, tableSpace=None, indexParams=None, indexIncludingParams=None, options=None, whereClause=None, excludeOpNames=None, idxcomment=None, oldCreateSubid=None, oldFirstRelfilenodeSubid=None, unique=None, primary=None, isconstraint=None, deferrable=None, initdeferred=None, transformed=None, concurrent=None, if_not_exists=None, reset_default_tblspc=None):  # pragma: no cover  # noqa: E501
         if ((idxname is not None
-             and relation is accessMethod is tableSpace is indexParams is indexIncludingParams is options is whereClause is excludeOpNames is idxcomment is oldCreateSubid is oldFirstRelfilenodeSubid is unique is primary is isconstraint is deferrable is initdeferred is transformed is concurrent is if_not_exists is reset_default_tblspc is None
+             and relation is accessMethod is tableSpace is indexParams is indexIncludingParams is options is whereClause is excludeOpNames is idxcomment is oldCreateSubid is oldFirstRelfilenodeSubid is unique is primary is isconstraint is deferrable is initdeferred is transformed is concurrent is if_not_exists is reset_default_tblspc is None  # noqa: E501
              and isinstance(idxname, dict)
              and '@' in idxname)):
             super().__init__(idxname)
@@ -2335,11 +2346,11 @@ class IndexStmt(Node):
 
 
 class InferClause(Node):
-    __slots__ = {'indexElems': 'List*', 'whereClause': 'Node*', 'conname': 'char*', 'location': 'int'}
+    __slots__ = {'indexElems': 'List*', 'whereClause': 'Node*', 'conname': 'char*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, indexElems=None, whereClause=None, conname=None, location=None):  # pragma: no cover
+    def __init__(self, indexElems=None, whereClause=None, conname=None, location=None):  # pragma: no cover  # noqa: E501
         if ((indexElems is not None
-             and whereClause is conname is location is None
+             and whereClause is conname is location is None  # noqa: E501
              and isinstance(indexElems, dict)
              and '@' in indexElems)):
             super().__init__(indexElems)
@@ -2351,9 +2362,9 @@ class InferClause(Node):
 
 
 class InferenceElem(Expr):
-    __slots__ = {'expr': 'Node*'}
+    __slots__ = {'expr': 'Node*'}  # noqa: E501
 
-    def __init__(self, expr=None):  # pragma: no cover
+    def __init__(self, expr=None):  # pragma: no cover  # noqa: E501
 
         if ((expr is not None
              and isinstance(expr, dict)
@@ -2364,11 +2375,11 @@ class InferenceElem(Expr):
 
 
 class InlineCodeBlock(Node):
-    __slots__ = {'source_text': 'char*', 'langIsTrusted': 'bool', 'atomic': 'bool'}
+    __slots__ = {'source_text': 'char*', 'langIsTrusted': 'bool', 'atomic': 'bool'}  # noqa: E501
 
-    def __init__(self, source_text=None, langIsTrusted=None, atomic=None):  # pragma: no cover
+    def __init__(self, source_text=None, langIsTrusted=None, atomic=None):  # pragma: no cover  # noqa: E501
         if ((source_text is not None
-             and langIsTrusted is atomic is None
+             and langIsTrusted is atomic is None  # noqa: E501
              and isinstance(source_text, dict)
              and '@' in source_text)):
             super().__init__(source_text)
@@ -2379,11 +2390,11 @@ class InlineCodeBlock(Node):
 
 
 class InsertStmt(Node):
-    __slots__ = {'relation': 'RangeVar*', 'cols': 'List*', 'selectStmt': 'Node*', 'onConflictClause': 'OnConflictClause*', 'returningList': 'List*', 'withClause': 'WithClause*', 'override': 'OverridingKind'}
+    __slots__ = {'relation': 'RangeVar*', 'cols': 'List*', 'selectStmt': 'Node*', 'onConflictClause': 'OnConflictClause*', 'returningList': 'List*', 'withClause': 'WithClause*', 'override': 'OverridingKind'}  # noqa: E501
 
-    def __init__(self, relation=None, cols=None, selectStmt=None, onConflictClause=None, returningList=None, withClause=None, override=None):  # pragma: no cover
+    def __init__(self, relation=None, cols=None, selectStmt=None, onConflictClause=None, returningList=None, withClause=None, override=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and cols is selectStmt is onConflictClause is returningList is withClause is override is None
+             and cols is selectStmt is onConflictClause is returningList is withClause is override is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -2398,11 +2409,11 @@ class InsertStmt(Node):
 
 
 class IntoClause(Node):
-    __slots__ = {'rel': 'RangeVar*', 'colNames': 'List*', 'accessMethod': 'char*', 'options': 'List*', 'onCommit': 'OnCommitAction', 'tableSpaceName': 'char*', 'viewQuery': 'Node*', 'skipData': 'bool'}
+    __slots__ = {'rel': 'RangeVar*', 'colNames': 'List*', 'accessMethod': 'char*', 'options': 'List*', 'onCommit': 'OnCommitAction', 'tableSpaceName': 'char*', 'viewQuery': 'Node*', 'skipData': 'bool'}  # noqa: E501
 
-    def __init__(self, rel=None, colNames=None, accessMethod=None, options=None, onCommit=None, tableSpaceName=None, viewQuery=None, skipData=None):  # pragma: no cover
+    def __init__(self, rel=None, colNames=None, accessMethod=None, options=None, onCommit=None, tableSpaceName=None, viewQuery=None, skipData=None):  # pragma: no cover  # noqa: E501
         if ((rel is not None
-             and colNames is accessMethod is options is onCommit is tableSpaceName is viewQuery is skipData is None
+             and colNames is accessMethod is options is onCommit is tableSpaceName is viewQuery is skipData is None  # noqa: E501
              and isinstance(rel, dict)
              and '@' in rel)):
             super().__init__(rel)
@@ -2418,11 +2429,11 @@ class IntoClause(Node):
 
 
 class JoinExpr(Node):
-    __slots__ = {'jointype': 'JoinType', 'isNatural': 'bool', 'larg': 'Node*', 'rarg': 'Node*', 'usingClause': 'List*', 'quals': 'Node*', 'alias': 'Alias*', 'rtindex': 'int'}
+    __slots__ = {'jointype': 'JoinType', 'isNatural': 'bool', 'larg': 'Node*', 'rarg': 'Node*', 'usingClause': 'List*', 'quals': 'Node*', 'alias': 'Alias*', 'rtindex': 'int'}  # noqa: E501
 
-    def __init__(self, jointype=None, isNatural=None, larg=None, rarg=None, usingClause=None, quals=None, alias=None, rtindex=None):  # pragma: no cover
+    def __init__(self, jointype=None, isNatural=None, larg=None, rarg=None, usingClause=None, quals=None, alias=None, rtindex=None):  # pragma: no cover  # noqa: E501
         if ((jointype is not None
-             and isNatural is larg is rarg is usingClause is quals is alias is rtindex is None
+             and isNatural is larg is rarg is usingClause is quals is alias is rtindex is None  # noqa: E501
              and isinstance(jointype, dict)
              and '@' in jointype)):
             super().__init__(jointype)
@@ -2438,9 +2449,9 @@ class JoinExpr(Node):
 
 
 class ListenStmt(Node):
-    __slots__ = {'conditionname': 'char*'}
+    __slots__ = {'conditionname': 'char*'}  # noqa: E501
 
-    def __init__(self, conditionname=None):  # pragma: no cover
+    def __init__(self, conditionname=None):  # pragma: no cover  # noqa: E501
 
         if ((conditionname is not None
              and isinstance(conditionname, dict)
@@ -2451,9 +2462,9 @@ class ListenStmt(Node):
 
 
 class LoadStmt(Node):
-    __slots__ = {'filename': 'char*'}
+    __slots__ = {'filename': 'char*'}  # noqa: E501
 
-    def __init__(self, filename=None):  # pragma: no cover
+    def __init__(self, filename=None):  # pragma: no cover  # noqa: E501
 
         if ((filename is not None
              and isinstance(filename, dict)
@@ -2464,11 +2475,11 @@ class LoadStmt(Node):
 
 
 class LockStmt(Node):
-    __slots__ = {'relations': 'List*', 'mode': 'int', 'nowait': 'bool'}
+    __slots__ = {'relations': 'List*', 'mode': 'int', 'nowait': 'bool'}  # noqa: E501
 
-    def __init__(self, relations=None, mode=None, nowait=None):  # pragma: no cover
+    def __init__(self, relations=None, mode=None, nowait=None):  # pragma: no cover  # noqa: E501
         if ((relations is not None
-             and mode is nowait is None
+             and mode is nowait is None  # noqa: E501
              and isinstance(relations, dict)
              and '@' in relations)):
             super().__init__(relations)
@@ -2479,11 +2490,11 @@ class LockStmt(Node):
 
 
 class LockingClause(Node):
-    __slots__ = {'lockedRels': 'List*', 'strength': 'LockClauseStrength', 'waitPolicy': 'LockWaitPolicy'}
+    __slots__ = {'lockedRels': 'List*', 'strength': 'LockClauseStrength', 'waitPolicy': 'LockWaitPolicy'}  # noqa: E501
 
-    def __init__(self, lockedRels=None, strength=None, waitPolicy=None):  # pragma: no cover
+    def __init__(self, lockedRels=None, strength=None, waitPolicy=None):  # pragma: no cover  # noqa: E501
         if ((lockedRels is not None
-             and strength is waitPolicy is None
+             and strength is waitPolicy is None  # noqa: E501
              and isinstance(lockedRels, dict)
              and '@' in lockedRels)):
             super().__init__(lockedRels)
@@ -2494,11 +2505,11 @@ class LockingClause(Node):
 
 
 class MinMaxExpr(Expr):
-    __slots__ = {'op': 'MinMaxOp', 'args': 'List*', 'location': 'int'}
+    __slots__ = {'op': 'MinMaxOp', 'args': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, op=None, args=None, location=None):  # pragma: no cover
+    def __init__(self, op=None, args=None, location=None):  # pragma: no cover  # noqa: E501
         if ((op is not None
-             and args is location is None
+             and args is location is None  # noqa: E501
              and isinstance(op, dict)
              and '@' in op)):
             super().__init__(op)
@@ -2509,11 +2520,11 @@ class MinMaxExpr(Expr):
 
 
 class MultiAssignRef(Node):
-    __slots__ = {'source': 'Node*', 'colno': 'int', 'ncolumns': 'int'}
+    __slots__ = {'source': 'Node*', 'colno': 'int', 'ncolumns': 'int'}  # noqa: E501
 
-    def __init__(self, source=None, colno=None, ncolumns=None):  # pragma: no cover
+    def __init__(self, source=None, colno=None, ncolumns=None):  # pragma: no cover  # noqa: E501
         if ((source is not None
-             and colno is ncolumns is None
+             and colno is ncolumns is None  # noqa: E501
              and isinstance(source, dict)
              and '@' in source)):
             super().__init__(source)
@@ -2524,11 +2535,11 @@ class MultiAssignRef(Node):
 
 
 class NamedArgExpr(Expr):
-    __slots__ = {'arg': 'Expr*', 'name': 'char*', 'argnumber': 'int', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'name': 'char*', 'argnumber': 'int', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, name=None, argnumber=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, name=None, argnumber=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and name is argnumber is location is None
+             and name is argnumber is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -2540,11 +2551,11 @@ class NamedArgExpr(Expr):
 
 
 class NotifyStmt(Node):
-    __slots__ = {'conditionname': 'char*', 'payload': 'char*'}
+    __slots__ = {'conditionname': 'char*', 'payload': 'char*'}  # noqa: E501
 
-    def __init__(self, conditionname=None, payload=None):  # pragma: no cover
+    def __init__(self, conditionname=None, payload=None):  # pragma: no cover  # noqa: E501
         if ((conditionname is not None
-             and payload is None
+             and payload is None  # noqa: E501
              and isinstance(conditionname, dict)
              and '@' in conditionname)):
             super().__init__(conditionname)
@@ -2554,11 +2565,11 @@ class NotifyStmt(Node):
 
 
 class NullTest(Expr):
-    __slots__ = {'arg': 'Expr*', 'nulltesttype': 'NullTestType', 'argisrow': 'bool', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'nulltesttype': 'NullTestType', 'argisrow': 'bool', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, nulltesttype=None, argisrow=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, nulltesttype=None, argisrow=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and nulltesttype is argisrow is location is None
+             and nulltesttype is argisrow is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -2570,11 +2581,11 @@ class NullTest(Expr):
 
 
 class ObjectWithArgs(Node):
-    __slots__ = {'objname': 'List*', 'objargs': 'List*', 'args_unspecified': 'bool'}
+    __slots__ = {'objname': 'List*', 'objargs': 'List*', 'args_unspecified': 'bool'}  # noqa: E501
 
-    def __init__(self, objname=None, objargs=None, args_unspecified=None):  # pragma: no cover
+    def __init__(self, objname=None, objargs=None, args_unspecified=None):  # pragma: no cover  # noqa: E501
         if ((objname is not None
-             and objargs is args_unspecified is None
+             and objargs is args_unspecified is None  # noqa: E501
              and isinstance(objname, dict)
              and '@' in objname)):
             super().__init__(objname)
@@ -2585,11 +2596,11 @@ class ObjectWithArgs(Node):
 
 
 class OnConflictClause(Node):
-    __slots__ = {'action': 'OnConflictAction', 'infer': 'InferClause*', 'targetList': 'List*', 'whereClause': 'Node*', 'location': 'int'}
+    __slots__ = {'action': 'OnConflictAction', 'infer': 'InferClause*', 'targetList': 'List*', 'whereClause': 'Node*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, action=None, infer=None, targetList=None, whereClause=None, location=None):  # pragma: no cover
+    def __init__(self, action=None, infer=None, targetList=None, whereClause=None, location=None):  # pragma: no cover  # noqa: E501
         if ((action is not None
-             and infer is targetList is whereClause is location is None
+             and infer is targetList is whereClause is location is None  # noqa: E501
              and isinstance(action, dict)
              and '@' in action)):
             super().__init__(action)
@@ -2602,11 +2613,11 @@ class OnConflictClause(Node):
 
 
 class OnConflictExpr(Node):
-    __slots__ = {'action': 'OnConflictAction', 'arbiterElems': 'List*', 'arbiterWhere': 'Node*', 'onConflictSet': 'List*', 'onConflictWhere': 'Node*', 'exclRelIndex': 'int', 'exclRelTlist': 'List*'}
+    __slots__ = {'action': 'OnConflictAction', 'arbiterElems': 'List*', 'arbiterWhere': 'Node*', 'onConflictSet': 'List*', 'onConflictWhere': 'Node*', 'exclRelIndex': 'int', 'exclRelTlist': 'List*'}  # noqa: E501
 
-    def __init__(self, action=None, arbiterElems=None, arbiterWhere=None, onConflictSet=None, onConflictWhere=None, exclRelIndex=None, exclRelTlist=None):  # pragma: no cover
+    def __init__(self, action=None, arbiterElems=None, arbiterWhere=None, onConflictSet=None, onConflictWhere=None, exclRelIndex=None, exclRelTlist=None):  # pragma: no cover  # noqa: E501
         if ((action is not None
-             and arbiterElems is arbiterWhere is onConflictSet is onConflictWhere is exclRelIndex is exclRelTlist is None
+             and arbiterElems is arbiterWhere is onConflictSet is onConflictWhere is exclRelIndex is exclRelTlist is None  # noqa: E501
              and isinstance(action, dict)
              and '@' in action)):
             super().__init__(action)
@@ -2621,11 +2632,11 @@ class OnConflictExpr(Node):
 
 
 class OpExpr(Expr):
-    __slots__ = {'opretset': 'bool', 'args': 'List*', 'location': 'int'}
+    __slots__ = {'opretset': 'bool', 'args': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, opretset=None, args=None, location=None):  # pragma: no cover
+    def __init__(self, opretset=None, args=None, location=None):  # pragma: no cover  # noqa: E501
         if ((opretset is not None
-             and args is location is None
+             and args is location is None  # noqa: E501
              and isinstance(opretset, dict)
              and '@' in opretset)):
             super().__init__(opretset)
@@ -2636,11 +2647,11 @@ class OpExpr(Expr):
 
 
 class Param(Expr):
-    __slots__ = {'paramkind': 'ParamKind', 'paramid': 'int', 'paramtypmod': 'int32', 'location': 'int'}
+    __slots__ = {'paramkind': 'ParamKind', 'paramid': 'int', 'paramtypmod': 'int32', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, paramkind=None, paramid=None, paramtypmod=None, location=None):  # pragma: no cover
+    def __init__(self, paramkind=None, paramid=None, paramtypmod=None, location=None):  # pragma: no cover  # noqa: E501
         if ((paramkind is not None
-             and paramid is paramtypmod is location is None
+             and paramid is paramtypmod is location is None  # noqa: E501
              and isinstance(paramkind, dict)
              and '@' in paramkind)):
             super().__init__(paramkind)
@@ -2652,11 +2663,11 @@ class Param(Expr):
 
 
 class ParamRef(Node):
-    __slots__ = {'number': 'int', 'location': 'int'}
+    __slots__ = {'number': 'int', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, number=None, location=None):  # pragma: no cover
+    def __init__(self, number=None, location=None):  # pragma: no cover  # noqa: E501
         if ((number is not None
-             and location is None
+             and location is None  # noqa: E501
              and isinstance(number, dict)
              and '@' in number)):
             super().__init__(number)
@@ -2666,11 +2677,11 @@ class ParamRef(Node):
 
 
 class PartitionBoundSpec(Node):
-    __slots__ = {'strategy': 'char', 'is_default': 'bool', 'modulus': 'int', 'remainder': 'int', 'listdatums': 'List*', 'lowerdatums': 'List*', 'upperdatums': 'List*', 'location': 'int'}
+    __slots__ = {'strategy': 'char', 'is_default': 'bool', 'modulus': 'int', 'remainder': 'int', 'listdatums': 'List*', 'lowerdatums': 'List*', 'upperdatums': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, strategy=None, is_default=None, modulus=None, remainder=None, listdatums=None, lowerdatums=None, upperdatums=None, location=None):  # pragma: no cover
+    def __init__(self, strategy=None, is_default=None, modulus=None, remainder=None, listdatums=None, lowerdatums=None, upperdatums=None, location=None):  # pragma: no cover  # noqa: E501
         if ((strategy is not None
-             and is_default is modulus is remainder is listdatums is lowerdatums is upperdatums is location is None
+             and is_default is modulus is remainder is listdatums is lowerdatums is upperdatums is location is None  # noqa: E501
              and isinstance(strategy, dict)
              and '@' in strategy)):
             super().__init__(strategy)
@@ -2686,11 +2697,11 @@ class PartitionBoundSpec(Node):
 
 
 class PartitionCmd(Node):
-    __slots__ = {'name': 'RangeVar*', 'bound': 'PartitionBoundSpec*'}
+    __slots__ = {'name': 'RangeVar*', 'bound': 'PartitionBoundSpec*'}  # noqa: E501
 
-    def __init__(self, name=None, bound=None):  # pragma: no cover
+    def __init__(self, name=None, bound=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and bound is None
+             and bound is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -2700,11 +2711,11 @@ class PartitionCmd(Node):
 
 
 class PartitionElem(Node):
-    __slots__ = {'name': 'char*', 'expr': 'Node*', 'collation': 'List*', 'opclass': 'List*', 'location': 'int'}
+    __slots__ = {'name': 'char*', 'expr': 'Node*', 'collation': 'List*', 'opclass': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, name=None, expr=None, collation=None, opclass=None, location=None):  # pragma: no cover
+    def __init__(self, name=None, expr=None, collation=None, opclass=None, location=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and expr is collation is opclass is location is None
+             and expr is collation is opclass is location is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -2717,11 +2728,11 @@ class PartitionElem(Node):
 
 
 class PartitionRangeDatum(Node):
-    __slots__ = {'kind': 'PartitionRangeDatumKind', 'value': 'Node*', 'location': 'int'}
+    __slots__ = {'kind': 'PartitionRangeDatumKind', 'value': 'Node*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, kind=None, value=None, location=None):  # pragma: no cover
+    def __init__(self, kind=None, value=None, location=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and value is location is None
+             and value is location is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -2732,11 +2743,11 @@ class PartitionRangeDatum(Node):
 
 
 class PartitionSpec(Node):
-    __slots__ = {'strategy': 'char*', 'partParams': 'List*', 'location': 'int'}
+    __slots__ = {'strategy': 'char*', 'partParams': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, strategy=None, partParams=None, location=None):  # pragma: no cover
+    def __init__(self, strategy=None, partParams=None, location=None):  # pragma: no cover  # noqa: E501
         if ((strategy is not None
-             and partParams is location is None
+             and partParams is location is None  # noqa: E501
              and isinstance(strategy, dict)
              and '@' in strategy)):
             super().__init__(strategy)
@@ -2747,11 +2758,11 @@ class PartitionSpec(Node):
 
 
 class PrepareStmt(Node):
-    __slots__ = {'name': 'char*', 'argtypes': 'List*', 'query': 'Node*'}
+    __slots__ = {'name': 'char*', 'argtypes': 'List*', 'query': 'Node*'}  # noqa: E501
 
-    def __init__(self, name=None, argtypes=None, query=None):  # pragma: no cover
+    def __init__(self, name=None, argtypes=None, query=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and argtypes is query is None
+             and argtypes is query is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -2762,11 +2773,11 @@ class PrepareStmt(Node):
 
 
 class Query(Node):
-    __slots__ = {'commandType': 'CmdType', 'querySource': 'QuerySource', 'queryId': 'uint64', 'canSetTag': 'bool', 'utilityStmt': 'Node*', 'resultRelation': 'int', 'hasAggs': 'bool', 'hasWindowFuncs': 'bool', 'hasTargetSRFs': 'bool', 'hasSubLinks': 'bool', 'hasDistinctOn': 'bool', 'hasRecursive': 'bool', 'hasModifyingCTE': 'bool', 'hasForUpdate': 'bool', 'hasRowSecurity': 'bool', 'cteList': 'List*', 'rtable': 'List*', 'jointree': 'FromExpr*', 'targetList': 'List*', 'override': 'OverridingKind', 'onConflict': 'OnConflictExpr*', 'returningList': 'List*', 'groupClause': 'List*', 'groupingSets': 'List*', 'havingQual': 'Node*', 'windowClause': 'List*', 'distinctClause': 'List*', 'sortClause': 'List*', 'limitOffset': 'Node*', 'limitCount': 'Node*', 'limitOption': 'LimitOption', 'rowMarks': 'List*', 'setOperations': 'Node*', 'constraintDeps': 'List*', 'withCheckOptions': 'List*', 'stmt_location': 'int', 'stmt_len': 'int'}
+    __slots__ = {'commandType': 'CmdType', 'querySource': 'QuerySource', 'queryId': 'uint64', 'canSetTag': 'bool', 'utilityStmt': 'Node*', 'resultRelation': 'int', 'hasAggs': 'bool', 'hasWindowFuncs': 'bool', 'hasTargetSRFs': 'bool', 'hasSubLinks': 'bool', 'hasDistinctOn': 'bool', 'hasRecursive': 'bool', 'hasModifyingCTE': 'bool', 'hasForUpdate': 'bool', 'hasRowSecurity': 'bool', 'cteList': 'List*', 'rtable': 'List*', 'jointree': 'FromExpr*', 'targetList': 'List*', 'override': 'OverridingKind', 'onConflict': 'OnConflictExpr*', 'returningList': 'List*', 'groupClause': 'List*', 'groupingSets': 'List*', 'havingQual': 'Node*', 'windowClause': 'List*', 'distinctClause': 'List*', 'sortClause': 'List*', 'limitOffset': 'Node*', 'limitCount': 'Node*', 'limitOption': 'LimitOption', 'rowMarks': 'List*', 'setOperations': 'Node*', 'constraintDeps': 'List*', 'withCheckOptions': 'List*', 'stmt_location': 'int', 'stmt_len': 'int'}  # noqa: E501
 
-    def __init__(self, commandType=None, querySource=None, queryId=None, canSetTag=None, utilityStmt=None, resultRelation=None, hasAggs=None, hasWindowFuncs=None, hasTargetSRFs=None, hasSubLinks=None, hasDistinctOn=None, hasRecursive=None, hasModifyingCTE=None, hasForUpdate=None, hasRowSecurity=None, cteList=None, rtable=None, jointree=None, targetList=None, override=None, onConflict=None, returningList=None, groupClause=None, groupingSets=None, havingQual=None, windowClause=None, distinctClause=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, rowMarks=None, setOperations=None, constraintDeps=None, withCheckOptions=None, stmt_location=None, stmt_len=None):  # pragma: no cover
+    def __init__(self, commandType=None, querySource=None, queryId=None, canSetTag=None, utilityStmt=None, resultRelation=None, hasAggs=None, hasWindowFuncs=None, hasTargetSRFs=None, hasSubLinks=None, hasDistinctOn=None, hasRecursive=None, hasModifyingCTE=None, hasForUpdate=None, hasRowSecurity=None, cteList=None, rtable=None, jointree=None, targetList=None, override=None, onConflict=None, returningList=None, groupClause=None, groupingSets=None, havingQual=None, windowClause=None, distinctClause=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, rowMarks=None, setOperations=None, constraintDeps=None, withCheckOptions=None, stmt_location=None, stmt_len=None):  # pragma: no cover  # noqa: E501
         if ((commandType is not None
-             and querySource is queryId is canSetTag is utilityStmt is resultRelation is hasAggs is hasWindowFuncs is hasTargetSRFs is hasSubLinks is hasDistinctOn is hasRecursive is hasModifyingCTE is hasForUpdate is hasRowSecurity is cteList is rtable is jointree is targetList is override is onConflict is returningList is groupClause is groupingSets is havingQual is windowClause is distinctClause is sortClause is limitOffset is limitCount is limitOption is rowMarks is setOperations is constraintDeps is withCheckOptions is stmt_location is stmt_len is None
+             and querySource is queryId is canSetTag is utilityStmt is resultRelation is hasAggs is hasWindowFuncs is hasTargetSRFs is hasSubLinks is hasDistinctOn is hasRecursive is hasModifyingCTE is hasForUpdate is hasRowSecurity is cteList is rtable is jointree is targetList is override is onConflict is returningList is groupClause is groupingSets is havingQual is windowClause is distinctClause is sortClause is limitOffset is limitCount is limitOption is rowMarks is setOperations is constraintDeps is withCheckOptions is stmt_location is stmt_len is None  # noqa: E501
              and isinstance(commandType, dict)
              and '@' in commandType)):
             super().__init__(commandType)
@@ -2811,11 +2822,11 @@ class Query(Node):
 
 
 class RangeFunction(Node):
-    __slots__ = {'lateral': 'bool', 'ordinality': 'bool', 'is_rowsfrom': 'bool', 'functions': 'List*', 'alias': 'Alias*', 'coldeflist': 'List*'}
+    __slots__ = {'lateral': 'bool', 'ordinality': 'bool', 'is_rowsfrom': 'bool', 'functions': 'List*', 'alias': 'Alias*', 'coldeflist': 'List*'}  # noqa: E501
 
-    def __init__(self, lateral=None, ordinality=None, is_rowsfrom=None, functions=None, alias=None, coldeflist=None):  # pragma: no cover
+    def __init__(self, lateral=None, ordinality=None, is_rowsfrom=None, functions=None, alias=None, coldeflist=None):  # pragma: no cover  # noqa: E501
         if ((lateral is not None
-             and ordinality is is_rowsfrom is functions is alias is coldeflist is None
+             and ordinality is is_rowsfrom is functions is alias is coldeflist is None  # noqa: E501
              and isinstance(lateral, dict)
              and '@' in lateral)):
             super().__init__(lateral)
@@ -2829,11 +2840,11 @@ class RangeFunction(Node):
 
 
 class RangeSubselect(Node):
-    __slots__ = {'lateral': 'bool', 'subquery': 'Node*', 'alias': 'Alias*'}
+    __slots__ = {'lateral': 'bool', 'subquery': 'Node*', 'alias': 'Alias*'}  # noqa: E501
 
-    def __init__(self, lateral=None, subquery=None, alias=None):  # pragma: no cover
+    def __init__(self, lateral=None, subquery=None, alias=None):  # pragma: no cover  # noqa: E501
         if ((lateral is not None
-             and subquery is alias is None
+             and subquery is alias is None  # noqa: E501
              and isinstance(lateral, dict)
              and '@' in lateral)):
             super().__init__(lateral)
@@ -2844,11 +2855,11 @@ class RangeSubselect(Node):
 
 
 class RangeTableFunc(Node):
-    __slots__ = {'lateral': 'bool', 'docexpr': 'Node*', 'rowexpr': 'Node*', 'namespaces': 'List*', 'columns': 'List*', 'alias': 'Alias*', 'location': 'int'}
+    __slots__ = {'lateral': 'bool', 'docexpr': 'Node*', 'rowexpr': 'Node*', 'namespaces': 'List*', 'columns': 'List*', 'alias': 'Alias*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, lateral=None, docexpr=None, rowexpr=None, namespaces=None, columns=None, alias=None, location=None):  # pragma: no cover
+    def __init__(self, lateral=None, docexpr=None, rowexpr=None, namespaces=None, columns=None, alias=None, location=None):  # pragma: no cover  # noqa: E501
         if ((lateral is not None
-             and docexpr is rowexpr is namespaces is columns is alias is location is None
+             and docexpr is rowexpr is namespaces is columns is alias is location is None  # noqa: E501
              and isinstance(lateral, dict)
              and '@' in lateral)):
             super().__init__(lateral)
@@ -2863,11 +2874,11 @@ class RangeTableFunc(Node):
 
 
 class RangeTableFuncCol(Node):
-    __slots__ = {'colname': 'char*', 'typeName': 'TypeName*', 'for_ordinality': 'bool', 'is_not_null': 'bool', 'colexpr': 'Node*', 'coldefexpr': 'Node*', 'location': 'int'}
+    __slots__ = {'colname': 'char*', 'typeName': 'TypeName*', 'for_ordinality': 'bool', 'is_not_null': 'bool', 'colexpr': 'Node*', 'coldefexpr': 'Node*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, colname=None, typeName=None, for_ordinality=None, is_not_null=None, colexpr=None, coldefexpr=None, location=None):  # pragma: no cover
+    def __init__(self, colname=None, typeName=None, for_ordinality=None, is_not_null=None, colexpr=None, coldefexpr=None, location=None):  # pragma: no cover  # noqa: E501
         if ((colname is not None
-             and typeName is for_ordinality is is_not_null is colexpr is coldefexpr is location is None
+             and typeName is for_ordinality is is_not_null is colexpr is coldefexpr is location is None  # noqa: E501
              and isinstance(colname, dict)
              and '@' in colname)):
             super().__init__(colname)
@@ -2882,11 +2893,11 @@ class RangeTableFuncCol(Node):
 
 
 class RangeTableSample(Node):
-    __slots__ = {'relation': 'Node*', 'method': 'List*', 'args': 'List*', 'repeatable': 'Node*', 'location': 'int'}
+    __slots__ = {'relation': 'Node*', 'method': 'List*', 'args': 'List*', 'repeatable': 'Node*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, relation=None, method=None, args=None, repeatable=None, location=None):  # pragma: no cover
+    def __init__(self, relation=None, method=None, args=None, repeatable=None, location=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and method is args is repeatable is location is None
+             and method is args is repeatable is location is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -2899,11 +2910,11 @@ class RangeTableSample(Node):
 
 
 class RangeTblEntry(Node):
-    __slots__ = {'rtekind': 'RTEKind', 'relkind': 'char', 'rellockmode': 'int', 'tablesample': 'TableSampleClause*', 'subquery': 'Query*', 'security_barrier': 'bool', 'jointype': 'JoinType', 'joinmergedcols': 'int', 'joinaliasvars': 'List*', 'joinleftcols': 'List*', 'joinrightcols': 'List*', 'functions': 'List*', 'funcordinality': 'bool', 'tablefunc': 'TableFunc*', 'values_lists': 'List*', 'ctename': 'char*', 'ctelevelsup': 'Index', 'self_reference': 'bool', 'coltypes': 'List*', 'coltypmods': 'List*', 'colcollations': 'List*', 'enrname': 'char*', 'enrtuples': 'double', 'alias': 'Alias*', 'eref': 'Alias*', 'lateral': 'bool', 'inh': 'bool', 'inFromCl': 'bool', 'requiredPerms': 'AclMode', 'selectedCols': 'Bitmapset*', 'insertedCols': 'Bitmapset*', 'updatedCols': 'Bitmapset*', 'extraUpdatedCols': 'Bitmapset*', 'securityQuals': 'List*'}
+    __slots__ = {'rtekind': 'RTEKind', 'relkind': 'char', 'rellockmode': 'int', 'tablesample': 'TableSampleClause*', 'subquery': 'Query*', 'security_barrier': 'bool', 'jointype': 'JoinType', 'joinmergedcols': 'int', 'joinaliasvars': 'List*', 'joinleftcols': 'List*', 'joinrightcols': 'List*', 'functions': 'List*', 'funcordinality': 'bool', 'tablefunc': 'TableFunc*', 'values_lists': 'List*', 'ctename': 'char*', 'ctelevelsup': 'Index', 'self_reference': 'bool', 'coltypes': 'List*', 'coltypmods': 'List*', 'colcollations': 'List*', 'enrname': 'char*', 'enrtuples': 'double', 'alias': 'Alias*', 'eref': 'Alias*', 'lateral': 'bool', 'inh': 'bool', 'inFromCl': 'bool', 'requiredPerms': 'AclMode', 'selectedCols': 'Bitmapset*', 'insertedCols': 'Bitmapset*', 'updatedCols': 'Bitmapset*', 'extraUpdatedCols': 'Bitmapset*', 'securityQuals': 'List*'}  # noqa: E501
 
-    def __init__(self, rtekind=None, relkind=None, rellockmode=None, tablesample=None, subquery=None, security_barrier=None, jointype=None, joinmergedcols=None, joinaliasvars=None, joinleftcols=None, joinrightcols=None, functions=None, funcordinality=None, tablefunc=None, values_lists=None, ctename=None, ctelevelsup=None, self_reference=None, coltypes=None, coltypmods=None, colcollations=None, enrname=None, enrtuples=None, alias=None, eref=None, lateral=None, inh=None, inFromCl=None, requiredPerms=None, selectedCols=None, insertedCols=None, updatedCols=None, extraUpdatedCols=None, securityQuals=None):  # pragma: no cover
+    def __init__(self, rtekind=None, relkind=None, rellockmode=None, tablesample=None, subquery=None, security_barrier=None, jointype=None, joinmergedcols=None, joinaliasvars=None, joinleftcols=None, joinrightcols=None, functions=None, funcordinality=None, tablefunc=None, values_lists=None, ctename=None, ctelevelsup=None, self_reference=None, coltypes=None, coltypmods=None, colcollations=None, enrname=None, enrtuples=None, alias=None, eref=None, lateral=None, inh=None, inFromCl=None, requiredPerms=None, selectedCols=None, insertedCols=None, updatedCols=None, extraUpdatedCols=None, securityQuals=None):  # pragma: no cover  # noqa: E501
         if ((rtekind is not None
-             and relkind is rellockmode is tablesample is subquery is security_barrier is jointype is joinmergedcols is joinaliasvars is joinleftcols is joinrightcols is functions is funcordinality is tablefunc is values_lists is ctename is ctelevelsup is self_reference is coltypes is coltypmods is colcollations is enrname is enrtuples is alias is eref is lateral is inh is inFromCl is requiredPerms is selectedCols is insertedCols is updatedCols is extraUpdatedCols is securityQuals is None
+             and relkind is rellockmode is tablesample is subquery is security_barrier is jointype is joinmergedcols is joinaliasvars is joinleftcols is joinrightcols is functions is funcordinality is tablefunc is values_lists is ctename is ctelevelsup is self_reference is coltypes is coltypmods is colcollations is enrname is enrtuples is alias is eref is lateral is inh is inFromCl is requiredPerms is selectedCols is insertedCols is updatedCols is extraUpdatedCols is securityQuals is None  # noqa: E501
              and isinstance(rtekind, dict)
              and '@' in rtekind)):
             super().__init__(rtekind)
@@ -2945,11 +2956,11 @@ class RangeTblEntry(Node):
 
 
 class RangeTblFunction(Node):
-    __slots__ = {'funcexpr': 'Node*', 'funccolcount': 'int', 'funccolnames': 'List*', 'funccoltypes': 'List*', 'funccoltypmods': 'List*', 'funccolcollations': 'List*', 'funcparams': 'Bitmapset*'}
+    __slots__ = {'funcexpr': 'Node*', 'funccolcount': 'int', 'funccolnames': 'List*', 'funccoltypes': 'List*', 'funccoltypmods': 'List*', 'funccolcollations': 'List*', 'funcparams': 'Bitmapset*'}  # noqa: E501
 
-    def __init__(self, funcexpr=None, funccolcount=None, funccolnames=None, funccoltypes=None, funccoltypmods=None, funccolcollations=None, funcparams=None):  # pragma: no cover
+    def __init__(self, funcexpr=None, funccolcount=None, funccolnames=None, funccoltypes=None, funccoltypmods=None, funccolcollations=None, funcparams=None):  # pragma: no cover  # noqa: E501
         if ((funcexpr is not None
-             and funccolcount is funccolnames is funccoltypes is funccoltypmods is funccolcollations is funcparams is None
+             and funccolcount is funccolnames is funccoltypes is funccoltypmods is funccolcollations is funcparams is None  # noqa: E501
              and isinstance(funcexpr, dict)
              and '@' in funcexpr)):
             super().__init__(funcexpr)
@@ -2964,9 +2975,9 @@ class RangeTblFunction(Node):
 
 
 class RangeTblRef(Node):
-    __slots__ = {'rtindex': 'int'}
+    __slots__ = {'rtindex': 'int'}  # noqa: E501
 
-    def __init__(self, rtindex=None):  # pragma: no cover
+    def __init__(self, rtindex=None):  # pragma: no cover  # noqa: E501
 
         if ((rtindex is not None
              and isinstance(rtindex, dict)
@@ -2977,11 +2988,11 @@ class RangeTblRef(Node):
 
 
 class RangeVar(Node):
-    __slots__ = {'catalogname': 'char*', 'schemaname': 'char*', 'relname': 'char*', 'inh': 'bool', 'relpersistence': 'char', 'alias': 'Alias*', 'location': 'int'}
+    __slots__ = {'catalogname': 'char*', 'schemaname': 'char*', 'relname': 'char*', 'inh': 'bool', 'relpersistence': 'char', 'alias': 'Alias*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, catalogname=None, schemaname=None, relname=None, inh=None, relpersistence=None, alias=None, location=None):  # pragma: no cover
+    def __init__(self, catalogname=None, schemaname=None, relname=None, inh=None, relpersistence=None, alias=None, location=None):  # pragma: no cover  # noqa: E501
         if ((catalogname is not None
-             and schemaname is relname is inh is relpersistence is alias is location is None
+             and schemaname is relname is inh is relpersistence is alias is location is None  # noqa: E501
              and isinstance(catalogname, dict)
              and '@' in catalogname)):
             super().__init__(catalogname)
@@ -2996,11 +3007,11 @@ class RangeVar(Node):
 
 
 class RawStmt(Node):
-    __slots__ = {'stmt': 'Node*', 'stmt_location': 'int', 'stmt_len': 'int'}
+    __slots__ = {'stmt': 'Node*', 'stmt_location': 'int', 'stmt_len': 'int'}  # noqa: E501
 
-    def __init__(self, stmt=None, stmt_location=None, stmt_len=None):  # pragma: no cover
+    def __init__(self, stmt=None, stmt_location=None, stmt_len=None):  # pragma: no cover  # noqa: E501
         if ((stmt is not None
-             and stmt_location is stmt_len is None
+             and stmt_location is stmt_len is None  # noqa: E501
              and isinstance(stmt, dict)
              and '@' in stmt)):
             super().__init__(stmt)
@@ -3011,11 +3022,11 @@ class RawStmt(Node):
 
 
 class ReassignOwnedStmt(Node):
-    __slots__ = {'roles': 'List*', 'newrole': 'RoleSpec*'}
+    __slots__ = {'roles': 'List*', 'newrole': 'RoleSpec*'}  # noqa: E501
 
-    def __init__(self, roles=None, newrole=None):  # pragma: no cover
+    def __init__(self, roles=None, newrole=None):  # pragma: no cover  # noqa: E501
         if ((roles is not None
-             and newrole is None
+             and newrole is None  # noqa: E501
              and isinstance(roles, dict)
              and '@' in roles)):
             super().__init__(roles)
@@ -3025,11 +3036,11 @@ class ReassignOwnedStmt(Node):
 
 
 class RefreshMatViewStmt(Node):
-    __slots__ = {'concurrent': 'bool', 'skipData': 'bool', 'relation': 'RangeVar*'}
+    __slots__ = {'concurrent': 'bool', 'skipData': 'bool', 'relation': 'RangeVar*'}  # noqa: E501
 
-    def __init__(self, concurrent=None, skipData=None, relation=None):  # pragma: no cover
+    def __init__(self, concurrent=None, skipData=None, relation=None):  # pragma: no cover  # noqa: E501
         if ((concurrent is not None
-             and skipData is relation is None
+             and skipData is relation is None  # noqa: E501
              and isinstance(concurrent, dict)
              and '@' in concurrent)):
             super().__init__(concurrent)
@@ -3040,11 +3051,11 @@ class RefreshMatViewStmt(Node):
 
 
 class ReindexStmt(Node):
-    __slots__ = {'kind': 'ReindexObjectType', 'relation': 'RangeVar*', 'name': 'char*', 'options': 'int', 'concurrent': 'bool'}
+    __slots__ = {'kind': 'ReindexObjectType', 'relation': 'RangeVar*', 'name': 'char*', 'options': 'int', 'concurrent': 'bool'}  # noqa: E501
 
-    def __init__(self, kind=None, relation=None, name=None, options=None, concurrent=None):  # pragma: no cover
+    def __init__(self, kind=None, relation=None, name=None, options=None, concurrent=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and relation is name is options is concurrent is None
+             and relation is name is options is concurrent is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -3057,11 +3068,11 @@ class ReindexStmt(Node):
 
 
 class RelabelType(Expr):
-    __slots__ = {'arg': 'Expr*', 'resulttypmod': 'int32', 'relabelformat': 'CoercionForm', 'location': 'int'}
+    __slots__ = {'arg': 'Expr*', 'resulttypmod': 'int32', 'relabelformat': 'CoercionForm', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, resulttypmod=None, relabelformat=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, resulttypmod=None, relabelformat=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and resulttypmod is relabelformat is location is None
+             and resulttypmod is relabelformat is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -3073,11 +3084,11 @@ class RelabelType(Expr):
 
 
 class RenameStmt(Node):
-    __slots__ = {'renameType': 'ObjectType', 'relationType': 'ObjectType', 'relation': 'RangeVar*', 'object': 'Node*', 'subname': 'char*', 'newname': 'char*', 'behavior': 'DropBehavior', 'missing_ok': 'bool'}
+    __slots__ = {'renameType': 'ObjectType', 'relationType': 'ObjectType', 'relation': 'RangeVar*', 'object': 'Node*', 'subname': 'char*', 'newname': 'char*', 'behavior': 'DropBehavior', 'missing_ok': 'bool'}  # noqa: E501
 
-    def __init__(self, renameType=None, relationType=None, relation=None, object=None, subname=None, newname=None, behavior=None, missing_ok=None):  # pragma: no cover
+    def __init__(self, renameType=None, relationType=None, relation=None, object=None, subname=None, newname=None, behavior=None, missing_ok=None):  # pragma: no cover  # noqa: E501
         if ((renameType is not None
-             and relationType is relation is object is subname is newname is behavior is missing_ok is None
+             and relationType is relation is object is subname is newname is behavior is missing_ok is None  # noqa: E501
              and isinstance(renameType, dict)
              and '@' in renameType)):
             super().__init__(renameType)
@@ -3093,11 +3104,11 @@ class RenameStmt(Node):
 
 
 class ReplicaIdentityStmt(Node):
-    __slots__ = {'identity_type': 'char', 'name': 'char*'}
+    __slots__ = {'identity_type': 'char', 'name': 'char*'}  # noqa: E501
 
-    def __init__(self, identity_type=None, name=None):  # pragma: no cover
+    def __init__(self, identity_type=None, name=None):  # pragma: no cover  # noqa: E501
         if ((identity_type is not None
-             and name is None
+             and name is None  # noqa: E501
              and isinstance(identity_type, dict)
              and '@' in identity_type)):
             super().__init__(identity_type)
@@ -3107,11 +3118,11 @@ class ReplicaIdentityStmt(Node):
 
 
 class ResTarget(Node):
-    __slots__ = {'name': 'char*', 'indirection': 'List*', 'val': 'Node*', 'location': 'int'}
+    __slots__ = {'name': 'char*', 'indirection': 'List*', 'val': 'Node*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, name=None, indirection=None, val=None, location=None):  # pragma: no cover
+    def __init__(self, name=None, indirection=None, val=None, location=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and indirection is val is location is None
+             and indirection is val is location is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -3123,11 +3134,11 @@ class ResTarget(Node):
 
 
 class RoleSpec(Node):
-    __slots__ = {'roletype': 'RoleSpecType', 'rolename': 'char*', 'location': 'int'}
+    __slots__ = {'roletype': 'RoleSpecType', 'rolename': 'char*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, roletype=None, rolename=None, location=None):  # pragma: no cover
+    def __init__(self, roletype=None, rolename=None, location=None):  # pragma: no cover  # noqa: E501
         if ((roletype is not None
-             and rolename is location is None
+             and rolename is location is None  # noqa: E501
              and isinstance(roletype, dict)
              and '@' in roletype)):
             super().__init__(roletype)
@@ -3138,11 +3149,11 @@ class RoleSpec(Node):
 
 
 class RowCompareExpr(Expr):
-    __slots__ = {'rctype': 'RowCompareType', 'opnos': 'List*', 'opfamilies': 'List*', 'inputcollids': 'List*', 'largs': 'List*', 'rargs': 'List*'}
+    __slots__ = {'rctype': 'RowCompareType', 'opnos': 'List*', 'opfamilies': 'List*', 'inputcollids': 'List*', 'largs': 'List*', 'rargs': 'List*'}  # noqa: E501
 
-    def __init__(self, rctype=None, opnos=None, opfamilies=None, inputcollids=None, largs=None, rargs=None):  # pragma: no cover
+    def __init__(self, rctype=None, opnos=None, opfamilies=None, inputcollids=None, largs=None, rargs=None):  # pragma: no cover  # noqa: E501
         if ((rctype is not None
-             and opnos is opfamilies is inputcollids is largs is rargs is None
+             and opnos is opfamilies is inputcollids is largs is rargs is None  # noqa: E501
              and isinstance(rctype, dict)
              and '@' in rctype)):
             super().__init__(rctype)
@@ -3156,11 +3167,11 @@ class RowCompareExpr(Expr):
 
 
 class RowExpr(Expr):
-    __slots__ = {'args': 'List*', 'row_format': 'CoercionForm', 'colnames': 'List*', 'location': 'int'}
+    __slots__ = {'args': 'List*', 'row_format': 'CoercionForm', 'colnames': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, args=None, row_format=None, colnames=None, location=None):  # pragma: no cover
+    def __init__(self, args=None, row_format=None, colnames=None, location=None):  # pragma: no cover  # noqa: E501
         if ((args is not None
-             and row_format is colnames is location is None
+             and row_format is colnames is location is None  # noqa: E501
              and isinstance(args, dict)
              and '@' in args)):
             super().__init__(args)
@@ -3172,11 +3183,11 @@ class RowExpr(Expr):
 
 
 class RowMarkClause(Node):
-    __slots__ = {'rti': 'Index', 'strength': 'LockClauseStrength', 'waitPolicy': 'LockWaitPolicy', 'pushedDown': 'bool'}
+    __slots__ = {'rti': 'Index', 'strength': 'LockClauseStrength', 'waitPolicy': 'LockWaitPolicy', 'pushedDown': 'bool'}  # noqa: E501
 
-    def __init__(self, rti=None, strength=None, waitPolicy=None, pushedDown=None):  # pragma: no cover
+    def __init__(self, rti=None, strength=None, waitPolicy=None, pushedDown=None):  # pragma: no cover  # noqa: E501
         if ((rti is not None
-             and strength is waitPolicy is pushedDown is None
+             and strength is waitPolicy is pushedDown is None  # noqa: E501
              and isinstance(rti, dict)
              and '@' in rti)):
             super().__init__(rti)
@@ -3188,11 +3199,11 @@ class RowMarkClause(Node):
 
 
 class RuleStmt(Node):
-    __slots__ = {'relation': 'RangeVar*', 'rulename': 'char*', 'whereClause': 'Node*', 'event': 'CmdType', 'instead': 'bool', 'actions': 'List*', 'replace': 'bool'}
+    __slots__ = {'relation': 'RangeVar*', 'rulename': 'char*', 'whereClause': 'Node*', 'event': 'CmdType', 'instead': 'bool', 'actions': 'List*', 'replace': 'bool'}  # noqa: E501
 
-    def __init__(self, relation=None, rulename=None, whereClause=None, event=None, instead=None, actions=None, replace=None):  # pragma: no cover
+    def __init__(self, relation=None, rulename=None, whereClause=None, event=None, instead=None, actions=None, replace=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and rulename is whereClause is event is instead is actions is replace is None
+             and rulename is whereClause is event is instead is actions is replace is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -3207,11 +3218,11 @@ class RuleStmt(Node):
 
 
 class SQLValueFunction(Expr):
-    __slots__ = {'op': 'SQLValueFunctionOp', 'typmod': 'int32', 'location': 'int'}
+    __slots__ = {'op': 'SQLValueFunctionOp', 'typmod': 'int32', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, op=None, typmod=None, location=None):  # pragma: no cover
+    def __init__(self, op=None, typmod=None, location=None):  # pragma: no cover  # noqa: E501
         if ((op is not None
-             and typmod is location is None
+             and typmod is location is None  # noqa: E501
              and isinstance(op, dict)
              and '@' in op)):
             super().__init__(op)
@@ -3222,11 +3233,11 @@ class SQLValueFunction(Expr):
 
 
 class ScalarArrayOpExpr(Expr):
-    __slots__ = {'useOr': 'bool', 'args': 'List*', 'location': 'int'}
+    __slots__ = {'useOr': 'bool', 'args': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, useOr=None, args=None, location=None):  # pragma: no cover
+    def __init__(self, useOr=None, args=None, location=None):  # pragma: no cover  # noqa: E501
         if ((useOr is not None
-             and args is location is None
+             and args is location is None  # noqa: E501
              and isinstance(useOr, dict)
              and '@' in useOr)):
             super().__init__(useOr)
@@ -3237,11 +3248,11 @@ class ScalarArrayOpExpr(Expr):
 
 
 class SecLabelStmt(Node):
-    __slots__ = {'objtype': 'ObjectType', 'object': 'Node*', 'provider': 'char*', 'label': 'char*'}
+    __slots__ = {'objtype': 'ObjectType', 'object': 'Node*', 'provider': 'char*', 'label': 'char*'}  # noqa: E501
 
-    def __init__(self, objtype=None, object=None, provider=None, label=None):  # pragma: no cover
+    def __init__(self, objtype=None, object=None, provider=None, label=None):  # pragma: no cover  # noqa: E501
         if ((objtype is not None
-             and object is provider is label is None
+             and object is provider is label is None  # noqa: E501
              and isinstance(objtype, dict)
              and '@' in objtype)):
             super().__init__(objtype)
@@ -3253,11 +3264,11 @@ class SecLabelStmt(Node):
 
 
 class SelectStmt(Node):
-    __slots__ = {'distinctClause': 'List*', 'intoClause': 'IntoClause*', 'targetList': 'List*', 'fromClause': 'List*', 'whereClause': 'Node*', 'groupClause': 'List*', 'havingClause': 'Node*', 'windowClause': 'List*', 'valuesLists': 'List*', 'sortClause': 'List*', 'limitOffset': 'Node*', 'limitCount': 'Node*', 'limitOption': 'LimitOption', 'lockingClause': 'List*', 'withClause': 'WithClause*', 'op': 'SetOperation', 'all': 'bool', 'larg': 'SelectStmt*', 'rarg': 'SelectStmt*'}
+    __slots__ = {'distinctClause': 'List*', 'intoClause': 'IntoClause*', 'targetList': 'List*', 'fromClause': 'List*', 'whereClause': 'Node*', 'groupClause': 'List*', 'havingClause': 'Node*', 'windowClause': 'List*', 'valuesLists': 'List*', 'sortClause': 'List*', 'limitOffset': 'Node*', 'limitCount': 'Node*', 'limitOption': 'LimitOption', 'lockingClause': 'List*', 'withClause': 'WithClause*', 'op': 'SetOperation', 'all': 'bool', 'larg': 'SelectStmt*', 'rarg': 'SelectStmt*'}  # noqa: E501
 
-    def __init__(self, distinctClause=None, intoClause=None, targetList=None, fromClause=None, whereClause=None, groupClause=None, havingClause=None, windowClause=None, valuesLists=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, lockingClause=None, withClause=None, op=None, all=None, larg=None, rarg=None):  # pragma: no cover
+    def __init__(self, distinctClause=None, intoClause=None, targetList=None, fromClause=None, whereClause=None, groupClause=None, havingClause=None, windowClause=None, valuesLists=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, lockingClause=None, withClause=None, op=None, all=None, larg=None, rarg=None):  # pragma: no cover  # noqa: E501
         if ((distinctClause is not None
-             and intoClause is targetList is fromClause is whereClause is groupClause is havingClause is windowClause is valuesLists is sortClause is limitOffset is limitCount is limitOption is lockingClause is withClause is op is all is larg is rarg is None
+             and intoClause is targetList is fromClause is whereClause is groupClause is havingClause is windowClause is valuesLists is sortClause is limitOffset is limitCount is limitOption is lockingClause is withClause is op is all is larg is rarg is None  # noqa: E501
              and isinstance(distinctClause, dict)
              and '@' in distinctClause)):
             super().__init__(distinctClause)
@@ -3284,11 +3295,11 @@ class SelectStmt(Node):
 
 
 class SetOperationStmt(Node):
-    __slots__ = {'op': 'SetOperation', 'all': 'bool', 'larg': 'Node*', 'rarg': 'Node*', 'colTypes': 'List*', 'colTypmods': 'List*', 'colCollations': 'List*', 'groupClauses': 'List*'}
+    __slots__ = {'op': 'SetOperation', 'all': 'bool', 'larg': 'Node*', 'rarg': 'Node*', 'colTypes': 'List*', 'colTypmods': 'List*', 'colCollations': 'List*', 'groupClauses': 'List*'}  # noqa: E501
 
-    def __init__(self, op=None, all=None, larg=None, rarg=None, colTypes=None, colTypmods=None, colCollations=None, groupClauses=None):  # pragma: no cover
+    def __init__(self, op=None, all=None, larg=None, rarg=None, colTypes=None, colTypmods=None, colCollations=None, groupClauses=None):  # pragma: no cover  # noqa: E501
         if ((op is not None
-             and all is larg is rarg is colTypes is colTypmods is colCollations is groupClauses is None
+             and all is larg is rarg is colTypes is colTypmods is colCollations is groupClauses is None  # noqa: E501
              and isinstance(op, dict)
              and '@' in op)):
             super().__init__(op)
@@ -3304,11 +3315,11 @@ class SetOperationStmt(Node):
 
 
 class SetToDefault(Expr):
-    __slots__ = {'typeMod': 'int32', 'location': 'int'}
+    __slots__ = {'typeMod': 'int32', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, typeMod=None, location=None):  # pragma: no cover
+    def __init__(self, typeMod=None, location=None):  # pragma: no cover  # noqa: E501
         if ((typeMod is not None
-             and location is None
+             and location is None  # noqa: E501
              and isinstance(typeMod, dict)
              and '@' in typeMod)):
             super().__init__(typeMod)
@@ -3318,11 +3329,11 @@ class SetToDefault(Expr):
 
 
 class SortBy(Node):
-    __slots__ = {'node': 'Node*', 'sortby_dir': 'SortByDir', 'sortby_nulls': 'SortByNulls', 'useOp': 'List*', 'location': 'int'}
+    __slots__ = {'node': 'Node*', 'sortby_dir': 'SortByDir', 'sortby_nulls': 'SortByNulls', 'useOp': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, node=None, sortby_dir=None, sortby_nulls=None, useOp=None, location=None):  # pragma: no cover
+    def __init__(self, node=None, sortby_dir=None, sortby_nulls=None, useOp=None, location=None):  # pragma: no cover  # noqa: E501
         if ((node is not None
-             and sortby_dir is sortby_nulls is useOp is location is None
+             and sortby_dir is sortby_nulls is useOp is location is None  # noqa: E501
              and isinstance(node, dict)
              and '@' in node)):
             super().__init__(node)
@@ -3335,11 +3346,11 @@ class SortBy(Node):
 
 
 class SortGroupClause(Node):
-    __slots__ = {'tleSortGroupRef': 'Index', 'nulls_first': 'bool', 'hashable': 'bool'}
+    __slots__ = {'tleSortGroupRef': 'Index', 'nulls_first': 'bool', 'hashable': 'bool'}  # noqa: E501
 
-    def __init__(self, tleSortGroupRef=None, nulls_first=None, hashable=None):  # pragma: no cover
+    def __init__(self, tleSortGroupRef=None, nulls_first=None, hashable=None):  # pragma: no cover  # noqa: E501
         if ((tleSortGroupRef is not None
-             and nulls_first is hashable is None
+             and nulls_first is hashable is None  # noqa: E501
              and isinstance(tleSortGroupRef, dict)
              and '@' in tleSortGroupRef)):
             super().__init__(tleSortGroupRef)
@@ -3350,11 +3361,11 @@ class SortGroupClause(Node):
 
 
 class SubLink(Expr):
-    __slots__ = {'subLinkType': 'SubLinkType', 'subLinkId': 'int', 'testexpr': 'Node*', 'operName': 'List*', 'subselect': 'Node*', 'location': 'int'}
+    __slots__ = {'subLinkType': 'SubLinkType', 'subLinkId': 'int', 'testexpr': 'Node*', 'operName': 'List*', 'subselect': 'Node*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, subLinkType=None, subLinkId=None, testexpr=None, operName=None, subselect=None, location=None):  # pragma: no cover
+    def __init__(self, subLinkType=None, subLinkId=None, testexpr=None, operName=None, subselect=None, location=None):  # pragma: no cover  # noqa: E501
         if ((subLinkType is not None
-             and subLinkId is testexpr is operName is subselect is location is None
+             and subLinkId is testexpr is operName is subselect is location is None  # noqa: E501
              and isinstance(subLinkType, dict)
              and '@' in subLinkType)):
             super().__init__(subLinkType)
@@ -3368,11 +3379,11 @@ class SubLink(Expr):
 
 
 class SubPlan(Expr):
-    __slots__ = {'subLinkType': 'SubLinkType', 'testexpr': 'Node*', 'paramIds': 'List*', 'plan_id': 'int', 'plan_name': 'char*', 'firstColTypmod': 'int32', 'useHashTable': 'bool', 'unknownEqFalse': 'bool', 'parallel_safe': 'bool', 'setParam': 'List*', 'parParam': 'List*', 'args': 'List*', 'startup_cost': 'Cost', 'per_call_cost': 'Cost'}
+    __slots__ = {'subLinkType': 'SubLinkType', 'testexpr': 'Node*', 'paramIds': 'List*', 'plan_id': 'int', 'plan_name': 'char*', 'firstColTypmod': 'int32', 'useHashTable': 'bool', 'unknownEqFalse': 'bool', 'parallel_safe': 'bool', 'setParam': 'List*', 'parParam': 'List*', 'args': 'List*', 'startup_cost': 'Cost', 'per_call_cost': 'Cost'}  # noqa: E501
 
-    def __init__(self, subLinkType=None, testexpr=None, paramIds=None, plan_id=None, plan_name=None, firstColTypmod=None, useHashTable=None, unknownEqFalse=None, parallel_safe=None, setParam=None, parParam=None, args=None, startup_cost=None, per_call_cost=None):  # pragma: no cover
+    def __init__(self, subLinkType=None, testexpr=None, paramIds=None, plan_id=None, plan_name=None, firstColTypmod=None, useHashTable=None, unknownEqFalse=None, parallel_safe=None, setParam=None, parParam=None, args=None, startup_cost=None, per_call_cost=None):  # pragma: no cover  # noqa: E501
         if ((subLinkType is not None
-             and testexpr is paramIds is plan_id is plan_name is firstColTypmod is useHashTable is unknownEqFalse is parallel_safe is setParam is parParam is args is startup_cost is per_call_cost is None
+             and testexpr is paramIds is plan_id is plan_name is firstColTypmod is useHashTable is unknownEqFalse is parallel_safe is setParam is parParam is args is startup_cost is per_call_cost is None  # noqa: E501
              and isinstance(subLinkType, dict)
              and '@' in subLinkType)):
             super().__init__(subLinkType)
@@ -3394,11 +3405,11 @@ class SubPlan(Expr):
 
 
 class SubscriptingRef(Expr):
-    __slots__ = {'reftypmod': 'int32', 'refupperindexpr': 'List*', 'reflowerindexpr': 'List*', 'refexpr': 'Expr*', 'refassgnexpr': 'Expr*'}
+    __slots__ = {'reftypmod': 'int32', 'refupperindexpr': 'List*', 'reflowerindexpr': 'List*', 'refexpr': 'Expr*', 'refassgnexpr': 'Expr*'}  # noqa: E501
 
-    def __init__(self, reftypmod=None, refupperindexpr=None, reflowerindexpr=None, refexpr=None, refassgnexpr=None):  # pragma: no cover
+    def __init__(self, reftypmod=None, refupperindexpr=None, reflowerindexpr=None, refexpr=None, refassgnexpr=None):  # pragma: no cover  # noqa: E501
         if ((reftypmod is not None
-             and refupperindexpr is reflowerindexpr is refexpr is refassgnexpr is None
+             and refupperindexpr is reflowerindexpr is refexpr is refassgnexpr is None  # noqa: E501
              and isinstance(reftypmod, dict)
              and '@' in reftypmod)):
             super().__init__(reftypmod)
@@ -3411,11 +3422,11 @@ class SubscriptingRef(Expr):
 
 
 class TableFunc(Node):
-    __slots__ = {'ns_uris': 'List*', 'ns_names': 'List*', 'docexpr': 'Node*', 'rowexpr': 'Node*', 'colnames': 'List*', 'coltypes': 'List*', 'coltypmods': 'List*', 'colcollations': 'List*', 'colexprs': 'List*', 'coldefexprs': 'List*', 'notnulls': 'Bitmapset*', 'ordinalitycol': 'int', 'location': 'int'}
+    __slots__ = {'ns_uris': 'List*', 'ns_names': 'List*', 'docexpr': 'Node*', 'rowexpr': 'Node*', 'colnames': 'List*', 'coltypes': 'List*', 'coltypmods': 'List*', 'colcollations': 'List*', 'colexprs': 'List*', 'coldefexprs': 'List*', 'notnulls': 'Bitmapset*', 'ordinalitycol': 'int', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, ns_uris=None, ns_names=None, docexpr=None, rowexpr=None, colnames=None, coltypes=None, coltypmods=None, colcollations=None, colexprs=None, coldefexprs=None, notnulls=None, ordinalitycol=None, location=None):  # pragma: no cover
+    def __init__(self, ns_uris=None, ns_names=None, docexpr=None, rowexpr=None, colnames=None, coltypes=None, coltypmods=None, colcollations=None, colexprs=None, coldefexprs=None, notnulls=None, ordinalitycol=None, location=None):  # pragma: no cover  # noqa: E501
         if ((ns_uris is not None
-             and ns_names is docexpr is rowexpr is colnames is coltypes is coltypmods is colcollations is colexprs is coldefexprs is notnulls is ordinalitycol is location is None
+             and ns_names is docexpr is rowexpr is colnames is coltypes is coltypmods is colcollations is colexprs is coldefexprs is notnulls is ordinalitycol is location is None  # noqa: E501
              and isinstance(ns_uris, dict)
              and '@' in ns_uris)):
             super().__init__(ns_uris)
@@ -3436,11 +3447,11 @@ class TableFunc(Node):
 
 
 class TableLikeClause(Node):
-    __slots__ = {'relation': 'RangeVar*', 'options': 'bits32'}
+    __slots__ = {'relation': 'RangeVar*', 'options': 'bits32'}  # noqa: E501
 
-    def __init__(self, relation=None, options=None):  # pragma: no cover
+    def __init__(self, relation=None, options=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and options is None
+             and options is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -3450,11 +3461,11 @@ class TableLikeClause(Node):
 
 
 class TableSampleClause(Node):
-    __slots__ = {'args': 'List*', 'repeatable': 'Expr*'}
+    __slots__ = {'args': 'List*', 'repeatable': 'Expr*'}  # noqa: E501
 
-    def __init__(self, args=None, repeatable=None):  # pragma: no cover
+    def __init__(self, args=None, repeatable=None):  # pragma: no cover  # noqa: E501
         if ((args is not None
-             and repeatable is None
+             and repeatable is None  # noqa: E501
              and isinstance(args, dict)
              and '@' in args)):
             super().__init__(args)
@@ -3464,11 +3475,11 @@ class TableSampleClause(Node):
 
 
 class TargetEntry(Expr):
-    __slots__ = {'expr': 'Expr*', 'resno': 'AttrNumber', 'resname': 'char*', 'ressortgroupref': 'Index', 'resorigcol': 'AttrNumber', 'resjunk': 'bool'}
+    __slots__ = {'expr': 'Expr*', 'resno': 'AttrNumber', 'resname': 'char*', 'ressortgroupref': 'Index', 'resorigcol': 'AttrNumber', 'resjunk': 'bool'}  # noqa: E501
 
-    def __init__(self, expr=None, resno=None, resname=None, ressortgroupref=None, resorigcol=None, resjunk=None):  # pragma: no cover
+    def __init__(self, expr=None, resno=None, resname=None, ressortgroupref=None, resorigcol=None, resjunk=None):  # pragma: no cover  # noqa: E501
         if ((expr is not None
-             and resno is resname is ressortgroupref is resorigcol is resjunk is None
+             and resno is resname is ressortgroupref is resorigcol is resjunk is None  # noqa: E501
              and isinstance(expr, dict)
              and '@' in expr)):
             super().__init__(expr)
@@ -3482,11 +3493,11 @@ class TargetEntry(Expr):
 
 
 class TransactionStmt(Node):
-    __slots__ = {'kind': 'TransactionStmtKind', 'options': 'List*', 'savepoint_name': 'char*', 'gid': 'char*', 'chain': 'bool'}
+    __slots__ = {'kind': 'TransactionStmtKind', 'options': 'List*', 'savepoint_name': 'char*', 'gid': 'char*', 'chain': 'bool'}  # noqa: E501
 
-    def __init__(self, kind=None, options=None, savepoint_name=None, gid=None, chain=None):  # pragma: no cover
+    def __init__(self, kind=None, options=None, savepoint_name=None, gid=None, chain=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and options is savepoint_name is gid is chain is None
+             and options is savepoint_name is gid is chain is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -3499,11 +3510,11 @@ class TransactionStmt(Node):
 
 
 class TriggerTransition(Node):
-    __slots__ = {'name': 'char*', 'isNew': 'bool', 'isTable': 'bool'}
+    __slots__ = {'name': 'char*', 'isNew': 'bool', 'isTable': 'bool'}  # noqa: E501
 
-    def __init__(self, name=None, isNew=None, isTable=None):  # pragma: no cover
+    def __init__(self, name=None, isNew=None, isTable=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and isNew is isTable is None
+             and isNew is isTable is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -3514,11 +3525,11 @@ class TriggerTransition(Node):
 
 
 class TruncateStmt(Node):
-    __slots__ = {'relations': 'List*', 'restart_seqs': 'bool', 'behavior': 'DropBehavior'}
+    __slots__ = {'relations': 'List*', 'restart_seqs': 'bool', 'behavior': 'DropBehavior'}  # noqa: E501
 
-    def __init__(self, relations=None, restart_seqs=None, behavior=None):  # pragma: no cover
+    def __init__(self, relations=None, restart_seqs=None, behavior=None):  # pragma: no cover  # noqa: E501
         if ((relations is not None
-             and restart_seqs is behavior is None
+             and restart_seqs is behavior is None  # noqa: E501
              and isinstance(relations, dict)
              and '@' in relations)):
             super().__init__(relations)
@@ -3529,11 +3540,11 @@ class TruncateStmt(Node):
 
 
 class TypeCast(Node):
-    __slots__ = {'arg': 'Node*', 'typeName': 'TypeName*', 'location': 'int'}
+    __slots__ = {'arg': 'Node*', 'typeName': 'TypeName*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, arg=None, typeName=None, location=None):  # pragma: no cover
+    def __init__(self, arg=None, typeName=None, location=None):  # pragma: no cover  # noqa: E501
         if ((arg is not None
-             and typeName is location is None
+             and typeName is location is None  # noqa: E501
              and isinstance(arg, dict)
              and '@' in arg)):
             super().__init__(arg)
@@ -3544,11 +3555,11 @@ class TypeCast(Node):
 
 
 class TypeName(Node):
-    __slots__ = {'names': 'List*', 'setof': 'bool', 'pct_type': 'bool', 'typmods': 'List*', 'typemod': 'int32', 'arrayBounds': 'List*', 'location': 'int'}
+    __slots__ = {'names': 'List*', 'setof': 'bool', 'pct_type': 'bool', 'typmods': 'List*', 'typemod': 'int32', 'arrayBounds': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, names=None, setof=None, pct_type=None, typmods=None, typemod=None, arrayBounds=None, location=None):  # pragma: no cover
+    def __init__(self, names=None, setof=None, pct_type=None, typmods=None, typemod=None, arrayBounds=None, location=None):  # pragma: no cover  # noqa: E501
         if ((names is not None
-             and setof is pct_type is typmods is typemod is arrayBounds is location is None
+             and setof is pct_type is typmods is typemod is arrayBounds is location is None  # noqa: E501
              and isinstance(names, dict)
              and '@' in names)):
             super().__init__(names)
@@ -3563,9 +3574,9 @@ class TypeName(Node):
 
 
 class UnlistenStmt(Node):
-    __slots__ = {'conditionname': 'char*'}
+    __slots__ = {'conditionname': 'char*'}  # noqa: E501
 
-    def __init__(self, conditionname=None):  # pragma: no cover
+    def __init__(self, conditionname=None):  # pragma: no cover  # noqa: E501
 
         if ((conditionname is not None
              and isinstance(conditionname, dict)
@@ -3576,11 +3587,11 @@ class UnlistenStmt(Node):
 
 
 class UpdateStmt(Node):
-    __slots__ = {'relation': 'RangeVar*', 'targetList': 'List*', 'whereClause': 'Node*', 'fromClause': 'List*', 'returningList': 'List*', 'withClause': 'WithClause*'}
+    __slots__ = {'relation': 'RangeVar*', 'targetList': 'List*', 'whereClause': 'Node*', 'fromClause': 'List*', 'returningList': 'List*', 'withClause': 'WithClause*'}  # noqa: E501
 
-    def __init__(self, relation=None, targetList=None, whereClause=None, fromClause=None, returningList=None, withClause=None):  # pragma: no cover
+    def __init__(self, relation=None, targetList=None, whereClause=None, fromClause=None, returningList=None, withClause=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and targetList is whereClause is fromClause is returningList is withClause is None
+             and targetList is whereClause is fromClause is returningList is withClause is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -3594,11 +3605,11 @@ class UpdateStmt(Node):
 
 
 class VacuumRelation(Node):
-    __slots__ = {'relation': 'RangeVar*', 'va_cols': 'List*'}
+    __slots__ = {'relation': 'RangeVar*', 'va_cols': 'List*'}  # noqa: E501
 
-    def __init__(self, relation=None, va_cols=None):  # pragma: no cover
+    def __init__(self, relation=None, va_cols=None):  # pragma: no cover  # noqa: E501
         if ((relation is not None
-             and va_cols is None
+             and va_cols is None  # noqa: E501
              and isinstance(relation, dict)
              and '@' in relation)):
             super().__init__(relation)
@@ -3608,11 +3619,11 @@ class VacuumRelation(Node):
 
 
 class VacuumStmt(Node):
-    __slots__ = {'options': 'List*', 'rels': 'List*', 'is_vacuumcmd': 'bool'}
+    __slots__ = {'options': 'List*', 'rels': 'List*', 'is_vacuumcmd': 'bool'}  # noqa: E501
 
-    def __init__(self, options=None, rels=None, is_vacuumcmd=None):  # pragma: no cover
+    def __init__(self, options=None, rels=None, is_vacuumcmd=None):  # pragma: no cover  # noqa: E501
         if ((options is not None
-             and rels is is_vacuumcmd is None
+             and rels is is_vacuumcmd is None  # noqa: E501
              and isinstance(options, dict)
              and '@' in options)):
             super().__init__(options)
@@ -3623,11 +3634,11 @@ class VacuumStmt(Node):
 
 
 class Var(Expr):
-    __slots__ = {'varno': 'Index', 'varattno': 'AttrNumber', 'vartypmod': 'int32', 'varlevelsup': 'Index', 'varnosyn': 'Index', 'varattnosyn': 'AttrNumber', 'location': 'int'}
+    __slots__ = {'varno': 'Index', 'varattno': 'AttrNumber', 'vartypmod': 'int32', 'varlevelsup': 'Index', 'varnosyn': 'Index', 'varattnosyn': 'AttrNumber', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, varno=None, varattno=None, vartypmod=None, varlevelsup=None, varnosyn=None, varattnosyn=None, location=None):  # pragma: no cover
+    def __init__(self, varno=None, varattno=None, vartypmod=None, varlevelsup=None, varnosyn=None, varattnosyn=None, location=None):  # pragma: no cover  # noqa: E501
         if ((varno is not None
-             and varattno is vartypmod is varlevelsup is varnosyn is varattnosyn is location is None
+             and varattno is vartypmod is varlevelsup is varnosyn is varattnosyn is location is None  # noqa: E501
              and isinstance(varno, dict)
              and '@' in varno)):
             super().__init__(varno)
@@ -3642,11 +3653,11 @@ class Var(Expr):
 
 
 class VariableSetStmt(Node):
-    __slots__ = {'kind': 'VariableSetKind', 'name': 'char*', 'args': 'List*', 'is_local': 'bool'}
+    __slots__ = {'kind': 'VariableSetKind', 'name': 'char*', 'args': 'List*', 'is_local': 'bool'}  # noqa: E501
 
-    def __init__(self, kind=None, name=None, args=None, is_local=None):  # pragma: no cover
+    def __init__(self, kind=None, name=None, args=None, is_local=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and name is args is is_local is None
+             and name is args is is_local is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -3658,9 +3669,9 @@ class VariableSetStmt(Node):
 
 
 class VariableShowStmt(Node):
-    __slots__ = {'name': 'char*'}
+    __slots__ = {'name': 'char*'}  # noqa: E501
 
-    def __init__(self, name=None):  # pragma: no cover
+    def __init__(self, name=None):  # pragma: no cover  # noqa: E501
 
         if ((name is not None
              and isinstance(name, dict)
@@ -3671,11 +3682,11 @@ class VariableShowStmt(Node):
 
 
 class ViewStmt(Node):
-    __slots__ = {'view': 'RangeVar*', 'aliases': 'List*', 'query': 'Node*', 'replace': 'bool', 'options': 'List*', 'withCheckOption': 'ViewCheckOption'}
+    __slots__ = {'view': 'RangeVar*', 'aliases': 'List*', 'query': 'Node*', 'replace': 'bool', 'options': 'List*', 'withCheckOption': 'ViewCheckOption'}  # noqa: E501
 
-    def __init__(self, view=None, aliases=None, query=None, replace=None, options=None, withCheckOption=None):  # pragma: no cover
+    def __init__(self, view=None, aliases=None, query=None, replace=None, options=None, withCheckOption=None):  # pragma: no cover  # noqa: E501
         if ((view is not None
-             and aliases is query is replace is options is withCheckOption is None
+             and aliases is query is replace is options is withCheckOption is None  # noqa: E501
              and isinstance(view, dict)
              and '@' in view)):
             super().__init__(view)
@@ -3689,11 +3700,11 @@ class ViewStmt(Node):
 
 
 class WindowClause(Node):
-    __slots__ = {'name': 'char*', 'refname': 'char*', 'partitionClause': 'List*', 'orderClause': 'List*', 'frameOptions': 'int', 'startOffset': 'Node*', 'endOffset': 'Node*', 'inRangeAsc': 'bool', 'inRangeNullsFirst': 'bool', 'winref': 'Index', 'copiedOrder': 'bool'}
+    __slots__ = {'name': 'char*', 'refname': 'char*', 'partitionClause': 'List*', 'orderClause': 'List*', 'frameOptions': 'int', 'startOffset': 'Node*', 'endOffset': 'Node*', 'inRangeAsc': 'bool', 'inRangeNullsFirst': 'bool', 'winref': 'Index', 'copiedOrder': 'bool'}  # noqa: E501
 
-    def __init__(self, name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, inRangeAsc=None, inRangeNullsFirst=None, winref=None, copiedOrder=None):  # pragma: no cover
+    def __init__(self, name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, inRangeAsc=None, inRangeNullsFirst=None, winref=None, copiedOrder=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and refname is partitionClause is orderClause is frameOptions is startOffset is endOffset is inRangeAsc is inRangeNullsFirst is winref is copiedOrder is None
+             and refname is partitionClause is orderClause is frameOptions is startOffset is endOffset is inRangeAsc is inRangeNullsFirst is winref is copiedOrder is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -3712,11 +3723,11 @@ class WindowClause(Node):
 
 
 class WindowDef(Node):
-    __slots__ = {'name': 'char*', 'refname': 'char*', 'partitionClause': 'List*', 'orderClause': 'List*', 'frameOptions': 'int', 'startOffset': 'Node*', 'endOffset': 'Node*', 'location': 'int'}
+    __slots__ = {'name': 'char*', 'refname': 'char*', 'partitionClause': 'List*', 'orderClause': 'List*', 'frameOptions': 'int', 'startOffset': 'Node*', 'endOffset': 'Node*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, location=None):  # pragma: no cover
+    def __init__(self, name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, location=None):  # pragma: no cover  # noqa: E501
         if ((name is not None
-             and refname is partitionClause is orderClause is frameOptions is startOffset is endOffset is location is None
+             and refname is partitionClause is orderClause is frameOptions is startOffset is endOffset is location is None  # noqa: E501
              and isinstance(name, dict)
              and '@' in name)):
             super().__init__(name)
@@ -3732,11 +3743,11 @@ class WindowDef(Node):
 
 
 class WindowFunc(Expr):
-    __slots__ = {'args': 'List*', 'aggfilter': 'Expr*', 'winref': 'Index', 'winstar': 'bool', 'winagg': 'bool', 'location': 'int'}
+    __slots__ = {'args': 'List*', 'aggfilter': 'Expr*', 'winref': 'Index', 'winstar': 'bool', 'winagg': 'bool', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, args=None, aggfilter=None, winref=None, winstar=None, winagg=None, location=None):  # pragma: no cover
+    def __init__(self, args=None, aggfilter=None, winref=None, winstar=None, winagg=None, location=None):  # pragma: no cover  # noqa: E501
         if ((args is not None
-             and aggfilter is winref is winstar is winagg is location is None
+             and aggfilter is winref is winstar is winagg is location is None  # noqa: E501
              and isinstance(args, dict)
              and '@' in args)):
             super().__init__(args)
@@ -3750,11 +3761,11 @@ class WindowFunc(Expr):
 
 
 class WithCheckOption(Node):
-    __slots__ = {'kind': 'WCOKind', 'relname': 'char*', 'polname': 'char*', 'qual': 'Node*', 'cascaded': 'bool'}
+    __slots__ = {'kind': 'WCOKind', 'relname': 'char*', 'polname': 'char*', 'qual': 'Node*', 'cascaded': 'bool'}  # noqa: E501
 
-    def __init__(self, kind=None, relname=None, polname=None, qual=None, cascaded=None):  # pragma: no cover
+    def __init__(self, kind=None, relname=None, polname=None, qual=None, cascaded=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and relname is polname is qual is cascaded is None
+             and relname is polname is qual is cascaded is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -3767,11 +3778,11 @@ class WithCheckOption(Node):
 
 
 class WithClause(Node):
-    __slots__ = {'ctes': 'List*', 'recursive': 'bool', 'location': 'int'}
+    __slots__ = {'ctes': 'List*', 'recursive': 'bool', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, ctes=None, recursive=None, location=None):  # pragma: no cover
+    def __init__(self, ctes=None, recursive=None, location=None):  # pragma: no cover  # noqa: E501
         if ((ctes is not None
-             and recursive is location is None
+             and recursive is location is None  # noqa: E501
              and isinstance(ctes, dict)
              and '@' in ctes)):
             super().__init__(ctes)
@@ -3782,11 +3793,11 @@ class WithClause(Node):
 
 
 class XmlExpr(Expr):
-    __slots__ = {'op': 'XmlExprOp', 'name': 'char*', 'named_args': 'List*', 'arg_names': 'List*', 'args': 'List*', 'xmloption': 'XmlOptionType', 'typmod': 'int32', 'location': 'int'}
+    __slots__ = {'op': 'XmlExprOp', 'name': 'char*', 'named_args': 'List*', 'arg_names': 'List*', 'args': 'List*', 'xmloption': 'XmlOptionType', 'typmod': 'int32', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, op=None, name=None, named_args=None, arg_names=None, args=None, xmloption=None, typmod=None, location=None):  # pragma: no cover
+    def __init__(self, op=None, name=None, named_args=None, arg_names=None, args=None, xmloption=None, typmod=None, location=None):  # pragma: no cover  # noqa: E501
         if ((op is not None
-             and name is named_args is arg_names is args is xmloption is typmod is location is None
+             and name is named_args is arg_names is args is xmloption is typmod is location is None  # noqa: E501
              and isinstance(op, dict)
              and '@' in op)):
             super().__init__(op)
@@ -3802,11 +3813,11 @@ class XmlExpr(Expr):
 
 
 class XmlSerialize(Node):
-    __slots__ = {'xmloption': 'XmlOptionType', 'expr': 'Node*', 'typeName': 'TypeName*', 'location': 'int'}
+    __slots__ = {'xmloption': 'XmlOptionType', 'expr': 'Node*', 'typeName': 'TypeName*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, xmloption=None, expr=None, typeName=None, location=None):  # pragma: no cover
+    def __init__(self, xmloption=None, expr=None, typeName=None, location=None):  # pragma: no cover  # noqa: E501
         if ((xmloption is not None
-             and expr is typeName is location is None
+             and expr is typeName is location is None  # noqa: E501
              and isinstance(xmloption, dict)
              and '@' in xmloption)):
             super().__init__(xmloption)
@@ -3852,7 +3863,8 @@ def _fixup_attribute_types_in_slots():
                     if isinstance(value, int):
                         value = chr(value)
                     elif len(value) != 1:
-                        raise ValueError(f'Bad value for attribute {cls.__name__}.{attr}, expected a single char, got {value!r}')
+                        raise ValueError(f'Bad value for attribute {cls.__name__}.{attr},'
+                                         f' expected a single char, got {value!r}')
                     return value
             elif ctype == 'char*':
                 ptype = str
