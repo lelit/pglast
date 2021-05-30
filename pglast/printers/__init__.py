@@ -116,8 +116,10 @@ class IntEnumPrinter:
     def __init__(self):
         from enum import IntEnum
 
-        assert issubclass(self.enum, IntEnum)
-        assert len(set(m.value for m in self.enum)) == len(self.enum)
+        if not issubclass(self.enum, IntEnum):
+            raise ValueError(f'Given enum {self.enum!r} is not an IntEnum subclass')
+        if len(set(m.value for m in self.enum)) != len(self.enum):  # pragma: no cover
+            raise ValueError(f'Given enum {self.enum!r} contains aliased symbols')
         self.value_to_symbol = {m.value: m.name for m in self.enum}
 
     def __call__(self, value, node, output):
@@ -134,7 +136,8 @@ class IntEnumPrinter:
             if isinstance(value.value, str):  # pragma: no cover
                 # libpg_query 13+ emits enum names, not values
                 symbol = value.value
-                assert symbol in self.enum.__members__
+                if symbol not in self.enum.__members__:
+                    raise ValueError('Unexpected symbol {symbol!r}, not in {self.enum!r}')
             else:
                 symbol = self.value_to_symbol.get(value.value)
         else:
