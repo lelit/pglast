@@ -239,7 +239,8 @@ class Scalar(Base):
     __slots__ = ('_value',)
 
     def _init(self, value, parent, name):
-        if value is not None and not isinstance(value, (bool, float, int, str, Decimal, ast.Value)):
+        if value is not None and not isinstance(value, (bool, float, int, str, Decimal,
+                                                        ast.Value)):
             raise ValueError("Unexpected value for 'value', must be either None or a"
                              " bool|float|int|str|Decimal instance, got %r" % type(value))
         super()._init(parent, name)
