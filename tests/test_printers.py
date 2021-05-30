@@ -10,8 +10,9 @@ import warnings
 
 import pytest
 
-from pglast import prettify
-from pglast.printers import NODE_PRINTERS, PrinterAlreadyPresentError
+from pglast import enums, prettify
+from pglast.node import Missing, Scalar
+from pglast.printers import IntEnumPrinter, NODE_PRINTERS, PrinterAlreadyPresentError
 from pglast.printers import get_printer_for_node_tag, node_printer
 
 
@@ -109,3 +110,45 @@ def test_prettify_safety_belt():
             NODE_PRINTERS['RawStmt'] = raw_stmt_printer
         else:
             NODE_PRINTERS.pop('RawStmt', None)
+
+
+def test_int_enum_printer():
+    class LockWaitPrinter(IntEnumPrinter):
+        enum = enums.LockWaitPolicy
+
+        def LockWaitBlock(self, node, output):
+            output.append('block')
+
+    lwp = LockWaitPrinter()
+    result = []
+    lwp('LockWaitBlock', object(), result)
+    assert result == ['block']
+
+    with pytest.raises(NotImplementedError):
+        lwp('LockWaitError', object(), result)
+
+    with pytest.raises(ValueError):
+        lwp(None, object(), result)
+
+    with pytest.raises(ValueError):
+        lwp('FooBar', object(), result)
+
+    lwp(Scalar('LockWaitBlock'), object(), result)
+    assert result == ['block']*2
+
+    with pytest.raises(ValueError):
+        lwp(Scalar('FooBar'), object(), result)
+
+    lwp(Scalar(0), object(), result)
+    assert result == ['block']*3
+
+    lwp(Missing, object(), result)
+    assert result == ['block']*4
+
+
+def test_not_int_enum_printer():
+    class NotIntEnum(IntEnumPrinter):
+        enum = enums.FunctionParameterMode
+
+    with pytest.raises(ValueError):
+        NotIntEnum()
