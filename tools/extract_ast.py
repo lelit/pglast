@@ -106,10 +106,10 @@ class Node:
         :param bool enum_name: whether Enums will be rendered as their name only
         :return: a :class:`dict` instance
 
-        This performs a top-down recursive visit to the whole AST tree: each ``Node`` instance
-        becomes a dictionary with a special ``@`` key carrying the node type, lists becomes
-        tuples and ``Enum`` instances become dictionaries with a special ``#`` key carrying the
-        enum name.'''
+        This performs a top-down recursive visit to the whole AST tree: each :class:`Node`
+        instance becomes a dictionary with a special ``@`` key carrying the node type, lists
+        becomes tuples and ``Enum`` instances become dictionaries with a special ``#`` key
+        carrying the enum name.'''
 
         d = {{'@': self.__class__.__name__}}
         for a in self:
