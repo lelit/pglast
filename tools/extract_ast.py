@@ -26,8 +26,6 @@ AST_PY_HEADER = f"""\
 # :Copyright: © {CYEARS} Lele Gaifax
 #
 
-# flake8: noqa
-
 from collections import namedtuple
 from decimal import Decimal
 from enum import Enum
@@ -47,7 +45,8 @@ class Node:
         if '@' not in data:  # pragma: no cover
             raise ValueError('Bad argument, expected a dictionary with a "@" key')
         if data['@'] != self.__class__.__name__:
-            raise ValueError(f'Bad argument, wrong "@" value, expected {{self.__class__.__name__!r}}, got {{data["@"]!r}}')
+            raise ValueError(f'Bad argument, wrong "@" value, expected'
+                             f' {{self.__class__.__name__!r}}, got {{data["@"]!r}}')
 
         G = globals()
         for a in self:
@@ -145,7 +144,9 @@ class Node:
             if not isinstance(ptype, tuple):
                 ptype = (ptype,)
             if not isinstance(value, ptype):
-                raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}.{{name}}, expected {{ptype}}, got {{type(value)}}: {{value!r}}')
+                raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}'
+                                 f'.{{name}}, expected {{ptype}}, got {{type(value)}}:'
+                                 f' {{value!r}}')
 
             if adaptor is not None:
                 value = adaptor(value)
@@ -157,25 +158,35 @@ class Node:
                     if not isinstance(value, enum):
                         if isinstance(value, dict) and '#' in value:
                             if value['#'] != ctype:
-                                raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}.{{name}}, expected a {{ptype}}, got {{value!r}}') from None
+                                raise ValueError(f'Bad value for attribute'
+                                                 f' {{self.__class__.__name__}}.{{name}},'
+                                                 f' expected a {{ptype}}, got'
+                                                 f' {{value!r}}') from None
                             if 'name' in value:
                                 value = value['name']
                             elif 'value' in value:
                                 value = value['value']
                             else:
-                                raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}.{{name}}, expected a {{ptype}}, got {{value!r}}') from None
+                                raise ValueError(f'Bad value for attribute'
+                                                 f' {{self.__class__.__name__}}.{{name}},'
+                                                 f' expected a {{ptype}}, got'
+                                                 f' {{value!r}}') from None
                         try:
                             if isinstance(value, str) and len(value) > 1:
                                 value = enum[value]
                             else:
                                 value = enum(value)
                         except (KeyError, ValueError):
-                            raise ValueError(f'Bad value for attribute {{self.__class__.__name__}}.{{name}}, expected a {{ptype}}, got {{value!r}}') from None
+                            raise ValueError(f'Bad value for attribute'
+                                             f' {{self.__class__.__name__}}.{{name}},'
+                                             f' expected a {{ptype}}, got'
+                                             f' {{value!r}}') from None
                 else:
                     if ctype.endswith('*'):
                         cls = globals().get(ctype[:-1])
                         if cls is None:
-                            raise NotImplementedError(f'Unhandled {{ctype!r}} for attribute {{self.__class__.__name__}}.{{name}}')
+                            raise NotImplementedError(f'Unhandled {{ctype!r}} for attribute'
+                                                      f' {{self.__class__.__name__}}.{{name}}')
                         if isinstance(value, dict) and '@' in value:
                             value = cls(value)
 
@@ -636,19 +647,19 @@ def emit_node_def(name, fields, enums, url, output, doc):
 
 
 class {name}({superclass}):
-    __slots__ = {{{', '.join(repr(a)+': '+repr(t) for a, t in real_attrs)}}}
+    __slots__ = {{{', '.join(repr(a)+': '+repr(t) for a, t in real_attrs)}}}  # noqa: E501
 
 ''')
 
     if real_attrs:
         output.write(f'''\
-    def __init__(self, {', '.join(f'{attr}=None' for attr, __ in real_attrs)}):  # pragma: no cover
+    def __init__(self, {', '.join(f'{attr}=None' for attr, __ in real_attrs)}):  # pragma: no cover  # noqa: E501
 ''')
 
         if len(real_attrs) > 1:
             output.write(f'''\
         if (({real_attrs[0][0]} is not None
-             and {' is '.join(attr for attr, __ in real_attrs[1:])} is None
+             and {' is '.join(attr for attr, __ in real_attrs[1:])} is None  # noqa: E501
              and isinstance({real_attrs[0][0]}, dict)
              and '@' in {real_attrs[0][0]})):
             super().__init__({real_attrs[0][0]})
@@ -906,7 +917,8 @@ def _fixup_attribute_types_in_slots():
                     if isinstance(value, int):
                         value = chr(value)
                     elif len(value) != 1:
-                        raise ValueError(f'Bad value for attribute {cls.__name__}.{attr}, expected a single char, got {value!r}')
+                        raise ValueError(f'Bad value for attribute {cls.__name__}.{attr},'
+                                         f' expected a single char, got {value!r}')
                     return value
             elif ctype == 'char*':
                 ptype = str
