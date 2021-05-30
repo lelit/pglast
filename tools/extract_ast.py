@@ -624,7 +624,7 @@ def emit_node_def(name, fields, enums, url, output, doc):
             comment = comment.strip()
             if comment.startswith('/*'):
                 comment = comment[2:-2].strip()
-            comment = sub(r'\t+', ' ', comment)
+            comment = sub(r'\t+( \* (?![A-Z] = ))?', ' ', comment)
             comment = sub(r'\*-+\s*', '', comment)
             comment = sub(r'-+\n', '', comment)
             comment = sub(r'\n +', '\n      ', comment)
