@@ -25,37 +25,47 @@ def test_registry():
             pass
 
     with pytest.raises(ValueError):
+        @node_printer(1)
+        def invalid_tag(node, output):
+            pass
+
+    with pytest.raises(ValueError):
         @node_printer('one', 'two', 'three')
-        def tag2(node, output):
+        def too_many_tags1(node, output):
+            pass
+
+    with pytest.raises(ValueError):
+        @node_printer('one', 'two', 'three', check_tags=False)
+        def too_many_tags2(node, output):
             pass
 
     try:
-        @node_printer('test_tag1')
+        @node_printer('test_tag1', check_tags=False)
         def tag1(node, output):
             pass
 
         assert get_printer_for_node_tag(None, 'test_tag1') is tag1
 
         with pytest.raises(PrinterAlreadyPresentError):
-            @node_printer('test_tag1')
+            @node_printer('test_tag1', check_tags=False)
             def tag3(node, output):
                 pass
 
-        @node_printer('test_tag1', override=True)
+        @node_printer('test_tag1', override=True, check_tags=False)
         def tag1_bis(node, output):
             pass
 
         assert get_printer_for_node_tag(None, 'test_tag1') is tag1_bis
 
-        @node_printer('test_tag_3')
+        @node_printer('test_tag_3', check_tags=False)
         def generic_tag3(node, output):
             pass
 
-        @node_printer('test_tag_1', 'test_tag_3')
+        @node_printer('test_tag_1', 'test_tag_3', check_tags=False)
         def specific_tag3(node, output):
             pass
 
-        @node_printer(('test_tag_a', 'test_tag_b'), 'test_tag_3')
+        @node_printer(('test_tag_a', 'test_tag_b'), 'test_tag_3', check_tags=False)
         def specific_tag4(node, output):
             pass
 

@@ -6,6 +6,7 @@
 # :Copyright: © 2017, 2018, 2020, 2021 Lele Gaifax
 #
 
+from .. import ast
 from ..error import Error
 
 
@@ -37,19 +38,32 @@ def get_printer_for_node_tag(parent_node_tag, node_tag):
     return printer
 
 
-def node_printer(*node_tags, override=False):
+def node_printer(*node_tags, override=False, check_tags=True):
     r"""Decorator to register a specific printer implementation for given `node_tag`.
 
     :param \*node_tags: one or two node tags
     :param bool override:
            when ``True`` the function will be registered even if already present in the
            :data:`NODE_PRINTERS` registry
+    :param bool check_tags:
+           by default each `node_tags` is checked for validity, that is must be a valid class
+           implemented by :mod:`pglast.ast`; pass ``False`` to disable the check
 
     When `node_tags` contains a single item then the decorated function is the *generic* one,
     and it will be registered in :data:`NODE_PRINTERS` with that key alone. Otherwise it must
     contain two elements: the first may be either a scalar value or a sequence of parent tags,
     and the function will be registered under the key ``(parent_tag, tag)``.
     """
+
+    if check_tags:
+        for tag in node_tags:
+            if not isinstance(tag, (list, tuple)):
+                tag = (tag,)
+            for t in tag:
+                if not isinstance(t, str):
+                    raise ValueError(f'Invalid tag {t!r}, expected a string')
+                if not hasattr(ast, t):
+                    raise ValueError(f'Unknown tag name {t}')
 
     def decorator(impl):
         if len(node_tags) == 1:
