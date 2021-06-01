@@ -173,6 +173,14 @@ Version 2
 Version 1
 #########
 
+1.18 (2021-06-01)
+~~~~~~~~~~~~~~~~~
+
+- Fix exclusion constraint printer (`issue #81`__)
+
+  __ https://github.com/lelit/pglast/issues/81
+
+
 1.17 (2021-02-20)
 ~~~~~~~~~~~~~~~~~
 

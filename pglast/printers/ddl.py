@@ -1145,7 +1145,7 @@ class ConstrTypePrinter(IntEnumPrinter):
                 output.write(', ')
             output.print_node(elem)
             output.swrite('WITH OPERATOR(')
-            output.write(clauses.string_value)
+            output.print_symbol(clauses)
             output.write(')')
         output.write(')')
         if node.where_clause:
