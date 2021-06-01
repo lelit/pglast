@@ -3,7 +3,7 @@
 Changes
 -------
 
-1.18 (unreleased)
+1.18 (2021-06-01)
 ~~~~~~~~~~~~~~~~~
 
 - Fix exclusion constraint printer (`issue #81`__)
