@@ -26,6 +26,20 @@ def test_call():
     assert raw(0) == {'@': 'RawStmt', 'stmt': ..., 'stmt_len': 0, 'stmt_location': 0}
     assert raw(1)['stmt']['targetList'] == ...
 
+    raw = parse_sql('alter table t add constraint c'
+                    ' exclude using gist (f with operator(&&))')[0]
+    assert raw.stmt.cmds[0].def_(None, skip_none=True)['exclusions'] == (
+        ({'@': 'IndexElem',
+          'name': 'f',
+          'ordering': {'#': 'SortByDir',
+                       'name': 'SORTBY_DEFAULT',
+                       'value': 0},
+          'nulls_ordering': {'#': 'SortByNulls',
+                             'name': 'SORTBY_NULLS_DEFAULT',
+                             'value': 0}},
+         ({'@': 'String', 'val': '&&'},)),
+    )
+
 
 def test_setattr():
     raw = ast.RawStmt()

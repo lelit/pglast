@@ -13,6 +13,34 @@ from enum import Enum
 SlotTypeInfo = namedtuple('SlotTypeInfo', ['c_type', 'py_type', 'adaptor'])
 
 
+def _serialize_node(n, depth, ellipsis, skip_none):
+    d = {'@': n.__class__.__name__}
+    for a in n:
+        v = _serialize_value(getattr(n, a), depth, ellipsis, skip_none)
+        if not skip_none or v is not None:
+            d[a] = v
+    return d
+
+
+def _serialize_value(v, depth, ellipsis, skip_none):
+    if isinstance(v, Node):
+        if depth is None or depth > 0:
+            v = _serialize_node(v, None if depth is None else depth - 1,
+                                ellipsis, skip_none)
+        else:
+            v = ellipsis
+    elif isinstance(v, tuple):
+        if depth is None or depth > 0:
+            v = tuple(_serialize_value(i, None if depth is None else depth - 1,
+                                       ellipsis, skip_none)
+                      for i in v)
+        else:
+            v = ellipsis
+    elif isinstance(v, Enum):
+        v = {'#': v.__class__.__name__, 'name': v.name, 'value': v.value}
+    return v
+
+
 class Node:
     "Base class for all AST nodes."
 
@@ -90,26 +118,7 @@ class Node:
         becomes tuples and ``Enum`` instances become dictionaries with a special ``#`` key
         carrying the enum name.'''
 
-        d = {'@': self.__class__.__name__}
-        for a in self:
-            v = getattr(self, a)
-            if isinstance(v, Node):
-                if depth is None or depth > 0:
-                    v = v(None if depth is None else depth - 1, ellipsis, skip_none)
-                else:
-                    v = ellipsis
-            elif isinstance(v, tuple):
-                if depth is None or depth > 0:
-                    if v and isinstance(v[0], Node):
-                        v = tuple(i(None if depth is None else depth - 1, ellipsis, skip_none)
-                                  for i in v)
-                else:
-                    v = ellipsis
-            elif isinstance(v, Enum):
-                v = {'#': v.__class__.__name__, 'name': v.name, 'value': v.value}
-            if not skip_none or v is not None:
-                d[a] = v
-        return d
+        return _serialize_node(self, depth, ellipsis, skip_none)
 
     def __setattr__(self, name, value):
         '''Validate the given `value` and if acceptable assign it to the `name` attribute.

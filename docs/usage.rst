@@ -58,7 +58,7 @@ such as dictionaries and tuples:
 .. doctest::
 
    >>> from pprint import pprint
-   >>> pprint(stmt(depth=1, skip_none=True))
+   >>> pprint(stmt(depth=2, skip_none=True))
    {'@': 'SelectStmt',
     'all': False,
     'limitOption': {'#': 'LimitOption',
@@ -78,7 +78,7 @@ ignoring those semantically irrelevant:
 .. doctest::
 
    >>> other_stmt = parse_sql('select /* something here */ 1')[0].stmt
-   >>> print(other_stmt(depth=1, skip_none=True))
+   >>> print(other_stmt(depth=2, skip_none=True))
    {'@': 'SelectStmt', 'targetList': ({'@': 'ResTarget', 'val': Ellipsis, 'location': 28},), ...}
    >>> stmt == other_stmt
    True
@@ -114,7 +114,7 @@ or to a dictionary:
     'all': True,
     'limitOption': {'#': 'LimitOption', 'name': 'LIMIT_OPTION_COUNT', 'value': 1},
     'op': {'#': 'SetOperation', 'name': 'SETOP_NONE', 'value': 0},
-    'targetList': ({'@': 'ResTarget', 'location': 7, 'val': Ellipsis},)}
+    'targetList': (Ellipsis,)}
 
 .. doctest::
 
@@ -126,7 +126,7 @@ or to a dictionary:
                     'name': 'LIMIT_OPTION_WITH_TIES',
                     'value': 2},
     'op': {'#': 'SetOperation', 'name': 'SETOP_NONE', 'value': 0},
-    'targetList': ({'@': 'ResTarget', 'location': 7, 'val': Ellipsis},)}
+    'targetList': (Ellipsis,)}
 
 Either way, assigning the wrong value raises an exception:
 
