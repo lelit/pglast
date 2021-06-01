@@ -1335,11 +1335,11 @@ def sort_by(node, output):
     elif node.sortby_dir == sbd.SORTBY_DESC:
         output.swrite('DESC')
     elif node.sortby_dir == sbd.SORTBY_USING:
-        output.swrites('USING')
+        output.swrite('USING ')
         output.write(node.useOp.string_value)
     sbn = enums.SortByNulls
     if node.sortby_nulls != sbn.SORTBY_NULLS_DEFAULT:
-        output.swrites('NULLS')
+        output.swrite('NULLS ')
         output.write('FIRST' if node.sortby_nulls == sbn.SORTBY_NULLS_FIRST else 'LAST')
 
 
