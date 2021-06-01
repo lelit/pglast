@@ -1336,7 +1336,7 @@ def sort_by(node, output):
         output.swrite('DESC')
     elif node.sortby_dir == sbd.SORTBY_USING:
         output.swrite('USING ')
-        output.write(node.useOp.string_value)
+        output.print_symbol(node.useOp)
     sbn = enums.SortByNulls
     if node.sortby_nulls != sbn.SORTBY_NULLS_DEFAULT:
         output.swrite('NULLS ')
