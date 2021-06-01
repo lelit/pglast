@@ -489,7 +489,7 @@ def constraint(node, output):
                 output.write(', ')
             output.print_node(elem)
             output.swrite('WITH ')
-            output.write(clauses.string_value)
+            output.print_symbol(clauses)
         output.write(')')
     elif node.contype == ct.CONSTR_ATTR_DEFERRABLE:
         output.swrite('DEFERRABLE')
