@@ -62,6 +62,20 @@ def _serialize_value(v, depth, ellipsis, skip_none):
     return v
 
 
+class Omissis:
+    def __eq__(self, other):
+        if other is ... or other is self:
+            return True
+        return False
+
+    def __repr__(self):
+        return '…'
+
+
+Omissis = Omissis()
+"Marker value used as default for the ellipsis argument"
+
+
 class Node:
     "Base class for all AST nodes."
 
@@ -124,7 +138,7 @@ class Node:
                 return False
         return True
 
-    def __call__(self, depth=None, ellipsis=..., skip_none=False):
+    def __call__(self, depth=None, ellipsis=Omissis, skip_none=False):
         '''Serialize the node as a structure made of simple Python data-types.
 
         :type depth: ``None`` or ``int``

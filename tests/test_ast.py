@@ -25,6 +25,7 @@ def test_call():
     raw = parse_sql('select 1')[0]
     assert raw(0) == {'@': 'RawStmt', 'stmt': ..., 'stmt_len': 0, 'stmt_location': 0}
     assert raw(1)['stmt']['targetList'] == ...
+    assert raw(1)['stmt']['targetList'] != 1
 
     raw = parse_sql('alter table t add constraint c'
                     ' exclude using gist (f with operator(&&))')[0]

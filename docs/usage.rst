@@ -65,7 +65,7 @@ such as dictionaries and tuples:
                     'name': 'LIMIT_OPTION_DEFAULT',
                     'value': 0},
     'op': {'#': 'SetOperation', 'name': 'SETOP_NONE', 'value': 0},
-    'targetList': ({'@': 'ResTarget', 'location': 7, 'val': Ellipsis},)}
+    'targetList': ({'@': 'ResTarget', 'location': 7, 'val': …},)}
 
 As you can see, each node is serialized to a dictionary containing at least on *special* key,
 ``@``, with the *tag name* of the node; lists of nodes are converted to tuples, and ``Enum``
@@ -79,7 +79,7 @@ ignoring those semantically irrelevant:
 
    >>> other_stmt = parse_sql('select /* something here */ 1')[0].stmt
    >>> print(other_stmt(depth=2, skip_none=True))
-   {'@': 'SelectStmt', 'targetList': ({'@': 'ResTarget', 'val': Ellipsis, 'location': 28},), ...}
+   {'@': 'SelectStmt', 'targetList': ({'@': 'ResTarget', 'val': …, 'location': 28},), ...}
    >>> stmt == other_stmt
    True
 
@@ -114,7 +114,7 @@ or to a dictionary:
     'all': True,
     'limitOption': {'#': 'LimitOption', 'name': 'LIMIT_OPTION_COUNT', 'value': 1},
     'op': {'#': 'SetOperation', 'name': 'SETOP_NONE', 'value': 0},
-    'targetList': (Ellipsis,)}
+    'targetList': (…,)}
 
 .. doctest::
 
@@ -126,7 +126,7 @@ or to a dictionary:
                     'name': 'LIMIT_OPTION_WITH_TIES',
                     'value': 2},
     'op': {'#': 'SetOperation', 'name': 'SETOP_NONE', 'value': 0},
-    'targetList': (Ellipsis,)}
+    'targetList': (…,)}
 
 Either way, assigning the wrong value raises an exception:
 
@@ -360,13 +360,13 @@ that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
    ...
    >>> visitor = NoisyVisitor()
    >>> visitor(parse_sql('select a, b from c'))
-   ROOT → 0 : {'@': 'RawStmt', 'stmt': Ellipsis, 'stmt_location': 0, 'stmt_len': 0}
+   ROOT → 0 : {'@': 'RawStmt', 'stmt': …, 'stmt_location': 0, 'stmt_len': 0}
    ROOT → 0 → stmt : {'@': 'SelectStmt', 'distinctClause': None, 'intoClause': None, ...
    ROOT → 0 → stmt → targetList → 0 : {'@': 'ResTarget', 'name': None, 'indirection': None, ...
    ROOT → 0 → stmt → targetList → 1 : {'@': 'ResTarget', 'name': None, 'indirection': None, ...
    ROOT → 0 → stmt → fromClause → 0 : {'@': 'RangeVar', 'catalogname': None, 'schemaname': None, ...
-   ROOT → 0 → stmt → targetList → 0 → val : {'@': 'ColumnRef', 'fields': Ellipsis, 'location': 7}
-   ROOT → 0 → stmt → targetList → 1 → val : {'@': 'ColumnRef', 'fields': Ellipsis, 'location': 10}
+   ROOT → 0 → stmt → targetList → 0 → val : {'@': 'ColumnRef', 'fields': …, 'location': 7}
+   ROOT → 0 → stmt → targetList → 1 → val : {'@': 'ColumnRef', 'fields': …, 'location': 10}
    ROOT → 0 → stmt → targetList → 0 → val → fields → 0 : {'@': 'String', 'val': 'a'}
    ROOT → 0 → stmt → targetList → 1 → val → fields → 0 : {'@': 'String', 'val': 'b'}
    (<RawStmt stmt=<SelectStmt ...
