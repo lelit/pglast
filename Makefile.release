@@ -47,7 +47,7 @@ help::
 	@printf "tag-release\n\tComplete the release tagging the working tree\n"
 
 .PHONY: tag-release
-tag-release: assert-master-branch check-release-date check-long-description-markup
+tag-release: check-release-date check-long-description-markup
 	sed -i "s/__version__ = '.*'/__version__ = 'v$(VERSION)'/" $(MOD_INIT)
 	git commit -a -m "Release $(VERSION)"
 	git tag -a -m "Version $(VERSION)" v$(VERSION)
