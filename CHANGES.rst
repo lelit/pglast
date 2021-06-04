@@ -8,12 +8,14 @@ Changes
 Version 3
 #########
 
-3.0.dev3 (unreleased)
-~~~~~~~~~~~~~~~~~~~~~
+3.0 (unreleased)
+~~~~~~~~~~~~~~~~
 
 - Fix glitch in the ``RawStream``, avoiding spurious space after an open parenthesis
 
 - Improve the ``Visitor`` class, to make it easier altering the original tree
+
+- Properly handle nested lists in the serialization of AST Node
 
 
 3.0.dev2 (2021-05-22)
