@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.0 (unreleased)
+3.0 (2021-06-04)
 ~~~~~~~~~~~~~~~~
 
 - Fix glitch in the ``RawStream``, avoiding spurious space after an open parenthesis
