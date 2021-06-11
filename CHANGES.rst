@@ -27,9 +27,9 @@ Version 3
 
 - Make it possible to pass also concrete ``ast.Node``\ s to ``RawStream```
 
-~~~~~~~~~~~~~~~~~~~
-**Breaking change**
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
+~~~~~~~~~~~~~~~~~~~~
 
 - To reduce confusion, the ``printer`` module has been removed: print-specific stuff is now
   directly exposed by the ``printers`` subpackage while serialization classes are now in the
