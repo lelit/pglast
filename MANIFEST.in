@@ -11,6 +11,7 @@ recursive-include tests *.sql
 exclude libpg_query/*
 include libpg_query/LICENSE libpg_query/Makefile libpg_query/pg_query.h
 recursive-include libpg_query/src *.c *.h
+recursive-include libpg_query/vendor *.c *.h
 include libpg_query/srcdata/*.json
 prune libpg_query/.github
 prune libpg_query/examples
