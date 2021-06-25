@@ -22,5 +22,4 @@ prune libpg_query/scripts
 prune libpg_query/test
 prune libpg_query/testdata
 prune libpg_query/tmp
-prune libpg_query/vendor
 include libpg_query/test/sql/postgres_regress/*.sql
