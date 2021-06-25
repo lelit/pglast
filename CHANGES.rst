@@ -8,6 +8,18 @@ Changes
 Version 3
 #########
 
+3.1 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix packaging glitch (`issue #82`__)
+
+  __ https://github.com/lelit/pglast/issues/82
+
+- Build wheels also for macOS
+
+- Update libpg_query to 13-2.0.5
+
+
 3.0 (2021-06-04)
 ~~~~~~~~~~~~~~~~
 
