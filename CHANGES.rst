@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.2 (unreleased)
+3.2 (2021-06-25)
 ~~~~~~~~~~~~~~~~
 
 - Effectively include libpg_query's vendored sources (`issue #82`__)
