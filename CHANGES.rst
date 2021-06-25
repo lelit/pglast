@@ -8,6 +8,14 @@ Changes
 Version 3
 #########
 
+3.2 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Effectively include libpg_query's vendored sources (`issue #82`__)
+
+  __ https://github.com/lelit/pglast/issues/82
+
+
 3.1 (2021-06-25)
 ~~~~~~~~~~~~~~~~
 
