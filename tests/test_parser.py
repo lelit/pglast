@@ -151,7 +151,7 @@ def test_scan():
     sql = 'SELECT \\s 1'
     result = scan(sql)
     assert result == [( 0,  5, 'SELECT',    'RESERVED_KEYWORD'),
-                      ( 7,  7, 'UNKNOWN',   'NO_KEYWORD'),
+                      ( 7,  7, 'ASCII_92',  'NO_KEYWORD'),
                       ( 8,  8, 'IDENT',     'NO_KEYWORD'),
                       (10, 10, 'ICONST',    'NO_KEYWORD')]
     assert sql[result[1].start] == '\\'
