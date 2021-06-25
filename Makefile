@@ -79,7 +79,7 @@ PG_INCLUDE_DIR := libpg_query/src/postgres/include
 .PHONY: enums
 enums: $(PY_ENUMS)
 
-$(PY_ENUMS): tools/extract_enums.py libpg_query/pg_query.h
+$(PY_ENUMS): tools/extract_enums.py libpg_query/libpg_query.a
 pglast/enums/%.py: $(PG_INCLUDE_DIR)/nodes/%.h
 	$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
 pglast/enums/lockdefs.py: $(PG_INCLUDE_DIR)/storage/lockdefs.h
@@ -103,7 +103,7 @@ PY_KEYWORDS := pglast/keywords.py
 .PHONY: keywords
 keywords: $(PY_KEYWORDS)
 
-$(PY_KEYWORDS): tools/extract_keywords.py libpg_query/pg_query.h
+$(PY_KEYWORDS): tools/extract_keywords.py libpg_query/libpg_query.a
 $(PY_KEYWORDS): $(PG_INCLUDE_DIR)/parser/kwlist.h
 	$(PYTHON) tools/extract_keywords.py $(PG_INCLUDE_DIR)/parser/kwlist.h $@
 
@@ -120,7 +120,7 @@ PG_NODES := $(PG_INCLUDE_DIR)/nodes/nodes.h $(PG_INCLUDE_DIR)/nodes/parsenodes.h
 .PHONY: printers-doc
 printers-doc: docs/ddl.rst docs/dml.rst
 
-docs/ddl.rst docs/dml.rst: $(PG_NODES) tools/extract_printers_doc.py
+docs/ddl.rst docs/dml.rst: $(PG_NODES) tools/extract_printers_doc.py libpg_query/libpg_query.a
 docs/%.rst: pglast/printers/%.py
 	$(PYTHON) tools/extract_printers_doc.py $< $@ $(PG_NODES)
 

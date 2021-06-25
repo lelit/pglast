@@ -25,7 +25,7 @@ help::
 	@printf "release\n\tBump version number\n"
 
 .PHONY: release
-release: printers-doc assert-clean-tree
+release: printers-doc keywords assert-clean-tree
 	$(BUMPER) $(VERSION_TXT)
 	@echo ">>>"
 	@echo ">>> Do your duties (update CHANGES.rst for example), then"
