@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.1 (unreleased)
+3.1 (2021-06-25)
 ~~~~~~~~~~~~~~~~
 
 - Fix packaging glitch (`issue #82`__)
