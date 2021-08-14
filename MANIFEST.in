@@ -17,7 +17,7 @@ prune libpg_query/.github
 prune libpg_query/examples
 prune libpg_query/patches
 prune libpg_query/protobuf
-include libpg_query/protobuf/pg_query.proto
+include libpg_query/protobuf/pg_query.proto libpg_query/protobuf/pg_query.pb-c.c libpg_query/protobuf/pg_query.pb-c.h
 prune libpg_query/scripts
 prune libpg_query/test
 prune libpg_query/testdata
