@@ -8,6 +8,15 @@ Changes
 Version 3
 #########
 
+3.4 (2021-08-21)
+~~~~~~~~~~~~~~~~
+
+- Fix another packaging issue, that prevented recompilation from the sdist ``.tar.gz`` (`issue
+  #86`__), thanks to Christopher Brichford
+
+  __ https://github.com/lelit/pglast/issues/82
+
+
 3.3 (2021-07-04)
 ~~~~~~~~~~~~~~~~
 
