@@ -110,3 +110,18 @@ SELECT 'abc'
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--preserve-comments'])
             assert output.getvalue() == "SELECT /* one */ 1\n"
+
+    with StringIO("select extract(hour from t1.modtime), count(*) from t1") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--special-functions', '--compact-lists-margin', '120'])
+            assert output.getvalue() == ("SELECT EXTRACT(HOUR FROM t1.modtime), count(*)\n"
+                                         "FROM t1\n")
+
+    with StringIO("select extract(hour from t1.modtime), count(*) from t1") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--special-functions', '--compact-lists-margin', '40'])
+            assert output.getvalue() == ("SELECT EXTRACT(HOUR FROM t1.modtime)\n"
+                                         "     , count(*)\n"
+                                         "FROM t1\n")

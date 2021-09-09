@@ -254,7 +254,8 @@ class RawStream(OutputStream):
         result.
         """
 
-        rawstream = RawStream(expression_level=self.expression_level)
+        rawstream = RawStream(expression_level=self.expression_level,
+                              special_functions=self.special_functions)
         rawstream.print_list(nodes, sep, are_names=are_names, standalone_items=False)
         return rawstream.getvalue()
 
