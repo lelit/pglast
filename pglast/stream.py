@@ -118,6 +118,8 @@ class RawStream(OutputStream):
            ``False`` by default, when ``True`` add a semicolon after the last statement,
            otherwise it is emitted only as a separator between multiple statements
     :param comments: optional sequence of tuples with the comments extracted from the statement
+    :param bool remove_pg_catalog_from_functions:
+           ``False`` by default, when ``True`` remove the pg_catalog schema from functions
 
     This augments :class:`OutputStream` and implements the basic machinery needed to serialize
     the *parse tree* produced by :func:`~.parser.parse_sql()` back to a textual representation,
@@ -126,7 +128,7 @@ class RawStream(OutputStream):
 
     def __init__(self, expression_level=0, separate_statements=1, special_functions=False,
                  comma_at_eoln=False, semicolon_after_last_statement=False,
-                 comments=None):
+                 comments=None, remove_pg_catalog_from_functions=False):
         super().__init__()
         self.current_column = 0
         self.expression_level = expression_level
@@ -135,6 +137,7 @@ class RawStream(OutputStream):
         self.comma_at_eoln = comma_at_eoln
         self.semicolon_after_last_statement = semicolon_after_last_statement
         self.comments = comments
+        self.remove_pg_catalog_from_functions = remove_pg_catalog_from_functions
 
     def show(self, where=stderr):  # pragma: no cover
         """Emit also current expression_level and a "pointer" showing current_column."""
@@ -255,7 +258,8 @@ class RawStream(OutputStream):
         """
 
         rawstream = RawStream(expression_level=self.expression_level,
-                              special_functions=self.special_functions)
+                              special_functions=self.special_functions,
+                              remove_pg_catalog_from_functions=self.remove_pg_catalog_from_functions)
         rawstream.print_list(nodes, sep, are_names=are_names, standalone_items=False)
         return rawstream.getvalue()
 
@@ -357,10 +361,21 @@ class RawStream(OutputStream):
                 printer(node, self)
         self.separator()
 
+    def _is_pg_catalog_func(self, items):
+        return (
+            self.remove_pg_catalog_from_functions
+            and items.parent_attribute == 'funcname'
+            and len(items) > 1
+            and items[0].val.value == 'pg_catalog'
+        )
+
     def _print_items(self, items, sep, newline, are_names=False, is_symbol=False):
+        first = 1 if self._is_pg_catalog_func(items) else 0
         last = len(items) - 1
         for idx, item in enumerate(items):
-            if idx > 0:
+            if idx < first:
+                continue
+            if idx > first:
                 if sep == ',' and self.comma_at_eoln:
                     self.write(sep)
                     if newline:

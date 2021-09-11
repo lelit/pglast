@@ -125,3 +125,27 @@ SELECT 'abc'
             assert output.getvalue() == ("SELECT EXTRACT(HOUR FROM t1.modtime)\n"
                                          "     , count(*)\n"
                                          "FROM t1\n")
+
+    with StringIO("select substring('123',2,3), regexp_split_to_array('x,x,x', ','), btrim('xxx'), trim('xxx'), POSITION('hour' in trim(substring('xyz hour ',1,6)))") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--compact-lists-margin', '100'])
+            assert output.getvalue() == """\
+SELECT pg_catalog.substring('123', 2, 3)
+     , regexp_split_to_array('x,x,x', ',')
+     , btrim('xxx')
+     , pg_catalog.btrim('xxx')
+     , pg_catalog.position(pg_catalog.btrim(pg_catalog.substring('xyz hour ', 1, 6)), 'hour')
+"""
+
+    with StringIO("select substring('123',2,3), regexp_split_to_array('x,x,x', ','), btrim('xxx'), trim('xxx'), POSITION('hour' in trim(substring('xyz hour ',1,6)))") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--remove_pg_catalog_from_functions', '--compact-lists-margin', '100'])
+            assert output.getvalue() == """\
+SELECT substring('123', 2, 3)
+     , regexp_split_to_array('x,x,x', ',')
+     , btrim('xxx')
+     , btrim('xxx')
+     , position(btrim(substring('xyz hour ', 1, 6)), 'hour')
+"""
