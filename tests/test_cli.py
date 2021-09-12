@@ -147,5 +147,7 @@ SELECT substring('123', 2, 3)
      , regexp_split_to_array('x,x,x', ',')
      , btrim('xxx')
      , btrim('xxx')
-     , position(btrim(substring('xyz hour ', 1, 6)), 'hour')
+     , pg_catalog.position(btrim(substring('xyz hour ', 1, 6)), 'hour')
 """
+
+

@@ -367,6 +367,7 @@ class RawStream(OutputStream):
             and items.parent_attribute == 'funcname'
             and len(items) > 1
             and items[0].val.value == 'pg_catalog'
+            and items[1].val.value not in ['position']
         )
 
     def _print_items(self, items, sep, newline, are_names=False, is_symbol=False):
