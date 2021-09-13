@@ -367,6 +367,9 @@ class RawStream(OutputStream):
             and items.parent_attribute == 'funcname'
             and len(items) > 1
             and items[0].val.value == 'pg_catalog'
+            # The list contains all functions that cannot be found without an
+            # explicit pg_catalog schema. ie:
+            # position(a,b) is invalid but pg_catalog.position(a,b) is fine
             and items[1].val.value not in ['position']
         )
 
