@@ -83,13 +83,13 @@ def main(options=None):
                         default=False, help="preserve comments in the statement")
     parser.add_argument('-S', '--statement',
                         help='the SQL statement')
+    parser.add_argument('-F', '--remove-pg_catalog-from-functions', action='store_true', default=False,
+                        help='remove pg_catalog from functions')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'
                         ' by default stdin, when not specified with --statement option')
     parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'),
-                        help='where the result will be written, by default stdout'),
-    parser.add_argument('-F', '--remove_pg_catalog_from_functions', action='store_true', default=False,
-                        help='remove pg_catalog from functions'),
+                        help='where the result will be written, by default stdout')
 
     args = parser.parse_args(options if options is not None else sys.argv[1:])
 
