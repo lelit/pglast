@@ -126,7 +126,14 @@ SELECT 'abc'
                                          "     , count(*)\n"
                                          "FROM t1\n")
 
-    with StringIO("select substring('123',2,3), regexp_split_to_array('x,x,x', ','), btrim('xxx'), trim('xxx'), POSITION('hour' in trim(substring('xyz hour ',1,6)))") as input:
+    in_stmt = """\
+select substring('123',2,3),
+       regexp_split_to_array('x,x,x', ','),
+       btrim('xxx'), trim('xxx'),
+       POSITION('hour' in trim(substring('xyz hour ',1,6)))
+"""
+
+    with StringIO(in_stmt) as input:
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--compact-lists-margin', '100'])
@@ -138,7 +145,7 @@ SELECT pg_catalog.substring('123', 2, 3)
      , pg_catalog.position(pg_catalog.btrim(pg_catalog.substring('xyz hour ', 1, 6)), 'hour')
 """
 
-    with StringIO("select substring('123',2,3), regexp_split_to_array('x,x,x', ','), btrim('xxx'), trim('xxx'), POSITION('hour' in trim(substring('xyz hour ',1,6)))") as input:
+    with StringIO(in_stmt) as input:
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--remove-pg_catalog-from-functions', '--compact-lists-margin', '100'])
@@ -149,5 +156,3 @@ SELECT substring('123', 2, 3)
      , btrim('xxx')
      , pg_catalog.position(btrim(substring('xyz hour ', 1, 6)), 'hour')
 """
-
-
