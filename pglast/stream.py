@@ -370,7 +370,7 @@ class RawStream(OutputStream):
             # The list contains all functions that cannot be found without an
             # explicit pg_catalog schema. ie:
             # position(a,b) is invalid but pg_catalog.position(a,b) is fine
-            and items[1].val.value not in ['position']
+            and items[1].val.value not in ('position',)
         )
 
     def _print_items(self, items, sep, newline, are_names=False, is_symbol=False):
