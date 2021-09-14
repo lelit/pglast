@@ -141,7 +141,7 @@ SELECT pg_catalog.substring('123', 2, 3)
     with StringIO("select substring('123',2,3), regexp_split_to_array('x,x,x', ','), btrim('xxx'), trim('xxx'), POSITION('hour' in trim(substring('xyz hour ',1,6)))") as input:
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):
-                main(['--remove_pg_catalog_from_functions', '--compact-lists-margin', '100'])
+                main(['--remove-pg_catalog-from-functions', '--compact-lists-margin', '100'])
             assert output.getvalue() == """\
 SELECT substring('123', 2, 3)
      , regexp_split_to_array('x,x,x', ',')
