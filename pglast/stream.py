@@ -7,6 +7,7 @@
 #
 
 from contextlib import contextmanager
+from decimal import Decimal
 from io import StringIO
 from re import match
 from sys import stderr
@@ -281,6 +282,12 @@ class RawStream(OutputStream):
             self.write(value)
         elif isinstance(value, str):  # node.parent_node.node_tag == 'String':
             self.write_quoted_string(value)
+        elif isinstance(value, Decimal):
+            s = str(value)
+            if '.' not in s and 'E' not in s:
+                # Avoid coalescing floating point numbers to plain integers, see issue #91
+                s += '.0'
+            self.write(s)
         else:
             self.write(str(value))
 

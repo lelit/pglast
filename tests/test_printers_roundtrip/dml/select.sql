@@ -497,3 +497,7 @@ SELECT * INTO TEMP films_recent FROM films WHERE date_prod >= '2002-01-01'
 SELECT 1 INTO UNLOGGED foo
 
 select a from x; select b from y
+
+select 1/2.
+
+select 1e1/2.e1
