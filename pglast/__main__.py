@@ -74,6 +74,10 @@ def main(options=None):
                         help='split string literals longer than given value')
     parser.add_argument('-f', '--special-functions', action='store_true', default=False,
                         help='activate special functions handling')
+    parser.add_argument('-F', '--remove-pg_catalog-from-functions', action='store_true',
+                        default=False,
+                        help='omit explicit "pg_catalog" schema from function names,'
+                        ' when possible')
     parser.add_argument('-c', '--comma-at-eoln', action='store_true', default=False,
                         help='use alternative style to print lists, putting the comma right'
                         ' after each item')
@@ -83,8 +87,6 @@ def main(options=None):
                         default=False, help="preserve comments in the statement")
     parser.add_argument('-S', '--statement',
                         help='the SQL statement')
-    parser.add_argument('-F', '--remove-pg_catalog-from-functions', action='store_true', default=False,
-                        help='remove pg_catalog from functions')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'
                         ' by default stdin, when not specified with --statement option')
