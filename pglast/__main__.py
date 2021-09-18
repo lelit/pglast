@@ -40,6 +40,7 @@ def workhorse(args):
                 split_string_literals_threshold=args.split_string_literals,
                 special_functions=args.special_functions,
                 comma_at_eoln=args.comma_at_eoln,
+                remove_pg_catalog_from_functions=args.remove_pg_catalog_from_functions,
                 semicolon_after_last_statement=args.semicolon_after_last_statement)
         except Error as e:
             print()
@@ -82,6 +83,8 @@ def main(options=None):
                         default=False, help="preserve comments in the statement")
     parser.add_argument('-S', '--statement',
                         help='the SQL statement')
+    parser.add_argument('-F', '--remove-pg_catalog-from-functions', action='store_true', default=False,
+                        help='remove pg_catalog from functions')
     parser.add_argument('infile', nargs='?', type=argparse.FileType(),
                         help='a file containing the SQL statement to be pretty-printed,'
                         ' by default stdin, when not specified with --statement option')
