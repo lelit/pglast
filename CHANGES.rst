@@ -8,6 +8,26 @@ Changes
 Version 3
 #########
 
+3.5 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Forward the ``special_functions`` option to substream, when concatenating items
+  (`issue #89`__)
+
+  __ https://github.com/lelit/pglast/issues/89
+
+- Fix representation of floating point numbers without decimal digits (`issue #91`__)
+
+  __ https://github.com/lelit/pglast/issues/91
+
+- Produce Python 3.10 wheels, thanks to ``cibuildwheel`` 2.1.2
+
+- Update libpg_query to 13-2.0.7
+
+- New option ``remove-pg_catalog-from-functions`` on the command line tool (`PR #90`__), thanks
+  to Boris Zentner
+
+
 3.4 (2021-08-21)
 ~~~~~~~~~~~~~~~~
 
