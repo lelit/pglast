@@ -547,3 +547,42 @@ Preserve comments
 .. [*] This is an approximation, because in principle a list can contain different kinds of
        nodes, or even sub-lists in some cases: the ``List`` representation arbitrarily shows
        the tag of the first object.
+
+Functions vs SQL syntax
+=======================
+
+.. code-block:: shell
+
+   $ pgpp -S "select extract(hour from t1.modtime) from t1"
+   SELECT pg_catalog.date_part('hour', t1.modtime)
+   FROM t1
+
+   $ pgpp --special-functions -S "select extract(hour from t1.modtime) from t1"
+   SELECT EXTRACT(HOUR FROM t1.modtime)
+   FROM t1
+
+   $ echo "
+   select substring('123',2,3),
+          regexp_split_to_array('x,x,x', ','),
+          btrim('xxx'), trim('xxx'),
+          POSITION('hour' in trim(substring('xyz hour ',1,6)))
+   " | pgpp
+   SELECT pg_catalog.substring('123', 2, 3)
+        , regexp_split_to_array('x,x,x', ',')
+        , btrim('xxx')
+        , pg_catalog.btrim('xxx')
+        , pg_catalog.position(pg_catalog.btrim(pg_catalog.substring('xyz hour ', 1, 6))
+                            , 'hour')
+
+   $ echo "
+   select substring('123',2,3),
+          regexp_split_to_array('x,x,x', ','),
+          btrim('xxx'), trim('xxx'),
+          POSITION('hour' in trim(substring('xyz hour ',1,6)))
+   " | pgpp -f --remove-pg_catalog-from-functions
+   SELECT substring('123', 2, 3)
+        , regexp_split_to_array('x,x,x', ',')
+        , btrim('xxx')
+        , btrim('xxx')
+        , pg_catalog.position(btrim(substring('xyz hour ', 1, 6))
+                            , 'hour')
