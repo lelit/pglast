@@ -8,6 +8,12 @@
 
 from . import special_function
 
+# reminder for not yet implemented special functions:
+#
+# treat(1 as int)
+# 'foo' is nfc normalized
+# 'foo' is not nfc normalized
+
 
 def _print_trim(where, node, output):
     output.write('trim({}'.format(where))
