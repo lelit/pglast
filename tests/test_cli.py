@@ -111,6 +111,36 @@ SELECT 'abc'
                 main(['--preserve-comments'])
             assert output.getvalue() == "SELECT /* one */ 1\n"
 
+    with StringIO("""\
+select collation for ('abc'),
+       normalize('abc', nfc),
+       overlay('Txxxxas' placing 'hom' FROM 2 for 4),
+       position('bc' in 'abcd'),
+       substring('abcd' from 1 for 2),
+       substring('abcd' from 2),
+       trim(both '  abc  '),
+       trim(both '*' from '***abc***'),
+       trim(leading '*' from '***abc***'),
+       trim(trailing '*' from '***abc***'),
+       xmlexists('//town[text() = ''Toronto'']' passing '<towns><town>Toronto</town><town>Ottawa</town></towns>');
+""") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--special-functions', '--compact-lists-margin', '100'])
+            assert output.getvalue() == """\
+SELECT COLLATION FOR ('abc')
+     , normalize('abc', NFC)
+     , overlay('Txxxxas' PLACING 'hom' FROM 2 FOR 4)
+     , position('bc' IN 'abcd')
+     , substring('abcd' FROM 1 FOR 2)
+     , substring('abcd' FROM 2)
+     , trim(BOTH FROM '  abc  ')
+     , trim(BOTH '*' FROM '***abc***')
+     , trim(LEADING '*' FROM '***abc***')
+     , trim(TRAILING '*' FROM '***abc***')
+     , xmlexists('//town[text() = ''Toronto'']' PASSING BY REF '<towns><town>Toronto</town><town>Ottawa</town></towns>')
+"""
+
     with StringIO("select extract(hour from t1.modtime), count(*) from t1") as input:
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):
