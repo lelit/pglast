@@ -29,7 +29,7 @@ def _print_trim(where, node, output):
 def btrim(node, output):
     """
     Emit function ``pg_catalog.btrim('  abc  ')`` as ``trim(BOTH FROM '  abc  ')``
-    and ``pg_catalog.btrim('xxabcxx', 'x')`` as ``trim(BOTH 'x' FROM 'xxabcxx')``
+    and ``pg_catalog.btrim('xxabcxx', 'x')`` as ``trim(BOTH 'x' FROM 'xxabcxx')``.
     """
     _print_trim('BOTH', node, output)
 
@@ -46,7 +46,7 @@ def pg_collation_for(node, output):
 def date_part(node, output):
     """
     Emit function ``pg_catalog.date_part(field, timestamp)`` as
-    ``EXTRACT(field FROM timestamp)``.
+    ``EXTRACT(field FROM timestamp).``.
     """
     output.write('EXTRACT(')
     output.write(node.args[0].val.val.value.upper())
@@ -59,7 +59,7 @@ def date_part(node, output):
 def ltrim(node, output):
     """
     Emit function ``pg_catalog.ltrim('  abc  ')`` as ``trim(LEADING FROM '  abc  ')``
-    and ``pg_catalog.ltrim('xxabcxx', 'x')`` as ``trim(LEADING 'x' FROM 'xxabcxx')``
+    and ``pg_catalog.ltrim('xxabcxx', 'x')`` as ``trim(LEADING 'x' FROM 'xxabcxx').``
     """
     _print_trim('LEADING', node, output)
 
@@ -67,8 +67,10 @@ def ltrim(node, output):
 # normalize(U&'\0061\0308bc', NFC)
 @special_function('pg_catalog.normalize')
 def normalize(node, output):
-    "Emit function ``pg_catalog.normalize(a)`` as ``normalize(x)``."
-    "Emit function ``pg_catalog.normalize('a','b')`` as ``normalize('a', b)``."
+    """
+    Emit function ``pg_catalog.normalize(a)`` as ``normalize(x)`` and function
+    ``pg_catalog.normalize('a','b')`` as ``normalize('a', b)``.
+    """
     output.write('normalize(')
     output.print_node(node.args[0])
     if len(node.args) > 1:
@@ -126,9 +128,10 @@ def rtrim(node, output):
 @special_function('pg_catalog.substring')
 def substring(node, output):
     """
-    Emit function ``pg_catalog.substring('Txxxxas', 2, 4)`` as ``substring('Txxxxas' FROM 2 FOR 4)``.
-    and ``pg_catalog.substring('blabla', 2)`` as ``substring('blabla' FROM 2)``.
-"""
+    Emit function ``pg_catalog.substring('Txxxxas', 2, 4)`` as
+    ``substring('Txxxxas' FROM 2 FOR 4)`` and ``pg_catalog.substring('blabla', 2)``
+    as ``substring('blabla' FROM 2)``.
+    """
     output.write('substring(')
     output.print_node(node.args[0])
     output.write(' FROM ')
