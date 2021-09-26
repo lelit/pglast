@@ -29,6 +29,10 @@ Version 3
 
   __ https://github.com/lelit/pglast/pull/90/
 
+- Implement more *special functions* (`PR #92`__), thanks to Boris Zentner
+
+  __ https://github.com/lelit/pglast/pull/92/
+
 
 3.4 (2021-08-21)
 ~~~~~~~~~~~~~~~~
