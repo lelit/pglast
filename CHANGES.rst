@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.5 (unreleased)
+3.5 (2021-09-26)
 ~~~~~~~~~~~~~~~~
 
 - Forward the ``special_functions`` option to substream, when concatenating items
