@@ -27,6 +27,8 @@ Version 3
 - New option ``remove-pg_catalog-from-functions`` on the command line tool (`PR #90`__), thanks
   to Boris Zentner
 
+  __ https://github.com/lelit/pglast/pull/90/
+
 
 3.4 (2021-08-21)
 ~~~~~~~~~~~~~~~~
