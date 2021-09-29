@@ -186,3 +186,10 @@ SELECT substring('123', 2, 3)
      , btrim('xxx')
      , pg_catalog.position(btrim(substring('xyz hour ', 1, 6)), 'hour')
 """
+
+    with StringIO('SELECT NULLIF(1, 0)') as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--remove-pg_catalog-from-functions'])
+            assert output.getvalue() == "SELECT NULLIF(1, 0)\n"
+
