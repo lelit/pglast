@@ -156,8 +156,8 @@ def test_split():
 def test_scan():
     sql = 'select /* something here */ 1'
     result = scan(sql)
-    assert result == [( 0,  5, 'SELECT',    'RESERVED_KEYWORD'),
-                      ( 7, 26, 'C_COMMENT', 'NO_KEYWORD'),
+    assert result == [( 0,  5, 'SELECT',    'RESERVED_KEYWORD'),  # noqa E201
+                      ( 7, 26, 'C_COMMENT', 'NO_KEYWORD'),        # noqa E201
                       (28, 28, 'ICONST',    'NO_KEYWORD')]
     assert sql[result[1].start:result[1].end+1] == '/* something here */'
 
@@ -173,10 +173,10 @@ def test_scan():
     # Invalid input, see https://github.com/pganalyze/libpg_query/issues/108
     sql = 'SELECT \\s 1'
     result = scan(sql)
-    assert result == [( 0,  5, 'SELECT',    'RESERVED_KEYWORD'),
-                      ( 7,  7, 'ASCII_92',  'NO_KEYWORD'),
-                      ( 8,  8, 'IDENT',     'NO_KEYWORD'),
-                      (10, 10, 'ICONST',    'NO_KEYWORD')]
+    assert result == [( 0,  5, 'SELECT',   'RESERVED_KEYWORD'),  # noqa E201
+                      ( 7,  7, 'ASCII_92', 'NO_KEYWORD'),        # noqa E201
+                      ( 8,  8, 'IDENT',    'NO_KEYWORD'),        # noqa E201
+                      (10, 10, 'ICONST',   'NO_KEYWORD')]
     assert sql[result[1].start] == '\\'
 
 
