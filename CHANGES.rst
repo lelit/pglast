@@ -8,6 +8,12 @@ Changes
 Version 3
 #########
 
+3.6 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Use latest libpg_query, to fix an error parsing ``PLpgSQL`` statements (`issue #88`)
+
+
 3.5 (2021-09-26)
 ~~~~~~~~~~~~~~~~
 
