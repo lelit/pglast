@@ -66,6 +66,15 @@ WHERE foo <> 0
                 main(['--parse-tree'])
             assert "'val': {'@': 'Integer', 'val': 1}" in output.getvalue()
 
+    with StringIO("""\
+CREATE FUNCTION add (a integer, b integer) RETURNS integer AS $$
+BEGIN RETURN a + b; END;
+$$ LANGUAGE plpgsql""") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--plpgsql', '--parse-tree'])
+            assert '"PLpgSQL_function":' in output.getvalue()
+
     with StringIO("Select 1") as input:
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):
