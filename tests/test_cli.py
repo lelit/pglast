@@ -122,7 +122,8 @@ select collation for ('abc'),
        trim(both '*' from '***abc***'),
        trim(leading '*' from '***abc***'),
        trim(trailing '*' from '***abc***'),
-       xmlexists('//town[text() = ''Toronto'']' passing '<towns><town>Toronto</town><town>Ottawa</town></towns>');
+       xmlexists('//town[text() = ''Toronto'']'
+         passing '<towns><town>Toronto</town><town>Ottawa</town></towns>');
 """) as input:
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):
@@ -138,7 +139,8 @@ SELECT COLLATION FOR ('abc')
      , trim(BOTH '*' FROM '***abc***')
      , trim(LEADING '*' FROM '***abc***')
      , trim(TRAILING '*' FROM '***abc***')
-     , xmlexists('//town[text() = ''Toronto'']' PASSING BY REF '<towns><town>Toronto</town><town>Ottawa</town></towns>')
+     , xmlexists('//town[text() = ''Toronto'']'\
+ PASSING BY REF '<towns><town>Toronto</town><town>Ottawa</town></towns>')
 """
 
     with StringIO("select extract(hour from t1.modtime), count(*) from t1") as input:
