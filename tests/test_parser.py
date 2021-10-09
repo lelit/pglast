@@ -13,7 +13,7 @@ from pglast.parser import ParseError, fingerprint, get_postgresql_version, scan,
 from pglast.parser import deparse_protobuf, parse_sql_protobuf
 
 
-def test_basic():
+def test_parse_sql():
     assert parse_sql('') == ()
     assert parse_sql('-- nothing') == ()
     with pytest.raises(ParseError):
@@ -25,10 +25,33 @@ def test_basic():
     rawstmt = ptree[0]
     assert isinstance(rawstmt, ast.RawStmt)
 
+
+def test_parse_plpgsql():
     ptree = parse_plpgsql('CREATE FUNCTION add (a integer, b integer)'
                           ' RETURNS integer AS $$ BEGIN RETURN a + b; END; $$'
                           ' LANGUAGE plpgsql')
     assert len(ptree) == 1
+    function = ptree[0]
+    assert isinstance(function, dict)
+    assert function.keys() == {'PLpgSQL_function'}
+
+    # See https://github.com/pganalyze/libpg_query/issues/122
+    ptree = parse_plpgsql("""\
+CREATE OR REPLACE FUNCTION test_parse (
+    p_time_start timestamptz,
+    p_time_end timestamptz,
+    p_time_interval interval default NULL
+) RETURNS TABLE (
+    ts timestamptz,
+    arbitrary_return bigint
+) AS $$
+BEGIN
+    IF p_time_interval IS NULL
+        THEN p_time_interval := INTERVAL '1 hour';
+    END IF;
+    RETURN QUERY
+    SELECT p_time_start + p_time_interval, 1234::bigint;
+END; $$ LANGUAGE plpgsql;""")
     function = ptree[0]
     assert isinstance(function, dict)
     assert function.keys() == {'PLpgSQL_function'}
