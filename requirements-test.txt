@@ -6,6 +6,6 @@
 # :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
 #
 
-coverage==5.5
-pytest-cov==2.12.1
+coverage==6.0.2
+pytest-cov==3.0.0
 pytest==6.2.5
