@@ -8,6 +8,12 @@ Changes
 Version 3
 #########
 
+3.7 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Update libpg_query to 13-2.1.0
+
+
 3.6 (2021-10-09)
 ~~~~~~~~~~~~~~~~
 
