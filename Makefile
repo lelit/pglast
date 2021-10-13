@@ -14,7 +14,7 @@ export VENVDIR := $(VIRTUAL_ENV)
 endif
 export PYTHON := $(VENVDIR)/bin/python
 export SHELL := /bin/bash
-export SYS_PYTHON := $(shell which python3)
+export SYS_PYTHON := $(shell command -v python3)
 
 all: virtualenv libpg_query/Makefile help
 
