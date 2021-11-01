@@ -50,19 +50,24 @@ jobs:
           fail_ci_if_error: true
 
   build_wheels:
-    name: Build wheels on ${{ matrix.os }}
+    name: Build wheels on ${{ matrix.arch }} for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os:
-          - ubuntu-20.04
-          - macOS-10.15
-
+        os: [ubuntu-20.04, macos-10.15]
+        arch: [auto]
+        include:
+          - os: ubuntu-20.04
+            arch: aarch64
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
         with:
           submodules: true
+
+      - name: Set up QEMU
+        if: ${{ matrix.arch == 'aarch64' }}
+        uses: docker/setup-qemu-action@v1
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -75,6 +80,7 @@ jobs:
           CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
           CIBW_SKIP: "cp2* cp33* cp34* cp35* pp*"
+          CIBW_ARCHS: ${{matrix.arch}}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
