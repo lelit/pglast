@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.8 (unreleased)
+3.8 (2021-12-28)
 ~~~~~~~~~~~~~~~~
 
 - Fix glitch in the AST extractor tool (`issue #97`__)
@@ -19,7 +19,7 @@ Version 3
 
   __ https://github.com/lelit/pglast/pull/95
 
-- Fix type mismatch when using ``--remove-pg_catalog-from-functions`` (`PR #93`), thanks
+- Fix type mismatch when using ``--remove-pg_catalog-from-functions`` (`PR #93`__), thanks
   to Boris Zentner
 
   __ https://github.com/lelit/pglast/pull/93/
