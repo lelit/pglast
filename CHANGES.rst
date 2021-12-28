@@ -8,6 +8,18 @@ Changes
 Version 3
 #########
 
+3.8 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix glitch in the AST extractor tool (`issue #97`__)
+
+  __ https://github.com/lelit/pglast/issues/97
+
+- Add Linux AArch64 wheel build support (`PR #95`__), thanks to odidev
+
+  __ https://github.com/lelit/pglast/pull/95
+
+
 3.7 (2021-10-13)
 ~~~~~~~~~~~~~~~~
 
@@ -17,7 +29,9 @@ Version 3
 3.6 (2021-10-09)
 ~~~~~~~~~~~~~~~~
 
-- Use latest libpg_query, to fix an error parsing ``PLpgSQL`` statements (`issue #88`)
+- Use latest libpg_query, to fix an error parsing ``PLpgSQL`` statements (`issue #88`__)
+
+  __ https://github.com/lelit/pglast/issues/88
 
 
 3.5 (2021-09-26)
