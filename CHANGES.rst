@@ -19,6 +19,11 @@ Version 3
 
   __ https://github.com/lelit/pglast/pull/95
 
+- Fix type mismatch when using ``--remove-pg_catalog-from-functions`` (`PR #93`), thanks
+  to Boris Zentner
+
+  __ https://github.com/lelit/pglast/pull/93/
+
 
 3.7 (2021-10-13)
 ~~~~~~~~~~~~~~~~
@@ -50,7 +55,7 @@ Version 3
 
 - Update libpg_query to 13-2.0.7
 
-- New option ``remove-pg_catalog-from-functions`` on the command line tool (`PR #90`__), thanks
+- New option ``--remove-pg_catalog-from-functions`` on the command line tool (`PR #90`__), thanks
   to Boris Zentner
 
   __ https://github.com/lelit/pglast/pull/90/
