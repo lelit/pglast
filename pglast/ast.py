@@ -2105,13 +2105,6 @@ class ExplainStmt(Node):
             self.options = options
 
 
-class Expr(Node):
-    __slots__ = {}  # noqa: E501
-
-    def __init__(self):  # pragma: no cover
-        pass
-
-
 class FetchStmt(Node):
     __slots__ = {'direction': 'FetchDirection', 'howMany': 'long', 'portalname': 'char*', 'ismove': 'bool'}  # noqa: E501
 

@@ -8,7 +8,7 @@
 
 import pytest
 
-from pglast import ast, parse_sql
+from pglast import ast, enums, parse_sql
 
 
 def test_compare():
@@ -83,3 +83,18 @@ def test_setattr():
     raw.stmt.argType = {'@': 'TypeName'}
     raw.stmt = ast.CreateForeignTableStmt()
     raw.stmt.base = {'@': 'CreateStmt'}
+
+def test_issue_97():
+    ast.SubLink({
+        "@": "SubLink",
+        "subLinkType": enums.SubLinkType.ANY_SUBLINK,
+        "testexpr": ast.ColumnRef(
+            {
+                "@": "ColumnRef",
+                "fields": (
+                    ast.String({"@": "String", "val": "tab"}),
+                    ast.String({"@": "String", "val": "_id"}),
+                ),
+            }
+        ),
+    })

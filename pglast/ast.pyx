@@ -4864,10 +4864,6 @@ cdef create_IntoClause(structs.IntoClause* data, offset_to_index):
     return ast.IntoClause(v_rel, v_colNames, v_accessMethod, v_options, v_onCommit, v_tableSpaceName, v_viewQuery, v_skipData)
 
 
-cdef create_Expr(structs.Expr* data, offset_to_index):
-    return ast.Expr()
-
-
 cdef create_Var(structs.Var* data, offset_to_index):
     cdef object v_varno = data.varno
     cdef object v_varattno = data.varattno
@@ -5761,8 +5757,6 @@ cdef create(void* data, offset_to_index):
         return create_RangeVar(<structs.RangeVar*> data, offset_to_index)
     elif tag == structs.T_TableFunc:
         return create_TableFunc(<structs.TableFunc*> data, offset_to_index)
-    elif tag == structs.T_Expr:
-        return create_Expr(<structs.Expr*> data, offset_to_index)
     elif tag == structs.T_Var:
         return create_Var(<structs.Var*> data, offset_to_index)
     elif tag == structs.T_Param:

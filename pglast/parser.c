@@ -2270,7 +2270,6 @@ static PyObject *__pyx_f_6pglast_6parser_create_Alias(Alias *, PyObject *); /*pr
 static PyObject *__pyx_f_6pglast_6parser_create_RangeVar(RangeVar *, PyObject *); /*proto*/
 static PyObject *__pyx_f_6pglast_6parser_create_TableFunc(TableFunc *, PyObject *); /*proto*/
 static PyObject *__pyx_f_6pglast_6parser_create_IntoClause(IntoClause *, PyObject *); /*proto*/
-static PyObject *__pyx_f_6pglast_6parser_create_Expr(Expr *, PyObject *); /*proto*/
 static PyObject *__pyx_f_6pglast_6parser_create_Var(Var *, PyObject *); /*proto*/
 static PyObject *__pyx_f_6pglast_6parser_create_Param(Param *, PyObject *); /*proto*/
 static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *, PyObject *); /*proto*/
@@ -2341,7 +2340,6 @@ static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_end[] = "end";
 static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_str[] = "__str__";
-static const char __pyx_k_Expr[] = "Expr";
 static const char __pyx_k_Null[] = "Null";
 static const char __pyx_k_args[] = "args";
 static const char __pyx_k_dict[] = "__dict__";
@@ -2870,7 +2868,6 @@ static PyObject *__pyx_kp_s_Exception_representing_the_error;
 static PyObject *__pyx_kp_s_Exception_representing_the_error_2;
 static PyObject *__pyx_n_s_ExecuteStmt;
 static PyObject *__pyx_n_s_ExplainStmt;
-static PyObject *__pyx_n_s_Expr;
 static PyObject *__pyx_n_u_FetchDirection;
 static PyObject *__pyx_n_s_FetchStmt;
 static PyObject *__pyx_n_s_FieldSelect;
@@ -3347,7 +3344,6 @@ typedef struct {
   PyObject *__pyx_kp_s_Exception_representing_the_error_2;
   PyObject *__pyx_n_s_ExecuteStmt;
   PyObject *__pyx_n_s_ExplainStmt;
-  PyObject *__pyx_n_s_Expr;
   PyObject *__pyx_n_u_FetchDirection;
   PyObject *__pyx_n_s_FetchStmt;
   PyObject *__pyx_n_s_FieldSelect;
@@ -3817,7 +3813,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_s_Exception_representing_the_error_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_ExecuteStmt);
   Py_CLEAR(clear_module_state->__pyx_n_s_ExplainStmt);
-  Py_CLEAR(clear_module_state->__pyx_n_s_Expr);
   Py_CLEAR(clear_module_state->__pyx_n_u_FetchDirection);
   Py_CLEAR(clear_module_state->__pyx_n_s_FetchStmt);
   Py_CLEAR(clear_module_state->__pyx_n_s_FieldSelect);
@@ -4274,7 +4269,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_s_Exception_representing_the_error_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_ExecuteStmt);
   Py_VISIT(traverse_module_state->__pyx_n_s_ExplainStmt);
-  Py_VISIT(traverse_module_state->__pyx_n_s_Expr);
   Py_VISIT(traverse_module_state->__pyx_n_u_FetchDirection);
   Py_VISIT(traverse_module_state->__pyx_n_s_FetchStmt);
   Py_VISIT(traverse_module_state->__pyx_n_s_FieldSelect);
@@ -4728,7 +4722,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_s_Exception_representing_the_error_2 __pyx_mstate_global->__pyx_kp_s_Exception_representing_the_error_2
 #define __pyx_n_s_ExecuteStmt __pyx_mstate_global->__pyx_n_s_ExecuteStmt
 #define __pyx_n_s_ExplainStmt __pyx_mstate_global->__pyx_n_s_ExplainStmt
-#define __pyx_n_s_Expr __pyx_mstate_global->__pyx_n_s_Expr
 #define __pyx_n_u_FetchDirection __pyx_mstate_global->__pyx_n_u_FetchDirection
 #define __pyx_n_s_FetchStmt __pyx_mstate_global->__pyx_n_s_FetchStmt
 #define __pyx_n_s_FieldSelect __pyx_mstate_global->__pyx_n_s_FieldSelect
@@ -62735,84 +62728,6 @@ static PyObject *__pyx_f_6pglast_6parser_create_IntoClause(IntoClause *__pyx_v_d
 /* "pglast/ast.pyx":4867
  * 
  * 
- * cdef create_Expr(structs.Expr* data, offset_to_index):             # <<<<<<<<<<<<<<
- *     return ast.Expr()
- * 
- */
-
-static PyObject *__pyx_f_6pglast_6parser_create_Expr(CYTHON_UNUSED Expr *__pyx_v_data, CYTHON_UNUSED PyObject *__pyx_v_offset_to_index) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  int __pyx_t_4;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("create_Expr", 0);
-
-  /* "pglast/ast.pyx":4868
- * 
- * cdef create_Expr(structs.Expr* data, offset_to_index):
- *     return ast.Expr()             # <<<<<<<<<<<<<<
- * 
- * 
- */
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4868, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_Expr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4868, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
-  __pyx_t_4 = 0;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_2);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
-      __pyx_t_4 = 1;
-    }
-  }
-  {
-    PyObject *__pyx_callargs[1] = {__pyx_t_2, };
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4868, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  }
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pglast/ast.pyx":4867
- * 
- * 
- * cdef create_Expr(structs.Expr* data, offset_to_index):             # <<<<<<<<<<<<<<
- *     return ast.Expr()
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pglast.parser.create_Expr", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pglast/ast.pyx":4871
- * 
- * 
  * cdef create_Var(structs.Var* data, offset_to_index):             # <<<<<<<<<<<<<<
  *     cdef object v_varno = data.varno
  *     cdef object v_varattno = data.varattno
@@ -62838,86 +62753,86 @@ static PyObject *__pyx_f_6pglast_6parser_create_Var(Var *__pyx_v_data, PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_Var", 0);
 
-  /* "pglast/ast.pyx":4872
+  /* "pglast/ast.pyx":4868
  * 
  * cdef create_Var(structs.Var* data, offset_to_index):
  *     cdef object v_varno = data.varno             # <<<<<<<<<<<<<<
  *     cdef object v_varattno = data.varattno
  *     cdef object v_vartypmod = data.vartypmod
  */
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->varno); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4872, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->varno); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4868, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_varno = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4873
+  /* "pglast/ast.pyx":4869
  * cdef create_Var(structs.Var* data, offset_to_index):
  *     cdef object v_varno = data.varno
  *     cdef object v_varattno = data.varattno             # <<<<<<<<<<<<<<
  *     cdef object v_vartypmod = data.vartypmod
  *     cdef object v_varlevelsup = data.varlevelsup
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->varattno); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4873, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->varattno); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4869, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_varattno = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4874
+  /* "pglast/ast.pyx":4870
  *     cdef object v_varno = data.varno
  *     cdef object v_varattno = data.varattno
  *     cdef object v_vartypmod = data.vartypmod             # <<<<<<<<<<<<<<
  *     cdef object v_varlevelsup = data.varlevelsup
  *     cdef object v_varnosyn = data.varnosyn
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->vartypmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4874, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->vartypmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4870, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_vartypmod = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4875
+  /* "pglast/ast.pyx":4871
  *     cdef object v_varattno = data.varattno
  *     cdef object v_vartypmod = data.vartypmod
  *     cdef object v_varlevelsup = data.varlevelsup             # <<<<<<<<<<<<<<
  *     cdef object v_varnosyn = data.varnosyn
  *     cdef object v_varattnosyn = data.varattnosyn
  */
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->varlevelsup); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4875, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->varlevelsup); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4871, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_varlevelsup = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4876
+  /* "pglast/ast.pyx":4872
  *     cdef object v_vartypmod = data.vartypmod
  *     cdef object v_varlevelsup = data.varlevelsup
  *     cdef object v_varnosyn = data.varnosyn             # <<<<<<<<<<<<<<
  *     cdef object v_varattnosyn = data.varattnosyn
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->varnosyn); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4876, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->varnosyn); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4872, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_varnosyn = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4877
+  /* "pglast/ast.pyx":4873
  *     cdef object v_varlevelsup = data.varlevelsup
  *     cdef object v_varnosyn = data.varnosyn
  *     cdef object v_varattnosyn = data.varattnosyn             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.Var(v_varno, v_varattno, v_vartypmod, v_varlevelsup, v_varnosyn, v_varattnosyn, v_location)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->varattnosyn); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4877, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->varattnosyn); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4873, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_varattnosyn = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4878
+  /* "pglast/ast.pyx":4874
  *     cdef object v_varnosyn = data.varnosyn
  *     cdef object v_varattnosyn = data.varattnosyn
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.Var(v_varno, v_varattno, v_vartypmod, v_varlevelsup, v_varnosyn, v_varattnosyn, v_location)
  * 
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4878, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4874, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_4 = NULL;
@@ -62937,14 +62852,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_Var(Var *__pyx_v_data, PyObject 
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4878, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4874, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4879
+  /* "pglast/ast.pyx":4875
  *     cdef object v_varattnosyn = data.varattnosyn
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.Var(v_varno, v_varattno, v_vartypmod, v_varlevelsup, v_varnosyn, v_varattnosyn, v_location)             # <<<<<<<<<<<<<<
@@ -62952,9 +62867,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_Var(Var *__pyx_v_data, PyObject 
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4879, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4875, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Var); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4879, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Var); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4875, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -62973,7 +62888,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Var(Var *__pyx_v_data, PyObject 
     PyObject *__pyx_callargs[8] = {__pyx_t_3, __pyx_v_v_varno, __pyx_v_v_varattno, __pyx_v_v_vartypmod, __pyx_v_v_varlevelsup, __pyx_v_v_varnosyn, __pyx_v_v_varattnosyn, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 7+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4879, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4875, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -62981,7 +62896,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Var(Var *__pyx_v_data, PyObject 
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":4871
+  /* "pglast/ast.pyx":4867
  * 
  * 
  * cdef create_Var(structs.Var* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -63010,7 +62925,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Var(Var *__pyx_v_data, PyObject 
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":4882
+/* "pglast/ast.pyx":4878
  * 
  * 
  * cdef create_Param(structs.Param* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -63035,19 +62950,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Param(Param *__pyx_v_data, PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_Param", 0);
 
-  /* "pglast/ast.pyx":4883
+  /* "pglast/ast.pyx":4879
  * 
  * cdef create_Param(structs.Param* data, offset_to_index):
  *     cdef object v_paramkind = getattr(enums, 'ParamKind')(data.paramkind)             # <<<<<<<<<<<<<<
  *     cdef object v_paramid = data.paramid
  *     cdef object v_paramtypmod = data.paramtypmod
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4883, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4879, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_ParamKind); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4883, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_ParamKind); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4879, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_ParamKind(__pyx_v_data->paramkind); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4883, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_ParamKind(__pyx_v_data->paramkind); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4879, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -63066,45 +62981,45 @@ static PyObject *__pyx_f_6pglast_6parser_create_Param(Param *__pyx_v_data, PyObj
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4883, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4879, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_paramkind = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4884
+  /* "pglast/ast.pyx":4880
  * cdef create_Param(structs.Param* data, offset_to_index):
  *     cdef object v_paramkind = getattr(enums, 'ParamKind')(data.paramkind)
  *     cdef object v_paramid = data.paramid             # <<<<<<<<<<<<<<
  *     cdef object v_paramtypmod = data.paramtypmod
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->paramid); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4884, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->paramid); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4880, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_paramid = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4885
+  /* "pglast/ast.pyx":4881
  *     cdef object v_paramkind = getattr(enums, 'ParamKind')(data.paramkind)
  *     cdef object v_paramid = data.paramid
  *     cdef object v_paramtypmod = data.paramtypmod             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.Param(v_paramkind, v_paramid, v_paramtypmod, v_location)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->paramtypmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4885, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->paramtypmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4881, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_paramtypmod = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4886
+  /* "pglast/ast.pyx":4882
  *     cdef object v_paramid = data.paramid
  *     cdef object v_paramtypmod = data.paramtypmod
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.Param(v_paramkind, v_paramid, v_paramtypmod, v_location)
  * 
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4886, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4882, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_2 = __pyx_v_offset_to_index; __pyx_t_4 = NULL;
@@ -63124,14 +63039,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_Param(Param *__pyx_v_data, PyObj
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4886, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4882, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":4887
+  /* "pglast/ast.pyx":4883
  *     cdef object v_paramtypmod = data.paramtypmod
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.Param(v_paramkind, v_paramid, v_paramtypmod, v_location)             # <<<<<<<<<<<<<<
@@ -63139,9 +63054,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_Param(Param *__pyx_v_data, PyObj
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4887, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4883, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_Param); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4887, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_Param); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4883, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -63160,7 +63075,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Param(Param *__pyx_v_data, PyObj
     PyObject *__pyx_callargs[5] = {__pyx_t_2, __pyx_v_v_paramkind, __pyx_v_v_paramid, __pyx_v_v_paramtypmod, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 4+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4887, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4883, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -63168,7 +63083,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Param(Param *__pyx_v_data, PyObj
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":4882
+  /* "pglast/ast.pyx":4878
  * 
  * 
  * cdef create_Param(structs.Param* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -63194,7 +63109,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Param(Param *__pyx_v_data, PyObj
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":4890
+/* "pglast/ast.pyx":4886
  * 
  * 
  * cdef create_Aggref(structs.Aggref* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -63232,7 +63147,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_Aggref", 0);
 
-  /* "pglast/ast.pyx":4893
+  /* "pglast/ast.pyx":4889
  *     cdef tuple v_aggargtypes
  *     cdef int aggargtypes_i
  *     if data.aggargtypes is not NULL:             # <<<<<<<<<<<<<<
@@ -63242,19 +63157,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   __pyx_t_1 = ((__pyx_v_data->aggargtypes != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4894
+    /* "pglast/ast.pyx":4890
  *     cdef int aggargtypes_i
  *     if data.aggargtypes is not NULL:
  *         v_aggargtypes = PyTuple_New(data.aggargtypes.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.aggargtypes.length):
  *             item = create(structs.list_nth(data.aggargtypes, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->aggargtypes->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4894, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->aggargtypes->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4890, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_aggargtypes = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4895
+    /* "pglast/ast.pyx":4891
  *     if data.aggargtypes is not NULL:
  *         v_aggargtypes = PyTuple_New(data.aggargtypes.length)
  *         for i in range(data.aggargtypes.length):             # <<<<<<<<<<<<<<
@@ -63266,19 +63181,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":4896
+      /* "pglast/ast.pyx":4892
  *         v_aggargtypes = PyTuple_New(data.aggargtypes.length)
  *         for i in range(data.aggargtypes.length):
  *             item = create(structs.list_nth(data.aggargtypes, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_aggargtypes, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->aggargtypes, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4896, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->aggargtypes, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4892, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":4897
+      /* "pglast/ast.pyx":4893
  *         for i in range(data.aggargtypes.length):
  *             item = create(structs.list_nth(data.aggargtypes, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -63287,7 +63202,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":4898
+      /* "pglast/ast.pyx":4894
  *             item = create(structs.list_nth(data.aggargtypes, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_aggargtypes, i, item)             # <<<<<<<<<<<<<<
@@ -63297,7 +63212,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
       PyTuple_SET_ITEM(__pyx_v_v_aggargtypes, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":4893
+    /* "pglast/ast.pyx":4889
  *     cdef tuple v_aggargtypes
  *     cdef int aggargtypes_i
  *     if data.aggargtypes is not NULL:             # <<<<<<<<<<<<<<
@@ -63307,7 +63222,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":4900
+  /* "pglast/ast.pyx":4896
  *             PyTuple_SET_ITEM(v_aggargtypes, i, item)
  *     else:
  *         v_aggargtypes = None             # <<<<<<<<<<<<<<
@@ -63320,7 +63235,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":4903
+  /* "pglast/ast.pyx":4899
  *     cdef tuple v_aggdirectargs
  *     cdef int aggdirectargs_i
  *     if data.aggdirectargs is not NULL:             # <<<<<<<<<<<<<<
@@ -63330,19 +63245,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   __pyx_t_1 = ((__pyx_v_data->aggdirectargs != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4904
+    /* "pglast/ast.pyx":4900
  *     cdef int aggdirectargs_i
  *     if data.aggdirectargs is not NULL:
  *         v_aggdirectargs = PyTuple_New(data.aggdirectargs.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.aggdirectargs.length):
  *             item = create(structs.list_nth(data.aggdirectargs, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->aggdirectargs->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4904, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->aggdirectargs->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4900, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_aggdirectargs = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4905
+    /* "pglast/ast.pyx":4901
  *     if data.aggdirectargs is not NULL:
  *         v_aggdirectargs = PyTuple_New(data.aggdirectargs.length)
  *         for i in range(data.aggdirectargs.length):             # <<<<<<<<<<<<<<
@@ -63354,19 +63269,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":4906
+      /* "pglast/ast.pyx":4902
  *         v_aggdirectargs = PyTuple_New(data.aggdirectargs.length)
  *         for i in range(data.aggdirectargs.length):
  *             item = create(structs.list_nth(data.aggdirectargs, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_aggdirectargs, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->aggdirectargs, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4906, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->aggdirectargs, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4902, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":4907
+      /* "pglast/ast.pyx":4903
  *         for i in range(data.aggdirectargs.length):
  *             item = create(structs.list_nth(data.aggdirectargs, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -63375,7 +63290,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":4908
+      /* "pglast/ast.pyx":4904
  *             item = create(structs.list_nth(data.aggdirectargs, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_aggdirectargs, i, item)             # <<<<<<<<<<<<<<
@@ -63385,7 +63300,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
       PyTuple_SET_ITEM(__pyx_v_v_aggdirectargs, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":4903
+    /* "pglast/ast.pyx":4899
  *     cdef tuple v_aggdirectargs
  *     cdef int aggdirectargs_i
  *     if data.aggdirectargs is not NULL:             # <<<<<<<<<<<<<<
@@ -63395,7 +63310,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     goto __pyx_L6;
   }
 
-  /* "pglast/ast.pyx":4910
+  /* "pglast/ast.pyx":4906
  *             PyTuple_SET_ITEM(v_aggdirectargs, i, item)
  *     else:
  *         v_aggdirectargs = None             # <<<<<<<<<<<<<<
@@ -63408,7 +63323,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   }
   __pyx_L6:;
 
-  /* "pglast/ast.pyx":4913
+  /* "pglast/ast.pyx":4909
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -63418,19 +63333,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   __pyx_t_1 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4914
+    /* "pglast/ast.pyx":4910
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4914, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4910, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_args = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4915
+    /* "pglast/ast.pyx":4911
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -63442,19 +63357,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":4916
+      /* "pglast/ast.pyx":4912
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4916, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4912, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":4917
+      /* "pglast/ast.pyx":4913
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -63463,7 +63378,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":4918
+      /* "pglast/ast.pyx":4914
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -63473,7 +63388,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":4913
+    /* "pglast/ast.pyx":4909
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -63483,7 +63398,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     goto __pyx_L9;
   }
 
-  /* "pglast/ast.pyx":4920
+  /* "pglast/ast.pyx":4916
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -63496,7 +63411,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   }
   __pyx_L9:;
 
-  /* "pglast/ast.pyx":4923
+  /* "pglast/ast.pyx":4919
  *     cdef tuple v_aggorder
  *     cdef int aggorder_i
  *     if data.aggorder is not NULL:             # <<<<<<<<<<<<<<
@@ -63506,19 +63421,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   __pyx_t_1 = ((__pyx_v_data->aggorder != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4924
+    /* "pglast/ast.pyx":4920
  *     cdef int aggorder_i
  *     if data.aggorder is not NULL:
  *         v_aggorder = PyTuple_New(data.aggorder.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.aggorder.length):
  *             item = create(structs.list_nth(data.aggorder, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->aggorder->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4924, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->aggorder->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4920, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_aggorder = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4925
+    /* "pglast/ast.pyx":4921
  *     if data.aggorder is not NULL:
  *         v_aggorder = PyTuple_New(data.aggorder.length)
  *         for i in range(data.aggorder.length):             # <<<<<<<<<<<<<<
@@ -63530,19 +63445,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":4926
+      /* "pglast/ast.pyx":4922
  *         v_aggorder = PyTuple_New(data.aggorder.length)
  *         for i in range(data.aggorder.length):
  *             item = create(structs.list_nth(data.aggorder, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_aggorder, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->aggorder, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4926, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->aggorder, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4922, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":4927
+      /* "pglast/ast.pyx":4923
  *         for i in range(data.aggorder.length):
  *             item = create(structs.list_nth(data.aggorder, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -63551,7 +63466,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":4928
+      /* "pglast/ast.pyx":4924
  *             item = create(structs.list_nth(data.aggorder, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_aggorder, i, item)             # <<<<<<<<<<<<<<
@@ -63561,7 +63476,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
       PyTuple_SET_ITEM(__pyx_v_v_aggorder, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":4923
+    /* "pglast/ast.pyx":4919
  *     cdef tuple v_aggorder
  *     cdef int aggorder_i
  *     if data.aggorder is not NULL:             # <<<<<<<<<<<<<<
@@ -63571,7 +63486,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     goto __pyx_L12;
   }
 
-  /* "pglast/ast.pyx":4930
+  /* "pglast/ast.pyx":4926
  *             PyTuple_SET_ITEM(v_aggorder, i, item)
  *     else:
  *         v_aggorder = None             # <<<<<<<<<<<<<<
@@ -63584,7 +63499,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   }
   __pyx_L12:;
 
-  /* "pglast/ast.pyx":4933
+  /* "pglast/ast.pyx":4929
  *     cdef tuple v_aggdistinct
  *     cdef int aggdistinct_i
  *     if data.aggdistinct is not NULL:             # <<<<<<<<<<<<<<
@@ -63594,19 +63509,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   __pyx_t_1 = ((__pyx_v_data->aggdistinct != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4934
+    /* "pglast/ast.pyx":4930
  *     cdef int aggdistinct_i
  *     if data.aggdistinct is not NULL:
  *         v_aggdistinct = PyTuple_New(data.aggdistinct.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.aggdistinct.length):
  *             item = create(structs.list_nth(data.aggdistinct, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->aggdistinct->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4934, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->aggdistinct->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4930, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_aggdistinct = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4935
+    /* "pglast/ast.pyx":4931
  *     if data.aggdistinct is not NULL:
  *         v_aggdistinct = PyTuple_New(data.aggdistinct.length)
  *         for i in range(data.aggdistinct.length):             # <<<<<<<<<<<<<<
@@ -63618,19 +63533,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":4936
+      /* "pglast/ast.pyx":4932
  *         v_aggdistinct = PyTuple_New(data.aggdistinct.length)
  *         for i in range(data.aggdistinct.length):
  *             item = create(structs.list_nth(data.aggdistinct, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_aggdistinct, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->aggdistinct, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4936, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->aggdistinct, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4932, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":4937
+      /* "pglast/ast.pyx":4933
  *         for i in range(data.aggdistinct.length):
  *             item = create(structs.list_nth(data.aggdistinct, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -63639,7 +63554,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":4938
+      /* "pglast/ast.pyx":4934
  *             item = create(structs.list_nth(data.aggdistinct, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_aggdistinct, i, item)             # <<<<<<<<<<<<<<
@@ -63649,7 +63564,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
       PyTuple_SET_ITEM(__pyx_v_v_aggdistinct, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":4933
+    /* "pglast/ast.pyx":4929
  *     cdef tuple v_aggdistinct
  *     cdef int aggdistinct_i
  *     if data.aggdistinct is not NULL:             # <<<<<<<<<<<<<<
@@ -63659,7 +63574,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     goto __pyx_L15;
   }
 
-  /* "pglast/ast.pyx":4940
+  /* "pglast/ast.pyx":4936
  *             PyTuple_SET_ITEM(v_aggdistinct, i, item)
  *     else:
  *         v_aggdistinct = None             # <<<<<<<<<<<<<<
@@ -63672,7 +63587,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   }
   __pyx_L15:;
 
-  /* "pglast/ast.pyx":4942
+  /* "pglast/ast.pyx":4938
  *         v_aggdistinct = None
  *     cdef object v_aggfilter
  *     if data.aggfilter is not NULL:             # <<<<<<<<<<<<<<
@@ -63682,19 +63597,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   __pyx_t_1 = ((__pyx_v_data->aggfilter != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4943
+    /* "pglast/ast.pyx":4939
  *     cdef object v_aggfilter
  *     if data.aggfilter is not NULL:
  *         v_aggfilter = create(data.aggfilter, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_aggfilter = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->aggfilter, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4943, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->aggfilter, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4939, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_aggfilter = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4942
+    /* "pglast/ast.pyx":4938
  *         v_aggdistinct = None
  *     cdef object v_aggfilter
  *     if data.aggfilter is not NULL:             # <<<<<<<<<<<<<<
@@ -63704,7 +63619,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     goto __pyx_L18;
   }
 
-  /* "pglast/ast.pyx":4945
+  /* "pglast/ast.pyx":4941
  *         v_aggfilter = create(data.aggfilter, offset_to_index)
  *     else:
  *         v_aggfilter = None             # <<<<<<<<<<<<<<
@@ -63717,78 +63632,78 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   }
   __pyx_L18:;
 
-  /* "pglast/ast.pyx":4946
+  /* "pglast/ast.pyx":4942
  *     else:
  *         v_aggfilter = None
  *     cdef object v_aggstar = bool(data.aggstar)             # <<<<<<<<<<<<<<
  *     cdef object v_aggvariadic = bool(data.aggvariadic)
  *     cdef object v_aggkind = chr(data.aggkind)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->aggstar); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4946, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->aggstar); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4942, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 4946, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 4942, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4946, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4942, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_aggstar = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":4947
+  /* "pglast/ast.pyx":4943
  *         v_aggfilter = None
  *     cdef object v_aggstar = bool(data.aggstar)
  *     cdef object v_aggvariadic = bool(data.aggvariadic)             # <<<<<<<<<<<<<<
  *     cdef object v_aggkind = chr(data.aggkind)
  *     cdef object v_agglevelsup = data.agglevelsup
  */
-  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->aggvariadic); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4947, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->aggvariadic); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4943, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 4947, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 4943, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4947, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4943, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_aggvariadic = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":4948
+  /* "pglast/ast.pyx":4944
  *     cdef object v_aggstar = bool(data.aggstar)
  *     cdef object v_aggvariadic = bool(data.aggvariadic)
  *     cdef object v_aggkind = chr(data.aggkind)             # <<<<<<<<<<<<<<
  *     cdef object v_agglevelsup = data.agglevelsup
  *     cdef object v_aggsplit = getattr(enums, 'AggSplit')(data.aggsplit)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_v_data->aggkind); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4948, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_v_data->aggkind); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4944, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4948, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4944, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_v_aggkind = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "pglast/ast.pyx":4949
+  /* "pglast/ast.pyx":4945
  *     cdef object v_aggvariadic = bool(data.aggvariadic)
  *     cdef object v_aggkind = chr(data.aggkind)
  *     cdef object v_agglevelsup = data.agglevelsup             # <<<<<<<<<<<<<<
  *     cdef object v_aggsplit = getattr(enums, 'AggSplit')(data.aggsplit)
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __pyx_t_6 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->agglevelsup); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4949, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->agglevelsup); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4945, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_v_v_agglevelsup = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "pglast/ast.pyx":4950
+  /* "pglast/ast.pyx":4946
  *     cdef object v_aggkind = chr(data.aggkind)
  *     cdef object v_agglevelsup = data.agglevelsup
  *     cdef object v_aggsplit = getattr(enums, 'AggSplit')(data.aggsplit)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.Aggref(v_aggargtypes, v_aggdirectargs, v_args, v_aggorder, v_aggdistinct, v_aggfilter, v_aggstar, v_aggvariadic, v_aggkind, v_agglevelsup, v_aggsplit, v_location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4950, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4946, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_AggSplit); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4950, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_AggSplit); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4946, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_AggSplit(__pyx_v_data->aggsplit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4950, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_AggSplit(__pyx_v_data->aggsplit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4946, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_8 = NULL;
   __pyx_t_3 = 0;
@@ -63807,21 +63722,21 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4950, __pyx_L1_error)
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4946, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_v_v_aggsplit = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "pglast/ast.pyx":4951
+  /* "pglast/ast.pyx":4947
  *     cdef object v_agglevelsup = data.agglevelsup
  *     cdef object v_aggsplit = getattr(enums, 'AggSplit')(data.aggsplit)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.Aggref(v_aggargtypes, v_aggdirectargs, v_args, v_aggorder, v_aggdistinct, v_aggfilter, v_aggstar, v_aggvariadic, v_aggkind, v_agglevelsup, v_aggsplit, v_location)
  * 
  */
-  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4951, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4947, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_2 = __pyx_v_offset_to_index; __pyx_t_8 = NULL;
@@ -63841,14 +63756,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4951, __pyx_L1_error)
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4947, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_v_location = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "pglast/ast.pyx":4952
+  /* "pglast/ast.pyx":4948
  *     cdef object v_aggsplit = getattr(enums, 'AggSplit')(data.aggsplit)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.Aggref(v_aggargtypes, v_aggdirectargs, v_args, v_aggorder, v_aggdistinct, v_aggfilter, v_aggstar, v_aggvariadic, v_aggkind, v_agglevelsup, v_aggsplit, v_location)             # <<<<<<<<<<<<<<
@@ -63856,9 +63771,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4952, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4948, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_Aggref); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4952, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_Aggref); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4948, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -63877,7 +63792,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
     PyObject *__pyx_callargs[13] = {__pyx_t_2, __pyx_v_v_aggargtypes, __pyx_v_v_aggdirectargs, __pyx_v_v_args, __pyx_v_v_aggorder, __pyx_v_v_aggdistinct, __pyx_v_v_aggfilter, __pyx_v_v_aggstar, __pyx_v_v_aggvariadic, __pyx_v_v_aggkind, __pyx_v_v_agglevelsup, __pyx_v_v_aggsplit, __pyx_v_v_location};
     __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 12+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4952, __pyx_L1_error)
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4948, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -63885,7 +63800,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":4890
+  /* "pglast/ast.pyx":4886
  * 
  * 
  * cdef create_Aggref(structs.Aggref* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -63920,7 +63835,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Aggref(Aggref *__pyx_v_data, PyO
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":4955
+/* "pglast/ast.pyx":4951
  * 
  * 
  * cdef create_GroupingFunc(structs.GroupingFunc* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -63951,7 +63866,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_GroupingFunc", 0);
 
-  /* "pglast/ast.pyx":4958
+  /* "pglast/ast.pyx":4954
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -63961,19 +63876,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
   __pyx_t_1 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4959
+    /* "pglast/ast.pyx":4955
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4959, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4955, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_args = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4960
+    /* "pglast/ast.pyx":4956
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -63985,19 +63900,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":4961
+      /* "pglast/ast.pyx":4957
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4961, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4957, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":4962
+      /* "pglast/ast.pyx":4958
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -64006,7 +63921,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":4963
+      /* "pglast/ast.pyx":4959
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -64016,7 +63931,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":4958
+    /* "pglast/ast.pyx":4954
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -64026,7 +63941,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":4965
+  /* "pglast/ast.pyx":4961
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -64039,7 +63954,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":4968
+  /* "pglast/ast.pyx":4964
  *     cdef tuple v_refs
  *     cdef int refs_i
  *     if data.refs is not NULL:             # <<<<<<<<<<<<<<
@@ -64049,19 +63964,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
   __pyx_t_1 = ((__pyx_v_data->refs != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4969
+    /* "pglast/ast.pyx":4965
  *     cdef int refs_i
  *     if data.refs is not NULL:
  *         v_refs = PyTuple_New(data.refs.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.refs.length):
  *             item = create(structs.list_nth(data.refs, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->refs->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4969, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->refs->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4965, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_refs = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4970
+    /* "pglast/ast.pyx":4966
  *     if data.refs is not NULL:
  *         v_refs = PyTuple_New(data.refs.length)
  *         for i in range(data.refs.length):             # <<<<<<<<<<<<<<
@@ -64073,19 +63988,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":4971
+      /* "pglast/ast.pyx":4967
  *         v_refs = PyTuple_New(data.refs.length)
  *         for i in range(data.refs.length):
  *             item = create(structs.list_nth(data.refs, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_refs, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->refs, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4971, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->refs, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4967, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":4972
+      /* "pglast/ast.pyx":4968
  *         for i in range(data.refs.length):
  *             item = create(structs.list_nth(data.refs, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -64094,7 +64009,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":4973
+      /* "pglast/ast.pyx":4969
  *             item = create(structs.list_nth(data.refs, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_refs, i, item)             # <<<<<<<<<<<<<<
@@ -64104,7 +64019,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
       PyTuple_SET_ITEM(__pyx_v_v_refs, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":4968
+    /* "pglast/ast.pyx":4964
  *     cdef tuple v_refs
  *     cdef int refs_i
  *     if data.refs is not NULL:             # <<<<<<<<<<<<<<
@@ -64114,7 +64029,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
     goto __pyx_L6;
   }
 
-  /* "pglast/ast.pyx":4975
+  /* "pglast/ast.pyx":4971
  *             PyTuple_SET_ITEM(v_refs, i, item)
  *     else:
  *         v_refs = None             # <<<<<<<<<<<<<<
@@ -64127,7 +64042,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
   }
   __pyx_L6:;
 
-  /* "pglast/ast.pyx":4978
+  /* "pglast/ast.pyx":4974
  *     cdef tuple v_cols
  *     cdef int cols_i
  *     if data.cols is not NULL:             # <<<<<<<<<<<<<<
@@ -64137,19 +64052,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
   __pyx_t_1 = ((__pyx_v_data->cols != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4979
+    /* "pglast/ast.pyx":4975
  *     cdef int cols_i
  *     if data.cols is not NULL:
  *         v_cols = PyTuple_New(data.cols.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.cols.length):
  *             item = create(structs.list_nth(data.cols, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->cols->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4979, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->cols->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4975, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_cols = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4980
+    /* "pglast/ast.pyx":4976
  *     if data.cols is not NULL:
  *         v_cols = PyTuple_New(data.cols.length)
  *         for i in range(data.cols.length):             # <<<<<<<<<<<<<<
@@ -64161,19 +64076,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":4981
+      /* "pglast/ast.pyx":4977
  *         v_cols = PyTuple_New(data.cols.length)
  *         for i in range(data.cols.length):
  *             item = create(structs.list_nth(data.cols, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_cols, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->cols, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4981, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->cols, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4977, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":4982
+      /* "pglast/ast.pyx":4978
  *         for i in range(data.cols.length):
  *             item = create(structs.list_nth(data.cols, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -64182,7 +64097,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":4983
+      /* "pglast/ast.pyx":4979
  *             item = create(structs.list_nth(data.cols, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_cols, i, item)             # <<<<<<<<<<<<<<
@@ -64192,7 +64107,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
       PyTuple_SET_ITEM(__pyx_v_v_cols, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":4978
+    /* "pglast/ast.pyx":4974
  *     cdef tuple v_cols
  *     cdef int cols_i
  *     if data.cols is not NULL:             # <<<<<<<<<<<<<<
@@ -64202,7 +64117,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
     goto __pyx_L9;
   }
 
-  /* "pglast/ast.pyx":4985
+  /* "pglast/ast.pyx":4981
  *             PyTuple_SET_ITEM(v_cols, i, item)
  *     else:
  *         v_cols = None             # <<<<<<<<<<<<<<
@@ -64215,26 +64130,26 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
   }
   __pyx_L9:;
 
-  /* "pglast/ast.pyx":4986
+  /* "pglast/ast.pyx":4982
  *     else:
  *         v_cols = None
  *     cdef object v_agglevelsup = data.agglevelsup             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.GroupingFunc(v_args, v_refs, v_cols, v_agglevelsup, v_location)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->agglevelsup); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4986, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->agglevelsup); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4982, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_agglevelsup = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":4987
+  /* "pglast/ast.pyx":4983
  *         v_cols = None
  *     cdef object v_agglevelsup = data.agglevelsup
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.GroupingFunc(v_args, v_refs, v_cols, v_agglevelsup, v_location)
  * 
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4987, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4983, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_7 = __pyx_v_offset_to_index; __pyx_t_8 = NULL;
@@ -64254,14 +64169,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4987, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4983, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":4988
+  /* "pglast/ast.pyx":4984
  *     cdef object v_agglevelsup = data.agglevelsup
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.GroupingFunc(v_args, v_refs, v_cols, v_agglevelsup, v_location)             # <<<<<<<<<<<<<<
@@ -64269,9 +64184,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4988, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4984, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_GroupingFunc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4988, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_GroupingFunc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 4984, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -64290,7 +64205,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
     PyObject *__pyx_callargs[6] = {__pyx_t_7, __pyx_v_v_args, __pyx_v_v_refs, __pyx_v_v_cols, __pyx_v_v_agglevelsup, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_3, 5+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4988, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4984, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -64298,7 +64213,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":4955
+  /* "pglast/ast.pyx":4951
  * 
  * 
  * cdef create_GroupingFunc(structs.GroupingFunc* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -64326,7 +64241,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_GroupingFunc(GroupingFunc *__pyx
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":4991
+/* "pglast/ast.pyx":4987
  * 
  * 
  * cdef create_WindowFunc(structs.WindowFunc* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -64358,7 +64273,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_WindowFunc", 0);
 
-  /* "pglast/ast.pyx":4994
+  /* "pglast/ast.pyx":4990
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -64368,19 +64283,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
   __pyx_t_1 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":4995
+    /* "pglast/ast.pyx":4991
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4995, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4991, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_args = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":4996
+    /* "pglast/ast.pyx":4992
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -64392,19 +64307,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":4997
+      /* "pglast/ast.pyx":4993
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4997, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4993, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":4998
+      /* "pglast/ast.pyx":4994
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -64413,7 +64328,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":4999
+      /* "pglast/ast.pyx":4995
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -64423,7 +64338,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":4994
+    /* "pglast/ast.pyx":4990
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -64433,7 +64348,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5001
+  /* "pglast/ast.pyx":4997
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -64446,7 +64361,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5003
+  /* "pglast/ast.pyx":4999
  *         v_args = None
  *     cdef object v_aggfilter
  *     if data.aggfilter is not NULL:             # <<<<<<<<<<<<<<
@@ -64456,19 +64371,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
   __pyx_t_1 = ((__pyx_v_data->aggfilter != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5004
+    /* "pglast/ast.pyx":5000
  *     cdef object v_aggfilter
  *     if data.aggfilter is not NULL:
  *         v_aggfilter = create(data.aggfilter, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_aggfilter = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->aggfilter, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5004, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->aggfilter, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5000, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_aggfilter = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5003
+    /* "pglast/ast.pyx":4999
  *         v_args = None
  *     cdef object v_aggfilter
  *     if data.aggfilter is not NULL:             # <<<<<<<<<<<<<<
@@ -64478,7 +64393,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
     goto __pyx_L6;
   }
 
-  /* "pglast/ast.pyx":5006
+  /* "pglast/ast.pyx":5002
  *         v_aggfilter = create(data.aggfilter, offset_to_index)
  *     else:
  *         v_aggfilter = None             # <<<<<<<<<<<<<<
@@ -64491,58 +64406,58 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
   }
   __pyx_L6:;
 
-  /* "pglast/ast.pyx":5007
+  /* "pglast/ast.pyx":5003
  *     else:
  *         v_aggfilter = None
  *     cdef object v_winref = data.winref             # <<<<<<<<<<<<<<
  *     cdef object v_winstar = bool(data.winstar)
  *     cdef object v_winagg = bool(data.winagg)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->winref); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5007, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->winref); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5003, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_winref = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5008
+  /* "pglast/ast.pyx":5004
  *         v_aggfilter = None
  *     cdef object v_winref = data.winref
  *     cdef object v_winstar = bool(data.winstar)             # <<<<<<<<<<<<<<
  *     cdef object v_winagg = bool(data.winagg)
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->winstar); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5008, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->winstar); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5004, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5008, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5004, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5008, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5004, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_winstar = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5009
+  /* "pglast/ast.pyx":5005
  *     cdef object v_winref = data.winref
  *     cdef object v_winstar = bool(data.winstar)
  *     cdef object v_winagg = bool(data.winagg)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.WindowFunc(v_args, v_aggfilter, v_winref, v_winstar, v_winagg, v_location)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->winagg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5009, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->winagg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5005, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5009, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5005, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5009, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5005, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_winagg = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5010
+  /* "pglast/ast.pyx":5006
  *     cdef object v_winstar = bool(data.winstar)
  *     cdef object v_winagg = bool(data.winagg)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.WindowFunc(v_args, v_aggfilter, v_winref, v_winstar, v_winagg, v_location)
  * 
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5010, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5006, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_7 = __pyx_v_offset_to_index; __pyx_t_8 = NULL;
@@ -64562,14 +64477,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5010, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5006, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5011
+  /* "pglast/ast.pyx":5007
  *     cdef object v_winagg = bool(data.winagg)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.WindowFunc(v_args, v_aggfilter, v_winref, v_winstar, v_winagg, v_location)             # <<<<<<<<<<<<<<
@@ -64577,9 +64492,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5011, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5007, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_WindowFunc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5011, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_WindowFunc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5007, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -64598,7 +64513,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
     PyObject *__pyx_callargs[7] = {__pyx_t_7, __pyx_v_v_args, __pyx_v_v_aggfilter, __pyx_v_v_winref, __pyx_v_v_winstar, __pyx_v_v_winagg, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_3, 6+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5011, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5007, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -64606,7 +64521,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":4991
+  /* "pglast/ast.pyx":4987
  * 
  * 
  * cdef create_WindowFunc(structs.WindowFunc* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -64635,7 +64550,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_WindowFunc(WindowFunc *__pyx_v_d
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5014
+/* "pglast/ast.pyx":5010
  * 
  * 
  * cdef create_SubscriptingRef(structs.SubscriptingRef* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -64665,19 +64580,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_SubscriptingRef", 0);
 
-  /* "pglast/ast.pyx":5015
+  /* "pglast/ast.pyx":5011
  * 
  * cdef create_SubscriptingRef(structs.SubscriptingRef* data, offset_to_index):
  *     cdef object v_reftypmod = data.reftypmod             # <<<<<<<<<<<<<<
  *     cdef tuple v_refupperindexpr
  *     cdef int refupperindexpr_i
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->reftypmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5015, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->reftypmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5011, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_reftypmod = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5018
+  /* "pglast/ast.pyx":5014
  *     cdef tuple v_refupperindexpr
  *     cdef int refupperindexpr_i
  *     if data.refupperindexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -64687,19 +64602,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   __pyx_t_2 = ((__pyx_v_data->refupperindexpr != NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "pglast/ast.pyx":5019
+    /* "pglast/ast.pyx":5015
  *     cdef int refupperindexpr_i
  *     if data.refupperindexpr is not NULL:
  *         v_refupperindexpr = PyTuple_New(data.refupperindexpr.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.refupperindexpr.length):
  *             item = create(structs.list_nth(data.refupperindexpr, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->refupperindexpr->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5019, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->refupperindexpr->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5015, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_refupperindexpr = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5020
+    /* "pglast/ast.pyx":5016
  *     if data.refupperindexpr is not NULL:
  *         v_refupperindexpr = PyTuple_New(data.refupperindexpr.length)
  *         for i in range(data.refupperindexpr.length):             # <<<<<<<<<<<<<<
@@ -64711,19 +64626,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5021
+      /* "pglast/ast.pyx":5017
  *         v_refupperindexpr = PyTuple_New(data.refupperindexpr.length)
  *         for i in range(data.refupperindexpr.length):
  *             item = create(structs.list_nth(data.refupperindexpr, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_refupperindexpr, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->refupperindexpr, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5021, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->refupperindexpr, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5017, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5022
+      /* "pglast/ast.pyx":5018
  *         for i in range(data.refupperindexpr.length):
  *             item = create(structs.list_nth(data.refupperindexpr, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -64732,7 +64647,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5023
+      /* "pglast/ast.pyx":5019
  *             item = create(structs.list_nth(data.refupperindexpr, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_refupperindexpr, i, item)             # <<<<<<<<<<<<<<
@@ -64742,7 +64657,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
       PyTuple_SET_ITEM(__pyx_v_v_refupperindexpr, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5018
+    /* "pglast/ast.pyx":5014
  *     cdef tuple v_refupperindexpr
  *     cdef int refupperindexpr_i
  *     if data.refupperindexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -64752,7 +64667,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5025
+  /* "pglast/ast.pyx":5021
  *             PyTuple_SET_ITEM(v_refupperindexpr, i, item)
  *     else:
  *         v_refupperindexpr = None             # <<<<<<<<<<<<<<
@@ -64765,7 +64680,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5028
+  /* "pglast/ast.pyx":5024
  *     cdef tuple v_reflowerindexpr
  *     cdef int reflowerindexpr_i
  *     if data.reflowerindexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -64775,19 +64690,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   __pyx_t_2 = ((__pyx_v_data->reflowerindexpr != NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "pglast/ast.pyx":5029
+    /* "pglast/ast.pyx":5025
  *     cdef int reflowerindexpr_i
  *     if data.reflowerindexpr is not NULL:
  *         v_reflowerindexpr = PyTuple_New(data.reflowerindexpr.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.reflowerindexpr.length):
  *             item = create(structs.list_nth(data.reflowerindexpr, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->reflowerindexpr->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5029, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->reflowerindexpr->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5025, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_reflowerindexpr = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5030
+    /* "pglast/ast.pyx":5026
  *     if data.reflowerindexpr is not NULL:
  *         v_reflowerindexpr = PyTuple_New(data.reflowerindexpr.length)
  *         for i in range(data.reflowerindexpr.length):             # <<<<<<<<<<<<<<
@@ -64799,19 +64714,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5031
+      /* "pglast/ast.pyx":5027
  *         v_reflowerindexpr = PyTuple_New(data.reflowerindexpr.length)
  *         for i in range(data.reflowerindexpr.length):
  *             item = create(structs.list_nth(data.reflowerindexpr, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_reflowerindexpr, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->reflowerindexpr, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5031, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->reflowerindexpr, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5027, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5032
+      /* "pglast/ast.pyx":5028
  *         for i in range(data.reflowerindexpr.length):
  *             item = create(structs.list_nth(data.reflowerindexpr, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -64820,7 +64735,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5033
+      /* "pglast/ast.pyx":5029
  *             item = create(structs.list_nth(data.reflowerindexpr, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_reflowerindexpr, i, item)             # <<<<<<<<<<<<<<
@@ -64830,7 +64745,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
       PyTuple_SET_ITEM(__pyx_v_v_reflowerindexpr, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5028
+    /* "pglast/ast.pyx":5024
  *     cdef tuple v_reflowerindexpr
  *     cdef int reflowerindexpr_i
  *     if data.reflowerindexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -64840,7 +64755,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
     goto __pyx_L6;
   }
 
-  /* "pglast/ast.pyx":5035
+  /* "pglast/ast.pyx":5031
  *             PyTuple_SET_ITEM(v_reflowerindexpr, i, item)
  *     else:
  *         v_reflowerindexpr = None             # <<<<<<<<<<<<<<
@@ -64853,7 +64768,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   }
   __pyx_L6:;
 
-  /* "pglast/ast.pyx":5037
+  /* "pglast/ast.pyx":5033
  *         v_reflowerindexpr = None
  *     cdef object v_refexpr
  *     if data.refexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -64863,19 +64778,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   __pyx_t_2 = ((__pyx_v_data->refexpr != NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "pglast/ast.pyx":5038
+    /* "pglast/ast.pyx":5034
  *     cdef object v_refexpr
  *     if data.refexpr is not NULL:
  *         v_refexpr = create(data.refexpr, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_refexpr = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->refexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5038, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->refexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5034, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_refexpr = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5037
+    /* "pglast/ast.pyx":5033
  *         v_reflowerindexpr = None
  *     cdef object v_refexpr
  *     if data.refexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -64885,7 +64800,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
     goto __pyx_L9;
   }
 
-  /* "pglast/ast.pyx":5040
+  /* "pglast/ast.pyx":5036
  *         v_refexpr = create(data.refexpr, offset_to_index)
  *     else:
  *         v_refexpr = None             # <<<<<<<<<<<<<<
@@ -64898,7 +64813,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   }
   __pyx_L9:;
 
-  /* "pglast/ast.pyx":5042
+  /* "pglast/ast.pyx":5038
  *         v_refexpr = None
  *     cdef object v_refassgnexpr
  *     if data.refassgnexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -64908,19 +64823,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   __pyx_t_2 = ((__pyx_v_data->refassgnexpr != NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "pglast/ast.pyx":5043
+    /* "pglast/ast.pyx":5039
  *     cdef object v_refassgnexpr
  *     if data.refassgnexpr is not NULL:
  *         v_refassgnexpr = create(data.refassgnexpr, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_refassgnexpr = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->refassgnexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5043, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->refassgnexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5039, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_refassgnexpr = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5042
+    /* "pglast/ast.pyx":5038
  *         v_refexpr = None
  *     cdef object v_refassgnexpr
  *     if data.refassgnexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -64930,7 +64845,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
     goto __pyx_L10;
   }
 
-  /* "pglast/ast.pyx":5045
+  /* "pglast/ast.pyx":5041
  *         v_refassgnexpr = create(data.refassgnexpr, offset_to_index)
  *     else:
  *         v_refassgnexpr = None             # <<<<<<<<<<<<<<
@@ -64943,7 +64858,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   }
   __pyx_L10:;
 
-  /* "pglast/ast.pyx":5046
+  /* "pglast/ast.pyx":5042
  *     else:
  *         v_refassgnexpr = None
  *     return ast.SubscriptingRef(v_reftypmod, v_refupperindexpr, v_reflowerindexpr, v_refexpr, v_refassgnexpr)             # <<<<<<<<<<<<<<
@@ -64951,9 +64866,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5046, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5042, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_SubscriptingRef); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5046, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_SubscriptingRef); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5042, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -64972,7 +64887,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
     PyObject *__pyx_callargs[6] = {__pyx_t_6, __pyx_v_v_reftypmod, __pyx_v_v_refupperindexpr, __pyx_v_v_reflowerindexpr, __pyx_v_v_refexpr, __pyx_v_v_refassgnexpr};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 5+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5046, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5042, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -64980,7 +64895,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5014
+  /* "pglast/ast.pyx":5010
  * 
  * 
  * cdef create_SubscriptingRef(structs.SubscriptingRef* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -65007,7 +64922,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubscriptingRef(SubscriptingRef 
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5049
+/* "pglast/ast.pyx":5045
  * 
  * 
  * cdef create_FuncExpr(structs.FuncExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -65038,51 +64953,51 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_FuncExpr", 0);
 
-  /* "pglast/ast.pyx":5050
+  /* "pglast/ast.pyx":5046
  * 
  * cdef create_FuncExpr(structs.FuncExpr* data, offset_to_index):
  *     cdef object v_funcretset = bool(data.funcretset)             # <<<<<<<<<<<<<<
  *     cdef object v_funcvariadic = bool(data.funcvariadic)
  *     cdef object v_funcformat = getattr(enums, 'CoercionForm')(data.funcformat)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->funcretset); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5050, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->funcretset); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5046, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 5050, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 5046, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5050, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5046, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_funcretset = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5051
+  /* "pglast/ast.pyx":5047
  * cdef create_FuncExpr(structs.FuncExpr* data, offset_to_index):
  *     cdef object v_funcretset = bool(data.funcretset)
  *     cdef object v_funcvariadic = bool(data.funcvariadic)             # <<<<<<<<<<<<<<
  *     cdef object v_funcformat = getattr(enums, 'CoercionForm')(data.funcformat)
  *     cdef tuple v_args
  */
-  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->funcvariadic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5051, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->funcvariadic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5047, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 5051, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 5047, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5051, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5047, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_funcvariadic = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5052
+  /* "pglast/ast.pyx":5048
  *     cdef object v_funcretset = bool(data.funcretset)
  *     cdef object v_funcvariadic = bool(data.funcvariadic)
  *     cdef object v_funcformat = getattr(enums, 'CoercionForm')(data.funcformat)             # <<<<<<<<<<<<<<
  *     cdef tuple v_args
  *     cdef int args_i
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5052, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5048, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5052, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5048, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->funcformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5052, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->funcformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5048, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -65101,14 +65016,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5052, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5048, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_funcformat = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5055
+  /* "pglast/ast.pyx":5051
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -65118,19 +65033,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
   __pyx_t_2 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "pglast/ast.pyx":5056
+    /* "pglast/ast.pyx":5052
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5056, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5052, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_args = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5057
+    /* "pglast/ast.pyx":5053
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -65142,19 +65057,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5058
+      /* "pglast/ast.pyx":5054
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5058, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5054, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5059
+      /* "pglast/ast.pyx":5055
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -65163,7 +65078,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5060
+      /* "pglast/ast.pyx":5056
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -65173,7 +65088,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5055
+    /* "pglast/ast.pyx":5051
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -65183,7 +65098,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5062
+  /* "pglast/ast.pyx":5058
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -65196,14 +65111,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5063
+  /* "pglast/ast.pyx":5059
  *     else:
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.FuncExpr(v_funcretset, v_funcvariadic, v_funcformat, v_args, v_location)
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5063, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5059, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -65223,14 +65138,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5063, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5059, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5064
+  /* "pglast/ast.pyx":5060
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.FuncExpr(v_funcretset, v_funcvariadic, v_funcformat, v_args, v_location)             # <<<<<<<<<<<<<<
@@ -65238,9 +65153,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5064, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5060, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_FuncExpr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5064, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_FuncExpr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5060, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -65259,7 +65174,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
     PyObject *__pyx_callargs[6] = {__pyx_t_3, __pyx_v_v_funcretset, __pyx_v_v_funcvariadic, __pyx_v_v_funcformat, __pyx_v_v_args, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 5+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5064, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5060, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -65267,7 +65182,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5049
+  /* "pglast/ast.pyx":5045
  * 
  * 
  * cdef create_FuncExpr(structs.FuncExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -65295,7 +65210,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FuncExpr(FuncExpr *__pyx_v_data,
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5067
+/* "pglast/ast.pyx":5063
  * 
  * 
  * cdef create_NamedArgExpr(structs.NamedArgExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -65322,7 +65237,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_NamedArgExpr", 0);
 
-  /* "pglast/ast.pyx":5069
+  /* "pglast/ast.pyx":5065
  * cdef create_NamedArgExpr(structs.NamedArgExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -65332,19 +65247,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5070
+    /* "pglast/ast.pyx":5066
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5070, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5066, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5069
+    /* "pglast/ast.pyx":5065
  * cdef create_NamedArgExpr(structs.NamedArgExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -65354,7 +65269,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5072
+  /* "pglast/ast.pyx":5068
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -65367,7 +65282,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5074
+  /* "pglast/ast.pyx":5070
  *         v_arg = None
  *     cdef object v_name
  *     if data.name is not NULL:             # <<<<<<<<<<<<<<
@@ -65377,7 +65292,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
   __pyx_t_1 = ((__pyx_v_data->name != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5075
+    /* "pglast/ast.pyx":5071
  *     cdef object v_name
  *     if data.name is not NULL:
  *         v_name = data.name.decode("utf-8")             # <<<<<<<<<<<<<<
@@ -65385,13 +65300,13 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
  *         v_name = None
  */
     __pyx_t_3 = __pyx_v_data->name;
-    __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5075, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5071, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_2);
     __pyx_v_v_name = __pyx_t_2;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5074
+    /* "pglast/ast.pyx":5070
  *         v_arg = None
  *     cdef object v_name
  *     if data.name is not NULL:             # <<<<<<<<<<<<<<
@@ -65401,7 +65316,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5077
+  /* "pglast/ast.pyx":5073
  *         v_name = data.name.decode("utf-8")
  *     else:
  *         v_name = None             # <<<<<<<<<<<<<<
@@ -65414,26 +65329,26 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5078
+  /* "pglast/ast.pyx":5074
  *     else:
  *         v_name = None
  *     cdef object v_argnumber = data.argnumber             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.NamedArgExpr(v_arg, v_name, v_argnumber, v_location)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->argnumber); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5078, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->argnumber); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5074, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_argnumber = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5079
+  /* "pglast/ast.pyx":5075
  *         v_name = None
  *     cdef object v_argnumber = data.argnumber
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.NamedArgExpr(v_arg, v_name, v_argnumber, v_location)
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5079, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5075, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_5 = __pyx_v_offset_to_index; __pyx_t_6 = NULL;
@@ -65453,14 +65368,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_7, 1+__pyx_t_7);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5079, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5075, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5080
+  /* "pglast/ast.pyx":5076
  *     cdef object v_argnumber = data.argnumber
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.NamedArgExpr(v_arg, v_name, v_argnumber, v_location)             # <<<<<<<<<<<<<<
@@ -65468,9 +65383,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_ast); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 5080, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_ast); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 5076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_NamedArgExpr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5080, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_NamedArgExpr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5076, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -65489,7 +65404,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
     PyObject *__pyx_callargs[5] = {__pyx_t_5, __pyx_v_v_arg, __pyx_v_v_name, __pyx_v_v_argnumber, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_7, 4+__pyx_t_7);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5080, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -65497,7 +65412,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5067
+  /* "pglast/ast.pyx":5063
  * 
  * 
  * cdef create_NamedArgExpr(structs.NamedArgExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -65523,7 +65438,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NamedArgExpr(NamedArgExpr *__pyx
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5083
+/* "pglast/ast.pyx":5079
  * 
  * 
  * cdef create_OpExpr(structs.OpExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -65552,23 +65467,23 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_OpExpr", 0);
 
-  /* "pglast/ast.pyx":5084
+  /* "pglast/ast.pyx":5080
  * 
  * cdef create_OpExpr(structs.OpExpr* data, offset_to_index):
  *     cdef object v_opretset = bool(data.opretset)             # <<<<<<<<<<<<<<
  *     cdef tuple v_args
  *     cdef int args_i
  */
-  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->opretset); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5084, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->opretset); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5080, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 5084, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 5080, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5084, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5080, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_opretset = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5087
+  /* "pglast/ast.pyx":5083
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -65578,19 +65493,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
   __pyx_t_2 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "pglast/ast.pyx":5088
+    /* "pglast/ast.pyx":5084
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5088, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5084, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_args = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5089
+    /* "pglast/ast.pyx":5085
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -65602,19 +65517,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5090
+      /* "pglast/ast.pyx":5086
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5090, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5086, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5091
+      /* "pglast/ast.pyx":5087
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -65623,7 +65538,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5092
+      /* "pglast/ast.pyx":5088
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -65633,7 +65548,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5087
+    /* "pglast/ast.pyx":5083
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -65643,7 +65558,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5094
+  /* "pglast/ast.pyx":5090
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -65656,14 +65571,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5095
+  /* "pglast/ast.pyx":5091
  *     else:
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.OpExpr(v_opretset, v_args, v_location)
  * 
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5095, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5091, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_7 = __pyx_v_offset_to_index; __pyx_t_8 = NULL;
@@ -65683,14 +65598,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5095, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5091, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5096
+  /* "pglast/ast.pyx":5092
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.OpExpr(v_opretset, v_args, v_location)             # <<<<<<<<<<<<<<
@@ -65698,9 +65613,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5096, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5092, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_OpExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5096, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_OpExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5092, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -65719,7 +65634,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
     PyObject *__pyx_callargs[4] = {__pyx_t_7, __pyx_v_v_opretset, __pyx_v_v_args, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_3, 3+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5096, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5092, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -65727,7 +65642,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5083
+  /* "pglast/ast.pyx":5079
  * 
  * 
  * cdef create_OpExpr(structs.OpExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -65753,7 +65668,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OpExpr(OpExpr *__pyx_v_data, PyO
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5099
+/* "pglast/ast.pyx":5095
  * 
  * 
  * cdef create_ScalarArrayOpExpr(structs.ScalarArrayOpExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -65782,23 +65697,23 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_ScalarArrayOpExpr", 0);
 
-  /* "pglast/ast.pyx":5100
+  /* "pglast/ast.pyx":5096
  * 
  * cdef create_ScalarArrayOpExpr(structs.ScalarArrayOpExpr* data, offset_to_index):
  *     cdef object v_useOr = bool(data.useOr)             # <<<<<<<<<<<<<<
  *     cdef tuple v_args
  *     cdef int args_i
  */
-  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->useOr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5100, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->useOr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5096, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 5100, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 5096, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5100, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5096, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_useOr = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5103
+  /* "pglast/ast.pyx":5099
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -65808,19 +65723,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
   __pyx_t_2 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "pglast/ast.pyx":5104
+    /* "pglast/ast.pyx":5100
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5104, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5100, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_args = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5105
+    /* "pglast/ast.pyx":5101
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -65832,19 +65747,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5106
+      /* "pglast/ast.pyx":5102
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5106, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5102, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5107
+      /* "pglast/ast.pyx":5103
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -65853,7 +65768,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5108
+      /* "pglast/ast.pyx":5104
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -65863,7 +65778,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5103
+    /* "pglast/ast.pyx":5099
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -65873,7 +65788,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5110
+  /* "pglast/ast.pyx":5106
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -65886,14 +65801,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5111
+  /* "pglast/ast.pyx":5107
  *     else:
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.ScalarArrayOpExpr(v_useOr, v_args, v_location)
  * 
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5111, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_7 = __pyx_v_offset_to_index; __pyx_t_8 = NULL;
@@ -65913,14 +65828,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5111, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5107, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5112
+  /* "pglast/ast.pyx":5108
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.ScalarArrayOpExpr(v_useOr, v_args, v_location)             # <<<<<<<<<<<<<<
@@ -65928,9 +65843,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5112, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_ScalarArrayOpExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5112, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_ScalarArrayOpExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -65949,7 +65864,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
     PyObject *__pyx_callargs[4] = {__pyx_t_7, __pyx_v_v_useOr, __pyx_v_v_args, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_3, 3+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5112, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -65957,7 +65872,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5099
+  /* "pglast/ast.pyx":5095
  * 
  * 
  * cdef create_ScalarArrayOpExpr(structs.ScalarArrayOpExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -65983,7 +65898,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(ScalarArrayOpE
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5115
+/* "pglast/ast.pyx":5111
  * 
  * 
  * cdef create_BoolExpr(structs.BoolExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -66012,19 +65927,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_BoolExpr", 0);
 
-  /* "pglast/ast.pyx":5116
+  /* "pglast/ast.pyx":5112
  * 
  * cdef create_BoolExpr(structs.BoolExpr* data, offset_to_index):
  *     cdef object v_boolop = getattr(enums, 'BoolExprType')(data.boolop)             # <<<<<<<<<<<<<<
  *     cdef tuple v_args
  *     cdef int args_i
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5116, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_BoolExprType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5116, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_BoolExprType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_BoolExprType(__pyx_v_data->boolop); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5116, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_BoolExprType(__pyx_v_data->boolop); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -66043,14 +65958,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5116, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_boolop = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5119
+  /* "pglast/ast.pyx":5115
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -66060,19 +65975,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
   __pyx_t_6 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5120
+    /* "pglast/ast.pyx":5116
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5120, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5116, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_args = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5121
+    /* "pglast/ast.pyx":5117
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -66084,19 +65999,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5122
+      /* "pglast/ast.pyx":5118
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5122, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5118, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5123
+      /* "pglast/ast.pyx":5119
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -66105,7 +66020,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5124
+      /* "pglast/ast.pyx":5120
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -66115,7 +66030,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5119
+    /* "pglast/ast.pyx":5115
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -66125,7 +66040,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5126
+  /* "pglast/ast.pyx":5122
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -66138,14 +66053,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5127
+  /* "pglast/ast.pyx":5123
  *     else:
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.BoolExpr(v_boolop, v_args, v_location)
  * 
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5127, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_2 = __pyx_v_offset_to_index; __pyx_t_4 = NULL;
@@ -66165,14 +66080,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5127, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5123, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5128
+  /* "pglast/ast.pyx":5124
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.BoolExpr(v_boolop, v_args, v_location)             # <<<<<<<<<<<<<<
@@ -66180,9 +66095,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5128, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_BoolExpr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5128, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_BoolExpr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -66201,7 +66116,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
     PyObject *__pyx_callargs[4] = {__pyx_t_2, __pyx_v_v_boolop, __pyx_v_v_args, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 3+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5128, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -66209,7 +66124,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5115
+  /* "pglast/ast.pyx":5111
  * 
  * 
  * cdef create_BoolExpr(structs.BoolExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -66235,7 +66150,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BoolExpr(BoolExpr *__pyx_v_data,
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5131
+/* "pglast/ast.pyx":5127
  * 
  * 
  * cdef create_SubLink(structs.SubLink* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -66267,19 +66182,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_SubLink", 0);
 
-  /* "pglast/ast.pyx":5132
+  /* "pglast/ast.pyx":5128
  * 
  * cdef create_SubLink(structs.SubLink* data, offset_to_index):
  *     cdef object v_subLinkType = getattr(enums, 'SubLinkType')(data.subLinkType)             # <<<<<<<<<<<<<<
  *     cdef object v_subLinkId = data.subLinkId
  *     cdef object v_testexpr
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5132, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_SubLinkType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5132, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_SubLinkType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_SubLinkType(__pyx_v_data->subLinkType); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5132, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_SubLinkType(__pyx_v_data->subLinkType); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -66298,26 +66213,26 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5132, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_subLinkType = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5133
+  /* "pglast/ast.pyx":5129
  * cdef create_SubLink(structs.SubLink* data, offset_to_index):
  *     cdef object v_subLinkType = getattr(enums, 'SubLinkType')(data.subLinkType)
  *     cdef object v_subLinkId = data.subLinkId             # <<<<<<<<<<<<<<
  *     cdef object v_testexpr
  *     if data.testexpr is not NULL:
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->subLinkId); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5133, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->subLinkId); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_subLinkId = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5135
+  /* "pglast/ast.pyx":5131
  *     cdef object v_subLinkId = data.subLinkId
  *     cdef object v_testexpr
  *     if data.testexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -66327,19 +66242,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->testexpr != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5136
+    /* "pglast/ast.pyx":5132
  *     cdef object v_testexpr
  *     if data.testexpr is not NULL:
  *         v_testexpr = create(data.testexpr, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_testexpr = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->testexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5136, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->testexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_testexpr = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5135
+    /* "pglast/ast.pyx":5131
  *     cdef object v_subLinkId = data.subLinkId
  *     cdef object v_testexpr
  *     if data.testexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -66349,7 +66264,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5138
+  /* "pglast/ast.pyx":5134
  *         v_testexpr = create(data.testexpr, offset_to_index)
  *     else:
  *         v_testexpr = None             # <<<<<<<<<<<<<<
@@ -66362,7 +66277,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5141
+  /* "pglast/ast.pyx":5137
  *     cdef tuple v_operName
  *     cdef int operName_i
  *     if data.operName is not NULL:             # <<<<<<<<<<<<<<
@@ -66372,19 +66287,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->operName != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5142
+    /* "pglast/ast.pyx":5138
  *     cdef int operName_i
  *     if data.operName is not NULL:
  *         v_operName = PyTuple_New(data.operName.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.operName.length):
  *             item = create(structs.list_nth(data.operName, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->operName->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5142, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->operName->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_operName = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5143
+    /* "pglast/ast.pyx":5139
  *     if data.operName is not NULL:
  *         v_operName = PyTuple_New(data.operName.length)
  *         for i in range(data.operName.length):             # <<<<<<<<<<<<<<
@@ -66396,19 +66311,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5144
+      /* "pglast/ast.pyx":5140
  *         v_operName = PyTuple_New(data.operName.length)
  *         for i in range(data.operName.length):
  *             item = create(structs.list_nth(data.operName, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_operName, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->operName, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5144, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->operName, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5140, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5145
+      /* "pglast/ast.pyx":5141
  *         for i in range(data.operName.length):
  *             item = create(structs.list_nth(data.operName, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -66417,7 +66332,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5146
+      /* "pglast/ast.pyx":5142
  *             item = create(structs.list_nth(data.operName, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_operName, i, item)             # <<<<<<<<<<<<<<
@@ -66427,7 +66342,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_operName, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5141
+    /* "pglast/ast.pyx":5137
  *     cdef tuple v_operName
  *     cdef int operName_i
  *     if data.operName is not NULL:             # <<<<<<<<<<<<<<
@@ -66437,7 +66352,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5148
+  /* "pglast/ast.pyx":5144
  *             PyTuple_SET_ITEM(v_operName, i, item)
  *     else:
  *         v_operName = None             # <<<<<<<<<<<<<<
@@ -66450,7 +66365,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5150
+  /* "pglast/ast.pyx":5146
  *         v_operName = None
  *     cdef object v_subselect
  *     if data.subselect is not NULL:             # <<<<<<<<<<<<<<
@@ -66460,19 +66375,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->subselect != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5151
+    /* "pglast/ast.pyx":5147
  *     cdef object v_subselect
  *     if data.subselect is not NULL:
  *         v_subselect = create(data.subselect, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_subselect = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->subselect, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5151, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->subselect, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5147, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_subselect = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5150
+    /* "pglast/ast.pyx":5146
  *         v_operName = None
  *     cdef object v_subselect
  *     if data.subselect is not NULL:             # <<<<<<<<<<<<<<
@@ -66482,7 +66397,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
     goto __pyx_L7;
   }
 
-  /* "pglast/ast.pyx":5153
+  /* "pglast/ast.pyx":5149
  *         v_subselect = create(data.subselect, offset_to_index)
  *     else:
  *         v_subselect = None             # <<<<<<<<<<<<<<
@@ -66495,14 +66410,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
   }
   __pyx_L7:;
 
-  /* "pglast/ast.pyx":5154
+  /* "pglast/ast.pyx":5150
  *     else:
  *         v_subselect = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.SubLink(v_subLinkType, v_subLinkId, v_testexpr, v_operName, v_subselect, v_location)
  * 
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5154, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_2 = __pyx_v_offset_to_index; __pyx_t_4 = NULL;
@@ -66522,14 +66437,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5154, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5150, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5155
+  /* "pglast/ast.pyx":5151
  *         v_subselect = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.SubLink(v_subLinkType, v_subLinkId, v_testexpr, v_operName, v_subselect, v_location)             # <<<<<<<<<<<<<<
@@ -66537,9 +66452,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5155, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_SubLink); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5155, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_SubLink); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -66558,7 +66473,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
     PyObject *__pyx_callargs[7] = {__pyx_t_2, __pyx_v_v_subLinkType, __pyx_v_v_subLinkId, __pyx_v_v_testexpr, __pyx_v_v_operName, __pyx_v_v_subselect, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 6+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5155, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5151, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -66566,7 +66481,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5131
+  /* "pglast/ast.pyx":5127
  * 
  * 
  * cdef create_SubLink(structs.SubLink* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -66595,7 +66510,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubLink(SubLink *__pyx_v_data, P
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5158
+/* "pglast/ast.pyx":5154
  * 
  * 
  * cdef create_SubPlan(structs.SubPlan* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -66636,19 +66551,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_SubPlan", 0);
 
-  /* "pglast/ast.pyx":5159
+  /* "pglast/ast.pyx":5155
  * 
  * cdef create_SubPlan(structs.SubPlan* data, offset_to_index):
  *     cdef object v_subLinkType = getattr(enums, 'SubLinkType')(data.subLinkType)             # <<<<<<<<<<<<<<
  *     cdef object v_testexpr
  *     if data.testexpr is not NULL:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5159, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_SubLinkType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5159, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_SubLinkType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_SubLinkType(__pyx_v_data->subLinkType); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5159, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_SubLinkType(__pyx_v_data->subLinkType); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -66667,14 +66582,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5159, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5155, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_subLinkType = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5161
+  /* "pglast/ast.pyx":5157
  *     cdef object v_subLinkType = getattr(enums, 'SubLinkType')(data.subLinkType)
  *     cdef object v_testexpr
  *     if data.testexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -66684,19 +66599,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->testexpr != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5162
+    /* "pglast/ast.pyx":5158
  *     cdef object v_testexpr
  *     if data.testexpr is not NULL:
  *         v_testexpr = create(data.testexpr, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_testexpr = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->testexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5162, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->testexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_testexpr = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5161
+    /* "pglast/ast.pyx":5157
  *     cdef object v_subLinkType = getattr(enums, 'SubLinkType')(data.subLinkType)
  *     cdef object v_testexpr
  *     if data.testexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -66706,7 +66621,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5164
+  /* "pglast/ast.pyx":5160
  *         v_testexpr = create(data.testexpr, offset_to_index)
  *     else:
  *         v_testexpr = None             # <<<<<<<<<<<<<<
@@ -66719,7 +66634,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5167
+  /* "pglast/ast.pyx":5163
  *     cdef tuple v_paramIds
  *     cdef int paramIds_i
  *     if data.paramIds is not NULL:             # <<<<<<<<<<<<<<
@@ -66729,19 +66644,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->paramIds != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5168
+    /* "pglast/ast.pyx":5164
  *     cdef int paramIds_i
  *     if data.paramIds is not NULL:
  *         v_paramIds = PyTuple_New(data.paramIds.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.paramIds.length):
  *             item = create(structs.list_nth(data.paramIds, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->paramIds->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5168, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->paramIds->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5164, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_paramIds = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5169
+    /* "pglast/ast.pyx":5165
  *     if data.paramIds is not NULL:
  *         v_paramIds = PyTuple_New(data.paramIds.length)
  *         for i in range(data.paramIds.length):             # <<<<<<<<<<<<<<
@@ -66753,19 +66668,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5170
+      /* "pglast/ast.pyx":5166
  *         v_paramIds = PyTuple_New(data.paramIds.length)
  *         for i in range(data.paramIds.length):
  *             item = create(structs.list_nth(data.paramIds, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_paramIds, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->paramIds, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5170, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->paramIds, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5166, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5171
+      /* "pglast/ast.pyx":5167
  *         for i in range(data.paramIds.length):
  *             item = create(structs.list_nth(data.paramIds, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -66774,7 +66689,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5172
+      /* "pglast/ast.pyx":5168
  *             item = create(structs.list_nth(data.paramIds, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_paramIds, i, item)             # <<<<<<<<<<<<<<
@@ -66784,7 +66699,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_paramIds, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5167
+    /* "pglast/ast.pyx":5163
  *     cdef tuple v_paramIds
  *     cdef int paramIds_i
  *     if data.paramIds is not NULL:             # <<<<<<<<<<<<<<
@@ -66794,7 +66709,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5174
+  /* "pglast/ast.pyx":5170
  *             PyTuple_SET_ITEM(v_paramIds, i, item)
  *     else:
  *         v_paramIds = None             # <<<<<<<<<<<<<<
@@ -66807,19 +66722,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5175
+  /* "pglast/ast.pyx":5171
  *     else:
  *         v_paramIds = None
  *     cdef object v_plan_id = data.plan_id             # <<<<<<<<<<<<<<
  *     cdef object v_plan_name
  *     if data.plan_name is not NULL:
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->plan_id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5175, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->plan_id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_plan_id = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5177
+  /* "pglast/ast.pyx":5173
  *     cdef object v_plan_id = data.plan_id
  *     cdef object v_plan_name
  *     if data.plan_name is not NULL:             # <<<<<<<<<<<<<<
@@ -66829,7 +66744,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->plan_name != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5178
+    /* "pglast/ast.pyx":5174
  *     cdef object v_plan_name
  *     if data.plan_name is not NULL:
  *         v_plan_name = data.plan_name.decode("utf-8")             # <<<<<<<<<<<<<<
@@ -66837,13 +66752,13 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
  *         v_plan_name = None
  */
     __pyx_t_9 = __pyx_v_data->plan_name;
-    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_9, 0, strlen(__pyx_t_9), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5178, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_9, 0, strlen(__pyx_t_9), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5174, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_t_1);
     __pyx_v_v_plan_name = __pyx_t_1;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5177
+    /* "pglast/ast.pyx":5173
  *     cdef object v_plan_id = data.plan_id
  *     cdef object v_plan_name
  *     if data.plan_name is not NULL:             # <<<<<<<<<<<<<<
@@ -66853,7 +66768,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     goto __pyx_L7;
   }
 
-  /* "pglast/ast.pyx":5180
+  /* "pglast/ast.pyx":5176
  *         v_plan_name = data.plan_name.decode("utf-8")
  *     else:
  *         v_plan_name = None             # <<<<<<<<<<<<<<
@@ -66866,67 +66781,67 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   }
   __pyx_L7:;
 
-  /* "pglast/ast.pyx":5181
+  /* "pglast/ast.pyx":5177
  *     else:
  *         v_plan_name = None
  *     cdef object v_firstColTypmod = data.firstColTypmod             # <<<<<<<<<<<<<<
  *     cdef object v_useHashTable = bool(data.useHashTable)
  *     cdef object v_unknownEqFalse = bool(data.unknownEqFalse)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->firstColTypmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5181, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->firstColTypmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_firstColTypmod = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5182
+  /* "pglast/ast.pyx":5178
  *         v_plan_name = None
  *     cdef object v_firstColTypmod = data.firstColTypmod
  *     cdef object v_useHashTable = bool(data.useHashTable)             # <<<<<<<<<<<<<<
  *     cdef object v_unknownEqFalse = bool(data.unknownEqFalse)
  *     cdef object v_parallel_safe = bool(data.parallel_safe)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->useHashTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5182, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->useHashTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 5182, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 5178, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_6))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5182, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_6))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_useHashTable = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5183
+  /* "pglast/ast.pyx":5179
  *     cdef object v_firstColTypmod = data.firstColTypmod
  *     cdef object v_useHashTable = bool(data.useHashTable)
  *     cdef object v_unknownEqFalse = bool(data.unknownEqFalse)             # <<<<<<<<<<<<<<
  *     cdef object v_parallel_safe = bool(data.parallel_safe)
  *     cdef tuple v_setParam
  */
-  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->unknownEqFalse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5183, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->unknownEqFalse); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 5183, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 5179, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_6))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5183, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_6))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_unknownEqFalse = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5184
+  /* "pglast/ast.pyx":5180
  *     cdef object v_useHashTable = bool(data.useHashTable)
  *     cdef object v_unknownEqFalse = bool(data.unknownEqFalse)
  *     cdef object v_parallel_safe = bool(data.parallel_safe)             # <<<<<<<<<<<<<<
  *     cdef tuple v_setParam
  *     cdef int setParam_i
  */
-  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->parallel_safe); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5184, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->parallel_safe); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5180, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 5184, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 5180, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_6))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5184, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_6))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5180, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_parallel_safe = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5187
+  /* "pglast/ast.pyx":5183
  *     cdef tuple v_setParam
  *     cdef int setParam_i
  *     if data.setParam is not NULL:             # <<<<<<<<<<<<<<
@@ -66936,19 +66851,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->setParam != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5188
+    /* "pglast/ast.pyx":5184
  *     cdef int setParam_i
  *     if data.setParam is not NULL:
  *         v_setParam = PyTuple_New(data.setParam.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.setParam.length):
  *             item = create(structs.list_nth(data.setParam, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->setParam->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5188, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->setParam->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5184, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_setParam = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5189
+    /* "pglast/ast.pyx":5185
  *     if data.setParam is not NULL:
  *         v_setParam = PyTuple_New(data.setParam.length)
  *         for i in range(data.setParam.length):             # <<<<<<<<<<<<<<
@@ -66960,19 +66875,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5190
+      /* "pglast/ast.pyx":5186
  *         v_setParam = PyTuple_New(data.setParam.length)
  *         for i in range(data.setParam.length):
  *             item = create(structs.list_nth(data.setParam, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_setParam, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->setParam, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5190, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->setParam, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5186, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5191
+      /* "pglast/ast.pyx":5187
  *         for i in range(data.setParam.length):
  *             item = create(structs.list_nth(data.setParam, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -66981,7 +66896,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5192
+      /* "pglast/ast.pyx":5188
  *             item = create(structs.list_nth(data.setParam, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_setParam, i, item)             # <<<<<<<<<<<<<<
@@ -66991,7 +66906,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_setParam, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5187
+    /* "pglast/ast.pyx":5183
  *     cdef tuple v_setParam
  *     cdef int setParam_i
  *     if data.setParam is not NULL:             # <<<<<<<<<<<<<<
@@ -67001,7 +66916,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     goto __pyx_L8;
   }
 
-  /* "pglast/ast.pyx":5194
+  /* "pglast/ast.pyx":5190
  *             PyTuple_SET_ITEM(v_setParam, i, item)
  *     else:
  *         v_setParam = None             # <<<<<<<<<<<<<<
@@ -67014,7 +66929,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   }
   __pyx_L8:;
 
-  /* "pglast/ast.pyx":5197
+  /* "pglast/ast.pyx":5193
  *     cdef tuple v_parParam
  *     cdef int parParam_i
  *     if data.parParam is not NULL:             # <<<<<<<<<<<<<<
@@ -67024,19 +66939,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->parParam != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5198
+    /* "pglast/ast.pyx":5194
  *     cdef int parParam_i
  *     if data.parParam is not NULL:
  *         v_parParam = PyTuple_New(data.parParam.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.parParam.length):
  *             item = create(structs.list_nth(data.parParam, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->parParam->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5198, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->parParam->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_parParam = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5199
+    /* "pglast/ast.pyx":5195
  *     if data.parParam is not NULL:
  *         v_parParam = PyTuple_New(data.parParam.length)
  *         for i in range(data.parParam.length):             # <<<<<<<<<<<<<<
@@ -67048,19 +66963,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5200
+      /* "pglast/ast.pyx":5196
  *         v_parParam = PyTuple_New(data.parParam.length)
  *         for i in range(data.parParam.length):
  *             item = create(structs.list_nth(data.parParam, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_parParam, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->parParam, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5200, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->parParam, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5196, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5201
+      /* "pglast/ast.pyx":5197
  *         for i in range(data.parParam.length):
  *             item = create(structs.list_nth(data.parParam, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -67069,7 +66984,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5202
+      /* "pglast/ast.pyx":5198
  *             item = create(structs.list_nth(data.parParam, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_parParam, i, item)             # <<<<<<<<<<<<<<
@@ -67079,7 +66994,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_parParam, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5197
+    /* "pglast/ast.pyx":5193
  *     cdef tuple v_parParam
  *     cdef int parParam_i
  *     if data.parParam is not NULL:             # <<<<<<<<<<<<<<
@@ -67089,7 +67004,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     goto __pyx_L11;
   }
 
-  /* "pglast/ast.pyx":5204
+  /* "pglast/ast.pyx":5200
  *             PyTuple_SET_ITEM(v_parParam, i, item)
  *     else:
  *         v_parParam = None             # <<<<<<<<<<<<<<
@@ -67102,7 +67017,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   }
   __pyx_L11:;
 
-  /* "pglast/ast.pyx":5207
+  /* "pglast/ast.pyx":5203
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -67112,19 +67027,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5208
+    /* "pglast/ast.pyx":5204
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5208, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5204, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_args = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5209
+    /* "pglast/ast.pyx":5205
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -67136,19 +67051,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5210
+      /* "pglast/ast.pyx":5206
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5210, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5206, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5211
+      /* "pglast/ast.pyx":5207
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -67157,7 +67072,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5212
+      /* "pglast/ast.pyx":5208
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -67167,7 +67082,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5207
+    /* "pglast/ast.pyx":5203
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -67177,7 +67092,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     goto __pyx_L14;
   }
 
-  /* "pglast/ast.pyx":5214
+  /* "pglast/ast.pyx":5210
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -67190,31 +67105,31 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   }
   __pyx_L14:;
 
-  /* "pglast/ast.pyx":5215
+  /* "pglast/ast.pyx":5211
  *     else:
  *         v_args = None
  *     cdef object v_startup_cost = data.startup_cost             # <<<<<<<<<<<<<<
  *     cdef object v_per_call_cost = data.per_call_cost
  *     return ast.SubPlan(v_subLinkType, v_testexpr, v_paramIds, v_plan_id, v_plan_name, v_firstColTypmod, v_useHashTable, v_unknownEqFalse, v_parallel_safe, v_setParam, v_parParam, v_args, v_startup_cost, v_per_call_cost)
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_data->startup_cost); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5215, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_data->startup_cost); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_startup_cost = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5216
+  /* "pglast/ast.pyx":5212
  *         v_args = None
  *     cdef object v_startup_cost = data.startup_cost
  *     cdef object v_per_call_cost = data.per_call_cost             # <<<<<<<<<<<<<<
  *     return ast.SubPlan(v_subLinkType, v_testexpr, v_paramIds, v_plan_id, v_plan_name, v_firstColTypmod, v_useHashTable, v_unknownEqFalse, v_parallel_safe, v_setParam, v_parParam, v_args, v_startup_cost, v_per_call_cost)
  * 
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_data->per_call_cost); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5216, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_data->per_call_cost); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_per_call_cost = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5217
+  /* "pglast/ast.pyx":5213
  *     cdef object v_startup_cost = data.startup_cost
  *     cdef object v_per_call_cost = data.per_call_cost
  *     return ast.SubPlan(v_subLinkType, v_testexpr, v_paramIds, v_plan_id, v_plan_name, v_firstColTypmod, v_useHashTable, v_unknownEqFalse, v_parallel_safe, v_setParam, v_parParam, v_args, v_startup_cost, v_per_call_cost)             # <<<<<<<<<<<<<<
@@ -67222,9 +67137,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5217, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_SubPlan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5217, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_SubPlan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -67243,7 +67158,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
     PyObject *__pyx_callargs[15] = {__pyx_t_3, __pyx_v_v_subLinkType, __pyx_v_v_testexpr, __pyx_v_v_paramIds, __pyx_v_v_plan_id, __pyx_v_v_plan_name, __pyx_v_v_firstColTypmod, __pyx_v_v_useHashTable, __pyx_v_v_unknownEqFalse, __pyx_v_v_parallel_safe, __pyx_v_v_setParam, __pyx_v_v_parParam, __pyx_v_v_args, __pyx_v_v_startup_cost, __pyx_v_v_per_call_cost};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 14+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5217, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5213, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -67251,7 +67166,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5158
+  /* "pglast/ast.pyx":5154
  * 
  * 
  * cdef create_SubPlan(structs.SubPlan* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -67288,7 +67203,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SubPlan(SubPlan *__pyx_v_data, P
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5220
+/* "pglast/ast.pyx":5216
  * 
  * 
  * cdef create_AlternativeSubPlan(structs.AlternativeSubPlan* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -67314,7 +67229,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_AlternativeSubPlan", 0);
 
-  /* "pglast/ast.pyx":5223
+  /* "pglast/ast.pyx":5219
  *     cdef tuple v_subplans
  *     cdef int subplans_i
  *     if data.subplans is not NULL:             # <<<<<<<<<<<<<<
@@ -67324,19 +67239,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
   __pyx_t_1 = ((__pyx_v_data->subplans != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5224
+    /* "pglast/ast.pyx":5220
  *     cdef int subplans_i
  *     if data.subplans is not NULL:
  *         v_subplans = PyTuple_New(data.subplans.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.subplans.length):
  *             item = create(structs.list_nth(data.subplans, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->subplans->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5224, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->subplans->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_subplans = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5225
+    /* "pglast/ast.pyx":5221
  *     if data.subplans is not NULL:
  *         v_subplans = PyTuple_New(data.subplans.length)
  *         for i in range(data.subplans.length):             # <<<<<<<<<<<<<<
@@ -67348,19 +67263,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5226
+      /* "pglast/ast.pyx":5222
  *         v_subplans = PyTuple_New(data.subplans.length)
  *         for i in range(data.subplans.length):
  *             item = create(structs.list_nth(data.subplans, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_subplans, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->subplans, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5226, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->subplans, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5222, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5227
+      /* "pglast/ast.pyx":5223
  *         for i in range(data.subplans.length):
  *             item = create(structs.list_nth(data.subplans, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -67369,7 +67284,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5228
+      /* "pglast/ast.pyx":5224
  *             item = create(structs.list_nth(data.subplans, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_subplans, i, item)             # <<<<<<<<<<<<<<
@@ -67379,7 +67294,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
       PyTuple_SET_ITEM(__pyx_v_v_subplans, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5223
+    /* "pglast/ast.pyx":5219
  *     cdef tuple v_subplans
  *     cdef int subplans_i
  *     if data.subplans is not NULL:             # <<<<<<<<<<<<<<
@@ -67389,7 +67304,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5230
+  /* "pglast/ast.pyx":5226
  *             PyTuple_SET_ITEM(v_subplans, i, item)
  *     else:
  *         v_subplans = None             # <<<<<<<<<<<<<<
@@ -67402,7 +67317,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5231
+  /* "pglast/ast.pyx":5227
  *     else:
  *         v_subplans = None
  *     return ast.AlternativeSubPlan(v_subplans)             # <<<<<<<<<<<<<<
@@ -67410,9 +67325,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5231, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_AlternativeSubPlan); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5231, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_AlternativeSubPlan); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -67431,7 +67346,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
     PyObject *__pyx_callargs[2] = {__pyx_t_6, __pyx_v_v_subplans};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5231, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5227, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -67439,7 +67354,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5220
+  /* "pglast/ast.pyx":5216
  * 
  * 
  * cdef create_AlternativeSubPlan(structs.AlternativeSubPlan* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -67462,7 +67377,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_AlternativeSubPlan(AlternativeSu
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5234
+/* "pglast/ast.pyx":5230
  * 
  * 
  * cdef create_FieldSelect(structs.FieldSelect* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -67486,7 +67401,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldSelect(FieldSelect *__pyx_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_FieldSelect", 0);
 
-  /* "pglast/ast.pyx":5236
+  /* "pglast/ast.pyx":5232
  * cdef create_FieldSelect(structs.FieldSelect* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -67496,19 +67411,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldSelect(FieldSelect *__pyx_v
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5237
+    /* "pglast/ast.pyx":5233
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5237, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5236
+    /* "pglast/ast.pyx":5232
  * cdef create_FieldSelect(structs.FieldSelect* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -67518,7 +67433,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldSelect(FieldSelect *__pyx_v
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5239
+  /* "pglast/ast.pyx":5235
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -67531,31 +67446,31 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldSelect(FieldSelect *__pyx_v
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5240
+  /* "pglast/ast.pyx":5236
  *     else:
  *         v_arg = None
  *     cdef object v_fieldnum = data.fieldnum             # <<<<<<<<<<<<<<
  *     cdef object v_resulttypmod = data.resulttypmod
  *     return ast.FieldSelect(v_arg, v_fieldnum, v_resulttypmod)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->fieldnum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5240, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->fieldnum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_fieldnum = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5241
+  /* "pglast/ast.pyx":5237
  *         v_arg = None
  *     cdef object v_fieldnum = data.fieldnum
  *     cdef object v_resulttypmod = data.resulttypmod             # <<<<<<<<<<<<<<
  *     return ast.FieldSelect(v_arg, v_fieldnum, v_resulttypmod)
  * 
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int32_t(__pyx_v_data->resulttypmod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5241, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int32_t(__pyx_v_data->resulttypmod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_resulttypmod = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5242
+  /* "pglast/ast.pyx":5238
  *     cdef object v_fieldnum = data.fieldnum
  *     cdef object v_resulttypmod = data.resulttypmod
  *     return ast.FieldSelect(v_arg, v_fieldnum, v_resulttypmod)             # <<<<<<<<<<<<<<
@@ -67563,9 +67478,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldSelect(FieldSelect *__pyx_v
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5242, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_FieldSelect); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5242, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_FieldSelect); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -67584,7 +67499,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldSelect(FieldSelect *__pyx_v
     PyObject *__pyx_callargs[4] = {__pyx_t_3, __pyx_v_v_arg, __pyx_v_v_fieldnum, __pyx_v_v_resulttypmod};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_5, 3+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5242, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -67592,7 +67507,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldSelect(FieldSelect *__pyx_v
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5234
+  /* "pglast/ast.pyx":5230
  * 
  * 
  * cdef create_FieldSelect(structs.FieldSelect* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -67616,7 +67531,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldSelect(FieldSelect *__pyx_v
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5245
+/* "pglast/ast.pyx":5241
  * 
  * 
  * cdef create_FieldStore(structs.FieldStore* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -67644,7 +67559,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_FieldStore", 0);
 
-  /* "pglast/ast.pyx":5247
+  /* "pglast/ast.pyx":5243
  * cdef create_FieldStore(structs.FieldStore* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -67654,19 +67569,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5248
+    /* "pglast/ast.pyx":5244
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5248, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5247
+    /* "pglast/ast.pyx":5243
  * cdef create_FieldStore(structs.FieldStore* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -67676,7 +67591,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5250
+  /* "pglast/ast.pyx":5246
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -67689,7 +67604,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5253
+  /* "pglast/ast.pyx":5249
  *     cdef tuple v_newvals
  *     cdef int newvals_i
  *     if data.newvals is not NULL:             # <<<<<<<<<<<<<<
@@ -67699,19 +67614,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
   __pyx_t_1 = ((__pyx_v_data->newvals != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5254
+    /* "pglast/ast.pyx":5250
  *     cdef int newvals_i
  *     if data.newvals is not NULL:
  *         v_newvals = PyTuple_New(data.newvals.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.newvals.length):
  *             item = create(structs.list_nth(data.newvals, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->newvals->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5254, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->newvals->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5250, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_newvals = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5255
+    /* "pglast/ast.pyx":5251
  *     if data.newvals is not NULL:
  *         v_newvals = PyTuple_New(data.newvals.length)
  *         for i in range(data.newvals.length):             # <<<<<<<<<<<<<<
@@ -67723,19 +67638,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5256
+      /* "pglast/ast.pyx":5252
  *         v_newvals = PyTuple_New(data.newvals.length)
  *         for i in range(data.newvals.length):
  *             item = create(structs.list_nth(data.newvals, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_newvals, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->newvals, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5256, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->newvals, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5252, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5257
+      /* "pglast/ast.pyx":5253
  *         for i in range(data.newvals.length):
  *             item = create(structs.list_nth(data.newvals, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -67744,7 +67659,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5258
+      /* "pglast/ast.pyx":5254
  *             item = create(structs.list_nth(data.newvals, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_newvals, i, item)             # <<<<<<<<<<<<<<
@@ -67754,7 +67669,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
       PyTuple_SET_ITEM(__pyx_v_v_newvals, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5253
+    /* "pglast/ast.pyx":5249
  *     cdef tuple v_newvals
  *     cdef int newvals_i
  *     if data.newvals is not NULL:             # <<<<<<<<<<<<<<
@@ -67764,7 +67679,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5260
+  /* "pglast/ast.pyx":5256
  *             PyTuple_SET_ITEM(v_newvals, i, item)
  *     else:
  *         v_newvals = None             # <<<<<<<<<<<<<<
@@ -67777,7 +67692,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5263
+  /* "pglast/ast.pyx":5259
  *     cdef tuple v_fieldnums
  *     cdef int fieldnums_i
  *     if data.fieldnums is not NULL:             # <<<<<<<<<<<<<<
@@ -67787,19 +67702,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
   __pyx_t_1 = ((__pyx_v_data->fieldnums != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5264
+    /* "pglast/ast.pyx":5260
  *     cdef int fieldnums_i
  *     if data.fieldnums is not NULL:
  *         v_fieldnums = PyTuple_New(data.fieldnums.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.fieldnums.length):
  *             item = create(structs.list_nth(data.fieldnums, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->fieldnums->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5264, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->fieldnums->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5260, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_fieldnums = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5265
+    /* "pglast/ast.pyx":5261
  *     if data.fieldnums is not NULL:
  *         v_fieldnums = PyTuple_New(data.fieldnums.length)
  *         for i in range(data.fieldnums.length):             # <<<<<<<<<<<<<<
@@ -67811,19 +67726,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5266
+      /* "pglast/ast.pyx":5262
  *         v_fieldnums = PyTuple_New(data.fieldnums.length)
  *         for i in range(data.fieldnums.length):
  *             item = create(structs.list_nth(data.fieldnums, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_fieldnums, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->fieldnums, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5266, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->fieldnums, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5262, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5267
+      /* "pglast/ast.pyx":5263
  *         for i in range(data.fieldnums.length):
  *             item = create(structs.list_nth(data.fieldnums, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -67832,7 +67747,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5268
+      /* "pglast/ast.pyx":5264
  *             item = create(structs.list_nth(data.fieldnums, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_fieldnums, i, item)             # <<<<<<<<<<<<<<
@@ -67842,7 +67757,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
       PyTuple_SET_ITEM(__pyx_v_v_fieldnums, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5263
+    /* "pglast/ast.pyx":5259
  *     cdef tuple v_fieldnums
  *     cdef int fieldnums_i
  *     if data.fieldnums is not NULL:             # <<<<<<<<<<<<<<
@@ -67852,7 +67767,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
     goto __pyx_L7;
   }
 
-  /* "pglast/ast.pyx":5270
+  /* "pglast/ast.pyx":5266
  *             PyTuple_SET_ITEM(v_fieldnums, i, item)
  *     else:
  *         v_fieldnums = None             # <<<<<<<<<<<<<<
@@ -67865,7 +67780,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
   }
   __pyx_L7:;
 
-  /* "pglast/ast.pyx":5271
+  /* "pglast/ast.pyx":5267
  *     else:
  *         v_fieldnums = None
  *     return ast.FieldStore(v_arg, v_newvals, v_fieldnums)             # <<<<<<<<<<<<<<
@@ -67873,9 +67788,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5271, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5267, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_FieldStore); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5271, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_FieldStore); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5267, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -67894,7 +67809,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
     PyObject *__pyx_callargs[4] = {__pyx_t_6, __pyx_v_v_arg, __pyx_v_v_newvals, __pyx_v_v_fieldnums};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 3+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5271, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5267, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -67902,7 +67817,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5245
+  /* "pglast/ast.pyx":5241
  * 
  * 
  * cdef create_FieldStore(structs.FieldStore* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -67927,7 +67842,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FieldStore(FieldStore *__pyx_v_d
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5274
+/* "pglast/ast.pyx":5270
  * 
  * 
  * cdef create_RelabelType(structs.RelabelType* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -67953,7 +67868,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_RelabelType", 0);
 
-  /* "pglast/ast.pyx":5276
+  /* "pglast/ast.pyx":5272
  * cdef create_RelabelType(structs.RelabelType* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -67963,19 +67878,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5277
+    /* "pglast/ast.pyx":5273
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5277, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5273, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5276
+    /* "pglast/ast.pyx":5272
  * cdef create_RelabelType(structs.RelabelType* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -67985,7 +67900,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5279
+  /* "pglast/ast.pyx":5275
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -67998,31 +67913,31 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5280
+  /* "pglast/ast.pyx":5276
  *     else:
  *         v_arg = None
  *     cdef object v_resulttypmod = data.resulttypmod             # <<<<<<<<<<<<<<
  *     cdef object v_relabelformat = getattr(enums, 'CoercionForm')(data.relabelformat)
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int32_t(__pyx_v_data->resulttypmod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5280, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int32_t(__pyx_v_data->resulttypmod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_resulttypmod = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5281
+  /* "pglast/ast.pyx":5277
  *         v_arg = None
  *     cdef object v_resulttypmod = data.resulttypmod
  *     cdef object v_relabelformat = getattr(enums, 'CoercionForm')(data.relabelformat)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.RelabelType(v_arg, v_resulttypmod, v_relabelformat, v_location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5281, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5281, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->relabelformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5281, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->relabelformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -68041,21 +67956,21 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5281, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_relabelformat = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5282
+  /* "pglast/ast.pyx":5278
  *     cdef object v_resulttypmod = data.resulttypmod
  *     cdef object v_relabelformat = getattr(enums, 'CoercionForm')(data.relabelformat)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.RelabelType(v_arg, v_resulttypmod, v_relabelformat, v_location)
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5282, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -68075,14 +67990,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5282, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5278, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5283
+  /* "pglast/ast.pyx":5279
  *     cdef object v_relabelformat = getattr(enums, 'CoercionForm')(data.relabelformat)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.RelabelType(v_arg, v_resulttypmod, v_relabelformat, v_location)             # <<<<<<<<<<<<<<
@@ -68090,9 +68005,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5283, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_RelabelType); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5283, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_RelabelType); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -68111,7 +68026,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
     PyObject *__pyx_callargs[5] = {__pyx_t_3, __pyx_v_v_arg, __pyx_v_v_resulttypmod, __pyx_v_v_relabelformat, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 4+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5283, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5279, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -68119,7 +68034,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5274
+  /* "pglast/ast.pyx":5270
  * 
  * 
  * cdef create_RelabelType(structs.RelabelType* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -68145,7 +68060,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RelabelType(RelabelType *__pyx_v
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5286
+/* "pglast/ast.pyx":5282
  * 
  * 
  * cdef create_CoerceViaIO(structs.CoerceViaIO* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -68170,7 +68085,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_CoerceViaIO", 0);
 
-  /* "pglast/ast.pyx":5288
+  /* "pglast/ast.pyx":5284
  * cdef create_CoerceViaIO(structs.CoerceViaIO* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -68180,19 +68095,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5289
+    /* "pglast/ast.pyx":5285
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5289, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5285, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5288
+    /* "pglast/ast.pyx":5284
  * cdef create_CoerceViaIO(structs.CoerceViaIO* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -68202,7 +68117,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5291
+  /* "pglast/ast.pyx":5287
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -68215,19 +68130,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5292
+  /* "pglast/ast.pyx":5288
  *     else:
  *         v_arg = None
  *     cdef object v_coerceformat = getattr(enums, 'CoercionForm')(data.coerceformat)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CoerceViaIO(v_arg, v_coerceformat, v_location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5292, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5292, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->coerceformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5292, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->coerceformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -68246,21 +68161,21 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5292, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5288, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_coerceformat = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5293
+  /* "pglast/ast.pyx":5289
  *         v_arg = None
  *     cdef object v_coerceformat = getattr(enums, 'CoercionForm')(data.coerceformat)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.CoerceViaIO(v_arg, v_coerceformat, v_location)
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5293, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -68280,14 +68195,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5293, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5294
+  /* "pglast/ast.pyx":5290
  *     cdef object v_coerceformat = getattr(enums, 'CoercionForm')(data.coerceformat)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CoerceViaIO(v_arg, v_coerceformat, v_location)             # <<<<<<<<<<<<<<
@@ -68295,9 +68210,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5294, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_CoerceViaIO); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5294, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_CoerceViaIO); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5290, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -68316,7 +68231,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
     PyObject *__pyx_callargs[4] = {__pyx_t_3, __pyx_v_v_arg, __pyx_v_v_coerceformat, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 3+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5294, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5290, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -68324,7 +68239,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5286
+  /* "pglast/ast.pyx":5282
  * 
  * 
  * cdef create_CoerceViaIO(structs.CoerceViaIO* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -68349,7 +68264,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceViaIO(CoerceViaIO *__pyx_v
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5297
+/* "pglast/ast.pyx":5293
  * 
  * 
  * cdef create_ArrayCoerceExpr(structs.ArrayCoerceExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -68376,7 +68291,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_ArrayCoerceExpr", 0);
 
-  /* "pglast/ast.pyx":5299
+  /* "pglast/ast.pyx":5295
  * cdef create_ArrayCoerceExpr(structs.ArrayCoerceExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -68386,19 +68301,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5300
+    /* "pglast/ast.pyx":5296
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5300, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5296, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5299
+    /* "pglast/ast.pyx":5295
  * cdef create_ArrayCoerceExpr(structs.ArrayCoerceExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -68408,7 +68323,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5302
+  /* "pglast/ast.pyx":5298
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -68421,7 +68336,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5304
+  /* "pglast/ast.pyx":5300
  *         v_arg = None
  *     cdef object v_elemexpr
  *     if data.elemexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -68431,19 +68346,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
   __pyx_t_1 = ((__pyx_v_data->elemexpr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5305
+    /* "pglast/ast.pyx":5301
  *     cdef object v_elemexpr
  *     if data.elemexpr is not NULL:
  *         v_elemexpr = create(data.elemexpr, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_elemexpr = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->elemexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5305, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->elemexpr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5301, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_elemexpr = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5304
+    /* "pglast/ast.pyx":5300
  *         v_arg = None
  *     cdef object v_elemexpr
  *     if data.elemexpr is not NULL:             # <<<<<<<<<<<<<<
@@ -68453,7 +68368,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5307
+  /* "pglast/ast.pyx":5303
  *         v_elemexpr = create(data.elemexpr, offset_to_index)
  *     else:
  *         v_elemexpr = None             # <<<<<<<<<<<<<<
@@ -68466,31 +68381,31 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5308
+  /* "pglast/ast.pyx":5304
  *     else:
  *         v_elemexpr = None
  *     cdef object v_resulttypmod = data.resulttypmod             # <<<<<<<<<<<<<<
  *     cdef object v_coerceformat = getattr(enums, 'CoercionForm')(data.coerceformat)
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int32_t(__pyx_v_data->resulttypmod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5308, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int32_t(__pyx_v_data->resulttypmod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_resulttypmod = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5309
+  /* "pglast/ast.pyx":5305
  *         v_elemexpr = None
  *     cdef object v_resulttypmod = data.resulttypmod
  *     cdef object v_coerceformat = getattr(enums, 'CoercionForm')(data.coerceformat)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.ArrayCoerceExpr(v_arg, v_elemexpr, v_resulttypmod, v_coerceformat, v_location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5309, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5305, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5309, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5305, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->coerceformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5309, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->coerceformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5305, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -68509,21 +68424,21 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5309, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5305, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_coerceformat = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5310
+  /* "pglast/ast.pyx":5306
  *     cdef object v_resulttypmod = data.resulttypmod
  *     cdef object v_coerceformat = getattr(enums, 'CoercionForm')(data.coerceformat)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.ArrayCoerceExpr(v_arg, v_elemexpr, v_resulttypmod, v_coerceformat, v_location)
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5310, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5306, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -68543,14 +68458,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5310, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5306, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5311
+  /* "pglast/ast.pyx":5307
  *     cdef object v_coerceformat = getattr(enums, 'CoercionForm')(data.coerceformat)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.ArrayCoerceExpr(v_arg, v_elemexpr, v_resulttypmod, v_coerceformat, v_location)             # <<<<<<<<<<<<<<
@@ -68558,9 +68473,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5311, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5307, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ArrayCoerceExpr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5311, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ArrayCoerceExpr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5307, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -68579,7 +68494,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
     PyObject *__pyx_callargs[6] = {__pyx_t_3, __pyx_v_v_arg, __pyx_v_v_elemexpr, __pyx_v_v_resulttypmod, __pyx_v_v_coerceformat, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 5+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5311, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5307, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -68587,7 +68502,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5297
+  /* "pglast/ast.pyx":5293
  * 
  * 
  * cdef create_ArrayCoerceExpr(structs.ArrayCoerceExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -68614,7 +68529,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayCoerceExpr(ArrayCoerceExpr 
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5314
+/* "pglast/ast.pyx":5310
  * 
  * 
  * cdef create_ConvertRowtypeExpr(structs.ConvertRowtypeExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -68639,7 +68554,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_ConvertRowtypeExpr", 0);
 
-  /* "pglast/ast.pyx":5316
+  /* "pglast/ast.pyx":5312
  * cdef create_ConvertRowtypeExpr(structs.ConvertRowtypeExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -68649,19 +68564,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5317
+    /* "pglast/ast.pyx":5313
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5317, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5313, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5316
+    /* "pglast/ast.pyx":5312
  * cdef create_ConvertRowtypeExpr(structs.ConvertRowtypeExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -68671,7 +68586,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5319
+  /* "pglast/ast.pyx":5315
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -68684,19 +68599,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5320
+  /* "pglast/ast.pyx":5316
  *     else:
  *         v_arg = None
  *     cdef object v_convertformat = getattr(enums, 'CoercionForm')(data.convertformat)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.ConvertRowtypeExpr(v_arg, v_convertformat, v_location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5320, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5316, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5320, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5316, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->convertformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5320, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->convertformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5316, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -68715,21 +68630,21 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5320, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5316, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_convertformat = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5321
+  /* "pglast/ast.pyx":5317
  *         v_arg = None
  *     cdef object v_convertformat = getattr(enums, 'CoercionForm')(data.convertformat)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.ConvertRowtypeExpr(v_arg, v_convertformat, v_location)
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5321, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -68749,14 +68664,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5321, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5317, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5322
+  /* "pglast/ast.pyx":5318
  *     cdef object v_convertformat = getattr(enums, 'CoercionForm')(data.convertformat)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.ConvertRowtypeExpr(v_arg, v_convertformat, v_location)             # <<<<<<<<<<<<<<
@@ -68764,9 +68679,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5322, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5318, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ConvertRowtypeExpr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5322, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ConvertRowtypeExpr); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5318, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -68785,7 +68700,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
     PyObject *__pyx_callargs[4] = {__pyx_t_3, __pyx_v_v_arg, __pyx_v_v_convertformat, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 3+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5322, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -68793,7 +68708,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5314
+  /* "pglast/ast.pyx":5310
  * 
  * 
  * cdef create_ConvertRowtypeExpr(structs.ConvertRowtypeExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -68818,7 +68733,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(ConvertRowtyp
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5325
+/* "pglast/ast.pyx":5321
  * 
  * 
  * cdef create_CollateExpr(structs.CollateExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -68842,7 +68757,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CollateExpr(CollateExpr *__pyx_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_CollateExpr", 0);
 
-  /* "pglast/ast.pyx":5327
+  /* "pglast/ast.pyx":5323
  * cdef create_CollateExpr(structs.CollateExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -68852,19 +68767,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CollateExpr(CollateExpr *__pyx_v
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5328
+    /* "pglast/ast.pyx":5324
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5328, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5324, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5327
+    /* "pglast/ast.pyx":5323
  * cdef create_CollateExpr(structs.CollateExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -68874,7 +68789,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CollateExpr(CollateExpr *__pyx_v
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5330
+  /* "pglast/ast.pyx":5326
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -68887,14 +68802,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CollateExpr(CollateExpr *__pyx_v
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5331
+  /* "pglast/ast.pyx":5327
  *     else:
  *         v_arg = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.CollateExpr(v_arg, v_location)
  * 
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5331, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_4 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -68914,14 +68829,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CollateExpr(CollateExpr *__pyx_v
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5331, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5327, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5332
+  /* "pglast/ast.pyx":5328
  *         v_arg = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CollateExpr(v_arg, v_location)             # <<<<<<<<<<<<<<
@@ -68929,9 +68844,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_CollateExpr(CollateExpr *__pyx_v
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5332, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_CollateExpr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5332, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_CollateExpr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -68950,7 +68865,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CollateExpr(CollateExpr *__pyx_v
     PyObject *__pyx_callargs[3] = {__pyx_t_4, __pyx_v_v_arg, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 2+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5332, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5328, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -68958,7 +68873,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CollateExpr(CollateExpr *__pyx_v
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5325
+  /* "pglast/ast.pyx":5321
  * 
  * 
  * cdef create_CollateExpr(structs.CollateExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -68982,7 +68897,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CollateExpr(CollateExpr *__pyx_v
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5335
+/* "pglast/ast.pyx":5331
  * 
  * 
  * cdef create_CaseExpr(structs.CaseExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -69012,7 +68927,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_CaseExpr", 0);
 
-  /* "pglast/ast.pyx":5337
+  /* "pglast/ast.pyx":5333
  * cdef create_CaseExpr(structs.CaseExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -69022,19 +68937,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5338
+    /* "pglast/ast.pyx":5334
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5338, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5334, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5337
+    /* "pglast/ast.pyx":5333
  * cdef create_CaseExpr(structs.CaseExpr* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -69044,7 +68959,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5340
+  /* "pglast/ast.pyx":5336
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -69057,7 +68972,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5343
+  /* "pglast/ast.pyx":5339
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -69067,19 +68982,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
   __pyx_t_1 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5344
+    /* "pglast/ast.pyx":5340
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5344, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5340, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_args = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5345
+    /* "pglast/ast.pyx":5341
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -69091,19 +69006,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5346
+      /* "pglast/ast.pyx":5342
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5346, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5342, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5347
+      /* "pglast/ast.pyx":5343
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -69112,7 +69027,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5348
+      /* "pglast/ast.pyx":5344
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -69122,7 +69037,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5343
+    /* "pglast/ast.pyx":5339
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -69132,7 +69047,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5350
+  /* "pglast/ast.pyx":5346
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -69145,7 +69060,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5352
+  /* "pglast/ast.pyx":5348
  *         v_args = None
  *     cdef object v_defresult
  *     if data.defresult is not NULL:             # <<<<<<<<<<<<<<
@@ -69155,19 +69070,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
   __pyx_t_1 = ((__pyx_v_data->defresult != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5353
+    /* "pglast/ast.pyx":5349
  *     cdef object v_defresult
  *     if data.defresult is not NULL:
  *         v_defresult = create(data.defresult, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_defresult = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->defresult, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5353, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->defresult, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5349, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_defresult = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5352
+    /* "pglast/ast.pyx":5348
  *         v_args = None
  *     cdef object v_defresult
  *     if data.defresult is not NULL:             # <<<<<<<<<<<<<<
@@ -69177,7 +69092,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
     goto __pyx_L7;
   }
 
-  /* "pglast/ast.pyx":5355
+  /* "pglast/ast.pyx":5351
  *         v_defresult = create(data.defresult, offset_to_index)
  *     else:
  *         v_defresult = None             # <<<<<<<<<<<<<<
@@ -69190,14 +69105,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
   }
   __pyx_L7:;
 
-  /* "pglast/ast.pyx":5356
+  /* "pglast/ast.pyx":5352
  *     else:
  *         v_defresult = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.CaseExpr(v_arg, v_args, v_defresult, v_location)
  * 
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5356, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_7 = __pyx_v_offset_to_index; __pyx_t_8 = NULL;
@@ -69217,14 +69132,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5356, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5352, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5357
+  /* "pglast/ast.pyx":5353
  *         v_defresult = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CaseExpr(v_arg, v_args, v_defresult, v_location)             # <<<<<<<<<<<<<<
@@ -69232,9 +69147,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5357, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_CaseExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5357, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_CaseExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -69253,7 +69168,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
     PyObject *__pyx_callargs[5] = {__pyx_t_7, __pyx_v_v_arg, __pyx_v_v_args, __pyx_v_v_defresult, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_3, 4+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5357, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5353, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -69261,7 +69176,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5335
+  /* "pglast/ast.pyx":5331
  * 
  * 
  * cdef create_CaseExpr(structs.CaseExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -69288,7 +69203,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseExpr(CaseExpr *__pyx_v_data,
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5360
+/* "pglast/ast.pyx":5356
  * 
  * 
  * cdef create_CaseWhen(structs.CaseWhen* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -69313,7 +69228,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_CaseWhen", 0);
 
-  /* "pglast/ast.pyx":5362
+  /* "pglast/ast.pyx":5358
  * cdef create_CaseWhen(structs.CaseWhen* data, offset_to_index):
  *     cdef object v_expr
  *     if data.expr is not NULL:             # <<<<<<<<<<<<<<
@@ -69323,19 +69238,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
   __pyx_t_1 = ((__pyx_v_data->expr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5363
+    /* "pglast/ast.pyx":5359
  *     cdef object v_expr
  *     if data.expr is not NULL:
  *         v_expr = create(data.expr, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_expr = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->expr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5363, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->expr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5359, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_expr = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5362
+    /* "pglast/ast.pyx":5358
  * cdef create_CaseWhen(structs.CaseWhen* data, offset_to_index):
  *     cdef object v_expr
  *     if data.expr is not NULL:             # <<<<<<<<<<<<<<
@@ -69345,7 +69260,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5365
+  /* "pglast/ast.pyx":5361
  *         v_expr = create(data.expr, offset_to_index)
  *     else:
  *         v_expr = None             # <<<<<<<<<<<<<<
@@ -69358,7 +69273,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5367
+  /* "pglast/ast.pyx":5363
  *         v_expr = None
  *     cdef object v_result
  *     if data.result is not NULL:             # <<<<<<<<<<<<<<
@@ -69368,19 +69283,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
   __pyx_t_1 = ((__pyx_v_data->result != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5368
+    /* "pglast/ast.pyx":5364
  *     cdef object v_result
  *     if data.result is not NULL:
  *         v_result = create(data.result, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_result = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->result, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5368, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->result, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5364, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_result = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5367
+    /* "pglast/ast.pyx":5363
  *         v_expr = None
  *     cdef object v_result
  *     if data.result is not NULL:             # <<<<<<<<<<<<<<
@@ -69390,7 +69305,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5370
+  /* "pglast/ast.pyx":5366
  *         v_result = create(data.result, offset_to_index)
  *     else:
  *         v_result = None             # <<<<<<<<<<<<<<
@@ -69403,14 +69318,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5371
+  /* "pglast/ast.pyx":5367
  *     else:
  *         v_result = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.CaseWhen(v_expr, v_result, v_location)
  * 
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5371, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5367, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_4 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -69430,14 +69345,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5371, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5372
+  /* "pglast/ast.pyx":5368
  *         v_result = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CaseWhen(v_expr, v_result, v_location)             # <<<<<<<<<<<<<<
@@ -69445,9 +69360,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5372, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5368, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_CaseWhen); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5372, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_CaseWhen); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5368, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -69466,7 +69381,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
     PyObject *__pyx_callargs[4] = {__pyx_t_4, __pyx_v_v_expr, __pyx_v_v_result, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 3+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5372, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5368, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -69474,7 +69389,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5360
+  /* "pglast/ast.pyx":5356
  * 
  * 
  * cdef create_CaseWhen(structs.CaseWhen* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -69499,7 +69414,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseWhen(CaseWhen *__pyx_v_data,
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5375
+/* "pglast/ast.pyx":5371
  * 
  * 
  * cdef create_CaseTestExpr(structs.CaseTestExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -69520,19 +69435,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseTestExpr(CaseTestExpr *__pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_CaseTestExpr", 0);
 
-  /* "pglast/ast.pyx":5376
+  /* "pglast/ast.pyx":5372
  * 
  * cdef create_CaseTestExpr(structs.CaseTestExpr* data, offset_to_index):
  *     cdef object v_typeMod = data.typeMod             # <<<<<<<<<<<<<<
  *     return ast.CaseTestExpr(v_typeMod)
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typeMod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5376, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typeMod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5372, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_typeMod = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5377
+  /* "pglast/ast.pyx":5373
  * cdef create_CaseTestExpr(structs.CaseTestExpr* data, offset_to_index):
  *     cdef object v_typeMod = data.typeMod
  *     return ast.CaseTestExpr(v_typeMod)             # <<<<<<<<<<<<<<
@@ -69540,9 +69455,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseTestExpr(CaseTestExpr *__pyx
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5377, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5373, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_CaseTestExpr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5377, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_CaseTestExpr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5373, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -69561,7 +69476,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseTestExpr(CaseTestExpr *__pyx
     PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_v_v_typeMod};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5377, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5373, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -69569,7 +69484,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseTestExpr(CaseTestExpr *__pyx
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5375
+  /* "pglast/ast.pyx":5371
  * 
  * 
  * cdef create_CaseTestExpr(structs.CaseTestExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -69591,7 +69506,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CaseTestExpr(CaseTestExpr *__pyx
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5380
+/* "pglast/ast.pyx":5376
  * 
  * 
  * cdef create_ArrayExpr(structs.ArrayExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -69620,7 +69535,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_ArrayExpr", 0);
 
-  /* "pglast/ast.pyx":5383
+  /* "pglast/ast.pyx":5379
  *     cdef tuple v_elements
  *     cdef int elements_i
  *     if data.elements is not NULL:             # <<<<<<<<<<<<<<
@@ -69630,19 +69545,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
   __pyx_t_1 = ((__pyx_v_data->elements != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5384
+    /* "pglast/ast.pyx":5380
  *     cdef int elements_i
  *     if data.elements is not NULL:
  *         v_elements = PyTuple_New(data.elements.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.elements.length):
  *             item = create(structs.list_nth(data.elements, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->elements->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5384, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->elements->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_elements = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5385
+    /* "pglast/ast.pyx":5381
  *     if data.elements is not NULL:
  *         v_elements = PyTuple_New(data.elements.length)
  *         for i in range(data.elements.length):             # <<<<<<<<<<<<<<
@@ -69654,19 +69569,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5386
+      /* "pglast/ast.pyx":5382
  *         v_elements = PyTuple_New(data.elements.length)
  *         for i in range(data.elements.length):
  *             item = create(structs.list_nth(data.elements, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_elements, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->elements, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5386, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->elements, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5382, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5387
+      /* "pglast/ast.pyx":5383
  *         for i in range(data.elements.length):
  *             item = create(structs.list_nth(data.elements, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -69675,7 +69590,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5388
+      /* "pglast/ast.pyx":5384
  *             item = create(structs.list_nth(data.elements, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_elements, i, item)             # <<<<<<<<<<<<<<
@@ -69685,7 +69600,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
       PyTuple_SET_ITEM(__pyx_v_v_elements, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5383
+    /* "pglast/ast.pyx":5379
  *     cdef tuple v_elements
  *     cdef int elements_i
  *     if data.elements is not NULL:             # <<<<<<<<<<<<<<
@@ -69695,7 +69610,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5390
+  /* "pglast/ast.pyx":5386
  *             PyTuple_SET_ITEM(v_elements, i, item)
  *     else:
  *         v_elements = None             # <<<<<<<<<<<<<<
@@ -69708,30 +69623,30 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5391
+  /* "pglast/ast.pyx":5387
  *     else:
  *         v_elements = None
  *     cdef object v_multidims = bool(data.multidims)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.ArrayExpr(v_elements, v_multidims, v_location)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->multidims); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5391, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->multidims); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5387, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5391, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5387, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5391, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5387, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_multidims = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5392
+  /* "pglast/ast.pyx":5388
  *         v_elements = None
  *     cdef object v_multidims = bool(data.multidims)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.ArrayExpr(v_elements, v_multidims, v_location)
  * 
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5392, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5388, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_7 = __pyx_v_offset_to_index; __pyx_t_8 = NULL;
@@ -69751,14 +69666,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5392, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5388, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5393
+  /* "pglast/ast.pyx":5389
  *     cdef object v_multidims = bool(data.multidims)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.ArrayExpr(v_elements, v_multidims, v_location)             # <<<<<<<<<<<<<<
@@ -69766,9 +69681,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5393, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_ArrayExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5393, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_ArrayExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5389, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -69787,7 +69702,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
     PyObject *__pyx_callargs[4] = {__pyx_t_7, __pyx_v_v_elements, __pyx_v_v_multidims, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_3, 3+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5393, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5389, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -69795,7 +69710,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5380
+  /* "pglast/ast.pyx":5376
  * 
  * 
  * cdef create_ArrayExpr(structs.ArrayExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -69821,7 +69736,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_ArrayExpr(ArrayExpr *__pyx_v_dat
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5396
+/* "pglast/ast.pyx":5392
  * 
  * 
  * cdef create_RowExpr(structs.RowExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -69851,7 +69766,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_RowExpr", 0);
 
-  /* "pglast/ast.pyx":5399
+  /* "pglast/ast.pyx":5395
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -69861,19 +69776,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
   __pyx_t_1 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5400
+    /* "pglast/ast.pyx":5396
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5400, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5396, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_args = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5401
+    /* "pglast/ast.pyx":5397
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -69885,19 +69800,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5402
+      /* "pglast/ast.pyx":5398
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5402, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5398, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5403
+      /* "pglast/ast.pyx":5399
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -69906,7 +69821,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5404
+      /* "pglast/ast.pyx":5400
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -69916,7 +69831,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5399
+    /* "pglast/ast.pyx":5395
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -69926,7 +69841,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5406
+  /* "pglast/ast.pyx":5402
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -69939,19 +69854,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5407
+  /* "pglast/ast.pyx":5403
  *     else:
  *         v_args = None
  *     cdef object v_row_format = getattr(enums, 'CoercionForm')(data.row_format)             # <<<<<<<<<<<<<<
  *     cdef tuple v_colnames
  *     cdef int colnames_i
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_enums); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5407, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_enums); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5403, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_GetAttr(__pyx_t_6, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5407, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_GetAttr(__pyx_t_6, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5403, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->row_format); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5407, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->row_format); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5403, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_8 = NULL;
   __pyx_t_3 = 0;
@@ -69970,14 +69885,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5407, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5403, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_v_v_row_format = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5410
+  /* "pglast/ast.pyx":5406
  *     cdef tuple v_colnames
  *     cdef int colnames_i
  *     if data.colnames is not NULL:             # <<<<<<<<<<<<<<
@@ -69987,19 +69902,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
   __pyx_t_1 = ((__pyx_v_data->colnames != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5411
+    /* "pglast/ast.pyx":5407
  *     cdef int colnames_i
  *     if data.colnames is not NULL:
  *         v_colnames = PyTuple_New(data.colnames.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.colnames.length):
  *             item = create(structs.list_nth(data.colnames, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->colnames->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5411, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->colnames->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5407, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_colnames = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5412
+    /* "pglast/ast.pyx":5408
  *     if data.colnames is not NULL:
  *         v_colnames = PyTuple_New(data.colnames.length)
  *         for i in range(data.colnames.length):             # <<<<<<<<<<<<<<
@@ -70011,19 +69926,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5413
+      /* "pglast/ast.pyx":5409
  *         v_colnames = PyTuple_New(data.colnames.length)
  *         for i in range(data.colnames.length):
  *             item = create(structs.list_nth(data.colnames, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_colnames, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->colnames, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5413, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->colnames, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5409, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5414
+      /* "pglast/ast.pyx":5410
  *         for i in range(data.colnames.length):
  *             item = create(structs.list_nth(data.colnames, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -70032,7 +69947,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5415
+      /* "pglast/ast.pyx":5411
  *             item = create(structs.list_nth(data.colnames, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_colnames, i, item)             # <<<<<<<<<<<<<<
@@ -70042,7 +69957,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_colnames, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5410
+    /* "pglast/ast.pyx":5406
  *     cdef tuple v_colnames
  *     cdef int colnames_i
  *     if data.colnames is not NULL:             # <<<<<<<<<<<<<<
@@ -70052,7 +69967,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
     goto __pyx_L6;
   }
 
-  /* "pglast/ast.pyx":5417
+  /* "pglast/ast.pyx":5413
  *             PyTuple_SET_ITEM(v_colnames, i, item)
  *     else:
  *         v_colnames = None             # <<<<<<<<<<<<<<
@@ -70065,14 +69980,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
   }
   __pyx_L6:;
 
-  /* "pglast/ast.pyx":5418
+  /* "pglast/ast.pyx":5414
  *     else:
  *         v_colnames = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.RowExpr(v_args, v_row_format, v_colnames, v_location)
  * 
  */
-  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5418, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5414, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_6 = __pyx_v_offset_to_index; __pyx_t_8 = NULL;
@@ -70092,14 +70007,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5418, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5414, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5419
+  /* "pglast/ast.pyx":5415
  *         v_colnames = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.RowExpr(v_args, v_row_format, v_colnames, v_location)             # <<<<<<<<<<<<<<
@@ -70107,9 +70022,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5419, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5415, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_RowExpr); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5419, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_RowExpr); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5415, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -70128,7 +70043,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
     PyObject *__pyx_callargs[5] = {__pyx_t_6, __pyx_v_v_args, __pyx_v_v_row_format, __pyx_v_v_colnames, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 4+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5419, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5415, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -70136,7 +70051,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5396
+  /* "pglast/ast.pyx":5392
  * 
  * 
  * cdef create_RowExpr(structs.RowExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -70163,7 +70078,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowExpr(RowExpr *__pyx_v_data, P
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5422
+/* "pglast/ast.pyx":5418
  * 
  * 
  * cdef create_RowCompareExpr(structs.RowCompareExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -70195,19 +70110,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_RowCompareExpr", 0);
 
-  /* "pglast/ast.pyx":5423
+  /* "pglast/ast.pyx":5419
  * 
  * cdef create_RowCompareExpr(structs.RowCompareExpr* data, offset_to_index):
  *     cdef object v_rctype = getattr(enums, 'RowCompareType')(data.rctype)             # <<<<<<<<<<<<<<
  *     cdef tuple v_opnos
  *     cdef int opnos_i
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5423, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_RowCompareType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5423, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_RowCompareType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_RowCompareType(__pyx_v_data->rctype); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5423, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_RowCompareType(__pyx_v_data->rctype); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5419, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -70226,14 +70141,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5423, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5419, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_rctype = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5426
+  /* "pglast/ast.pyx":5422
  *     cdef tuple v_opnos
  *     cdef int opnos_i
  *     if data.opnos is not NULL:             # <<<<<<<<<<<<<<
@@ -70243,19 +70158,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   __pyx_t_6 = ((__pyx_v_data->opnos != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5427
+    /* "pglast/ast.pyx":5423
  *     cdef int opnos_i
  *     if data.opnos is not NULL:
  *         v_opnos = PyTuple_New(data.opnos.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.opnos.length):
  *             item = create(structs.list_nth(data.opnos, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->opnos->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5427, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->opnos->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5423, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_opnos = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5428
+    /* "pglast/ast.pyx":5424
  *     if data.opnos is not NULL:
  *         v_opnos = PyTuple_New(data.opnos.length)
  *         for i in range(data.opnos.length):             # <<<<<<<<<<<<<<
@@ -70267,19 +70182,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5429
+      /* "pglast/ast.pyx":5425
  *         v_opnos = PyTuple_New(data.opnos.length)
  *         for i in range(data.opnos.length):
  *             item = create(structs.list_nth(data.opnos, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_opnos, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->opnos, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5429, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->opnos, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5425, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5430
+      /* "pglast/ast.pyx":5426
  *         for i in range(data.opnos.length):
  *             item = create(structs.list_nth(data.opnos, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -70288,7 +70203,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5431
+      /* "pglast/ast.pyx":5427
  *             item = create(structs.list_nth(data.opnos, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_opnos, i, item)             # <<<<<<<<<<<<<<
@@ -70298,7 +70213,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
       PyTuple_SET_ITEM(__pyx_v_v_opnos, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5426
+    /* "pglast/ast.pyx":5422
  *     cdef tuple v_opnos
  *     cdef int opnos_i
  *     if data.opnos is not NULL:             # <<<<<<<<<<<<<<
@@ -70308,7 +70223,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5433
+  /* "pglast/ast.pyx":5429
  *             PyTuple_SET_ITEM(v_opnos, i, item)
  *     else:
  *         v_opnos = None             # <<<<<<<<<<<<<<
@@ -70321,7 +70236,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5436
+  /* "pglast/ast.pyx":5432
  *     cdef tuple v_opfamilies
  *     cdef int opfamilies_i
  *     if data.opfamilies is not NULL:             # <<<<<<<<<<<<<<
@@ -70331,19 +70246,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   __pyx_t_6 = ((__pyx_v_data->opfamilies != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5437
+    /* "pglast/ast.pyx":5433
  *     cdef int opfamilies_i
  *     if data.opfamilies is not NULL:
  *         v_opfamilies = PyTuple_New(data.opfamilies.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.opfamilies.length):
  *             item = create(structs.list_nth(data.opfamilies, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->opfamilies->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5437, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->opfamilies->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5433, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_opfamilies = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5438
+    /* "pglast/ast.pyx":5434
  *     if data.opfamilies is not NULL:
  *         v_opfamilies = PyTuple_New(data.opfamilies.length)
  *         for i in range(data.opfamilies.length):             # <<<<<<<<<<<<<<
@@ -70355,19 +70270,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5439
+      /* "pglast/ast.pyx":5435
  *         v_opfamilies = PyTuple_New(data.opfamilies.length)
  *         for i in range(data.opfamilies.length):
  *             item = create(structs.list_nth(data.opfamilies, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_opfamilies, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->opfamilies, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5439, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->opfamilies, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5435, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5440
+      /* "pglast/ast.pyx":5436
  *         for i in range(data.opfamilies.length):
  *             item = create(structs.list_nth(data.opfamilies, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -70376,7 +70291,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5441
+      /* "pglast/ast.pyx":5437
  *             item = create(structs.list_nth(data.opfamilies, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_opfamilies, i, item)             # <<<<<<<<<<<<<<
@@ -70386,7 +70301,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
       PyTuple_SET_ITEM(__pyx_v_v_opfamilies, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5436
+    /* "pglast/ast.pyx":5432
  *     cdef tuple v_opfamilies
  *     cdef int opfamilies_i
  *     if data.opfamilies is not NULL:             # <<<<<<<<<<<<<<
@@ -70396,7 +70311,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     goto __pyx_L6;
   }
 
-  /* "pglast/ast.pyx":5443
+  /* "pglast/ast.pyx":5439
  *             PyTuple_SET_ITEM(v_opfamilies, i, item)
  *     else:
  *         v_opfamilies = None             # <<<<<<<<<<<<<<
@@ -70409,7 +70324,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   }
   __pyx_L6:;
 
-  /* "pglast/ast.pyx":5446
+  /* "pglast/ast.pyx":5442
  *     cdef tuple v_inputcollids
  *     cdef int inputcollids_i
  *     if data.inputcollids is not NULL:             # <<<<<<<<<<<<<<
@@ -70419,19 +70334,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   __pyx_t_6 = ((__pyx_v_data->inputcollids != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5447
+    /* "pglast/ast.pyx":5443
  *     cdef int inputcollids_i
  *     if data.inputcollids is not NULL:
  *         v_inputcollids = PyTuple_New(data.inputcollids.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.inputcollids.length):
  *             item = create(structs.list_nth(data.inputcollids, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->inputcollids->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5447, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->inputcollids->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5443, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_inputcollids = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5448
+    /* "pglast/ast.pyx":5444
  *     if data.inputcollids is not NULL:
  *         v_inputcollids = PyTuple_New(data.inputcollids.length)
  *         for i in range(data.inputcollids.length):             # <<<<<<<<<<<<<<
@@ -70443,19 +70358,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5449
+      /* "pglast/ast.pyx":5445
  *         v_inputcollids = PyTuple_New(data.inputcollids.length)
  *         for i in range(data.inputcollids.length):
  *             item = create(structs.list_nth(data.inputcollids, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_inputcollids, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->inputcollids, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5449, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->inputcollids, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5445, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5450
+      /* "pglast/ast.pyx":5446
  *         for i in range(data.inputcollids.length):
  *             item = create(structs.list_nth(data.inputcollids, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -70464,7 +70379,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5451
+      /* "pglast/ast.pyx":5447
  *             item = create(structs.list_nth(data.inputcollids, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_inputcollids, i, item)             # <<<<<<<<<<<<<<
@@ -70474,7 +70389,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
       PyTuple_SET_ITEM(__pyx_v_v_inputcollids, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5446
+    /* "pglast/ast.pyx":5442
  *     cdef tuple v_inputcollids
  *     cdef int inputcollids_i
  *     if data.inputcollids is not NULL:             # <<<<<<<<<<<<<<
@@ -70484,7 +70399,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     goto __pyx_L9;
   }
 
-  /* "pglast/ast.pyx":5453
+  /* "pglast/ast.pyx":5449
  *             PyTuple_SET_ITEM(v_inputcollids, i, item)
  *     else:
  *         v_inputcollids = None             # <<<<<<<<<<<<<<
@@ -70497,7 +70412,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   }
   __pyx_L9:;
 
-  /* "pglast/ast.pyx":5456
+  /* "pglast/ast.pyx":5452
  *     cdef tuple v_largs
  *     cdef int largs_i
  *     if data.largs is not NULL:             # <<<<<<<<<<<<<<
@@ -70507,19 +70422,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   __pyx_t_6 = ((__pyx_v_data->largs != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5457
+    /* "pglast/ast.pyx":5453
  *     cdef int largs_i
  *     if data.largs is not NULL:
  *         v_largs = PyTuple_New(data.largs.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.largs.length):
  *             item = create(structs.list_nth(data.largs, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->largs->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5457, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->largs->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5453, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_largs = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5458
+    /* "pglast/ast.pyx":5454
  *     if data.largs is not NULL:
  *         v_largs = PyTuple_New(data.largs.length)
  *         for i in range(data.largs.length):             # <<<<<<<<<<<<<<
@@ -70531,19 +70446,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5459
+      /* "pglast/ast.pyx":5455
  *         v_largs = PyTuple_New(data.largs.length)
  *         for i in range(data.largs.length):
  *             item = create(structs.list_nth(data.largs, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_largs, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->largs, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5459, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->largs, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5455, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5460
+      /* "pglast/ast.pyx":5456
  *         for i in range(data.largs.length):
  *             item = create(structs.list_nth(data.largs, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -70552,7 +70467,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5461
+      /* "pglast/ast.pyx":5457
  *             item = create(structs.list_nth(data.largs, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_largs, i, item)             # <<<<<<<<<<<<<<
@@ -70562,7 +70477,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
       PyTuple_SET_ITEM(__pyx_v_v_largs, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5456
+    /* "pglast/ast.pyx":5452
  *     cdef tuple v_largs
  *     cdef int largs_i
  *     if data.largs is not NULL:             # <<<<<<<<<<<<<<
@@ -70572,7 +70487,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     goto __pyx_L12;
   }
 
-  /* "pglast/ast.pyx":5463
+  /* "pglast/ast.pyx":5459
  *             PyTuple_SET_ITEM(v_largs, i, item)
  *     else:
  *         v_largs = None             # <<<<<<<<<<<<<<
@@ -70585,7 +70500,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   }
   __pyx_L12:;
 
-  /* "pglast/ast.pyx":5466
+  /* "pglast/ast.pyx":5462
  *     cdef tuple v_rargs
  *     cdef int rargs_i
  *     if data.rargs is not NULL:             # <<<<<<<<<<<<<<
@@ -70595,19 +70510,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   __pyx_t_6 = ((__pyx_v_data->rargs != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5467
+    /* "pglast/ast.pyx":5463
  *     cdef int rargs_i
  *     if data.rargs is not NULL:
  *         v_rargs = PyTuple_New(data.rargs.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.rargs.length):
  *             item = create(structs.list_nth(data.rargs, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->rargs->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5467, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->rargs->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5463, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_rargs = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5468
+    /* "pglast/ast.pyx":5464
  *     if data.rargs is not NULL:
  *         v_rargs = PyTuple_New(data.rargs.length)
  *         for i in range(data.rargs.length):             # <<<<<<<<<<<<<<
@@ -70619,19 +70534,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5469
+      /* "pglast/ast.pyx":5465
  *         v_rargs = PyTuple_New(data.rargs.length)
  *         for i in range(data.rargs.length):
  *             item = create(structs.list_nth(data.rargs, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_rargs, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->rargs, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5469, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->rargs, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5465, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5470
+      /* "pglast/ast.pyx":5466
  *         for i in range(data.rargs.length):
  *             item = create(structs.list_nth(data.rargs, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -70640,7 +70555,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5471
+      /* "pglast/ast.pyx":5467
  *             item = create(structs.list_nth(data.rargs, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_rargs, i, item)             # <<<<<<<<<<<<<<
@@ -70650,7 +70565,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
       PyTuple_SET_ITEM(__pyx_v_v_rargs, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5466
+    /* "pglast/ast.pyx":5462
  *     cdef tuple v_rargs
  *     cdef int rargs_i
  *     if data.rargs is not NULL:             # <<<<<<<<<<<<<<
@@ -70660,7 +70575,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     goto __pyx_L15;
   }
 
-  /* "pglast/ast.pyx":5473
+  /* "pglast/ast.pyx":5469
  *             PyTuple_SET_ITEM(v_rargs, i, item)
  *     else:
  *         v_rargs = None             # <<<<<<<<<<<<<<
@@ -70673,7 +70588,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   }
   __pyx_L15:;
 
-  /* "pglast/ast.pyx":5474
+  /* "pglast/ast.pyx":5470
  *     else:
  *         v_rargs = None
  *     return ast.RowCompareExpr(v_rctype, v_opnos, v_opfamilies, v_inputcollids, v_largs, v_rargs)             # <<<<<<<<<<<<<<
@@ -70681,9 +70596,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5474, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5470, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_RowCompareExpr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5474, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_RowCompareExpr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5470, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -70702,7 +70617,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
     PyObject *__pyx_callargs[7] = {__pyx_t_3, __pyx_v_v_rctype, __pyx_v_v_opnos, __pyx_v_v_opfamilies, __pyx_v_v_inputcollids, __pyx_v_v_largs, __pyx_v_v_rargs};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 6+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5474, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5470, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -70710,7 +70625,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5422
+  /* "pglast/ast.pyx":5418
  * 
  * 
  * cdef create_RowCompareExpr(structs.RowCompareExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -70739,7 +70654,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RowCompareExpr(RowCompareExpr *_
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5477
+/* "pglast/ast.pyx":5473
  * 
  * 
  * cdef create_CoalesceExpr(structs.CoalesceExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -70767,7 +70682,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_CoalesceExpr", 0);
 
-  /* "pglast/ast.pyx":5480
+  /* "pglast/ast.pyx":5476
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -70777,19 +70692,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
   __pyx_t_1 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5481
+    /* "pglast/ast.pyx":5477
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5481, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5477, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_args = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5482
+    /* "pglast/ast.pyx":5478
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -70801,19 +70716,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5483
+      /* "pglast/ast.pyx":5479
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5483, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5479, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5484
+      /* "pglast/ast.pyx":5480
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -70822,7 +70737,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5485
+      /* "pglast/ast.pyx":5481
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -70832,7 +70747,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5480
+    /* "pglast/ast.pyx":5476
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -70842,7 +70757,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5487
+  /* "pglast/ast.pyx":5483
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -70855,14 +70770,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5488
+  /* "pglast/ast.pyx":5484
  *     else:
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.CoalesceExpr(v_args, v_location)
  * 
  */
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5488, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5484, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_7 = __pyx_v_offset_to_index; __pyx_t_8 = NULL;
@@ -70882,14 +70797,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 1+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5488, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5484, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5489
+  /* "pglast/ast.pyx":5485
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CoalesceExpr(v_args, v_location)             # <<<<<<<<<<<<<<
@@ -70897,9 +70812,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5489, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_ast); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_CoalesceExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5489, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_CoalesceExpr); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5485, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -70918,7 +70833,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
     PyObject *__pyx_callargs[3] = {__pyx_t_7, __pyx_v_v_args, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_3, 2+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5489, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5485, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -70926,7 +70841,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5477
+  /* "pglast/ast.pyx":5473
  * 
  * 
  * cdef create_CoalesceExpr(structs.CoalesceExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -70951,7 +70866,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoalesceExpr(CoalesceExpr *__pyx
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5492
+/* "pglast/ast.pyx":5488
  * 
  * 
  * cdef create_MinMaxExpr(structs.MinMaxExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -70980,19 +70895,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_MinMaxExpr", 0);
 
-  /* "pglast/ast.pyx":5493
+  /* "pglast/ast.pyx":5489
  * 
  * cdef create_MinMaxExpr(structs.MinMaxExpr* data, offset_to_index):
  *     cdef object v_op = getattr(enums, 'MinMaxOp')(data.op)             # <<<<<<<<<<<<<<
  *     cdef tuple v_args
  *     cdef int args_i
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5493, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5489, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_MinMaxOp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5493, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_MinMaxOp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5489, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_MinMaxOp(__pyx_v_data->op); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5493, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_MinMaxOp(__pyx_v_data->op); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5489, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -71011,14 +70926,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5493, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5489, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_op = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5496
+  /* "pglast/ast.pyx":5492
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -71028,19 +70943,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
   __pyx_t_6 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5497
+    /* "pglast/ast.pyx":5493
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5497, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5493, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_args = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5498
+    /* "pglast/ast.pyx":5494
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -71052,19 +70967,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5499
+      /* "pglast/ast.pyx":5495
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5499, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5495, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5500
+      /* "pglast/ast.pyx":5496
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -71073,7 +70988,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5501
+      /* "pglast/ast.pyx":5497
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -71083,7 +70998,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5496
+    /* "pglast/ast.pyx":5492
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -71093,7 +71008,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5503
+  /* "pglast/ast.pyx":5499
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -71106,14 +71021,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5504
+  /* "pglast/ast.pyx":5500
  *     else:
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.MinMaxExpr(v_op, v_args, v_location)
  * 
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5504, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5500, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_2 = __pyx_v_offset_to_index; __pyx_t_4 = NULL;
@@ -71133,14 +71048,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5504, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5500, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5505
+  /* "pglast/ast.pyx":5501
  *         v_args = None
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.MinMaxExpr(v_op, v_args, v_location)             # <<<<<<<<<<<<<<
@@ -71148,9 +71063,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5505, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_MinMaxExpr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5505, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_MinMaxExpr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -71169,7 +71084,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
     PyObject *__pyx_callargs[4] = {__pyx_t_2, __pyx_v_v_op, __pyx_v_v_args, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 3+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5505, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5501, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -71177,7 +71092,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5492
+  /* "pglast/ast.pyx":5488
  * 
  * 
  * cdef create_MinMaxExpr(structs.MinMaxExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -71203,7 +71118,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_MinMaxExpr(MinMaxExpr *__pyx_v_d
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5508
+/* "pglast/ast.pyx":5504
  * 
  * 
  * cdef create_SQLValueFunction(structs.SQLValueFunction* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -71227,19 +71142,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_SQLValueFunction(SQLValueFunctio
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_SQLValueFunction", 0);
 
-  /* "pglast/ast.pyx":5509
+  /* "pglast/ast.pyx":5505
  * 
  * cdef create_SQLValueFunction(structs.SQLValueFunction* data, offset_to_index):
  *     cdef object v_op = getattr(enums, 'SQLValueFunctionOp')(data.op)             # <<<<<<<<<<<<<<
  *     cdef object v_typmod = data.typmod
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5509, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5505, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_SQLValueFunctionOp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5509, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_SQLValueFunctionOp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5505, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_SQLValueFunctionOp(__pyx_v_data->op); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5509, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_SQLValueFunctionOp(__pyx_v_data->op); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5505, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -71258,33 +71173,33 @@ static PyObject *__pyx_f_6pglast_6parser_create_SQLValueFunction(SQLValueFunctio
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5509, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5505, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_op = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5510
+  /* "pglast/ast.pyx":5506
  * cdef create_SQLValueFunction(structs.SQLValueFunction* data, offset_to_index):
  *     cdef object v_op = getattr(enums, 'SQLValueFunctionOp')(data.op)
  *     cdef object v_typmod = data.typmod             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.SQLValueFunction(v_op, v_typmod, v_location)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5510, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5506, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_typmod = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5511
+  /* "pglast/ast.pyx":5507
  *     cdef object v_op = getattr(enums, 'SQLValueFunctionOp')(data.op)
  *     cdef object v_typmod = data.typmod
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.SQLValueFunction(v_op, v_typmod, v_location)
  * 
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5511, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_2 = __pyx_v_offset_to_index; __pyx_t_4 = NULL;
@@ -71304,14 +71219,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_SQLValueFunction(SQLValueFunctio
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5511, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5507, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5512
+  /* "pglast/ast.pyx":5508
  *     cdef object v_typmod = data.typmod
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.SQLValueFunction(v_op, v_typmod, v_location)             # <<<<<<<<<<<<<<
@@ -71319,9 +71234,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_SQLValueFunction(SQLValueFunctio
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5512, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_SQLValueFunction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5512, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_SQLValueFunction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -71340,7 +71255,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SQLValueFunction(SQLValueFunctio
     PyObject *__pyx_callargs[4] = {__pyx_t_2, __pyx_v_v_op, __pyx_v_v_typmod, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 3+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5512, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5508, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -71348,7 +71263,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SQLValueFunction(SQLValueFunctio
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5508
+  /* "pglast/ast.pyx":5504
  * 
  * 
  * cdef create_SQLValueFunction(structs.SQLValueFunction* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -71373,7 +71288,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SQLValueFunction(SQLValueFunctio
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5515
+/* "pglast/ast.pyx":5511
  * 
  * 
  * cdef create_XmlExpr(structs.XmlExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -71408,19 +71323,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_XmlExpr", 0);
 
-  /* "pglast/ast.pyx":5516
+  /* "pglast/ast.pyx":5512
  * 
  * cdef create_XmlExpr(structs.XmlExpr* data, offset_to_index):
  *     cdef object v_op = getattr(enums, 'XmlExprOp')(data.op)             # <<<<<<<<<<<<<<
  *     cdef object v_name
  *     if data.name is not NULL:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5516, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_XmlExprOp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5516, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_XmlExprOp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_XmlExprOp(__pyx_v_data->op); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5516, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_XmlExprOp(__pyx_v_data->op); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -71439,14 +71354,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5516, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5512, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_op = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5518
+  /* "pglast/ast.pyx":5514
  *     cdef object v_op = getattr(enums, 'XmlExprOp')(data.op)
  *     cdef object v_name
  *     if data.name is not NULL:             # <<<<<<<<<<<<<<
@@ -71456,7 +71371,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->name != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5519
+    /* "pglast/ast.pyx":5515
  *     cdef object v_name
  *     if data.name is not NULL:
  *         v_name = data.name.decode("utf-8")             # <<<<<<<<<<<<<<
@@ -71464,13 +71379,13 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
  *         v_name = None
  */
     __pyx_t_7 = __pyx_v_data->name;
-    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5519, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5515, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_t_1);
     __pyx_v_v_name = __pyx_t_1;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5518
+    /* "pglast/ast.pyx":5514
  *     cdef object v_op = getattr(enums, 'XmlExprOp')(data.op)
  *     cdef object v_name
  *     if data.name is not NULL:             # <<<<<<<<<<<<<<
@@ -71480,7 +71395,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5521
+  /* "pglast/ast.pyx":5517
  *         v_name = data.name.decode("utf-8")
  *     else:
  *         v_name = None             # <<<<<<<<<<<<<<
@@ -71493,7 +71408,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5524
+  /* "pglast/ast.pyx":5520
  *     cdef tuple v_named_args
  *     cdef int named_args_i
  *     if data.named_args is not NULL:             # <<<<<<<<<<<<<<
@@ -71503,19 +71418,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->named_args != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5525
+    /* "pglast/ast.pyx":5521
  *     cdef int named_args_i
  *     if data.named_args is not NULL:
  *         v_named_args = PyTuple_New(data.named_args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.named_args.length):
  *             item = create(structs.list_nth(data.named_args, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->named_args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5525, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->named_args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5521, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_named_args = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5526
+    /* "pglast/ast.pyx":5522
  *     if data.named_args is not NULL:
  *         v_named_args = PyTuple_New(data.named_args.length)
  *         for i in range(data.named_args.length):             # <<<<<<<<<<<<<<
@@ -71527,19 +71442,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_i = __pyx_t_9;
 
-      /* "pglast/ast.pyx":5527
+      /* "pglast/ast.pyx":5523
  *         v_named_args = PyTuple_New(data.named_args.length)
  *         for i in range(data.named_args.length):
  *             item = create(structs.list_nth(data.named_args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_named_args, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->named_args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5527, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->named_args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5523, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5528
+      /* "pglast/ast.pyx":5524
  *         for i in range(data.named_args.length):
  *             item = create(structs.list_nth(data.named_args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -71548,7 +71463,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5529
+      /* "pglast/ast.pyx":5525
  *             item = create(structs.list_nth(data.named_args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_named_args, i, item)             # <<<<<<<<<<<<<<
@@ -71558,7 +71473,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_named_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5524
+    /* "pglast/ast.pyx":5520
  *     cdef tuple v_named_args
  *     cdef int named_args_i
  *     if data.named_args is not NULL:             # <<<<<<<<<<<<<<
@@ -71568,7 +71483,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5531
+  /* "pglast/ast.pyx":5527
  *             PyTuple_SET_ITEM(v_named_args, i, item)
  *     else:
  *         v_named_args = None             # <<<<<<<<<<<<<<
@@ -71581,7 +71496,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5534
+  /* "pglast/ast.pyx":5530
  *     cdef tuple v_arg_names
  *     cdef int arg_names_i
  *     if data.arg_names is not NULL:             # <<<<<<<<<<<<<<
@@ -71591,19 +71506,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->arg_names != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5535
+    /* "pglast/ast.pyx":5531
  *     cdef int arg_names_i
  *     if data.arg_names is not NULL:
  *         v_arg_names = PyTuple_New(data.arg_names.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.arg_names.length):
  *             item = create(structs.list_nth(data.arg_names, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->arg_names->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5535, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->arg_names->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5531, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_arg_names = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5536
+    /* "pglast/ast.pyx":5532
  *     if data.arg_names is not NULL:
  *         v_arg_names = PyTuple_New(data.arg_names.length)
  *         for i in range(data.arg_names.length):             # <<<<<<<<<<<<<<
@@ -71615,19 +71530,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_i = __pyx_t_9;
 
-      /* "pglast/ast.pyx":5537
+      /* "pglast/ast.pyx":5533
  *         v_arg_names = PyTuple_New(data.arg_names.length)
  *         for i in range(data.arg_names.length):
  *             item = create(structs.list_nth(data.arg_names, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_arg_names, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->arg_names, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5537, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->arg_names, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5533, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5538
+      /* "pglast/ast.pyx":5534
  *         for i in range(data.arg_names.length):
  *             item = create(structs.list_nth(data.arg_names, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -71636,7 +71551,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5539
+      /* "pglast/ast.pyx":5535
  *             item = create(structs.list_nth(data.arg_names, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_arg_names, i, item)             # <<<<<<<<<<<<<<
@@ -71646,7 +71561,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_arg_names, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5534
+    /* "pglast/ast.pyx":5530
  *     cdef tuple v_arg_names
  *     cdef int arg_names_i
  *     if data.arg_names is not NULL:             # <<<<<<<<<<<<<<
@@ -71656,7 +71571,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     goto __pyx_L7;
   }
 
-  /* "pglast/ast.pyx":5541
+  /* "pglast/ast.pyx":5537
  *             PyTuple_SET_ITEM(v_arg_names, i, item)
  *     else:
  *         v_arg_names = None             # <<<<<<<<<<<<<<
@@ -71669,7 +71584,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   }
   __pyx_L7:;
 
-  /* "pglast/ast.pyx":5544
+  /* "pglast/ast.pyx":5540
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -71679,19 +71594,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   __pyx_t_6 = ((__pyx_v_data->args != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5545
+    /* "pglast/ast.pyx":5541
  *     cdef int args_i
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5545, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->args->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5541, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_args = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5546
+    /* "pglast/ast.pyx":5542
  *     if data.args is not NULL:
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):             # <<<<<<<<<<<<<<
@@ -71703,19 +71618,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_i = __pyx_t_9;
 
-      /* "pglast/ast.pyx":5547
+      /* "pglast/ast.pyx":5543
  *         v_args = PyTuple_New(data.args.length)
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5547, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->args, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5543, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5548
+      /* "pglast/ast.pyx":5544
  *         for i in range(data.args.length):
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -71724,7 +71639,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5549
+      /* "pglast/ast.pyx":5545
  *             item = create(structs.list_nth(data.args, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_args, i, item)             # <<<<<<<<<<<<<<
@@ -71734,7 +71649,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
       PyTuple_SET_ITEM(__pyx_v_v_args, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5544
+    /* "pglast/ast.pyx":5540
  *     cdef tuple v_args
  *     cdef int args_i
  *     if data.args is not NULL:             # <<<<<<<<<<<<<<
@@ -71744,7 +71659,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     goto __pyx_L10;
   }
 
-  /* "pglast/ast.pyx":5551
+  /* "pglast/ast.pyx":5547
  *             PyTuple_SET_ITEM(v_args, i, item)
  *     else:
  *         v_args = None             # <<<<<<<<<<<<<<
@@ -71757,19 +71672,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   }
   __pyx_L10:;
 
-  /* "pglast/ast.pyx":5552
+  /* "pglast/ast.pyx":5548
  *     else:
  *         v_args = None
  *     cdef object v_xmloption = getattr(enums, 'XmlOptionType')(data.xmloption)             # <<<<<<<<<<<<<<
  *     cdef object v_typmod = data.typmod
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5552, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5548, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_XmlOptionType); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5552, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_XmlOptionType); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5548, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_XmlOptionType(__pyx_v_data->xmloption); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5552, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_XmlOptionType(__pyx_v_data->xmloption); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5548, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -71788,33 +71703,33 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5552, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5548, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_v_xmloption = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5553
+  /* "pglast/ast.pyx":5549
  *         v_args = None
  *     cdef object v_xmloption = getattr(enums, 'XmlOptionType')(data.xmloption)
  *     cdef object v_typmod = data.typmod             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.XmlExpr(v_op, v_name, v_named_args, v_arg_names, v_args, v_xmloption, v_typmod, v_location)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5553, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typmod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5549, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_typmod = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5554
+  /* "pglast/ast.pyx":5550
  *     cdef object v_xmloption = getattr(enums, 'XmlOptionType')(data.xmloption)
  *     cdef object v_typmod = data.typmod
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.XmlExpr(v_op, v_name, v_named_args, v_arg_names, v_args, v_xmloption, v_typmod, v_location)
  * 
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5554, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5550, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_4 = NULL;
@@ -71834,14 +71749,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5554, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5550, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5555
+  /* "pglast/ast.pyx":5551
  *     cdef object v_typmod = data.typmod
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.XmlExpr(v_op, v_name, v_named_args, v_arg_names, v_args, v_xmloption, v_typmod, v_location)             # <<<<<<<<<<<<<<
@@ -71849,9 +71764,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5555, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_XmlExpr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5555, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_XmlExpr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5551, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -71870,7 +71785,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
     PyObject *__pyx_callargs[9] = {__pyx_t_3, __pyx_v_v_op, __pyx_v_v_name, __pyx_v_v_named_args, __pyx_v_v_arg_names, __pyx_v_v_args, __pyx_v_v_xmloption, __pyx_v_v_typmod, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 8+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5555, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5551, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -71878,7 +71793,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5515
+  /* "pglast/ast.pyx":5511
  * 
  * 
  * cdef create_XmlExpr(structs.XmlExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -71909,7 +71824,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_XmlExpr(XmlExpr *__pyx_v_data, P
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5558
+/* "pglast/ast.pyx":5554
  * 
  * 
  * cdef create_NullTest(structs.NullTest* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -71935,7 +71850,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_NullTest", 0);
 
-  /* "pglast/ast.pyx":5560
+  /* "pglast/ast.pyx":5556
  * cdef create_NullTest(structs.NullTest* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -71945,19 +71860,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5561
+    /* "pglast/ast.pyx":5557
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5561, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5557, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5560
+    /* "pglast/ast.pyx":5556
  * cdef create_NullTest(structs.NullTest* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -71967,7 +71882,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5563
+  /* "pglast/ast.pyx":5559
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -71980,19 +71895,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5564
+  /* "pglast/ast.pyx":5560
  *     else:
  *         v_arg = None
  *     cdef object v_nulltesttype = getattr(enums, 'NullTestType')(data.nulltesttype)             # <<<<<<<<<<<<<<
  *     cdef object v_argisrow = bool(data.argisrow)
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5564, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_NullTestType); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5564, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_NullTestType); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_NullTestType(__pyx_v_data->nulltesttype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5564, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_NullTestType(__pyx_v_data->nulltesttype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -72011,37 +71926,37 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5564, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5560, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_nulltesttype = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5565
+  /* "pglast/ast.pyx":5561
  *         v_arg = None
  *     cdef object v_nulltesttype = getattr(enums, 'NullTestType')(data.nulltesttype)
  *     cdef object v_argisrow = bool(data.argisrow)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.NullTest(v_arg, v_nulltesttype, v_argisrow, v_location)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->argisrow); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5565, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->argisrow); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5561, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5565, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5561, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5565, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5561, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_argisrow = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5566
+  /* "pglast/ast.pyx":5562
  *     cdef object v_nulltesttype = getattr(enums, 'NullTestType')(data.nulltesttype)
  *     cdef object v_argisrow = bool(data.argisrow)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.NullTest(v_arg, v_nulltesttype, v_argisrow, v_location)
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5566, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5562, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -72061,14 +71976,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5566, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5562, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5567
+  /* "pglast/ast.pyx":5563
  *     cdef object v_argisrow = bool(data.argisrow)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.NullTest(v_arg, v_nulltesttype, v_argisrow, v_location)             # <<<<<<<<<<<<<<
@@ -72076,9 +71991,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5567, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5563, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_NullTest); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5567, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_NullTest); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5563, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -72097,7 +72012,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
     PyObject *__pyx_callargs[5] = {__pyx_t_3, __pyx_v_v_arg, __pyx_v_v_nulltesttype, __pyx_v_v_argisrow, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 4+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5567, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5563, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -72105,7 +72020,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5558
+  /* "pglast/ast.pyx":5554
  * 
  * 
  * cdef create_NullTest(structs.NullTest* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72131,7 +72046,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_NullTest(NullTest *__pyx_v_data,
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5570
+/* "pglast/ast.pyx":5566
  * 
  * 
  * cdef create_BooleanTest(structs.BooleanTest* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72156,7 +72071,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_BooleanTest", 0);
 
-  /* "pglast/ast.pyx":5572
+  /* "pglast/ast.pyx":5568
  * cdef create_BooleanTest(structs.BooleanTest* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -72166,19 +72081,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5573
+    /* "pglast/ast.pyx":5569
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5573, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5569, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5572
+    /* "pglast/ast.pyx":5568
  * cdef create_BooleanTest(structs.BooleanTest* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -72188,7 +72103,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5575
+  /* "pglast/ast.pyx":5571
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -72201,19 +72116,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5576
+  /* "pglast/ast.pyx":5572
  *     else:
  *         v_arg = None
  *     cdef object v_booltesttype = getattr(enums, 'BoolTestType')(data.booltesttype)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.BooleanTest(v_arg, v_booltesttype, v_location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5576, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5572, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_BoolTestType); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5576, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_BoolTestType); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5572, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_BoolTestType(__pyx_v_data->booltesttype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5576, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_BoolTestType(__pyx_v_data->booltesttype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5572, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -72232,21 +72147,21 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5576, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5572, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_booltesttype = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5577
+  /* "pglast/ast.pyx":5573
  *         v_arg = None
  *     cdef object v_booltesttype = getattr(enums, 'BoolTestType')(data.booltesttype)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.BooleanTest(v_arg, v_booltesttype, v_location)
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5577, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5573, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -72266,14 +72181,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5577, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5573, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5578
+  /* "pglast/ast.pyx":5574
  *     cdef object v_booltesttype = getattr(enums, 'BoolTestType')(data.booltesttype)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.BooleanTest(v_arg, v_booltesttype, v_location)             # <<<<<<<<<<<<<<
@@ -72281,9 +72196,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5578, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5574, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_BooleanTest); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5578, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_BooleanTest); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5574, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -72302,7 +72217,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
     PyObject *__pyx_callargs[4] = {__pyx_t_3, __pyx_v_v_arg, __pyx_v_v_booltesttype, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 3+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5578, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5574, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -72310,7 +72225,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5570
+  /* "pglast/ast.pyx":5566
  * 
  * 
  * cdef create_BooleanTest(structs.BooleanTest* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72335,7 +72250,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_BooleanTest(BooleanTest *__pyx_v
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5581
+/* "pglast/ast.pyx":5577
  * 
  * 
  * cdef create_CoerceToDomain(structs.CoerceToDomain* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72361,7 +72276,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_CoerceToDomain", 0);
 
-  /* "pglast/ast.pyx":5583
+  /* "pglast/ast.pyx":5579
  * cdef create_CoerceToDomain(structs.CoerceToDomain* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -72371,19 +72286,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
   __pyx_t_1 = ((__pyx_v_data->arg != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5584
+    /* "pglast/ast.pyx":5580
  *     cdef object v_arg
  *     if data.arg is not NULL:
  *         v_arg = create(data.arg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arg = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5584, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5580, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_arg = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5583
+    /* "pglast/ast.pyx":5579
  * cdef create_CoerceToDomain(structs.CoerceToDomain* data, offset_to_index):
  *     cdef object v_arg
  *     if data.arg is not NULL:             # <<<<<<<<<<<<<<
@@ -72393,7 +72308,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5586
+  /* "pglast/ast.pyx":5582
  *         v_arg = create(data.arg, offset_to_index)
  *     else:
  *         v_arg = None             # <<<<<<<<<<<<<<
@@ -72406,31 +72321,31 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5587
+  /* "pglast/ast.pyx":5583
  *     else:
  *         v_arg = None
  *     cdef object v_resulttypmod = data.resulttypmod             # <<<<<<<<<<<<<<
  *     cdef object v_coercionformat = getattr(enums, 'CoercionForm')(data.coercionformat)
  *     cdef object v_location = offset_to_index(data.location)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int32_t(__pyx_v_data->resulttypmod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5587, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int32_t(__pyx_v_data->resulttypmod); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5583, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_resulttypmod = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5588
+  /* "pglast/ast.pyx":5584
  *         v_arg = None
  *     cdef object v_resulttypmod = data.resulttypmod
  *     cdef object v_coercionformat = getattr(enums, 'CoercionForm')(data.coercionformat)             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CoerceToDomain(v_arg, v_resulttypmod, v_coercionformat, v_location)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5588, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_enums); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5584, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5588, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetAttr(__pyx_t_3, __pyx_n_u_CoercionForm); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5584, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->coercionformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5588, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_CoercionForm(__pyx_v_data->coercionformat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5584, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -72449,21 +72364,21 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5588, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5584, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_v_v_coercionformat = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5589
+  /* "pglast/ast.pyx":5585
  *     cdef object v_resulttypmod = data.resulttypmod
  *     cdef object v_coercionformat = getattr(enums, 'CoercionForm')(data.coercionformat)
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.CoerceToDomain(v_arg, v_resulttypmod, v_coercionformat, v_location)
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5589, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5585, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_5 = NULL;
@@ -72483,14 +72398,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5589, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5585, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5590
+  /* "pglast/ast.pyx":5586
  *     cdef object v_coercionformat = getattr(enums, 'CoercionForm')(data.coercionformat)
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CoerceToDomain(v_arg, v_resulttypmod, v_coercionformat, v_location)             # <<<<<<<<<<<<<<
@@ -72498,9 +72413,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5590, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5586, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_CoerceToDomain); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5590, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_CoerceToDomain); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5586, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -72519,7 +72434,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
     PyObject *__pyx_callargs[5] = {__pyx_t_3, __pyx_v_v_arg, __pyx_v_v_resulttypmod, __pyx_v_v_coercionformat, __pyx_v_v_location};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 4+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5590, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5586, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -72527,7 +72442,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5581
+  /* "pglast/ast.pyx":5577
  * 
  * 
  * cdef create_CoerceToDomain(structs.CoerceToDomain* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72553,7 +72468,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomain(CoerceToDomain *_
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5593
+/* "pglast/ast.pyx":5589
  * 
  * 
  * cdef create_CoerceToDomainValue(structs.CoerceToDomainValue* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72576,26 +72491,26 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomainValue(CoerceToDoma
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_CoerceToDomainValue", 0);
 
-  /* "pglast/ast.pyx":5594
+  /* "pglast/ast.pyx":5590
  * 
  * cdef create_CoerceToDomainValue(structs.CoerceToDomainValue* data, offset_to_index):
  *     cdef object v_typeMod = data.typeMod             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CoerceToDomainValue(v_typeMod, v_location)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typeMod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5594, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typeMod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5590, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_typeMod = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5595
+  /* "pglast/ast.pyx":5591
  * cdef create_CoerceToDomainValue(structs.CoerceToDomainValue* data, offset_to_index):
  *     cdef object v_typeMod = data.typeMod
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.CoerceToDomainValue(v_typeMod, v_location)
  * 
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5595, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5591, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_4 = NULL;
@@ -72615,14 +72530,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomainValue(CoerceToDoma
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5595, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5591, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5596
+  /* "pglast/ast.pyx":5592
  *     cdef object v_typeMod = data.typeMod
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.CoerceToDomainValue(v_typeMod, v_location)             # <<<<<<<<<<<<<<
@@ -72630,9 +72545,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomainValue(CoerceToDoma
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5596, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5592, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_CoerceToDomainValue); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5596, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_CoerceToDomainValue); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5592, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -72651,7 +72566,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomainValue(CoerceToDoma
     PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_v_v_typeMod, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5596, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5592, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -72659,7 +72574,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomainValue(CoerceToDoma
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5593
+  /* "pglast/ast.pyx":5589
  * 
  * 
  * cdef create_CoerceToDomainValue(structs.CoerceToDomainValue* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72683,7 +72598,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CoerceToDomainValue(CoerceToDoma
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5599
+/* "pglast/ast.pyx":5595
  * 
  * 
  * cdef create_SetToDefault(structs.SetToDefault* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72706,26 +72621,26 @@ static PyObject *__pyx_f_6pglast_6parser_create_SetToDefault(SetToDefault *__pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_SetToDefault", 0);
 
-  /* "pglast/ast.pyx":5600
+  /* "pglast/ast.pyx":5596
  * 
  * cdef create_SetToDefault(structs.SetToDefault* data, offset_to_index):
  *     cdef object v_typeMod = data.typeMod             # <<<<<<<<<<<<<<
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.SetToDefault(v_typeMod, v_location)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typeMod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5600, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int32_t(__pyx_v_data->typeMod); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5596, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_typeMod = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5601
+  /* "pglast/ast.pyx":5597
  * cdef create_SetToDefault(structs.SetToDefault* data, offset_to_index):
  *     cdef object v_typeMod = data.typeMod
  *     cdef object v_location = offset_to_index(data.location)             # <<<<<<<<<<<<<<
  *     return ast.SetToDefault(v_typeMod, v_location)
  * 
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5601, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->location); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5597, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_3 = __pyx_v_offset_to_index; __pyx_t_4 = NULL;
@@ -72745,14 +72660,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_SetToDefault(SetToDefault *__pyx
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5601, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5597, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_location = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5602
+  /* "pglast/ast.pyx":5598
  *     cdef object v_typeMod = data.typeMod
  *     cdef object v_location = offset_to_index(data.location)
  *     return ast.SetToDefault(v_typeMod, v_location)             # <<<<<<<<<<<<<<
@@ -72760,9 +72675,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_SetToDefault(SetToDefault *__pyx
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5602, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5598, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_SetToDefault); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5602, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_SetToDefault); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5598, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -72781,7 +72696,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SetToDefault(SetToDefault *__pyx
     PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_v_v_typeMod, __pyx_v_v_location};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5602, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5598, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -72789,7 +72704,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SetToDefault(SetToDefault *__pyx
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5599
+  /* "pglast/ast.pyx":5595
  * 
  * 
  * cdef create_SetToDefault(structs.SetToDefault* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72813,7 +72728,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_SetToDefault(SetToDefault *__pyx
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5605
+/* "pglast/ast.pyx":5601
  * 
  * 
  * cdef create_CurrentOfExpr(structs.CurrentOfExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72838,19 +72753,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CurrentOfExpr(CurrentOfExpr *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_CurrentOfExpr", 0);
 
-  /* "pglast/ast.pyx":5606
+  /* "pglast/ast.pyx":5602
  * 
  * cdef create_CurrentOfExpr(structs.CurrentOfExpr* data, offset_to_index):
  *     cdef object v_cvarno = data.cvarno             # <<<<<<<<<<<<<<
  *     cdef object v_cursor_name
  *     if data.cursor_name is not NULL:
  */
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->cvarno); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5606, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->cvarno); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5602, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_cvarno = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5608
+  /* "pglast/ast.pyx":5604
  *     cdef object v_cvarno = data.cvarno
  *     cdef object v_cursor_name
  *     if data.cursor_name is not NULL:             # <<<<<<<<<<<<<<
@@ -72860,7 +72775,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CurrentOfExpr(CurrentOfExpr *__p
   __pyx_t_2 = ((__pyx_v_data->cursor_name != NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "pglast/ast.pyx":5609
+    /* "pglast/ast.pyx":5605
  *     cdef object v_cursor_name
  *     if data.cursor_name is not NULL:
  *         v_cursor_name = data.cursor_name.decode("utf-8")             # <<<<<<<<<<<<<<
@@ -72868,13 +72783,13 @@ static PyObject *__pyx_f_6pglast_6parser_create_CurrentOfExpr(CurrentOfExpr *__p
  *         v_cursor_name = None
  */
     __pyx_t_3 = __pyx_v_data->cursor_name;
-    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5609, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5605, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_t_1);
     __pyx_v_v_cursor_name = __pyx_t_1;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5608
+    /* "pglast/ast.pyx":5604
  *     cdef object v_cvarno = data.cvarno
  *     cdef object v_cursor_name
  *     if data.cursor_name is not NULL:             # <<<<<<<<<<<<<<
@@ -72884,7 +72799,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CurrentOfExpr(CurrentOfExpr *__p
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5611
+  /* "pglast/ast.pyx":5607
  *         v_cursor_name = data.cursor_name.decode("utf-8")
  *     else:
  *         v_cursor_name = None             # <<<<<<<<<<<<<<
@@ -72897,19 +72812,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_CurrentOfExpr(CurrentOfExpr *__p
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5612
+  /* "pglast/ast.pyx":5608
  *     else:
  *         v_cursor_name = None
  *     cdef object v_cursor_param = data.cursor_param             # <<<<<<<<<<<<<<
  *     return ast.CurrentOfExpr(v_cvarno, v_cursor_name, v_cursor_param)
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->cursor_param); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5612, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->cursor_param); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5608, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_cursor_param = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5613
+  /* "pglast/ast.pyx":5609
  *         v_cursor_name = None
  *     cdef object v_cursor_param = data.cursor_param
  *     return ast.CurrentOfExpr(v_cvarno, v_cursor_name, v_cursor_param)             # <<<<<<<<<<<<<<
@@ -72917,9 +72832,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_CurrentOfExpr(CurrentOfExpr *__p
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5613, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5609, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_CurrentOfExpr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 5613, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_CurrentOfExpr); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 5609, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -72938,7 +72853,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CurrentOfExpr(CurrentOfExpr *__p
     PyObject *__pyx_callargs[4] = {__pyx_t_4, __pyx_v_v_cvarno, __pyx_v_v_cursor_name, __pyx_v_v_cursor_param};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 3+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5613, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5609, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
@@ -72946,7 +72861,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CurrentOfExpr(CurrentOfExpr *__p
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5605
+  /* "pglast/ast.pyx":5601
  * 
  * 
  * cdef create_CurrentOfExpr(structs.CurrentOfExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72970,7 +72885,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_CurrentOfExpr(CurrentOfExpr *__p
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5616
+/* "pglast/ast.pyx":5612
  * 
  * 
  * cdef create_InferenceElem(structs.InferenceElem* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -72992,7 +72907,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_InferenceElem(InferenceElem *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_InferenceElem", 0);
 
-  /* "pglast/ast.pyx":5618
+  /* "pglast/ast.pyx":5614
  * cdef create_InferenceElem(structs.InferenceElem* data, offset_to_index):
  *     cdef object v_expr
  *     if data.expr is not NULL:             # <<<<<<<<<<<<<<
@@ -73002,19 +72917,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_InferenceElem(InferenceElem *__p
   __pyx_t_1 = ((__pyx_v_data->expr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5619
+    /* "pglast/ast.pyx":5615
  *     cdef object v_expr
  *     if data.expr is not NULL:
  *         v_expr = create(data.expr, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_expr = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->expr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5619, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->expr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5615, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_expr = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5618
+    /* "pglast/ast.pyx":5614
  * cdef create_InferenceElem(structs.InferenceElem* data, offset_to_index):
  *     cdef object v_expr
  *     if data.expr is not NULL:             # <<<<<<<<<<<<<<
@@ -73024,7 +72939,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_InferenceElem(InferenceElem *__p
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5621
+  /* "pglast/ast.pyx":5617
  *         v_expr = create(data.expr, offset_to_index)
  *     else:
  *         v_expr = None             # <<<<<<<<<<<<<<
@@ -73037,7 +72952,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_InferenceElem(InferenceElem *__p
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5622
+  /* "pglast/ast.pyx":5618
  *     else:
  *         v_expr = None
  *     return ast.InferenceElem(v_expr)             # <<<<<<<<<<<<<<
@@ -73045,9 +72960,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_InferenceElem(InferenceElem *__p
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5622, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5618, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_InferenceElem); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5622, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_InferenceElem); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5618, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -73066,7 +72981,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_InferenceElem(InferenceElem *__p
     PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_v_expr};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5622, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5618, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -73074,7 +72989,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_InferenceElem(InferenceElem *__p
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5616
+  /* "pglast/ast.pyx":5612
  * 
  * 
  * cdef create_InferenceElem(structs.InferenceElem* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -73096,7 +73011,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_InferenceElem(InferenceElem *__p
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5625
+/* "pglast/ast.pyx":5621
  * 
  * 
  * cdef create_TargetEntry(structs.TargetEntry* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -73124,7 +73039,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_TargetEntry", 0);
 
-  /* "pglast/ast.pyx":5627
+  /* "pglast/ast.pyx":5623
  * cdef create_TargetEntry(structs.TargetEntry* data, offset_to_index):
  *     cdef object v_expr
  *     if data.expr is not NULL:             # <<<<<<<<<<<<<<
@@ -73134,19 +73049,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
   __pyx_t_1 = ((__pyx_v_data->expr != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5628
+    /* "pglast/ast.pyx":5624
  *     cdef object v_expr
  *     if data.expr is not NULL:
  *         v_expr = create(data.expr, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_expr = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->expr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5628, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->expr, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5624, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_expr = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5627
+    /* "pglast/ast.pyx":5623
  * cdef create_TargetEntry(structs.TargetEntry* data, offset_to_index):
  *     cdef object v_expr
  *     if data.expr is not NULL:             # <<<<<<<<<<<<<<
@@ -73156,7 +73071,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5630
+  /* "pglast/ast.pyx":5626
  *         v_expr = create(data.expr, offset_to_index)
  *     else:
  *         v_expr = None             # <<<<<<<<<<<<<<
@@ -73169,19 +73084,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5631
+  /* "pglast/ast.pyx":5627
  *     else:
  *         v_expr = None
  *     cdef object v_resno = data.resno             # <<<<<<<<<<<<<<
  *     cdef object v_resname
  *     if data.resname is not NULL:
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->resno); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5631, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->resno); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5627, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_resno = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5633
+  /* "pglast/ast.pyx":5629
  *     cdef object v_resno = data.resno
  *     cdef object v_resname
  *     if data.resname is not NULL:             # <<<<<<<<<<<<<<
@@ -73191,7 +73106,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
   __pyx_t_1 = ((__pyx_v_data->resname != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5634
+    /* "pglast/ast.pyx":5630
  *     cdef object v_resname
  *     if data.resname is not NULL:
  *         v_resname = data.resname.decode("utf-8")             # <<<<<<<<<<<<<<
@@ -73199,13 +73114,13 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
  *         v_resname = None
  */
     __pyx_t_3 = __pyx_v_data->resname;
-    __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5634, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_3, 0, strlen(__pyx_t_3), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5630, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_2);
     __pyx_v_v_resname = __pyx_t_2;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5633
+    /* "pglast/ast.pyx":5629
  *     cdef object v_resno = data.resno
  *     cdef object v_resname
  *     if data.resname is not NULL:             # <<<<<<<<<<<<<<
@@ -73215,7 +73130,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5636
+  /* "pglast/ast.pyx":5632
  *         v_resname = data.resname.decode("utf-8")
  *     else:
  *         v_resname = None             # <<<<<<<<<<<<<<
@@ -73228,47 +73143,47 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5637
+  /* "pglast/ast.pyx":5633
  *     else:
  *         v_resname = None
  *     cdef object v_ressortgroupref = data.ressortgroupref             # <<<<<<<<<<<<<<
  *     cdef object v_resorigcol = data.resorigcol
  *     cdef object v_resjunk = bool(data.resjunk)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->ressortgroupref); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5637, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_data->ressortgroupref); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5633, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_ressortgroupref = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5638
+  /* "pglast/ast.pyx":5634
  *         v_resname = None
  *     cdef object v_ressortgroupref = data.ressortgroupref
  *     cdef object v_resorigcol = data.resorigcol             # <<<<<<<<<<<<<<
  *     cdef object v_resjunk = bool(data.resjunk)
  *     return ast.TargetEntry(v_expr, v_resno, v_resname, v_ressortgroupref, v_resorigcol, v_resjunk)
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->resorigcol); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5638, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_data->resorigcol); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5634, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_resorigcol = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5639
+  /* "pglast/ast.pyx":5635
  *     cdef object v_ressortgroupref = data.ressortgroupref
  *     cdef object v_resorigcol = data.resorigcol
  *     cdef object v_resjunk = bool(data.resjunk)             # <<<<<<<<<<<<<<
  *     return ast.TargetEntry(v_expr, v_resno, v_resname, v_ressortgroupref, v_resorigcol, v_resjunk)
  * 
  */
-  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->resjunk); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5639, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_bool(__pyx_v_data->resjunk); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5635, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5639, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 5635, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5639, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5635, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_v_resjunk = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pglast/ast.pyx":5640
+  /* "pglast/ast.pyx":5636
  *     cdef object v_resorigcol = data.resorigcol
  *     cdef object v_resjunk = bool(data.resjunk)
  *     return ast.TargetEntry(v_expr, v_resno, v_resname, v_ressortgroupref, v_resorigcol, v_resjunk)             # <<<<<<<<<<<<<<
@@ -73276,9 +73191,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5640, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5636, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_TargetEntry); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 5640, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_TargetEntry); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 5636, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -73297,7 +73212,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
     PyObject *__pyx_callargs[7] = {__pyx_t_4, __pyx_v_v_expr, __pyx_v_v_resno, __pyx_v_v_resname, __pyx_v_v_ressortgroupref, __pyx_v_v_resorigcol, __pyx_v_v_resjunk};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 6+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5640, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5636, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
@@ -73305,7 +73220,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5625
+  /* "pglast/ast.pyx":5621
  * 
  * 
  * cdef create_TargetEntry(structs.TargetEntry* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -73332,7 +73247,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_TargetEntry(TargetEntry *__pyx_v
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5643
+/* "pglast/ast.pyx":5639
  * 
  * 
  * cdef create_RangeTblRef(structs.RangeTblRef* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -73353,19 +73268,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_RangeTblRef(RangeTblRef *__pyx_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_RangeTblRef", 0);
 
-  /* "pglast/ast.pyx":5644
+  /* "pglast/ast.pyx":5640
  * 
  * cdef create_RangeTblRef(structs.RangeTblRef* data, offset_to_index):
  *     cdef object v_rtindex = data.rtindex             # <<<<<<<<<<<<<<
  *     return ast.RangeTblRef(v_rtindex)
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->rtindex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5644, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->rtindex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5640, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_rtindex = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5645
+  /* "pglast/ast.pyx":5641
  * cdef create_RangeTblRef(structs.RangeTblRef* data, offset_to_index):
  *     cdef object v_rtindex = data.rtindex
  *     return ast.RangeTblRef(v_rtindex)             # <<<<<<<<<<<<<<
@@ -73373,9 +73288,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_RangeTblRef(RangeTblRef *__pyx_v
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5645, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5641, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_RangeTblRef); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5645, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_RangeTblRef); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5641, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -73394,7 +73309,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RangeTblRef(RangeTblRef *__pyx_v
     PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_v_v_rtindex};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5645, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5641, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -73402,7 +73317,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RangeTblRef(RangeTblRef *__pyx_v
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5643
+  /* "pglast/ast.pyx":5639
  * 
  * 
  * cdef create_RangeTblRef(structs.RangeTblRef* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -73424,7 +73339,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RangeTblRef(RangeTblRef *__pyx_v
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5648
+/* "pglast/ast.pyx":5644
  * 
  * 
  * cdef create_JoinExpr(structs.JoinExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -73458,19 +73373,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_JoinExpr", 0);
 
-  /* "pglast/ast.pyx":5649
+  /* "pglast/ast.pyx":5645
  * 
  * cdef create_JoinExpr(structs.JoinExpr* data, offset_to_index):
  *     cdef object v_jointype = getattr(enums, 'JoinType')(data.jointype)             # <<<<<<<<<<<<<<
  *     cdef object v_isNatural = bool(data.isNatural)
  *     cdef object v_larg
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5649, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5645, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_JoinType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5649, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_JoinType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5645, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_JoinType(__pyx_v_data->jointype); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5649, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_JoinType(__pyx_v_data->jointype); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5645, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -73489,30 +73404,30 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5649, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5645, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_jointype = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5650
+  /* "pglast/ast.pyx":5646
  * cdef create_JoinExpr(structs.JoinExpr* data, offset_to_index):
  *     cdef object v_jointype = getattr(enums, 'JoinType')(data.jointype)
  *     cdef object v_isNatural = bool(data.isNatural)             # <<<<<<<<<<<<<<
  *     cdef object v_larg
  *     if data.larg is not NULL:
  */
-  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->isNatural); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5650, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_bool(__pyx_v_data->isNatural); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5646, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 5650, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 5646, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_6))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5650, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong((!(!__pyx_t_6))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5646, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_isNatural = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5652
+  /* "pglast/ast.pyx":5648
  *     cdef object v_isNatural = bool(data.isNatural)
  *     cdef object v_larg
  *     if data.larg is not NULL:             # <<<<<<<<<<<<<<
@@ -73522,19 +73437,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   __pyx_t_6 = ((__pyx_v_data->larg != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5653
+    /* "pglast/ast.pyx":5649
  *     cdef object v_larg
  *     if data.larg is not NULL:
  *         v_larg = create(data.larg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_larg = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->larg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5653, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->larg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5649, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_larg = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5652
+    /* "pglast/ast.pyx":5648
  *     cdef object v_isNatural = bool(data.isNatural)
  *     cdef object v_larg
  *     if data.larg is not NULL:             # <<<<<<<<<<<<<<
@@ -73544,7 +73459,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5655
+  /* "pglast/ast.pyx":5651
  *         v_larg = create(data.larg, offset_to_index)
  *     else:
  *         v_larg = None             # <<<<<<<<<<<<<<
@@ -73557,7 +73472,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5657
+  /* "pglast/ast.pyx":5653
  *         v_larg = None
  *     cdef object v_rarg
  *     if data.rarg is not NULL:             # <<<<<<<<<<<<<<
@@ -73567,19 +73482,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   __pyx_t_6 = ((__pyx_v_data->rarg != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5658
+    /* "pglast/ast.pyx":5654
  *     cdef object v_rarg
  *     if data.rarg is not NULL:
  *         v_rarg = create(data.rarg, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_rarg = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->rarg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5658, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->rarg, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5654, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_rarg = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5657
+    /* "pglast/ast.pyx":5653
  *         v_larg = None
  *     cdef object v_rarg
  *     if data.rarg is not NULL:             # <<<<<<<<<<<<<<
@@ -73589,7 +73504,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
     goto __pyx_L4;
   }
 
-  /* "pglast/ast.pyx":5660
+  /* "pglast/ast.pyx":5656
  *         v_rarg = create(data.rarg, offset_to_index)
  *     else:
  *         v_rarg = None             # <<<<<<<<<<<<<<
@@ -73602,7 +73517,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   }
   __pyx_L4:;
 
-  /* "pglast/ast.pyx":5663
+  /* "pglast/ast.pyx":5659
  *     cdef tuple v_usingClause
  *     cdef int usingClause_i
  *     if data.usingClause is not NULL:             # <<<<<<<<<<<<<<
@@ -73612,19 +73527,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   __pyx_t_6 = ((__pyx_v_data->usingClause != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5664
+    /* "pglast/ast.pyx":5660
  *     cdef int usingClause_i
  *     if data.usingClause is not NULL:
  *         v_usingClause = PyTuple_New(data.usingClause.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.usingClause.length):
  *             item = create(structs.list_nth(data.usingClause, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->usingClause->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5664, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->usingClause->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5660, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_usingClause = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5665
+    /* "pglast/ast.pyx":5661
  *     if data.usingClause is not NULL:
  *         v_usingClause = PyTuple_New(data.usingClause.length)
  *         for i in range(data.usingClause.length):             # <<<<<<<<<<<<<<
@@ -73636,19 +73551,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5666
+      /* "pglast/ast.pyx":5662
  *         v_usingClause = PyTuple_New(data.usingClause.length)
  *         for i in range(data.usingClause.length):
  *             item = create(structs.list_nth(data.usingClause, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_usingClause, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->usingClause, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5666, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->usingClause, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5662, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5667
+      /* "pglast/ast.pyx":5663
  *         for i in range(data.usingClause.length):
  *             item = create(structs.list_nth(data.usingClause, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -73657,7 +73572,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5668
+      /* "pglast/ast.pyx":5664
  *             item = create(structs.list_nth(data.usingClause, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_usingClause, i, item)             # <<<<<<<<<<<<<<
@@ -73667,7 +73582,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
       PyTuple_SET_ITEM(__pyx_v_v_usingClause, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5663
+    /* "pglast/ast.pyx":5659
  *     cdef tuple v_usingClause
  *     cdef int usingClause_i
  *     if data.usingClause is not NULL:             # <<<<<<<<<<<<<<
@@ -73677,7 +73592,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
     goto __pyx_L5;
   }
 
-  /* "pglast/ast.pyx":5670
+  /* "pglast/ast.pyx":5666
  *             PyTuple_SET_ITEM(v_usingClause, i, item)
  *     else:
  *         v_usingClause = None             # <<<<<<<<<<<<<<
@@ -73690,7 +73605,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   }
   __pyx_L5:;
 
-  /* "pglast/ast.pyx":5672
+  /* "pglast/ast.pyx":5668
  *         v_usingClause = None
  *     cdef object v_quals
  *     if data.quals is not NULL:             # <<<<<<<<<<<<<<
@@ -73700,19 +73615,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   __pyx_t_6 = ((__pyx_v_data->quals != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5673
+    /* "pglast/ast.pyx":5669
  *     cdef object v_quals
  *     if data.quals is not NULL:
  *         v_quals = create(data.quals, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_quals = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->quals, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5673, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->quals, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5669, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_quals = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5672
+    /* "pglast/ast.pyx":5668
  *         v_usingClause = None
  *     cdef object v_quals
  *     if data.quals is not NULL:             # <<<<<<<<<<<<<<
@@ -73722,7 +73637,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
     goto __pyx_L8;
   }
 
-  /* "pglast/ast.pyx":5675
+  /* "pglast/ast.pyx":5671
  *         v_quals = create(data.quals, offset_to_index)
  *     else:
  *         v_quals = None             # <<<<<<<<<<<<<<
@@ -73735,7 +73650,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   }
   __pyx_L8:;
 
-  /* "pglast/ast.pyx":5677
+  /* "pglast/ast.pyx":5673
  *         v_quals = None
  *     cdef object v_alias
  *     if data.alias is not NULL:             # <<<<<<<<<<<<<<
@@ -73745,19 +73660,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   __pyx_t_6 = ((__pyx_v_data->alias != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5678
+    /* "pglast/ast.pyx":5674
  *     cdef object v_alias
  *     if data.alias is not NULL:
  *         v_alias = create(data.alias, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_alias = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->alias, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5678, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->alias, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_alias = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5677
+    /* "pglast/ast.pyx":5673
  *         v_quals = None
  *     cdef object v_alias
  *     if data.alias is not NULL:             # <<<<<<<<<<<<<<
@@ -73767,7 +73682,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
     goto __pyx_L9;
   }
 
-  /* "pglast/ast.pyx":5680
+  /* "pglast/ast.pyx":5676
  *         v_alias = create(data.alias, offset_to_index)
  *     else:
  *         v_alias = None             # <<<<<<<<<<<<<<
@@ -73780,19 +73695,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   }
   __pyx_L9:;
 
-  /* "pglast/ast.pyx":5681
+  /* "pglast/ast.pyx":5677
  *     else:
  *         v_alias = None
  *     cdef object v_rtindex = data.rtindex             # <<<<<<<<<<<<<<
  *     return ast.JoinExpr(v_jointype, v_isNatural, v_larg, v_rarg, v_usingClause, v_quals, v_alias, v_rtindex)
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->rtindex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5681, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->rtindex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5677, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_rtindex = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5682
+  /* "pglast/ast.pyx":5678
  *         v_alias = None
  *     cdef object v_rtindex = data.rtindex
  *     return ast.JoinExpr(v_jointype, v_isNatural, v_larg, v_rarg, v_usingClause, v_quals, v_alias, v_rtindex)             # <<<<<<<<<<<<<<
@@ -73800,9 +73715,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5682, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5678, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_JoinExpr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5682, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_JoinExpr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5678, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -73821,7 +73736,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
     PyObject *__pyx_callargs[9] = {__pyx_t_3, __pyx_v_v_jointype, __pyx_v_v_isNatural, __pyx_v_v_larg, __pyx_v_v_rarg, __pyx_v_v_usingClause, __pyx_v_v_quals, __pyx_v_v_alias, __pyx_v_v_rtindex};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 8+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5682, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5678, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -73829,7 +73744,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5648
+  /* "pglast/ast.pyx":5644
  * 
  * 
  * cdef create_JoinExpr(structs.JoinExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -73860,7 +73775,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_JoinExpr(JoinExpr *__pyx_v_data,
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5685
+/* "pglast/ast.pyx":5681
  * 
  * 
  * cdef create_FromExpr(structs.FromExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -73887,7 +73802,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_FromExpr", 0);
 
-  /* "pglast/ast.pyx":5688
+  /* "pglast/ast.pyx":5684
  *     cdef tuple v_fromlist
  *     cdef int fromlist_i
  *     if data.fromlist is not NULL:             # <<<<<<<<<<<<<<
@@ -73897,19 +73812,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
   __pyx_t_1 = ((__pyx_v_data->fromlist != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5689
+    /* "pglast/ast.pyx":5685
  *     cdef int fromlist_i
  *     if data.fromlist is not NULL:
  *         v_fromlist = PyTuple_New(data.fromlist.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.fromlist.length):
  *             item = create(structs.list_nth(data.fromlist, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(__pyx_v_data->fromlist->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5689, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(__pyx_v_data->fromlist->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5685, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_fromlist = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5690
+    /* "pglast/ast.pyx":5686
  *     if data.fromlist is not NULL:
  *         v_fromlist = PyTuple_New(data.fromlist.length)
  *         for i in range(data.fromlist.length):             # <<<<<<<<<<<<<<
@@ -73921,19 +73836,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "pglast/ast.pyx":5691
+      /* "pglast/ast.pyx":5687
  *         v_fromlist = PyTuple_New(data.fromlist.length)
  *         for i in range(data.fromlist.length):
  *             item = create(structs.list_nth(data.fromlist, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_fromlist, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->fromlist, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5691, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->fromlist, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5687, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5692
+      /* "pglast/ast.pyx":5688
  *         for i in range(data.fromlist.length):
  *             item = create(structs.list_nth(data.fromlist, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -73942,7 +73857,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5693
+      /* "pglast/ast.pyx":5689
  *             item = create(structs.list_nth(data.fromlist, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_fromlist, i, item)             # <<<<<<<<<<<<<<
@@ -73952,7 +73867,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
       PyTuple_SET_ITEM(__pyx_v_v_fromlist, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5688
+    /* "pglast/ast.pyx":5684
  *     cdef tuple v_fromlist
  *     cdef int fromlist_i
  *     if data.fromlist is not NULL:             # <<<<<<<<<<<<<<
@@ -73962,7 +73877,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5695
+  /* "pglast/ast.pyx":5691
  *             PyTuple_SET_ITEM(v_fromlist, i, item)
  *     else:
  *         v_fromlist = None             # <<<<<<<<<<<<<<
@@ -73975,7 +73890,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5697
+  /* "pglast/ast.pyx":5693
  *         v_fromlist = None
  *     cdef object v_quals
  *     if data.quals is not NULL:             # <<<<<<<<<<<<<<
@@ -73985,19 +73900,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
   __pyx_t_1 = ((__pyx_v_data->quals != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5698
+    /* "pglast/ast.pyx":5694
  *     cdef object v_quals
  *     if data.quals is not NULL:
  *         v_quals = create(data.quals, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_quals = None
  */
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->quals, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5698, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create(__pyx_v_data->quals, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_v_quals = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5697
+    /* "pglast/ast.pyx":5693
  *         v_fromlist = None
  *     cdef object v_quals
  *     if data.quals is not NULL:             # <<<<<<<<<<<<<<
@@ -74007,7 +73922,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
     goto __pyx_L6;
   }
 
-  /* "pglast/ast.pyx":5700
+  /* "pglast/ast.pyx":5696
  *         v_quals = create(data.quals, offset_to_index)
  *     else:
  *         v_quals = None             # <<<<<<<<<<<<<<
@@ -74020,7 +73935,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
   }
   __pyx_L6:;
 
-  /* "pglast/ast.pyx":5701
+  /* "pglast/ast.pyx":5697
  *     else:
  *         v_quals = None
  *     return ast.FromExpr(v_fromlist, v_quals)             # <<<<<<<<<<<<<<
@@ -74028,9 +73943,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5701, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_ast); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 5697, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_FromExpr); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5701, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_FromExpr); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5697, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -74049,7 +73964,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
     PyObject *__pyx_callargs[3] = {__pyx_t_6, __pyx_v_v_fromlist, __pyx_v_v_quals};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_3, 2+__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5701, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5697, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -74057,7 +73972,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5685
+  /* "pglast/ast.pyx":5681
  * 
  * 
  * cdef create_FromExpr(structs.FromExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -74081,7 +73996,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_FromExpr(FromExpr *__pyx_v_data,
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5704
+/* "pglast/ast.pyx":5700
  * 
  * 
  * cdef create_OnConflictExpr(structs.OnConflictExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -74114,19 +74029,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create_OnConflictExpr", 0);
 
-  /* "pglast/ast.pyx":5705
+  /* "pglast/ast.pyx":5701
  * 
  * cdef create_OnConflictExpr(structs.OnConflictExpr* data, offset_to_index):
  *     cdef object v_action = getattr(enums, 'OnConflictAction')(data.action)             # <<<<<<<<<<<<<<
  *     cdef tuple v_arbiterElems
  *     cdef int arbiterElems_i
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5705, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_enums); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5701, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_OnConflictAction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5705, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetAttr(__pyx_t_2, __pyx_n_u_OnConflictAction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5701, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_OnConflictAction(__pyx_v_data->action); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5705, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_OnConflictAction(__pyx_v_data->action); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5701, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -74145,14 +74060,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5705, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5701, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_v_v_action = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5708
+  /* "pglast/ast.pyx":5704
  *     cdef tuple v_arbiterElems
  *     cdef int arbiterElems_i
  *     if data.arbiterElems is not NULL:             # <<<<<<<<<<<<<<
@@ -74162,19 +74077,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   __pyx_t_6 = ((__pyx_v_data->arbiterElems != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5709
+    /* "pglast/ast.pyx":5705
  *     cdef int arbiterElems_i
  *     if data.arbiterElems is not NULL:
  *         v_arbiterElems = PyTuple_New(data.arbiterElems.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.arbiterElems.length):
  *             item = create(structs.list_nth(data.arbiterElems, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->arbiterElems->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5709, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->arbiterElems->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5705, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_arbiterElems = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5710
+    /* "pglast/ast.pyx":5706
  *     if data.arbiterElems is not NULL:
  *         v_arbiterElems = PyTuple_New(data.arbiterElems.length)
  *         for i in range(data.arbiterElems.length):             # <<<<<<<<<<<<<<
@@ -74186,19 +74101,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5711
+      /* "pglast/ast.pyx":5707
  *         v_arbiterElems = PyTuple_New(data.arbiterElems.length)
  *         for i in range(data.arbiterElems.length):
  *             item = create(structs.list_nth(data.arbiterElems, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_arbiterElems, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->arbiterElems, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5711, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->arbiterElems, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5707, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5712
+      /* "pglast/ast.pyx":5708
  *         for i in range(data.arbiterElems.length):
  *             item = create(structs.list_nth(data.arbiterElems, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -74207,7 +74122,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5713
+      /* "pglast/ast.pyx":5709
  *             item = create(structs.list_nth(data.arbiterElems, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_arbiterElems, i, item)             # <<<<<<<<<<<<<<
@@ -74217,7 +74132,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
       PyTuple_SET_ITEM(__pyx_v_v_arbiterElems, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5708
+    /* "pglast/ast.pyx":5704
  *     cdef tuple v_arbiterElems
  *     cdef int arbiterElems_i
  *     if data.arbiterElems is not NULL:             # <<<<<<<<<<<<<<
@@ -74227,7 +74142,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     goto __pyx_L3;
   }
 
-  /* "pglast/ast.pyx":5715
+  /* "pglast/ast.pyx":5711
  *             PyTuple_SET_ITEM(v_arbiterElems, i, item)
  *     else:
  *         v_arbiterElems = None             # <<<<<<<<<<<<<<
@@ -74240,7 +74155,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   }
   __pyx_L3:;
 
-  /* "pglast/ast.pyx":5717
+  /* "pglast/ast.pyx":5713
  *         v_arbiterElems = None
  *     cdef object v_arbiterWhere
  *     if data.arbiterWhere is not NULL:             # <<<<<<<<<<<<<<
@@ -74250,19 +74165,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   __pyx_t_6 = ((__pyx_v_data->arbiterWhere != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5718
+    /* "pglast/ast.pyx":5714
  *     cdef object v_arbiterWhere
  *     if data.arbiterWhere is not NULL:
  *         v_arbiterWhere = create(data.arbiterWhere, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_arbiterWhere = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arbiterWhere, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5718, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->arbiterWhere, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5714, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_arbiterWhere = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5717
+    /* "pglast/ast.pyx":5713
  *         v_arbiterElems = None
  *     cdef object v_arbiterWhere
  *     if data.arbiterWhere is not NULL:             # <<<<<<<<<<<<<<
@@ -74272,7 +74187,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     goto __pyx_L6;
   }
 
-  /* "pglast/ast.pyx":5720
+  /* "pglast/ast.pyx":5716
  *         v_arbiterWhere = create(data.arbiterWhere, offset_to_index)
  *     else:
  *         v_arbiterWhere = None             # <<<<<<<<<<<<<<
@@ -74285,7 +74200,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   }
   __pyx_L6:;
 
-  /* "pglast/ast.pyx":5723
+  /* "pglast/ast.pyx":5719
  *     cdef tuple v_onConflictSet
  *     cdef int onConflictSet_i
  *     if data.onConflictSet is not NULL:             # <<<<<<<<<<<<<<
@@ -74295,19 +74210,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   __pyx_t_6 = ((__pyx_v_data->onConflictSet != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5724
+    /* "pglast/ast.pyx":5720
  *     cdef int onConflictSet_i
  *     if data.onConflictSet is not NULL:
  *         v_onConflictSet = PyTuple_New(data.onConflictSet.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.onConflictSet.length):
  *             item = create(structs.list_nth(data.onConflictSet, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->onConflictSet->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5724, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->onConflictSet->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5720, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_onConflictSet = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5725
+    /* "pglast/ast.pyx":5721
  *     if data.onConflictSet is not NULL:
  *         v_onConflictSet = PyTuple_New(data.onConflictSet.length)
  *         for i in range(data.onConflictSet.length):             # <<<<<<<<<<<<<<
@@ -74319,19 +74234,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5726
+      /* "pglast/ast.pyx":5722
  *         v_onConflictSet = PyTuple_New(data.onConflictSet.length)
  *         for i in range(data.onConflictSet.length):
  *             item = create(structs.list_nth(data.onConflictSet, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_onConflictSet, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->onConflictSet, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5726, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->onConflictSet, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5722, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5727
+      /* "pglast/ast.pyx":5723
  *         for i in range(data.onConflictSet.length):
  *             item = create(structs.list_nth(data.onConflictSet, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -74340,7 +74255,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5728
+      /* "pglast/ast.pyx":5724
  *             item = create(structs.list_nth(data.onConflictSet, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_onConflictSet, i, item)             # <<<<<<<<<<<<<<
@@ -74350,7 +74265,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
       PyTuple_SET_ITEM(__pyx_v_v_onConflictSet, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5723
+    /* "pglast/ast.pyx":5719
  *     cdef tuple v_onConflictSet
  *     cdef int onConflictSet_i
  *     if data.onConflictSet is not NULL:             # <<<<<<<<<<<<<<
@@ -74360,7 +74275,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     goto __pyx_L7;
   }
 
-  /* "pglast/ast.pyx":5730
+  /* "pglast/ast.pyx":5726
  *             PyTuple_SET_ITEM(v_onConflictSet, i, item)
  *     else:
  *         v_onConflictSet = None             # <<<<<<<<<<<<<<
@@ -74373,7 +74288,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   }
   __pyx_L7:;
 
-  /* "pglast/ast.pyx":5732
+  /* "pglast/ast.pyx":5728
  *         v_onConflictSet = None
  *     cdef object v_onConflictWhere
  *     if data.onConflictWhere is not NULL:             # <<<<<<<<<<<<<<
@@ -74383,19 +74298,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   __pyx_t_6 = ((__pyx_v_data->onConflictWhere != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5733
+    /* "pglast/ast.pyx":5729
  *     cdef object v_onConflictWhere
  *     if data.onConflictWhere is not NULL:
  *         v_onConflictWhere = create(data.onConflictWhere, offset_to_index)             # <<<<<<<<<<<<<<
  *     else:
  *         v_onConflictWhere = None
  */
-    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->onConflictWhere, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5733, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_6pglast_6parser_create(__pyx_v_data->onConflictWhere, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5729, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_onConflictWhere = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5732
+    /* "pglast/ast.pyx":5728
  *         v_onConflictSet = None
  *     cdef object v_onConflictWhere
  *     if data.onConflictWhere is not NULL:             # <<<<<<<<<<<<<<
@@ -74405,7 +74320,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     goto __pyx_L10;
   }
 
-  /* "pglast/ast.pyx":5735
+  /* "pglast/ast.pyx":5731
  *         v_onConflictWhere = create(data.onConflictWhere, offset_to_index)
  *     else:
  *         v_onConflictWhere = None             # <<<<<<<<<<<<<<
@@ -74418,19 +74333,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   }
   __pyx_L10:;
 
-  /* "pglast/ast.pyx":5736
+  /* "pglast/ast.pyx":5732
  *     else:
  *         v_onConflictWhere = None
  *     cdef object v_exclRelIndex = data.exclRelIndex             # <<<<<<<<<<<<<<
  *     cdef tuple v_exclRelTlist
  *     cdef int exclRelTlist_i
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->exclRelIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5736, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_data->exclRelIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5732, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_v_exclRelIndex = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/ast.pyx":5739
+  /* "pglast/ast.pyx":5735
  *     cdef tuple v_exclRelTlist
  *     cdef int exclRelTlist_i
  *     if data.exclRelTlist is not NULL:             # <<<<<<<<<<<<<<
@@ -74440,19 +74355,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   __pyx_t_6 = ((__pyx_v_data->exclRelTlist != NULL) != 0);
   if (__pyx_t_6) {
 
-    /* "pglast/ast.pyx":5740
+    /* "pglast/ast.pyx":5736
  *     cdef int exclRelTlist_i
  *     if data.exclRelTlist is not NULL:
  *         v_exclRelTlist = PyTuple_New(data.exclRelTlist.length)             # <<<<<<<<<<<<<<
  *         for i in range(data.exclRelTlist.length):
  *             item = create(structs.list_nth(data.exclRelTlist, i), offset_to_index)
  */
-    __pyx_t_1 = PyTuple_New(__pyx_v_data->exclRelTlist->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5740, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(__pyx_v_data->exclRelTlist->length); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5736, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_v_exclRelTlist = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/ast.pyx":5741
+    /* "pglast/ast.pyx":5737
  *     if data.exclRelTlist is not NULL:
  *         v_exclRelTlist = PyTuple_New(data.exclRelTlist.length)
  *         for i in range(data.exclRelTlist.length):             # <<<<<<<<<<<<<<
@@ -74464,19 +74379,19 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "pglast/ast.pyx":5742
+      /* "pglast/ast.pyx":5738
  *         v_exclRelTlist = PyTuple_New(data.exclRelTlist.length)
  *         for i in range(data.exclRelTlist.length):
  *             item = create(structs.list_nth(data.exclRelTlist, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_exclRelTlist, i, item)
  */
-      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->exclRelTlist, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5742, __pyx_L1_error)
+      __pyx_t_1 = __pyx_f_6pglast_6parser_create(list_nth(__pyx_v_data->exclRelTlist, __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5738, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/ast.pyx":5743
+      /* "pglast/ast.pyx":5739
  *         for i in range(data.exclRelTlist.length):
  *             item = create(structs.list_nth(data.exclRelTlist, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -74485,7 +74400,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5744
+      /* "pglast/ast.pyx":5740
  *             item = create(structs.list_nth(data.exclRelTlist, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(v_exclRelTlist, i, item)             # <<<<<<<<<<<<<<
@@ -74495,7 +74410,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
       PyTuple_SET_ITEM(__pyx_v_v_exclRelTlist, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5739
+    /* "pglast/ast.pyx":5735
  *     cdef tuple v_exclRelTlist
  *     cdef int exclRelTlist_i
  *     if data.exclRelTlist is not NULL:             # <<<<<<<<<<<<<<
@@ -74505,7 +74420,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     goto __pyx_L11;
   }
 
-  /* "pglast/ast.pyx":5746
+  /* "pglast/ast.pyx":5742
  *             PyTuple_SET_ITEM(v_exclRelTlist, i, item)
  *     else:
  *         v_exclRelTlist = None             # <<<<<<<<<<<<<<
@@ -74518,7 +74433,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   }
   __pyx_L11:;
 
-  /* "pglast/ast.pyx":5747
+  /* "pglast/ast.pyx":5743
  *     else:
  *         v_exclRelTlist = None
  *     return ast.OnConflictExpr(v_action, v_arbiterElems, v_arbiterWhere, v_onConflictSet, v_onConflictWhere, v_exclRelIndex, v_exclRelTlist)             # <<<<<<<<<<<<<<
@@ -74526,9 +74441,9 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5747, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5743, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_OnConflictExpr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5747, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_OnConflictExpr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5743, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -74547,7 +74462,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
     PyObject *__pyx_callargs[8] = {__pyx_t_3, __pyx_v_v_action, __pyx_v_v_arbiterElems, __pyx_v_v_arbiterWhere, __pyx_v_v_onConflictSet, __pyx_v_v_onConflictWhere, __pyx_v_v_exclRelIndex, __pyx_v_v_exclRelTlist};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 7+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5747, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5743, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -74555,7 +74470,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pglast/ast.pyx":5704
+  /* "pglast/ast.pyx":5700
  * 
  * 
  * cdef create_OnConflictExpr(structs.OnConflictExpr* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -74585,7 +74500,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_OnConflictExpr(OnConflictExpr *_
   return __pyx_r;
 }
 
-/* "pglast/ast.pyx":5750
+/* "pglast/ast.pyx":5746
  * 
  * 
  * cdef create(void* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -74616,7 +74531,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("create", 0);
 
-  /* "pglast/ast.pyx":5751
+  /* "pglast/ast.pyx":5747
  * 
  * cdef create(void* data, offset_to_index):
  *     if data is NULL:             # <<<<<<<<<<<<<<
@@ -74626,7 +74541,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
   __pyx_t_1 = ((__pyx_v_data == NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "pglast/ast.pyx":5752
+    /* "pglast/ast.pyx":5748
  * cdef create(void* data, offset_to_index):
  *     if data is NULL:
  *         return None             # <<<<<<<<<<<<<<
@@ -74637,7 +74552,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5751
+    /* "pglast/ast.pyx":5747
  * 
  * cdef create(void* data, offset_to_index):
  *     if data is NULL:             # <<<<<<<<<<<<<<
@@ -74646,7 +74561,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  */
   }
 
-  /* "pglast/ast.pyx":5756
+  /* "pglast/ast.pyx":5752
  *     cdef tuple t
  *     cdef int i
  *     cdef int tag = structs.nodeTag(data)             # <<<<<<<<<<<<<<
@@ -74655,7 +74570,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  */
   __pyx_v_tag = nodeTag(__pyx_v_data);
 
-  /* "pglast/ast.pyx":5758
+  /* "pglast/ast.pyx":5754
  *     cdef int tag = structs.nodeTag(data)
  * 
  *     if tag == structs.T_Alias:             # <<<<<<<<<<<<<<
@@ -74665,7 +74580,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
   switch (__pyx_v_tag) {
     case T_Alias:
 
-    /* "pglast/ast.pyx":5759
+    /* "pglast/ast.pyx":5755
  * 
  *     if tag == structs.T_Alias:
  *         return create_Alias(<structs.Alias*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74673,13 +74588,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RangeVar(<structs.RangeVar*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Alias(((Alias *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5759, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Alias(((Alias *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5755, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5758
+    /* "pglast/ast.pyx":5754
  *     cdef int tag = structs.nodeTag(data)
  * 
  *     if tag == structs.T_Alias:             # <<<<<<<<<<<<<<
@@ -74689,7 +74604,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RangeVar:
 
-    /* "pglast/ast.pyx":5761
+    /* "pglast/ast.pyx":5757
  *         return create_Alias(<structs.Alias*> data, offset_to_index)
  *     elif tag == structs.T_RangeVar:
  *         return create_RangeVar(<structs.RangeVar*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74697,13 +74612,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_TableFunc(<structs.TableFunc*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeVar(((RangeVar *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5761, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeVar(((RangeVar *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5757, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5760
+    /* "pglast/ast.pyx":5756
  *     if tag == structs.T_Alias:
  *         return create_Alias(<structs.Alias*> data, offset_to_index)
  *     elif tag == structs.T_RangeVar:             # <<<<<<<<<<<<<<
@@ -74713,71 +74628,47 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_TableFunc:
 
-    /* "pglast/ast.pyx":5763
+    /* "pglast/ast.pyx":5759
  *         return create_RangeVar(<structs.RangeVar*> data, offset_to_index)
  *     elif tag == structs.T_TableFunc:
  *         return create_TableFunc(<structs.TableFunc*> data, offset_to_index)             # <<<<<<<<<<<<<<
- *     elif tag == structs.T_Expr:
- *         return create_Expr(<structs.Expr*> data, offset_to_index)
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TableFunc(((TableFunc *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5763, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_r = __pyx_t_2;
-    __pyx_t_2 = 0;
-    goto __pyx_L0;
-
-    /* "pglast/ast.pyx":5762
- *     elif tag == structs.T_RangeVar:
- *         return create_RangeVar(<structs.RangeVar*> data, offset_to_index)
- *     elif tag == structs.T_TableFunc:             # <<<<<<<<<<<<<<
- *         return create_TableFunc(<structs.TableFunc*> data, offset_to_index)
- *     elif tag == structs.T_Expr:
- */
-    break;
-    case T_Expr:
-
-    /* "pglast/ast.pyx":5765
- *         return create_TableFunc(<structs.TableFunc*> data, offset_to_index)
- *     elif tag == structs.T_Expr:
- *         return create_Expr(<structs.Expr*> data, offset_to_index)             # <<<<<<<<<<<<<<
  *     elif tag == structs.T_Var:
  *         return create_Var(<structs.Var*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Expr(((Expr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5765, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TableFunc(((TableFunc *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5759, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5764
- *     elif tag == structs.T_TableFunc:
+    /* "pglast/ast.pyx":5758
+ *     elif tag == structs.T_RangeVar:
+ *         return create_RangeVar(<structs.RangeVar*> data, offset_to_index)
+ *     elif tag == structs.T_TableFunc:             # <<<<<<<<<<<<<<
  *         return create_TableFunc(<structs.TableFunc*> data, offset_to_index)
- *     elif tag == structs.T_Expr:             # <<<<<<<<<<<<<<
- *         return create_Expr(<structs.Expr*> data, offset_to_index)
  *     elif tag == structs.T_Var:
  */
     break;
     case T_Var:
 
-    /* "pglast/ast.pyx":5767
- *         return create_Expr(<structs.Expr*> data, offset_to_index)
+    /* "pglast/ast.pyx":5761
+ *         return create_TableFunc(<structs.TableFunc*> data, offset_to_index)
  *     elif tag == structs.T_Var:
  *         return create_Var(<structs.Var*> data, offset_to_index)             # <<<<<<<<<<<<<<
  *     elif tag == structs.T_Param:
  *         return create_Param(<structs.Param*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Var(((Var *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5767, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Var(((Var *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5761, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5766
- *     elif tag == structs.T_Expr:
- *         return create_Expr(<structs.Expr*> data, offset_to_index)
+    /* "pglast/ast.pyx":5760
+ *     elif tag == structs.T_TableFunc:
+ *         return create_TableFunc(<structs.TableFunc*> data, offset_to_index)
  *     elif tag == structs.T_Var:             # <<<<<<<<<<<<<<
  *         return create_Var(<structs.Var*> data, offset_to_index)
  *     elif tag == structs.T_Param:
@@ -74785,7 +74676,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_Param:
 
-    /* "pglast/ast.pyx":5769
+    /* "pglast/ast.pyx":5763
  *         return create_Var(<structs.Var*> data, offset_to_index)
  *     elif tag == structs.T_Param:
  *         return create_Param(<structs.Param*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74793,13 +74684,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_Aggref(<structs.Aggref*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Param(((Param *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5769, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Param(((Param *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5763, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5768
+    /* "pglast/ast.pyx":5762
  *     elif tag == structs.T_Var:
  *         return create_Var(<structs.Var*> data, offset_to_index)
  *     elif tag == structs.T_Param:             # <<<<<<<<<<<<<<
@@ -74809,7 +74700,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_Aggref:
 
-    /* "pglast/ast.pyx":5771
+    /* "pglast/ast.pyx":5765
  *         return create_Param(<structs.Param*> data, offset_to_index)
  *     elif tag == structs.T_Aggref:
  *         return create_Aggref(<structs.Aggref*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74817,13 +74708,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_GroupingFunc(<structs.GroupingFunc*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Aggref(((Aggref *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5771, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Aggref(((Aggref *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5765, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5770
+    /* "pglast/ast.pyx":5764
  *     elif tag == structs.T_Param:
  *         return create_Param(<structs.Param*> data, offset_to_index)
  *     elif tag == structs.T_Aggref:             # <<<<<<<<<<<<<<
@@ -74833,7 +74724,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_GroupingFunc:
 
-    /* "pglast/ast.pyx":5773
+    /* "pglast/ast.pyx":5767
  *         return create_Aggref(<structs.Aggref*> data, offset_to_index)
  *     elif tag == structs.T_GroupingFunc:
  *         return create_GroupingFunc(<structs.GroupingFunc*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74841,13 +74732,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_WindowFunc(<structs.WindowFunc*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_GroupingFunc(((GroupingFunc *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5773, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_GroupingFunc(((GroupingFunc *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5767, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5772
+    /* "pglast/ast.pyx":5766
  *     elif tag == structs.T_Aggref:
  *         return create_Aggref(<structs.Aggref*> data, offset_to_index)
  *     elif tag == structs.T_GroupingFunc:             # <<<<<<<<<<<<<<
@@ -74857,7 +74748,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_WindowFunc:
 
-    /* "pglast/ast.pyx":5775
+    /* "pglast/ast.pyx":5769
  *         return create_GroupingFunc(<structs.GroupingFunc*> data, offset_to_index)
  *     elif tag == structs.T_WindowFunc:
  *         return create_WindowFunc(<structs.WindowFunc*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74865,13 +74756,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SubscriptingRef(<structs.SubscriptingRef*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WindowFunc(((WindowFunc *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5775, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WindowFunc(((WindowFunc *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5769, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5774
+    /* "pglast/ast.pyx":5768
  *     elif tag == structs.T_GroupingFunc:
  *         return create_GroupingFunc(<structs.GroupingFunc*> data, offset_to_index)
  *     elif tag == structs.T_WindowFunc:             # <<<<<<<<<<<<<<
@@ -74881,7 +74772,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SubscriptingRef:
 
-    /* "pglast/ast.pyx":5777
+    /* "pglast/ast.pyx":5771
  *         return create_WindowFunc(<structs.WindowFunc*> data, offset_to_index)
  *     elif tag == structs.T_SubscriptingRef:
  *         return create_SubscriptingRef(<structs.SubscriptingRef*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74889,13 +74780,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_FuncExpr(<structs.FuncExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SubscriptingRef(((SubscriptingRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5777, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SubscriptingRef(((SubscriptingRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5771, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5776
+    /* "pglast/ast.pyx":5770
  *     elif tag == structs.T_WindowFunc:
  *         return create_WindowFunc(<structs.WindowFunc*> data, offset_to_index)
  *     elif tag == structs.T_SubscriptingRef:             # <<<<<<<<<<<<<<
@@ -74905,7 +74796,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_FuncExpr:
 
-    /* "pglast/ast.pyx":5779
+    /* "pglast/ast.pyx":5773
  *         return create_SubscriptingRef(<structs.SubscriptingRef*> data, offset_to_index)
  *     elif tag == structs.T_FuncExpr:
  *         return create_FuncExpr(<structs.FuncExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74913,13 +74804,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_NamedArgExpr(<structs.NamedArgExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FuncExpr(((FuncExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5779, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FuncExpr(((FuncExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5773, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5778
+    /* "pglast/ast.pyx":5772
  *     elif tag == structs.T_SubscriptingRef:
  *         return create_SubscriptingRef(<structs.SubscriptingRef*> data, offset_to_index)
  *     elif tag == structs.T_FuncExpr:             # <<<<<<<<<<<<<<
@@ -74929,7 +74820,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_NamedArgExpr:
 
-    /* "pglast/ast.pyx":5781
+    /* "pglast/ast.pyx":5775
  *         return create_FuncExpr(<structs.FuncExpr*> data, offset_to_index)
  *     elif tag == structs.T_NamedArgExpr:
  *         return create_NamedArgExpr(<structs.NamedArgExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74937,13 +74828,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_OpExpr(<structs.OpExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_NamedArgExpr(((NamedArgExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5781, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_NamedArgExpr(((NamedArgExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5775, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5780
+    /* "pglast/ast.pyx":5774
  *     elif tag == structs.T_FuncExpr:
  *         return create_FuncExpr(<structs.FuncExpr*> data, offset_to_index)
  *     elif tag == structs.T_NamedArgExpr:             # <<<<<<<<<<<<<<
@@ -74953,7 +74844,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_OpExpr:
 
-    /* "pglast/ast.pyx":5783
+    /* "pglast/ast.pyx":5777
  *         return create_NamedArgExpr(<structs.NamedArgExpr*> data, offset_to_index)
  *     elif tag == structs.T_OpExpr:
  *         return create_OpExpr(<structs.OpExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74961,13 +74852,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ScalarArrayOpExpr(<structs.ScalarArrayOpExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_OpExpr(((OpExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5783, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_OpExpr(((OpExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5777, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5782
+    /* "pglast/ast.pyx":5776
  *     elif tag == structs.T_NamedArgExpr:
  *         return create_NamedArgExpr(<structs.NamedArgExpr*> data, offset_to_index)
  *     elif tag == structs.T_OpExpr:             # <<<<<<<<<<<<<<
@@ -74977,7 +74868,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ScalarArrayOpExpr:
 
-    /* "pglast/ast.pyx":5785
+    /* "pglast/ast.pyx":5779
  *         return create_OpExpr(<structs.OpExpr*> data, offset_to_index)
  *     elif tag == structs.T_ScalarArrayOpExpr:
  *         return create_ScalarArrayOpExpr(<structs.ScalarArrayOpExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -74985,13 +74876,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_BoolExpr(<structs.BoolExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(((ScalarArrayOpExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5785, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ScalarArrayOpExpr(((ScalarArrayOpExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5779, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5784
+    /* "pglast/ast.pyx":5778
  *     elif tag == structs.T_OpExpr:
  *         return create_OpExpr(<structs.OpExpr*> data, offset_to_index)
  *     elif tag == structs.T_ScalarArrayOpExpr:             # <<<<<<<<<<<<<<
@@ -75001,7 +74892,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_BoolExpr:
 
-    /* "pglast/ast.pyx":5787
+    /* "pglast/ast.pyx":5781
  *         return create_ScalarArrayOpExpr(<structs.ScalarArrayOpExpr*> data, offset_to_index)
  *     elif tag == structs.T_BoolExpr:
  *         return create_BoolExpr(<structs.BoolExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75009,13 +74900,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SubLink(<structs.SubLink*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_BoolExpr(((BoolExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5787, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_BoolExpr(((BoolExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5781, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5786
+    /* "pglast/ast.pyx":5780
  *     elif tag == structs.T_ScalarArrayOpExpr:
  *         return create_ScalarArrayOpExpr(<structs.ScalarArrayOpExpr*> data, offset_to_index)
  *     elif tag == structs.T_BoolExpr:             # <<<<<<<<<<<<<<
@@ -75025,7 +74916,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SubLink:
 
-    /* "pglast/ast.pyx":5789
+    /* "pglast/ast.pyx":5783
  *         return create_BoolExpr(<structs.BoolExpr*> data, offset_to_index)
  *     elif tag == structs.T_SubLink:
  *         return create_SubLink(<structs.SubLink*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75033,13 +74924,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SubPlan(<structs.SubPlan*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SubLink(((SubLink *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5789, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SubLink(((SubLink *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5783, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5788
+    /* "pglast/ast.pyx":5782
  *     elif tag == structs.T_BoolExpr:
  *         return create_BoolExpr(<structs.BoolExpr*> data, offset_to_index)
  *     elif tag == structs.T_SubLink:             # <<<<<<<<<<<<<<
@@ -75049,7 +74940,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SubPlan:
 
-    /* "pglast/ast.pyx":5791
+    /* "pglast/ast.pyx":5785
  *         return create_SubLink(<structs.SubLink*> data, offset_to_index)
  *     elif tag == structs.T_SubPlan:
  *         return create_SubPlan(<structs.SubPlan*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75057,13 +74948,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlternativeSubPlan(<structs.AlternativeSubPlan*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SubPlan(((SubPlan *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5791, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SubPlan(((SubPlan *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5785, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5790
+    /* "pglast/ast.pyx":5784
  *     elif tag == structs.T_SubLink:
  *         return create_SubLink(<structs.SubLink*> data, offset_to_index)
  *     elif tag == structs.T_SubPlan:             # <<<<<<<<<<<<<<
@@ -75073,7 +74964,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlternativeSubPlan:
 
-    /* "pglast/ast.pyx":5793
+    /* "pglast/ast.pyx":5787
  *         return create_SubPlan(<structs.SubPlan*> data, offset_to_index)
  *     elif tag == structs.T_AlternativeSubPlan:
  *         return create_AlternativeSubPlan(<structs.AlternativeSubPlan*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75081,13 +74972,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_FieldSelect(<structs.FieldSelect*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlternativeSubPlan(((AlternativeSubPlan *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5793, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlternativeSubPlan(((AlternativeSubPlan *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5787, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5792
+    /* "pglast/ast.pyx":5786
  *     elif tag == structs.T_SubPlan:
  *         return create_SubPlan(<structs.SubPlan*> data, offset_to_index)
  *     elif tag == structs.T_AlternativeSubPlan:             # <<<<<<<<<<<<<<
@@ -75097,7 +74988,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_FieldSelect:
 
-    /* "pglast/ast.pyx":5795
+    /* "pglast/ast.pyx":5789
  *         return create_AlternativeSubPlan(<structs.AlternativeSubPlan*> data, offset_to_index)
  *     elif tag == structs.T_FieldSelect:
  *         return create_FieldSelect(<structs.FieldSelect*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75105,13 +74996,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_FieldStore(<structs.FieldStore*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FieldSelect(((FieldSelect *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5795, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FieldSelect(((FieldSelect *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5789, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5794
+    /* "pglast/ast.pyx":5788
  *     elif tag == structs.T_AlternativeSubPlan:
  *         return create_AlternativeSubPlan(<structs.AlternativeSubPlan*> data, offset_to_index)
  *     elif tag == structs.T_FieldSelect:             # <<<<<<<<<<<<<<
@@ -75121,7 +75012,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_FieldStore:
 
-    /* "pglast/ast.pyx":5797
+    /* "pglast/ast.pyx":5791
  *         return create_FieldSelect(<structs.FieldSelect*> data, offset_to_index)
  *     elif tag == structs.T_FieldStore:
  *         return create_FieldStore(<structs.FieldStore*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75129,13 +75020,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RelabelType(<structs.RelabelType*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FieldStore(((FieldStore *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5797, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FieldStore(((FieldStore *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5791, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5796
+    /* "pglast/ast.pyx":5790
  *     elif tag == structs.T_FieldSelect:
  *         return create_FieldSelect(<structs.FieldSelect*> data, offset_to_index)
  *     elif tag == structs.T_FieldStore:             # <<<<<<<<<<<<<<
@@ -75145,7 +75036,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RelabelType:
 
-    /* "pglast/ast.pyx":5799
+    /* "pglast/ast.pyx":5793
  *         return create_FieldStore(<structs.FieldStore*> data, offset_to_index)
  *     elif tag == structs.T_RelabelType:
  *         return create_RelabelType(<structs.RelabelType*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75153,13 +75044,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CoerceViaIO(<structs.CoerceViaIO*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RelabelType(((RelabelType *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5799, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RelabelType(((RelabelType *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5793, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5798
+    /* "pglast/ast.pyx":5792
  *     elif tag == structs.T_FieldStore:
  *         return create_FieldStore(<structs.FieldStore*> data, offset_to_index)
  *     elif tag == structs.T_RelabelType:             # <<<<<<<<<<<<<<
@@ -75169,7 +75060,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CoerceViaIO:
 
-    /* "pglast/ast.pyx":5801
+    /* "pglast/ast.pyx":5795
  *         return create_RelabelType(<structs.RelabelType*> data, offset_to_index)
  *     elif tag == structs.T_CoerceViaIO:
  *         return create_CoerceViaIO(<structs.CoerceViaIO*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75177,13 +75068,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ArrayCoerceExpr(<structs.ArrayCoerceExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CoerceViaIO(((CoerceViaIO *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5801, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CoerceViaIO(((CoerceViaIO *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5795, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5800
+    /* "pglast/ast.pyx":5794
  *     elif tag == structs.T_RelabelType:
  *         return create_RelabelType(<structs.RelabelType*> data, offset_to_index)
  *     elif tag == structs.T_CoerceViaIO:             # <<<<<<<<<<<<<<
@@ -75193,7 +75084,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ArrayCoerceExpr:
 
-    /* "pglast/ast.pyx":5803
+    /* "pglast/ast.pyx":5797
  *         return create_CoerceViaIO(<structs.CoerceViaIO*> data, offset_to_index)
  *     elif tag == structs.T_ArrayCoerceExpr:
  *         return create_ArrayCoerceExpr(<structs.ArrayCoerceExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75201,13 +75092,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ConvertRowtypeExpr(<structs.ConvertRowtypeExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ArrayCoerceExpr(((ArrayCoerceExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5803, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ArrayCoerceExpr(((ArrayCoerceExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5797, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5802
+    /* "pglast/ast.pyx":5796
  *     elif tag == structs.T_CoerceViaIO:
  *         return create_CoerceViaIO(<structs.CoerceViaIO*> data, offset_to_index)
  *     elif tag == structs.T_ArrayCoerceExpr:             # <<<<<<<<<<<<<<
@@ -75217,7 +75108,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ConvertRowtypeExpr:
 
-    /* "pglast/ast.pyx":5805
+    /* "pglast/ast.pyx":5799
  *         return create_ArrayCoerceExpr(<structs.ArrayCoerceExpr*> data, offset_to_index)
  *     elif tag == structs.T_ConvertRowtypeExpr:
  *         return create_ConvertRowtypeExpr(<structs.ConvertRowtypeExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75225,13 +75116,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CollateExpr(<structs.CollateExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(((ConvertRowtypeExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5805, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ConvertRowtypeExpr(((ConvertRowtypeExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5799, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5804
+    /* "pglast/ast.pyx":5798
  *     elif tag == structs.T_ArrayCoerceExpr:
  *         return create_ArrayCoerceExpr(<structs.ArrayCoerceExpr*> data, offset_to_index)
  *     elif tag == structs.T_ConvertRowtypeExpr:             # <<<<<<<<<<<<<<
@@ -75241,7 +75132,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CollateExpr:
 
-    /* "pglast/ast.pyx":5807
+    /* "pglast/ast.pyx":5801
  *         return create_ConvertRowtypeExpr(<structs.ConvertRowtypeExpr*> data, offset_to_index)
  *     elif tag == structs.T_CollateExpr:
  *         return create_CollateExpr(<structs.CollateExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75249,13 +75140,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CaseExpr(<structs.CaseExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CollateExpr(((CollateExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5807, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CollateExpr(((CollateExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5801, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5806
+    /* "pglast/ast.pyx":5800
  *     elif tag == structs.T_ConvertRowtypeExpr:
  *         return create_ConvertRowtypeExpr(<structs.ConvertRowtypeExpr*> data, offset_to_index)
  *     elif tag == structs.T_CollateExpr:             # <<<<<<<<<<<<<<
@@ -75265,7 +75156,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CaseExpr:
 
-    /* "pglast/ast.pyx":5809
+    /* "pglast/ast.pyx":5803
  *         return create_CollateExpr(<structs.CollateExpr*> data, offset_to_index)
  *     elif tag == structs.T_CaseExpr:
  *         return create_CaseExpr(<structs.CaseExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75273,13 +75164,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CaseWhen(<structs.CaseWhen*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CaseExpr(((CaseExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5809, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CaseExpr(((CaseExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5803, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5808
+    /* "pglast/ast.pyx":5802
  *     elif tag == structs.T_CollateExpr:
  *         return create_CollateExpr(<structs.CollateExpr*> data, offset_to_index)
  *     elif tag == structs.T_CaseExpr:             # <<<<<<<<<<<<<<
@@ -75289,7 +75180,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CaseWhen:
 
-    /* "pglast/ast.pyx":5811
+    /* "pglast/ast.pyx":5805
  *         return create_CaseExpr(<structs.CaseExpr*> data, offset_to_index)
  *     elif tag == structs.T_CaseWhen:
  *         return create_CaseWhen(<structs.CaseWhen*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75297,13 +75188,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CaseTestExpr(<structs.CaseTestExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CaseWhen(((CaseWhen *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5811, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CaseWhen(((CaseWhen *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5805, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5810
+    /* "pglast/ast.pyx":5804
  *     elif tag == structs.T_CaseExpr:
  *         return create_CaseExpr(<structs.CaseExpr*> data, offset_to_index)
  *     elif tag == structs.T_CaseWhen:             # <<<<<<<<<<<<<<
@@ -75313,7 +75204,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CaseTestExpr:
 
-    /* "pglast/ast.pyx":5813
+    /* "pglast/ast.pyx":5807
  *         return create_CaseWhen(<structs.CaseWhen*> data, offset_to_index)
  *     elif tag == structs.T_CaseTestExpr:
  *         return create_CaseTestExpr(<structs.CaseTestExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75321,13 +75212,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ArrayExpr(<structs.ArrayExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CaseTestExpr(((CaseTestExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5813, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CaseTestExpr(((CaseTestExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5807, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5812
+    /* "pglast/ast.pyx":5806
  *     elif tag == structs.T_CaseWhen:
  *         return create_CaseWhen(<structs.CaseWhen*> data, offset_to_index)
  *     elif tag == structs.T_CaseTestExpr:             # <<<<<<<<<<<<<<
@@ -75337,7 +75228,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ArrayExpr:
 
-    /* "pglast/ast.pyx":5815
+    /* "pglast/ast.pyx":5809
  *         return create_CaseTestExpr(<structs.CaseTestExpr*> data, offset_to_index)
  *     elif tag == structs.T_ArrayExpr:
  *         return create_ArrayExpr(<structs.ArrayExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75345,13 +75236,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RowExpr(<structs.RowExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ArrayExpr(((ArrayExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5815, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ArrayExpr(((ArrayExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5809, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5814
+    /* "pglast/ast.pyx":5808
  *     elif tag == structs.T_CaseTestExpr:
  *         return create_CaseTestExpr(<structs.CaseTestExpr*> data, offset_to_index)
  *     elif tag == structs.T_ArrayExpr:             # <<<<<<<<<<<<<<
@@ -75361,7 +75252,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RowExpr:
 
-    /* "pglast/ast.pyx":5817
+    /* "pglast/ast.pyx":5811
  *         return create_ArrayExpr(<structs.ArrayExpr*> data, offset_to_index)
  *     elif tag == structs.T_RowExpr:
  *         return create_RowExpr(<structs.RowExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75369,13 +75260,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RowCompareExpr(<structs.RowCompareExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RowExpr(((RowExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5817, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RowExpr(((RowExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5811, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5816
+    /* "pglast/ast.pyx":5810
  *     elif tag == structs.T_ArrayExpr:
  *         return create_ArrayExpr(<structs.ArrayExpr*> data, offset_to_index)
  *     elif tag == structs.T_RowExpr:             # <<<<<<<<<<<<<<
@@ -75385,7 +75276,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RowCompareExpr:
 
-    /* "pglast/ast.pyx":5819
+    /* "pglast/ast.pyx":5813
  *         return create_RowExpr(<structs.RowExpr*> data, offset_to_index)
  *     elif tag == structs.T_RowCompareExpr:
  *         return create_RowCompareExpr(<structs.RowCompareExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75393,13 +75284,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CoalesceExpr(<structs.CoalesceExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RowCompareExpr(((RowCompareExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5819, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RowCompareExpr(((RowCompareExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5813, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5818
+    /* "pglast/ast.pyx":5812
  *     elif tag == structs.T_RowExpr:
  *         return create_RowExpr(<structs.RowExpr*> data, offset_to_index)
  *     elif tag == structs.T_RowCompareExpr:             # <<<<<<<<<<<<<<
@@ -75409,7 +75300,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CoalesceExpr:
 
-    /* "pglast/ast.pyx":5821
+    /* "pglast/ast.pyx":5815
  *         return create_RowCompareExpr(<structs.RowCompareExpr*> data, offset_to_index)
  *     elif tag == structs.T_CoalesceExpr:
  *         return create_CoalesceExpr(<structs.CoalesceExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75417,13 +75308,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_MinMaxExpr(<structs.MinMaxExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CoalesceExpr(((CoalesceExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5821, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CoalesceExpr(((CoalesceExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5815, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5820
+    /* "pglast/ast.pyx":5814
  *     elif tag == structs.T_RowCompareExpr:
  *         return create_RowCompareExpr(<structs.RowCompareExpr*> data, offset_to_index)
  *     elif tag == structs.T_CoalesceExpr:             # <<<<<<<<<<<<<<
@@ -75433,7 +75324,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_MinMaxExpr:
 
-    /* "pglast/ast.pyx":5823
+    /* "pglast/ast.pyx":5817
  *         return create_CoalesceExpr(<structs.CoalesceExpr*> data, offset_to_index)
  *     elif tag == structs.T_MinMaxExpr:
  *         return create_MinMaxExpr(<structs.MinMaxExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75441,13 +75332,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SQLValueFunction(<structs.SQLValueFunction*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_MinMaxExpr(((MinMaxExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5823, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_MinMaxExpr(((MinMaxExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5817, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5822
+    /* "pglast/ast.pyx":5816
  *     elif tag == structs.T_CoalesceExpr:
  *         return create_CoalesceExpr(<structs.CoalesceExpr*> data, offset_to_index)
  *     elif tag == structs.T_MinMaxExpr:             # <<<<<<<<<<<<<<
@@ -75457,7 +75348,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SQLValueFunction:
 
-    /* "pglast/ast.pyx":5825
+    /* "pglast/ast.pyx":5819
  *         return create_MinMaxExpr(<structs.MinMaxExpr*> data, offset_to_index)
  *     elif tag == structs.T_SQLValueFunction:
  *         return create_SQLValueFunction(<structs.SQLValueFunction*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75465,13 +75356,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_XmlExpr(<structs.XmlExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SQLValueFunction(((SQLValueFunction *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5825, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SQLValueFunction(((SQLValueFunction *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5819, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5824
+    /* "pglast/ast.pyx":5818
  *     elif tag == structs.T_MinMaxExpr:
  *         return create_MinMaxExpr(<structs.MinMaxExpr*> data, offset_to_index)
  *     elif tag == structs.T_SQLValueFunction:             # <<<<<<<<<<<<<<
@@ -75481,7 +75372,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_XmlExpr:
 
-    /* "pglast/ast.pyx":5827
+    /* "pglast/ast.pyx":5821
  *         return create_SQLValueFunction(<structs.SQLValueFunction*> data, offset_to_index)
  *     elif tag == structs.T_XmlExpr:
  *         return create_XmlExpr(<structs.XmlExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75489,13 +75380,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_NullTest(<structs.NullTest*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_XmlExpr(((XmlExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5827, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_XmlExpr(((XmlExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5821, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5826
+    /* "pglast/ast.pyx":5820
  *     elif tag == structs.T_SQLValueFunction:
  *         return create_SQLValueFunction(<structs.SQLValueFunction*> data, offset_to_index)
  *     elif tag == structs.T_XmlExpr:             # <<<<<<<<<<<<<<
@@ -75505,7 +75396,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_NullTest:
 
-    /* "pglast/ast.pyx":5829
+    /* "pglast/ast.pyx":5823
  *         return create_XmlExpr(<structs.XmlExpr*> data, offset_to_index)
  *     elif tag == structs.T_NullTest:
  *         return create_NullTest(<structs.NullTest*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75513,13 +75404,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_BooleanTest(<structs.BooleanTest*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_NullTest(((NullTest *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5829, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_NullTest(((NullTest *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5823, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5828
+    /* "pglast/ast.pyx":5822
  *     elif tag == structs.T_XmlExpr:
  *         return create_XmlExpr(<structs.XmlExpr*> data, offset_to_index)
  *     elif tag == structs.T_NullTest:             # <<<<<<<<<<<<<<
@@ -75529,7 +75420,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_BooleanTest:
 
-    /* "pglast/ast.pyx":5831
+    /* "pglast/ast.pyx":5825
  *         return create_NullTest(<structs.NullTest*> data, offset_to_index)
  *     elif tag == structs.T_BooleanTest:
  *         return create_BooleanTest(<structs.BooleanTest*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75537,13 +75428,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CoerceToDomain(<structs.CoerceToDomain*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_BooleanTest(((BooleanTest *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5831, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_BooleanTest(((BooleanTest *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5825, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5830
+    /* "pglast/ast.pyx":5824
  *     elif tag == structs.T_NullTest:
  *         return create_NullTest(<structs.NullTest*> data, offset_to_index)
  *     elif tag == structs.T_BooleanTest:             # <<<<<<<<<<<<<<
@@ -75553,7 +75444,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CoerceToDomain:
 
-    /* "pglast/ast.pyx":5833
+    /* "pglast/ast.pyx":5827
  *         return create_BooleanTest(<structs.BooleanTest*> data, offset_to_index)
  *     elif tag == structs.T_CoerceToDomain:
  *         return create_CoerceToDomain(<structs.CoerceToDomain*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75561,13 +75452,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CoerceToDomainValue(<structs.CoerceToDomainValue*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CoerceToDomain(((CoerceToDomain *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5833, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CoerceToDomain(((CoerceToDomain *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5827, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5832
+    /* "pglast/ast.pyx":5826
  *     elif tag == structs.T_BooleanTest:
  *         return create_BooleanTest(<structs.BooleanTest*> data, offset_to_index)
  *     elif tag == structs.T_CoerceToDomain:             # <<<<<<<<<<<<<<
@@ -75577,7 +75468,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CoerceToDomainValue:
 
-    /* "pglast/ast.pyx":5835
+    /* "pglast/ast.pyx":5829
  *         return create_CoerceToDomain(<structs.CoerceToDomain*> data, offset_to_index)
  *     elif tag == structs.T_CoerceToDomainValue:
  *         return create_CoerceToDomainValue(<structs.CoerceToDomainValue*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75585,13 +75476,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SetToDefault(<structs.SetToDefault*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CoerceToDomainValue(((CoerceToDomainValue *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5835, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CoerceToDomainValue(((CoerceToDomainValue *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5829, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5834
+    /* "pglast/ast.pyx":5828
  *     elif tag == structs.T_CoerceToDomain:
  *         return create_CoerceToDomain(<structs.CoerceToDomain*> data, offset_to_index)
  *     elif tag == structs.T_CoerceToDomainValue:             # <<<<<<<<<<<<<<
@@ -75601,7 +75492,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SetToDefault:
 
-    /* "pglast/ast.pyx":5837
+    /* "pglast/ast.pyx":5831
  *         return create_CoerceToDomainValue(<structs.CoerceToDomainValue*> data, offset_to_index)
  *     elif tag == structs.T_SetToDefault:
  *         return create_SetToDefault(<structs.SetToDefault*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75609,13 +75500,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CurrentOfExpr(<structs.CurrentOfExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SetToDefault(((SetToDefault *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5837, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SetToDefault(((SetToDefault *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5831, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5836
+    /* "pglast/ast.pyx":5830
  *     elif tag == structs.T_CoerceToDomainValue:
  *         return create_CoerceToDomainValue(<structs.CoerceToDomainValue*> data, offset_to_index)
  *     elif tag == structs.T_SetToDefault:             # <<<<<<<<<<<<<<
@@ -75625,7 +75516,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CurrentOfExpr:
 
-    /* "pglast/ast.pyx":5839
+    /* "pglast/ast.pyx":5833
  *         return create_SetToDefault(<structs.SetToDefault*> data, offset_to_index)
  *     elif tag == structs.T_CurrentOfExpr:
  *         return create_CurrentOfExpr(<structs.CurrentOfExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75633,13 +75524,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_InferenceElem(<structs.InferenceElem*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CurrentOfExpr(((CurrentOfExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5839, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CurrentOfExpr(((CurrentOfExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5833, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5838
+    /* "pglast/ast.pyx":5832
  *     elif tag == structs.T_SetToDefault:
  *         return create_SetToDefault(<structs.SetToDefault*> data, offset_to_index)
  *     elif tag == structs.T_CurrentOfExpr:             # <<<<<<<<<<<<<<
@@ -75649,7 +75540,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_InferenceElem:
 
-    /* "pglast/ast.pyx":5841
+    /* "pglast/ast.pyx":5835
  *         return create_CurrentOfExpr(<structs.CurrentOfExpr*> data, offset_to_index)
  *     elif tag == structs.T_InferenceElem:
  *         return create_InferenceElem(<structs.InferenceElem*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75657,13 +75548,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_TargetEntry(<structs.TargetEntry*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_InferenceElem(((InferenceElem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5841, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_InferenceElem(((InferenceElem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5835, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5840
+    /* "pglast/ast.pyx":5834
  *     elif tag == structs.T_CurrentOfExpr:
  *         return create_CurrentOfExpr(<structs.CurrentOfExpr*> data, offset_to_index)
  *     elif tag == structs.T_InferenceElem:             # <<<<<<<<<<<<<<
@@ -75673,7 +75564,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_TargetEntry:
 
-    /* "pglast/ast.pyx":5843
+    /* "pglast/ast.pyx":5837
  *         return create_InferenceElem(<structs.InferenceElem*> data, offset_to_index)
  *     elif tag == structs.T_TargetEntry:
  *         return create_TargetEntry(<structs.TargetEntry*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75681,13 +75572,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RangeTblRef(<structs.RangeTblRef*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TargetEntry(((TargetEntry *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5843, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TargetEntry(((TargetEntry *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5837, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5842
+    /* "pglast/ast.pyx":5836
  *     elif tag == structs.T_InferenceElem:
  *         return create_InferenceElem(<structs.InferenceElem*> data, offset_to_index)
  *     elif tag == structs.T_TargetEntry:             # <<<<<<<<<<<<<<
@@ -75697,7 +75588,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RangeTblRef:
 
-    /* "pglast/ast.pyx":5845
+    /* "pglast/ast.pyx":5839
  *         return create_TargetEntry(<structs.TargetEntry*> data, offset_to_index)
  *     elif tag == structs.T_RangeTblRef:
  *         return create_RangeTblRef(<structs.RangeTblRef*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75705,13 +75596,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_JoinExpr(<structs.JoinExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTblRef(((RangeTblRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5845, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTblRef(((RangeTblRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5839, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5844
+    /* "pglast/ast.pyx":5838
  *     elif tag == structs.T_TargetEntry:
  *         return create_TargetEntry(<structs.TargetEntry*> data, offset_to_index)
  *     elif tag == structs.T_RangeTblRef:             # <<<<<<<<<<<<<<
@@ -75721,7 +75612,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_JoinExpr:
 
-    /* "pglast/ast.pyx":5847
+    /* "pglast/ast.pyx":5841
  *         return create_RangeTblRef(<structs.RangeTblRef*> data, offset_to_index)
  *     elif tag == structs.T_JoinExpr:
  *         return create_JoinExpr(<structs.JoinExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75729,13 +75620,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_FromExpr(<structs.FromExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_JoinExpr(((JoinExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5847, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_JoinExpr(((JoinExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5841, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5846
+    /* "pglast/ast.pyx":5840
  *     elif tag == structs.T_RangeTblRef:
  *         return create_RangeTblRef(<structs.RangeTblRef*> data, offset_to_index)
  *     elif tag == structs.T_JoinExpr:             # <<<<<<<<<<<<<<
@@ -75745,7 +75636,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_FromExpr:
 
-    /* "pglast/ast.pyx":5849
+    /* "pglast/ast.pyx":5843
  *         return create_JoinExpr(<structs.JoinExpr*> data, offset_to_index)
  *     elif tag == structs.T_FromExpr:
  *         return create_FromExpr(<structs.FromExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75753,13 +75644,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_OnConflictExpr(<structs.OnConflictExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FromExpr(((FromExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5849, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FromExpr(((FromExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5843, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5848
+    /* "pglast/ast.pyx":5842
  *     elif tag == structs.T_JoinExpr:
  *         return create_JoinExpr(<structs.JoinExpr*> data, offset_to_index)
  *     elif tag == structs.T_FromExpr:             # <<<<<<<<<<<<<<
@@ -75769,7 +75660,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_OnConflictExpr:
 
-    /* "pglast/ast.pyx":5851
+    /* "pglast/ast.pyx":5845
  *         return create_FromExpr(<structs.FromExpr*> data, offset_to_index)
  *     elif tag == structs.T_OnConflictExpr:
  *         return create_OnConflictExpr(<structs.OnConflictExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75777,13 +75668,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_IntoClause(<structs.IntoClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_OnConflictExpr(((OnConflictExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5851, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_OnConflictExpr(((OnConflictExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5845, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5850
+    /* "pglast/ast.pyx":5844
  *     elif tag == structs.T_FromExpr:
  *         return create_FromExpr(<structs.FromExpr*> data, offset_to_index)
  *     elif tag == structs.T_OnConflictExpr:             # <<<<<<<<<<<<<<
@@ -75793,7 +75684,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_IntoClause:
 
-    /* "pglast/ast.pyx":5853
+    /* "pglast/ast.pyx":5847
  *         return create_OnConflictExpr(<structs.OnConflictExpr*> data, offset_to_index)
  *     elif tag == structs.T_IntoClause:
  *         return create_IntoClause(<structs.IntoClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -75801,13 +75692,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return ast.Integer(structs.intVal(<structs.Value *> data))
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_IntoClause(((IntoClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5853, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_IntoClause(((IntoClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5847, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5852
+    /* "pglast/ast.pyx":5846
  *     elif tag == structs.T_OnConflictExpr:
  *         return create_OnConflictExpr(<structs.OnConflictExpr*> data, offset_to_index)
  *     elif tag == structs.T_IntoClause:             # <<<<<<<<<<<<<<
@@ -75817,7 +75708,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_Integer:
 
-    /* "pglast/ast.pyx":5855
+    /* "pglast/ast.pyx":5849
  *         return create_IntoClause(<structs.IntoClause*> data, offset_to_index)
  *     elif tag == structs.T_Integer:
  *         return ast.Integer(structs.intVal(<structs.Value *> data))             # <<<<<<<<<<<<<<
@@ -75825,12 +75716,12 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5855, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5849, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Integer); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5855, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Integer); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5849, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyInt_From_int(intVal(((Value *)__pyx_v_data))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5855, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_From_int(intVal(((Value *)__pyx_v_data))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5849, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_5 = NULL;
     __pyx_t_6 = 0;
@@ -75849,7 +75740,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5855, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5849, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -75857,7 +75748,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5854
+    /* "pglast/ast.pyx":5848
  *     elif tag == structs.T_IntoClause:
  *         return create_IntoClause(<structs.IntoClause*> data, offset_to_index)
  *     elif tag == structs.T_Integer:             # <<<<<<<<<<<<<<
@@ -75867,7 +75758,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_Float:
 
-    /* "pglast/ast.pyx":5857
+    /* "pglast/ast.pyx":5851
  *         return ast.Integer(structs.intVal(<structs.Value *> data))
  *     elif tag == structs.T_Float:
  *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))             # <<<<<<<<<<<<<<
@@ -75875,15 +75766,15 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5857, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5851, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_Float); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5857, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_Float); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5851, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_Decimal); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 5857, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_Decimal); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 5851, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_7 = strVal(((Value *)__pyx_v_data));
-    __pyx_t_8 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 5857, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 5851, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_9 = NULL;
     __pyx_t_6 = 0;
@@ -75902,7 +75793,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
       __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5857, __pyx_L1_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5851, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -75923,7 +75814,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5857, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5851, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -75931,7 +75822,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5856
+    /* "pglast/ast.pyx":5850
  *     elif tag == structs.T_Integer:
  *         return ast.Integer(structs.intVal(<structs.Value *> data))
  *     elif tag == structs.T_Float:             # <<<<<<<<<<<<<<
@@ -75941,7 +75832,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_String:
 
-    /* "pglast/ast.pyx":5859
+    /* "pglast/ast.pyx":5853
  *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
  *     elif tag == structs.T_String:
  *         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))             # <<<<<<<<<<<<<<
@@ -75949,13 +75840,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5859, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5853, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_String); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5859, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_String); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5853, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_7 = strVal(((Value *)__pyx_v_data));
-    __pyx_t_3 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5859, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5853, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_5 = NULL;
     __pyx_t_6 = 0;
@@ -75974,7 +75865,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5859, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5853, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -75982,7 +75873,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5858
+    /* "pglast/ast.pyx":5852
  *     elif tag == structs.T_Float:
  *         return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
  *     elif tag == structs.T_String:             # <<<<<<<<<<<<<<
@@ -75992,7 +75883,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_BitString:
 
-    /* "pglast/ast.pyx":5861
+    /* "pglast/ast.pyx":5855
  *         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_BitString:
  *         return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))             # <<<<<<<<<<<<<<
@@ -76000,13 +75891,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return ast.Null(None)
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5861, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_ast); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5855, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_BitString); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5861, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_BitString); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5855, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_7 = strVal(((Value *)__pyx_v_data));
-    __pyx_t_4 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5861, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_decode_c_string(__pyx_t_7, 0, strlen(__pyx_t_7), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5855, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     __pyx_t_6 = 0;
@@ -76025,7 +75916,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5861, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5855, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -76033,7 +75924,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5860
+    /* "pglast/ast.pyx":5854
  *     elif tag == structs.T_String:
  *         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_BitString:             # <<<<<<<<<<<<<<
@@ -76043,7 +75934,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_Null:
 
-    /* "pglast/ast.pyx":5863
+    /* "pglast/ast.pyx":5857
  *         return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_Null:
  *         return ast.Null(None)             # <<<<<<<<<<<<<<
@@ -76051,9 +75942,9 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         t = PyTuple_New((<structs.List *> data).length)
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5863, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5857, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Null); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5863, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Null); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5857, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -76072,7 +75963,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
       PyObject *__pyx_callargs[2] = {__pyx_t_3, Py_None};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5863, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5857, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -76080,7 +75971,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5862
+    /* "pglast/ast.pyx":5856
  *     elif tag == structs.T_BitString:
  *         return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
  *     elif tag == structs.T_Null:             # <<<<<<<<<<<<<<
@@ -76090,19 +75981,19 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_List:
 
-    /* "pglast/ast.pyx":5865
+    /* "pglast/ast.pyx":5859
  *         return ast.Null(None)
  *     elif tag == structs.T_List:
  *         t = PyTuple_New((<structs.List *> data).length)             # <<<<<<<<<<<<<<
  *         for i in range((<structs.List *> data).length):
  *             item = create(structs.list_nth(<structs.List *> data, i), offset_to_index)
  */
-    __pyx_t_2 = PyTuple_New(((List *)__pyx_v_data)->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5865, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(((List *)__pyx_v_data)->length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5859, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_v_t = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pglast/ast.pyx":5866
+    /* "pglast/ast.pyx":5860
  *     elif tag == structs.T_List:
  *         t = PyTuple_New((<structs.List *> data).length)
  *         for i in range((<structs.List *> data).length):             # <<<<<<<<<<<<<<
@@ -76114,19 +76005,19 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_10; __pyx_t_11+=1) {
       __pyx_v_i = __pyx_t_11;
 
-      /* "pglast/ast.pyx":5867
+      /* "pglast/ast.pyx":5861
  *         t = PyTuple_New((<structs.List *> data).length)
  *         for i in range((<structs.List *> data).length):
  *             item = create(structs.list_nth(<structs.List *> data, i), offset_to_index)             # <<<<<<<<<<<<<<
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(t, i, item)
  */
-      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(((List *)__pyx_v_data), __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5867, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_6pglast_6parser_create(list_nth(((List *)__pyx_v_data), __pyx_v_i), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5861, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "pglast/ast.pyx":5868
+      /* "pglast/ast.pyx":5862
  *         for i in range((<structs.List *> data).length):
  *             item = create(structs.list_nth(<structs.List *> data, i), offset_to_index)
  *             Py_INCREF(item)             # <<<<<<<<<<<<<<
@@ -76135,7 +76026,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  */
       Py_INCREF(__pyx_v_item);
 
-      /* "pglast/ast.pyx":5869
+      /* "pglast/ast.pyx":5863
  *             item = create(structs.list_nth(<structs.List *> data, i), offset_to_index)
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(t, i, item)             # <<<<<<<<<<<<<<
@@ -76145,7 +76036,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
       PyTuple_SET_ITEM(__pyx_v_t, __pyx_v_i, __pyx_v_item);
     }
 
-    /* "pglast/ast.pyx":5870
+    /* "pglast/ast.pyx":5864
  *             Py_INCREF(item)
  *             PyTuple_SET_ITEM(t, i, item)
  *         return t             # <<<<<<<<<<<<<<
@@ -76157,7 +76048,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     __pyx_r = __pyx_v_t;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5864
+    /* "pglast/ast.pyx":5858
  *     elif tag == structs.T_Null:
  *         return ast.Null(None)
  *     elif tag == structs.T_List:             # <<<<<<<<<<<<<<
@@ -76167,7 +76058,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RawStmt:
 
-    /* "pglast/ast.pyx":5872
+    /* "pglast/ast.pyx":5866
  *         return t
  *     elif tag == structs.T_RawStmt:
  *         return create_RawStmt(<structs.RawStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76175,13 +76066,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_Query(<structs.Query*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RawStmt(((RawStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5872, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RawStmt(((RawStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5866, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5871
+    /* "pglast/ast.pyx":5865
  *             PyTuple_SET_ITEM(t, i, item)
  *         return t
  *     elif tag == structs.T_RawStmt:             # <<<<<<<<<<<<<<
@@ -76191,7 +76082,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_Query:
 
-    /* "pglast/ast.pyx":5874
+    /* "pglast/ast.pyx":5868
  *         return create_RawStmt(<structs.RawStmt*> data, offset_to_index)
  *     elif tag == structs.T_Query:
  *         return create_Query(<structs.Query*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76199,13 +76090,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_InsertStmt(<structs.InsertStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Query(((Query *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5874, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Query(((Query *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5868, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5873
+    /* "pglast/ast.pyx":5867
  *     elif tag == structs.T_RawStmt:
  *         return create_RawStmt(<structs.RawStmt*> data, offset_to_index)
  *     elif tag == structs.T_Query:             # <<<<<<<<<<<<<<
@@ -76215,7 +76106,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_InsertStmt:
 
-    /* "pglast/ast.pyx":5876
+    /* "pglast/ast.pyx":5870
  *         return create_Query(<structs.Query*> data, offset_to_index)
  *     elif tag == structs.T_InsertStmt:
  *         return create_InsertStmt(<structs.InsertStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76223,13 +76114,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DeleteStmt(<structs.DeleteStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_InsertStmt(((InsertStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5876, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_InsertStmt(((InsertStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5870, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5875
+    /* "pglast/ast.pyx":5869
  *     elif tag == structs.T_Query:
  *         return create_Query(<structs.Query*> data, offset_to_index)
  *     elif tag == structs.T_InsertStmt:             # <<<<<<<<<<<<<<
@@ -76239,7 +76130,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DeleteStmt:
 
-    /* "pglast/ast.pyx":5878
+    /* "pglast/ast.pyx":5872
  *         return create_InsertStmt(<structs.InsertStmt*> data, offset_to_index)
  *     elif tag == structs.T_DeleteStmt:
  *         return create_DeleteStmt(<structs.DeleteStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76247,13 +76138,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_UpdateStmt(<structs.UpdateStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DeleteStmt(((DeleteStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5878, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DeleteStmt(((DeleteStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5872, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5877
+    /* "pglast/ast.pyx":5871
  *     elif tag == structs.T_InsertStmt:
  *         return create_InsertStmt(<structs.InsertStmt*> data, offset_to_index)
  *     elif tag == structs.T_DeleteStmt:             # <<<<<<<<<<<<<<
@@ -76263,7 +76154,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_UpdateStmt:
 
-    /* "pglast/ast.pyx":5880
+    /* "pglast/ast.pyx":5874
  *         return create_DeleteStmt(<structs.DeleteStmt*> data, offset_to_index)
  *     elif tag == structs.T_UpdateStmt:
  *         return create_UpdateStmt(<structs.UpdateStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76271,13 +76162,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SelectStmt(<structs.SelectStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_UpdateStmt(((UpdateStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5880, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_UpdateStmt(((UpdateStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5874, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5879
+    /* "pglast/ast.pyx":5873
  *     elif tag == structs.T_DeleteStmt:
  *         return create_DeleteStmt(<structs.DeleteStmt*> data, offset_to_index)
  *     elif tag == structs.T_UpdateStmt:             # <<<<<<<<<<<<<<
@@ -76287,7 +76178,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SelectStmt:
 
-    /* "pglast/ast.pyx":5882
+    /* "pglast/ast.pyx":5876
  *         return create_UpdateStmt(<structs.UpdateStmt*> data, offset_to_index)
  *     elif tag == structs.T_SelectStmt:
  *         return create_SelectStmt(<structs.SelectStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76295,13 +76186,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterTableStmt(<structs.AlterTableStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SelectStmt(((SelectStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5882, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SelectStmt(((SelectStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5876, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5881
+    /* "pglast/ast.pyx":5875
  *     elif tag == structs.T_UpdateStmt:
  *         return create_UpdateStmt(<structs.UpdateStmt*> data, offset_to_index)
  *     elif tag == structs.T_SelectStmt:             # <<<<<<<<<<<<<<
@@ -76311,7 +76202,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterTableStmt:
 
-    /* "pglast/ast.pyx":5884
+    /* "pglast/ast.pyx":5878
  *         return create_SelectStmt(<structs.SelectStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTableStmt:
  *         return create_AlterTableStmt(<structs.AlterTableStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76319,13 +76210,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterTableCmd(<structs.AlterTableCmd*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTableStmt(((AlterTableStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5884, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTableStmt(((AlterTableStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5878, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5883
+    /* "pglast/ast.pyx":5877
  *     elif tag == structs.T_SelectStmt:
  *         return create_SelectStmt(<structs.SelectStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTableStmt:             # <<<<<<<<<<<<<<
@@ -76335,7 +76226,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterTableCmd:
 
-    /* "pglast/ast.pyx":5886
+    /* "pglast/ast.pyx":5880
  *         return create_AlterTableStmt(<structs.AlterTableStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTableCmd:
  *         return create_AlterTableCmd(<structs.AlterTableCmd*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76343,13 +76234,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterDomainStmt(<structs.AlterDomainStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTableCmd(((AlterTableCmd *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5886, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTableCmd(((AlterTableCmd *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5880, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5885
+    /* "pglast/ast.pyx":5879
  *     elif tag == structs.T_AlterTableStmt:
  *         return create_AlterTableStmt(<structs.AlterTableStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTableCmd:             # <<<<<<<<<<<<<<
@@ -76359,7 +76250,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterDomainStmt:
 
-    /* "pglast/ast.pyx":5888
+    /* "pglast/ast.pyx":5882
  *         return create_AlterTableCmd(<structs.AlterTableCmd*> data, offset_to_index)
  *     elif tag == structs.T_AlterDomainStmt:
  *         return create_AlterDomainStmt(<structs.AlterDomainStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76367,13 +76258,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SetOperationStmt(<structs.SetOperationStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterDomainStmt(((AlterDomainStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5888, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterDomainStmt(((AlterDomainStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5882, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5887
+    /* "pglast/ast.pyx":5881
  *     elif tag == structs.T_AlterTableCmd:
  *         return create_AlterTableCmd(<structs.AlterTableCmd*> data, offset_to_index)
  *     elif tag == structs.T_AlterDomainStmt:             # <<<<<<<<<<<<<<
@@ -76383,7 +76274,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SetOperationStmt:
 
-    /* "pglast/ast.pyx":5890
+    /* "pglast/ast.pyx":5884
  *         return create_AlterDomainStmt(<structs.AlterDomainStmt*> data, offset_to_index)
  *     elif tag == structs.T_SetOperationStmt:
  *         return create_SetOperationStmt(<structs.SetOperationStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76391,13 +76282,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_GrantStmt(<structs.GrantStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SetOperationStmt(((SetOperationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5890, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SetOperationStmt(((SetOperationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5884, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5889
+    /* "pglast/ast.pyx":5883
  *     elif tag == structs.T_AlterDomainStmt:
  *         return create_AlterDomainStmt(<structs.AlterDomainStmt*> data, offset_to_index)
  *     elif tag == structs.T_SetOperationStmt:             # <<<<<<<<<<<<<<
@@ -76407,7 +76298,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_GrantStmt:
 
-    /* "pglast/ast.pyx":5892
+    /* "pglast/ast.pyx":5886
  *         return create_SetOperationStmt(<structs.SetOperationStmt*> data, offset_to_index)
  *     elif tag == structs.T_GrantStmt:
  *         return create_GrantStmt(<structs.GrantStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76415,13 +76306,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_GrantRoleStmt(<structs.GrantRoleStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_GrantStmt(((GrantStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5892, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_GrantStmt(((GrantStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5886, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5891
+    /* "pglast/ast.pyx":5885
  *     elif tag == structs.T_SetOperationStmt:
  *         return create_SetOperationStmt(<structs.SetOperationStmt*> data, offset_to_index)
  *     elif tag == structs.T_GrantStmt:             # <<<<<<<<<<<<<<
@@ -76431,7 +76322,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_GrantRoleStmt:
 
-    /* "pglast/ast.pyx":5894
+    /* "pglast/ast.pyx":5888
  *         return create_GrantStmt(<structs.GrantStmt*> data, offset_to_index)
  *     elif tag == structs.T_GrantRoleStmt:
  *         return create_GrantRoleStmt(<structs.GrantRoleStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76439,13 +76330,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterDefaultPrivilegesStmt(<structs.AlterDefaultPrivilegesStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_GrantRoleStmt(((GrantRoleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5894, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_GrantRoleStmt(((GrantRoleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5888, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5893
+    /* "pglast/ast.pyx":5887
  *     elif tag == structs.T_GrantStmt:
  *         return create_GrantStmt(<structs.GrantStmt*> data, offset_to_index)
  *     elif tag == structs.T_GrantRoleStmt:             # <<<<<<<<<<<<<<
@@ -76455,7 +76346,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterDefaultPrivilegesStmt:
 
-    /* "pglast/ast.pyx":5896
+    /* "pglast/ast.pyx":5890
  *         return create_GrantRoleStmt(<structs.GrantRoleStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterDefaultPrivilegesStmt:
  *         return create_AlterDefaultPrivilegesStmt(<structs.AlterDefaultPrivilegesStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76463,13 +76354,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ClosePortalStmt(<structs.ClosePortalStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterDefaultPrivilegesStmt(((AlterDefaultPrivilegesStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5896, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterDefaultPrivilegesStmt(((AlterDefaultPrivilegesStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5890, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5895
+    /* "pglast/ast.pyx":5889
  *     elif tag == structs.T_GrantRoleStmt:
  *         return create_GrantRoleStmt(<structs.GrantRoleStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterDefaultPrivilegesStmt:             # <<<<<<<<<<<<<<
@@ -76479,7 +76370,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ClosePortalStmt:
 
-    /* "pglast/ast.pyx":5898
+    /* "pglast/ast.pyx":5892
  *         return create_AlterDefaultPrivilegesStmt(<structs.AlterDefaultPrivilegesStmt*> data, offset_to_index)
  *     elif tag == structs.T_ClosePortalStmt:
  *         return create_ClosePortalStmt(<structs.ClosePortalStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76487,13 +76378,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ClusterStmt(<structs.ClusterStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ClosePortalStmt(((ClosePortalStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5898, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ClosePortalStmt(((ClosePortalStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5892, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5897
+    /* "pglast/ast.pyx":5891
  *     elif tag == structs.T_AlterDefaultPrivilegesStmt:
  *         return create_AlterDefaultPrivilegesStmt(<structs.AlterDefaultPrivilegesStmt*> data, offset_to_index)
  *     elif tag == structs.T_ClosePortalStmt:             # <<<<<<<<<<<<<<
@@ -76503,7 +76394,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ClusterStmt:
 
-    /* "pglast/ast.pyx":5900
+    /* "pglast/ast.pyx":5894
  *         return create_ClosePortalStmt(<structs.ClosePortalStmt*> data, offset_to_index)
  *     elif tag == structs.T_ClusterStmt:
  *         return create_ClusterStmt(<structs.ClusterStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76511,13 +76402,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CopyStmt(<structs.CopyStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ClusterStmt(((ClusterStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5900, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ClusterStmt(((ClusterStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5894, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5899
+    /* "pglast/ast.pyx":5893
  *     elif tag == structs.T_ClosePortalStmt:
  *         return create_ClosePortalStmt(<structs.ClosePortalStmt*> data, offset_to_index)
  *     elif tag == structs.T_ClusterStmt:             # <<<<<<<<<<<<<<
@@ -76527,7 +76418,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CopyStmt:
 
-    /* "pglast/ast.pyx":5902
+    /* "pglast/ast.pyx":5896
  *         return create_ClusterStmt(<structs.ClusterStmt*> data, offset_to_index)
  *     elif tag == structs.T_CopyStmt:
  *         return create_CopyStmt(<structs.CopyStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76535,13 +76426,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateStmt(<structs.CreateStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CopyStmt(((CopyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5902, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CopyStmt(((CopyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5896, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5901
+    /* "pglast/ast.pyx":5895
  *     elif tag == structs.T_ClusterStmt:
  *         return create_ClusterStmt(<structs.ClusterStmt*> data, offset_to_index)
  *     elif tag == structs.T_CopyStmt:             # <<<<<<<<<<<<<<
@@ -76551,7 +76442,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateStmt:
 
-    /* "pglast/ast.pyx":5904
+    /* "pglast/ast.pyx":5898
  *         return create_CopyStmt(<structs.CopyStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateStmt:
  *         return create_CreateStmt(<structs.CreateStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76559,13 +76450,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DefineStmt(<structs.DefineStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateStmt(((CreateStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5904, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateStmt(((CreateStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5898, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5903
+    /* "pglast/ast.pyx":5897
  *     elif tag == structs.T_CopyStmt:
  *         return create_CopyStmt(<structs.CopyStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateStmt:             # <<<<<<<<<<<<<<
@@ -76575,7 +76466,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DefineStmt:
 
-    /* "pglast/ast.pyx":5906
+    /* "pglast/ast.pyx":5900
  *         return create_CreateStmt(<structs.CreateStmt*> data, offset_to_index)
  *     elif tag == structs.T_DefineStmt:
  *         return create_DefineStmt(<structs.DefineStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76583,13 +76474,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DropStmt(<structs.DropStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DefineStmt(((DefineStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5906, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DefineStmt(((DefineStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5900, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5905
+    /* "pglast/ast.pyx":5899
  *     elif tag == structs.T_CreateStmt:
  *         return create_CreateStmt(<structs.CreateStmt*> data, offset_to_index)
  *     elif tag == structs.T_DefineStmt:             # <<<<<<<<<<<<<<
@@ -76599,7 +76490,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DropStmt:
 
-    /* "pglast/ast.pyx":5908
+    /* "pglast/ast.pyx":5902
  *         return create_DefineStmt(<structs.DefineStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropStmt:
  *         return create_DropStmt(<structs.DropStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76607,13 +76498,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_TruncateStmt(<structs.TruncateStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropStmt(((DropStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5908, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropStmt(((DropStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5902, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5907
+    /* "pglast/ast.pyx":5901
  *     elif tag == structs.T_DefineStmt:
  *         return create_DefineStmt(<structs.DefineStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropStmt:             # <<<<<<<<<<<<<<
@@ -76623,7 +76514,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_TruncateStmt:
 
-    /* "pglast/ast.pyx":5910
+    /* "pglast/ast.pyx":5904
  *         return create_DropStmt(<structs.DropStmt*> data, offset_to_index)
  *     elif tag == structs.T_TruncateStmt:
  *         return create_TruncateStmt(<structs.TruncateStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76631,13 +76522,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CommentStmt(<structs.CommentStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TruncateStmt(((TruncateStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5910, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TruncateStmt(((TruncateStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5904, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5909
+    /* "pglast/ast.pyx":5903
  *     elif tag == structs.T_DropStmt:
  *         return create_DropStmt(<structs.DropStmt*> data, offset_to_index)
  *     elif tag == structs.T_TruncateStmt:             # <<<<<<<<<<<<<<
@@ -76647,7 +76538,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CommentStmt:
 
-    /* "pglast/ast.pyx":5912
+    /* "pglast/ast.pyx":5906
  *         return create_TruncateStmt(<structs.TruncateStmt*> data, offset_to_index)
  *     elif tag == structs.T_CommentStmt:
  *         return create_CommentStmt(<structs.CommentStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76655,13 +76546,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_FetchStmt(<structs.FetchStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CommentStmt(((CommentStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5912, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CommentStmt(((CommentStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5906, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5911
+    /* "pglast/ast.pyx":5905
  *     elif tag == structs.T_TruncateStmt:
  *         return create_TruncateStmt(<structs.TruncateStmt*> data, offset_to_index)
  *     elif tag == structs.T_CommentStmt:             # <<<<<<<<<<<<<<
@@ -76671,7 +76562,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_FetchStmt:
 
-    /* "pglast/ast.pyx":5914
+    /* "pglast/ast.pyx":5908
  *         return create_CommentStmt(<structs.CommentStmt*> data, offset_to_index)
  *     elif tag == structs.T_FetchStmt:
  *         return create_FetchStmt(<structs.FetchStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76679,13 +76570,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_IndexStmt(<structs.IndexStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FetchStmt(((FetchStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5914, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FetchStmt(((FetchStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5908, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5913
+    /* "pglast/ast.pyx":5907
  *     elif tag == structs.T_CommentStmt:
  *         return create_CommentStmt(<structs.CommentStmt*> data, offset_to_index)
  *     elif tag == structs.T_FetchStmt:             # <<<<<<<<<<<<<<
@@ -76695,7 +76586,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_IndexStmt:
 
-    /* "pglast/ast.pyx":5916
+    /* "pglast/ast.pyx":5910
  *         return create_FetchStmt(<structs.FetchStmt*> data, offset_to_index)
  *     elif tag == structs.T_IndexStmt:
  *         return create_IndexStmt(<structs.IndexStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76703,13 +76594,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateFunctionStmt(<structs.CreateFunctionStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_IndexStmt(((IndexStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5916, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_IndexStmt(((IndexStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5910, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5915
+    /* "pglast/ast.pyx":5909
  *     elif tag == structs.T_FetchStmt:
  *         return create_FetchStmt(<structs.FetchStmt*> data, offset_to_index)
  *     elif tag == structs.T_IndexStmt:             # <<<<<<<<<<<<<<
@@ -76719,7 +76610,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateFunctionStmt:
 
-    /* "pglast/ast.pyx":5918
+    /* "pglast/ast.pyx":5912
  *         return create_IndexStmt(<structs.IndexStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateFunctionStmt:
  *         return create_CreateFunctionStmt(<structs.CreateFunctionStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76727,13 +76618,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterFunctionStmt(<structs.AlterFunctionStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateFunctionStmt(((CreateFunctionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5918, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateFunctionStmt(((CreateFunctionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5912, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5917
+    /* "pglast/ast.pyx":5911
  *     elif tag == structs.T_IndexStmt:
  *         return create_IndexStmt(<structs.IndexStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateFunctionStmt:             # <<<<<<<<<<<<<<
@@ -76743,7 +76634,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterFunctionStmt:
 
-    /* "pglast/ast.pyx":5920
+    /* "pglast/ast.pyx":5914
  *         return create_CreateFunctionStmt(<structs.CreateFunctionStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterFunctionStmt:
  *         return create_AlterFunctionStmt(<structs.AlterFunctionStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76751,13 +76642,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DoStmt(<structs.DoStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterFunctionStmt(((AlterFunctionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5920, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterFunctionStmt(((AlterFunctionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5914, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5919
+    /* "pglast/ast.pyx":5913
  *     elif tag == structs.T_CreateFunctionStmt:
  *         return create_CreateFunctionStmt(<structs.CreateFunctionStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterFunctionStmt:             # <<<<<<<<<<<<<<
@@ -76767,7 +76658,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DoStmt:
 
-    /* "pglast/ast.pyx":5922
+    /* "pglast/ast.pyx":5916
  *         return create_AlterFunctionStmt(<structs.AlterFunctionStmt*> data, offset_to_index)
  *     elif tag == structs.T_DoStmt:
  *         return create_DoStmt(<structs.DoStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76775,13 +76666,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RenameStmt(<structs.RenameStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DoStmt(((DoStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5922, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DoStmt(((DoStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5916, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5921
+    /* "pglast/ast.pyx":5915
  *     elif tag == structs.T_AlterFunctionStmt:
  *         return create_AlterFunctionStmt(<structs.AlterFunctionStmt*> data, offset_to_index)
  *     elif tag == structs.T_DoStmt:             # <<<<<<<<<<<<<<
@@ -76791,7 +76682,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RenameStmt:
 
-    /* "pglast/ast.pyx":5924
+    /* "pglast/ast.pyx":5918
  *         return create_DoStmt(<structs.DoStmt*> data, offset_to_index)
  *     elif tag == structs.T_RenameStmt:
  *         return create_RenameStmt(<structs.RenameStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76799,13 +76690,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RuleStmt(<structs.RuleStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RenameStmt(((RenameStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5924, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RenameStmt(((RenameStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5918, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5923
+    /* "pglast/ast.pyx":5917
  *     elif tag == structs.T_DoStmt:
  *         return create_DoStmt(<structs.DoStmt*> data, offset_to_index)
  *     elif tag == structs.T_RenameStmt:             # <<<<<<<<<<<<<<
@@ -76815,7 +76706,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RuleStmt:
 
-    /* "pglast/ast.pyx":5926
+    /* "pglast/ast.pyx":5920
  *         return create_RenameStmt(<structs.RenameStmt*> data, offset_to_index)
  *     elif tag == structs.T_RuleStmt:
  *         return create_RuleStmt(<structs.RuleStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76823,13 +76714,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_NotifyStmt(<structs.NotifyStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RuleStmt(((RuleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5926, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RuleStmt(((RuleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5920, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5925
+    /* "pglast/ast.pyx":5919
  *     elif tag == structs.T_RenameStmt:
  *         return create_RenameStmt(<structs.RenameStmt*> data, offset_to_index)
  *     elif tag == structs.T_RuleStmt:             # <<<<<<<<<<<<<<
@@ -76839,7 +76730,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_NotifyStmt:
 
-    /* "pglast/ast.pyx":5928
+    /* "pglast/ast.pyx":5922
  *         return create_RuleStmt(<structs.RuleStmt*> data, offset_to_index)
  *     elif tag == structs.T_NotifyStmt:
  *         return create_NotifyStmt(<structs.NotifyStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76847,13 +76738,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ListenStmt(<structs.ListenStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_NotifyStmt(((NotifyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5928, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_NotifyStmt(((NotifyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5922, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5927
+    /* "pglast/ast.pyx":5921
  *     elif tag == structs.T_RuleStmt:
  *         return create_RuleStmt(<structs.RuleStmt*> data, offset_to_index)
  *     elif tag == structs.T_NotifyStmt:             # <<<<<<<<<<<<<<
@@ -76863,7 +76754,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ListenStmt:
 
-    /* "pglast/ast.pyx":5930
+    /* "pglast/ast.pyx":5924
  *         return create_NotifyStmt(<structs.NotifyStmt*> data, offset_to_index)
  *     elif tag == structs.T_ListenStmt:
  *         return create_ListenStmt(<structs.ListenStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76871,13 +76762,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_UnlistenStmt(<structs.UnlistenStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ListenStmt(((ListenStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5930, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ListenStmt(((ListenStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5924, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5929
+    /* "pglast/ast.pyx":5923
  *     elif tag == structs.T_NotifyStmt:
  *         return create_NotifyStmt(<structs.NotifyStmt*> data, offset_to_index)
  *     elif tag == structs.T_ListenStmt:             # <<<<<<<<<<<<<<
@@ -76887,7 +76778,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_UnlistenStmt:
 
-    /* "pglast/ast.pyx":5932
+    /* "pglast/ast.pyx":5926
  *         return create_ListenStmt(<structs.ListenStmt*> data, offset_to_index)
  *     elif tag == structs.T_UnlistenStmt:
  *         return create_UnlistenStmt(<structs.UnlistenStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76895,13 +76786,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_TransactionStmt(<structs.TransactionStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_UnlistenStmt(((UnlistenStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5932, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_UnlistenStmt(((UnlistenStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5926, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5931
+    /* "pglast/ast.pyx":5925
  *     elif tag == structs.T_ListenStmt:
  *         return create_ListenStmt(<structs.ListenStmt*> data, offset_to_index)
  *     elif tag == structs.T_UnlistenStmt:             # <<<<<<<<<<<<<<
@@ -76911,7 +76802,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_TransactionStmt:
 
-    /* "pglast/ast.pyx":5934
+    /* "pglast/ast.pyx":5928
  *         return create_UnlistenStmt(<structs.UnlistenStmt*> data, offset_to_index)
  *     elif tag == structs.T_TransactionStmt:
  *         return create_TransactionStmt(<structs.TransactionStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76919,13 +76810,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ViewStmt(<structs.ViewStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TransactionStmt(((TransactionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5934, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TransactionStmt(((TransactionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5928, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5933
+    /* "pglast/ast.pyx":5927
  *     elif tag == structs.T_UnlistenStmt:
  *         return create_UnlistenStmt(<structs.UnlistenStmt*> data, offset_to_index)
  *     elif tag == structs.T_TransactionStmt:             # <<<<<<<<<<<<<<
@@ -76935,7 +76826,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ViewStmt:
 
-    /* "pglast/ast.pyx":5936
+    /* "pglast/ast.pyx":5930
  *         return create_TransactionStmt(<structs.TransactionStmt*> data, offset_to_index)
  *     elif tag == structs.T_ViewStmt:
  *         return create_ViewStmt(<structs.ViewStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76943,13 +76834,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_LoadStmt(<structs.LoadStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ViewStmt(((ViewStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5936, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ViewStmt(((ViewStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5930, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5935
+    /* "pglast/ast.pyx":5929
  *     elif tag == structs.T_TransactionStmt:
  *         return create_TransactionStmt(<structs.TransactionStmt*> data, offset_to_index)
  *     elif tag == structs.T_ViewStmt:             # <<<<<<<<<<<<<<
@@ -76959,7 +76850,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_LoadStmt:
 
-    /* "pglast/ast.pyx":5938
+    /* "pglast/ast.pyx":5932
  *         return create_ViewStmt(<structs.ViewStmt*> data, offset_to_index)
  *     elif tag == structs.T_LoadStmt:
  *         return create_LoadStmt(<structs.LoadStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76967,13 +76858,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateDomainStmt(<structs.CreateDomainStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_LoadStmt(((LoadStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5938, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_LoadStmt(((LoadStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5932, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5937
+    /* "pglast/ast.pyx":5931
  *     elif tag == structs.T_ViewStmt:
  *         return create_ViewStmt(<structs.ViewStmt*> data, offset_to_index)
  *     elif tag == structs.T_LoadStmt:             # <<<<<<<<<<<<<<
@@ -76983,7 +76874,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateDomainStmt:
 
-    /* "pglast/ast.pyx":5940
+    /* "pglast/ast.pyx":5934
  *         return create_LoadStmt(<structs.LoadStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateDomainStmt:
  *         return create_CreateDomainStmt(<structs.CreateDomainStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -76991,13 +76882,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreatedbStmt(<structs.CreatedbStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateDomainStmt(((CreateDomainStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5940, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateDomainStmt(((CreateDomainStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5934, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5939
+    /* "pglast/ast.pyx":5933
  *     elif tag == structs.T_LoadStmt:
  *         return create_LoadStmt(<structs.LoadStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateDomainStmt:             # <<<<<<<<<<<<<<
@@ -77007,7 +76898,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreatedbStmt:
 
-    /* "pglast/ast.pyx":5942
+    /* "pglast/ast.pyx":5936
  *         return create_CreateDomainStmt(<structs.CreateDomainStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreatedbStmt:
  *         return create_CreatedbStmt(<structs.CreatedbStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77015,13 +76906,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DropdbStmt(<structs.DropdbStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreatedbStmt(((CreatedbStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5942, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreatedbStmt(((CreatedbStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5936, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5941
+    /* "pglast/ast.pyx":5935
  *     elif tag == structs.T_CreateDomainStmt:
  *         return create_CreateDomainStmt(<structs.CreateDomainStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreatedbStmt:             # <<<<<<<<<<<<<<
@@ -77031,7 +76922,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DropdbStmt:
 
-    /* "pglast/ast.pyx":5944
+    /* "pglast/ast.pyx":5938
  *         return create_CreatedbStmt(<structs.CreatedbStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropdbStmt:
  *         return create_DropdbStmt(<structs.DropdbStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77039,13 +76930,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_VacuumStmt(<structs.VacuumStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropdbStmt(((DropdbStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5944, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropdbStmt(((DropdbStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5938, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5943
+    /* "pglast/ast.pyx":5937
  *     elif tag == structs.T_CreatedbStmt:
  *         return create_CreatedbStmt(<structs.CreatedbStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropdbStmt:             # <<<<<<<<<<<<<<
@@ -77055,7 +76946,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_VacuumStmt:
 
-    /* "pglast/ast.pyx":5946
+    /* "pglast/ast.pyx":5940
  *         return create_DropdbStmt(<structs.DropdbStmt*> data, offset_to_index)
  *     elif tag == structs.T_VacuumStmt:
  *         return create_VacuumStmt(<structs.VacuumStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77063,13 +76954,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ExplainStmt(<structs.ExplainStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_VacuumStmt(((VacuumStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5946, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_VacuumStmt(((VacuumStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5940, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5945
+    /* "pglast/ast.pyx":5939
  *     elif tag == structs.T_DropdbStmt:
  *         return create_DropdbStmt(<structs.DropdbStmt*> data, offset_to_index)
  *     elif tag == structs.T_VacuumStmt:             # <<<<<<<<<<<<<<
@@ -77079,7 +76970,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ExplainStmt:
 
-    /* "pglast/ast.pyx":5948
+    /* "pglast/ast.pyx":5942
  *         return create_VacuumStmt(<structs.VacuumStmt*> data, offset_to_index)
  *     elif tag == structs.T_ExplainStmt:
  *         return create_ExplainStmt(<structs.ExplainStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77087,13 +76978,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateTableAsStmt(<structs.CreateTableAsStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ExplainStmt(((ExplainStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5948, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ExplainStmt(((ExplainStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5942, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5947
+    /* "pglast/ast.pyx":5941
  *     elif tag == structs.T_VacuumStmt:
  *         return create_VacuumStmt(<structs.VacuumStmt*> data, offset_to_index)
  *     elif tag == structs.T_ExplainStmt:             # <<<<<<<<<<<<<<
@@ -77103,7 +76994,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateTableAsStmt:
 
-    /* "pglast/ast.pyx":5950
+    /* "pglast/ast.pyx":5944
  *         return create_ExplainStmt(<structs.ExplainStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateTableAsStmt:
  *         return create_CreateTableAsStmt(<structs.CreateTableAsStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77111,13 +77002,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateSeqStmt(<structs.CreateSeqStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateTableAsStmt(((CreateTableAsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5950, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateTableAsStmt(((CreateTableAsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5944, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5949
+    /* "pglast/ast.pyx":5943
  *     elif tag == structs.T_ExplainStmt:
  *         return create_ExplainStmt(<structs.ExplainStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateTableAsStmt:             # <<<<<<<<<<<<<<
@@ -77127,7 +77018,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateSeqStmt:
 
-    /* "pglast/ast.pyx":5952
+    /* "pglast/ast.pyx":5946
  *         return create_CreateTableAsStmt(<structs.CreateTableAsStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateSeqStmt:
  *         return create_CreateSeqStmt(<structs.CreateSeqStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77135,13 +77026,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterSeqStmt(<structs.AlterSeqStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateSeqStmt(((CreateSeqStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5952, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateSeqStmt(((CreateSeqStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5946, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5951
+    /* "pglast/ast.pyx":5945
  *     elif tag == structs.T_CreateTableAsStmt:
  *         return create_CreateTableAsStmt(<structs.CreateTableAsStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateSeqStmt:             # <<<<<<<<<<<<<<
@@ -77151,7 +77042,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterSeqStmt:
 
-    /* "pglast/ast.pyx":5954
+    /* "pglast/ast.pyx":5948
  *         return create_CreateSeqStmt(<structs.CreateSeqStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterSeqStmt:
  *         return create_AlterSeqStmt(<structs.AlterSeqStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77159,13 +77050,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_VariableSetStmt(<structs.VariableSetStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterSeqStmt(((AlterSeqStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5954, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterSeqStmt(((AlterSeqStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5948, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5953
+    /* "pglast/ast.pyx":5947
  *     elif tag == structs.T_CreateSeqStmt:
  *         return create_CreateSeqStmt(<structs.CreateSeqStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterSeqStmt:             # <<<<<<<<<<<<<<
@@ -77175,7 +77066,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_VariableSetStmt:
 
-    /* "pglast/ast.pyx":5956
+    /* "pglast/ast.pyx":5950
  *         return create_AlterSeqStmt(<structs.AlterSeqStmt*> data, offset_to_index)
  *     elif tag == structs.T_VariableSetStmt:
  *         return create_VariableSetStmt(<structs.VariableSetStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77183,13 +77074,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_VariableShowStmt(<structs.VariableShowStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_VariableSetStmt(((VariableSetStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5956, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_VariableSetStmt(((VariableSetStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5950, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5955
+    /* "pglast/ast.pyx":5949
  *     elif tag == structs.T_AlterSeqStmt:
  *         return create_AlterSeqStmt(<structs.AlterSeqStmt*> data, offset_to_index)
  *     elif tag == structs.T_VariableSetStmt:             # <<<<<<<<<<<<<<
@@ -77199,7 +77090,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_VariableShowStmt:
 
-    /* "pglast/ast.pyx":5958
+    /* "pglast/ast.pyx":5952
  *         return create_VariableSetStmt(<structs.VariableSetStmt*> data, offset_to_index)
  *     elif tag == structs.T_VariableShowStmt:
  *         return create_VariableShowStmt(<structs.VariableShowStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77207,13 +77098,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DiscardStmt(<structs.DiscardStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_VariableShowStmt(((VariableShowStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5958, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_VariableShowStmt(((VariableShowStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5952, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5957
+    /* "pglast/ast.pyx":5951
  *     elif tag == structs.T_VariableSetStmt:
  *         return create_VariableSetStmt(<structs.VariableSetStmt*> data, offset_to_index)
  *     elif tag == structs.T_VariableShowStmt:             # <<<<<<<<<<<<<<
@@ -77223,7 +77114,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DiscardStmt:
 
-    /* "pglast/ast.pyx":5960
+    /* "pglast/ast.pyx":5954
  *         return create_VariableShowStmt(<structs.VariableShowStmt*> data, offset_to_index)
  *     elif tag == structs.T_DiscardStmt:
  *         return create_DiscardStmt(<structs.DiscardStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77231,13 +77122,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateTrigStmt(<structs.CreateTrigStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DiscardStmt(((DiscardStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5960, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DiscardStmt(((DiscardStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5954, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5959
+    /* "pglast/ast.pyx":5953
  *     elif tag == structs.T_VariableShowStmt:
  *         return create_VariableShowStmt(<structs.VariableShowStmt*> data, offset_to_index)
  *     elif tag == structs.T_DiscardStmt:             # <<<<<<<<<<<<<<
@@ -77247,7 +77138,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateTrigStmt:
 
-    /* "pglast/ast.pyx":5962
+    /* "pglast/ast.pyx":5956
  *         return create_DiscardStmt(<structs.DiscardStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateTrigStmt:
  *         return create_CreateTrigStmt(<structs.CreateTrigStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77255,13 +77146,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreatePLangStmt(<structs.CreatePLangStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateTrigStmt(((CreateTrigStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5962, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateTrigStmt(((CreateTrigStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5956, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5961
+    /* "pglast/ast.pyx":5955
  *     elif tag == structs.T_DiscardStmt:
  *         return create_DiscardStmt(<structs.DiscardStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateTrigStmt:             # <<<<<<<<<<<<<<
@@ -77271,7 +77162,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreatePLangStmt:
 
-    /* "pglast/ast.pyx":5964
+    /* "pglast/ast.pyx":5958
  *         return create_CreateTrigStmt(<structs.CreateTrigStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreatePLangStmt:
  *         return create_CreatePLangStmt(<structs.CreatePLangStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77279,13 +77170,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateRoleStmt(<structs.CreateRoleStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreatePLangStmt(((CreatePLangStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5964, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreatePLangStmt(((CreatePLangStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5958, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5963
+    /* "pglast/ast.pyx":5957
  *     elif tag == structs.T_CreateTrigStmt:
  *         return create_CreateTrigStmt(<structs.CreateTrigStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreatePLangStmt:             # <<<<<<<<<<<<<<
@@ -77295,7 +77186,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateRoleStmt:
 
-    /* "pglast/ast.pyx":5966
+    /* "pglast/ast.pyx":5960
  *         return create_CreatePLangStmt(<structs.CreatePLangStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateRoleStmt:
  *         return create_CreateRoleStmt(<structs.CreateRoleStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77303,13 +77194,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterRoleStmt(<structs.AlterRoleStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateRoleStmt(((CreateRoleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5966, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateRoleStmt(((CreateRoleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5960, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5965
+    /* "pglast/ast.pyx":5959
  *     elif tag == structs.T_CreatePLangStmt:
  *         return create_CreatePLangStmt(<structs.CreatePLangStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateRoleStmt:             # <<<<<<<<<<<<<<
@@ -77319,7 +77210,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterRoleStmt:
 
-    /* "pglast/ast.pyx":5968
+    /* "pglast/ast.pyx":5962
  *         return create_CreateRoleStmt(<structs.CreateRoleStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterRoleStmt:
  *         return create_AlterRoleStmt(<structs.AlterRoleStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77327,13 +77218,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DropRoleStmt(<structs.DropRoleStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterRoleStmt(((AlterRoleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5968, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterRoleStmt(((AlterRoleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5962, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5967
+    /* "pglast/ast.pyx":5961
  *     elif tag == structs.T_CreateRoleStmt:
  *         return create_CreateRoleStmt(<structs.CreateRoleStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterRoleStmt:             # <<<<<<<<<<<<<<
@@ -77343,7 +77234,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DropRoleStmt:
 
-    /* "pglast/ast.pyx":5970
+    /* "pglast/ast.pyx":5964
  *         return create_AlterRoleStmt(<structs.AlterRoleStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropRoleStmt:
  *         return create_DropRoleStmt(<structs.DropRoleStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77351,13 +77242,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_LockStmt(<structs.LockStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropRoleStmt(((DropRoleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5970, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropRoleStmt(((DropRoleStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5964, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5969
+    /* "pglast/ast.pyx":5963
  *     elif tag == structs.T_AlterRoleStmt:
  *         return create_AlterRoleStmt(<structs.AlterRoleStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropRoleStmt:             # <<<<<<<<<<<<<<
@@ -77367,7 +77258,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_LockStmt:
 
-    /* "pglast/ast.pyx":5972
+    /* "pglast/ast.pyx":5966
  *         return create_DropRoleStmt(<structs.DropRoleStmt*> data, offset_to_index)
  *     elif tag == structs.T_LockStmt:
  *         return create_LockStmt(<structs.LockStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77375,13 +77266,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ConstraintsSetStmt(<structs.ConstraintsSetStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_LockStmt(((LockStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5972, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_LockStmt(((LockStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5966, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5971
+    /* "pglast/ast.pyx":5965
  *     elif tag == structs.T_DropRoleStmt:
  *         return create_DropRoleStmt(<structs.DropRoleStmt*> data, offset_to_index)
  *     elif tag == structs.T_LockStmt:             # <<<<<<<<<<<<<<
@@ -77391,7 +77282,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ConstraintsSetStmt:
 
-    /* "pglast/ast.pyx":5974
+    /* "pglast/ast.pyx":5968
  *         return create_LockStmt(<structs.LockStmt*> data, offset_to_index)
  *     elif tag == structs.T_ConstraintsSetStmt:
  *         return create_ConstraintsSetStmt(<structs.ConstraintsSetStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77399,13 +77290,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ReindexStmt(<structs.ReindexStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ConstraintsSetStmt(((ConstraintsSetStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5974, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ConstraintsSetStmt(((ConstraintsSetStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5968, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5973
+    /* "pglast/ast.pyx":5967
  *     elif tag == structs.T_LockStmt:
  *         return create_LockStmt(<structs.LockStmt*> data, offset_to_index)
  *     elif tag == structs.T_ConstraintsSetStmt:             # <<<<<<<<<<<<<<
@@ -77415,7 +77306,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ReindexStmt:
 
-    /* "pglast/ast.pyx":5976
+    /* "pglast/ast.pyx":5970
  *         return create_ConstraintsSetStmt(<structs.ConstraintsSetStmt*> data, offset_to_index)
  *     elif tag == structs.T_ReindexStmt:
  *         return create_ReindexStmt(<structs.ReindexStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77423,13 +77314,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CheckPointStmt(<structs.CheckPointStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ReindexStmt(((ReindexStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5976, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ReindexStmt(((ReindexStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5970, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5975
+    /* "pglast/ast.pyx":5969
  *     elif tag == structs.T_ConstraintsSetStmt:
  *         return create_ConstraintsSetStmt(<structs.ConstraintsSetStmt*> data, offset_to_index)
  *     elif tag == structs.T_ReindexStmt:             # <<<<<<<<<<<<<<
@@ -77439,7 +77330,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CheckPointStmt:
 
-    /* "pglast/ast.pyx":5978
+    /* "pglast/ast.pyx":5972
  *         return create_ReindexStmt(<structs.ReindexStmt*> data, offset_to_index)
  *     elif tag == structs.T_CheckPointStmt:
  *         return create_CheckPointStmt(<structs.CheckPointStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77447,13 +77338,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateSchemaStmt(<structs.CreateSchemaStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CheckPointStmt(((CheckPointStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5978, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CheckPointStmt(((CheckPointStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5972, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5977
+    /* "pglast/ast.pyx":5971
  *     elif tag == structs.T_ReindexStmt:
  *         return create_ReindexStmt(<structs.ReindexStmt*> data, offset_to_index)
  *     elif tag == structs.T_CheckPointStmt:             # <<<<<<<<<<<<<<
@@ -77463,7 +77354,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateSchemaStmt:
 
-    /* "pglast/ast.pyx":5980
+    /* "pglast/ast.pyx":5974
  *         return create_CheckPointStmt(<structs.CheckPointStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateSchemaStmt:
  *         return create_CreateSchemaStmt(<structs.CreateSchemaStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77471,13 +77362,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterDatabaseStmt(<structs.AlterDatabaseStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateSchemaStmt(((CreateSchemaStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5980, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateSchemaStmt(((CreateSchemaStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5974, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5979
+    /* "pglast/ast.pyx":5973
  *     elif tag == structs.T_CheckPointStmt:
  *         return create_CheckPointStmt(<structs.CheckPointStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateSchemaStmt:             # <<<<<<<<<<<<<<
@@ -77487,7 +77378,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterDatabaseStmt:
 
-    /* "pglast/ast.pyx":5982
+    /* "pglast/ast.pyx":5976
  *         return create_CreateSchemaStmt(<structs.CreateSchemaStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterDatabaseStmt:
  *         return create_AlterDatabaseStmt(<structs.AlterDatabaseStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77495,13 +77386,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterDatabaseSetStmt(<structs.AlterDatabaseSetStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterDatabaseStmt(((AlterDatabaseStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5982, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterDatabaseStmt(((AlterDatabaseStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5976, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5981
+    /* "pglast/ast.pyx":5975
  *     elif tag == structs.T_CreateSchemaStmt:
  *         return create_CreateSchemaStmt(<structs.CreateSchemaStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterDatabaseStmt:             # <<<<<<<<<<<<<<
@@ -77511,7 +77402,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterDatabaseSetStmt:
 
-    /* "pglast/ast.pyx":5984
+    /* "pglast/ast.pyx":5978
  *         return create_AlterDatabaseStmt(<structs.AlterDatabaseStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterDatabaseSetStmt:
  *         return create_AlterDatabaseSetStmt(<structs.AlterDatabaseSetStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77519,13 +77410,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterRoleSetStmt(<structs.AlterRoleSetStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterDatabaseSetStmt(((AlterDatabaseSetStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5984, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterDatabaseSetStmt(((AlterDatabaseSetStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5978, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5983
+    /* "pglast/ast.pyx":5977
  *     elif tag == structs.T_AlterDatabaseStmt:
  *         return create_AlterDatabaseStmt(<structs.AlterDatabaseStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterDatabaseSetStmt:             # <<<<<<<<<<<<<<
@@ -77535,7 +77426,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterRoleSetStmt:
 
-    /* "pglast/ast.pyx":5986
+    /* "pglast/ast.pyx":5980
  *         return create_AlterDatabaseSetStmt(<structs.AlterDatabaseSetStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterRoleSetStmt:
  *         return create_AlterRoleSetStmt(<structs.AlterRoleSetStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77543,13 +77434,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateConversionStmt(<structs.CreateConversionStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterRoleSetStmt(((AlterRoleSetStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5986, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterRoleSetStmt(((AlterRoleSetStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5980, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5985
+    /* "pglast/ast.pyx":5979
  *     elif tag == structs.T_AlterDatabaseSetStmt:
  *         return create_AlterDatabaseSetStmt(<structs.AlterDatabaseSetStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterRoleSetStmt:             # <<<<<<<<<<<<<<
@@ -77559,7 +77450,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateConversionStmt:
 
-    /* "pglast/ast.pyx":5988
+    /* "pglast/ast.pyx":5982
  *         return create_AlterRoleSetStmt(<structs.AlterRoleSetStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateConversionStmt:
  *         return create_CreateConversionStmt(<structs.CreateConversionStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77567,13 +77458,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateCastStmt(<structs.CreateCastStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateConversionStmt(((CreateConversionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5988, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateConversionStmt(((CreateConversionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5982, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5987
+    /* "pglast/ast.pyx":5981
  *     elif tag == structs.T_AlterRoleSetStmt:
  *         return create_AlterRoleSetStmt(<structs.AlterRoleSetStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateConversionStmt:             # <<<<<<<<<<<<<<
@@ -77583,7 +77474,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateCastStmt:
 
-    /* "pglast/ast.pyx":5990
+    /* "pglast/ast.pyx":5984
  *         return create_CreateConversionStmt(<structs.CreateConversionStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateCastStmt:
  *         return create_CreateCastStmt(<structs.CreateCastStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77591,13 +77482,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateOpClassStmt(<structs.CreateOpClassStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateCastStmt(((CreateCastStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5990, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateCastStmt(((CreateCastStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5984, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5989
+    /* "pglast/ast.pyx":5983
  *     elif tag == structs.T_CreateConversionStmt:
  *         return create_CreateConversionStmt(<structs.CreateConversionStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateCastStmt:             # <<<<<<<<<<<<<<
@@ -77607,7 +77498,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateOpClassStmt:
 
-    /* "pglast/ast.pyx":5992
+    /* "pglast/ast.pyx":5986
  *         return create_CreateCastStmt(<structs.CreateCastStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateOpClassStmt:
  *         return create_CreateOpClassStmt(<structs.CreateOpClassStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77615,13 +77506,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateOpFamilyStmt(<structs.CreateOpFamilyStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateOpClassStmt(((CreateOpClassStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5992, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateOpClassStmt(((CreateOpClassStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5986, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5991
+    /* "pglast/ast.pyx":5985
  *     elif tag == structs.T_CreateCastStmt:
  *         return create_CreateCastStmt(<structs.CreateCastStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateOpClassStmt:             # <<<<<<<<<<<<<<
@@ -77631,7 +77522,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateOpFamilyStmt:
 
-    /* "pglast/ast.pyx":5994
+    /* "pglast/ast.pyx":5988
  *         return create_CreateOpClassStmt(<structs.CreateOpClassStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateOpFamilyStmt:
  *         return create_CreateOpFamilyStmt(<structs.CreateOpFamilyStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77639,13 +77530,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterOpFamilyStmt(<structs.AlterOpFamilyStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateOpFamilyStmt(((CreateOpFamilyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5994, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateOpFamilyStmt(((CreateOpFamilyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5988, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5993
+    /* "pglast/ast.pyx":5987
  *     elif tag == structs.T_CreateOpClassStmt:
  *         return create_CreateOpClassStmt(<structs.CreateOpClassStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateOpFamilyStmt:             # <<<<<<<<<<<<<<
@@ -77655,7 +77546,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterOpFamilyStmt:
 
-    /* "pglast/ast.pyx":5996
+    /* "pglast/ast.pyx":5990
  *         return create_CreateOpFamilyStmt(<structs.CreateOpFamilyStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterOpFamilyStmt:
  *         return create_AlterOpFamilyStmt(<structs.AlterOpFamilyStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77663,13 +77554,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_PrepareStmt(<structs.PrepareStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterOpFamilyStmt(((AlterOpFamilyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5996, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterOpFamilyStmt(((AlterOpFamilyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5990, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5995
+    /* "pglast/ast.pyx":5989
  *     elif tag == structs.T_CreateOpFamilyStmt:
  *         return create_CreateOpFamilyStmt(<structs.CreateOpFamilyStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterOpFamilyStmt:             # <<<<<<<<<<<<<<
@@ -77679,7 +77570,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_PrepareStmt:
 
-    /* "pglast/ast.pyx":5998
+    /* "pglast/ast.pyx":5992
  *         return create_AlterOpFamilyStmt(<structs.AlterOpFamilyStmt*> data, offset_to_index)
  *     elif tag == structs.T_PrepareStmt:
  *         return create_PrepareStmt(<structs.PrepareStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77687,13 +77578,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ExecuteStmt(<structs.ExecuteStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PrepareStmt(((PrepareStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5998, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PrepareStmt(((PrepareStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5992, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5997
+    /* "pglast/ast.pyx":5991
  *     elif tag == structs.T_AlterOpFamilyStmt:
  *         return create_AlterOpFamilyStmt(<structs.AlterOpFamilyStmt*> data, offset_to_index)
  *     elif tag == structs.T_PrepareStmt:             # <<<<<<<<<<<<<<
@@ -77703,7 +77594,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ExecuteStmt:
 
-    /* "pglast/ast.pyx":6000
+    /* "pglast/ast.pyx":5994
  *         return create_PrepareStmt(<structs.PrepareStmt*> data, offset_to_index)
  *     elif tag == structs.T_ExecuteStmt:
  *         return create_ExecuteStmt(<structs.ExecuteStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77711,13 +77602,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DeallocateStmt(<structs.DeallocateStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ExecuteStmt(((ExecuteStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6000, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ExecuteStmt(((ExecuteStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5994, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":5999
+    /* "pglast/ast.pyx":5993
  *     elif tag == structs.T_PrepareStmt:
  *         return create_PrepareStmt(<structs.PrepareStmt*> data, offset_to_index)
  *     elif tag == structs.T_ExecuteStmt:             # <<<<<<<<<<<<<<
@@ -77727,7 +77618,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DeallocateStmt:
 
-    /* "pglast/ast.pyx":6002
+    /* "pglast/ast.pyx":5996
  *         return create_ExecuteStmt(<structs.ExecuteStmt*> data, offset_to_index)
  *     elif tag == structs.T_DeallocateStmt:
  *         return create_DeallocateStmt(<structs.DeallocateStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77735,13 +77626,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DeclareCursorStmt(<structs.DeclareCursorStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DeallocateStmt(((DeallocateStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6002, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DeallocateStmt(((DeallocateStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5996, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6001
+    /* "pglast/ast.pyx":5995
  *     elif tag == structs.T_ExecuteStmt:
  *         return create_ExecuteStmt(<structs.ExecuteStmt*> data, offset_to_index)
  *     elif tag == structs.T_DeallocateStmt:             # <<<<<<<<<<<<<<
@@ -77751,7 +77642,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DeclareCursorStmt:
 
-    /* "pglast/ast.pyx":6004
+    /* "pglast/ast.pyx":5998
  *         return create_DeallocateStmt(<structs.DeallocateStmt*> data, offset_to_index)
  *     elif tag == structs.T_DeclareCursorStmt:
  *         return create_DeclareCursorStmt(<structs.DeclareCursorStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77759,13 +77650,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateTableSpaceStmt(<structs.CreateTableSpaceStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DeclareCursorStmt(((DeclareCursorStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6004, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DeclareCursorStmt(((DeclareCursorStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5998, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6003
+    /* "pglast/ast.pyx":5997
  *     elif tag == structs.T_DeallocateStmt:
  *         return create_DeallocateStmt(<structs.DeallocateStmt*> data, offset_to_index)
  *     elif tag == structs.T_DeclareCursorStmt:             # <<<<<<<<<<<<<<
@@ -77775,7 +77666,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateTableSpaceStmt:
 
-    /* "pglast/ast.pyx":6006
+    /* "pglast/ast.pyx":6000
  *         return create_DeclareCursorStmt(<structs.DeclareCursorStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateTableSpaceStmt:
  *         return create_CreateTableSpaceStmt(<structs.CreateTableSpaceStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77783,13 +77674,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DropTableSpaceStmt(<structs.DropTableSpaceStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateTableSpaceStmt(((CreateTableSpaceStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6006, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateTableSpaceStmt(((CreateTableSpaceStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6000, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6005
+    /* "pglast/ast.pyx":5999
  *     elif tag == structs.T_DeclareCursorStmt:
  *         return create_DeclareCursorStmt(<structs.DeclareCursorStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateTableSpaceStmt:             # <<<<<<<<<<<<<<
@@ -77799,7 +77690,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DropTableSpaceStmt:
 
-    /* "pglast/ast.pyx":6008
+    /* "pglast/ast.pyx":6002
  *         return create_CreateTableSpaceStmt(<structs.CreateTableSpaceStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropTableSpaceStmt:
  *         return create_DropTableSpaceStmt(<structs.DropTableSpaceStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77807,13 +77698,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterObjectDependsStmt(<structs.AlterObjectDependsStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropTableSpaceStmt(((DropTableSpaceStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6008, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropTableSpaceStmt(((DropTableSpaceStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6002, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6007
+    /* "pglast/ast.pyx":6001
  *     elif tag == structs.T_CreateTableSpaceStmt:
  *         return create_CreateTableSpaceStmt(<structs.CreateTableSpaceStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropTableSpaceStmt:             # <<<<<<<<<<<<<<
@@ -77823,7 +77714,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterObjectDependsStmt:
 
-    /* "pglast/ast.pyx":6010
+    /* "pglast/ast.pyx":6004
  *         return create_DropTableSpaceStmt(<structs.DropTableSpaceStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterObjectDependsStmt:
  *         return create_AlterObjectDependsStmt(<structs.AlterObjectDependsStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77831,13 +77722,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterObjectSchemaStmt(<structs.AlterObjectSchemaStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterObjectDependsStmt(((AlterObjectDependsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6010, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterObjectDependsStmt(((AlterObjectDependsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6004, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6009
+    /* "pglast/ast.pyx":6003
  *     elif tag == structs.T_DropTableSpaceStmt:
  *         return create_DropTableSpaceStmt(<structs.DropTableSpaceStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterObjectDependsStmt:             # <<<<<<<<<<<<<<
@@ -77847,7 +77738,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterObjectSchemaStmt:
 
-    /* "pglast/ast.pyx":6012
+    /* "pglast/ast.pyx":6006
  *         return create_AlterObjectDependsStmt(<structs.AlterObjectDependsStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterObjectSchemaStmt:
  *         return create_AlterObjectSchemaStmt(<structs.AlterObjectSchemaStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77855,13 +77746,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterOwnerStmt(<structs.AlterOwnerStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterObjectSchemaStmt(((AlterObjectSchemaStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6012, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterObjectSchemaStmt(((AlterObjectSchemaStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6006, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6011
+    /* "pglast/ast.pyx":6005
  *     elif tag == structs.T_AlterObjectDependsStmt:
  *         return create_AlterObjectDependsStmt(<structs.AlterObjectDependsStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterObjectSchemaStmt:             # <<<<<<<<<<<<<<
@@ -77871,7 +77762,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterOwnerStmt:
 
-    /* "pglast/ast.pyx":6014
+    /* "pglast/ast.pyx":6008
  *         return create_AlterObjectSchemaStmt(<structs.AlterObjectSchemaStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterOwnerStmt:
  *         return create_AlterOwnerStmt(<structs.AlterOwnerStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77879,13 +77770,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterOperatorStmt(<structs.AlterOperatorStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterOwnerStmt(((AlterOwnerStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6014, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterOwnerStmt(((AlterOwnerStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6008, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6013
+    /* "pglast/ast.pyx":6007
  *     elif tag == structs.T_AlterObjectSchemaStmt:
  *         return create_AlterObjectSchemaStmt(<structs.AlterObjectSchemaStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterOwnerStmt:             # <<<<<<<<<<<<<<
@@ -77895,7 +77786,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterOperatorStmt:
 
-    /* "pglast/ast.pyx":6016
+    /* "pglast/ast.pyx":6010
  *         return create_AlterOwnerStmt(<structs.AlterOwnerStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterOperatorStmt:
  *         return create_AlterOperatorStmt(<structs.AlterOperatorStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77903,13 +77794,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterTypeStmt(<structs.AlterTypeStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterOperatorStmt(((AlterOperatorStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6016, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterOperatorStmt(((AlterOperatorStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6010, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6015
+    /* "pglast/ast.pyx":6009
  *     elif tag == structs.T_AlterOwnerStmt:
  *         return create_AlterOwnerStmt(<structs.AlterOwnerStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterOperatorStmt:             # <<<<<<<<<<<<<<
@@ -77919,7 +77810,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterTypeStmt:
 
-    /* "pglast/ast.pyx":6018
+    /* "pglast/ast.pyx":6012
  *         return create_AlterOperatorStmt(<structs.AlterOperatorStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTypeStmt:
  *         return create_AlterTypeStmt(<structs.AlterTypeStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77927,13 +77818,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DropOwnedStmt(<structs.DropOwnedStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTypeStmt(((AlterTypeStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6018, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTypeStmt(((AlterTypeStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6012, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6017
+    /* "pglast/ast.pyx":6011
  *     elif tag == structs.T_AlterOperatorStmt:
  *         return create_AlterOperatorStmt(<structs.AlterOperatorStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTypeStmt:             # <<<<<<<<<<<<<<
@@ -77943,7 +77834,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DropOwnedStmt:
 
-    /* "pglast/ast.pyx":6020
+    /* "pglast/ast.pyx":6014
  *         return create_AlterTypeStmt(<structs.AlterTypeStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropOwnedStmt:
  *         return create_DropOwnedStmt(<structs.DropOwnedStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77951,13 +77842,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ReassignOwnedStmt(<structs.ReassignOwnedStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropOwnedStmt(((DropOwnedStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6020, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropOwnedStmt(((DropOwnedStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6014, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6019
+    /* "pglast/ast.pyx":6013
  *     elif tag == structs.T_AlterTypeStmt:
  *         return create_AlterTypeStmt(<structs.AlterTypeStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropOwnedStmt:             # <<<<<<<<<<<<<<
@@ -77967,7 +77858,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ReassignOwnedStmt:
 
-    /* "pglast/ast.pyx":6022
+    /* "pglast/ast.pyx":6016
  *         return create_DropOwnedStmt(<structs.DropOwnedStmt*> data, offset_to_index)
  *     elif tag == structs.T_ReassignOwnedStmt:
  *         return create_ReassignOwnedStmt(<structs.ReassignOwnedStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77975,13 +77866,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CompositeTypeStmt(<structs.CompositeTypeStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ReassignOwnedStmt(((ReassignOwnedStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6022, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ReassignOwnedStmt(((ReassignOwnedStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6016, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6021
+    /* "pglast/ast.pyx":6015
  *     elif tag == structs.T_DropOwnedStmt:
  *         return create_DropOwnedStmt(<structs.DropOwnedStmt*> data, offset_to_index)
  *     elif tag == structs.T_ReassignOwnedStmt:             # <<<<<<<<<<<<<<
@@ -77991,7 +77882,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CompositeTypeStmt:
 
-    /* "pglast/ast.pyx":6024
+    /* "pglast/ast.pyx":6018
  *         return create_ReassignOwnedStmt(<structs.ReassignOwnedStmt*> data, offset_to_index)
  *     elif tag == structs.T_CompositeTypeStmt:
  *         return create_CompositeTypeStmt(<structs.CompositeTypeStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -77999,13 +77890,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateEnumStmt(<structs.CreateEnumStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CompositeTypeStmt(((CompositeTypeStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6024, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CompositeTypeStmt(((CompositeTypeStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6018, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6023
+    /* "pglast/ast.pyx":6017
  *     elif tag == structs.T_ReassignOwnedStmt:
  *         return create_ReassignOwnedStmt(<structs.ReassignOwnedStmt*> data, offset_to_index)
  *     elif tag == structs.T_CompositeTypeStmt:             # <<<<<<<<<<<<<<
@@ -78015,7 +77906,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateEnumStmt:
 
-    /* "pglast/ast.pyx":6026
+    /* "pglast/ast.pyx":6020
  *         return create_CompositeTypeStmt(<structs.CompositeTypeStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateEnumStmt:
  *         return create_CreateEnumStmt(<structs.CreateEnumStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78023,13 +77914,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateRangeStmt(<structs.CreateRangeStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateEnumStmt(((CreateEnumStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6026, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateEnumStmt(((CreateEnumStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6020, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6025
+    /* "pglast/ast.pyx":6019
  *     elif tag == structs.T_CompositeTypeStmt:
  *         return create_CompositeTypeStmt(<structs.CompositeTypeStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateEnumStmt:             # <<<<<<<<<<<<<<
@@ -78039,7 +77930,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateRangeStmt:
 
-    /* "pglast/ast.pyx":6028
+    /* "pglast/ast.pyx":6022
  *         return create_CreateEnumStmt(<structs.CreateEnumStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateRangeStmt:
  *         return create_CreateRangeStmt(<structs.CreateRangeStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78047,13 +77938,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterEnumStmt(<structs.AlterEnumStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateRangeStmt(((CreateRangeStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6028, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateRangeStmt(((CreateRangeStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6022, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6027
+    /* "pglast/ast.pyx":6021
  *     elif tag == structs.T_CreateEnumStmt:
  *         return create_CreateEnumStmt(<structs.CreateEnumStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateRangeStmt:             # <<<<<<<<<<<<<<
@@ -78063,7 +77954,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterEnumStmt:
 
-    /* "pglast/ast.pyx":6030
+    /* "pglast/ast.pyx":6024
  *         return create_CreateRangeStmt(<structs.CreateRangeStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterEnumStmt:
  *         return create_AlterEnumStmt(<structs.AlterEnumStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78071,13 +77962,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterTSDictionaryStmt(<structs.AlterTSDictionaryStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterEnumStmt(((AlterEnumStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6030, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterEnumStmt(((AlterEnumStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6024, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6029
+    /* "pglast/ast.pyx":6023
  *     elif tag == structs.T_CreateRangeStmt:
  *         return create_CreateRangeStmt(<structs.CreateRangeStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterEnumStmt:             # <<<<<<<<<<<<<<
@@ -78087,7 +77978,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterTSDictionaryStmt:
 
-    /* "pglast/ast.pyx":6032
+    /* "pglast/ast.pyx":6026
  *         return create_AlterEnumStmt(<structs.AlterEnumStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTSDictionaryStmt:
  *         return create_AlterTSDictionaryStmt(<structs.AlterTSDictionaryStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78095,13 +77986,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterTSConfigurationStmt(<structs.AlterTSConfigurationStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTSDictionaryStmt(((AlterTSDictionaryStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6032, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTSDictionaryStmt(((AlterTSDictionaryStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6026, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6031
+    /* "pglast/ast.pyx":6025
  *     elif tag == structs.T_AlterEnumStmt:
  *         return create_AlterEnumStmt(<structs.AlterEnumStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTSDictionaryStmt:             # <<<<<<<<<<<<<<
@@ -78111,7 +78002,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterTSConfigurationStmt:
 
-    /* "pglast/ast.pyx":6034
+    /* "pglast/ast.pyx":6028
  *         return create_AlterTSDictionaryStmt(<structs.AlterTSDictionaryStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTSConfigurationStmt:
  *         return create_AlterTSConfigurationStmt(<structs.AlterTSConfigurationStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78119,13 +78010,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateFdwStmt(<structs.CreateFdwStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTSConfigurationStmt(((AlterTSConfigurationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6034, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTSConfigurationStmt(((AlterTSConfigurationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6028, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6033
+    /* "pglast/ast.pyx":6027
  *     elif tag == structs.T_AlterTSDictionaryStmt:
  *         return create_AlterTSDictionaryStmt(<structs.AlterTSDictionaryStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTSConfigurationStmt:             # <<<<<<<<<<<<<<
@@ -78135,7 +78026,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateFdwStmt:
 
-    /* "pglast/ast.pyx":6036
+    /* "pglast/ast.pyx":6030
  *         return create_AlterTSConfigurationStmt(<structs.AlterTSConfigurationStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateFdwStmt:
  *         return create_CreateFdwStmt(<structs.CreateFdwStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78143,13 +78034,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterFdwStmt(<structs.AlterFdwStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateFdwStmt(((CreateFdwStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6036, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateFdwStmt(((CreateFdwStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6030, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6035
+    /* "pglast/ast.pyx":6029
  *     elif tag == structs.T_AlterTSConfigurationStmt:
  *         return create_AlterTSConfigurationStmt(<structs.AlterTSConfigurationStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateFdwStmt:             # <<<<<<<<<<<<<<
@@ -78159,7 +78050,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterFdwStmt:
 
-    /* "pglast/ast.pyx":6038
+    /* "pglast/ast.pyx":6032
  *         return create_CreateFdwStmt(<structs.CreateFdwStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterFdwStmt:
  *         return create_AlterFdwStmt(<structs.AlterFdwStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78167,13 +78058,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateForeignServerStmt(<structs.CreateForeignServerStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterFdwStmt(((AlterFdwStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6038, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterFdwStmt(((AlterFdwStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6032, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6037
+    /* "pglast/ast.pyx":6031
  *     elif tag == structs.T_CreateFdwStmt:
  *         return create_CreateFdwStmt(<structs.CreateFdwStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterFdwStmt:             # <<<<<<<<<<<<<<
@@ -78183,7 +78074,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateForeignServerStmt:
 
-    /* "pglast/ast.pyx":6040
+    /* "pglast/ast.pyx":6034
  *         return create_AlterFdwStmt(<structs.AlterFdwStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateForeignServerStmt:
  *         return create_CreateForeignServerStmt(<structs.CreateForeignServerStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78191,13 +78082,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterForeignServerStmt(<structs.AlterForeignServerStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateForeignServerStmt(((CreateForeignServerStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6040, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateForeignServerStmt(((CreateForeignServerStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6034, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6039
+    /* "pglast/ast.pyx":6033
  *     elif tag == structs.T_AlterFdwStmt:
  *         return create_AlterFdwStmt(<structs.AlterFdwStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateForeignServerStmt:             # <<<<<<<<<<<<<<
@@ -78207,7 +78098,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterForeignServerStmt:
 
-    /* "pglast/ast.pyx":6042
+    /* "pglast/ast.pyx":6036
  *         return create_CreateForeignServerStmt(<structs.CreateForeignServerStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterForeignServerStmt:
  *         return create_AlterForeignServerStmt(<structs.AlterForeignServerStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78215,13 +78106,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateUserMappingStmt(<structs.CreateUserMappingStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterForeignServerStmt(((AlterForeignServerStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6042, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterForeignServerStmt(((AlterForeignServerStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6036, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6041
+    /* "pglast/ast.pyx":6035
  *     elif tag == structs.T_CreateForeignServerStmt:
  *         return create_CreateForeignServerStmt(<structs.CreateForeignServerStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterForeignServerStmt:             # <<<<<<<<<<<<<<
@@ -78231,7 +78122,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateUserMappingStmt:
 
-    /* "pglast/ast.pyx":6044
+    /* "pglast/ast.pyx":6038
  *         return create_AlterForeignServerStmt(<structs.AlterForeignServerStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateUserMappingStmt:
  *         return create_CreateUserMappingStmt(<structs.CreateUserMappingStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78239,13 +78130,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterUserMappingStmt(<structs.AlterUserMappingStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateUserMappingStmt(((CreateUserMappingStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6044, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateUserMappingStmt(((CreateUserMappingStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6038, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6043
+    /* "pglast/ast.pyx":6037
  *     elif tag == structs.T_AlterForeignServerStmt:
  *         return create_AlterForeignServerStmt(<structs.AlterForeignServerStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateUserMappingStmt:             # <<<<<<<<<<<<<<
@@ -78255,7 +78146,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterUserMappingStmt:
 
-    /* "pglast/ast.pyx":6046
+    /* "pglast/ast.pyx":6040
  *         return create_CreateUserMappingStmt(<structs.CreateUserMappingStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterUserMappingStmt:
  *         return create_AlterUserMappingStmt(<structs.AlterUserMappingStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78263,13 +78154,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DropUserMappingStmt(<structs.DropUserMappingStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterUserMappingStmt(((AlterUserMappingStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6046, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterUserMappingStmt(((AlterUserMappingStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6040, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6045
+    /* "pglast/ast.pyx":6039
  *     elif tag == structs.T_CreateUserMappingStmt:
  *         return create_CreateUserMappingStmt(<structs.CreateUserMappingStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterUserMappingStmt:             # <<<<<<<<<<<<<<
@@ -78279,7 +78170,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DropUserMappingStmt:
 
-    /* "pglast/ast.pyx":6048
+    /* "pglast/ast.pyx":6042
  *         return create_AlterUserMappingStmt(<structs.AlterUserMappingStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropUserMappingStmt:
  *         return create_DropUserMappingStmt(<structs.DropUserMappingStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78287,13 +78178,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterTableSpaceOptionsStmt(<structs.AlterTableSpaceOptionsStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropUserMappingStmt(((DropUserMappingStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6048, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropUserMappingStmt(((DropUserMappingStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6042, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6047
+    /* "pglast/ast.pyx":6041
  *     elif tag == structs.T_AlterUserMappingStmt:
  *         return create_AlterUserMappingStmt(<structs.AlterUserMappingStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropUserMappingStmt:             # <<<<<<<<<<<<<<
@@ -78303,7 +78194,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterTableSpaceOptionsStmt:
 
-    /* "pglast/ast.pyx":6050
+    /* "pglast/ast.pyx":6044
  *         return create_DropUserMappingStmt(<structs.DropUserMappingStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTableSpaceOptionsStmt:
  *         return create_AlterTableSpaceOptionsStmt(<structs.AlterTableSpaceOptionsStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78311,13 +78202,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterTableMoveAllStmt(<structs.AlterTableMoveAllStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTableSpaceOptionsStmt(((AlterTableSpaceOptionsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6050, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTableSpaceOptionsStmt(((AlterTableSpaceOptionsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6044, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6049
+    /* "pglast/ast.pyx":6043
  *     elif tag == structs.T_DropUserMappingStmt:
  *         return create_DropUserMappingStmt(<structs.DropUserMappingStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTableSpaceOptionsStmt:             # <<<<<<<<<<<<<<
@@ -78327,7 +78218,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterTableMoveAllStmt:
 
-    /* "pglast/ast.pyx":6052
+    /* "pglast/ast.pyx":6046
  *         return create_AlterTableSpaceOptionsStmt(<structs.AlterTableSpaceOptionsStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTableMoveAllStmt:
  *         return create_AlterTableMoveAllStmt(<structs.AlterTableMoveAllStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78335,13 +78226,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SecLabelStmt(<structs.SecLabelStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTableMoveAllStmt(((AlterTableMoveAllStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6052, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterTableMoveAllStmt(((AlterTableMoveAllStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6046, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6051
+    /* "pglast/ast.pyx":6045
  *     elif tag == structs.T_AlterTableSpaceOptionsStmt:
  *         return create_AlterTableSpaceOptionsStmt(<structs.AlterTableSpaceOptionsStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterTableMoveAllStmt:             # <<<<<<<<<<<<<<
@@ -78351,7 +78242,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SecLabelStmt:
 
-    /* "pglast/ast.pyx":6054
+    /* "pglast/ast.pyx":6048
  *         return create_AlterTableMoveAllStmt(<structs.AlterTableMoveAllStmt*> data, offset_to_index)
  *     elif tag == structs.T_SecLabelStmt:
  *         return create_SecLabelStmt(<structs.SecLabelStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78359,13 +78250,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateForeignTableStmt(<structs.CreateForeignTableStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SecLabelStmt(((SecLabelStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6054, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SecLabelStmt(((SecLabelStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6048, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6053
+    /* "pglast/ast.pyx":6047
  *     elif tag == structs.T_AlterTableMoveAllStmt:
  *         return create_AlterTableMoveAllStmt(<structs.AlterTableMoveAllStmt*> data, offset_to_index)
  *     elif tag == structs.T_SecLabelStmt:             # <<<<<<<<<<<<<<
@@ -78375,7 +78266,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateForeignTableStmt:
 
-    /* "pglast/ast.pyx":6056
+    /* "pglast/ast.pyx":6050
  *         return create_SecLabelStmt(<structs.SecLabelStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateForeignTableStmt:
  *         return create_CreateForeignTableStmt(<structs.CreateForeignTableStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78383,13 +78274,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ImportForeignSchemaStmt(<structs.ImportForeignSchemaStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateForeignTableStmt(((CreateForeignTableStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6056, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateForeignTableStmt(((CreateForeignTableStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6050, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6055
+    /* "pglast/ast.pyx":6049
  *     elif tag == structs.T_SecLabelStmt:
  *         return create_SecLabelStmt(<structs.SecLabelStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateForeignTableStmt:             # <<<<<<<<<<<<<<
@@ -78399,7 +78290,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ImportForeignSchemaStmt:
 
-    /* "pglast/ast.pyx":6058
+    /* "pglast/ast.pyx":6052
  *         return create_CreateForeignTableStmt(<structs.CreateForeignTableStmt*> data, offset_to_index)
  *     elif tag == structs.T_ImportForeignSchemaStmt:
  *         return create_ImportForeignSchemaStmt(<structs.ImportForeignSchemaStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78407,13 +78298,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateExtensionStmt(<structs.CreateExtensionStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ImportForeignSchemaStmt(((ImportForeignSchemaStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6058, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ImportForeignSchemaStmt(((ImportForeignSchemaStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6052, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6057
+    /* "pglast/ast.pyx":6051
  *     elif tag == structs.T_CreateForeignTableStmt:
  *         return create_CreateForeignTableStmt(<structs.CreateForeignTableStmt*> data, offset_to_index)
  *     elif tag == structs.T_ImportForeignSchemaStmt:             # <<<<<<<<<<<<<<
@@ -78423,7 +78314,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateExtensionStmt:
 
-    /* "pglast/ast.pyx":6060
+    /* "pglast/ast.pyx":6054
  *         return create_ImportForeignSchemaStmt(<structs.ImportForeignSchemaStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateExtensionStmt:
  *         return create_CreateExtensionStmt(<structs.CreateExtensionStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78431,13 +78322,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterExtensionStmt(<structs.AlterExtensionStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateExtensionStmt(((CreateExtensionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6060, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateExtensionStmt(((CreateExtensionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6054, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6059
+    /* "pglast/ast.pyx":6053
  *     elif tag == structs.T_ImportForeignSchemaStmt:
  *         return create_ImportForeignSchemaStmt(<structs.ImportForeignSchemaStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateExtensionStmt:             # <<<<<<<<<<<<<<
@@ -78447,7 +78338,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterExtensionStmt:
 
-    /* "pglast/ast.pyx":6062
+    /* "pglast/ast.pyx":6056
  *         return create_CreateExtensionStmt(<structs.CreateExtensionStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterExtensionStmt:
  *         return create_AlterExtensionStmt(<structs.AlterExtensionStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78455,13 +78346,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterExtensionContentsStmt(<structs.AlterExtensionContentsStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterExtensionStmt(((AlterExtensionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6062, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterExtensionStmt(((AlterExtensionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6056, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6061
+    /* "pglast/ast.pyx":6055
  *     elif tag == structs.T_CreateExtensionStmt:
  *         return create_CreateExtensionStmt(<structs.CreateExtensionStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterExtensionStmt:             # <<<<<<<<<<<<<<
@@ -78471,7 +78362,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterExtensionContentsStmt:
 
-    /* "pglast/ast.pyx":6064
+    /* "pglast/ast.pyx":6058
  *         return create_AlterExtensionStmt(<structs.AlterExtensionStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterExtensionContentsStmt:
  *         return create_AlterExtensionContentsStmt(<structs.AlterExtensionContentsStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78479,13 +78370,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateEventTrigStmt(<structs.CreateEventTrigStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterExtensionContentsStmt(((AlterExtensionContentsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6064, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterExtensionContentsStmt(((AlterExtensionContentsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6058, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6063
+    /* "pglast/ast.pyx":6057
  *     elif tag == structs.T_AlterExtensionStmt:
  *         return create_AlterExtensionStmt(<structs.AlterExtensionStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterExtensionContentsStmt:             # <<<<<<<<<<<<<<
@@ -78495,7 +78386,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateEventTrigStmt:
 
-    /* "pglast/ast.pyx":6066
+    /* "pglast/ast.pyx":6060
  *         return create_AlterExtensionContentsStmt(<structs.AlterExtensionContentsStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateEventTrigStmt:
  *         return create_CreateEventTrigStmt(<structs.CreateEventTrigStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78503,13 +78394,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterEventTrigStmt(<structs.AlterEventTrigStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateEventTrigStmt(((CreateEventTrigStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6066, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateEventTrigStmt(((CreateEventTrigStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6060, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6065
+    /* "pglast/ast.pyx":6059
  *     elif tag == structs.T_AlterExtensionContentsStmt:
  *         return create_AlterExtensionContentsStmt(<structs.AlterExtensionContentsStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateEventTrigStmt:             # <<<<<<<<<<<<<<
@@ -78519,7 +78410,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterEventTrigStmt:
 
-    /* "pglast/ast.pyx":6068
+    /* "pglast/ast.pyx":6062
  *         return create_CreateEventTrigStmt(<structs.CreateEventTrigStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterEventTrigStmt:
  *         return create_AlterEventTrigStmt(<structs.AlterEventTrigStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78527,13 +78418,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RefreshMatViewStmt(<structs.RefreshMatViewStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterEventTrigStmt(((AlterEventTrigStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6068, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterEventTrigStmt(((AlterEventTrigStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6062, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6067
+    /* "pglast/ast.pyx":6061
  *     elif tag == structs.T_CreateEventTrigStmt:
  *         return create_CreateEventTrigStmt(<structs.CreateEventTrigStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterEventTrigStmt:             # <<<<<<<<<<<<<<
@@ -78543,7 +78434,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RefreshMatViewStmt:
 
-    /* "pglast/ast.pyx":6070
+    /* "pglast/ast.pyx":6064
  *         return create_AlterEventTrigStmt(<structs.AlterEventTrigStmt*> data, offset_to_index)
  *     elif tag == structs.T_RefreshMatViewStmt:
  *         return create_RefreshMatViewStmt(<structs.RefreshMatViewStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78551,13 +78442,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ReplicaIdentityStmt(<structs.ReplicaIdentityStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RefreshMatViewStmt(((RefreshMatViewStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6070, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RefreshMatViewStmt(((RefreshMatViewStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6064, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6069
+    /* "pglast/ast.pyx":6063
  *     elif tag == structs.T_AlterEventTrigStmt:
  *         return create_AlterEventTrigStmt(<structs.AlterEventTrigStmt*> data, offset_to_index)
  *     elif tag == structs.T_RefreshMatViewStmt:             # <<<<<<<<<<<<<<
@@ -78567,7 +78458,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ReplicaIdentityStmt:
 
-    /* "pglast/ast.pyx":6072
+    /* "pglast/ast.pyx":6066
  *         return create_RefreshMatViewStmt(<structs.RefreshMatViewStmt*> data, offset_to_index)
  *     elif tag == structs.T_ReplicaIdentityStmt:
  *         return create_ReplicaIdentityStmt(<structs.ReplicaIdentityStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78575,13 +78466,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterSystemStmt(<structs.AlterSystemStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ReplicaIdentityStmt(((ReplicaIdentityStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6072, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ReplicaIdentityStmt(((ReplicaIdentityStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6066, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6071
+    /* "pglast/ast.pyx":6065
  *     elif tag == structs.T_RefreshMatViewStmt:
  *         return create_RefreshMatViewStmt(<structs.RefreshMatViewStmt*> data, offset_to_index)
  *     elif tag == structs.T_ReplicaIdentityStmt:             # <<<<<<<<<<<<<<
@@ -78591,7 +78482,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterSystemStmt:
 
-    /* "pglast/ast.pyx":6074
+    /* "pglast/ast.pyx":6068
  *         return create_ReplicaIdentityStmt(<structs.ReplicaIdentityStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterSystemStmt:
  *         return create_AlterSystemStmt(<structs.AlterSystemStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78599,13 +78490,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreatePolicyStmt(<structs.CreatePolicyStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterSystemStmt(((AlterSystemStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6074, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterSystemStmt(((AlterSystemStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6068, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6073
+    /* "pglast/ast.pyx":6067
  *     elif tag == structs.T_ReplicaIdentityStmt:
  *         return create_ReplicaIdentityStmt(<structs.ReplicaIdentityStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterSystemStmt:             # <<<<<<<<<<<<<<
@@ -78615,7 +78506,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreatePolicyStmt:
 
-    /* "pglast/ast.pyx":6076
+    /* "pglast/ast.pyx":6070
  *         return create_AlterSystemStmt(<structs.AlterSystemStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreatePolicyStmt:
  *         return create_CreatePolicyStmt(<structs.CreatePolicyStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78623,13 +78514,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterPolicyStmt(<structs.AlterPolicyStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreatePolicyStmt(((CreatePolicyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6076, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreatePolicyStmt(((CreatePolicyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6070, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6075
+    /* "pglast/ast.pyx":6069
  *     elif tag == structs.T_AlterSystemStmt:
  *         return create_AlterSystemStmt(<structs.AlterSystemStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreatePolicyStmt:             # <<<<<<<<<<<<<<
@@ -78639,7 +78530,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterPolicyStmt:
 
-    /* "pglast/ast.pyx":6078
+    /* "pglast/ast.pyx":6072
  *         return create_CreatePolicyStmt(<structs.CreatePolicyStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterPolicyStmt:
  *         return create_AlterPolicyStmt(<structs.AlterPolicyStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78647,13 +78538,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateTransformStmt(<structs.CreateTransformStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterPolicyStmt(((AlterPolicyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6078, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterPolicyStmt(((AlterPolicyStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6072, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6077
+    /* "pglast/ast.pyx":6071
  *     elif tag == structs.T_CreatePolicyStmt:
  *         return create_CreatePolicyStmt(<structs.CreatePolicyStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterPolicyStmt:             # <<<<<<<<<<<<<<
@@ -78663,7 +78554,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateTransformStmt:
 
-    /* "pglast/ast.pyx":6080
+    /* "pglast/ast.pyx":6074
  *         return create_AlterPolicyStmt(<structs.AlterPolicyStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateTransformStmt:
  *         return create_CreateTransformStmt(<structs.CreateTransformStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78671,13 +78562,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateAmStmt(<structs.CreateAmStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateTransformStmt(((CreateTransformStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6080, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateTransformStmt(((CreateTransformStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6074, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6079
+    /* "pglast/ast.pyx":6073
  *     elif tag == structs.T_AlterPolicyStmt:
  *         return create_AlterPolicyStmt(<structs.AlterPolicyStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateTransformStmt:             # <<<<<<<<<<<<<<
@@ -78687,7 +78578,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateAmStmt:
 
-    /* "pglast/ast.pyx":6082
+    /* "pglast/ast.pyx":6076
  *         return create_CreateTransformStmt(<structs.CreateTransformStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateAmStmt:
  *         return create_CreateAmStmt(<structs.CreateAmStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78695,13 +78586,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreatePublicationStmt(<structs.CreatePublicationStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateAmStmt(((CreateAmStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6082, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateAmStmt(((CreateAmStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6076, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6081
+    /* "pglast/ast.pyx":6075
  *     elif tag == structs.T_CreateTransformStmt:
  *         return create_CreateTransformStmt(<structs.CreateTransformStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateAmStmt:             # <<<<<<<<<<<<<<
@@ -78711,7 +78602,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreatePublicationStmt:
 
-    /* "pglast/ast.pyx":6084
+    /* "pglast/ast.pyx":6078
  *         return create_CreateAmStmt(<structs.CreateAmStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreatePublicationStmt:
  *         return create_CreatePublicationStmt(<structs.CreatePublicationStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78719,13 +78610,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterPublicationStmt(<structs.AlterPublicationStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreatePublicationStmt(((CreatePublicationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6084, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreatePublicationStmt(((CreatePublicationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6078, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6083
+    /* "pglast/ast.pyx":6077
  *     elif tag == structs.T_CreateAmStmt:
  *         return create_CreateAmStmt(<structs.CreateAmStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreatePublicationStmt:             # <<<<<<<<<<<<<<
@@ -78735,7 +78626,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterPublicationStmt:
 
-    /* "pglast/ast.pyx":6086
+    /* "pglast/ast.pyx":6080
  *         return create_CreatePublicationStmt(<structs.CreatePublicationStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterPublicationStmt:
  *         return create_AlterPublicationStmt(<structs.AlterPublicationStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78743,13 +78634,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateSubscriptionStmt(<structs.CreateSubscriptionStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterPublicationStmt(((AlterPublicationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6086, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterPublicationStmt(((AlterPublicationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6080, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6085
+    /* "pglast/ast.pyx":6079
  *     elif tag == structs.T_CreatePublicationStmt:
  *         return create_CreatePublicationStmt(<structs.CreatePublicationStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterPublicationStmt:             # <<<<<<<<<<<<<<
@@ -78759,7 +78650,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateSubscriptionStmt:
 
-    /* "pglast/ast.pyx":6088
+    /* "pglast/ast.pyx":6082
  *         return create_AlterPublicationStmt(<structs.AlterPublicationStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateSubscriptionStmt:
  *         return create_CreateSubscriptionStmt(<structs.CreateSubscriptionStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78767,13 +78658,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterSubscriptionStmt(<structs.AlterSubscriptionStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateSubscriptionStmt(((CreateSubscriptionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6088, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateSubscriptionStmt(((CreateSubscriptionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6082, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6087
+    /* "pglast/ast.pyx":6081
  *     elif tag == structs.T_AlterPublicationStmt:
  *         return create_AlterPublicationStmt(<structs.AlterPublicationStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateSubscriptionStmt:             # <<<<<<<<<<<<<<
@@ -78783,7 +78674,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterSubscriptionStmt:
 
-    /* "pglast/ast.pyx":6090
+    /* "pglast/ast.pyx":6084
  *         return create_CreateSubscriptionStmt(<structs.CreateSubscriptionStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterSubscriptionStmt:
  *         return create_AlterSubscriptionStmt(<structs.AlterSubscriptionStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78791,13 +78682,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DropSubscriptionStmt(<structs.DropSubscriptionStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterSubscriptionStmt(((AlterSubscriptionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6090, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterSubscriptionStmt(((AlterSubscriptionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6084, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6089
+    /* "pglast/ast.pyx":6083
  *     elif tag == structs.T_CreateSubscriptionStmt:
  *         return create_CreateSubscriptionStmt(<structs.CreateSubscriptionStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterSubscriptionStmt:             # <<<<<<<<<<<<<<
@@ -78807,7 +78698,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DropSubscriptionStmt:
 
-    /* "pglast/ast.pyx":6092
+    /* "pglast/ast.pyx":6086
  *         return create_AlterSubscriptionStmt(<structs.AlterSubscriptionStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropSubscriptionStmt:
  *         return create_DropSubscriptionStmt(<structs.DropSubscriptionStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78815,13 +78706,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateStatsStmt(<structs.CreateStatsStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropSubscriptionStmt(((DropSubscriptionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6092, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DropSubscriptionStmt(((DropSubscriptionStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6086, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6091
+    /* "pglast/ast.pyx":6085
  *     elif tag == structs.T_AlterSubscriptionStmt:
  *         return create_AlterSubscriptionStmt(<structs.AlterSubscriptionStmt*> data, offset_to_index)
  *     elif tag == structs.T_DropSubscriptionStmt:             # <<<<<<<<<<<<<<
@@ -78831,7 +78722,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateStatsStmt:
 
-    /* "pglast/ast.pyx":6094
+    /* "pglast/ast.pyx":6088
  *         return create_DropSubscriptionStmt(<structs.DropSubscriptionStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateStatsStmt:
  *         return create_CreateStatsStmt(<structs.CreateStatsStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78839,13 +78730,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterCollationStmt(<structs.AlterCollationStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateStatsStmt(((CreateStatsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6094, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateStatsStmt(((CreateStatsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6088, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6093
+    /* "pglast/ast.pyx":6087
  *     elif tag == structs.T_DropSubscriptionStmt:
  *         return create_DropSubscriptionStmt(<structs.DropSubscriptionStmt*> data, offset_to_index)
  *     elif tag == structs.T_CreateStatsStmt:             # <<<<<<<<<<<<<<
@@ -78855,7 +78746,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterCollationStmt:
 
-    /* "pglast/ast.pyx":6096
+    /* "pglast/ast.pyx":6090
  *         return create_CreateStatsStmt(<structs.CreateStatsStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterCollationStmt:
  *         return create_AlterCollationStmt(<structs.AlterCollationStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78863,13 +78754,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CallStmt(<structs.CallStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterCollationStmt(((AlterCollationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6096, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterCollationStmt(((AlterCollationStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6090, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6095
+    /* "pglast/ast.pyx":6089
  *     elif tag == structs.T_CreateStatsStmt:
  *         return create_CreateStatsStmt(<structs.CreateStatsStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterCollationStmt:             # <<<<<<<<<<<<<<
@@ -78879,7 +78770,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CallStmt:
 
-    /* "pglast/ast.pyx":6098
+    /* "pglast/ast.pyx":6092
  *         return create_AlterCollationStmt(<structs.AlterCollationStmt*> data, offset_to_index)
  *     elif tag == structs.T_CallStmt:
  *         return create_CallStmt(<structs.CallStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78887,13 +78778,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AlterStatsStmt(<structs.AlterStatsStmt*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CallStmt(((CallStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6098, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CallStmt(((CallStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6092, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6097
+    /* "pglast/ast.pyx":6091
  *     elif tag == structs.T_AlterCollationStmt:
  *         return create_AlterCollationStmt(<structs.AlterCollationStmt*> data, offset_to_index)
  *     elif tag == structs.T_CallStmt:             # <<<<<<<<<<<<<<
@@ -78903,7 +78794,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AlterStatsStmt:
 
-    /* "pglast/ast.pyx":6100
+    /* "pglast/ast.pyx":6094
  *         return create_CallStmt(<structs.CallStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterStatsStmt:
  *         return create_AlterStatsStmt(<structs.AlterStatsStmt*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78911,13 +78802,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_A_Expr(<structs.A_Expr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterStatsStmt(((AlterStatsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6100, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AlterStatsStmt(((AlterStatsStmt *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6094, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6099
+    /* "pglast/ast.pyx":6093
  *     elif tag == structs.T_CallStmt:
  *         return create_CallStmt(<structs.CallStmt*> data, offset_to_index)
  *     elif tag == structs.T_AlterStatsStmt:             # <<<<<<<<<<<<<<
@@ -78927,7 +78818,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_A_Expr:
 
-    /* "pglast/ast.pyx":6102
+    /* "pglast/ast.pyx":6096
  *         return create_AlterStatsStmt(<structs.AlterStatsStmt*> data, offset_to_index)
  *     elif tag == structs.T_A_Expr:
  *         return create_A_Expr(<structs.A_Expr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78935,13 +78826,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ColumnRef(<structs.ColumnRef*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Expr(((A_Expr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6102, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Expr(((A_Expr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6096, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6101
+    /* "pglast/ast.pyx":6095
  *     elif tag == structs.T_AlterStatsStmt:
  *         return create_AlterStatsStmt(<structs.AlterStatsStmt*> data, offset_to_index)
  *     elif tag == structs.T_A_Expr:             # <<<<<<<<<<<<<<
@@ -78951,7 +78842,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ColumnRef:
 
-    /* "pglast/ast.pyx":6104
+    /* "pglast/ast.pyx":6098
  *         return create_A_Expr(<structs.A_Expr*> data, offset_to_index)
  *     elif tag == structs.T_ColumnRef:
  *         return create_ColumnRef(<structs.ColumnRef*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78959,13 +78850,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ParamRef(<structs.ParamRef*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ColumnRef(((ColumnRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6104, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ColumnRef(((ColumnRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6098, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6103
+    /* "pglast/ast.pyx":6097
  *     elif tag == structs.T_A_Expr:
  *         return create_A_Expr(<structs.A_Expr*> data, offset_to_index)
  *     elif tag == structs.T_ColumnRef:             # <<<<<<<<<<<<<<
@@ -78975,7 +78866,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ParamRef:
 
-    /* "pglast/ast.pyx":6106
+    /* "pglast/ast.pyx":6100
  *         return create_ColumnRef(<structs.ColumnRef*> data, offset_to_index)
  *     elif tag == structs.T_ParamRef:
  *         return create_ParamRef(<structs.ParamRef*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -78983,13 +78874,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_A_Const(<structs.A_Const*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ParamRef(((ParamRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6106, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ParamRef(((ParamRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6100, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6105
+    /* "pglast/ast.pyx":6099
  *     elif tag == structs.T_ColumnRef:
  *         return create_ColumnRef(<structs.ColumnRef*> data, offset_to_index)
  *     elif tag == structs.T_ParamRef:             # <<<<<<<<<<<<<<
@@ -78999,7 +78890,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_A_Const:
 
-    /* "pglast/ast.pyx":6108
+    /* "pglast/ast.pyx":6102
  *         return create_ParamRef(<structs.ParamRef*> data, offset_to_index)
  *     elif tag == structs.T_A_Const:
  *         return create_A_Const(<structs.A_Const*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79007,13 +78898,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_FuncCall(<structs.FuncCall*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Const(((A_Const *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6108, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Const(((A_Const *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6102, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6107
+    /* "pglast/ast.pyx":6101
  *     elif tag == structs.T_ParamRef:
  *         return create_ParamRef(<structs.ParamRef*> data, offset_to_index)
  *     elif tag == structs.T_A_Const:             # <<<<<<<<<<<<<<
@@ -79023,7 +78914,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_FuncCall:
 
-    /* "pglast/ast.pyx":6110
+    /* "pglast/ast.pyx":6104
  *         return create_A_Const(<structs.A_Const*> data, offset_to_index)
  *     elif tag == structs.T_FuncCall:
  *         return create_FuncCall(<structs.FuncCall*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79031,13 +78922,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_A_Star(<structs.A_Star*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FuncCall(((FuncCall *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6110, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FuncCall(((FuncCall *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6104, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6109
+    /* "pglast/ast.pyx":6103
  *     elif tag == structs.T_A_Const:
  *         return create_A_Const(<structs.A_Const*> data, offset_to_index)
  *     elif tag == structs.T_FuncCall:             # <<<<<<<<<<<<<<
@@ -79047,7 +78938,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_A_Star:
 
-    /* "pglast/ast.pyx":6112
+    /* "pglast/ast.pyx":6106
  *         return create_FuncCall(<structs.FuncCall*> data, offset_to_index)
  *     elif tag == structs.T_A_Star:
  *         return create_A_Star(<structs.A_Star*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79055,13 +78946,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_A_Indices(<structs.A_Indices*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Star(((A_Star *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6112, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Star(((A_Star *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6106, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6111
+    /* "pglast/ast.pyx":6105
  *     elif tag == structs.T_FuncCall:
  *         return create_FuncCall(<structs.FuncCall*> data, offset_to_index)
  *     elif tag == structs.T_A_Star:             # <<<<<<<<<<<<<<
@@ -79071,7 +78962,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_A_Indices:
 
-    /* "pglast/ast.pyx":6114
+    /* "pglast/ast.pyx":6108
  *         return create_A_Star(<structs.A_Star*> data, offset_to_index)
  *     elif tag == structs.T_A_Indices:
  *         return create_A_Indices(<structs.A_Indices*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79079,13 +78970,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_A_Indirection(<structs.A_Indirection*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Indices(((A_Indices *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6114, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Indices(((A_Indices *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6113
+    /* "pglast/ast.pyx":6107
  *     elif tag == structs.T_A_Star:
  *         return create_A_Star(<structs.A_Star*> data, offset_to_index)
  *     elif tag == structs.T_A_Indices:             # <<<<<<<<<<<<<<
@@ -79095,7 +78986,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_A_Indirection:
 
-    /* "pglast/ast.pyx":6116
+    /* "pglast/ast.pyx":6110
  *         return create_A_Indices(<structs.A_Indices*> data, offset_to_index)
  *     elif tag == structs.T_A_Indirection:
  *         return create_A_Indirection(<structs.A_Indirection*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79103,13 +78994,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_A_ArrayExpr(<structs.A_ArrayExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Indirection(((A_Indirection *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6116, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_Indirection(((A_Indirection *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6110, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6115
+    /* "pglast/ast.pyx":6109
  *     elif tag == structs.T_A_Indices:
  *         return create_A_Indices(<structs.A_Indices*> data, offset_to_index)
  *     elif tag == structs.T_A_Indirection:             # <<<<<<<<<<<<<<
@@ -79119,7 +79010,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_A_ArrayExpr:
 
-    /* "pglast/ast.pyx":6118
+    /* "pglast/ast.pyx":6112
  *         return create_A_Indirection(<structs.A_Indirection*> data, offset_to_index)
  *     elif tag == structs.T_A_ArrayExpr:
  *         return create_A_ArrayExpr(<structs.A_ArrayExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79127,13 +79018,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ResTarget(<structs.ResTarget*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_ArrayExpr(((A_ArrayExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6118, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_A_ArrayExpr(((A_ArrayExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6117
+    /* "pglast/ast.pyx":6111
  *     elif tag == structs.T_A_Indirection:
  *         return create_A_Indirection(<structs.A_Indirection*> data, offset_to_index)
  *     elif tag == structs.T_A_ArrayExpr:             # <<<<<<<<<<<<<<
@@ -79143,7 +79034,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ResTarget:
 
-    /* "pglast/ast.pyx":6120
+    /* "pglast/ast.pyx":6114
  *         return create_A_ArrayExpr(<structs.A_ArrayExpr*> data, offset_to_index)
  *     elif tag == structs.T_ResTarget:
  *         return create_ResTarget(<structs.ResTarget*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79151,13 +79042,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_MultiAssignRef(<structs.MultiAssignRef*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ResTarget(((ResTarget *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6120, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ResTarget(((ResTarget *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6119
+    /* "pglast/ast.pyx":6113
  *     elif tag == structs.T_A_ArrayExpr:
  *         return create_A_ArrayExpr(<structs.A_ArrayExpr*> data, offset_to_index)
  *     elif tag == structs.T_ResTarget:             # <<<<<<<<<<<<<<
@@ -79167,7 +79058,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_MultiAssignRef:
 
-    /* "pglast/ast.pyx":6122
+    /* "pglast/ast.pyx":6116
  *         return create_ResTarget(<structs.ResTarget*> data, offset_to_index)
  *     elif tag == structs.T_MultiAssignRef:
  *         return create_MultiAssignRef(<structs.MultiAssignRef*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79175,13 +79066,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_TypeCast(<structs.TypeCast*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_MultiAssignRef(((MultiAssignRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6122, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_MultiAssignRef(((MultiAssignRef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6116, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6121
+    /* "pglast/ast.pyx":6115
  *     elif tag == structs.T_ResTarget:
  *         return create_ResTarget(<structs.ResTarget*> data, offset_to_index)
  *     elif tag == structs.T_MultiAssignRef:             # <<<<<<<<<<<<<<
@@ -79191,7 +79082,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_TypeCast:
 
-    /* "pglast/ast.pyx":6124
+    /* "pglast/ast.pyx":6118
  *         return create_MultiAssignRef(<structs.MultiAssignRef*> data, offset_to_index)
  *     elif tag == structs.T_TypeCast:
  *         return create_TypeCast(<structs.TypeCast*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79199,13 +79090,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CollateClause(<structs.CollateClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TypeCast(((TypeCast *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6124, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TypeCast(((TypeCast *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6123
+    /* "pglast/ast.pyx":6117
  *     elif tag == structs.T_MultiAssignRef:
  *         return create_MultiAssignRef(<structs.MultiAssignRef*> data, offset_to_index)
  *     elif tag == structs.T_TypeCast:             # <<<<<<<<<<<<<<
@@ -79215,7 +79106,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CollateClause:
 
-    /* "pglast/ast.pyx":6126
+    /* "pglast/ast.pyx":6120
  *         return create_TypeCast(<structs.TypeCast*> data, offset_to_index)
  *     elif tag == structs.T_CollateClause:
  *         return create_CollateClause(<structs.CollateClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79223,13 +79114,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SortBy(<structs.SortBy*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CollateClause(((CollateClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6126, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CollateClause(((CollateClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6120, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6125
+    /* "pglast/ast.pyx":6119
  *     elif tag == structs.T_TypeCast:
  *         return create_TypeCast(<structs.TypeCast*> data, offset_to_index)
  *     elif tag == structs.T_CollateClause:             # <<<<<<<<<<<<<<
@@ -79239,7 +79130,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SortBy:
 
-    /* "pglast/ast.pyx":6128
+    /* "pglast/ast.pyx":6122
  *         return create_CollateClause(<structs.CollateClause*> data, offset_to_index)
  *     elif tag == structs.T_SortBy:
  *         return create_SortBy(<structs.SortBy*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79247,13 +79138,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_WindowDef(<structs.WindowDef*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SortBy(((SortBy *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6128, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SortBy(((SortBy *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6127
+    /* "pglast/ast.pyx":6121
  *     elif tag == structs.T_CollateClause:
  *         return create_CollateClause(<structs.CollateClause*> data, offset_to_index)
  *     elif tag == structs.T_SortBy:             # <<<<<<<<<<<<<<
@@ -79263,7 +79154,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_WindowDef:
 
-    /* "pglast/ast.pyx":6130
+    /* "pglast/ast.pyx":6124
  *         return create_SortBy(<structs.SortBy*> data, offset_to_index)
  *     elif tag == structs.T_WindowDef:
  *         return create_WindowDef(<structs.WindowDef*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79271,13 +79162,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RangeSubselect(<structs.RangeSubselect*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WindowDef(((WindowDef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6130, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WindowDef(((WindowDef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6129
+    /* "pglast/ast.pyx":6123
  *     elif tag == structs.T_SortBy:
  *         return create_SortBy(<structs.SortBy*> data, offset_to_index)
  *     elif tag == structs.T_WindowDef:             # <<<<<<<<<<<<<<
@@ -79287,7 +79178,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RangeSubselect:
 
-    /* "pglast/ast.pyx":6132
+    /* "pglast/ast.pyx":6126
  *         return create_WindowDef(<structs.WindowDef*> data, offset_to_index)
  *     elif tag == structs.T_RangeSubselect:
  *         return create_RangeSubselect(<structs.RangeSubselect*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79295,13 +79186,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RangeFunction(<structs.RangeFunction*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeSubselect(((RangeSubselect *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6132, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeSubselect(((RangeSubselect *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6126, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6131
+    /* "pglast/ast.pyx":6125
  *     elif tag == structs.T_WindowDef:
  *         return create_WindowDef(<structs.WindowDef*> data, offset_to_index)
  *     elif tag == structs.T_RangeSubselect:             # <<<<<<<<<<<<<<
@@ -79311,7 +79202,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RangeFunction:
 
-    /* "pglast/ast.pyx":6134
+    /* "pglast/ast.pyx":6128
  *         return create_RangeSubselect(<structs.RangeSubselect*> data, offset_to_index)
  *     elif tag == structs.T_RangeFunction:
  *         return create_RangeFunction(<structs.RangeFunction*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79319,13 +79210,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RangeTableSample(<structs.RangeTableSample*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeFunction(((RangeFunction *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6134, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeFunction(((RangeFunction *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6133
+    /* "pglast/ast.pyx":6127
  *     elif tag == structs.T_RangeSubselect:
  *         return create_RangeSubselect(<structs.RangeSubselect*> data, offset_to_index)
  *     elif tag == structs.T_RangeFunction:             # <<<<<<<<<<<<<<
@@ -79335,7 +79226,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RangeTableSample:
 
-    /* "pglast/ast.pyx":6136
+    /* "pglast/ast.pyx":6130
  *         return create_RangeFunction(<structs.RangeFunction*> data, offset_to_index)
  *     elif tag == structs.T_RangeTableSample:
  *         return create_RangeTableSample(<structs.RangeTableSample*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79343,13 +79234,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RangeTableFunc(<structs.RangeTableFunc*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTableSample(((RangeTableSample *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6136, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTableSample(((RangeTableSample *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6135
+    /* "pglast/ast.pyx":6129
  *     elif tag == structs.T_RangeFunction:
  *         return create_RangeFunction(<structs.RangeFunction*> data, offset_to_index)
  *     elif tag == structs.T_RangeTableSample:             # <<<<<<<<<<<<<<
@@ -79359,7 +79250,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RangeTableFunc:
 
-    /* "pglast/ast.pyx":6138
+    /* "pglast/ast.pyx":6132
  *         return create_RangeTableSample(<structs.RangeTableSample*> data, offset_to_index)
  *     elif tag == structs.T_RangeTableFunc:
  *         return create_RangeTableFunc(<structs.RangeTableFunc*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79367,13 +79258,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RangeTableFuncCol(<structs.RangeTableFuncCol*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTableFunc(((RangeTableFunc *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6138, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTableFunc(((RangeTableFunc *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6137
+    /* "pglast/ast.pyx":6131
  *     elif tag == structs.T_RangeTableSample:
  *         return create_RangeTableSample(<structs.RangeTableSample*> data, offset_to_index)
  *     elif tag == structs.T_RangeTableFunc:             # <<<<<<<<<<<<<<
@@ -79383,7 +79274,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RangeTableFuncCol:
 
-    /* "pglast/ast.pyx":6140
+    /* "pglast/ast.pyx":6134
  *         return create_RangeTableFunc(<structs.RangeTableFunc*> data, offset_to_index)
  *     elif tag == structs.T_RangeTableFuncCol:
  *         return create_RangeTableFuncCol(<structs.RangeTableFuncCol*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79391,13 +79282,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_TypeName(<structs.TypeName*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTableFuncCol(((RangeTableFuncCol *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6140, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTableFuncCol(((RangeTableFuncCol *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6139
+    /* "pglast/ast.pyx":6133
  *     elif tag == structs.T_RangeTableFunc:
  *         return create_RangeTableFunc(<structs.RangeTableFunc*> data, offset_to_index)
  *     elif tag == structs.T_RangeTableFuncCol:             # <<<<<<<<<<<<<<
@@ -79407,7 +79298,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_TypeName:
 
-    /* "pglast/ast.pyx":6142
+    /* "pglast/ast.pyx":6136
  *         return create_RangeTableFuncCol(<structs.RangeTableFuncCol*> data, offset_to_index)
  *     elif tag == structs.T_TypeName:
  *         return create_TypeName(<structs.TypeName*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79415,13 +79306,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ColumnDef(<structs.ColumnDef*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TypeName(((TypeName *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6142, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TypeName(((TypeName *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6136, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6141
+    /* "pglast/ast.pyx":6135
  *     elif tag == structs.T_RangeTableFuncCol:
  *         return create_RangeTableFuncCol(<structs.RangeTableFuncCol*> data, offset_to_index)
  *     elif tag == structs.T_TypeName:             # <<<<<<<<<<<<<<
@@ -79431,7 +79322,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ColumnDef:
 
-    /* "pglast/ast.pyx":6144
+    /* "pglast/ast.pyx":6138
  *         return create_TypeName(<structs.TypeName*> data, offset_to_index)
  *     elif tag == structs.T_ColumnDef:
  *         return create_ColumnDef(<structs.ColumnDef*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79439,13 +79330,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_IndexElem(<structs.IndexElem*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ColumnDef(((ColumnDef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6144, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ColumnDef(((ColumnDef *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6143
+    /* "pglast/ast.pyx":6137
  *     elif tag == structs.T_TypeName:
  *         return create_TypeName(<structs.TypeName*> data, offset_to_index)
  *     elif tag == structs.T_ColumnDef:             # <<<<<<<<<<<<<<
@@ -79455,7 +79346,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_IndexElem:
 
-    /* "pglast/ast.pyx":6146
+    /* "pglast/ast.pyx":6140
  *         return create_ColumnDef(<structs.ColumnDef*> data, offset_to_index)
  *     elif tag == structs.T_IndexElem:
  *         return create_IndexElem(<structs.IndexElem*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79463,13 +79354,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_Constraint(<structs.Constraint*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_IndexElem(((IndexElem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6146, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_IndexElem(((IndexElem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6145
+    /* "pglast/ast.pyx":6139
  *     elif tag == structs.T_ColumnDef:
  *         return create_ColumnDef(<structs.ColumnDef*> data, offset_to_index)
  *     elif tag == structs.T_IndexElem:             # <<<<<<<<<<<<<<
@@ -79479,7 +79370,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_Constraint:
 
-    /* "pglast/ast.pyx":6148
+    /* "pglast/ast.pyx":6142
  *         return create_IndexElem(<structs.IndexElem*> data, offset_to_index)
  *     elif tag == structs.T_Constraint:
  *         return create_Constraint(<structs.Constraint*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79487,13 +79378,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_DefElem(<structs.DefElem*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Constraint(((Constraint *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6148, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_Constraint(((Constraint *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6142, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6147
+    /* "pglast/ast.pyx":6141
  *     elif tag == structs.T_IndexElem:
  *         return create_IndexElem(<structs.IndexElem*> data, offset_to_index)
  *     elif tag == structs.T_Constraint:             # <<<<<<<<<<<<<<
@@ -79503,7 +79394,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_DefElem:
 
-    /* "pglast/ast.pyx":6150
+    /* "pglast/ast.pyx":6144
  *         return create_Constraint(<structs.Constraint*> data, offset_to_index)
  *     elif tag == structs.T_DefElem:
  *         return create_DefElem(<structs.DefElem*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79511,13 +79402,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RangeTblEntry(<structs.RangeTblEntry*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DefElem(((DefElem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6150, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_DefElem(((DefElem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6149
+    /* "pglast/ast.pyx":6143
  *     elif tag == structs.T_Constraint:
  *         return create_Constraint(<structs.Constraint*> data, offset_to_index)
  *     elif tag == structs.T_DefElem:             # <<<<<<<<<<<<<<
@@ -79527,7 +79418,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RangeTblEntry:
 
-    /* "pglast/ast.pyx":6152
+    /* "pglast/ast.pyx":6146
  *         return create_DefElem(<structs.DefElem*> data, offset_to_index)
  *     elif tag == structs.T_RangeTblEntry:
  *         return create_RangeTblEntry(<structs.RangeTblEntry*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79535,13 +79426,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RangeTblFunction(<structs.RangeTblFunction*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTblEntry(((RangeTblEntry *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6152, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTblEntry(((RangeTblEntry *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6151
+    /* "pglast/ast.pyx":6145
  *     elif tag == structs.T_DefElem:
  *         return create_DefElem(<structs.DefElem*> data, offset_to_index)
  *     elif tag == structs.T_RangeTblEntry:             # <<<<<<<<<<<<<<
@@ -79551,7 +79442,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RangeTblFunction:
 
-    /* "pglast/ast.pyx":6154
+    /* "pglast/ast.pyx":6148
  *         return create_RangeTblEntry(<structs.RangeTblEntry*> data, offset_to_index)
  *     elif tag == structs.T_RangeTblFunction:
  *         return create_RangeTblFunction(<structs.RangeTblFunction*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79559,13 +79450,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_TableSampleClause(<structs.TableSampleClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTblFunction(((RangeTblFunction *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6154, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RangeTblFunction(((RangeTblFunction *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6153
+    /* "pglast/ast.pyx":6147
  *     elif tag == structs.T_RangeTblEntry:
  *         return create_RangeTblEntry(<structs.RangeTblEntry*> data, offset_to_index)
  *     elif tag == structs.T_RangeTblFunction:             # <<<<<<<<<<<<<<
@@ -79575,7 +79466,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_TableSampleClause:
 
-    /* "pglast/ast.pyx":6156
+    /* "pglast/ast.pyx":6150
  *         return create_RangeTblFunction(<structs.RangeTblFunction*> data, offset_to_index)
  *     elif tag == structs.T_TableSampleClause:
  *         return create_TableSampleClause(<structs.TableSampleClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79583,13 +79474,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_WithCheckOption(<structs.WithCheckOption*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TableSampleClause(((TableSampleClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6156, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TableSampleClause(((TableSampleClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6150, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6155
+    /* "pglast/ast.pyx":6149
  *     elif tag == structs.T_RangeTblFunction:
  *         return create_RangeTblFunction(<structs.RangeTblFunction*> data, offset_to_index)
  *     elif tag == structs.T_TableSampleClause:             # <<<<<<<<<<<<<<
@@ -79599,7 +79490,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_WithCheckOption:
 
-    /* "pglast/ast.pyx":6158
+    /* "pglast/ast.pyx":6152
  *         return create_TableSampleClause(<structs.TableSampleClause*> data, offset_to_index)
  *     elif tag == structs.T_WithCheckOption:
  *         return create_WithCheckOption(<structs.WithCheckOption*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79607,13 +79498,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_SortGroupClause(<structs.SortGroupClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WithCheckOption(((WithCheckOption *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6158, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WithCheckOption(((WithCheckOption *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6152, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6157
+    /* "pglast/ast.pyx":6151
  *     elif tag == structs.T_TableSampleClause:
  *         return create_TableSampleClause(<structs.TableSampleClause*> data, offset_to_index)
  *     elif tag == structs.T_WithCheckOption:             # <<<<<<<<<<<<<<
@@ -79623,7 +79514,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_SortGroupClause:
 
-    /* "pglast/ast.pyx":6160
+    /* "pglast/ast.pyx":6154
  *         return create_WithCheckOption(<structs.WithCheckOption*> data, offset_to_index)
  *     elif tag == structs.T_SortGroupClause:
  *         return create_SortGroupClause(<structs.SortGroupClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79631,13 +79522,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_GroupingSet(<structs.GroupingSet*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SortGroupClause(((SortGroupClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6160, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_SortGroupClause(((SortGroupClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6154, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6159
+    /* "pglast/ast.pyx":6153
  *     elif tag == structs.T_WithCheckOption:
  *         return create_WithCheckOption(<structs.WithCheckOption*> data, offset_to_index)
  *     elif tag == structs.T_SortGroupClause:             # <<<<<<<<<<<<<<
@@ -79647,7 +79538,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_GroupingSet:
 
-    /* "pglast/ast.pyx":6162
+    /* "pglast/ast.pyx":6156
  *         return create_SortGroupClause(<structs.SortGroupClause*> data, offset_to_index)
  *     elif tag == structs.T_GroupingSet:
  *         return create_GroupingSet(<structs.GroupingSet*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79655,13 +79546,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_WindowClause(<structs.WindowClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_GroupingSet(((GroupingSet *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6162, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_GroupingSet(((GroupingSet *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6156, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6161
+    /* "pglast/ast.pyx":6155
  *     elif tag == structs.T_SortGroupClause:
  *         return create_SortGroupClause(<structs.SortGroupClause*> data, offset_to_index)
  *     elif tag == structs.T_GroupingSet:             # <<<<<<<<<<<<<<
@@ -79671,7 +79562,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_WindowClause:
 
-    /* "pglast/ast.pyx":6164
+    /* "pglast/ast.pyx":6158
  *         return create_GroupingSet(<structs.GroupingSet*> data, offset_to_index)
  *     elif tag == structs.T_WindowClause:
  *         return create_WindowClause(<structs.WindowClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79679,13 +79570,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_ObjectWithArgs(<structs.ObjectWithArgs*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WindowClause(((WindowClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6164, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WindowClause(((WindowClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6163
+    /* "pglast/ast.pyx":6157
  *     elif tag == structs.T_GroupingSet:
  *         return create_GroupingSet(<structs.GroupingSet*> data, offset_to_index)
  *     elif tag == structs.T_WindowClause:             # <<<<<<<<<<<<<<
@@ -79695,7 +79586,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_ObjectWithArgs:
 
-    /* "pglast/ast.pyx":6166
+    /* "pglast/ast.pyx":6160
  *         return create_WindowClause(<structs.WindowClause*> data, offset_to_index)
  *     elif tag == structs.T_ObjectWithArgs:
  *         return create_ObjectWithArgs(<structs.ObjectWithArgs*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79703,13 +79594,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_AccessPriv(<structs.AccessPriv*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ObjectWithArgs(((ObjectWithArgs *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6166, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_ObjectWithArgs(((ObjectWithArgs *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6165
+    /* "pglast/ast.pyx":6159
  *     elif tag == structs.T_WindowClause:
  *         return create_WindowClause(<structs.WindowClause*> data, offset_to_index)
  *     elif tag == structs.T_ObjectWithArgs:             # <<<<<<<<<<<<<<
@@ -79719,7 +79610,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_AccessPriv:
 
-    /* "pglast/ast.pyx":6168
+    /* "pglast/ast.pyx":6162
  *         return create_ObjectWithArgs(<structs.ObjectWithArgs*> data, offset_to_index)
  *     elif tag == structs.T_AccessPriv:
  *         return create_AccessPriv(<structs.AccessPriv*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79727,13 +79618,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CreateOpClassItem(<structs.CreateOpClassItem*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AccessPriv(((AccessPriv *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6168, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_AccessPriv(((AccessPriv *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6162, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6167
+    /* "pglast/ast.pyx":6161
  *     elif tag == structs.T_ObjectWithArgs:
  *         return create_ObjectWithArgs(<structs.ObjectWithArgs*> data, offset_to_index)
  *     elif tag == structs.T_AccessPriv:             # <<<<<<<<<<<<<<
@@ -79743,7 +79634,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CreateOpClassItem:
 
-    /* "pglast/ast.pyx":6170
+    /* "pglast/ast.pyx":6164
  *         return create_AccessPriv(<structs.AccessPriv*> data, offset_to_index)
  *     elif tag == structs.T_CreateOpClassItem:
  *         return create_CreateOpClassItem(<structs.CreateOpClassItem*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79751,13 +79642,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_TableLikeClause(<structs.TableLikeClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateOpClassItem(((CreateOpClassItem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6170, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CreateOpClassItem(((CreateOpClassItem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6164, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6169
+    /* "pglast/ast.pyx":6163
  *     elif tag == structs.T_AccessPriv:
  *         return create_AccessPriv(<structs.AccessPriv*> data, offset_to_index)
  *     elif tag == structs.T_CreateOpClassItem:             # <<<<<<<<<<<<<<
@@ -79767,7 +79658,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_TableLikeClause:
 
-    /* "pglast/ast.pyx":6172
+    /* "pglast/ast.pyx":6166
  *         return create_CreateOpClassItem(<structs.CreateOpClassItem*> data, offset_to_index)
  *     elif tag == structs.T_TableLikeClause:
  *         return create_TableLikeClause(<structs.TableLikeClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79775,13 +79666,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_FunctionParameter(<structs.FunctionParameter*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TableLikeClause(((TableLikeClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6172, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TableLikeClause(((TableLikeClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6166, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6171
+    /* "pglast/ast.pyx":6165
  *     elif tag == structs.T_CreateOpClassItem:
  *         return create_CreateOpClassItem(<structs.CreateOpClassItem*> data, offset_to_index)
  *     elif tag == structs.T_TableLikeClause:             # <<<<<<<<<<<<<<
@@ -79791,7 +79682,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_FunctionParameter:
 
-    /* "pglast/ast.pyx":6174
+    /* "pglast/ast.pyx":6168
  *         return create_TableLikeClause(<structs.TableLikeClause*> data, offset_to_index)
  *     elif tag == structs.T_FunctionParameter:
  *         return create_FunctionParameter(<structs.FunctionParameter*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79799,13 +79690,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_LockingClause(<structs.LockingClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FunctionParameter(((FunctionParameter *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6174, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_FunctionParameter(((FunctionParameter *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6168, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6173
+    /* "pglast/ast.pyx":6167
  *     elif tag == structs.T_TableLikeClause:
  *         return create_TableLikeClause(<structs.TableLikeClause*> data, offset_to_index)
  *     elif tag == structs.T_FunctionParameter:             # <<<<<<<<<<<<<<
@@ -79815,7 +79706,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_LockingClause:
 
-    /* "pglast/ast.pyx":6176
+    /* "pglast/ast.pyx":6170
  *         return create_FunctionParameter(<structs.FunctionParameter*> data, offset_to_index)
  *     elif tag == structs.T_LockingClause:
  *         return create_LockingClause(<structs.LockingClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79823,13 +79714,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RowMarkClause(<structs.RowMarkClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_LockingClause(((LockingClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6176, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_LockingClause(((LockingClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6170, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6175
+    /* "pglast/ast.pyx":6169
  *     elif tag == structs.T_FunctionParameter:
  *         return create_FunctionParameter(<structs.FunctionParameter*> data, offset_to_index)
  *     elif tag == structs.T_LockingClause:             # <<<<<<<<<<<<<<
@@ -79839,7 +79730,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RowMarkClause:
 
-    /* "pglast/ast.pyx":6178
+    /* "pglast/ast.pyx":6172
  *         return create_LockingClause(<structs.LockingClause*> data, offset_to_index)
  *     elif tag == structs.T_RowMarkClause:
  *         return create_RowMarkClause(<structs.RowMarkClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79847,13 +79738,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_XmlSerialize(<structs.XmlSerialize*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RowMarkClause(((RowMarkClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6178, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RowMarkClause(((RowMarkClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6177
+    /* "pglast/ast.pyx":6171
  *     elif tag == structs.T_LockingClause:
  *         return create_LockingClause(<structs.LockingClause*> data, offset_to_index)
  *     elif tag == structs.T_RowMarkClause:             # <<<<<<<<<<<<<<
@@ -79863,7 +79754,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_XmlSerialize:
 
-    /* "pglast/ast.pyx":6180
+    /* "pglast/ast.pyx":6174
  *         return create_RowMarkClause(<structs.RowMarkClause*> data, offset_to_index)
  *     elif tag == structs.T_XmlSerialize:
  *         return create_XmlSerialize(<structs.XmlSerialize*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79871,13 +79762,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_WithClause(<structs.WithClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_XmlSerialize(((XmlSerialize *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6180, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_XmlSerialize(((XmlSerialize *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6174, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6179
+    /* "pglast/ast.pyx":6173
  *     elif tag == structs.T_RowMarkClause:
  *         return create_RowMarkClause(<structs.RowMarkClause*> data, offset_to_index)
  *     elif tag == structs.T_XmlSerialize:             # <<<<<<<<<<<<<<
@@ -79887,7 +79778,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_WithClause:
 
-    /* "pglast/ast.pyx":6182
+    /* "pglast/ast.pyx":6176
  *         return create_XmlSerialize(<structs.XmlSerialize*> data, offset_to_index)
  *     elif tag == structs.T_WithClause:
  *         return create_WithClause(<structs.WithClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79895,13 +79786,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_InferClause(<structs.InferClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WithClause(((WithClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6182, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_WithClause(((WithClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6176, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6181
+    /* "pglast/ast.pyx":6175
  *     elif tag == structs.T_XmlSerialize:
  *         return create_XmlSerialize(<structs.XmlSerialize*> data, offset_to_index)
  *     elif tag == structs.T_WithClause:             # <<<<<<<<<<<<<<
@@ -79911,7 +79802,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_InferClause:
 
-    /* "pglast/ast.pyx":6184
+    /* "pglast/ast.pyx":6178
  *         return create_WithClause(<structs.WithClause*> data, offset_to_index)
  *     elif tag == structs.T_InferClause:
  *         return create_InferClause(<structs.InferClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79919,13 +79810,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_OnConflictClause(<structs.OnConflictClause*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_InferClause(((InferClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6184, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_InferClause(((InferClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6178, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6183
+    /* "pglast/ast.pyx":6177
  *     elif tag == structs.T_WithClause:
  *         return create_WithClause(<structs.WithClause*> data, offset_to_index)
  *     elif tag == structs.T_InferClause:             # <<<<<<<<<<<<<<
@@ -79935,7 +79826,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_OnConflictClause:
 
-    /* "pglast/ast.pyx":6186
+    /* "pglast/ast.pyx":6180
  *         return create_InferClause(<structs.InferClause*> data, offset_to_index)
  *     elif tag == structs.T_OnConflictClause:
  *         return create_OnConflictClause(<structs.OnConflictClause*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79943,13 +79834,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CommonTableExpr(<structs.CommonTableExpr*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_OnConflictClause(((OnConflictClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6186, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_OnConflictClause(((OnConflictClause *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6185
+    /* "pglast/ast.pyx":6179
  *     elif tag == structs.T_InferClause:
  *         return create_InferClause(<structs.InferClause*> data, offset_to_index)
  *     elif tag == structs.T_OnConflictClause:             # <<<<<<<<<<<<<<
@@ -79959,7 +79850,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CommonTableExpr:
 
-    /* "pglast/ast.pyx":6188
+    /* "pglast/ast.pyx":6182
  *         return create_OnConflictClause(<structs.OnConflictClause*> data, offset_to_index)
  *     elif tag == structs.T_CommonTableExpr:
  *         return create_CommonTableExpr(<structs.CommonTableExpr*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79967,13 +79858,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_RoleSpec(<structs.RoleSpec*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CommonTableExpr(((CommonTableExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6188, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CommonTableExpr(((CommonTableExpr *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6187
+    /* "pglast/ast.pyx":6181
  *     elif tag == structs.T_OnConflictClause:
  *         return create_OnConflictClause(<structs.OnConflictClause*> data, offset_to_index)
  *     elif tag == structs.T_CommonTableExpr:             # <<<<<<<<<<<<<<
@@ -79983,7 +79874,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_RoleSpec:
 
-    /* "pglast/ast.pyx":6190
+    /* "pglast/ast.pyx":6184
  *         return create_CommonTableExpr(<structs.CommonTableExpr*> data, offset_to_index)
  *     elif tag == structs.T_RoleSpec:
  *         return create_RoleSpec(<structs.RoleSpec*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -79991,13 +79882,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_TriggerTransition(<structs.TriggerTransition*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RoleSpec(((RoleSpec *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6190, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_RoleSpec(((RoleSpec *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6184, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6189
+    /* "pglast/ast.pyx":6183
  *     elif tag == structs.T_CommonTableExpr:
  *         return create_CommonTableExpr(<structs.CommonTableExpr*> data, offset_to_index)
  *     elif tag == structs.T_RoleSpec:             # <<<<<<<<<<<<<<
@@ -80007,7 +79898,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_TriggerTransition:
 
-    /* "pglast/ast.pyx":6192
+    /* "pglast/ast.pyx":6186
  *         return create_RoleSpec(<structs.RoleSpec*> data, offset_to_index)
  *     elif tag == structs.T_TriggerTransition:
  *         return create_TriggerTransition(<structs.TriggerTransition*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -80015,13 +79906,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_PartitionElem(<structs.PartitionElem*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TriggerTransition(((TriggerTransition *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6192, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_TriggerTransition(((TriggerTransition *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6191
+    /* "pglast/ast.pyx":6185
  *     elif tag == structs.T_RoleSpec:
  *         return create_RoleSpec(<structs.RoleSpec*> data, offset_to_index)
  *     elif tag == structs.T_TriggerTransition:             # <<<<<<<<<<<<<<
@@ -80031,7 +79922,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_PartitionElem:
 
-    /* "pglast/ast.pyx":6194
+    /* "pglast/ast.pyx":6188
  *         return create_TriggerTransition(<structs.TriggerTransition*> data, offset_to_index)
  *     elif tag == structs.T_PartitionElem:
  *         return create_PartitionElem(<structs.PartitionElem*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -80039,13 +79930,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_PartitionSpec(<structs.PartitionSpec*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionElem(((PartitionElem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6194, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionElem(((PartitionElem *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6193
+    /* "pglast/ast.pyx":6187
  *     elif tag == structs.T_TriggerTransition:
  *         return create_TriggerTransition(<structs.TriggerTransition*> data, offset_to_index)
  *     elif tag == structs.T_PartitionElem:             # <<<<<<<<<<<<<<
@@ -80055,7 +79946,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_PartitionSpec:
 
-    /* "pglast/ast.pyx":6196
+    /* "pglast/ast.pyx":6190
  *         return create_PartitionElem(<structs.PartitionElem*> data, offset_to_index)
  *     elif tag == structs.T_PartitionSpec:
  *         return create_PartitionSpec(<structs.PartitionSpec*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -80063,13 +79954,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_PartitionBoundSpec(<structs.PartitionBoundSpec*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionSpec(((PartitionSpec *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6196, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionSpec(((PartitionSpec *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6190, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6195
+    /* "pglast/ast.pyx":6189
  *     elif tag == structs.T_PartitionElem:
  *         return create_PartitionElem(<structs.PartitionElem*> data, offset_to_index)
  *     elif tag == structs.T_PartitionSpec:             # <<<<<<<<<<<<<<
@@ -80079,7 +79970,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_PartitionBoundSpec:
 
-    /* "pglast/ast.pyx":6198
+    /* "pglast/ast.pyx":6192
  *         return create_PartitionSpec(<structs.PartitionSpec*> data, offset_to_index)
  *     elif tag == structs.T_PartitionBoundSpec:
  *         return create_PartitionBoundSpec(<structs.PartitionBoundSpec*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -80087,13 +79978,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_PartitionRangeDatum(<structs.PartitionRangeDatum*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionBoundSpec(((PartitionBoundSpec *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6198, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionBoundSpec(((PartitionBoundSpec *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6192, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6197
+    /* "pglast/ast.pyx":6191
  *     elif tag == structs.T_PartitionSpec:
  *         return create_PartitionSpec(<structs.PartitionSpec*> data, offset_to_index)
  *     elif tag == structs.T_PartitionBoundSpec:             # <<<<<<<<<<<<<<
@@ -80103,7 +79994,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_PartitionRangeDatum:
 
-    /* "pglast/ast.pyx":6200
+    /* "pglast/ast.pyx":6194
  *         return create_PartitionBoundSpec(<structs.PartitionBoundSpec*> data, offset_to_index)
  *     elif tag == structs.T_PartitionRangeDatum:
  *         return create_PartitionRangeDatum(<structs.PartitionRangeDatum*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -80111,13 +80002,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_PartitionCmd(<structs.PartitionCmd*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionRangeDatum(((PartitionRangeDatum *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6200, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionRangeDatum(((PartitionRangeDatum *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6199
+    /* "pglast/ast.pyx":6193
  *     elif tag == structs.T_PartitionBoundSpec:
  *         return create_PartitionBoundSpec(<structs.PartitionBoundSpec*> data, offset_to_index)
  *     elif tag == structs.T_PartitionRangeDatum:             # <<<<<<<<<<<<<<
@@ -80127,7 +80018,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_PartitionCmd:
 
-    /* "pglast/ast.pyx":6202
+    /* "pglast/ast.pyx":6196
  *         return create_PartitionRangeDatum(<structs.PartitionRangeDatum*> data, offset_to_index)
  *     elif tag == structs.T_PartitionCmd:
  *         return create_PartitionCmd(<structs.PartitionCmd*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -80135,13 +80026,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_VacuumRelation(<structs.VacuumRelation*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionCmd(((PartitionCmd *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6202, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_PartitionCmd(((PartitionCmd *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6196, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6201
+    /* "pglast/ast.pyx":6195
  *     elif tag == structs.T_PartitionRangeDatum:
  *         return create_PartitionRangeDatum(<structs.PartitionRangeDatum*> data, offset_to_index)
  *     elif tag == structs.T_PartitionCmd:             # <<<<<<<<<<<<<<
@@ -80151,7 +80042,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_VacuumRelation:
 
-    /* "pglast/ast.pyx":6204
+    /* "pglast/ast.pyx":6198
  *         return create_PartitionCmd(<structs.PartitionCmd*> data, offset_to_index)
  *     elif tag == structs.T_VacuumRelation:
  *         return create_VacuumRelation(<structs.VacuumRelation*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -80159,13 +80050,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_InlineCodeBlock(<structs.InlineCodeBlock*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_VacuumRelation(((VacuumRelation *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6204, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_VacuumRelation(((VacuumRelation *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6198, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6203
+    /* "pglast/ast.pyx":6197
  *     elif tag == structs.T_PartitionCmd:
  *         return create_PartitionCmd(<structs.PartitionCmd*> data, offset_to_index)
  *     elif tag == structs.T_VacuumRelation:             # <<<<<<<<<<<<<<
@@ -80175,7 +80066,7 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_InlineCodeBlock:
 
-    /* "pglast/ast.pyx":6206
+    /* "pglast/ast.pyx":6200
  *         return create_VacuumRelation(<structs.VacuumRelation*> data, offset_to_index)
  *     elif tag == structs.T_InlineCodeBlock:
  *         return create_InlineCodeBlock(<structs.InlineCodeBlock*> data, offset_to_index)             # <<<<<<<<<<<<<<
@@ -80183,13 +80074,13 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
  *         return create_CallContext(<structs.CallContext*> data, offset_to_index)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_InlineCodeBlock(((InlineCodeBlock *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6206, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_InlineCodeBlock(((InlineCodeBlock *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6200, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6205
+    /* "pglast/ast.pyx":6199
  *     elif tag == structs.T_VacuumRelation:
  *         return create_VacuumRelation(<structs.VacuumRelation*> data, offset_to_index)
  *     elif tag == structs.T_InlineCodeBlock:             # <<<<<<<<<<<<<<
@@ -80199,20 +80090,20 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     break;
     case T_CallContext:
 
-    /* "pglast/ast.pyx":6208
+    /* "pglast/ast.pyx":6202
  *         return create_InlineCodeBlock(<structs.InlineCodeBlock*> data, offset_to_index)
  *     elif tag == structs.T_CallContext:
  *         return create_CallContext(<structs.CallContext*> data, offset_to_index)             # <<<<<<<<<<<<<<
  *     raise ValueError("Unhandled tag: %s" % tag)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CallContext(((CallContext *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6208, __pyx_L1_error)
+    __pyx_t_2 = __pyx_f_6pglast_6parser_create_CallContext(((CallContext *)__pyx_v_data), __pyx_v_offset_to_index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6202, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "pglast/ast.pyx":6207
+    /* "pglast/ast.pyx":6201
  *     elif tag == structs.T_InlineCodeBlock:
  *         return create_InlineCodeBlock(<structs.InlineCodeBlock*> data, offset_to_index)
  *     elif tag == structs.T_CallContext:             # <<<<<<<<<<<<<<
@@ -80223,24 +80114,24 @@ static PyObject *__pyx_f_6pglast_6parser_create(void *__pyx_v_data, PyObject *__
     default: break;
   }
 
-  /* "pglast/ast.pyx":6209
+  /* "pglast/ast.pyx":6203
  *     elif tag == structs.T_CallContext:
  *         return create_CallContext(<structs.CallContext*> data, offset_to_index)
  *     raise ValueError("Unhandled tag: %s" % tag)             # <<<<<<<<<<<<<<
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_tag); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6209, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_tag); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6203, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyUnicode_Format(__pyx_kp_u_Unhandled_tag_s, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 6209, __pyx_L1_error)
+  __pyx_t_4 = PyUnicode_Format(__pyx_kp_u_Unhandled_tag_s, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 6203, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6209, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6203, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_Raise(__pyx_t_2, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __PYX_ERR(0, 6209, __pyx_L1_error)
+  __PYX_ERR(0, 6203, __pyx_L1_error)
 
-  /* "pglast/ast.pyx":5750
+  /* "pglast/ast.pyx":5746
  * 
  * 
  * cdef create(void* data, offset_to_index):             # <<<<<<<<<<<<<<
@@ -86882,7 +86773,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, __pyx_k_Exception_representing_the_error_2, sizeof(__pyx_k_Exception_representing_the_error_2), 0, 0, 1, 0},
   {0, __pyx_k_ExecuteStmt, sizeof(__pyx_k_ExecuteStmt), 0, 0, 1, 1},
   {0, __pyx_k_ExplainStmt, sizeof(__pyx_k_ExplainStmt), 0, 0, 1, 1},
-  {0, __pyx_k_Expr, sizeof(__pyx_k_Expr), 0, 0, 1, 1},
   {0, __pyx_k_FetchDirection, sizeof(__pyx_k_FetchDirection), 0, 1, 0, 1},
   {0, __pyx_k_FetchStmt, sizeof(__pyx_k_FetchStmt), 0, 0, 1, 1},
   {0, __pyx_k_FieldSelect, sizeof(__pyx_k_FieldSelect), 0, 0, 1, 1},
@@ -87283,7 +87173,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Exception_representing_the_error_2, __pyx_k_Exception_representing_the_error_2, sizeof(__pyx_k_Exception_representing_the_error_2), 0, 0, 1, 0},
   {&__pyx_n_s_ExecuteStmt, __pyx_k_ExecuteStmt, sizeof(__pyx_k_ExecuteStmt), 0, 0, 1, 1},
   {&__pyx_n_s_ExplainStmt, __pyx_k_ExplainStmt, sizeof(__pyx_k_ExplainStmt), 0, 0, 1, 1},
-  {&__pyx_n_s_Expr, __pyx_k_Expr, sizeof(__pyx_k_Expr), 0, 0, 1, 1},
   {&__pyx_n_u_FetchDirection, __pyx_k_FetchDirection, sizeof(__pyx_k_FetchDirection), 0, 1, 0, 1},
   {&__pyx_n_s_FetchStmt, __pyx_k_FetchStmt, sizeof(__pyx_k_FetchStmt), 0, 0, 1, 1},
   {&__pyx_n_s_FieldSelect, __pyx_k_FieldSelect, sizeof(__pyx_k_FieldSelect), 0, 0, 1, 1},
@@ -87547,7 +87436,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 43, __pyx_L1_error)
   __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 714, __pyx_L1_error)
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 6209, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 6203, __pyx_L1_error)
   __pyx_builtin_reversed = __Pyx_GetBuiltinName(__pyx_n_s_reversed); if (!__pyx_builtin_reversed) __PYX_ERR(1, 223, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -87890,263 +87779,262 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitString(__pyx_string_tab[140], &__pyx_kp_s_Exception_representing_the_error_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[141], &__pyx_n_s_ExecuteStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[142], &__pyx_n_s_ExplainStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[143], &__pyx_n_s_Expr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[144], &__pyx_n_u_FetchDirection) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[145], &__pyx_n_s_FetchStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[146], &__pyx_n_s_FieldSelect) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[147], &__pyx_n_s_FieldStore) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[148], &__pyx_n_s_Float) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[149], &__pyx_n_s_FromExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[150], &__pyx_n_s_FuncCall) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[151], &__pyx_n_s_FuncExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[152], &__pyx_n_s_FunctionParameter) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[153], &__pyx_n_u_FunctionParameterMode) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[154], &__pyx_n_s_GrantRoleStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[155], &__pyx_n_s_GrantStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[156], &__pyx_n_u_GrantTargetType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[157], &__pyx_n_s_GroupingFunc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[158], &__pyx_n_s_GroupingSet) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[159], &__pyx_n_u_GroupingSetKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[160], &__pyx_n_s_ImportForeignSchemaStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[161], &__pyx_n_u_ImportForeignSchemaType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[162], &__pyx_kp_s_Incompatible_checksums_s_vs_0x2e) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[163], &__pyx_n_s_IndexElem) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[164], &__pyx_n_s_IndexStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[165], &__pyx_n_s_InferClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[166], &__pyx_n_s_InferenceElem) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[167], &__pyx_n_s_InlineCodeBlock) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[168], &__pyx_n_s_InsertStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[169], &__pyx_n_s_Integer) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[170], &__pyx_n_s_IntoClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[171], &__pyx_n_s_JoinExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[172], &__pyx_n_u_JoinType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[173], &__pyx_n_s_LONG_MAX) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[174], &__pyx_n_u_LimitOption) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[175], &__pyx_n_s_ListenStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[176], &__pyx_n_s_LoadStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[177], &__pyx_n_u_LockClauseStrength) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[178], &__pyx_n_s_LockStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[179], &__pyx_n_u_LockWaitPolicy) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[180], &__pyx_n_s_LockingClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[181], &__pyx_n_s_MinMaxExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[182], &__pyx_n_u_MinMaxOp) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[183], &__pyx_n_s_MultiAssignRef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[184], &__pyx_n_s_NamedArgExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[185], &__pyx_n_s_NotifyStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[186], &__pyx_n_s_Null) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[187], &__pyx_n_s_NullTest) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[188], &__pyx_n_u_NullTestType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[189], &__pyx_n_u_ObjectType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[190], &__pyx_n_s_ObjectWithArgs) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[191], &__pyx_n_u_OnCommitAction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[192], &__pyx_n_u_OnConflictAction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[193], &__pyx_n_s_OnConflictClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[194], &__pyx_n_s_OnConflictExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[195], &__pyx_n_s_OpExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[196], &__pyx_n_u_OverridingKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[197], &__pyx_n_s_Param) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[198], &__pyx_n_u_ParamKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[199], &__pyx_n_s_ParamRef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[200], &__pyx_n_s_ParseError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[201], &__pyx_n_s_ParseError___str) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[202], &__pyx_n_s_PartitionBoundSpec) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[203], &__pyx_n_s_PartitionCmd) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[204], &__pyx_n_s_PartitionElem) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[205], &__pyx_n_s_PartitionRangeDatum) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[206], &__pyx_n_u_PartitionRangeDatumKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[207], &__pyx_n_s_PartitionSpec) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[208], &__pyx_n_s_PickleError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[209], &__pyx_n_s_PrepareStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[210], &__pyx_n_s_Query) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[211], &__pyx_n_u_QuerySource) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[212], &__pyx_n_u_RTEKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[213], &__pyx_n_s_RangeFunction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[214], &__pyx_n_s_RangeSubselect) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[215], &__pyx_n_s_RangeTableFunc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[216], &__pyx_n_s_RangeTableFuncCol) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[217], &__pyx_n_s_RangeTableSample) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[218], &__pyx_n_s_RangeTblEntry) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[219], &__pyx_n_s_RangeTblFunction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[220], &__pyx_n_s_RangeTblRef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[221], &__pyx_n_s_RangeVar) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[222], &__pyx_n_s_RawStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[223], &__pyx_n_s_ReassignOwnedStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[224], &__pyx_n_s_RefreshMatViewStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[225], &__pyx_n_u_ReindexObjectType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[226], &__pyx_n_s_ReindexStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[227], &__pyx_n_s_RelabelType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[228], &__pyx_n_s_RenameStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[229], &__pyx_n_s_ReplicaIdentityStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[230], &__pyx_n_s_ResTarget) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[231], &__pyx_n_s_RoleSpec) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[232], &__pyx_n_u_RoleSpecType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[233], &__pyx_n_u_RoleStmtType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[234], &__pyx_n_s_RowCompareExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[235], &__pyx_n_u_RowCompareType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[236], &__pyx_n_s_RowExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[237], &__pyx_n_s_RowMarkClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[238], &__pyx_n_s_RuleStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[239], &__pyx_n_s_SQLValueFunction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[240], &__pyx_n_u_SQLValueFunctionOp) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[241], &__pyx_n_s_ScalarArrayOpExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[242], &__pyx_n_s_SecLabelStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[243], &__pyx_n_s_SelectStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[244], &__pyx_n_u_SetOperation) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[245], &__pyx_n_s_SetOperationStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[246], &__pyx_n_s_SetToDefault) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[247], &__pyx_n_s_SortBy) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[248], &__pyx_n_u_SortByDir) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[249], &__pyx_n_u_SortByNulls) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[250], &__pyx_n_s_SortGroupClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[251], &__pyx_n_s_String) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[252], &__pyx_n_s_SubLink) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[253], &__pyx_n_u_SubLinkType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[254], &__pyx_n_s_SubPlan) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[255], &__pyx_n_s_SubscriptingRef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[256], &__pyx_n_s_TableFunc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[257], &__pyx_n_s_TableLikeClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[258], &__pyx_n_s_TableSampleClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[259], &__pyx_n_s_TargetEntry) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[260], &__pyx_n_s_Token) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[261], &__pyx_n_u_Token) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[262], &__pyx_n_s_TransactionStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[263], &__pyx_n_u_TransactionStmtKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[264], &__pyx_n_s_TriggerTransition) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[265], &__pyx_n_s_TruncateStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[266], &__pyx_n_s_TypeCast) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[267], &__pyx_n_s_TypeName) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[268], &__pyx_n_u_UNKNOWN) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[269], &__pyx_kp_u_Unhandled_tag_s) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[270], &__pyx_n_s_UnlistenStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[271], &__pyx_n_s_UpdateStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[272], &__pyx_n_s_VacuumRelation) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[273], &__pyx_n_s_VacuumStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[274], &__pyx_n_s_ValueError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[275], &__pyx_n_s_Var) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[276], &__pyx_n_u_VariableSetKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[277], &__pyx_n_s_VariableSetStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[278], &__pyx_n_s_VariableShowStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[279], &__pyx_n_u_ViewCheckOption) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[280], &__pyx_n_s_ViewStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[281], &__pyx_n_u_WCOKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[282], &__pyx_n_s_WindowClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[283], &__pyx_n_s_WindowDef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[284], &__pyx_n_s_WindowFunc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[285], &__pyx_n_s_WithCheckOption) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[286], &__pyx_n_s_WithClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[287], &__pyx_n_s_XmlExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[288], &__pyx_n_u_XmlExprOp) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[289], &__pyx_n_u_XmlOptionType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[290], &__pyx_n_s_XmlSerialize) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[291], &__pyx_n_s__32) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[292], &__pyx_n_s_args) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[293], &__pyx_n_s_ast) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[294], &__pyx_n_s_asyncio_coroutines) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[295], &__pyx_kp_u_at_index) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[296], &__pyx_kp_u_at_position) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[297], &__pyx_n_s_chr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[298], &__pyx_n_s_cline_in_traceback) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[299], &__pyx_n_s_collections) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[300], &__pyx_n_s_cstring) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[301], &__pyx_n_s_cur_offset) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[302], &__pyx_n_s_cursorpos) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[303], &__pyx_n_s_decimal) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[304], &__pyx_n_s_decode) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[305], &__pyx_n_s_deparse_protobuf) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[306], &__pyx_n_s_deparsed) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[307], &__pyx_n_s_dict) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[308], &__pyx_n_s_dict_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[309], &__pyx_kp_u_disable) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[310], &__pyx_n_s_doc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[311], &__pyx_kp_u_enable) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[312], &__pyx_n_s_end) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[313], &__pyx_n_u_end) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[314], &__pyx_n_s_enums) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[315], &__pyx_n_s_fingerprint) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[316], &__pyx_kp_u_gc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[317], &__pyx_n_s_get_postgresql_version) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[318], &__pyx_n_s_getstate) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[319], &__pyx_n_s_i) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[320], &__pyx_n_s_import) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[321], &__pyx_n_s_index) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[322], &__pyx_n_s_init_subclass) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[323], &__pyx_n_s_is_coroutine) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[324], &__pyx_kp_u_isenabled) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[325], &__pyx_n_s_item) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[326], &__pyx_n_u_kind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[327], &__pyx_n_s_kwkind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[328], &__pyx_n_s_location) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[329], &__pyx_n_s_main) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[330], &__pyx_n_s_major) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[331], &__pyx_n_s_mctx) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[332], &__pyx_n_s_message) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[333], &__pyx_n_s_metaclass) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[334], &__pyx_n_s_minor) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[335], &__pyx_n_s_module) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[336], &__pyx_n_s_mro_entries) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[337], &__pyx_n_s_name) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[338], &__pyx_n_u_name_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[339], &__pyx_n_s_namedtuple) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[340], &__pyx_n_s_new) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[341], &__pyx_n_s_offset) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[342], &__pyx_n_s_offset_to_index) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[343], &__pyx_n_s_only_slices) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[344], &__pyx_n_s_parse_plpgsql_json) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[345], &__pyx_n_s_parse_sql) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[346], &__pyx_n_s_parse_sql_json) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[347], &__pyx_n_s_parse_sql_protobuf) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[348], &__pyx_n_s_parsed) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[349], &__pyx_n_s_pglast) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[350], &__pyx_n_s_pglast_parser) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[351], &__pyx_kp_s_pglast_parser_pyx) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[352], &__pyx_n_s_pickle) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[353], &__pyx_n_s_prepare) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[354], &__pyx_n_s_prev_offset) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[355], &__pyx_n_s_protobuf) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[356], &__pyx_n_s_pyx_PickleError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[357], &__pyx_n_s_pyx_checksum) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[358], &__pyx_n_s_pyx_result) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[359], &__pyx_n_s_pyx_state) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[360], &__pyx_n_s_pyx_type) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[361], &__pyx_n_s_pyx_unpickle_Displacements) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[362], &__pyx_n_s_qualname) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[363], &__pyx_n_s_query) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[364], &__pyx_n_s_range) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[365], &__pyx_n_s_reduce) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[366], &__pyx_n_s_reduce_cython) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[367], &__pyx_n_s_reduce_ex) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[368], &__pyx_n_s_result) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[369], &__pyx_n_s_reversed) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[370], &__pyx_n_s_s) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[371], &__pyx_n_s_scan) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[372], &__pyx_n_s_scan_result) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[373], &__pyx_n_s_scan_token) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[374], &__pyx_n_s_scanned) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[375], &__pyx_n_s_self) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[376], &__pyx_n_s_set_name) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[377], &__pyx_n_s_setstate) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[378], &__pyx_n_s_setstate_cython) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[379], &__pyx_n_s_split) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[380], &__pyx_n_s_splitted) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[381], &__pyx_n_s_start) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[382], &__pyx_n_u_start) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[383], &__pyx_n_s_state) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[384], &__pyx_n_s_stmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[385], &__pyx_n_s_stmts) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[386], &__pyx_n_s_str) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[387], &__pyx_kp_s_stringsource) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[388], &__pyx_n_s_strip) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[389], &__pyx_n_s_super) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[390], &__pyx_n_s_test) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[391], &__pyx_n_s_tkind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[392], &__pyx_n_s_token) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[393], &__pyx_n_s_tree) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[394], &__pyx_n_s_update) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[395], &__pyx_n_s_use_setstate) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[396], &__pyx_n_s_utf8) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[397], &__pyx_kp_u_utf_8) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[398], &__pyx_n_s_version) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[399], &__pyx_n_s_with_parser) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[143], &__pyx_n_u_FetchDirection) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[144], &__pyx_n_s_FetchStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[145], &__pyx_n_s_FieldSelect) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[146], &__pyx_n_s_FieldStore) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[147], &__pyx_n_s_Float) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[148], &__pyx_n_s_FromExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[149], &__pyx_n_s_FuncCall) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[150], &__pyx_n_s_FuncExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[151], &__pyx_n_s_FunctionParameter) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[152], &__pyx_n_u_FunctionParameterMode) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[153], &__pyx_n_s_GrantRoleStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[154], &__pyx_n_s_GrantStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[155], &__pyx_n_u_GrantTargetType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[156], &__pyx_n_s_GroupingFunc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[157], &__pyx_n_s_GroupingSet) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[158], &__pyx_n_u_GroupingSetKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[159], &__pyx_n_s_ImportForeignSchemaStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[160], &__pyx_n_u_ImportForeignSchemaType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[161], &__pyx_kp_s_Incompatible_checksums_s_vs_0x2e) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[162], &__pyx_n_s_IndexElem) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[163], &__pyx_n_s_IndexStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[164], &__pyx_n_s_InferClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[165], &__pyx_n_s_InferenceElem) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[166], &__pyx_n_s_InlineCodeBlock) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[167], &__pyx_n_s_InsertStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[168], &__pyx_n_s_Integer) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[169], &__pyx_n_s_IntoClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[170], &__pyx_n_s_JoinExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[171], &__pyx_n_u_JoinType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[172], &__pyx_n_s_LONG_MAX) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[173], &__pyx_n_u_LimitOption) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[174], &__pyx_n_s_ListenStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[175], &__pyx_n_s_LoadStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[176], &__pyx_n_u_LockClauseStrength) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[177], &__pyx_n_s_LockStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[178], &__pyx_n_u_LockWaitPolicy) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[179], &__pyx_n_s_LockingClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[180], &__pyx_n_s_MinMaxExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[181], &__pyx_n_u_MinMaxOp) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[182], &__pyx_n_s_MultiAssignRef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[183], &__pyx_n_s_NamedArgExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[184], &__pyx_n_s_NotifyStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[185], &__pyx_n_s_Null) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[186], &__pyx_n_s_NullTest) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[187], &__pyx_n_u_NullTestType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[188], &__pyx_n_u_ObjectType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[189], &__pyx_n_s_ObjectWithArgs) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[190], &__pyx_n_u_OnCommitAction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[191], &__pyx_n_u_OnConflictAction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[192], &__pyx_n_s_OnConflictClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[193], &__pyx_n_s_OnConflictExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[194], &__pyx_n_s_OpExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[195], &__pyx_n_u_OverridingKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[196], &__pyx_n_s_Param) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[197], &__pyx_n_u_ParamKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[198], &__pyx_n_s_ParamRef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[199], &__pyx_n_s_ParseError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[200], &__pyx_n_s_ParseError___str) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[201], &__pyx_n_s_PartitionBoundSpec) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[202], &__pyx_n_s_PartitionCmd) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[203], &__pyx_n_s_PartitionElem) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[204], &__pyx_n_s_PartitionRangeDatum) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[205], &__pyx_n_u_PartitionRangeDatumKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[206], &__pyx_n_s_PartitionSpec) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[207], &__pyx_n_s_PickleError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[208], &__pyx_n_s_PrepareStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[209], &__pyx_n_s_Query) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[210], &__pyx_n_u_QuerySource) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[211], &__pyx_n_u_RTEKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[212], &__pyx_n_s_RangeFunction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[213], &__pyx_n_s_RangeSubselect) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[214], &__pyx_n_s_RangeTableFunc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[215], &__pyx_n_s_RangeTableFuncCol) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[216], &__pyx_n_s_RangeTableSample) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[217], &__pyx_n_s_RangeTblEntry) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[218], &__pyx_n_s_RangeTblFunction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[219], &__pyx_n_s_RangeTblRef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[220], &__pyx_n_s_RangeVar) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[221], &__pyx_n_s_RawStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[222], &__pyx_n_s_ReassignOwnedStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[223], &__pyx_n_s_RefreshMatViewStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[224], &__pyx_n_u_ReindexObjectType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[225], &__pyx_n_s_ReindexStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[226], &__pyx_n_s_RelabelType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[227], &__pyx_n_s_RenameStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[228], &__pyx_n_s_ReplicaIdentityStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[229], &__pyx_n_s_ResTarget) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[230], &__pyx_n_s_RoleSpec) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[231], &__pyx_n_u_RoleSpecType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[232], &__pyx_n_u_RoleStmtType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[233], &__pyx_n_s_RowCompareExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[234], &__pyx_n_u_RowCompareType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[235], &__pyx_n_s_RowExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[236], &__pyx_n_s_RowMarkClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[237], &__pyx_n_s_RuleStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[238], &__pyx_n_s_SQLValueFunction) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[239], &__pyx_n_u_SQLValueFunctionOp) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[240], &__pyx_n_s_ScalarArrayOpExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[241], &__pyx_n_s_SecLabelStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[242], &__pyx_n_s_SelectStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[243], &__pyx_n_u_SetOperation) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[244], &__pyx_n_s_SetOperationStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[245], &__pyx_n_s_SetToDefault) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[246], &__pyx_n_s_SortBy) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[247], &__pyx_n_u_SortByDir) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[248], &__pyx_n_u_SortByNulls) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[249], &__pyx_n_s_SortGroupClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[250], &__pyx_n_s_String) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[251], &__pyx_n_s_SubLink) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[252], &__pyx_n_u_SubLinkType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[253], &__pyx_n_s_SubPlan) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[254], &__pyx_n_s_SubscriptingRef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[255], &__pyx_n_s_TableFunc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[256], &__pyx_n_s_TableLikeClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[257], &__pyx_n_s_TableSampleClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[258], &__pyx_n_s_TargetEntry) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[259], &__pyx_n_s_Token) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[260], &__pyx_n_u_Token) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[261], &__pyx_n_s_TransactionStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[262], &__pyx_n_u_TransactionStmtKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[263], &__pyx_n_s_TriggerTransition) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[264], &__pyx_n_s_TruncateStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[265], &__pyx_n_s_TypeCast) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[266], &__pyx_n_s_TypeName) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[267], &__pyx_n_u_UNKNOWN) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[268], &__pyx_kp_u_Unhandled_tag_s) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[269], &__pyx_n_s_UnlistenStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[270], &__pyx_n_s_UpdateStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[271], &__pyx_n_s_VacuumRelation) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[272], &__pyx_n_s_VacuumStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[273], &__pyx_n_s_ValueError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[274], &__pyx_n_s_Var) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[275], &__pyx_n_u_VariableSetKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[276], &__pyx_n_s_VariableSetStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[277], &__pyx_n_s_VariableShowStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[278], &__pyx_n_u_ViewCheckOption) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[279], &__pyx_n_s_ViewStmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[280], &__pyx_n_u_WCOKind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[281], &__pyx_n_s_WindowClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[282], &__pyx_n_s_WindowDef) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[283], &__pyx_n_s_WindowFunc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[284], &__pyx_n_s_WithCheckOption) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[285], &__pyx_n_s_WithClause) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[286], &__pyx_n_s_XmlExpr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[287], &__pyx_n_u_XmlExprOp) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[288], &__pyx_n_u_XmlOptionType) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[289], &__pyx_n_s_XmlSerialize) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[290], &__pyx_n_s__32) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[291], &__pyx_n_s_args) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[292], &__pyx_n_s_ast) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[293], &__pyx_n_s_asyncio_coroutines) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[294], &__pyx_kp_u_at_index) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[295], &__pyx_kp_u_at_position) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[296], &__pyx_n_s_chr) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[297], &__pyx_n_s_cline_in_traceback) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[298], &__pyx_n_s_collections) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[299], &__pyx_n_s_cstring) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[300], &__pyx_n_s_cur_offset) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[301], &__pyx_n_s_cursorpos) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[302], &__pyx_n_s_decimal) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[303], &__pyx_n_s_decode) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[304], &__pyx_n_s_deparse_protobuf) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[305], &__pyx_n_s_deparsed) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[306], &__pyx_n_s_dict) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[307], &__pyx_n_s_dict_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[308], &__pyx_kp_u_disable) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[309], &__pyx_n_s_doc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[310], &__pyx_kp_u_enable) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[311], &__pyx_n_s_end) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[312], &__pyx_n_u_end) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[313], &__pyx_n_s_enums) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[314], &__pyx_n_s_fingerprint) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[315], &__pyx_kp_u_gc) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[316], &__pyx_n_s_get_postgresql_version) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[317], &__pyx_n_s_getstate) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[318], &__pyx_n_s_i) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[319], &__pyx_n_s_import) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[320], &__pyx_n_s_index) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[321], &__pyx_n_s_init_subclass) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[322], &__pyx_n_s_is_coroutine) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[323], &__pyx_kp_u_isenabled) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[324], &__pyx_n_s_item) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[325], &__pyx_n_u_kind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[326], &__pyx_n_s_kwkind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[327], &__pyx_n_s_location) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[328], &__pyx_n_s_main) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[329], &__pyx_n_s_major) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[330], &__pyx_n_s_mctx) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[331], &__pyx_n_s_message) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[332], &__pyx_n_s_metaclass) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[333], &__pyx_n_s_minor) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[334], &__pyx_n_s_module) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[335], &__pyx_n_s_mro_entries) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[336], &__pyx_n_s_name) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[337], &__pyx_n_u_name_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[338], &__pyx_n_s_namedtuple) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[339], &__pyx_n_s_new) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[340], &__pyx_n_s_offset) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[341], &__pyx_n_s_offset_to_index) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[342], &__pyx_n_s_only_slices) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[343], &__pyx_n_s_parse_plpgsql_json) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[344], &__pyx_n_s_parse_sql) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[345], &__pyx_n_s_parse_sql_json) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[346], &__pyx_n_s_parse_sql_protobuf) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[347], &__pyx_n_s_parsed) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[348], &__pyx_n_s_pglast) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[349], &__pyx_n_s_pglast_parser) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[350], &__pyx_kp_s_pglast_parser_pyx) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[351], &__pyx_n_s_pickle) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[352], &__pyx_n_s_prepare) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[353], &__pyx_n_s_prev_offset) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[354], &__pyx_n_s_protobuf) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[355], &__pyx_n_s_pyx_PickleError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[356], &__pyx_n_s_pyx_checksum) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[357], &__pyx_n_s_pyx_result) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[358], &__pyx_n_s_pyx_state) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[359], &__pyx_n_s_pyx_type) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[360], &__pyx_n_s_pyx_unpickle_Displacements) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[361], &__pyx_n_s_qualname) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[362], &__pyx_n_s_query) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[363], &__pyx_n_s_range) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[364], &__pyx_n_s_reduce) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[365], &__pyx_n_s_reduce_cython) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[366], &__pyx_n_s_reduce_ex) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[367], &__pyx_n_s_result) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[368], &__pyx_n_s_reversed) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[369], &__pyx_n_s_s) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[370], &__pyx_n_s_scan) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[371], &__pyx_n_s_scan_result) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[372], &__pyx_n_s_scan_token) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[373], &__pyx_n_s_scanned) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[374], &__pyx_n_s_self) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[375], &__pyx_n_s_set_name) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[376], &__pyx_n_s_setstate) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[377], &__pyx_n_s_setstate_cython) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[378], &__pyx_n_s_split) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[379], &__pyx_n_s_splitted) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[380], &__pyx_n_s_start) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[381], &__pyx_n_u_start) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[382], &__pyx_n_s_state) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[383], &__pyx_n_s_stmt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[384], &__pyx_n_s_stmts) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[385], &__pyx_n_s_str) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[386], &__pyx_kp_s_stringsource) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[387], &__pyx_n_s_strip) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[388], &__pyx_n_s_super) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[389], &__pyx_n_s_test) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[390], &__pyx_n_s_tkind) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[391], &__pyx_n_s_token) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[392], &__pyx_n_s_tree) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[393], &__pyx_n_s_update) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[394], &__pyx_n_s_use_setstate) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[395], &__pyx_n_s_utf8) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[396], &__pyx_kp_u_utf_8) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[397], &__pyx_n_s_version) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[398], &__pyx_n_s_with_parser) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   #endif
   #if !CYTHON_USE_MODULE_STATE
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(1, 1, __pyx_L1_error);

@@ -2869,11 +2869,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       List of DefElem nodes
 
 
-.. class:: Expr()
-
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/d1d0186/src/postgres/include/nodes/primnodes.h#L136>`__ parser node.
-
-
 .. class:: FetchStmt(direction=None, howMany=None, portalname=None, ismove=None)
 
    Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/d1d0186/src/postgres/include/nodes/parsenodes.h#L2758>`__ parser node.

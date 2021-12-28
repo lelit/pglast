@@ -888,7 +888,11 @@ def workhorse(args):
             for name in defs:
                 fields = defs[name]['fields']
                 if name not in ('Const', 'NextValueExpr', 'Value'):
-                    nodes.append((name, fields))
+                    if name != 'Expr':
+                        # Omit the Expr node, because it is hand written in the
+                        # ast.py header above: also, it is an abstract class,
+                        # never instantiated directly
+                        nodes.append((name, fields))
                     emit_struct_def(name, fields, output)
 
     ast_py = args.output_dir / 'ast.py'
