@@ -371,8 +371,9 @@ class RawStream(OutputStream):
     def _is_pg_catalog_func(self, items):
         return (
             self.remove_pg_catalog_from_functions
-            and items.parent_attribute == 'funcname'
             and len(items) > 1
+            and isinstance(items, List)
+            and items.parent_attribute == 'funcname'
             and items[0].val.value == 'pg_catalog'
             # The list contains all functions that cannot be found without an
             # explicit pg_catalog schema. ie:
