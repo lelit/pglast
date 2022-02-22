@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
 #
 
 import re
@@ -2056,6 +2056,23 @@ def create_table_as_stmt(node, output):
     if node.into.skipData:
         output.newline()
         output.write('WITH NO DATA')
+
+
+@node_printer('CreateTableSpaceStmt')
+def create_table_space_stmt(node, output):
+    output.write('CREATE TABLESPACE ')
+    output.print_name(node.tablespacename)
+    output.space()
+    if node.owner:
+        output.write('OWNER ')
+        output.print_node(node.owner)
+        output.space()
+    output.write('LOCATION ')
+    output.write_quoted_string(node.location.value)
+    if node.options:
+        output.write(' WITH (')
+        output.print_list(node.options)
+        output.write(')')
 
 
 @node_printer('CreateTrigStmt')

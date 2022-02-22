@@ -260,3 +260,11 @@ create table t1 (id int) using heap
 create table t1 (like t2 including comments)
 
 create table t1 (like t2 including indexes including statistics)
+
+create tablespace foo location '/bar'
+
+create tablespace foo owner current_user location '/bar'
+
+create tablespace foo owner me location '/bar'
+
+create tablespace foo location '/bar' with (seq_page_cost=1)
