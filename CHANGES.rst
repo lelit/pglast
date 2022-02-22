@@ -8,6 +8,19 @@ Changes
 Version 3
 #########
 
+3.9 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix bug handling node containing a ``location`` field, e.g. ``CreateTableSpaceStmt`` (`issue
+  #98`__)
+
+  __ https://github.com/lelit/pglast/issues/98
+
+- Properly handle dereferenced array expression (`issue #99`__)
+
+  __ https://github.com/lelit/pglast/issues/99
+
+
 3.8 (2021-12-28)
 ~~~~~~~~~~~~~~~~
 
