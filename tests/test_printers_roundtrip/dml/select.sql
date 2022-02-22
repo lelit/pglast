@@ -501,3 +501,5 @@ select a from x; select b from y
 select 1/2.
 
 select 1e1/2.e1
+
+select (array[1])[1]

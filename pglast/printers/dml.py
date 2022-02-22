@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
 #
 
 from .. import enums
@@ -188,7 +188,7 @@ def a_indices(node, output):
 
 @node_printer('A_Indirection')
 def a_indirection(node, output):
-    bracket = ((node.arg.node_tag in ('A_Expr', 'A_Indirection', 'FuncCall',
+    bracket = ((node.arg.node_tag in ('A_ArrayExpr', 'A_Expr', 'A_Indirection', 'FuncCall',
                                       'RowExpr', 'TypeCast'))
                or
                (node.arg.node_tag == 'ColumnRef'
