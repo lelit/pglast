@@ -3,7 +3,7 @@
 # :Created:   sab 27 feb 2021, 19:47:11
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021 Lele Gaifax
+# :Copyright: © 2021, 2022 Lele Gaifax
 #
 
 from datetime import date
@@ -585,7 +585,7 @@ def emit_stmt_len_attr(name, ctype, output):
 def emitter_for(fname, ctype, enums):
     from pglast import enums as eimpl
 
-    if fname == 'location' or fname == 'stmt_location':
+    if fname == 'location' and ctype == 'int' or fname == 'stmt_location':
         emitter = emit_location_attr
     elif fname == 'stmt_len':
         emitter = emit_stmt_len_attr

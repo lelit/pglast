@@ -2,7 +2,7 @@
 # :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.1.0-0-gd1d0186
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021 Lele Gaifax
+# :Copyright: © 2022 Lele Gaifax
 #
 
 from collections import namedtuple

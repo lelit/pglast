@@ -2,7 +2,7 @@
 # :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.1.0-0-gd1d0186
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021 Lele Gaifax
+# :Copyright: © 2022 Lele Gaifax
 #
 
 #cython: language_level=3
@@ -2370,7 +2370,11 @@ cdef create_CreateTableSpaceStmt(structs.CreateTableSpaceStmt* data, offset_to_i
         v_owner = create(data.owner, offset_to_index)
     else:
         v_owner = None
-    cdef object v_location = offset_to_index(data.location)
+    cdef object v_location
+    if data.location is not NULL:
+        v_location = data.location.decode("utf-8")
+    else:
+        v_location = None
     cdef tuple v_options
     cdef int options_i
     if data.options is not NULL:
