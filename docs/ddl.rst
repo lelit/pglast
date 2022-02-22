@@ -2,7 +2,7 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2021 Lele Gaifax
+.. :Copyright: © 2017-2022 Lele Gaifax
 ..
 
 ======================================================
@@ -558,6 +558,12 @@
 .. function:: create_table_as_stmt(node, output)
 
    Pretty print a `node` of type `CreateTableAsStmt <https://github.com/pganalyze/libpg_query/blob/d1d0186/src/postgres/include/nodes/parsenodes.h#L3279>`__ to the `output` stream.
+
+.. index:: CreateTableSpaceStmt
+
+.. function:: create_table_space_stmt(node, output)
+
+   Pretty print a `node` of type `CreateTableSpaceStmt <https://github.com/pganalyze/libpg_query/blob/d1d0186/src/postgres/include/nodes/parsenodes.h#L2212>`__ to the `output` stream.
 
 .. index:: CreateTrigStmt
 
