@@ -20,6 +20,10 @@ Version 3
 
   __ https://github.com/lelit/pglast/issues/99
 
+- Avoid improper "floatification" of literal integers (`issue #100`__)
+
+  __ https://github.com/lelit/pglast/issues/100
+
 
 3.8 (2021-12-28)
 ~~~~~~~~~~~~~~~~
