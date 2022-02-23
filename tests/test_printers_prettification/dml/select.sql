@@ -412,3 +412,7 @@ footer
 /*header 1*/ /*header 2*/ SELECT /*one*/ 1 /*long footer */
 :
 {'preserve_comments': True, 'raw_stream': True}
+
+select 4294967310
+=
+SELECT 4294967310

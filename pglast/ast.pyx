@@ -285,7 +285,10 @@ cdef create_A_Const(structs.A_Const* data, offset_to_index):
     elif data.val.type == structs.T_Integer:
         v_val = ast.Integer(data.val.val.ival)
     elif data.val.type == structs.T_Float:
-        v_val = ast.Float(Decimal(data.val.val.str.decode("utf-8")))
+        _sv = data.val.val.str.decode("utf-8")
+        if _sv.endswith('.'):
+            _sv += '0'
+        v_val = ast.Float(Decimal(_sv))
     elif data.val.type == structs.T_BitString:
         v_val = ast.BitString(data.val.val.str.decode("utf-8"))
     else:
@@ -5852,7 +5855,10 @@ cdef create(void* data, offset_to_index):
     elif tag == structs.T_Integer:
         return ast.Integer(structs.intVal(<structs.Value *> data))
     elif tag == structs.T_Float:
-        return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
+        _sv = structs.strVal(<structs.Value *> data).decode("utf-8")
+        if _sv.endswith('.'):
+            _sv += '0'
+        return ast.Float(Decimal(_sv))
     elif tag == structs.T_String:
         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
     elif tag == structs.T_BitString:

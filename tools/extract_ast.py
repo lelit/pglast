@@ -477,7 +477,10 @@ def emit_value_attr(name, ctype, output):
     elif data.{name}.type == structs.T_Integer:
         v_{name} = ast.Integer(data.{name}.val.ival)
     elif data.{name}.type == structs.T_Float:
-        v_{name} = ast.Float(Decimal(data.{name}.val.str.decode("utf-8")))
+        _sv = data.{name}.val.str.decode("utf-8")
+        if _sv.endswith('.'):
+            _sv += '0'
+        v_{name} = ast.Float(Decimal(_sv))
     elif data.{name}.type == structs.T_BitString:
         v_{name} = ast.BitString(data.{name}.val.str.decode("utf-8"))
     else:
@@ -804,9 +807,13 @@ cdef create(void* data, offset_to_index):
 ''')
 
         elif name == 'Float':
+            # See issues #91 and #100
             output.write('''\
     elif tag == structs.T_Float:
-        return ast.Float(Decimal(structs.strVal(<structs.Value *> data).decode("utf-8")))
+        _sv = structs.strVal(<structs.Value *> data).decode("utf-8")
+        if _sv.endswith('.'):
+            _sv += '0'
+        return ast.Float(Decimal(_sv))
 ''')
 
         elif name == 'BitString':
