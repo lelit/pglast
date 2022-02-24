@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.9 (unreleased)
+3.9 (2022-02-24)
 ~~~~~~~~~~~~~~~~
 
 - Fix bug handling node containing a ``location`` field, e.g. ``CreateTableSpaceStmt`` (`issue
