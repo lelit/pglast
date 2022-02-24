@@ -280,15 +280,17 @@ cdef create_A_Expr(structs.A_Expr* data, offset_to_index):
 
 cdef create_A_Const(structs.A_Const* data, offset_to_index):
     cdef object v_val
+    cdef str sv_val
     if data.val.type == structs.T_Null:
         v_val = ast.Null(None)
     elif data.val.type == structs.T_Integer:
         v_val = ast.Integer(data.val.val.ival)
     elif data.val.type == structs.T_Float:
-        _sv = data.val.val.str.decode("utf-8")
-        if _sv.endswith('.'):
-            _sv += '0'
-        v_val = ast.Float(Decimal(_sv))
+        # Add a trailing zero to truncated floats like "2.", see issues #91 and #100
+        sv_val = data.val.val.str.decode("utf-8")
+        if sv_val.endswith('.'):
+            sv_val += '0'
+        v_val = ast.Float(Decimal(sv_val))
     elif data.val.type == structs.T_BitString:
         v_val = ast.BitString(data.val.val.str.decode("utf-8"))
     else:
@@ -5756,6 +5758,7 @@ cdef create(void* data, offset_to_index):
 
     cdef tuple t
     cdef int i
+    cdef str s
     cdef int tag = structs.nodeTag(data)
 
     if tag == structs.T_Alias:
@@ -5855,10 +5858,11 @@ cdef create(void* data, offset_to_index):
     elif tag == structs.T_Integer:
         return ast.Integer(structs.intVal(<structs.Value *> data))
     elif tag == structs.T_Float:
-        _sv = structs.strVal(<structs.Value *> data).decode("utf-8")
-        if _sv.endswith('.'):
-            _sv += '0'
-        return ast.Float(Decimal(_sv))
+        # Add a trailing zero to truncated floats like "2.", see issues #91 and #100
+        s = structs.strVal(<structs.Value *> data).decode("utf-8")
+        if s.endswith('.'):
+            s += '0'
+        return ast.Float(Decimal(s))
     elif tag == structs.T_String:
         return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
     elif tag == structs.T_BitString:

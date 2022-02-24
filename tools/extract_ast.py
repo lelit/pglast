@@ -472,15 +472,17 @@ def emit_bool_attr(name, ctype, output):
 def emit_value_attr(name, ctype, output):
     output.write(f'''\
     cdef object v_{name}
+    cdef str sv_{name}
     if data.{name}.type == structs.T_Null:
         v_{name} = ast.Null(None)
     elif data.{name}.type == structs.T_Integer:
         v_{name} = ast.Integer(data.{name}.val.ival)
     elif data.{name}.type == structs.T_Float:
-        _sv = data.{name}.val.str.decode("utf-8")
-        if _sv.endswith('.'):
-            _sv += '0'
-        v_{name} = ast.Float(Decimal(_sv))
+        # Add a trailing zero to truncated floats like "2.", see issues #91 and #100
+        sv_{name} = data.{name}.val.str.decode("utf-8")
+        if sv_{name}.endswith('.'):
+            sv_{name} += '0'
+        v_{name} = ast.Float(Decimal(sv_{name}))
     elif data.{name}.type == structs.T_BitString:
         v_{name} = ast.BitString(data.{name}.val.str.decode("utf-8"))
     else:
@@ -780,6 +782,7 @@ cdef create(void* data, offset_to_index):
 
     cdef tuple t
     cdef int i
+    cdef str s
     cdef int tag = structs.nodeTag(data)
 
 ''')
@@ -810,10 +813,11 @@ cdef create(void* data, offset_to_index):
             # See issues #91 and #100
             output.write('''\
     elif tag == structs.T_Float:
-        _sv = structs.strVal(<structs.Value *> data).decode("utf-8")
-        if _sv.endswith('.'):
-            _sv += '0'
-        return ast.Float(Decimal(_sv))
+        # Add a trailing zero to truncated floats like "2.", see issues #91 and #100
+        s = structs.strVal(<structs.Value *> data).decode("utf-8")
+        if s.endswith('.'):
+            s += '0'
+        return ast.Float(Decimal(s))
 ''')
 
         elif name == 'BitString':
