@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:44:14 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
 #
 
 from collections import namedtuple
@@ -48,8 +48,10 @@ class Base:
                  nodes
 
     Its main purpose is to create the right kind of instance, depending on the type of the
-    `details` argument passed to the constructor: a ``dict`` produces a :class:`Node` instance,
-    a ``list`` produces a :class:`List` instance, everything else a :class:`Scalar` instance.
+    `details` argument passed to the constructor: a :class:`ast.Node <pglast.ast.Node>`
+    produces a :class:`Node` instance, a ``list`` or ``tuple`` produces a :class:`List`
+    instance, everything else a :class:`Scalar` instance.
+
     """
 
     __slots__ = ('_parent_node', '_parent_attribute')
