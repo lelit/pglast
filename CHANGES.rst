@@ -45,7 +45,9 @@ Version 3
 3.7 (2021-10-13)
 ~~~~~~~~~~~~~~~~
 
-- Update libpg_query to 13-2.1.0
+- Update libpg_query to `13-2.1.0`__
+
+  __ https://github.com/pganalyze/libpg_query/blob/13-latest/CHANGELOG.md#13-210---2021-10-12_
 
 
 3.6 (2021-10-09)
@@ -70,7 +72,9 @@ Version 3
 
 - Produce Python 3.10 wheels, thanks to ``cibuildwheel`` 2.1.2
 
-- Update libpg_query to 13-2.0.7
+- Update libpg_query to `13-2.0.7`__
+
+  __ https://github.com/pganalyze/libpg_query/blob/13-latest/CHANGELOG.md#13-207---2021-07-16_
 
 - New option ``--remove-pg_catalog-from-functions`` on the command line tool (`PR #90`__), thanks
   to Boris Zentner
@@ -94,7 +98,9 @@ Version 3
 3.3 (2021-07-04)
 ~~~~~~~~~~~~~~~~
 
-- Update libpg_query to 13-2.0.6
+- Update libpg_query to `13-2.0.6`__
+
+  __ https://github.com/pganalyze/libpg_query/blob/13-latest/CHANGELOG.md#13-206---2021-06-29_
 
 
 3.2 (2021-06-25)
@@ -114,7 +120,9 @@ Version 3
 
 - Build wheels also for macOS
 
-- Update libpg_query to 13-2.0.5
+- Update libpg_query to `13-2.0.5`__
+
+  __ https://github.com/pganalyze/libpg_query/blob/13-latest/CHANGELOG.md#13-205---2021-06-24_
 
 
 3.0 (2021-06-04)
