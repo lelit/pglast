@@ -8,6 +8,22 @@ Changes
 Version 3
 #########
 
+3.10 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Update libpg_query to `13-2.1.1`__ (`PR #102`__), thanks to James Guthrie
+
+  __ https://github.com/pganalyze/libpg_query/blob/13-latest/CHANGELOG.md#13-211---2022-05-03
+  __ https://github.com/lelit/pglast/pull/102
+
+- Produce `musllinux`__ wheels, thanks to ``cibuildwheel`` `2.5.0`__ (:PEP:`656` was actually
+  introduced in `2.2.0`__)
+
+  __ https://peps.python.org/pep-0656/
+  __ https://cibuildwheel.readthedocs.io/en/stable/changelog/#v250
+  __ https://cibuildwheel.readthedocs.io/en/stable/changelog/#v220
+
+
 3.9 (2022-02-24)
 ~~~~~~~~~~~~~~~~
 
