@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.10 (unreleased)
+3.10 (2022-05-11)
 ~~~~~~~~~~~~~~~~~
 
 - Update libpg_query to `13-2.1.1`__ (`PR #102`__), thanks to James Guthrie
