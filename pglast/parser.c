@@ -4,21 +4,21 @@
 {
     "distutils": {
         "depends": [
-            "/home/lele/wip/pglast+PG13/libpg_query/pg_query.h",
-            "/home/lele/wip/pglast+PG13/libpg_query/protobuf/pg_query.pb-c.h",
-            "/home/lele/wip/pglast+PG13/libpg_query/src/pg_query_internal.h",
-            "/home/lele/wip/pglast+PG13/libpg_query/vendor/protobuf-c/protobuf-c.h"
+            "libpg_query/pg_query.h",
+            "libpg_query/protobuf/pg_query.pb-c.h",
+            "libpg_query/src/pg_query_internal.h",
+            "libpg_query/vendor/protobuf-c/protobuf-c.h"
         ],
         "include_dirs": [
-            "/home/lele/wip/pglast+PG13/libpg_query",
-            "/home/lele/wip/pglast+PG13/libpg_query/src/postgres/include",
-            "/home/lele/wip/pglast+PG13/libpg_query/vendor"
+            "libpg_query",
+            "libpg_query/src/postgres/include",
+            "libpg_query/vendor"
         ],
         "libraries": [
             "pg_query"
         ],
         "library_dirs": [
-            "/home/lele/wip/pglast+PG13/libpg_query"
+            "libpg_query"
         ],
         "name": "pglast.parser",
         "sources": [
@@ -1201,7 +1201,7 @@ static const char *__pyx_f[] = {
   "pglast/ast.pyx",
   "pglast/parser.pyx",
   "<stringsource>",
-  "env/lib/python3.9/site-packages/Cython/Includes/cpython/type.pxd",
+  "env/lib/python3.10/site-packages/Cython/Includes/cpython/type.pxd",
 };
 /* #### Code section: utility_code_proto_before_types ### */
 /* NoFastGil.proto */
