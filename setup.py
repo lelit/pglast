@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:20:43 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
 #
 
 from pathlib import Path
@@ -29,9 +29,9 @@ with (here / 'version.txt').open(encoding='utf-8') as f:
     VERSION = f.read().strip()
 
 
-LIBPG_QUERY_DIR = str(here / 'libpg_query')
-INCLUDE_DIR = str(here / 'libpg_query' / 'src' / 'postgres' / 'include')
-VENDOR_DIR = str(here / 'libpg_query' / 'vendor')
+LIBPG_QUERY_DIR = str(Path('libpg_query'))
+INCLUDE_DIR = str(Path('libpg_query') / 'src' / 'postgres' / 'include')
+VENDOR_DIR = str(Path('libpg_query') / 'vendor')
 
 
 class BuildLibPgQueryFirst(build_ext):
