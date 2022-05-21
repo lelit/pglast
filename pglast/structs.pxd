@@ -2,7 +2,7 @@
 # :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.1.1-0-g7eb584d
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2022 Lele Gaifax
+# :Copyright: © 2021-2022 Lele Gaifax
 #
 
 #cython: language_level=3

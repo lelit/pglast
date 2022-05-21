@@ -14,8 +14,7 @@ import subprocess
 from re import match, sub
 
 
-CYEARS = ''
-CYEARS += str(date.today().year)
+CYEARS = f'2021-{date.today().year}'
 
 
 AST_PY_HEADER = f"""\
