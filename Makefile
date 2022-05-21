@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:52:45 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
 #
 
 export TOPDIR := $(CURDIR)
@@ -31,8 +31,10 @@ help::
 .PHONY: build
 build: virtualenv $(VENVDIR)/extension.timestamp
 
+$(VENVDIR)/extension.timestamp: setup.py
 $(VENVDIR)/extension.timestamp: libpg_query/libpg_query.a
 $(VENVDIR)/extension.timestamp: pglast/ast.pyx pglast/parser.pyx
+	touch pglast/parser.pyx
 	$(PYTHON) setup.py build_ext --inplace --force
 	@touch $@
 
@@ -45,7 +47,7 @@ help::
 
 .PHONY: recythonize
 recythonize:
-	touch pglast/parser.pyx
+	rm -f $(VENVDIR)/extension.timestamp
 	$(MAKE) build
 
 help::

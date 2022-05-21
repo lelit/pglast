@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:53:18 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
 #
 
 BUMPER := $(VENVDIR)/bin/bump_version
@@ -25,7 +25,7 @@ help::
 	@printf "release\n\tBump version number\n"
 
 .PHONY: release
-release: printers-doc keywords assert-clean-tree
+release: $(VENVDIR)/extension.timestamp enums keywords printers-doc assert-clean-tree
 	$(BUMPER) $(VERSION_TXT)
 	@echo ">>>"
 	@echo ">>> Do your duties (update CHANGES.rst for example), then"
@@ -36,7 +36,7 @@ help::
 	@printf "dev-release\n\tBump the development version number\n"
 
 .PHONY: dev-release
-dev-release: printers-doc assert-clean-tree
+dev-release: $(VENVDIR)/extension.timestamp printers-doc assert-clean-tree
 	$(BUMPER) -s pep440 -f dev $(VERSION_TXT)
 	@echo ">>>"
 	@echo ">>> Do your duties (update CHANGES.rst for example), then"
