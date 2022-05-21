@@ -286,6 +286,57 @@ from decimal import Decimal
 
 from pglast import ast, enums
 from pglast cimport structs
+
+
+cdef _pg_bitmapset_to_set(const structs.Bitmapset* bms):
+    cdef set result
+    cdef int m
+    if bms is not NULL:
+        result = set()
+        m = structs.bms_next_member(bms, -1)
+        while m >= 0:
+            result.add(m)
+            m = structs.bms_next_member(bms, m)
+    else:
+        result = None
+    return result
+
+
+cdef _pg_str_to_decimal(const char* cstr):
+    # Add a trailing zero to truncated floats like "2.", see issues #91 and #100
+    cdef s = cstr.decode("utf-8")
+    if s.endswith('.'):
+        s += '0'
+    return ast.Float(Decimal(s))
+
+
+cdef _pg_list_to_tuple(const structs.List* lst, offset_to_index):
+    cdef tuple result
+    cdef int i
+    if lst is not NULL:
+        result = PyTuple_New(lst.length)
+        for i in range(lst.length):
+            item = create(structs.list_nth(lst, i), offset_to_index)
+            Py_INCREF(item)
+            PyTuple_SET_ITEM(result, i, item)
+    else:
+        result = None
+    return result
+
+
+cdef _pg_value_to_py(structs.Value val):
+    cdef object result
+    if val.type == structs.T_Null:
+        result = ast.Null(None)
+    elif val.type == structs.T_Integer:
+        result = ast.Integer(val.val.ival)
+    elif val.type == structs.T_Float:
+        result = _pg_str_to_decimal(val.val.str)
+    elif val.type == structs.T_BitString:
+        result = ast.BitString(val.val.str.decode("utf-8"))
+    else:
+        result = ast.String(val.val.str.decode("utf-8"))
+    return result
 """
 
 
@@ -470,32 +521,13 @@ def emit_bool_attr(name, ctype, output):
 
 def emit_value_attr(name, ctype, output):
     output.write(f'''\
-    cdef object v_{name}
-    cdef str sv_{name}
-    if data.{name}.type == structs.T_Null:
-        v_{name} = ast.Null(None)
-    elif data.{name}.type == structs.T_Integer:
-        v_{name} = ast.Integer(data.{name}.val.ival)
-    elif data.{name}.type == structs.T_Float:
-        # Add a trailing zero to truncated floats like "2.", see issues #91 and #100
-        sv_{name} = data.{name}.val.str.decode("utf-8")
-        if sv_{name}.endswith('.'):
-            sv_{name} += '0'
-        v_{name} = ast.Float(Decimal(sv_{name}))
-    elif data.{name}.type == structs.T_BitString:
-        v_{name} = ast.BitString(data.{name}.val.str.decode("utf-8"))
-    else:
-        v_{name} = ast.String(data.{name}.val.str.decode("utf-8"))
+    cdef object v_{name} = _pg_value_to_py(data.{name})
 ''')
 
 
 def emit_str_attr(name, ctype, output):
     output.write(f'''\
-    cdef object v_{name}
-    if data.{name} is not NULL:
-        v_{name} = data.{name}.decode("utf-8")
-    else:
-        v_{name} = None
+    cdef object v_{name} = data.{name}.decode("utf-8") if data.{name} is not NULL else None
 ''')
 
 
@@ -507,16 +539,7 @@ def emit_char_attr(name, ctype, output):
 
 def emit_list_attr(name, ctype, output):
     output.write(f'''\
-    cdef tuple v_{name}
-    cdef int {name}_i
-    if data.{name} is not NULL:
-        v_{name} = PyTuple_New(data.{name}.length)
-        for i in range(data.{name}.length):
-            item = create(structs.list_nth(data.{name}, i), offset_to_index)
-            Py_INCREF(item)
-            PyTuple_SET_ITEM(v_{name}, i, item)
-    else:
-        v_{name} = None
+    cdef tuple v_{name} = _pg_list_to_tuple(data.{name}, offset_to_index)
 ''')
 
 
@@ -534,11 +557,7 @@ def emit_create_stmt_attr(name, ctype, output):
 
 def emit_nodeptr_attr(name, ctype, output):
     output.write(f'''\
-    cdef object v_{name}
-    if data.{name} is not NULL:
-        v_{name} = create(data.{name}, offset_to_index)
-    else:
-        v_{name} = None
+    cdef object v_{name} = create(data.{name}, offset_to_index) if data.{name} is not NULL else None
 ''')
 
 
@@ -561,16 +580,7 @@ def emit_str_enum_attr(name, ctype, output):
 
 def emit_bitmapset_attr(name, ctype, output):
     output.write(f'''\
-    cdef set v_{name}
-    cdef int {name}_member
-    if data.{name} is not NULL:
-        v_{name} = set()
-        {name}_member = structs.bms_next_member(data.{name}, -1)
-        while {name}_member >= 0:
-            v_{name}.add({name}_member)
-            {name}_member = structs.bms_next_member(data.{name}, {name}_member)
-    else:
-        v_{name} = None
+    cdef set v_{name} = _pg_bitmapset_to_set(data.{name})
 ''')
 
 
@@ -809,14 +819,9 @@ cdef create(void* data, offset_to_index):
 ''')
 
         elif name == 'Float':
-            # See issues #91 and #100
             output.write('''\
     elif tag == structs.T_Float:
-        # Add a trailing zero to truncated floats like "2.", see issues #91 and #100
-        s = structs.strVal(<structs.Value *> data).decode("utf-8")
-        if s.endswith('.'):
-            s += '0'
-        return ast.Float(Decimal(s))
+        return _pg_str_to_decimal(structs.strVal(<structs.Value *> data))
 ''')
 
         elif name == 'BitString':
@@ -834,12 +839,7 @@ cdef create(void* data, offset_to_index):
         elif name == 'List':
             output.write('''\
     elif tag == structs.T_List:
-        t = PyTuple_New((<structs.List *> data).length)
-        for i in range((<structs.List *> data).length):
-            item = create(structs.list_nth(<structs.List *> data, i), offset_to_index)
-            Py_INCREF(item)
-            PyTuple_SET_ITEM(t, i, item)
-        return t
+        return _pg_list_to_tuple(<structs.List *> data, offset_to_index)
 ''')
 
     output.write('''\
