@@ -45,10 +45,16 @@ class Skip(Action):
 class Ancestor:
     """Simple object to keep track of the node's ancestors while it's being visited.
 
+    :param Ancestor parent: the parent of the new instance
+    :param node: the tracked object
+    :param member: either the name of the attribute or the index in the sequence
+                   that points to the tracked object in the parent container
+
     An instance of this class represent a particular ancestor in the hierarchy chain: it
     carries a reference that points to the higher item in the chain, the associated
     :class:`.ast.Node` instance and a *member*, either the attribute name or sequential index
-    in the parent node.
+    in the parent node: the latter happens when the parent node is actually a tuple, not an
+    ``Node`` instance.
 
     Iteration yields the sequence of involved *members*, that is the path starting from the
     root of the AST tree that leads to leaf node.
@@ -82,14 +88,50 @@ class Ancestor:
         True
         >>> select_stmt_path[0] is tree[0]
         True
-        >>> columns_path = select_stmt_path / (tree[0].stmt, 'targetList')
-        >>> first_col_path = columns_path / (tree[0].stmt.targetList[0], 0)
+        >>> columns_path = (select_stmt_path
+        ...                 / (tree[0].stmt, 'targetList'))
+        >>> first_col_path = (columns_path
+        ...                   / (tree[0].stmt.targetList[0], 0))
         >>> first_col_path
         ROOT → 0 → stmt → targetList → 0
         >>> first_col_path[0]
         <ResTarget val=<A_Const val=<Integer val=1>>>
         >>> first_col_path[1] is columns_path[0]
         True
+
+    As said, the `node` is not always a :class:`.ast.Node`, but may be a tuple, possibly
+    containing *subtuples*, for example the ``functions`` slot of :class:`~.ast.RangeFunction`:
+
+    .. doctest::
+
+        >>> tree = parse_sql('SELECT * FROM ROWS'
+        ...                  ' FROM(generate_series(10,11), get_users())')
+        >>> root = Ancestor()
+        >>> from_clause_path = (root / (root, 0) / (tree[0], 'stmt')
+        ...                     / (tree[0].stmt, 'fromClause'))
+        >>> from_clause = tree[0].stmt.fromClause
+        >>> from_clause_path@tree is from_clause
+        True
+        >>> range_function_path = (from_clause_path
+        ...                        / (from_clause, 0))
+        >>> range_function = from_clause[0]
+        >>> functions_path = (range_function_path
+        ...                   / (range_function, 'functions'))
+        >>> functions = from_clause[0].functions
+        >>> functions_path@tree is functions
+        True
+        >>> generate_series_path = (functions_path
+        ...                         / (functions, 0))
+        >>> generate_series_path@tree is functions[0]
+        True
+        >>> type(generate_series_path.node)
+        <class 'tuple'>
+        >>> type(generate_series_path.member)
+        <class 'int'>
+        >>> type(generate_series_path.node[0])
+        <class 'tuple'>
+        >>> generate_series_path.node[0][0]
+        <FuncCall funcname=(<String val='generate_series'>,)...
     """
 
     def __init__(self, parent=None, node=None, member=None):
@@ -146,7 +188,7 @@ class Visitor:
     specifically ``visit_XYZ`` where ``XYZ`` is the name of a class name defined in the
     :mod:`pglast.ast` module.
 
-    Instances of this class are *callables* and accept either a :class:`pglast.ast.Node`
+    Instances of this class are *callables* and accept either a :class:`.ast.Node`
     instance or a sequence of instances, typically the result of :func:`parse_sql
     <pglast.parser.parse_sql>`. The argument will be *traversed* in a `breadth first`__ order
     and each :class:`Node <.ast.Node>` instance will be passed to the corresponding
@@ -200,7 +242,7 @@ class Visitor:
     def iterate(self, node):
         """Iterate thru `node`'s AST using a breadth-first traversing.
 
-        :param node: either a :class:`Node <pglast.ast.Node>` instance or a tuple of those
+        :param node: either a :class:`.ast.Node` instance or a tuple of those
 
         This is a generator, that yields ``Node`` instances together with their *ancestors
         chain* as it finds them while traversing the tree.
