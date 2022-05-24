@@ -3,7 +3,7 @@
 # :Created:   mar 11 mag 2021, 08:36:23
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021 Lele Gaifax
+# :Copyright: © 2021, 2022 Lele Gaifax
 #
 
 import pytest
@@ -59,9 +59,28 @@ def test_visiting_path():
     assert repr(pb) == 'ROOT → list → 1'
 
 
+def test_invalid_argument():
+    with pytest.raises(ValueError):
+        visitors.Visitor()('foo')
+
+
 def test_empty_visitor():
     v = visitors.Visitor()
     assert v(()) is None
+
+
+def test_ancestors():
+    class Checker(visitors.Visitor):
+        def visit(self, ancestors, node):
+            assert ancestors@self.root is node
+
+    checker = Checker()
+
+    raw = parse_sql('select 1')
+    checker(raw)
+
+    raw = parse_sql('SELECT * FROM ROWS FROM(generate_series(10,11), get_users())')
+    checker(raw)
 
 
 class CountAllNodes(visitors.Visitor):
@@ -79,11 +98,10 @@ def test_count_all_nodes():
 
     raw = parse_sql('select 1')
     assert counter(raw) == 5
-
     assert counter(raw[0].stmt) == 4
 
-    with pytest.raises(ValueError):
-        visitors.Visitor()('foo')
+    raw = parse_sql('SELECT * FROM ROWS FROM(generate_series(10,11), get_users())')
+    assert counter(raw) == 14
 
 
 def test_skip_action():

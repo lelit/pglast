@@ -3,7 +3,7 @@
 # :Created:   dom 9 mag 2021, 16:15:05
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021 Lele Gaifax
+# :Copyright: © 2021, 2022 Lele Gaifax
 #
 
 from collections import deque
@@ -137,13 +137,6 @@ class Ancestor:
         return node
 
 
-def visitable(node):
-    "Determine whether the given `node` is visitable or not."
-
-    return (isinstance(node, ast.Node)
-            or (isinstance(node, tuple) and all(isinstance(item, ast.Node) for item in node)))
-
-
 class Visitor:
     """Base class implementing the `visitor pattern`__.
 
@@ -215,7 +208,7 @@ class Visitor:
 
         todo = deque()
 
-        if visitable(node):
+        if isinstance(node, (tuple, ast.Node)):
             todo.append((Ancestor(), node))
         else:
             raise ValueError('Bad argument, expected a ast.Node instance or a tuple')
@@ -234,41 +227,47 @@ class Visitor:
 
             index = 0
             while nodes:
-                snode = nodes.pop(0)
+                sub_node = nodes.pop(0)
                 if is_sequence:
-                    sancestors = ancestors / (node, index)
+                    sub_ancestors = ancestors / (node, index)
                 else:
-                    sancestors = ancestors
-                action = yield sancestors, snode
-                if action is Continue:
-                    if is_sequence:
-                        new_nodes.append(snode)
-
-                    for attr in snode:
-                        value = getattr(snode, attr)
-                        if visitable(value):
-                            todo.append((sancestors / (snode, attr), value))
-                elif action is Skip:
-                    if is_sequence:
-                        new_nodes.append(snode)
-                else:
-                    if action is Delete:
+                    sub_ancestors = ancestors
+                if isinstance(sub_node, ast.Node):
+                    action = yield sub_ancestors, sub_node
+                    if action is Continue:
                         if is_sequence:
-                            sequence_changed = True
-                        new_node = None
-                    elif action is not snode:
-                        if is_sequence:
-                            sequence_changed = True
-                            new_nodes.append(action)
-                        else:
-                            new_node = action
+                            new_nodes.append(sub_node)
 
-                    if not is_sequence:
-                        parent = ancestors[0]
-                        if parent is not None:
-                            setattr(parent, ancestors.member, new_node)
-                        else:
-                            self.root = new_node
+                        for member in sub_node:
+                            value = getattr(sub_node, member)
+                            if isinstance(value, (tuple, ast.Node)):
+                                todo.append((sub_ancestors / (sub_node, member), value))
+                    elif action is Skip:
+                        if is_sequence:
+                            new_nodes.append(sub_node)
+                    else:
+                        if action is Delete:
+                            if is_sequence:
+                                sequence_changed = True
+                            new_node = None
+                        elif action is not sub_node:
+                            if is_sequence:
+                                sequence_changed = True
+                                new_nodes.append(action)
+                            else:
+                                new_node = action
+
+                        if not is_sequence:
+                            parent = ancestors[0]
+                            if parent is not None:
+                                setattr(parent, ancestors.member, new_node)
+                            else:
+                                self.root = new_node
+                elif isinstance(sub_node, tuple):
+                    for sub_index, value in enumerate(sub_node):
+                        if isinstance(value, (tuple, ast.Node)):
+                            todo.append((sub_ancestors / (sub_node, sub_index), value))
+
                 index += 1
 
             if is_sequence and sequence_changed:
