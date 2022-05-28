@@ -2189,15 +2189,18 @@ def create_transform_stmt(node, output):
     output.write('LANGUAGE ')
     output.print_name(node.lang)
     output.write(' (')
-    if node.fromsql:
-        output.write('FROM SQL WITH FUNCTION ')
-        output.print_node(node.fromsql)
+    output.newline()
+    with output.push_indent(2):
+        if node.fromsql:
+            output.write('FROM SQL WITH FUNCTION ')
+            output.print_node(node.fromsql)
+            if node.tosql:
+                output.write(',')
+                output.newline()
         if node.tosql:
-            output.write(', ')
-    if node.tosql:
-        output.write('TO SQL WITH FUNCTION ')
-        output.print_node(node.tosql)
-    output.write(')')
+            output.write('TO SQL WITH FUNCTION ')
+            output.print_node(node.tosql)
+        output.write(')')
 
 
 @node_printer('ClosePortalStmt')
@@ -2657,8 +2660,6 @@ def _object_with_args(node, output, unquote_name=False, symbol=False,
                 output.write(name.val.value)
         else:
             output.write(node.objname.string_value)
-        if not node.args_unspecified:
-            output.write(' ')
     elif symbol:
         output.print_symbol(node.objname)
     else:
