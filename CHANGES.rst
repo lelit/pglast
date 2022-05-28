@@ -5,6 +5,26 @@
 Changes
 -------
 
+Version 4
+#########
+
+4.0 (unreleased)
+~~~~~~~~~~~~~~~~
+
+.. important:: This is still a work in progress!
+
+~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
+~~~~~~~~~~~~~~~~~~~~
+
+- (Will) target PostgreSQL 14
+
+- The wrapper classes used in previous versions, implemented in ``pglast.node``, are gone: now
+  everything works on top of the ``AST`` classes (`issue #80`__)
+
+  __ https://github.com/lelit/pglast/issues/80
+
+
 Version 3
 #########
 

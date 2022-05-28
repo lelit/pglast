@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:04:43 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2021 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2021, 2022 Lele Gaifax
 ..
 
 =============
@@ -123,6 +123,18 @@ https://bit.io/ kindly sponsored the project.
 __ https://github.com/hcheng2002cn
 __ https://github.com/lelit/pglast/pull/72
 __ https://github.com/lelit/pglast/pull/77
+
+
+Version 4
+#########
+
+The ultimate goal of this version is targeting ``PostgreSQL 14``, when ``libpg_query`` will
+support that.
+
+Waiting for that, I simplified the code getting rid of the `wrapper classes`__.
+
+__ https://github.com/lelit/pglast/issues/80
+
 
 .. toctree::
    :maxdepth: 2

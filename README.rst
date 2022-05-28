@@ -3,7 +3,7 @@
 .. :Created:   mer 02 ago 2017 14:49:24 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
 ..
 
 ========
@@ -17,10 +17,10 @@ PostgreSQL Languages AST and statements prettifier
 :Contact: lele@metapensiero.it
 :License: `GNU General Public License version 3 or later`__
 :Status: |build| |doc| |codecov|
-:Version: `3`__
+:Version: `4`__
 
 __ https://www.gnu.org/licenses/gpl.html
-__ https://pglast.readthedocs.io/en/v3/development.html#history
+__ https://pglast.readthedocs.io/en/v4/development.html#history
 
 .. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v3
    :target: https://github.com/lelit/pglast/actions/workflows/ci.yml
@@ -68,7 +68,7 @@ show a brief table of contents. A comprehensive test suite, based on pytest__, c
 99% of the source lines.
 
 __ https://docs.pytest.org/en/latest/
-__ https://codecov.io/gh/lelit/pglast/branch/v3/
+__ https://codecov.io/gh/lelit/pglast/branch/v4/
 
 
 Documentation
