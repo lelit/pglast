@@ -3,22 +3,21 @@
 # :Created:   sab 05 ago 2017 10:31:23 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
 #
 
 import warnings
 
 import pytest
 
-from pglast import enums, prettify
-from pglast.node import Missing, Scalar
+from pglast import ast, enums, prettify
 from pglast.printers import IntEnumPrinter, NODE_PRINTERS, PrinterAlreadyPresentError
-from pglast.printers import get_printer_for_node_tag, node_printer
+from pglast.printers import get_printer_for_node, node_printer
 
 
 def test_registry():
-    with pytest.raises(NotImplementedError):
-        get_printer_for_node_tag(None, 'non_existing')
+    with pytest.raises(ValueError):
+        get_printer_for_node(None)
 
     with pytest.raises(ValueError):
         @node_printer()
@@ -35,54 +34,11 @@ def test_registry():
         def too_many_tags1(node, output):
             pass
 
-    with pytest.raises(ValueError):
-        @node_printer('one', 'two', 'three', check_tags=False)
-        def too_many_tags2(node, output):
-            pass
-
-    try:
-        @node_printer('test_tag1', check_tags=False)
-        def tag1(node, output):
-            pass
-
-        assert get_printer_for_node_tag(None, 'test_tag1') is tag1
-
-        with pytest.raises(PrinterAlreadyPresentError):
-            @node_printer('test_tag1', check_tags=False)
-            def tag3(node, output):
-                pass
-
-        @node_printer('test_tag1', override=True, check_tags=False)
-        def tag1_bis(node, output):
-            pass
-
-        assert get_printer_for_node_tag(None, 'test_tag1') is tag1_bis
-
-        @node_printer('test_tag_3', check_tags=False)
-        def generic_tag3(node, output):
-            pass
-
-        @node_printer('test_tag_1', 'test_tag_3', check_tags=False)
-        def specific_tag3(node, output):
-            pass
-
-        @node_printer(('test_tag_a', 'test_tag_b'), 'test_tag_3', check_tags=False)
-        def specific_tag4(node, output):
-            pass
-
-        assert get_printer_for_node_tag(None, 'test_tag_3') is generic_tag3
-        assert get_printer_for_node_tag('Foo', 'test_tag_3') is generic_tag3
-        assert get_printer_for_node_tag('test_tag_1', 'test_tag_3') is specific_tag3
-        assert get_printer_for_node_tag('test_tag_a', 'test_tag_3') is specific_tag4
-        assert get_printer_for_node_tag('test_tag_b', 'test_tag_3') is specific_tag4
-    finally:
-        NODE_PRINTERS.pop('test_tag1', None)
-
 
 def test_prettify_safety_belt():
-    raw_stmt_printer = NODE_PRINTERS.pop('RawStmt', None)
+    raw_stmt_printer = NODE_PRINTERS.pop(ast.RawStmt, None)
     try:
-        @node_printer('RawStmt')
+        @node_printer(ast.RawStmt)
         def raw_stmt_1(node, output):
             output.write('Yeah')
 
@@ -94,7 +50,7 @@ def test_prettify_safety_belt():
             assert output == 'select 42'
             assert 'Detected a bug' in str(w[0].message)
 
-        @node_printer('RawStmt', override=True)
+        @node_printer(ast.RawStmt, override=True)
         def raw_stmt_2(node, output):
             output.write('select 1')
 
@@ -107,9 +63,9 @@ def test_prettify_safety_belt():
             assert 'Detected a non-cosmetic difference' in str(w[0].message)
     finally:
         if raw_stmt_printer is not None:
-            NODE_PRINTERS['RawStmt'] = raw_stmt_printer
+            NODE_PRINTERS[ast.RawStmt] = raw_stmt_printer
         else:
-            NODE_PRINTERS.pop('RawStmt', None)
+            NODE_PRINTERS.pop(ast.RawStmt, None)
 
 
 def test_int_enum_printer():
@@ -128,22 +84,10 @@ def test_int_enum_printer():
         lwp('LockWaitError', object(), result)
 
     with pytest.raises(ValueError):
-        lwp(None, object(), result)
-
-    with pytest.raises(ValueError):
         lwp('FooBar', object(), result)
 
-    lwp(Scalar('LockWaitBlock'), object(), result)
+    lwp(None, object(), result)
     assert result == ['block']*2
-
-    with pytest.raises(ValueError):
-        lwp(Scalar('FooBar'), object(), result)
-
-    lwp(Scalar(0), object(), result)
-    assert result == ['block']*3
-
-    lwp(Missing, object(), result)
-    assert result == ['block']*4
 
 
 def test_not_int_enum_printer():

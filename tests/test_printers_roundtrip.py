@@ -3,7 +3,7 @@
 # :Created:   dom 17 mar 2019 09:24:11 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2019, 2021 Lele Gaifax
+# :Copyright: © 2019, 2021, 2022 Lele Gaifax
 #
 
 from pathlib import Path
@@ -11,7 +11,7 @@ from re import sub, subn
 
 import pytest
 
-from pglast import Node, parse_sql, split
+from pglast import parse_sql, split
 from pglast.parser import ParseError
 from pglast.stream import RawStream, IndentedStream
 import pglast.printers  # noqa
@@ -47,7 +47,7 @@ def test_printers_roundtrip(src, lineno, statement):
     except:  # noqa
         raise RuntimeError("%s:%d:Could not parse %r" % (src, lineno, statement))
 
-    serialized = RawStream()(Node(orig_ast))
+    serialized = RawStream()(orig_ast)
     try:
         serialized_ast = parse_sql(serialized)
     except:  # noqa
@@ -55,7 +55,7 @@ def test_printers_roundtrip(src, lineno, statement):
 
     assert orig_ast == serialized_ast, "%s:%s:%r != %r" % (src, lineno, statement, serialized)
 
-    indented = IndentedStream()(Node(orig_ast))
+    indented = IndentedStream()(orig_ast)
     try:
         indented_ast = parse_sql(indented)
     except:  # noqa
@@ -82,7 +82,7 @@ def test_stream_call_with_single_node(src, lineno, statement):
     for rawstmt in parsed:
         stmt = rawstmt.stmt
         try:
-            RawStream()(Node(stmt))
+            RawStream()(stmt)
         except Exception:
             raise AssertionError('Could not serialize single statement %r' % stmt)
 
@@ -129,7 +129,7 @@ def test_pg_regress_corpus(filename):
                                % (trimmed_stmt, rel_src, lineno, e))
 
         try:
-            serialized = RawStream()(Node(orig_ast))
+            serialized = RawStream()(orig_ast)
         except NotImplementedError as e:
             raise NotImplementedError("Statement “%s” from %s at line %d, could not reprint: %s"
                                       % (trimmed_stmt, rel_src, lineno, e))

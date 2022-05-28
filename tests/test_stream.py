@@ -3,12 +3,12 @@
 # :Created:   sab 05 ago 2017 10:31:23 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
 #
 
 import pytest
 
-from pglast import ast, node, parse_sql
+from pglast import ast, parse_sql
 from pglast.printers import NODE_PRINTERS, PrinterAlreadyPresentError, SPECIAL_FUNCTIONS
 from pglast.printers import node_printer, special_function
 from pglast.stream import IndentedStream, OutputStream, RawStream
@@ -26,9 +26,9 @@ def test_output_stream():
 
 
 def test_raw_stream_with_sql():
-    raw_stmt_printer = NODE_PRINTERS.pop('RawStmt', None)
+    raw_stmt_printer = NODE_PRINTERS.pop(ast.RawStmt, None)
     try:
-        @node_printer('RawStmt')
+        @node_printer(ast.RawStmt)
         def raw_stmt(node, output):
             output.write('Yeah')
 
@@ -37,33 +37,15 @@ def test_raw_stream_with_sql():
         assert result == 'Yeah; Yeah'
     finally:
         if raw_stmt_printer is not None:
-            NODE_PRINTERS['RawStmt'] = raw_stmt_printer
+            NODE_PRINTERS[ast.RawStmt] = raw_stmt_printer
         else:
-            NODE_PRINTERS.pop('RawStmt', None)
+            NODE_PRINTERS.pop(ast.RawStmt, None)
 
 
-def test_raw_stream_with_node():
-    raw_stmt_printer = NODE_PRINTERS.pop('RawStmt', None)
+def test_raw_stream():
+    raw_stmt_printer = NODE_PRINTERS.pop(ast.RawStmt, None)
     try:
-        @node_printer('RawStmt')
-        def raw_stmt(node, output):
-            output.write('Yeah')
-
-        root = parse_sql('SELECT 1')
-        output = RawStream()
-        result = output(node.Node(root))
-        assert result == 'Yeah'
-    finally:
-        if raw_stmt_printer is not None:
-            NODE_PRINTERS['RawStmt'] = raw_stmt_printer
-        else:
-            NODE_PRINTERS.pop('RawStmt', None)
-
-
-def test_raw_stream_with_ast_node():
-    raw_stmt_printer = NODE_PRINTERS.pop('RawStmt', None)
-    try:
-        @node_printer('RawStmt')
+        @node_printer(ast.RawStmt)
         def raw_stmt(node, output):
             output.write('Yeah')
 
@@ -71,15 +53,11 @@ def test_raw_stream_with_ast_node():
         output = RawStream()
         result = output(root)
         assert result == 'Yeah'
-
-        output = RawStream()
-        result = output(root[0])
-        assert result == 'Yeah'
     finally:
         if raw_stmt_printer is not None:
-            NODE_PRINTERS['RawStmt'] = raw_stmt_printer
+            NODE_PRINTERS[ast.RawStmt] = raw_stmt_printer
         else:
-            NODE_PRINTERS.pop('RawStmt', None)
+            NODE_PRINTERS.pop(ast.RawStmt, None)
 
 
 def test_raw_stream_invalid_call():
@@ -88,9 +66,9 @@ def test_raw_stream_invalid_call():
 
 
 def test_indented_stream_with_sql():
-    raw_stmt_printer = NODE_PRINTERS.pop('RawStmt', None)
+    raw_stmt_printer = NODE_PRINTERS.pop(ast.RawStmt, None)
     try:
-        @node_printer('RawStmt')
+        @node_printer(ast.RawStmt)
         def raw_stmt(node, output):
             output.write('Yeah')
 
@@ -103,16 +81,16 @@ def test_indented_stream_with_sql():
         assert result == 'Yeah;\nYeah'
     finally:
         if raw_stmt_printer is not None:
-            NODE_PRINTERS['RawStmt'] = raw_stmt_printer
+            NODE_PRINTERS[ast.RawStmt] = raw_stmt_printer
         else:
-            NODE_PRINTERS.pop('RawStmt', None)
+            NODE_PRINTERS.pop(ast.RawStmt, None)
 
 
 def test_separate_statements():
     """Separate statements by ``separate_statements`` (int) newlines."""
-    raw_stmt_printer = NODE_PRINTERS.pop('RawStmt', None)
+    raw_stmt_printer = NODE_PRINTERS.pop(ast.RawStmt, None)
     try:
-        @node_printer('RawStmt')
+        @node_printer(ast.RawStmt)
         def raw_stmt(node, output):
             output.write('Yeah')
 
@@ -121,9 +99,9 @@ def test_separate_statements():
         assert result == 'Yeah;\n\n\nYeah'
     finally:
         if raw_stmt_printer is not None:
-            NODE_PRINTERS['RawStmt'] = raw_stmt_printer
+            NODE_PRINTERS[ast.RawStmt] = raw_stmt_printer
         else:
-            NODE_PRINTERS.pop('RawStmt', None)
+            NODE_PRINTERS.pop(ast.RawStmt, None)
 
 
 def test_special_function():

@@ -6,9 +6,8 @@
 # :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
 #
 
-from .. import enums
-from ..node import Missing, List
-from . import IntEnumPrinter, node_printer
+from .. import ast, enums
+from . import IntEnumPrinter, get_string_value, node_printer
 
 
 @node_printer('A_ArrayExpr')
@@ -38,24 +37,24 @@ class AExprKindPrinter(IntEnumPrinter):
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
 
     def AEXPR_DISTINCT(self, node, output):
-        if node.lexpr.node_tag == 'BoolExpr':
+        if isinstance(node.lexpr, ast.BoolExpr):
             output.write('(')
         output.print_node(node.lexpr)
-        if node.lexpr.node_tag == 'BoolExpr':
+        if isinstance(node.lexpr, ast.BoolExpr):
             output.write(') ')
         output.swrites('IS DISTINCT FROM')
         output.print_node(node.rexpr)
 
     def AEXPR_ILIKE(self, node, output):
         output.print_node(node.lexpr)
-        if node.name.string_value == '!~~*':
+        if get_string_value(node.name) == '!~~*':
             output.swrites('NOT')
         output.swrites('ILIKE')
         output.print_node(node.rexpr)
 
     def AEXPR_IN(self, node, output):
         output.print_node(node.lexpr)
-        if node.name.string_value == '<>':
+        if get_string_value(node.name) == '<>':
             output.swrites('NOT')
         output.swrite('IN (')
         output.print_list(node.rexpr)
@@ -63,7 +62,7 @@ class AExprKindPrinter(IntEnumPrinter):
 
     def AEXPR_LIKE(self, node, output):
         output.print_node(node.lexpr)
-        if node.name.string_value == '!~~':
+        if get_string_value(node.name) == '!~~':
             output.swrites('NOT')
         output.swrites('LIKE')
         output.print_node(node.rexpr)
@@ -91,7 +90,7 @@ class AExprKindPrinter(IntEnumPrinter):
     def AEXPR_OF(self, node, output):
         output.print_node(node.lexpr)
         output.swrites('IS')
-        if node.name.string_value == '<>':
+        if get_string_value(node.name) == '<>':
             output.writes('NOT')
         output.write('OF (')
         output.print_list(node.rexpr)
@@ -100,8 +99,8 @@ class AExprKindPrinter(IntEnumPrinter):
     def AEXPR_OP(self, node, output):
         with output.expression():
             # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
-            if node.lexpr is not Missing:
-                if node.lexpr.node_tag == 'A_Expr':
+            if node.lexpr is not None:
+                if isinstance(node.lexpr, ast.A_Expr):
                     if node.lexpr.kind == node.kind and node.lexpr.name == node.name:
                         output.print_node(node.lexpr)
                     else:
@@ -110,15 +109,15 @@ class AExprKindPrinter(IntEnumPrinter):
                 else:
                     output.print_node(node.lexpr)
                 output.write(' ')
-            if isinstance(node.name, List) and len(node.name) > 1:
+            if isinstance(node.name, tuple) and len(node.name) > 1:
                 output.write('OPERATOR(')
                 output.print_symbol(node.name)
                 output.write(') ')
             else:
                 output.print_symbol(node.name)
                 output.write(' ')
-            if node.rexpr is not Missing:
-                if node.rexpr.node_tag == 'A_Expr':
+            if node.rexpr is not None:
+                if isinstance(node.rexpr, ast.A_Expr):
                     if node.rexpr.kind == node.kind and node.rexpr.name == node.name:
                         output.print_node(node.rexpr)
                     else:
@@ -130,7 +129,7 @@ class AExprKindPrinter(IntEnumPrinter):
     def AEXPR_OP_ALL(self, node, output):
         output.print_node(node.lexpr)
         output.write(' ')
-        output.write(node.name.string_value)
+        output.write(get_string_value(node.name))
         output.write(' ALL(')
         output.print_node(node.rexpr)
         output.write(')')
@@ -138,7 +137,7 @@ class AExprKindPrinter(IntEnumPrinter):
     def AEXPR_OP_ANY(self, node, output):
         output.print_node(node.lexpr)
         output.write(' ')
-        output.write(node.name.string_value)
+        output.write(get_string_value(node.name))
         output.write(' ANY(')
         output.print_node(node.rexpr)
         output.write(')')
@@ -152,11 +151,11 @@ class AExprKindPrinter(IntEnumPrinter):
 
     def AEXPR_SIMILAR(self, node, output):
         output.print_node(node.lexpr)
-        if node.name.string_value == '!~':
+        if get_string_value(node.name) == '!~':
             output.swrites('NOT')
         output.swrites('SIMILAR TO')
-        assert (node.rexpr.node_tag == 'FuncCall'
-                and node.rexpr.funcname[1].val.value == 'similar_to_escape')
+        assert (isinstance(node.rexpr, ast.FuncCall)
+                and node.rexpr.funcname[1].val == 'similar_to_escape')
         pattern = node.rexpr.args[0]
         output.print_node(pattern)
         if len(node.rexpr.args) > 1:
@@ -188,11 +187,11 @@ def a_indices(node, output):
 
 @node_printer('A_Indirection')
 def a_indirection(node, output):
-    bracket = ((node.arg.node_tag in ('A_ArrayExpr', 'A_Expr', 'A_Indirection', 'FuncCall',
-                                      'RowExpr', 'TypeCast'))
+    bracket = (isinstance(node.arg, (ast.A_ArrayExpr, ast.A_Expr, ast.A_Indirection,
+                                     ast.FuncCall, ast.RowExpr, ast.TypeCast))
                or
-               (node.arg.node_tag == 'ColumnRef'
-                and node.indirection[0].node_tag != 'A_Indices'))
+               (isinstance(node.arg, ast.ColumnRef)
+                and not isinstance(node.indirection[0], ast.A_Indices)))
     if bracket:
         output.write('(')
     output.print_node(node.arg)
@@ -244,9 +243,7 @@ def alias(node, output):
 
 @node_printer('BitString')
 def bitstring(node, output):
-    output.write(f"{node.val.value[0]}'")
-    output.write(node.val.value[1:])
-    output.write("'")
+    output.write(f"{node.val[0]}'{node.val[1:]}'")
 
 
 @node_printer('BoolExpr')
@@ -254,7 +251,7 @@ def bool_expr(node, output):
     bet = enums.BoolExprType
     outer_exp_level = output.expression_level
     with output.expression():
-        in_res_target = node.parent_node.node_tag == 'ResTarget'
+        in_res_target = isinstance(node.ancestors[0], ast.ResTarget)
         if node.boolop == bet.AND_EXPR:
             relindent = -4 if not in_res_target and outer_exp_level == 0 else None
             output.print_list(node.args, 'AND', relative_indent=relindent)
@@ -425,7 +422,7 @@ def copy_stmt(node, output):
     if node.is_program:
         output.write('PROGRAM ')
     if node.filename:
-        output.print_node(node.filename)
+        output.write_quoted_string(node.filename)
     else:
         if node.is_from:
             output.write('STDIN')
@@ -444,7 +441,7 @@ def copy_stmt(node, output):
 
 @node_printer('CopyStmt', 'DefElem')
 def copy_stmt_def_elem(node, output):
-    option = node.defname.value
+    option = node.defname
     argv = node.arg
     if option == 'format':
         output.write('FORMAT ')
@@ -452,7 +449,7 @@ def copy_stmt_def_elem(node, output):
     elif option == 'freeze':
         output.write('FREEZE')
         if argv:
-            output.swrite(str(argv.val.value))
+            output.swrite(str(argv.val))
     elif option == 'delimiter':
         output.write('DELIMITER ')
         output.print_node(argv)
@@ -462,7 +459,7 @@ def copy_stmt_def_elem(node, output):
     elif option == 'header':
         output.write('HEADER')
         if argv:
-            output.swrite(str(argv.val.value))
+            output.swrite(str(argv.val))
     elif option == 'quote':
         output.write('QUOTE ')
         output.print_node(argv)
@@ -472,7 +469,7 @@ def copy_stmt_def_elem(node, output):
     elif option == 'force_quote':
         output.write('FORCE_QUOTE ')
         # If it is a list print it.
-        if isinstance(argv, List):
+        if isinstance(argv, tuple):
             output.write('(')
             output.print_list(argv, are_names=True)
             output.write(')')
@@ -548,7 +545,7 @@ def delete_stmt(node, output):
 @node_printer('ExecuteStmt')
 def execute_stmt(node, output):
     output.write('EXECUTE ')
-    output.print_node(node.name, is_name=True)
+    output.print_name(node.name)
     if node.params:
         output.write('(')
         output.print_list(node.params)
@@ -570,7 +567,7 @@ def explain_stmt(node, output):
 @node_printer('ExplainStmt', 'DefElem')
 def explain_stmt_def_elem(node, output):
     output.print_symbol(node.defname)
-    if node.arg is not Missing:
+    if node.arg is not None:
         output.write(' ')
         output.print_symbol(node.arg)
 
@@ -582,13 +579,13 @@ class FetchDirectionPrinter(IntEnumPrinter):
         if node.howMany == enums.FETCH_ALL:
             output.write('ALL ')
         elif node.howMany != 1:
-            output.write(f'FORWARD {node.howMany.value} ')
+            output.write(f'FORWARD {node.howMany} ')
 
     def FETCH_BACKWARD(self, node, output):
         if node.howMany == enums.FETCH_ALL:
             output.write('BACKWARD ALL ')
         elif node.howMany != 1:
-            output.write(f'BACKWARD {node.howMany.value} ')
+            output.write(f'BACKWARD {node.howMany} ')
         else:
             output.write('PRIOR ')
 
@@ -598,10 +595,10 @@ class FetchDirectionPrinter(IntEnumPrinter):
         elif node.howMany == -1:
             output.write('LAST ')
         else:
-            output.write(f'ABSOLUTE {node.howMany.value} ')
+            output.write(f'ABSOLUTE {node.howMany} ')
 
     def FETCH_RELATIVE(self, node, output):
-        output.write(f'RELATIVE {node.howMany.value} ')
+        output.write(f'RELATIVE {node.howMany} ')
 
 
 fetch_direction_printer = FetchDirectionPrinter()
@@ -621,7 +618,7 @@ def float(node, output):
 
 @node_printer('FuncCall')
 def func_call(node, output):
-    name = '.'.join(n.val.value for n in node.funcname)
+    name = '.'.join(n.val for n in node.funcname)
     special_printer = output.get_printer_for_function(name)
     if special_printer is not None:
         special_printer(node, output)
@@ -631,7 +628,7 @@ def func_call(node, output):
     output.write('(')
     if node.agg_distinct:
         output.writes('DISTINCT')
-    if node.args is Missing:
+    if node.args is None:
         if node.agg_star:
             output.write('*')
     else:
@@ -698,7 +695,7 @@ def grouping_func(node, output):
 
 @node_printer('IndexElem')
 def index_elem(node, output):
-    if node.name is not Missing:
+    if node.name is not None:
         output.print_name(node.name)
     else:
         output.write('(')
@@ -849,7 +846,7 @@ def join_expr(node, output):
 
         output.swrites('JOIN')
 
-        if node.rarg.node_tag == 'JoinExpr':
+        if isinstance(node.rarg, ast.JoinExpr):
             output.indent(3, relative=False)
             # need this for:
             # tests/test_printers_roundtrip.py::test_pg_regress_corpus[join.sql] -
@@ -876,7 +873,7 @@ def join_expr(node, output):
             output.writes(') AS')
             output.print_name(node.alias)
 
-        if node.rarg.node_tag == 'JoinExpr':
+        if isinstance(node.rarg, ast.JoinExpr):
             output.dedent()
 
 
@@ -946,13 +943,13 @@ def null_test(node, output):
 
 @node_printer('ParamRef')
 def param_ref(node, output):
-    if node.number is Missing:  # pragma: no cover
+    if node.number is None:  # pragma: no cover
         # NB: standard PG does not allow "?"-style param placeholders, this is a minor
         # deviation introduced by libpg_query; in version 2 apparently the case is merged
         # back to the standard style below
         output.write('?')
     else:
-        output.write('$%d' % node.number.value)
+        output.write('$%d' % node.number)
 
 
 @node_printer('PrepareStmt')
@@ -1212,7 +1209,7 @@ def select_stmt(node, output):
 
         if node.valuesLists:
             # Is this a SELECT ... FROM (VALUES (...))?
-            require_parens = node.parent_node.node_tag == 'RangeSubselect'
+            require_parens = isinstance(node.ancestors[0], ast.RangeSubselect)
             if require_parens:
                 output.write('(')
             output.write('VALUES ')
@@ -1298,12 +1295,12 @@ def select_stmt(node, output):
                 output.write('FETCH FIRST ')
             # FIXME do we need add '()' for all ?
             if ((node.limitCount
-                 and node.limitCount.node_tag == "A_Expr"
+                 and isinstance(node.limitCount, ast.A_Expr)
                  and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP)):
                 output.write('(')
             output.print_node(node.limitCount)
             if ((node.limitCount
-                 and node.limitCount.node_tag == "A_Expr"
+                 and isinstance(node.limitCount, ast.A_Expr)
                  and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP)):
                 output.write(')')
             if node.limitOption == enums.LimitOption.LIMIT_OPTION_WITH_TIES:
@@ -1366,12 +1363,12 @@ class SQLValueFunctionOpPrinter(IntEnumPrinter):
 
     def SVFOP_CURRENT_TIMESTAMP_N(self, node, output):  # pragma: no cover
         output.write('CURRENT_TIMESTAMP(')
-        output.write(str(node.typmod.value))
+        output.write(str(node.typmod))
         output.write(')')
 
     def SVFOP_CURRENT_TIME_N(self, node, output):  # pragma: no cover
         output.write('CURRENT_TIME(')
-        output.write(str(node.typmod.value))
+        output.write(str(node.typmod))
         output.write(')')
 
     def SVFOP_CURRENT_USER(self, node, output):
@@ -1385,12 +1382,12 @@ class SQLValueFunctionOpPrinter(IntEnumPrinter):
 
     def SVFOP_LOCALTIMESTAMP_N(self, node, output):  # pragma: no cover
         output.write('LOCALTIMESTAMP(')
-        output.write(str(node.typmod.value))
+        output.write(str(node.typmod))
         output.write(')')
 
     def SVFOP_LOCALTIME_N(self, node, output):  # pragma: no cover
         output.write('LOCALTIME(')
-        output.write(str(node.typmod.value))
+        output.write(str(node.typmod))
         output.write(')')
 
     def SVFOP_SESSION_USER(self, node, output):
@@ -1422,13 +1419,13 @@ def sub_link(node, output):
     elif node.subLinkType == slt.ALL_SUBLINK:
         output.print_node(node.testexpr)
         output.write(' ')
-        output.write(node.operName.string_value)
+        output.write(get_string_value(node.operName))
         output.write(' ALL ')
     elif node.subLinkType == slt.ANY_SUBLINK:
         output.print_node(node.testexpr)
         if node.operName:
             output.write(' ')
-            output.write(node.operName.string_value)
+            output.write(get_string_value(node.operName))
             output.write(' ANY ')
         else:
             output.write(' IN ')
@@ -1451,57 +1448,57 @@ def sub_link(node, output):
 @node_printer('TransactionStmt')
 def transaction_stmt(node, output):
     tsk = enums.TransactionStmtKind
-    if node.kind.value == tsk.TRANS_STMT_BEGIN:
+    if node.kind == tsk.TRANS_STMT_BEGIN:
         output.write('BEGIN ')
         if node.options:
             output.print_list(node.options)
-    elif node.kind.value == tsk.TRANS_STMT_START:
+    elif node.kind == tsk.TRANS_STMT_START:
         output.write('START TRANSACTION ')
         if node.options:
             output.print_list(node.options)
-    elif node.kind.value == tsk.TRANS_STMT_COMMIT:
+    elif node.kind == tsk.TRANS_STMT_COMMIT:
         output.write('COMMIT ')
         if node.chain:
             output.write('AND CHAIN ')
-    elif node.kind.value == tsk.TRANS_STMT_ROLLBACK:
+    elif node.kind == tsk.TRANS_STMT_ROLLBACK:
         output.write('ROLLBACK ')
         if node.chain:
             output.write('AND CHAIN ')
-    elif node.kind.value == tsk.TRANS_STMT_SAVEPOINT:
+    elif node.kind == tsk.TRANS_STMT_SAVEPOINT:
         output.write('SAVEPOINT ')
-        output.write(node.savepoint_name.value)
-    elif node.kind.value == tsk.TRANS_STMT_RELEASE:
+        output.write(node.savepoint_name)
+    elif node.kind == tsk.TRANS_STMT_RELEASE:
         output.write('RELEASE ')
-        output.write(node.savepoint_name.value)
-    elif node.kind.value == tsk.TRANS_STMT_ROLLBACK_TO:
+        output.write(node.savepoint_name)
+    elif node.kind == tsk.TRANS_STMT_ROLLBACK_TO:
         output.write('ROLLBACK TO SAVEPOINT ')
-        output.write(node.savepoint_name.value)
-    elif node.kind.value == tsk.TRANS_STMT_PREPARE:
+        output.write(node.savepoint_name)
+    elif node.kind == tsk.TRANS_STMT_PREPARE:
         output.write('PREPARE TRANSACTION ')
-        output.write("'%s'" % node.gid.value)
-    elif node.kind.value == tsk.TRANS_STMT_COMMIT_PREPARED:
+        output.write("'%s'" % node.gid)
+    elif node.kind == tsk.TRANS_STMT_COMMIT_PREPARED:
         output.write('COMMIT PREPARED ')
-        output.write("'%s'" % node.gid.value)
-    elif node.kind.value == tsk.TRANS_STMT_ROLLBACK_PREPARED:
+        output.write("'%s'" % node.gid)
+    elif node.kind == tsk.TRANS_STMT_ROLLBACK_PREPARED:
         output.write('ROLLBACK PREPARED ')
-        output.write("'%s'" % node.gid.value)
+        output.write("'%s'" % node.gid)
 
 
 @node_printer('TransactionStmt', 'DefElem')
 def transaction_stmt_def_elem(node, output):
-    value = node.defname.value
+    value = node.defname
     argv = node.arg.val
     if value == 'transaction_isolation':
         output.write('ISOLATION LEVEL ')
-        output.write(argv.val.value.upper())
+        output.write(argv.val.upper())
     elif value == 'transaction_read_only':
         output.write('READ ')
-        if argv.val.value == 0:
+        if argv.val == 0:
             output.write('WRITE')
         else:
             output.write('ONLY')
     elif value == 'transaction_deferrable':
-        if argv.val.value == 0:
+        if argv.val == 0:
             output.write('NOT ')
         output.write('DEFERRABLE')
     else:  # pragma: no cover
@@ -1520,15 +1517,15 @@ def truncate_stmt(node, output):
 
 @node_printer('TypeCast')
 def type_cast(node, output):
-    if node.arg.node_tag == 'A_Const':
+    if isinstance(node.arg, ast.A_Const):
         # Special case for boolean constants
-        if ((node.arg.val.node_tag != 'Null'
-             and node.arg.val.val.value in ('t', 'f')
-             and '.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bool')):
+        if ((not isinstance(node.arg.val, ast.Null)
+             and node.arg.val.val in ('t', 'f')
+             and '.'.join(n.val for n in node.typeName.names) == 'pg_catalog.bool')):
             output.write('TRUE' if node.arg.val.val == 't' else 'FALSE')
             return
         # Special case for bpchar
-        elif (('.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bpchar'
+        elif (('.'.join(n.val for n in node.typeName.names) == 'pg_catalog.bpchar'
                and not node.typeName.typmods)):
             output.write('char ')
             output.print_node(node.arg)
@@ -1595,7 +1592,7 @@ def type_name(node, output):
     if node.setof:
         # FIXME: is this used only by plpgsql?
         output.writes('SETOF')
-    name = '.'.join(n.val.value for n in node.names)
+    name = '.'.join(n.val for n in node.names)
     suffix = ''
     if name in system_types:
         prefix, suffix = system_types[name]
@@ -1611,7 +1608,7 @@ def type_name(node, output):
     else:
         if node.typmods:
             if name == 'pg_catalog.interval':
-                typmod = node.typmods[0].val.val.value
+                typmod = node.typmods[0].val.val
                 if typmod in interval_ranges:
                     output.swrite(interval_ranges[typmod])
                 if len(node.typmods) == 2:
@@ -1626,7 +1623,7 @@ def type_name(node, output):
         if node.arrayBounds:
             for ab in node.arrayBounds:
                 output.write('[')
-                if ab.val.value >= 0:
+                if ab.val >= 0:
                     output.print_node(ab)
                 output.write(']')
 
@@ -1795,21 +1792,21 @@ def window_def(node, output):
 
 def print_indirection(node, output):
     for idx, subnode in enumerate(node):
-        if subnode.node_tag == 'String':
+        if isinstance(subnode, ast.String):
             output.write('.')
         output.print_node(subnode, is_name=True)
 
 
 @node_printer(('OnConflictClause', 'UpdateStmt'), 'ResTarget')
 def update_stmt_res_target(node, output):
-    if node.val.node_tag == 'MultiAssignRef':
+    if isinstance(node.val, ast.MultiAssignRef):
         if node.val.colno == 1:
             output.write('( ')
             output.indent(-2)
         output.print_name(node.name)
         if node.indirection:
             print_indirection(node.indirection, output)
-        if node.val.colno.value == node.val.ncolumns.value:
+        if node.val.colno == node.val.ncolumns:
             output.dedent()
             output.write(') = ')
             output.print_node(node.val)
@@ -1884,7 +1881,8 @@ class XmlExprOpPrinter(IntEnumPrinter):
         xml_option_type_printer(node.xmloption, node, output)
         arg, preserve_ws = node.args
         output.print_node(arg)
-        if preserve_ws.arg.val.val.value == 't':
+        if preserve_ws.arg.val.val == 't':
+            # FIXME: find a way to get here
             output.write(' PRESERVE WHITESPACE')
         output.write(')')
 
@@ -1901,11 +1899,11 @@ class XmlExprOpPrinter(IntEnumPrinter):
         xml, version, standalone = node.args
         output.print_node(xml)
         output.write(', version ')
-        if version.val.node_tag == 'Null':
+        if isinstance(version.val, ast.Null):
             output.write('NO VALUE')
         else:
             output.print_node(version)
-        xml_standalone_type_printer(standalone.val.val, node, output)
+        xml_standalone_type_printer(standalone.val, node, output)
         output.write(')')
 
     def IS_XMLSERIALIZE(self, node, output):  # XMLSERIALIZE(is_document, xmlval)

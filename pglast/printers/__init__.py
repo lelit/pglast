@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 16:33:14 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2020, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2020, 2021, 2022 Lele Gaifax
 #
 
 from .. import ast
@@ -11,7 +11,7 @@ from ..error import Error
 
 
 NODE_PRINTERS = {}
-"Registry of specialized printers, keyed by their `tag`."
+"Registry of specialized node printers, keyed by their class."
 
 
 SPECIAL_FUNCTIONS = {}
@@ -22,67 +22,69 @@ class PrinterAlreadyPresentError(Error):
     "Exception raised trying to register another function for a tag already present."
 
 
-def get_printer_for_node_tag(parent_node_tag, node_tag):
-    """Get specific printer implementation for given `node_tag`.
+def get_printer_for_node(node):
+    """Get specific printer implementation for given `node`.
 
     If there is a more specific printer for it, when it's inside a particular
-    `parent_node_tag`, return that instead.
+    ancestor, return that instead.
     """
 
-    printer = NODE_PRINTERS.get((parent_node_tag, node_tag))
+    node_class = type(node)
+    if not issubclass(node_class, ast.Node):
+        raise ValueError('Expected an ast.Node, not a %r' % node_class.__name__)
+    parent = abs(node.ancestors)
+    parent_node_class = None if parent is None else type(parent.node)
+    printer = NODE_PRINTERS.get((parent_node_class, node_class))
     if printer is None:
-        printer = NODE_PRINTERS.get(node_tag)
+        printer = NODE_PRINTERS.get(node_class)
         if printer is None:
             raise NotImplementedError("Printer for node %r is not implemented yet"
-                                      % node_tag)
+                                      % node_class.__name__)
     return printer
 
 
-def node_printer(*node_tags, override=False, check_tags=True):
-    r"""Decorator to register a specific printer implementation for given `node_tag`.
+def node_printer(*nodes, override=False):
+    r"""Decorator to register a specific printer implementation for a (set of) `nodes`.
 
-    :param \*node_tags: one or two node tags
+    :param \*nodes: a list of one or two items
     :param bool override:
            when ``True`` the function will be registered even if already present in the
            :data:`NODE_PRINTERS` registry
-    :param bool check_tags:
-           by default each `node_tags` is checked for validity, that is must be a valid class
-           implemented by :mod:`pglast.ast`; pass ``False`` to disable the check
 
-    When `node_tags` contains a single item then the decorated function is the *generic* one,
-    and it will be registered in :data:`NODE_PRINTERS` with that key alone. Otherwise it must
-    contain two elements: the first may be either a scalar value or a sequence of parent tags,
-    and the function will be registered under the key ``(parent_tag, tag)``.
+    When `nodes` contains a single item then the decorated function is the *generic*
+    one, and it will be registered in :data:`NODE_PRINTERS` with that key alone. Otherwise it
+    must contain two elements: the first may be either a scalar value or a sequence of parent
+    nodes, and the function will be registered under the key ``(parent, node)``.
     """
 
-    if check_tags:
-        for tag in node_tags:
-            if not isinstance(tag, (list, tuple)):
-                tag = (tag,)
-            for t in tag:
-                if not isinstance(t, str):
-                    raise ValueError(f'Invalid tag {t!r}, expected a string')
-                if not hasattr(ast, t):
-                    raise ValueError(f'Unknown tag name {t}')
+    n = len(nodes)
+    if n == 1:
+        parent_classes = (None,)
+        node_class = nodes[0]
+    elif n == 2:
+        pclasses, node_class = nodes
+        if not isinstance(pclasses, (list, tuple)):
+            pclasses = (pclasses,)
+        parent_classes = tuple(getattr(ast, cls) if isinstance(cls, str) else cls
+                               for cls in pclasses)
+    else:
+        raise ValueError('Invalid nodes: must contain one or two items!')
+
+    if isinstance(node_class, str):
+        node_class = getattr(ast, node_class)
+    elif not isinstance(node_class, type) or not issubclass(node_class, ast.Node):
+        raise ValueError('Invalid nodes: expected an ast.Node instance or its name,'
+                         ' got %r' % node_class)
 
     def decorator(impl):
-        if len(node_tags) == 1:
-            parent_tags = (None,)
-            tag = node_tags[0]
-        elif len(node_tags) == 2:
-            parent_tags, tag = node_tags
-            if not isinstance(parent_tags, (list, tuple)):
-                parent_tags = (parent_tags,)
-        else:
-            raise ValueError(f'Must specify one or two tags, got {len(node_tags)} instead')
-
-        for parent_tag in parent_tags:
-            t = tag if parent_tag is None else (parent_tag, tag)
-            if not override and t in NODE_PRINTERS:
+        for parent_class in parent_classes:
+            key = node_class if parent_class is None else (parent_class, node_class)
+            if not override and key in NODE_PRINTERS:  # pragma: no cover
                 raise PrinterAlreadyPresentError("A printer is already registered for tag %r"
-                                                 % t)
-            NODE_PRINTERS[t] = impl
+                                                 % key)
+            NODE_PRINTERS[key] = impl
         return impl
+
     return decorator
 
 
@@ -123,26 +125,20 @@ class IntEnumPrinter:
         self.value_to_symbol = {m.value: m.name for m in self.enum}
 
     def __call__(self, value, node, output):
-        from ..node import Missing, Scalar
-
-        if value is Missing:
+        if value is None:
             # Should never happen, but better safe than sorry
             for symbol, member in self.enum.__members__.items():
                 if member.value == 0:
                     break
             else:  # pragma: no cover
                 raise ValueError(f"Could not determine default value of class {self.enum!r}")
-        elif isinstance(value, Scalar):
-            if isinstance(value.value, str):
-                # libpg_query 13+ emits enum names, not values
-                symbol = value.value
-                if symbol not in self.enum.__members__:
-                    raise ValueError('Unexpected symbol {symbol!r}, not in {self.enum!r}')
-            else:
-                symbol = self.value_to_symbol.get(value.value)
+        elif isinstance(value, self.enum):
+            symbol = self.value_to_symbol.get(value)
+        elif isinstance(value, ast.Integer):
+            symbol = self.value_to_symbol.get(value.val)
         else:
             symbol = value
-        if symbol is None:
+        if symbol is None:  # pragma: no cover
             raise ValueError(f"Invalid value {value!r}, not in class {self.enum!r}")
         method = getattr(self, symbol, None)
         if method is None:
@@ -153,6 +149,14 @@ class IntEnumPrinter:
                 raise ValueError(f"Invalid symbol {symbol!r}, not in class {self.enum!r}")
 
         method(node, output)
+
+
+def get_string_value(lst):
+    "Helper function to get a literal string value, wrapped in a one-sized list."
+
+    if len(lst) != 1 or not isinstance(lst[0], ast.String):  # pragma: no cover
+        raise TypeError('%r does not contain a single String node' % lst)
+    return lst[0].val
 
 
 from . import ddl, dml, sfuncs  # noqa: F401,E402

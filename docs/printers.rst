@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 13:23:18 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2021 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2021, 2022 Lele Gaifax
 ..
 
 ==========================================================
@@ -22,7 +22,7 @@ associated :class:`~.node.Node` will be serialized.
 
 .. autoexception:: PrinterAlreadyPresentError
 
-.. autofunction:: get_printer_for_node_tag
+.. autofunction:: get_printer_for_node
 
 .. autofunction:: node_printer
 

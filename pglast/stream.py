@@ -11,10 +11,9 @@ from io import StringIO
 from re import match
 from sys import stderr
 
-from .node import List, Missing, Node, Scalar
 from . import ast, parse_plpgsql, parse_sql, visitors
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
-from .printers import get_printer_for_node_tag, get_special_function
+from .printers import get_printer_for_node, get_special_function
 
 
 class OutputStream(StringIO):
@@ -156,25 +155,18 @@ class RawStream(OutputStream):
         :returns: a string with the equivalent SQL obtained by serializing the syntax tree
 
         The `sql` statement may be either a ``str`` containing the ``SQL`` in textual form, or
-        a :class:`.node.Node` instance, or a :class:`.node.List` instance containing
-        :class:`.node.Node` instances, or a concrete :class:`.ast.Node` instance or a tuple of
-        them.
+        a concrete :class:`.ast.Node` instance or a tuple of them.
         """
 
         from . import ast
 
         if isinstance(sql, str):
-            sql = Node(parse_plpgsql(sql) if plpgsql else parse_sql(sql))
-        elif isinstance(sql, Node):
-            sql = (sql,)
+            sql = parse_plpgsql(sql) if plpgsql else parse_sql(sql)
         elif isinstance(sql, ast.Node):
-            sql = (Node(sql),)
-        elif isinstance(sql, tuple) and sql and isinstance(sql[0], ast.Node):
-            sql = (Node(n) for n in sql)
-        elif not isinstance(sql, List):
+            sql = (sql,)
+        elif not (isinstance(sql, tuple) and sql and isinstance(sql[0], ast.Node)):
             raise ValueError("Unexpected value for 'sql', must be either a string,"
-                             " a node.Node instance, a node.List, an ast.Node or tuple of"
-                             " them, got %r" % type(sql))
+                             " an ast.Node or tuple of them, got %r" % type(sql))
 
         class UpdateAncestors(visitors.Visitor):
             def visit(self, ancestors, node):
@@ -277,19 +269,21 @@ class RawStream(OutputStream):
     def _print_scalar(self, node, is_name, is_symbol):
         "Print the scalar `node`, special-casing string literals."
 
-        value = node.value
-        if is_symbol:
+        value = node.val if isinstance(node, ast.Value) else node
+        is_string = isinstance(value, str)
+        if is_symbol and is_string:
             self.write(value)
-        elif is_name:
-            # The `scalar` represent a name of a column/table/alias: when any of its
+        elif is_name and is_string:
+            # The `node` represent a name of a column/table/alias: when any of its
             # characters is not a lower case letter, a digit or underscore, it must be
             # double quoted
+            value = str(value)
             if ((not match(r'[a-z_][a-z0-9_]*$', value)
                  or value in RESERVED_KEYWORDS
                  or value in TYPE_FUNC_NAME_KEYWORDS)):
                 value = '"%s"' % value.replace('"', '""')
             self.write(value)
-        elif isinstance(value, str):  # node.parent_node.node_tag == 'String':
+        elif is_string:
             self.write_quoted_string(value)
         else:
             self.write(str(value))
@@ -317,23 +311,29 @@ class RawStream(OutputStream):
     def print_name(self, nodes, sep='.'):
         "Helper method, execute :meth:`print_node` or :meth:`print_list` as needed."
 
-        if isinstance(nodes, (List, list)):
+        if isinstance(nodes, (list, tuple)):
             self.print_list(nodes, sep, standalone_items=False, are_names=True)
-        else:
+        elif isinstance(nodes, ast.Node):
             self.print_node(nodes, is_name=True)
+        else:
+            self._print_scalar(nodes, is_name=True, is_symbol=False)
+        self.separator()
 
     def print_symbol(self, nodes, sep='.'):
         "Helper method, execute :meth:`print_node` or :meth:`print_list` as needed."
 
-        if isinstance(nodes, (List, list)):
+        if isinstance(nodes, (list, tuple)):
             self.print_list(nodes, sep, standalone_items=False, are_names=True, is_symbol=True)
-        else:
+        elif isinstance(nodes, ast.Node):
             self.print_node(nodes, is_name=True, is_symbol=True)
+        else:
+            self._print_scalar(str(nodes), is_name=True, is_symbol=True)
+        self.separator()
 
     def print_node(self, node, is_name=False, is_symbol=False):
         """Lookup the specific printer for the given `node` and execute it.
 
-        :param node: an instance of :class:`~.node.Node` or :class:`~.node.Scalar`
+        :param node: an instance of :class:`~.ast.Node`
         :param bool is_name:
                whether this is a *name* of something, that may need to be double quoted
         :param bool is_symbol:
@@ -346,38 +346,38 @@ class RawStream(OutputStream):
             elif hasattr(node, 'stmt_location'):
                 node_location = getattr(node, 'stmt_location')
             else:
-                node_location = Missing
-            if node_location is not Missing:
+                node_location = None
+            if node_location is not None:
                 nextc = self.comments[0]
-                if nextc.location <= node_location.value:
+                if nextc.location <= node_location:
                     self.print_comment(self.comments.pop(0))
                     while self.comments and self.comments[0].continue_previous:
                         self.print_comment(self.comments.pop(0))
 
-        if isinstance(node, Scalar):
-            self._print_scalar(node, is_name, is_symbol)
-        elif is_name and isinstance(node, (List, list)):
+        if is_name and isinstance(node, (list, tuple)):
             self.print_list(node, '.', standalone_items=False, are_names=True)
-        else:
-            parent_node_tag = node.parent_node and node.parent_node.node_tag
-            printer = get_printer_for_node_tag(parent_node_tag, node.node_tag)
-            if is_name and node.node_tag == 'String':
+        elif isinstance(node, ast.Node):
+            printer = get_printer_for_node(node)
+            if is_name and isinstance(node, ast.String):
                 printer(node, self, is_name=is_name, is_symbol=is_symbol)
             else:
                 printer(node, self)
+        else:
+            self._print_scalar(node, is_name, is_symbol)
+
         self.separator()
 
     def _is_pg_catalog_func(self, items):
         return (
             self.remove_pg_catalog_from_functions
             and len(items) > 1
-            and isinstance(items, List)
-            and items.parent_attribute == 'funcname'
-            and items[0].val.value == 'pg_catalog'
+            and isinstance(items, (list, tuple))
+            and items[0].ancestors.parent.member == 'funcname'
+            and items[0].val == 'pg_catalog'
             # The list contains all functions that cannot be found without an
             # explicit pg_catalog schema. ie:
             # position(a,b) is invalid but pg_catalog.position(a,b) is fine
-            and items[1].val.value not in ('position', 'xmlexists')
+            and items[1].val not in ('position', 'xmlexists')
         )
 
     def _print_items(self, items, sep, newline, are_names=False, is_symbol=False):
@@ -401,13 +401,16 @@ class RawStream(OutputStream):
                         self.write(sep)
                         if sep != '.':
                             self.write(' ')
-            self.print_node(item, is_name=are_names, is_symbol=is_symbol and idx == last)
+            if item is None:
+                self.write('None')
+            else:
+                self.print_node(item, is_name=are_names, is_symbol=is_symbol and idx == last)
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
                    are_names=False, is_symbol=False):
         """Execute :meth:`print_node` on all the `nodes`, separating them with `sep`.
 
-        :param nodes: a sequence of :class:`~.node.Node` instances or a single List node
+        :param nodes: a sequence of :class:`~.ast.Node` instances
         :param str sep: the separator between them
         :param bool relative_indent:
                if given, the relative amount of indentation to apply before the first item, by
@@ -421,12 +424,6 @@ class RawStream(OutputStream):
                case the last one must be printed verbatim (e.g. ``"MySchema".===``)
         """
 
-        if isinstance(nodes, Node):  # pragma: no cover
-            if nodes.node_tag != 'List':
-                raise ValueError("Unexpected value for 'nodes', must be either a List instance"
-                                 " or a sequence of Node instances, got %r" % type(nodes))
-            nodes = nodes.items
-
         if relative_indent is None:
             if are_names or is_symbol:
                 relative_indent = 0
@@ -436,9 +433,8 @@ class RawStream(OutputStream):
                                    else 0)
 
         if standalone_items is None:
-            standalone_items = not all(isinstance(n, Node)
-                                       and n.node_tag in ('A_Const', 'ColumnRef',
-                                                          'SetToDefault', 'RangeVar')
+            standalone_items = not all(isinstance(n, (ast.A_Const, ast.ColumnRef,
+                                                      ast.SetToDefault, ast.RangeVar))
                                        for n in nodes)
 
         with self.push_indent(relative_indent):
@@ -450,7 +446,7 @@ class RawStream(OutputStream):
                     sublist_relative_indent=None):
         """Execute :meth:`print_list` on all the `lists` items.
 
-        :param lists: a sequence of sequences of :class:`~.node.Node` instances
+        :param lists: a sequence of sequences of :class:`~.ast.Node` instances
         :param str sep: passed as is to :meth:`print_list`
         :param bool relative_indent: passed as is to :meth:`print_list`
         :param bool standalone_items: passed as is to :meth:`print_list`
@@ -594,7 +590,7 @@ class IndentedStream(RawStream):
                    are_names=False, is_symbol=False):
         """Execute :meth:`print_node` on all the `nodes`, separating them with `sep`.
 
-        :param nodes: a sequence of :class:`~.node.Node` instances
+        :param nodes: a sequence of :class:`~.ast.Node` instances
         :param str sep: the separator between them
         :param bool relative_indent:
                if given, the relative amount of indentation to apply before the first item, by
@@ -608,12 +604,6 @@ class IndentedStream(RawStream):
                must be printed verbatim (such as ``"MySchema".===``)
         """
 
-        if isinstance(nodes, Node):  # pragma: no cover
-            if nodes.node_tag != 'List':
-                raise ValueError("Unexpected value for 'nodes', must be either a List instance"
-                                 " or a sequence of Node instances, got %r" % type(nodes))
-            nodes = nodes.items
-
         if standalone_items is None:
             clm = self.compact_lists_margin
             if clm is not None and clm > 0:
@@ -622,10 +612,9 @@ class IndentedStream(RawStream):
                     self.write(rawlist)
                     return
 
-            standalone_items = not all(
-                (isinstance(n, Node)
-                 and n.node_tag in ('A_Const', 'ColumnRef', 'SetToDefault', 'RangeVar'))
-                for n in nodes)
+            standalone_items = not all(isinstance(n, (ast.A_Const, ast.ColumnRef,
+                                                      ast.SetToDefault, ast.RangeVar))
+                                       for n in nodes)
 
         if (((sep != ',' or not self.comma_at_eoln)
              and len(nodes) > 1

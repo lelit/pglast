@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:06:38 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
 ..
 
 .. _usage:
@@ -15,7 +15,7 @@
 Here are some example of how the module can be used.
 
 ---------
-Low level
+AST level
 ---------
 
 The lowest level is a Python wrapper around each *parse node* returned by the ``PostgreSQL``
@@ -181,89 +181,6 @@ This basically means that you can reconstruct a syntax tree from the result of c
    >>> clone == stmt
    True
 
-------------
-Medium level
-------------
-
-Parse an ``SQL`` statement and get its *AST* root node
-======================================================
-
-.. doctest::
-
-   >>> from pglast import Node
-   >>> root = Node(parse_sql('SELECT foo FROM bar'))
-   >>> print(root)
-   None=[1*{RawStmt}]
-
-Get a particular node
-=====================
-
-.. doctest::
-
-   >>> from_clause = root[0].stmt.fromClause
-   >>> print(from_clause)
-   fromClause=[1*{RangeVar}]
-
-Obtain some information about a node
-====================================
-
-.. doctest::
-
-   >>> range_var = from_clause[0]
-   >>> print(range_var.node_tag)
-   RangeVar
-   >>> print(range_var.attribute_names)
-   ('catalogname', 'schemaname', 'relname', 'inh', 'relpersistence', 'alias', 'location')
-   >>> print(range_var.parent_node)
-   stmt={SelectStmt}
-
-Iterate over nodes
-==================
-
-.. doctest::
-
-   >>> for a in from_clause:
-   ...     print(a)
-   ...     for b in a:
-   ...         print(b)
-   ...
-   fromClause[0]={RangeVar}
-   inh=<True>
-   location=<16>
-   relname=<'bar'>
-   relpersistence=<'p'>
-
-Recursively :meth:`traverse <pglast.node.Node.traverse>` the parse tree
-=======================================================================
-
-.. doctest::
-
-   >>> for node in root.traverse():
-   ...   print(node)
-   ...
-   None[0]={RawStmt}
-   stmt={SelectStmt}
-   all=<False>
-   fromClause[0]={RangeVar}
-   inh=<True>
-   location=<16>
-   relname=<'bar'>
-   relpersistence=<'p'>
-   limitOption=<LimitOption.LIMIT_OPTION_DEFAULT: 0>
-   op=<SetOperation.SETOP_NONE: 0>
-   targetList[0]={ResTarget}
-   location=<7>
-   val={ColumnRef}
-   fields[0]={String}
-   val=<'foo'>
-   location=<7>
-   stmt_len=<0>
-   stmt_location=<0>
-
-As you can see, the ``repr``\ esentation of each value is mnemonic: ``{some_tag}`` means a
-``Node`` with tag ``some_tag``, ``[X*{some_tag}]`` is a ``List`` containing `X` nodes of that
-particular kind\ [*]_ and ``<value>`` is a ``Scalar``.
-
 Programmatically :func:`reformat <pglast.prettify>` a ``SQL`` statement
 =======================================================================
 
@@ -318,7 +235,7 @@ that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
 
 .. doctest::
 
-   >>> print(IndentedStream()(root))
+   >>> print(IndentedStream()('select foo from bar'))
    SELECT foo
    FROM bar
 
@@ -400,7 +317,7 @@ Customize a :func:`node printer <pglast.printers.node_printer>`
    >>> from pglast.printers import node_printer
    >>> @node_printer('ParamRef', override=True)
    ... def replace_param_ref(node, output):
-   ...     output.write(repr(args[node.number.value - 1]))
+   ...     output.write(repr(args[node.number - 1]))
    ...
    >>> args = ['Hello', 'Ciao']
    >>> print(prettify(sql, safety_belt=False))
@@ -542,11 +459,6 @@ Preserve comments
           carry their exact location, so it is not possible to differentiate between
           ``SELECT * /*comment*/ FROM foo`` and ``SELECT * FROM /*comment*/ foo``.
 
----
-
-.. [*] This is an approximation, because in principle a list can contain different kinds of
-       nodes, or even sub-lists in some cases: the ``List`` representation arbitrarily shows
-       the tag of the first object.
 
 Functions vs SQL syntax
 =======================

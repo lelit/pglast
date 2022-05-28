@@ -3,7 +3,7 @@
 # :Created:   mer 22 nov 2017 08:34:34 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2021, 2022 Lele Gaifax
 #
 
 from . import special_function
@@ -49,7 +49,7 @@ def date_part(node, output):
     ``EXTRACT(field FROM timestamp).``.
     """
     output.write('EXTRACT(')
-    output.write(node.args[0].val.val.value.upper())
+    output.write(node.args[0].val.val.upper())
     output.write(' FROM ')
     output.print_node(node.args[1])
     output.write(')')
@@ -75,7 +75,7 @@ def normalize(node, output):
     output.print_node(node.args[0])
     if len(node.args) > 1:
         output.write(', ')
-        output.write(node.args[1].val.val.value.upper())
+        output.write(node.args[1].val.val.upper())
     output.write(')')
 
 

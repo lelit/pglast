@@ -3,12 +3,13 @@
 # :Created:   mer 02 ago 2017 15:11:02 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
 #
+
+from collections import namedtuple
 
 from . import enums
 from .error import Error
-from .node import Comment, Missing, Node
 try:
     from .parser import fingerprint, get_postgresql_version, parse_sql, scan, split
 except ModuleNotFoundError:  # pragma: no cover
@@ -29,6 +30,10 @@ def parse_plpgsql(statement):
     from .parser import parse_plpgsql_json
 
     return loads(parse_plpgsql_json(statement))
+
+
+Comment = namedtuple('Comment', ('location', 'text', 'at_start_of_line', 'continue_previous'))
+"A structure to carry information about a single SQL comment."
 
 
 def _extract_comments(statement):
@@ -81,7 +86,7 @@ def prettify(statement, safety_belt=False, preserve_comments=False, **options):
         options['comments'] = _extract_comments(statement)
 
     orig_pt = parse_sql(statement)
-    prettified = IndentedStream(**options)(Node(orig_pt))
+    prettified = IndentedStream(**options)(orig_pt)
     if safety_belt:
         from logging import getLogger
         import warnings
@@ -109,5 +114,5 @@ def prettify(statement, safety_belt=False, preserve_comments=False, **options):
     return prettified
 
 
-__all__ = ('Error', 'Missing', 'Node', 'enums', 'fingerprint', 'get_postgresql_version',
+__all__ = ('Error', 'enums', 'fingerprint', 'get_postgresql_version',
            'parse_plpgsql', 'parse_sql', 'prettify', 'split')
