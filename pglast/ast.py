@@ -58,7 +58,7 @@ Omissis = Omissis()
 class Node:
     "Base class for all AST nodes."
 
-    __slots__ = ()
+    __slots__ = ('ancestors',)
 
     def __init__(self, data):
         if not isinstance(data, dict):  # pragma: no cover
@@ -141,7 +141,7 @@ class Node:
         attribute, raising opportune exception when that is not possible.
         '''
 
-        if value is not None:
+        if value is not None and name in self.__slots__:
             ctype, ptype, adaptor = self.__slots__[name]
             if not isinstance(ptype, tuple):
                 ptype = (ptype,)

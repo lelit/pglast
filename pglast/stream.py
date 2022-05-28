@@ -11,8 +11,8 @@ from io import StringIO
 from re import match
 from sys import stderr
 
-from . import parse_plpgsql, parse_sql
 from .node import List, Missing, Node, Scalar
+from . import ast, parse_plpgsql, parse_sql, visitors
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
 from .printers import get_printer_for_node_tag, get_special_function
 
@@ -175,6 +175,12 @@ class RawStream(OutputStream):
             raise ValueError("Unexpected value for 'sql', must be either a string,"
                              " a node.Node instance, a node.List, an ast.Node or tuple of"
                              " them, got %r" % type(sql))
+
+        class UpdateAncestors(visitors.Visitor):
+            def visit(self, ancestors, node):
+                node.ancestors = ancestors
+
+        UpdateAncestors()(sql)
 
         first = True
         for statement in sql:
