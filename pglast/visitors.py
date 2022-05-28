@@ -100,38 +100,57 @@ class Ancestor:
         True
 
     As said, the `node` is not always a :class:`.ast.Node`, but may be a tuple, possibly
-    containing *subtuples*, for example the ``functions`` slot of :class:`~.ast.RangeFunction`:
+    containing *subtuples*, for example the ``functions`` slot of :class:`~.ast.RangeFunction`
+    that is a tuple of tuples, each containing a :class:`~.ast.FuncCall` and possibly other
+    values:
+
+    .. testsetup:: *
+
+        from pglast.visitors import Visitor
 
     .. doctest::
 
         >>> tree = parse_sql('SELECT * FROM ROWS'
-        ...                  ' FROM(generate_series(10,11), get_users())')
-        >>> root = Ancestor()
-        >>> from_clause_path = (root / (root, 0) / (tree[0], 'stmt')
-        ...                     / (tree[0].stmt, 'fromClause'))
-        >>> from_clause = tree[0].stmt.fromClause
-        >>> from_clause_path@tree is from_clause
+        ...                  ' FROM (generate_series(10,11),'
+        ...                  '       get_users())')
+        >>> class VerboseVisitor(Visitor):
+        ...   all_ancestors = []
+        ...   def visit(self, ancestors, node):
+        ...     print(f'{len(self.all_ancestors):2d}.',
+        ...           "node:", type(node).__name__,
+        ...           "ancestor:", type(ancestors.node).__name__)
+        ...     self.all_ancestors.append(ancestors)
+        >>> VerboseVisitor()(tree)
+         0. node: RawStmt ancestor: tuple
+         1. node: SelectStmt ancestor: RawStmt
+         2. node: ResTarget ancestor: tuple
+         3. node: RangeFunction ancestor: tuple
+         4. node: ColumnRef ancestor: ResTarget
+         5. node: A_Star ancestor: tuple
+         6. node: FuncCall ancestor: tuple
+         7. node: FuncCall ancestor: tuple
+         8. node: String ancestor: tuple
+         9. node: A_Const ancestor: tuple
+        10. node: A_Const ancestor: tuple
+        11. node: String ancestor: tuple
+        12. node: Integer ancestor: A_Const
+        13. node: Integer ancestor: A_Const
+        ...
+
+    To find the closest ancestor that is actually pointing to an AST node you may use the
+    ``abs()`` function:
+
+    .. doctest::
+
+        >>> range_function = tree[0].stmt.fromClause[0]
+        >>> gen_series_funccall = range_function.functions[0][0]
+        >>> gen_series_funccall
+        <FuncCall funcname=(<String val='generate_series'>,) ...>
+        >>> generate_series_ancestry = VerboseVisitor.all_ancestors[6]
+        >>> generate_series_ancestry@tree is gen_series_funccall
         True
-        >>> range_function_path = (from_clause_path
-        ...                        / (from_clause, 0))
-        >>> range_function = from_clause[0]
-        >>> functions_path = (range_function_path
-        ...                   / (range_function, 'functions'))
-        >>> functions = from_clause[0].functions
-        >>> functions_path@tree is functions
+        >>> abs(generate_series_ancestry).node is range_function
         True
-        >>> generate_series_path = (functions_path
-        ...                         / (functions, 0))
-        >>> generate_series_path@tree is functions[0]
-        True
-        >>> type(generate_series_path.node)
-        <class 'tuple'>
-        >>> type(generate_series_path.member)
-        <class 'int'>
-        >>> type(generate_series_path.node[0])
-        <class 'tuple'>
-        >>> generate_series_path.node[0][0]
-        <FuncCall funcname=(<String val='generate_series'>,)...
     """
 
     def __init__(self, parent=None, node=None, member=None):
@@ -160,6 +179,13 @@ class Ancestor:
             path = path.parent
             n -= 1
         return path.node
+
+    def __abs__(self):
+        path = self
+        while path:
+            if isinstance(path.node, ast.Node):
+                return path
+            path = path.parent
 
     def __truediv__(self, node_and_member):
         "Create a new instance pointing to the given child node."

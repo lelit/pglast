@@ -83,6 +83,17 @@ def test_ancestors():
     checker(raw)
 
 
+def test_closest_node():
+    class Checker(visitors.Visitor):
+        def visit(self, ancestors, node):
+            if isinstance(node, ast.FuncCall):
+                assert isinstance(ancestors[0], tuple)
+                assert isinstance(abs(ancestors).node, ast.RangeFunction)
+
+    raw = parse_sql('SELECT * FROM ROWS FROM(generate_series(10,11), get_users())')
+    Checker()(raw)
+
+
 class CountAllNodes(visitors.Visitor):
     def __call__(self, node):
         self.count = 0
