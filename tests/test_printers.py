@@ -21,18 +21,43 @@ def test_registry():
 
     with pytest.raises(ValueError):
         @node_printer()
-        def tag(node, output):
+        def missing_node(node, output):
             pass
 
     with pytest.raises(ValueError):
         @node_printer(1)
-        def invalid_tag(node, output):
+        def invalid_node(node, output):
             pass
 
     with pytest.raises(ValueError):
-        @node_printer('one', 'two', 'three')
-        def too_many_tags1(node, output):
+        @node_printer(ast.RawStmt, ast.SelectStmt, ast.UpdateStmt)
+        def too_many_nodes(node, output):
             pass
+
+    with pytest.raises(ValueError):
+        @node_printer('RawStmt')
+        def invalid_node(node, output):
+            pass
+
+    with pytest.raises(ValueError):
+        @node_printer((ast.RawStmt, 'foo'), ast.SelectStmt)
+        def invalid_parents(node, output):
+            pass
+
+    raw_stmt = NODE_PRINTERS.pop(ast.RawStmt)
+    try:
+        @node_printer(ast.RawStmt)
+        def raw(node, output):
+            pass
+
+        assert NODE_PRINTERS[ast.RawStmt] is raw
+
+        with pytest.raises(PrinterAlreadyPresentError):
+            @node_printer(ast.RawStmt)
+            def other_raw(node, output):
+                pass
+    finally:
+        NODE_PRINTERS[ast.RawStmt] = raw_stmt
 
 
 def test_prettify_safety_belt():

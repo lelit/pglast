@@ -62,18 +62,17 @@ def node_printer(*nodes, override=False):
         parent_classes = (None,)
         node_class = nodes[0]
     elif n == 2:
-        pclasses, node_class = nodes
-        if not isinstance(pclasses, (list, tuple)):
-            pclasses = (pclasses,)
-        parent_classes = tuple(getattr(ast, cls) if isinstance(cls, str) else cls
-                               for cls in pclasses)
+        parent_classes, node_class = nodes
+        if not isinstance(parent_classes, (list, tuple)):
+            parent_classes = (parent_classes,)
+        if not all(isinstance(c, type) and issubclass(c, ast.Node) for c in parent_classes):
+            raise ValueError('Invalid nodes: expected a sequence of ast.Node classes as'
+                             '  parents, got %r' % (parent_classes,))
     else:
         raise ValueError('Invalid nodes: must contain one or two items!')
 
-    if isinstance(node_class, str):
-        node_class = getattr(ast, node_class)
-    elif not isinstance(node_class, type) or not issubclass(node_class, ast.Node):
-        raise ValueError('Invalid nodes: expected an ast.Node instance or its name,'
+    if not isinstance(node_class, type) or not issubclass(node_class, ast.Node):
+        raise ValueError('Invalid nodes: expected an ast.Node class,'
                          ' got %r' % node_class)
 
     def decorator(impl):

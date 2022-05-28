@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 12:56:35 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2022 Lele Gaifax
 #
 
 from datetime import date
@@ -81,12 +81,13 @@ def extract_printers(source):
     nps = []
     for line in content.splitlines():
         if line.startswith('@node_printer('):
-            m = match(r'''@node_printer\((.*,\s)?['"]([\w_]+)['"]\)''', line)
+            m = match(r'@node_printer\((.*,\s)?([\w._]+)\)', line)
             scope = m.group(1)
             if scope:
-                scope = literal_eval(scope.rstrip(', '))
+                scope = scope.lstrip('(').rstrip('), ').split(',')
                 if isinstance(scope, str):
                     scope = (scope,)
+                scope = tuple(s.strip() for s in scope)
             node = m.group(2)
             nps.append((scope, node))
         elif line.startswith('def '):
@@ -112,21 +113,24 @@ def workhorse(args):
         for scope, node, funcname in printers:
             if scope:
                 scoped = ", when it is inside "
-                snode = scope[0]
+                snode = scope[0][4:]
                 header, lineno = toc[snode]
                 header_url = libpg_query_baseurl + header[12:]
                 scoped += "a `%s <%s#L%d>`__" % (snode, header_url, lineno)
                 for snode in scope[1:]:
+                    snode = snode[4:]
                     header, lineno = toc[snode]
                     header_url = libpg_query_baseurl + header[12:]
                     scoped += " or a `%s <%s#L%d>`__" % (snode, header_url, lineno)
                 scoped += ','
             else:
                 scoped = ''
+            node = node[4:]
             header, lineno = toc[node]
             header_url = libpg_query_baseurl + header[12:]
             if scope:
                 for snode in scope:
+                    snode = snode[4:]
                     rstdoc.write('\n.. index::\n   pair: %s;%s\n' % (snode, node))
             else:
                 rstdoc.write('\n.. index:: %s\n' % node)

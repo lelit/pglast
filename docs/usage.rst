@@ -315,7 +315,7 @@ Customize a :func:`node printer <pglast.printers.node_printer>`
    SET italian = $2
    WHERE word = $1
    >>> from pglast.printers import node_printer
-   >>> @node_printer('ParamRef', override=True)
+   >>> @node_printer(ast.ParamRef, override=True)
    ... def replace_param_ref(node, output):
    ...     output.write(repr(args[node.number - 1]))
    ...

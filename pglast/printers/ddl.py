@@ -12,7 +12,7 @@ from .. import ast, enums
 from . import IntEnumPrinter, get_string_value, node_printer
 
 
-@node_printer('AccessPriv')
+@node_printer(ast.AccessPriv)
 def access_priv(node, output):
     if node.priv_name is None:
         output.write('ALL PRIVILEGES')
@@ -78,35 +78,35 @@ OBJECT_NAMES = {
 }
 
 
-@node_printer('AlterCollationStmt')
+@node_printer(ast.AlterCollationStmt)
 def alter_collation_stmt(node, output):
     output.write('ALTER COLLATION ')
     output.print_name(node.collname)
     output.write(' REFRESH VERSION')
 
 
-@node_printer('AlterDatabaseStmt')
+@node_printer(ast.AlterDatabaseStmt)
 def alter_database_stmt(node, output):
     output.write('ALTER DATABASE ')
     output.print_name(node.dbname)
     output.print_list(node.options, ' ')
 
 
-@node_printer('AlterDatabaseSetStmt')
+@node_printer(ast.AlterDatabaseSetStmt)
 def alter_database_set_stmt(node, output):
     output.write('ALTER DATABASE ')
     output.print_name(node.dbname)
     output.print_node(node.setstmt)
 
 
-@node_printer('AlterExtensionStmt')
+@node_printer(ast.AlterExtensionStmt)
 def alter_extension_stmt(node, output):
     output.write('ALTER EXTENSION ')
     output.print_name(node.extname)
     output.print_list(node.options, '')
 
 
-@node_printer('AlterExtensionStmt', 'DefElem')
+@node_printer(ast.AlterExtensionStmt, ast.DefElem)
 def alter_extension_stmt_def_elem(node, output):
     option = node.defname
     if option == 'new_version':
@@ -116,7 +116,7 @@ def alter_extension_stmt_def_elem(node, output):
         raise NotImplementedError('Option not implemented: %s' % option)
 
 
-@node_printer('AlterExtensionContentsStmt')
+@node_printer(ast.AlterExtensionContentsStmt)
 def alter_extension_contents_stmt(node, output):
     output.write('ALTER EXTENSION ')
     output.print_name(node.extname)
@@ -129,7 +129,7 @@ def alter_extension_contents_stmt(node, output):
     output.print_node(node.object)
 
 
-@node_printer('AlterEnumStmt')
+@node_printer(ast.AlterEnumStmt)
 def alter_enum_stmt(node, output):
     output.write('ALTER TYPE ')
     output.print_name(node.typeName)
@@ -151,7 +151,7 @@ def alter_enum_stmt(node, output):
         output.write_quoted_string(node.newValNeighbor)
 
 
-@node_printer('AlterDefaultPrivilegesStmt')
+@node_printer(ast.AlterDefaultPrivilegesStmt)
 def alter_default_privileges_stmt(node, output):
     output.writes('ALTER DEFAULT PRIVILEGES')
     roles = None
@@ -200,7 +200,7 @@ def alter_default_privileges_stmt(node, output):
             output.write('CASCADE')
 
 
-@node_printer('AlterFunctionStmt')
+@node_printer(ast.AlterFunctionStmt)
 def alter_function_stmt(node, output):
     output.write('ALTER ')
     if node.objtype == enums.ObjectType.OBJECT_PROCEDURE:
@@ -211,7 +211,7 @@ def alter_function_stmt(node, output):
     output.print_list(node.actions, ' ')
 
 
-@node_printer('AlterObjectSchemaStmt')
+@node_printer(ast.AlterObjectSchemaStmt)
 def alter_object_schema_stmt(node, output):
     OT = enums.ObjectType
     objtype = node.objectType
@@ -237,7 +237,7 @@ def alter_object_schema_stmt(node, output):
     output.print_name(node.newschema)
 
 
-@node_printer('AlterOperatorStmt')
+@node_printer(ast.AlterOperatorStmt)
 def alter_operator_stmt(node, output):
     output.write('ALTER OPERATOR ')
     output.print_node(node.opername)
@@ -246,7 +246,7 @@ def alter_operator_stmt(node, output):
     output.write(')')
 
 
-@node_printer('AlterOperatorStmt', 'DefElem')
+@node_printer(ast.AlterOperatorStmt, ast.DefElem)
 def alter_operator_stmt_def_elem(node, output):
     if node.defnamespace:
         # FIXME: find a way to get here
@@ -260,7 +260,7 @@ def alter_operator_stmt_def_elem(node, output):
         output.write('NONE')
 
 
-@node_printer('AlterOpFamilyStmt')
+@node_printer(ast.AlterOpFamilyStmt)
 def alter_op_family_stmt(node, output):
     output.write('ALTER OPERATOR FAMILY ')
     output.print_name(node.opfamilyname)
@@ -272,7 +272,7 @@ def alter_op_family_stmt(node, output):
     output.print_list(node.items)
 
 
-@node_printer('AlterOwnerStmt')
+@node_printer(ast.AlterOwnerStmt)
 def alter_owner_stmt(node, output):
     output.write('ALTER ')
     output.writes(OBJECT_NAMES[node.objectType])
@@ -289,7 +289,7 @@ def alter_owner_stmt(node, output):
     output.print_node(node.newowner)
 
 
-@node_printer('AlterPolicyStmt')
+@node_printer(ast.AlterPolicyStmt)
 def alter_policy_stmt(node, output):
     output.write('ALTER POLICY ')
     output.print_name(node.policy_name)
@@ -308,7 +308,7 @@ def alter_policy_stmt(node, output):
         output.write(')')
 
 
-@node_printer('AlterRoleStmt')
+@node_printer(ast.AlterRoleStmt)
 def alter_role_stmt(node, output):
     if len(node.options) == 1 and node.options[0].defname == 'rolemembers':
         output.write('ALTER GROUP ')
@@ -324,7 +324,7 @@ def alter_role_stmt(node, output):
         output.print_list(node.options, sep=' ')
 
 
-@node_printer('AlterSeqStmt')
+@node_printer(ast.AlterSeqStmt)
 def alter_seq_stmt(node, output):
     output.write('ALTER SEQUENCE ')
     if node.missing_ok:
@@ -334,7 +334,7 @@ def alter_seq_stmt(node, output):
         output.print_list(node.options, '')
 
 
-@node_printer('AlterTableStmt')
+@node_printer(ast.AlterTableStmt)
 def alter_table_stmt(node, output):
     output.write('ALTER ')
     output.writes(OBJECT_NAMES[node.relkind])
@@ -379,7 +379,7 @@ def alter_def_elem(node, output):
         output.write(')')
 
 
-@node_printer('AlterTableStmt', 'RangeVar')
+@node_printer(ast.AlterTableStmt, ast.RangeVar)
 def range_var(node, output):
     if abs(node.ancestors).node.relkind == enums.ObjectType.OBJECT_TABLE and not node.inh:
         output.write('ONLY ')
@@ -697,18 +697,14 @@ class AlterTableTypePrinter(IntEnumPrinter):
 alter_table_type_printer = AlterTableTypePrinter()
 
 
-@node_printer('AlterTableCmd')
+@node_printer(ast.AlterTableCmd)
 def alter_table_cmd(node, output):
     alter_table_type_printer(node.subtype, node, output)
     if node.behavior == enums.DropBehavior.DROP_CASCADE:
         output.swrite('CASCADE')
 
 
-@node_printer('AlterTableCmd', 'DefElem')
-@node_printer('CreatePublicationStmt', 'DefElem')
-@node_printer('CreateStmt', 'DefElem')
-@node_printer('IndexStmt', 'DefElem')
-@node_printer('IntoClause', 'DefElem')
+@node_printer((ast.AlterTableCmd, ast.CreatePublicationStmt, ast.CreateStmt, ast.IndexStmt, ast.IntoClause), ast.DefElem)
 def alter_table_cmd_def_elem(node, output):
     if node.defnamespace:
         output.print_name(node.defnamespace)
@@ -795,7 +791,7 @@ class AlterTSConfigTypePrinter(IntEnumPrinter):
 alter_ts_config_type_printer = AlterTSConfigTypePrinter()
 
 
-@node_printer('AlterTSConfigurationStmt')
+@node_printer(ast.AlterTSConfigurationStmt)
 def alter_ts_configuration_stmt(node, output):
     output.write('ALTER TEXT SEARCH CONFIGURATION ')
     output.print_name(node.cfgname)
@@ -803,7 +799,7 @@ def alter_ts_configuration_stmt(node, output):
     alter_ts_config_type_printer(node.kind, node, output)
 
 
-@node_printer('AlterTSDictionaryStmt')
+@node_printer(ast.AlterTSDictionaryStmt)
 def alter_ts_dictionary_stmt(node, output):
     output.write('ALTER TEXT SEARCH DICTIONARY ')
     output.print_name(node.dictname)
@@ -817,7 +813,7 @@ def alter_ts_dictionary_stmt(node, output):
     output.write(')')
 
 
-@node_printer('AlterStatsStmt')
+@node_printer(ast.AlterStatsStmt)
 def alter_stats_stmt(node, output):
     output.write('ALTER STATISTICS ')
     if node.missing_ok:
@@ -827,7 +823,7 @@ def alter_stats_stmt(node, output):
     output.print_node(node.stxstattarget)
 
 
-@node_printer('AlterSubscriptionStmt')
+@node_printer(ast.AlterSubscriptionStmt)
 def alter_subscription_stmt(node, output):
     output.write('ALTER SUBSCRIPTION ')
     output.print_name(node.subname)
@@ -857,7 +853,7 @@ def alter_subscription_stmt(node, output):
             output.write('ENABLE')
 
 
-@node_printer('AlterPublicationStmt')
+@node_printer(ast.AlterPublicationStmt)
 def alter_publication_stmt(node, output):
     output.write('ALTER PUBLICATION ')
     output.print_name(node.pubname)
@@ -876,7 +872,7 @@ def alter_publication_stmt(node, output):
         output.write(')')
 
 
-@node_printer('AlterFdwStmt')
+@node_printer(ast.AlterFdwStmt)
 def alter_fdw_stmt(node, output):
     output.write('ALTER FOREIGN DATA WRAPPER ')
     output.print_name(node.fdwname)
@@ -886,7 +882,7 @@ def alter_fdw_stmt(node, output):
         alter_def_elem(node.options, output)
 
 
-@node_printer('AlterFdwStmt', 'DefElem')
+@node_printer(ast.AlterFdwStmt, ast.DefElem)
 def alter_fdw_stmt_def_elem(node, output):
     if node.defname == "handler":
         if node.arg:
@@ -902,7 +898,7 @@ def alter_fdw_stmt_def_elem(node, output):
         output.print_name(node.arg)
 
 
-@node_printer('AlterForeignServerStmt')
+@node_printer(ast.AlterForeignServerStmt)
 def alter_foreign_server_stmt(node, output):
     output.write('ALTER SERVER ')
     output.print_name(node.servername)
@@ -915,7 +911,7 @@ def alter_foreign_server_stmt(node, output):
     alter_def_elem(node.options, output)
 
 
-@node_printer('AlterUserMappingStmt')
+@node_printer(ast.AlterUserMappingStmt)
 def alter_user_mapping_stmt(node, output):
     output.write('ALTER USER MAPPING FOR ')
     role_spec(node.user, output)
@@ -924,7 +920,7 @@ def alter_user_mapping_stmt(node, output):
     alter_def_elem(node.options, output)
 
 
-@node_printer('AlterRoleSetStmt')
+@node_printer(ast.AlterRoleSetStmt)
 def alter_role_set_stmt(node, output):
     output.write('ALTER ROLE ')
     if not node.role:
@@ -939,7 +935,7 @@ def alter_role_set_stmt(node, output):
     output.print_node(node.setstmt)
 
 
-@node_printer('AlterDomainStmt')
+@node_printer(ast.AlterDomainStmt)
 def alter_domain_stmt(node, output):
     output.write('ALTER DOMAIN ')
     output.print_name(node.typeName)
@@ -970,7 +966,7 @@ def alter_domain_stmt(node, output):
         raise NotImplementedError
 
 
-@node_printer('AlterEventTrigStmt')
+@node_printer(ast.AlterEventTrigStmt)
 def alter_event_trig_stmt(node, output):
     output.write('ALTER EVENT TRIGGER ')
     output.print_name(node.trigname)
@@ -984,7 +980,7 @@ def alter_event_trig_stmt(node, output):
         output.write(' DISABLE')
 
 
-@node_printer('AlterTypeStmt')
+@node_printer(ast.AlterTypeStmt)
 def alter_type_stmt(node, output):
     output.write('ALTER TYPE ')
     output.print_name(node.typeName)
@@ -993,12 +989,12 @@ def alter_type_stmt(node, output):
     output.write(')')
 
 
-@node_printer('CheckPointStmt')
+@node_printer(ast.CheckPointStmt)
 def check_point_stmt(node, output):
     output.write('CHECKPOINT')
 
 
-@node_printer('ClusterStmt')
+@node_printer(ast.ClusterStmt)
 def cluster_stmt(node, output):
     output.write('CLUSTER ')
     if (node.options or 0) & enums.ClusterOption.CLUOPT_VERBOSE:
@@ -1010,7 +1006,7 @@ def cluster_stmt(node, output):
         output.print_name(node.indexname)
 
 
-@node_printer('ColumnDef')
+@node_printer(ast.ColumnDef)
 def column_def(node, output):
     if node.colname:
         output.print_name(node.colname)
@@ -1033,7 +1029,7 @@ def column_def(node, output):
         output.print_list(node.constraints, '', standalone_items=False)
 
 
-@node_printer('CommentStmt')
+@node_printer(ast.CommentStmt)
 def comment_stmt(node, output):
     otypes = enums.ObjectType
     output.write('COMMENT ON ')
@@ -1082,7 +1078,7 @@ def comment_stmt(node, output):
         output.write('NULL')
 
 
-@node_printer('CompositeTypeStmt')
+@node_printer(ast.CompositeTypeStmt)
 def composite_type_stmt(node, output):
     output.write('CREATE TYPE ')
     output.print_node(node.typevar)
@@ -1092,7 +1088,7 @@ def composite_type_stmt(node, output):
     output.write(')')
 
 
-@node_printer('CompositeTypeStmt', 'RangeVar')
+@node_printer(ast.CompositeTypeStmt, ast.RangeVar)
 def composite_type_stmt_range_var(node, output):
     # Ignore the inh attribute, that in the normal implementation emits "ONLY" when it is False
     if node.schemaname:
@@ -1233,7 +1229,7 @@ class ConstrTypePrinter(IntEnumPrinter):
 constr_type_printer = ConstrTypePrinter()
 
 
-@node_printer('Constraint')
+@node_printer(ast.Constraint)
 def constraint(node, output):
     if node.conname:
         output.swrite('CONSTRAINT ')
@@ -1283,7 +1279,7 @@ def constraint(node, output):
             output.write(' NOT VALID ')
 
 
-@node_printer('CreateAmStmt')
+@node_printer(ast.CreateAmStmt)
 def create_am_stmt(node, output):
     output.write('CREATE ACCESS METHOD ')
     output.print_name(node.amname)
@@ -1299,7 +1295,7 @@ def create_am_stmt(node, output):
         raise NotImplementedError('Unhandled amtype: %s' % node.amtype)
 
 
-@node_printer('CreatedbStmt')
+@node_printer(ast.CreatedbStmt)
 def create_db_stmt(node, output):
     output.write('CREATE DATABASE ')
     output.print_name(node.dbname)
@@ -1310,7 +1306,7 @@ def create_db_stmt(node, output):
         output.print_list(node.options, '')
 
 
-@node_printer('CreatedbStmt', 'DefElem')
+@node_printer(ast.CreatedbStmt, ast.DefElem)
 def create_db_stmt_def_elem(node, output):
     option = node.defname
     if option == 'connection_limit':
@@ -1325,7 +1321,7 @@ def create_db_stmt_def_elem(node, output):
             output.print_node(node.arg)
 
 
-@node_printer('CreateCastStmt')
+@node_printer(ast.CreateCastStmt)
 def create_cast_stmt(node, output):
     output.write('CREATE CAST (')
     output.print_node(node.sourcetype)
@@ -1345,7 +1341,7 @@ def create_cast_stmt(node, output):
         output.write(' AS IMPLICIT')
 
 
-@node_printer('CreateConversionStmt')
+@node_printer(ast.CreateConversionStmt)
 def create_conversion_stmt(node, output):
     output.write('CREATE ')
     if node.def_:
@@ -1358,7 +1354,7 @@ def create_conversion_stmt(node, output):
     output.print_name(node.func_name)
 
 
-@node_printer('CreateDomainStmt')
+@node_printer(ast.CreateDomainStmt)
 def create_domain_stmt(node, output):
     output.write('CREATE DOMAIN ')
     output.print_name(node.domainname)
@@ -1370,7 +1366,7 @@ def create_domain_stmt(node, output):
         output.print_list(node.constraints, '', standalone_items=False)
 
 
-@node_printer('CreateEnumStmt')
+@node_printer(ast.CreateEnumStmt)
 def create_enum_stmt(node, output):
     output.write('CREATE TYPE ')
     output.print_name(node.typeName)
@@ -1379,7 +1375,7 @@ def create_enum_stmt(node, output):
     output.write(')')
 
 
-@node_printer('CreateEventTrigStmt')
+@node_printer(ast.CreateEventTrigStmt)
 def create_event_trig_stmt(node, output):
     output.write('CREATE EVENT TRIGGER ')
     output.print_name(node.trigname)
@@ -1396,7 +1392,7 @@ def create_event_trig_stmt(node, output):
         output.write('()')
 
 
-@node_printer('CreateEventTrigStmt', 'DefElem')
+@node_printer(ast.CreateEventTrigStmt, ast.DefElem)
 def create_event_trig_stmt_def_elem(node, output):
     output.print_name(node.defname)
     output.write(' IN (')
@@ -1404,7 +1400,7 @@ def create_event_trig_stmt_def_elem(node, output):
     output.write(')')
 
 
-@node_printer('CreateExtensionStmt')
+@node_printer(ast.CreateExtensionStmt)
 def create_extension_stmt(node, output):
     output.write('CREATE EXTENSION ')
     if node.if_not_exists:
@@ -1417,7 +1413,7 @@ def create_extension_stmt(node, output):
         output.print_list(node.options, '')
 
 
-@node_printer('CreateExtensionStmt', 'DefElem')
+@node_printer(ast.CreateExtensionStmt, ast.DefElem)
 def create_extension_stmt_def_elem(node, output):
     option = node.defname
     if option == 'cascade':
@@ -1440,7 +1436,7 @@ def create_extension_stmt_def_elem(node, output):
             output.print_node(node.arg)
 
 
-@node_printer('CreateFdwStmt')
+@node_printer(ast.CreateFdwStmt)
 def create_fdw_stmt(node, output):
     output.write('CREATE FOREIGN DATA WRAPPER ')
     output.print_name(node.fdwname)
@@ -1457,9 +1453,7 @@ def create_fdw_stmt(node, output):
             output.write(')')
 
 
-@node_printer('ColumnDef', 'DefElem')
-@node_printer('CreateUserMappingStmt', 'DefElem')
-@node_printer('CreateFdwStmt', 'DefElem')
+@node_printer((ast.ColumnDef, ast.CreateUserMappingStmt, ast.CreateFdwStmt), ast.DefElem)
 def create_fdw_stmt_def_elem(node, output):
     if abs(node.ancestors).member in ('options', 'fdwoptions'):
         if ' ' in node.defname:
@@ -1474,7 +1468,7 @@ def create_fdw_stmt_def_elem(node, output):
         output.print_name(node.arg)
 
 
-@node_printer('CreateForeignServerStmt')
+@node_printer(ast.CreateForeignServerStmt)
 def create_foreign_server_stmt(node, output):
     output.write('CREATE SERVER ')
     if node.if_not_exists:
@@ -1494,7 +1488,7 @@ def create_foreign_server_stmt(node, output):
         output.write(')')
 
 
-@node_printer('CreateForeignTableStmt')
+@node_printer(ast.CreateForeignTableStmt)
 def create_foreign_table_stmt(node, output):
     output.print_node(node.base)
     if not node.base.tableElts:
@@ -1510,8 +1504,7 @@ def create_foreign_table_stmt(node, output):
             output.write(')')
 
 
-@node_printer('CreateForeignTableStmt', 'DefElem')
-@node_printer('CreateForeignServerStmt', 'DefElem')
+@node_printer((ast.CreateForeignTableStmt, ast.CreateForeignServerStmt), ast.DefElem)
 def create_foreign_table_stmt_def_elem(node, output):
     if ' ' in node.defname:
         output.write(f'"{node.defname}"')
@@ -1521,7 +1514,7 @@ def create_foreign_table_stmt_def_elem(node, output):
     output.print_node(node.arg)
 
 
-@node_printer('CreateFunctionStmt')
+@node_printer(ast.CreateFunctionStmt)
 def create_function_stmt(node, output):
     output.write('CREATE ')
     if node.replace:
@@ -1567,7 +1560,7 @@ def create_function_stmt(node, output):
         output.print_node(option)
 
 
-@node_printer(('AlterFunctionStmt', 'CreateFunctionStmt', 'DoStmt'), 'DefElem')
+@node_printer((ast.AlterFunctionStmt, ast.CreateFunctionStmt, ast.DoStmt), ast.DefElem)
 def create_function_option(node, output):
     option = node.defname
 
@@ -1648,7 +1641,7 @@ def create_function_option(node, output):
     output.print_symbol(node.arg)
 
 
-@node_printer('CreateOpClassStmt')
+@node_printer(ast.CreateOpClassStmt)
 def create_opclass_stmt(node, output):
     output.write('CREATE OPERATOR CLASS ')
     output.print_name(node.opclassname)
@@ -1662,7 +1655,7 @@ def create_opclass_stmt(node, output):
     output.print_list(node.items, ',')
 
 
-@node_printer('CreateOpClassItem')
+@node_printer(ast.CreateOpClassItem)
 def create_opclass_item(node, output):
     if node.itemtype == enums.OPCLASS_ITEM_OPERATOR:
         output.write('OPERATOR ')
@@ -1692,7 +1685,7 @@ def create_opclass_item(node, output):
         raise NotImplementedError('Unhandled OpClassItem type: %s' % node.itemtype)
 
 
-@node_printer('CreateOpFamilyStmt')
+@node_printer(ast.CreateOpFamilyStmt)
 def create_op_family_stmt(node, output):
     output.write('CREATE OPERATOR FAMILY ')
     output.print_name(node.opfamilyname)
@@ -1700,7 +1693,7 @@ def create_op_family_stmt(node, output):
     output.print_name(node.amname)
 
 
-@node_printer('CreatePLangStmt')
+@node_printer(ast.CreatePLangStmt)
 def create_plang_stmt(node, output):
     output.write('CREATE ')
     if node.replace:
@@ -1724,7 +1717,7 @@ def create_plang_stmt(node, output):
                 output.print_name(node.plvalidator)
 
 
-@node_printer('CreatePolicyStmt')
+@node_printer(ast.CreatePolicyStmt)
 def create_policy_stmt(node, output):
     output.write('CREATE POLICY ')
     output.print_name(node.policy_name)
@@ -1749,7 +1742,7 @@ def create_policy_stmt(node, output):
         output.write(')')
 
 
-@node_printer('CreatePublicationStmt')
+@node_printer(ast.CreatePublicationStmt)
 def create_publication_stmt(node, output):
     output.write('CREATE PUBLICATION ')
     output.print_name(node.pubname)
@@ -1765,7 +1758,7 @@ def create_publication_stmt(node, output):
         output.write(')')
 
 
-@node_printer('CreatePublicationStmt', 'RangeVar')
+@node_printer(ast.CreatePublicationStmt, ast.RangeVar)
 def create_publication_stmt_range_var(node, output):
     if not node.inh:
         output.write('ONLY ')
@@ -1779,7 +1772,7 @@ def create_publication_stmt_range_var(node, output):
         output.print_name(node.alias)
 
 
-@node_printer('CreateRangeStmt')
+@node_printer(ast.CreateRangeStmt)
 def create_range_stmt(node, output):
     output.write('CREATE TYPE ')
     output.print_name(node.typeName)
@@ -1804,7 +1797,7 @@ class RoleStmtTypePrinter(IntEnumPrinter):
 role_stmt_type_printer = RoleStmtTypePrinter()
 
 
-@node_printer('CreateRoleStmt')
+@node_printer(ast.CreateRoleStmt)
 def create_role_stmt(node, output):
     output.write('CREATE ')
     role_stmt_type_printer(node.stmt_type, node, output)
@@ -1815,8 +1808,7 @@ def create_role_stmt(node, output):
         output.print_list(node.options, sep=' ')
 
 
-@node_printer('AlterRoleStmt', 'DefElem')
-@node_printer('CreateRoleStmt', 'DefElem')
+@node_printer((ast.AlterRoleStmt, ast.CreateRoleStmt), ast.DefElem)
 def create_or_alter_role_option(node, output):
     option = node.defname
     argv = node.arg
@@ -1862,7 +1854,7 @@ def create_or_alter_role_option(node, output):
         raise NotImplementedError('Unhandled option: %s' % option)
 
 
-@node_printer('CreateSchemaStmt')
+@node_printer(ast.CreateSchemaStmt)
 def create_schema_stmt(node, output):
     output.write('CREATE SCHEMA ')
     if node.if_not_exists:
@@ -1879,7 +1871,7 @@ def create_schema_stmt(node, output):
             output.print_list(node.schemaElts, '', standalone_items=True)
 
 
-@node_printer('CreateSeqStmt')
+@node_printer(ast.CreateSeqStmt)
 def create_seq_stmt(node, output):
     output.write('CREATE ')
     if node.sequence.relpersistence == enums.RELPERSISTENCE_TEMP:
@@ -1900,9 +1892,7 @@ def create_seq_stmt(node, output):
             output.print_list(node.options, '')
 
 
-@node_printer('Constraint', 'DefElem')
-@node_printer('CreateSeqStmt', 'DefElem')
-@node_printer('AlterSeqStmt', 'DefElem')
+@node_printer((ast.Constraint, ast.CreateSeqStmt, ast.AlterSeqStmt), ast.DefElem)
 def create_seq_stmt_def_elem(node, output):
     option = node.defname
     if option == 'cycle':
@@ -1934,7 +1924,7 @@ def create_seq_stmt_def_elem(node, output):
         raise NotImplementedError('Unhandled defaction: %s' % node.defaction)
 
 
-@node_printer('CreateStatsStmt')
+@node_printer(ast.CreateStatsStmt)
 def create_stats_stmt(node, output):
     output.write('CREATE STATISTICS ')
     if node.if_not_exists:
@@ -1950,7 +1940,7 @@ def create_stats_stmt(node, output):
     output.print_list(node.relations)
 
 
-@node_printer('CreateStmt')
+@node_printer(ast.CreateStmt)
 def create_stmt(node, output):
     output.writes('CREATE')
     if isinstance(node.ancestors[0], ast.CreateForeignTableStmt):
@@ -2035,7 +2025,7 @@ def create_stmt(node, output):
         output.print_name(node.accessMethod)
 
 
-@node_printer('CreateTableAsStmt')
+@node_printer(ast.CreateTableAsStmt)
 def create_table_as_stmt(node, output):
     output.writes('CREATE')
     if node.into.rel.relpersistence == enums.RELPERSISTENCE_TEMP:
@@ -2055,7 +2045,7 @@ def create_table_as_stmt(node, output):
         output.write('WITH NO DATA')
 
 
-@node_printer('CreateTableSpaceStmt')
+@node_printer(ast.CreateTableSpaceStmt)
 def create_table_space_stmt(node, output):
     output.write('CREATE TABLESPACE ')
     output.print_name(node.tablespacename)
@@ -2072,7 +2062,7 @@ def create_table_space_stmt(node, output):
         output.write(')')
 
 
-@node_printer('CreateTrigStmt')
+@node_printer(ast.CreateTrigStmt)
 def create_trig_stmt(node, output):
     output.write('CREATE ')
     if node.isconstraint:
@@ -2140,8 +2130,7 @@ def create_trig_stmt(node, output):
             output.write(')')
 
 
-@node_printer('AlterSubscriptionStmt', 'DefElem')
-@node_printer('CreateSubscriptionStmt', 'DefElem')
+@node_printer((ast.AlterSubscriptionStmt, ast.CreateSubscriptionStmt), ast.DefElem)
 def create_subscription_stmt_stmt_def_elem(node, output):
     output.print_name(node.defname)
     if node.arg:
@@ -2152,7 +2141,7 @@ def create_subscription_stmt_stmt_def_elem(node, output):
             output.print_node(node.arg)
 
 
-@node_printer('CreateSubscriptionStmt')
+@node_printer(ast.CreateSubscriptionStmt)
 def create_subscription_stmt(node, output):
     output.write('CREATE SUBSCRIPTION ')
     output.print_name(node.subname)
@@ -2170,13 +2159,13 @@ def create_subscription_stmt(node, output):
         output.write(')')
 
 
-@node_printer('CurrentOfExpr')
+@node_printer(ast.CurrentOfExpr)
 def current_of_expr(node, output):
     output.write('CURRENT OF ')
     output.print_name(node.cursor_name)
 
 
-@node_printer('CreateTransformStmt')
+@node_printer(ast.CreateTransformStmt)
 def create_transform_stmt(node, output):
     output.write('CREATE ')
     if node.replace:
@@ -2200,7 +2189,7 @@ def create_transform_stmt(node, output):
         output.write(')')
 
 
-@node_printer('ClosePortalStmt')
+@node_printer(ast.ClosePortalStmt)
 def close_portal_stmt(node, output):
     output.write('CLOSE ')
     if node.portalname:
@@ -2209,7 +2198,7 @@ def close_portal_stmt(node, output):
         output.write('ALL')
 
 
-@node_printer('CreateUserMappingStmt')
+@node_printer(ast.CreateUserMappingStmt)
 def create_user_mapping_stmt(node, output):
     output.write('CREATE USER MAPPING ')
     if node.if_not_exists:
@@ -2224,7 +2213,7 @@ def create_user_mapping_stmt(node, output):
         output.write(')')
 
 
-@node_printer('DeallocateStmt')
+@node_printer(ast.DeallocateStmt)
 def deallocate_stmt(node, output):
     output.write('DEALLOCATE PREPARE ')
     if node.name:
@@ -2233,7 +2222,7 @@ def deallocate_stmt(node, output):
         output.write('ALL')
 
 
-@node_printer('DefineStmt')
+@node_printer(ast.DefineStmt)
 def define_stmt(node, output):
     output.write('CREATE ')
     if node.replace:
@@ -2294,7 +2283,7 @@ def define_stmt(node, output):
             output.write(')')
 
 
-@node_printer('DefElem')
+@node_printer(ast.DefElem)
 def def_elem(node, output):
     output.print_symbol(node.defname)
     if node.arg is not None:
@@ -2304,7 +2293,7 @@ def def_elem(node, output):
         raise NotImplementedError('Unhandled defaction: %s' % node.defaction)
 
 
-@node_printer('DefineStmt', 'DefElem')
+@node_printer(ast.DefineStmt, ast.DefElem)
 def define_stmt_def_elem(node, output):
     output.print_name(node.defname)
     if node.arg is not None:
@@ -2342,19 +2331,19 @@ class DiscardModePrinter(IntEnumPrinter):
 discard_mode_printer = DiscardModePrinter()
 
 
-@node_printer('DiscardStmt')
+@node_printer(ast.DiscardStmt)
 def discard_stmt(node, output):
     output.write('DISCARD ')
     discard_mode_printer(node.target, node, output)
 
 
-@node_printer('DoStmt')
+@node_printer(ast.DoStmt)
 def do_stmt(node, output):
     output.write('DO ')
     output.print_list(node.args, sep=' ', standalone_items=True)
 
 
-@node_printer('DropdbStmt')
+@node_printer(ast.DropdbStmt)
 def drop_db_stmt(node, output):
     output.write('DROP DATABASE')
     if node.missing_ok:
@@ -2367,7 +2356,7 @@ def drop_db_stmt(node, output):
         output.write(')')
 
 
-@node_printer('DropOwnedStmt')
+@node_printer(ast.DropOwnedStmt)
 def drop_owned_stmt(node, output):
     output.write('DROP OWNED BY ')
     output.print_list(node.roles, are_names=True)
@@ -2377,7 +2366,7 @@ def drop_owned_stmt(node, output):
         output.write(' RESTRICT')
 
 
-@node_printer('DropRoleStmt')
+@node_printer(ast.DropRoleStmt)
 def drop_role_stmt(node, output):
     output.write('DROP ROLE')
     if node.missing_ok:
@@ -2386,7 +2375,7 @@ def drop_role_stmt(node, output):
     output.print_list(node.roles, are_names=True)
 
 
-@node_printer('DropStmt')
+@node_printer(ast.DropStmt)
 def drop_stmt(node, output):
     otypes = enums.ObjectType
     output.write('DROP ')
@@ -2435,7 +2424,7 @@ def drop_stmt(node, output):
         output.swrite('CASCADE')
 
 
-@node_printer('DropSubscriptionStmt')
+@node_printer(ast.DropSubscriptionStmt)
 def drop_subscription_stmt(node, output):
     output.write('DROP SUBSCRIPTION')
     if node.missing_ok:
@@ -2448,7 +2437,7 @@ def drop_subscription_stmt(node, output):
         output.write(' RESTRICT')
 
 
-@node_printer('DropTableSpaceStmt')
+@node_printer(ast.DropTableSpaceStmt)
 def drop_table_space_stmt(node, output):
     output.write('DROP TABLESPACE')
     if node.missing_ok:
@@ -2457,7 +2446,7 @@ def drop_table_space_stmt(node, output):
     output.print_name(node.tablespacename)
 
 
-@node_printer('DropUserMappingStmt')
+@node_printer(ast.DropUserMappingStmt)
 def drop_user_mapping_stmt(node, output):
     output.write('DROP USER MAPPING')
     if node.missing_ok:
@@ -2468,7 +2457,7 @@ def drop_user_mapping_stmt(node, output):
     output.print_name(node.servername)
 
 
-@node_printer('FunctionParameter')
+@node_printer(ast.FunctionParameter)
 def function_parameter(node, output):
     if node.mode is not None:
         pm = enums.FunctionParameterMode
@@ -2493,7 +2482,7 @@ def function_parameter(node, output):
         output.print_node(node.defexpr)
 
 
-@node_printer('GrantStmt')
+@node_printer(ast.GrantStmt)
 def grant_stmt(node, output):
     if node.is_grant:
         output.write('GRANT ')
@@ -2535,7 +2524,7 @@ def grant_stmt(node, output):
             output.write(' CASCADE')
 
 
-@node_printer('GrantRoleStmt')
+@node_printer(ast.GrantRoleStmt)
 def grant_role_stmt(node, output):
     if node.is_grant:
         output.write('GRANT ')
@@ -2553,7 +2542,7 @@ def grant_role_stmt(node, output):
         output.write('WITH ADMIN OPTION')
 
 
-@node_printer('ImportForeignSchemaStmt')
+@node_printer(ast.ImportForeignSchemaStmt)
 def import_foreign_schema_stmt(node, output):
     output.write('IMPORT FOREIGN SCHEMA ')
     output.print_name(node.remote_schema)
@@ -2574,7 +2563,7 @@ def import_foreign_schema_stmt(node, output):
     alter_def_elem(node.options, output)
 
 
-@node_printer('IndexStmt')
+@node_printer(ast.IndexStmt)
 def index_stmt(node, output):
     output.write('CREATE ')
     if node.unique:
@@ -2627,7 +2616,7 @@ LOCK_MODE_NAMES = {
 }
 
 
-@node_printer('LockStmt')
+@node_printer(ast.LockStmt)
 def lock_stmt(node, output):
     output.write('LOCK ')
     output.print_list(node.relations, ',')
@@ -2640,7 +2629,7 @@ def lock_stmt(node, output):
         output.write(' NOWAIT')
 
 
-@node_printer('NotifyStmt')
+@node_printer(ast.NotifyStmt)
 def notify_stmt(node, output):
     output.write('NOTIFY ')
     output.print_name(node.conditionname)
@@ -2675,35 +2664,35 @@ def _object_with_args(node, output, unquote_name=False, symbol=False,
             output.write(')')
 
 
-@node_printer('ObjectWithArgs')
+@node_printer(ast.ObjectWithArgs)
 def object_with_args(node, output):
     _object_with_args(node, output)
 
 
-@node_printer(('AlterObjectSchemaStmt',), 'ObjectWithArgs')
+@node_printer((ast.AlterObjectSchemaStmt,), ast.ObjectWithArgs)
 def alter_object_schema_stmt_object_with_args(node, output):
     symbol = abs(node.ancestors).node.objectType == enums.ObjectType.OBJECT_OPERATOR
     _object_with_args(node, output, symbol=symbol)
 
 
-@node_printer(('AlterOperatorStmt',), 'ObjectWithArgs')
+@node_printer((ast.AlterOperatorStmt,), ast.ObjectWithArgs)
 def alter_operator_stmt_object_with_args(node, output):
     _object_with_args(node, output, unquote_name=True)
 
 
-@node_printer(('AlterOwnerStmt',), 'ObjectWithArgs')
+@node_printer((ast.AlterOwnerStmt,), ast.ObjectWithArgs)
 def alter_owner_stmt_object_with_args(node, output):
     unquote_name = abs(node.ancestors).node.objectType == enums.ObjectType.OBJECT_OPERATOR
     _object_with_args(node, output, unquote_name=unquote_name)
 
 
-@node_printer(('CommentStmt',), 'ObjectWithArgs')
+@node_printer((ast.CommentStmt,), ast.ObjectWithArgs)
 def comment_stmt_object_with_args(node, output):
     unquote_name = abs(node.ancestors).node.objtype == enums.ObjectType.OBJECT_OPERATOR
     _object_with_args(node, output, unquote_name=unquote_name)
 
 
-@node_printer(('DropStmt',), 'ObjectWithArgs')
+@node_printer((ast.DropStmt,), ast.ObjectWithArgs)
 def drop_stmt_object_with_args(node, output):
     parent_node = abs(node.ancestors).node
     unquote_name = parent_node.removeType == enums.ObjectType.OBJECT_OPERATOR
@@ -2713,7 +2702,7 @@ def drop_stmt_object_with_args(node, output):
         _object_with_args(node, output, unquote_name=unquote_name)
 
 
-@node_printer('PartitionBoundSpec')
+@node_printer(ast.PartitionBoundSpec)
 def partition_bound_spec(node, output):
     if node.is_default:
         output.write('DEFAULT')
@@ -2736,14 +2725,14 @@ def partition_bound_spec(node, output):
             raise NotImplementedError('Unhandled strategy %r' % node.strategy)
 
 
-@node_printer('PartitionCmd')
+@node_printer(ast.PartitionCmd)
 def partition_cmd(node, output):
     output.print_node(node.name, is_name=True)
     if node.bound:
         output.print_node(node.bound)
 
 
-@node_printer('PartitionElem')
+@node_printer(ast.PartitionElem)
 def partition_elem(node, output):
     if node.name:
         output.print_name(node.name)
@@ -2758,7 +2747,7 @@ def partition_elem(node, output):
         output.print_name(node.opclass)
 
 
-@node_printer('PartitionRangeDatum')
+@node_printer(ast.PartitionRangeDatum)
 def partition_range_datum(node, output):
     # FIXME: find a way to get here, apparently these have been replaced by ColumRef
     if node.kind == enums.PartitionRangeDatumKind.PARTITION_RANGE_DATUM_MINVALUE:
@@ -2769,7 +2758,7 @@ def partition_range_datum(node, output):
         output.print_node(node)
 
 
-@node_printer('PartitionSpec')
+@node_printer(ast.PartitionSpec)
 def partition_spec(node, output):
     output.print_symbol(node.strategy)
     output.write(' (')
@@ -2813,13 +2802,13 @@ class ReindexKindPrinter(IntEnumPrinter):
 reindex_kind_printer = ReindexKindPrinter()
 
 
-@node_printer('ReindexStmt')
+@node_printer(ast.ReindexStmt)
 def reindex_stmt(node, output):
     output.write('REINDEX ')
     reindex_kind_printer(node.kind, node, output)
 
 
-@node_printer('RenameStmt')
+@node_printer(ast.RenameStmt)
 def rename_stmt(node, output):
     OT = enums.ObjectType
     objtype = node.renameType
@@ -2873,7 +2862,7 @@ def rename_stmt(node, output):
         output.write(' CASCADE')
 
 
-@node_printer('RenameStmt', 'RangeVar')
+@node_printer(ast.RenameStmt, ast.RangeVar)
 def rename_stmt_range_var(node, output):
     OT = enums.ObjectType
     if not node.inh and abs(node.ancestors).node.renameType not in (OT.OBJECT_ATTRIBUTE,
@@ -2890,7 +2879,7 @@ def rename_stmt_range_var(node, output):
         output.print_name(alias)
 
 
-@node_printer('ReplicaIdentityStmt')
+@node_printer(ast.ReplicaIdentityStmt)
 def replica_identity_stmt(node, output):
     output.write('REPLICA IDENTITY ')
     if node.identity_type == enums.REPLICA_IDENTITY_INDEX:
@@ -2902,7 +2891,7 @@ def replica_identity_stmt(node, output):
         output.write('FULL')
 
 
-@node_printer('RoleSpec')
+@node_printer(ast.RoleSpec)
 def role_spec(node, output):
     if node.roletype == enums.RoleSpecType.ROLESPEC_CURRENT_USER:
         output.write('CURRENT_USER')
@@ -2922,7 +2911,7 @@ EVENT_NAMES = {
 }
 
 
-@node_printer('RuleStmt')
+@node_printer(ast.RuleStmt)
 def rule_stmt_printer(node, output):
     output.write('CREATE ')
     if node.replace:
@@ -2963,7 +2952,7 @@ def rule_stmt_printer(node, output):
             output.write(' NOTHING')
 
 
-@node_printer('RefreshMatViewStmt')
+@node_printer(ast.RefreshMatViewStmt)
 def refresh_mat_view_stmt(node, output):
     output.write('REFRESH MATERIALIZED VIEW ')
     if node.concurrent:
@@ -2973,7 +2962,7 @@ def refresh_mat_view_stmt(node, output):
         output.write('WITH NO DATA')
 
 
-@node_printer('ReassignOwnedStmt')
+@node_printer(ast.ReassignOwnedStmt)
 def reassign_owned_stmt(node, output):
     output.write('REASSIGN OWNED BY ')
     output.print_list(node.roles, ',', are_names=False)
@@ -2981,7 +2970,7 @@ def reassign_owned_stmt(node, output):
     output.print_node(node.newrole)
 
 
-@node_printer('SecLabelStmt')
+@node_printer(ast.SecLabelStmt)
 def sec_label_stmt(node, output):
     output.write('SECURITY LABEL ')
     if node.provider:
@@ -2998,7 +2987,7 @@ def sec_label_stmt(node, output):
         output.write('NULL')
 
 
-@node_printer('TableLikeClause')
+@node_printer(ast.TableLikeClause)
 def table_like_clause(node, output):
     output.write('LIKE ')
     output.print_node(node.relation)
@@ -3024,7 +3013,7 @@ def table_like_clause(node, output):
             output.write(' INCLUDING STORAGE')
 
 
-@node_printer('TriggerTransition')
+@node_printer(ast.TriggerTransition)
 def trigger_transition(node, output):
     if node.isNew:
         output.write('NEW TABLE AS ')
@@ -3033,7 +3022,7 @@ def trigger_transition(node, output):
     output.print_name(node.name)
 
 
-@node_printer('VacuumStmt')
+@node_printer(ast.VacuumStmt)
 def vacuum_stmt(node, output):
     if node.is_vacuumcmd:
         output.write('VACUUM ')
@@ -3047,7 +3036,7 @@ def vacuum_stmt(node, output):
         output.print_list(node.rels, ',')
 
 
-@node_printer('VacuumStmt', 'DefElem')
+@node_printer(ast.VacuumStmt, ast.DefElem)
 def vacuum_stmt_def_elem(node, output):
     output.write(node.defname.upper())
     if node.arg:
@@ -3055,7 +3044,7 @@ def vacuum_stmt_def_elem(node, output):
         output.write(str(node.arg.val))
 
 
-@node_printer('VacuumRelation')
+@node_printer(ast.VacuumRelation)
 def vacuum_relation(node, output):
     output.print_node(node.relation)
     if node.va_cols:
@@ -3064,7 +3053,7 @@ def vacuum_relation(node, output):
         output.write(')')
 
 
-@node_printer('VariableShowStmt')
+@node_printer(ast.VariableShowStmt)
 def variable_show_statement(node, output):
     output.write('SHOW ')
     if node.name == 'all':
@@ -3089,7 +3078,7 @@ class ViewCheckOptionPrinter(IntEnumPrinter):
 view_check_option_printer = ViewCheckOptionPrinter()
 
 
-@node_printer('ViewStmt')
+@node_printer(ast.ViewStmt)
 def view_stmt(node, output):
     output.write('CREATE ')
     if node.replace:
@@ -3118,7 +3107,7 @@ def view_stmt(node, output):
     view_check_option_printer(node.withCheckOption, node, output)
 
 
-@node_printer('ViewStmt', 'DefElem')
+@node_printer(ast.ViewStmt, ast.DefElem)
 def view_stmt_def_elem(node, output):
     output.print_symbol(node.defname)
     if node.arg:

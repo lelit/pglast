@@ -10,7 +10,7 @@ from .. import ast, enums
 from . import IntEnumPrinter, get_string_value, node_printer
 
 
-@node_printer('A_ArrayExpr')
+@node_printer(ast.A_ArrayExpr)
 def a_array_expr(node, output):
     output.write('ARRAY[')
     if node.elements:
@@ -18,7 +18,7 @@ def a_array_expr(node, output):
     output.write(']')
 
 
-@node_printer('A_Const')
+@node_printer(ast.A_Const)
 def a_const(node, output):
     output.print_node(node.val)
 
@@ -166,12 +166,12 @@ class AExprKindPrinter(IntEnumPrinter):
 a_expr_kind_printer = AExprKindPrinter()
 
 
-@node_printer('A_Expr')
+@node_printer(ast.A_Expr)
 def a_expr(node, output):
     a_expr_kind_printer(node.kind, node, output)
 
 
-@node_printer('A_Indices')
+@node_printer(ast.A_Indices)
 def a_indices(node, output):
     output.write('[')
     if node.is_slice:
@@ -185,7 +185,7 @@ def a_indices(node, output):
     output.write(']')
 
 
-@node_printer('A_Indirection')
+@node_printer(ast.A_Indirection)
 def a_indirection(node, output):
     bracket = (isinstance(node.arg, (ast.A_ArrayExpr, ast.A_Expr, ast.A_Indirection,
                                      ast.FuncCall, ast.RowExpr, ast.TypeCast))
@@ -200,39 +200,39 @@ def a_indirection(node, output):
     output.print_list(node.indirection, '', standalone_items=False)
 
 
-@node_printer('A_Indirection', 'A_Star')
+@node_printer(ast.A_Indirection, ast.A_Star)
 def a_indirection_a_star(node, output):
     output.pending_separator = False
     output.write('.')
     a_star(node, output)
 
 
-@node_printer('A_Indirection', 'ColumnRef')
+@node_printer(ast.A_Indirection, ast.ColumnRef)
 def a_indirection_column_ref(node, output):
     output.write('(')
     column_ref(node, output)
     output.write(')')
 
 
-@node_printer('A_Indirection', 'FuncCall')
+@node_printer(ast.A_Indirection, ast.FuncCall)
 def a_indirection_func_call(node, output):
     output.write('(')
     func_call(node, output)
     output.write(')')
 
 
-@node_printer('A_Indirection', 'String')
+@node_printer(ast.A_Indirection, ast.String)
 def a_indirection_field(node, output):
     output.write('.')
     string(node, output, is_name=True)
 
 
-@node_printer('A_Star')
+@node_printer(ast.A_Star)
 def a_star(node, output):
     output.write('*')
 
 
-@node_printer('Alias')
+@node_printer(ast.Alias)
 def alias(node, output):
     output.print_name(node.aliasname)
     if node.colnames:
@@ -241,12 +241,12 @@ def alias(node, output):
         output.write(')')
 
 
-@node_printer('BitString')
+@node_printer(ast.BitString)
 def bitstring(node, output):
     output.write(f"{node.val[0]}'{node.val[1:]}'")
 
 
-@node_printer('BoolExpr')
+@node_printer(ast.BoolExpr)
 def bool_expr(node, output):
     bet = enums.BoolExprType
     outer_exp_level = output.expression_level
@@ -289,20 +289,20 @@ class BooleanTestPrinter(IntEnumPrinter):
 boolean_test_printer = BooleanTestPrinter()
 
 
-@node_printer('BooleanTest')
+@node_printer(ast.BooleanTest)
 def boolean_test(node, output):
     output.print_node(node.arg)
     output.write(' IS ')
     boolean_test_printer(node.booltesttype, node, output)
 
 
-@node_printer('CallStmt')
+@node_printer(ast.CallStmt)
 def call_stmt(node, output):
     output.write('CALL ')
     output.print_node(node.funccall)
 
 
-@node_printer('CaseExpr')
+@node_printer(ast.CaseExpr)
 def case_expr(node, output):
     with output.push_indent():
         output.writes('CASE')
@@ -320,7 +320,7 @@ def case_expr(node, output):
         output.write('END')
 
 
-@node_printer('CaseWhen')
+@node_printer(ast.CaseWhen)
 def case_when(node, output):
     output.write('WHEN ')
     with output.push_indent(-3):
@@ -331,14 +331,14 @@ def case_when(node, output):
         output.print_node(node.result)
 
 
-@node_printer('CoalesceExpr')
+@node_printer(ast.CoalesceExpr)
 def coalesce_expr(node, output):
     output.write('COALESCE(')
     output.print_list(node.args)
     output.write(')')
 
 
-@node_printer('CollateClause')
+@node_printer(ast.CollateClause)
 def collate_clause(node, output):
     if node.arg:
         with output.expression():
@@ -347,7 +347,7 @@ def collate_clause(node, output):
     output.print_name(node.collname, '.')
 
 
-@node_printer('ColumnRef')
+@node_printer(ast.ColumnRef)
 def column_ref(node, output):
     output.print_name(node.fields)
 
@@ -368,7 +368,7 @@ class CTEMaterializedPrinter(IntEnumPrinter):
 cte_materialize_printer = CTEMaterializedPrinter()
 
 
-@node_printer('CommonTableExpr')
+@node_printer(ast.CommonTableExpr)
 def common_table_expr(node, output):
     output.print_name(node.ctename)
     if node.aliascolnames:
@@ -387,7 +387,7 @@ def common_table_expr(node, output):
     output.newline()
 
 
-@node_printer('ConstraintsSetStmt')
+@node_printer(ast.ConstraintsSetStmt)
 def constraints_set_stmt(node, output):
     output.write('SET CONSTRAINTS ')
     if node.constraints:
@@ -401,7 +401,7 @@ def constraints_set_stmt(node, output):
         output.write('IMMEDIATE')
 
 
-@node_printer('CopyStmt')
+@node_printer(ast.CopyStmt)
 def copy_stmt(node, output):
     output.write('COPY ')
     if node.relation:
@@ -439,7 +439,7 @@ def copy_stmt(node, output):
         output.print_node(node.whereClause)
 
 
-@node_printer('CopyStmt', 'DefElem')
+@node_printer(ast.CopyStmt, ast.DefElem)
 def copy_stmt_def_elem(node, output):
     option = node.defname
     argv = node.arg
@@ -490,7 +490,7 @@ def copy_stmt_def_elem(node, output):
         raise NotImplementedError(option)
 
 
-@node_printer('DeclareCursorStmt')
+@node_printer(ast.DeclareCursorStmt)
 def declare_cursor_stmt(node, output):
     output.write('DECLARE ')
     output.print_name(node.portalname)
@@ -513,7 +513,7 @@ def declare_cursor_stmt(node, output):
         output.print_node(node.query)
 
 
-@node_printer('DeleteStmt')
+@node_printer(ast.DeleteStmt)
 def delete_stmt(node, output):
     with output.push_indent():
         if node.withClause:
@@ -542,7 +542,7 @@ def delete_stmt(node, output):
             output.dedent()
 
 
-@node_printer('ExecuteStmt')
+@node_printer(ast.ExecuteStmt)
 def execute_stmt(node, output):
     output.write('EXECUTE ')
     output.print_name(node.name)
@@ -552,7 +552,7 @@ def execute_stmt(node, output):
         output.write(')')
 
 
-@node_printer('ExplainStmt')
+@node_printer(ast.ExplainStmt)
 def explain_stmt(node, output):
     output.write('EXPLAIN ')
     if node.options:
@@ -564,7 +564,7 @@ def explain_stmt(node, output):
     output.print_node(node.query)
 
 
-@node_printer('ExplainStmt', 'DefElem')
+@node_printer(ast.ExplainStmt, ast.DefElem)
 def explain_stmt_def_elem(node, output):
     output.print_symbol(node.defname)
     if node.arg is not None:
@@ -604,19 +604,19 @@ class FetchDirectionPrinter(IntEnumPrinter):
 fetch_direction_printer = FetchDirectionPrinter()
 
 
-@node_printer('FetchStmt')
+@node_printer(ast.FetchStmt)
 def fetch_stmt(node, output):
     output.write('MOVE ' if node.ismove else 'FETCH ')
     fetch_direction_printer(node.direction, node, output)
     output.print_name(node.portalname)
 
 
-@node_printer('Float')
+@node_printer(ast.Float)
 def float(node, output):
     output.print_node(node.val)
 
 
-@node_printer('FuncCall')
+@node_printer(ast.FuncCall)
 def func_call(node, output):
     name = '.'.join(n.val for n in node.funcname)
     special_printer = output.get_printer_for_function(name)
@@ -657,7 +657,7 @@ def func_call(node, output):
         output.print_node(node.over)
 
 
-@node_printer('FuncCall', 'WindowDef')
+@node_printer(ast.FuncCall, ast.WindowDef)
 def func_call_window_def(node, output):
     if node.name:
         output.print_name(node.name)
@@ -665,7 +665,7 @@ def func_call_window_def(node, output):
         window_def(node, output)
 
 
-@node_printer('GroupingSet')
+@node_printer(ast.GroupingSet)
 def grouping_set(node, output):
     kind = node.kind
     if kind == enums.GroupingSetKind.GROUPING_SET_CUBE:
@@ -686,14 +686,14 @@ def grouping_set(node, output):
     output.write(')')
 
 
-@node_printer('GroupingFunc')
+@node_printer(ast.GroupingFunc)
 def grouping_func(node, output):
     output.write(' GROUPING(')
     output.print_list(node.args)
     output.write(')')
 
 
-@node_printer('IndexElem')
+@node_printer(ast.IndexElem)
 def index_elem(node, output):
     if node.name is not None:
         output.print_name(node.name)
@@ -726,7 +726,7 @@ def index_elem(node, output):
             output.write('FIRST')
 
 
-@node_printer('InferClause')
+@node_printer(ast.InferClause)
 def infer_clause(node, output):
     if node.conname:
         output.swrite('ON CONSTRAINT ')
@@ -740,12 +740,12 @@ def infer_clause(node, output):
         output.print_node(node.whereClause)
 
 
-@node_printer('Integer')
+@node_printer(ast.Integer)
 def integer(node, output):
     output.print_node(node.val)
 
 
-@node_printer('InsertStmt')
+@node_printer(ast.InsertStmt)
 def insert_stmt(node, output):
     with output.push_indent():
         if node.withClause:
@@ -786,7 +786,7 @@ def insert_stmt(node, output):
             output.dedent()
 
 
-@node_printer('IntoClause')
+@node_printer(ast.IntoClause)
 def into_clause(node, output):
     output.print_node(node.rel)
     if node.colNames:
@@ -819,7 +819,7 @@ def into_clause(node, output):
             output.newline()
 
 
-@node_printer('JoinExpr')
+@node_printer(ast.JoinExpr)
 def join_expr(node, output):
     if node.alias:
         output.write('(')
@@ -877,7 +877,7 @@ def join_expr(node, output):
             output.dedent()
 
 
-@node_printer('LockingClause')
+@node_printer(ast.LockingClause)
 def locking_clause(node, output):
     lcs = enums.LockClauseStrength
     if node.strength == lcs.LCS_FORKEYSHARE:
@@ -898,13 +898,13 @@ def locking_clause(node, output):
         output.swrite('NOWAIT')
 
 
-@node_printer('ListenStmt')
+@node_printer(ast.ListenStmt)
 def listen_stmt(node, output):
     output.write('LISTEN ')
     output.print_name(node.conditionname)
 
 
-@node_printer('MinMaxExpr')
+@node_printer(ast.MinMaxExpr)
 def min_max_expr(node, output):
     if node.op == enums.MinMaxOp.IS_GREATEST:
         output.write('GREATEST(')
@@ -914,24 +914,24 @@ def min_max_expr(node, output):
     output.write(')')
 
 
-@node_printer('MultiAssignRef')
+@node_printer(ast.MultiAssignRef)
 def multi_assign_ref(node, output):
     output.print_node(node.source)
 
 
-@node_printer('NamedArgExpr')
+@node_printer(ast.NamedArgExpr)
 def named_arg_expr(node, output):
     output.print_name(node.name)
     output.write(' => ')
     output.print_node(node.arg)
 
 
-@node_printer('Null')
+@node_printer(ast.Null)
 def null(node, output):
     output.write('NULL')
 
 
-@node_printer('NullTest')
+@node_printer(ast.NullTest)
 def null_test(node, output):
     with output.expression():
         output.print_node(node.arg)
@@ -941,7 +941,7 @@ def null_test(node, output):
         output.write(' NULL')
 
 
-@node_printer('ParamRef')
+@node_printer(ast.ParamRef)
 def param_ref(node, output):
     if node.number is None:  # pragma: no cover
         # NB: standard PG does not allow "?"-style param placeholders, this is a minor
@@ -952,7 +952,7 @@ def param_ref(node, output):
         output.write('$%d' % node.number)
 
 
-@node_printer('PrepareStmt')
+@node_printer(ast.PrepareStmt)
 def prepare_stmt(node, output):
     output.write('PREPARE ')
     output.print_node(node.name, is_name=True)
@@ -966,7 +966,7 @@ def prepare_stmt(node, output):
         output.print_node(node.query)
 
 
-@node_printer('OnConflictClause')
+@node_printer(ast.OnConflictClause)
 def on_conflict_clause(node, output):
     oca = enums.OnConflictAction
     if node.infer:
@@ -1017,7 +1017,7 @@ def print_transaction_mode_list(node, output):
                 output.write('NOT DEFERRABLE')
 
 
-@node_printer('RangeFunction')
+@node_printer(ast.RangeFunction)
 def range_function(node, output):
     if node.lateral:
         output.write('LATERAL ')
@@ -1050,7 +1050,7 @@ def range_function(node, output):
         output.write(')')
 
 
-@node_printer('RangeSubselect')
+@node_printer(ast.RangeSubselect)
 def range_subselect(node, output):
     if node.lateral:
         output.write('LATERAL')
@@ -1064,7 +1064,7 @@ def range_subselect(node, output):
         output.print_name(node.alias)
 
 
-@node_printer('RangeTableFunc')
+@node_printer(ast.RangeTableFunc)
 def range_table_func(node, output):
     if node.lateral:
         output.write('LATERAL ')
@@ -1090,7 +1090,7 @@ def range_table_func(node, output):
         output.print_node(node.alias)
 
 
-@node_printer('RangeTableFunc', 'ResTarget')
+@node_printer(ast.RangeTableFunc, ast.ResTarget)
 def range_table_func_res_target(node, output):
     if not node.name:
         output.write('DEFAULT ')
@@ -1100,7 +1100,7 @@ def range_table_func_res_target(node, output):
         output.print_name(node.name)
 
 
-@node_printer('RangeTableFuncCol')
+@node_printer(ast.RangeTableFuncCol)
 def range_table_func_col(node, output):
     output.print_node(node.colname, is_name=True)
     output.write(' ')
@@ -1118,7 +1118,7 @@ def range_table_func_col(node, output):
             output.swrite('NOT NULL')
 
 
-@node_printer('RangeVar')
+@node_printer(ast.RangeVar)
 def range_var(node, output):
     if not node.inh:
         output.write('ONLY ')
@@ -1135,7 +1135,7 @@ def range_var(node, output):
         output.print_name(alias)
 
 
-@node_printer('RangeTableSample')
+@node_printer(ast.RangeTableSample)
 def range_table_sample(node, output):
     output.print_node(node.relation)
     output.write(' TABLESAMPLE ')
@@ -1149,12 +1149,12 @@ def range_table_sample(node, output):
         output.write(')')
 
 
-@node_printer('RawStmt')
+@node_printer(ast.RawStmt)
 def raw_stmt(node, output):
     output.print_node(node.stmt)
 
 
-@node_printer('ResTarget')
+@node_printer(ast.ResTarget)
 def res_target(node, output):
     if node.val:
         output.print_node(node.val)
@@ -1167,7 +1167,7 @@ def res_target(node, output):
         print_indirection(node.indirection, output)
 
 
-@node_printer('RowExpr')
+@node_printer(ast.RowExpr)
 def row_expr(node, output):
     if node.row_format == enums.CoercionForm.COERCE_EXPLICIT_CALL:
         output.write('ROW(')
@@ -1195,7 +1195,7 @@ def _select_needs_to_be_wrapped_in_parens(node):
             or node.op != enums.SetOperation.SETOP_NONE)
 
 
-@node_printer('SelectStmt')
+@node_printer(ast.SelectStmt)
 def select_stmt(node, output):
     with output.push_indent():
         if node.withClause:
@@ -1318,12 +1318,12 @@ def select_stmt(node, output):
             output.dedent()
 
 
-@node_printer('SetToDefault')
+@node_printer(ast.SetToDefault)
 def set_to_default(node, output):
     output.write('DEFAULT')
 
 
-@node_printer('SortBy')
+@node_printer(ast.SortBy)
 def sort_by(node, output):
     output.print_node(node.node)
     sbd = enums.SortByDir
@@ -1400,17 +1400,17 @@ class SQLValueFunctionOpPrinter(IntEnumPrinter):
 sql_value_function_op_printer = SQLValueFunctionOpPrinter()
 
 
-@node_printer('SQLValueFunction')
+@node_printer(ast.SQLValueFunction)
 def sql_value_function(node, output):
     sql_value_function_op_printer(node.op, node, output)
 
 
-@node_printer('String')
+@node_printer(ast.String)
 def string(node, output, is_name=False, is_symbol=False):
     output.print_node(node.val, is_name=is_name, is_symbol=is_symbol)
 
 
-@node_printer('SubLink')
+@node_printer(ast.SubLink)
 def sub_link(node, output):
     slt = enums.SubLinkType
 
@@ -1445,7 +1445,7 @@ def sub_link(node, output):
     output.write(')')
 
 
-@node_printer('TransactionStmt')
+@node_printer(ast.TransactionStmt)
 def transaction_stmt(node, output):
     tsk = enums.TransactionStmtKind
     if node.kind == tsk.TRANS_STMT_BEGIN:
@@ -1484,7 +1484,7 @@ def transaction_stmt(node, output):
         output.write("'%s'" % node.gid)
 
 
-@node_printer('TransactionStmt', 'DefElem')
+@node_printer(ast.TransactionStmt, ast.DefElem)
 def transaction_stmt_def_elem(node, output):
     value = node.defname
     argv = node.arg.val
@@ -1505,7 +1505,7 @@ def transaction_stmt_def_elem(node, output):
         raise NotImplementedError('Unhandled defname value %r' % value)
 
 
-@node_printer('TruncateStmt')
+@node_printer(ast.TruncateStmt)
 def truncate_stmt(node, output):
     output.write('TRUNCATE TABLE ')
     output.print_list(node.relations)
@@ -1515,7 +1515,7 @@ def truncate_stmt(node, output):
         output.write(' CASCADE')
 
 
-@node_printer('TypeCast')
+@node_printer(ast.TypeCast)
 def type_cast(node, output):
     if isinstance(node.arg, ast.A_Const):
         # Special case for boolean constants
@@ -1587,7 +1587,7 @@ system_types = {
 }
 
 
-@node_printer('TypeName')
+@node_printer(ast.TypeName)
 def type_name(node, output):
     if node.setof:
         # FIXME: is this used only by plpgsql?
@@ -1628,7 +1628,7 @@ def type_name(node, output):
                 output.write(']')
 
 
-@node_printer('UpdateStmt')
+@node_printer(ast.UpdateStmt)
 def update_stmt(node, output):
     with output.push_indent():
         if node.withClause:
@@ -1668,7 +1668,7 @@ def update_stmt(node, output):
             output.dedent()
 
 
-@node_printer('UnlistenStmt')
+@node_printer(ast.UnlistenStmt)
 def unlisten_stmt(node, output):
     output.write('UNLISTEN ')
     if node.conditionname:
@@ -1677,7 +1677,7 @@ def unlisten_stmt(node, output):
         output.write('*')
 
 
-@node_printer('VariableSetStmt')
+@node_printer(ast.VariableSetStmt)
 def variable_set_stmt(node, output):
     vsk = enums.VariableSetKind
     if node.kind == vsk.VAR_RESET:
@@ -1714,7 +1714,7 @@ def variable_set_stmt(node, output):
                                       % node.kind)
 
 
-@node_printer('WithClause')
+@node_printer(ast.WithClause)
 def with_clause(node, output):
     relindent = -3
     if node.recursive:
@@ -1722,7 +1722,7 @@ def with_clause(node, output):
     output.print_list(node.ctes, relative_indent=relindent)
 
 
-@node_printer('WindowDef')
+@node_printer(ast.WindowDef)
 def window_def(node, output):
     if node.name:
         output.print_name(node.name)
@@ -1797,7 +1797,7 @@ def print_indirection(node, output):
         output.print_node(subnode, is_name=True)
 
 
-@node_printer(('OnConflictClause', 'UpdateStmt'), 'ResTarget')
+@node_printer((ast.OnConflictClause, ast.UpdateStmt), ast.ResTarget)
 def update_stmt_res_target(node, output):
     if isinstance(node.val, ast.MultiAssignRef):
         if node.val.colno == 1:
@@ -1917,12 +1917,12 @@ class XmlExprOpPrinter(IntEnumPrinter):
 xml_expr_op_printer = XmlExprOpPrinter()
 
 
-@node_printer('XmlExpr')
+@node_printer(ast.XmlExpr)
 def xml_expr(node, output):
     xml_expr_op_printer(node.op, node, output)
 
 
-@node_printer('XmlSerialize')
+@node_printer(ast.XmlSerialize)
 def xml_serialize(node, output):
     output.write('xmlserialize(')
     xml_option_type_printer(node.xmloption, node, output)
