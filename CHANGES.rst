@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.11 (unreleased)
+3.11 (2022-05-29)
 ~~~~~~~~~~~~~~~~~
 
 - Fix the ``Visitor`` class, it was ignoring nodes nested in sub-lists
