@@ -8,6 +8,14 @@ Changes
 Version 3
 #########
 
+3.11 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix the ``Visitor`` class, it was ignoring nodes nested in sub-lists
+
+- Reduce the size of the generated parser by factoring out common code into helper functions
+
+
 3.10 (2022-05-11)
 ~~~~~~~~~~~~~~~~~
 
