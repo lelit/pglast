@@ -416,3 +416,13 @@ footer
 select 4294967310
 =
 SELECT 4294967310
+
+select t1.*
+from tab1 as t1
+where t1.code like (select t2.code||'.%' from tab1 t2 where t2.id = 'foo')
+=
+SELECT t1.*
+FROM tab1 AS t1
+WHERE t1.code LIKE (SELECT t2.code || '.%'
+                    FROM tab1 AS t2
+                    WHERE t2.id = 'foo')
