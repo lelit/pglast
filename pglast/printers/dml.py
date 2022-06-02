@@ -28,12 +28,12 @@ class AExprKindPrinter(IntEnumPrinter):
 
     def AEXPR_BETWEEN(self, node, output):
         output.print_node(node.lexpr)
-        output.swrites('BETWEEN')
+        output.swrite('BETWEEN ')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
 
     def AEXPR_BETWEEN_SYM(self, node, output):
         output.print_node(node.lexpr)
-        output.swrites('BETWEEN SYMMETRIC')
+        output.swrite('BETWEEN SYMMETRIC ')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
 
     def AEXPR_DISTINCT(self, node, output):
@@ -42,14 +42,14 @@ class AExprKindPrinter(IntEnumPrinter):
         output.print_node(node.lexpr)
         if isinstance(node.lexpr, ast.BoolExpr):
             output.write(') ')
-        output.swrites('IS DISTINCT FROM')
+        output.swrite('IS DISTINCT FROM ')
         output.print_node(node.rexpr)
 
     def AEXPR_ILIKE(self, node, output):
         output.print_node(node.lexpr)
         if get_string_value(node.name) == '!~~*':
             output.swrites('NOT')
-        output.swrites('ILIKE')
+        output.swrite('ILIKE ')
         output.print_node(node.rexpr)
 
     def AEXPR_IN(self, node, output):
@@ -64,22 +64,22 @@ class AExprKindPrinter(IntEnumPrinter):
         output.print_node(node.lexpr)
         if get_string_value(node.name) == '!~~':
             output.swrites('NOT')
-        output.swrites('LIKE')
+        output.swrite('LIKE ')
         output.print_node(node.rexpr)
 
     def AEXPR_NOT_BETWEEN(self, node, output):
         output.print_node(node.lexpr)
-        output.swrites('NOT BETWEEN')
+        output.swrite('NOT BETWEEN ')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
 
     def AEXPR_NOT_BETWEEN_SYM(self, node, output):
         output.print_node(node.lexpr)
-        output.swrites('NOT BETWEEN SYMMETRIC')
+        output.swrite('NOT BETWEEN SYMMETRIC ')
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
 
     def AEXPR_NOT_DISTINCT(self, node, output):
         output.print_node(node.lexpr)
-        output.swrites('IS NOT DISTINCT FROM')
+        output.swrite('IS NOT DISTINCT FROM ')
         output.print_node(node.rexpr)
 
     def AEXPR_NULLIF(self, node, output):
@@ -153,13 +153,13 @@ class AExprKindPrinter(IntEnumPrinter):
         output.print_node(node.lexpr)
         if get_string_value(node.name) == '!~':
             output.swrites('NOT')
-        output.swrites('SIMILAR TO')
+        output.swrite('SIMILAR TO ')
         assert (isinstance(node.rexpr, ast.FuncCall)
                 and node.rexpr.funcname[1].val == 'similar_to_escape')
         pattern = node.rexpr.args[0]
         output.print_node(pattern)
         if len(node.rexpr.args) > 1:
-            output.swrites('ESCAPE')
+            output.swrite('ESCAPE ')
             output.print_node(node.rexpr.args[1])
 
 
