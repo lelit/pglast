@@ -1113,18 +1113,23 @@ class ConstrTypePrinter(IntEnumPrinter):
 
     def CONSTR_CHECK(self, node, output):
         output.swrite('CHECK (')
-        output.print_node(node.raw_expr or node.cooked_expr)
+        # From parsenodes.h::ConstrType enum doc:
+        #   For constraints that use expressions (CONSTR_CHECK, CONSTR_DEFAULT)
+        #   we may have the expression in either "raw" form (an untransformed
+        #   parse tree) or "cooked" form (the nodeToString representation of
+        #   an executable expression tree), depending on how this Constraint
+        #   node was created (by parsing, or by inheritance from an existing
+        #   relation).  We should never have both in the same node!
+        assert not (node.raw_expr is not None and node.cooked_expr is not None)
+        output.print_node(node.cooked_expr if node.raw_expr is None else node.raw_expr)
         output.write(')')
         if node.is_no_inherit:
             output.swrite('NO INHERIT')
 
     def CONSTR_DEFAULT(self, node, output):
         output.swrite('DEFAULT ')
-        # """
-        # we may have the expression in either "raw" form [...]  or "cooked" form [...]
-        # should never have both in the same node!
-        # """
-        output.print_node(node.raw_expr or node.cooked_expr)
+        assert not (node.raw_expr is not None and node.cooked_expr is not None)
+        output.print_node(node.cooked_expr if node.raw_expr is None else node.raw_expr)
 
     def CONSTR_EXCLUSION(self, node, output):
         output.swrite('EXCLUDE USING ')
