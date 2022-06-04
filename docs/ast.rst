@@ -16,8 +16,7 @@ PostgreSQL headers, primarily those in the `include/nodes/`__ directory.
 
 __ https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes
 
-The :class:`pglast.ast.Node` (not to be confused with :class:`pglast.node.Node` which is just a
-*readonly* generic wrapper) is an abstract class that implements the common behaviour of all
+The :class:`pglast.ast.Node` is an abstract class that implements the common behaviour of all
 the concrete classes. In particular any node can be :meth:`compared <pglast.ast.Node.__eq__>`
 with another instance, is able to :meth:`serialize <pglast.ast.Node.__call__>` itself and can
 be :meth:`altered <pglast.ast.Node.__setattr__>`.

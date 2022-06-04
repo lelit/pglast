@@ -13,8 +13,8 @@
 .. module:: pglast.printers
    :synopsis: Specialized printer functions
 
-This module implements the specialized functions that for any given *tag* define how the
-associated :class:`~.node.Node` will be serialized.
+This module implements the specialized functions that define how a particular
+:class:`~.ast.Node` will be serialized.
 
 .. autodata:: NODE_PRINTERS
 
