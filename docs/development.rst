@@ -128,10 +128,23 @@ __ https://github.com/lelit/pglast/pull/77
 Version 4
 #########
 
-The ultimate goal of this version is targeting ``PostgreSQL 14``, when ``libpg_query`` will
-support that.
+The ultimate goal of this version is targeting ``PostgreSQL 14``, when ``libpg_query`` `will
+support`__ that.
 
-Waiting for that, I simplified the code getting rid of the `wrapper classes`__.
+__ https://github.com/pganalyze/libpg_query/issues/127
+
+Waiting for that, I simplified the code getting rid of the `wrapper classes`__. They were
+required in `version 1`_, when ``pglast`` consumed the ``JSON``-serialized parse tree emitted
+by ``libpg_query`` exposing those structures as generic ``Node``\ s distinguishable by their
+*tag*.
+
+`Version 3`_ retained them, although rewritten on top of the new concrete AST parser nodes, to
+make them aware of their ancestry, notion required by some printers to choose different
+representations.
+
+Now the lineage is injected directly into the AST nodes by the printer machinery (cheaper than
+updating/computing it when setting/accessing each *property*) and all the printer functions
+receive one concrete AST node.
 
 __ https://github.com/lelit/pglast/issues/80
 
