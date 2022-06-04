@@ -9,6 +9,7 @@
 
 from libc.stdint cimport int16_t, int32_t, uint32_t, uint64_t
 
+
 cdef extern from "postgres.h":
     ctypedef unsigned char bool
 
@@ -667,8 +668,6 @@ cdef extern from *:
 
 
 cdef extern from "nodes/parsenodes.h":
-
-
     ctypedef struct Query:
         NodeTag type
         CmdType commandType
@@ -709,7 +708,6 @@ cdef extern from "nodes/parsenodes.h":
         int stmt_location
         int stmt_len
 
-
     ctypedef struct TypeName:
         NodeTag type
         const List* names
@@ -720,18 +718,15 @@ cdef extern from "nodes/parsenodes.h":
         const List* arrayBounds
         int location
 
-
     ctypedef struct ColumnRef:
         NodeTag type
         const List* fields
         int location
 
-
     ctypedef struct ParamRef:
         NodeTag type
         int number
         int location
-
 
     ctypedef struct A_Expr:
         NodeTag type
@@ -741,12 +736,10 @@ cdef extern from "nodes/parsenodes.h":
         const Node* rexpr
         int location
 
-
     ctypedef struct A_Const:
         NodeTag type
         Value val
         int location
-
 
     ctypedef struct TypeCast:
         NodeTag type
@@ -754,20 +747,17 @@ cdef extern from "nodes/parsenodes.h":
         const TypeName* typeName
         int location
 
-
     ctypedef struct CollateClause:
         NodeTag type
         const Node* arg
         const List* collname
         int location
 
-
     ctypedef struct RoleSpec:
         NodeTag type
         RoleSpecType roletype
         const char* rolename
         int location
-
 
     ctypedef struct FuncCall:
         NodeTag type
@@ -782,10 +772,8 @@ cdef extern from "nodes/parsenodes.h":
         const WindowDef* over
         int location
 
-
     ctypedef struct A_Star:
         NodeTag type
-
 
     ctypedef struct A_Indices:
         NodeTag type
@@ -793,18 +781,15 @@ cdef extern from "nodes/parsenodes.h":
         const Node* lidx
         const Node* uidx
 
-
     ctypedef struct A_Indirection:
         NodeTag type
         const Node* arg
         const List* indirection
 
-
     ctypedef struct A_ArrayExpr:
         NodeTag type
         const List* elements
         int location
-
 
     ctypedef struct ResTarget:
         NodeTag type
@@ -813,13 +798,11 @@ cdef extern from "nodes/parsenodes.h":
         const Node* val
         int location
 
-
     ctypedef struct MultiAssignRef:
         NodeTag type
         const Node* source
         int colno
         int ncolumns
-
 
     ctypedef struct SortBy:
         NodeTag type
@@ -828,7 +811,6 @@ cdef extern from "nodes/parsenodes.h":
         SortByNulls sortby_nulls
         const List* useOp
         int location
-
 
     ctypedef struct WindowDef:
         NodeTag type
@@ -841,13 +823,11 @@ cdef extern from "nodes/parsenodes.h":
         const Node* endOffset
         int location
 
-
     ctypedef struct RangeSubselect:
         NodeTag type
         bool lateral
         const Node* subquery
         const Alias* alias
-
 
     ctypedef struct RangeFunction:
         NodeTag type
@@ -857,7 +837,6 @@ cdef extern from "nodes/parsenodes.h":
         const List* functions
         const Alias* alias
         const List* coldeflist
-
 
     ctypedef struct RangeTableFunc:
         NodeTag type
@@ -869,7 +848,6 @@ cdef extern from "nodes/parsenodes.h":
         const Alias* alias
         int location
 
-
     ctypedef struct RangeTableFuncCol:
         NodeTag type
         const char* colname
@@ -880,7 +858,6 @@ cdef extern from "nodes/parsenodes.h":
         const Node* coldefexpr
         int location
 
-
     ctypedef struct RangeTableSample:
         NodeTag type
         const Node* relation
@@ -888,7 +865,6 @@ cdef extern from "nodes/parsenodes.h":
         const List* args
         const Node* repeatable
         int location
-
 
     ctypedef struct ColumnDef:
         NodeTag type
@@ -909,12 +885,10 @@ cdef extern from "nodes/parsenodes.h":
         const List* fdwoptions
         int location
 
-
     ctypedef struct TableLikeClause:
         NodeTag type
         const RangeVar* relation
         int32_t options
-
 
     ctypedef struct IndexElem:
         NodeTag type
@@ -927,7 +901,6 @@ cdef extern from "nodes/parsenodes.h":
         SortByDir ordering
         SortByNulls nulls_ordering
 
-
     ctypedef struct DefElem:
         NodeTag type
         const char* defnamespace
@@ -936,13 +909,11 @@ cdef extern from "nodes/parsenodes.h":
         DefElemAction defaction
         int location
 
-
     ctypedef struct LockingClause:
         NodeTag type
         const List* lockedRels
         LockClauseStrength strength
         LockWaitPolicy waitPolicy
-
 
     ctypedef struct XmlSerialize:
         NodeTag type
@@ -950,7 +921,6 @@ cdef extern from "nodes/parsenodes.h":
         const Node* expr
         const TypeName* typeName
         int location
-
 
     ctypedef struct PartitionElem:
         NodeTag type
@@ -960,13 +930,11 @@ cdef extern from "nodes/parsenodes.h":
         const List* opclass
         int location
 
-
     ctypedef struct PartitionSpec:
         NodeTag type
         const char* strategy
         const List* partParams
         int location
-
 
     ctypedef struct PartitionBoundSpec:
         NodeTag type
@@ -979,19 +947,16 @@ cdef extern from "nodes/parsenodes.h":
         const List* upperdatums
         int location
 
-
     ctypedef struct PartitionRangeDatum:
         NodeTag type
         PartitionRangeDatumKind kind
         const Node* value
         int location
 
-
     ctypedef struct PartitionCmd:
         NodeTag type
         const RangeVar* name
         const PartitionBoundSpec* bound
-
 
     ctypedef struct RangeTblEntry:
         NodeTag type
@@ -1030,7 +995,6 @@ cdef extern from "nodes/parsenodes.h":
         const Bitmapset* extraUpdatedCols
         const List* securityQuals
 
-
     ctypedef struct RangeTblFunction:
         NodeTag type
         const Node* funcexpr
@@ -1041,12 +1005,10 @@ cdef extern from "nodes/parsenodes.h":
         const List* funccolcollations
         const Bitmapset* funcparams
 
-
     ctypedef struct TableSampleClause:
         NodeTag type
         const List* args
         const Expr* repeatable
-
 
     ctypedef struct WithCheckOption:
         NodeTag type
@@ -1056,20 +1018,17 @@ cdef extern from "nodes/parsenodes.h":
         const Node* qual
         bool cascaded
 
-
     ctypedef struct SortGroupClause:
         NodeTag type
         unsigned int tleSortGroupRef
         bool nulls_first
         bool hashable
 
-
     ctypedef struct GroupingSet:
         NodeTag type
         GroupingSetKind kind
         const List* content
         int location
-
 
     ctypedef struct WindowClause:
         NodeTag type
@@ -1085,7 +1044,6 @@ cdef extern from "nodes/parsenodes.h":
         unsigned int winref
         bool copiedOrder
 
-
     ctypedef struct RowMarkClause:
         NodeTag type
         unsigned int rti
@@ -1093,13 +1051,11 @@ cdef extern from "nodes/parsenodes.h":
         LockWaitPolicy waitPolicy
         bool pushedDown
 
-
     ctypedef struct WithClause:
         NodeTag type
         const List* ctes
         bool recursive
         int location
-
 
     ctypedef struct InferClause:
         NodeTag type
@@ -1108,7 +1064,6 @@ cdef extern from "nodes/parsenodes.h":
         const char* conname
         int location
 
-
     ctypedef struct OnConflictClause:
         NodeTag type
         OnConflictAction action
@@ -1116,7 +1071,6 @@ cdef extern from "nodes/parsenodes.h":
         const List* targetList
         const Node* whereClause
         int location
-
 
     ctypedef struct CommonTableExpr:
         NodeTag type
@@ -1132,20 +1086,17 @@ cdef extern from "nodes/parsenodes.h":
         const List* ctecoltypmods
         const List* ctecolcollations
 
-
     ctypedef struct TriggerTransition:
         NodeTag type
         const char* name
         bool isNew
         bool isTable
 
-
     ctypedef struct RawStmt:
         NodeTag type
         const Node* stmt
         int stmt_location
         int stmt_len
-
 
     ctypedef struct InsertStmt:
         NodeTag type
@@ -1157,7 +1108,6 @@ cdef extern from "nodes/parsenodes.h":
         const WithClause* withClause
         OverridingKind override
 
-
     ctypedef struct DeleteStmt:
         NodeTag type
         const RangeVar* relation
@@ -1165,7 +1115,6 @@ cdef extern from "nodes/parsenodes.h":
         const Node* whereClause
         const List* returningList
         const WithClause* withClause
-
 
     ctypedef struct UpdateStmt:
         NodeTag type
@@ -1175,7 +1124,6 @@ cdef extern from "nodes/parsenodes.h":
         const List* fromClause
         const List* returningList
         const WithClause* withClause
-
 
     ctypedef struct SelectStmt:
         NodeTag type
@@ -1199,7 +1147,6 @@ cdef extern from "nodes/parsenodes.h":
         const SelectStmt* larg
         const SelectStmt* rarg
 
-
     ctypedef struct SetOperationStmt:
         NodeTag type
         SetOperation op
@@ -1211,14 +1158,12 @@ cdef extern from "nodes/parsenodes.h":
         const List* colCollations
         const List* groupClauses
 
-
     ctypedef struct CreateSchemaStmt:
         NodeTag type
         const char* schemaname
         const RoleSpec* authrole
         const List* schemaElts
         bool if_not_exists
-
 
     ctypedef struct AlterTableStmt:
         NodeTag type
@@ -1227,12 +1172,10 @@ cdef extern from "nodes/parsenodes.h":
         ObjectType relkind
         bool missing_ok
 
-
     ctypedef struct ReplicaIdentityStmt:
         NodeTag type
         char identity_type
         const char* name
-
 
     ctypedef struct AlterTableCmd:
         NodeTag type
@@ -1244,11 +1187,9 @@ cdef extern from "nodes/parsenodes.h":
         DropBehavior behavior
         bool missing_ok
 
-
     ctypedef struct AlterCollationStmt:
         NodeTag type
         const List* collname
-
 
     ctypedef struct AlterDomainStmt:
         NodeTag type
@@ -1258,7 +1199,6 @@ cdef extern from "nodes/parsenodes.h":
         const Node* def_ "def"
         DropBehavior behavior
         bool missing_ok
-
 
     ctypedef struct GrantStmt:
         NodeTag type
@@ -1271,19 +1211,16 @@ cdef extern from "nodes/parsenodes.h":
         bool grant_option
         DropBehavior behavior
 
-
     ctypedef struct ObjectWithArgs:
         NodeTag type
         const List* objname
         const List* objargs
         bool args_unspecified
 
-
     ctypedef struct AccessPriv:
         NodeTag type
         const char* priv_name
         const List* cols
-
 
     ctypedef struct GrantRoleStmt:
         NodeTag type
@@ -1294,12 +1231,10 @@ cdef extern from "nodes/parsenodes.h":
         const RoleSpec* grantor
         DropBehavior behavior
 
-
     ctypedef struct AlterDefaultPrivilegesStmt:
         NodeTag type
         const List* options
         const GrantStmt* action
-
 
     ctypedef struct CopyStmt:
         NodeTag type
@@ -1312,7 +1247,6 @@ cdef extern from "nodes/parsenodes.h":
         const List* options
         const Node* whereClause
 
-
     ctypedef struct VariableSetStmt:
         NodeTag type
         VariableSetKind kind
@@ -1320,11 +1254,9 @@ cdef extern from "nodes/parsenodes.h":
         const List* args
         bool is_local
 
-
     ctypedef struct VariableShowStmt:
         NodeTag type
         const char* name
-
 
     ctypedef struct CreateStmt:
         NodeTag type
@@ -1340,7 +1272,6 @@ cdef extern from "nodes/parsenodes.h":
         const char* tablespacename
         const char* accessMethod
         bool if_not_exists
-
 
     ctypedef struct Constraint:
         NodeTag type
@@ -1372,7 +1303,6 @@ cdef extern from "nodes/parsenodes.h":
         bool skip_validation
         bool initially_valid
 
-
     ctypedef struct CreateTableSpaceStmt:
         NodeTag type
         const char* tablespacename
@@ -1380,19 +1310,16 @@ cdef extern from "nodes/parsenodes.h":
         const char* location
         const List* options
 
-
     ctypedef struct DropTableSpaceStmt:
         NodeTag type
         const char* tablespacename
         bool missing_ok
-
 
     ctypedef struct AlterTableSpaceOptionsStmt:
         NodeTag type
         const char* tablespacename
         const List* options
         bool isReset
-
 
     ctypedef struct AlterTableMoveAllStmt:
         NodeTag type
@@ -1402,19 +1329,16 @@ cdef extern from "nodes/parsenodes.h":
         const char* new_tablespacename
         bool nowait
 
-
     ctypedef struct CreateExtensionStmt:
         NodeTag type
         const char* extname
         bool if_not_exists
         const List* options
 
-
     ctypedef struct AlterExtensionStmt:
         NodeTag type
         const char* extname
         const List* options
-
 
     ctypedef struct AlterExtensionContentsStmt:
         NodeTag type
@@ -1423,20 +1347,17 @@ cdef extern from "nodes/parsenodes.h":
         ObjectType objtype
         const Node* object
 
-
     ctypedef struct CreateFdwStmt:
         NodeTag type
         const char* fdwname
         const List* func_options
         const List* options
 
-
     ctypedef struct AlterFdwStmt:
         NodeTag type
         const char* fdwname
         const List* func_options
         const List* options
-
 
     ctypedef struct CreateForeignServerStmt:
         NodeTag type
@@ -1447,7 +1368,6 @@ cdef extern from "nodes/parsenodes.h":
         bool if_not_exists
         const List* options
 
-
     ctypedef struct AlterForeignServerStmt:
         NodeTag type
         const char* servername
@@ -1455,12 +1375,10 @@ cdef extern from "nodes/parsenodes.h":
         const List* options
         bool has_version
 
-
     ctypedef struct CreateForeignTableStmt:
         CreateStmt base
         const char* servername
         const List* options
-
 
     ctypedef struct CreateUserMappingStmt:
         NodeTag type
@@ -1469,20 +1387,17 @@ cdef extern from "nodes/parsenodes.h":
         bool if_not_exists
         const List* options
 
-
     ctypedef struct AlterUserMappingStmt:
         NodeTag type
         const RoleSpec* user
         const char* servername
         const List* options
 
-
     ctypedef struct DropUserMappingStmt:
         NodeTag type
         const RoleSpec* user
         const char* servername
         bool missing_ok
-
 
     ctypedef struct ImportForeignSchemaStmt:
         NodeTag type
@@ -1492,7 +1407,6 @@ cdef extern from "nodes/parsenodes.h":
         ImportForeignSchemaType list_type
         const List* table_list
         const List* options
-
 
     ctypedef struct CreatePolicyStmt:
         NodeTag type
@@ -1504,7 +1418,6 @@ cdef extern from "nodes/parsenodes.h":
         const Node* qual
         const Node* with_check
 
-
     ctypedef struct AlterPolicyStmt:
         NodeTag type
         const char* policy_name
@@ -1513,13 +1426,11 @@ cdef extern from "nodes/parsenodes.h":
         const Node* qual
         const Node* with_check
 
-
     ctypedef struct CreateAmStmt:
         NodeTag type
         const char* amname
         const List* handler_name
         char amtype
-
 
     ctypedef struct CreateTrigStmt:
         NodeTag type
@@ -1538,7 +1449,6 @@ cdef extern from "nodes/parsenodes.h":
         bool initdeferred
         const RangeVar* constrrel
 
-
     ctypedef struct CreateEventTrigStmt:
         NodeTag type
         const char* trigname
@@ -1546,12 +1456,10 @@ cdef extern from "nodes/parsenodes.h":
         const List* whenclause
         const List* funcname
 
-
     ctypedef struct AlterEventTrigStmt:
         NodeTag type
         const char* trigname
         char tgenabled
-
 
     ctypedef struct CreatePLangStmt:
         NodeTag type
@@ -1562,13 +1470,11 @@ cdef extern from "nodes/parsenodes.h":
         const List* plvalidator
         bool pltrusted
 
-
     ctypedef struct CreateRoleStmt:
         NodeTag type
         RoleStmtType stmt_type
         const char* role
         const List* options
-
 
     ctypedef struct AlterRoleStmt:
         NodeTag type
@@ -1576,19 +1482,16 @@ cdef extern from "nodes/parsenodes.h":
         const List* options
         int action
 
-
     ctypedef struct AlterRoleSetStmt:
         NodeTag type
         const RoleSpec* role
         const char* database
         const VariableSetStmt* setstmt
 
-
     ctypedef struct DropRoleStmt:
         NodeTag type
         const List* roles
         bool missing_ok
-
 
     ctypedef struct CreateSeqStmt:
         NodeTag type
@@ -1597,14 +1500,12 @@ cdef extern from "nodes/parsenodes.h":
         bool for_identity
         bool if_not_exists
 
-
     ctypedef struct AlterSeqStmt:
         NodeTag type
         const RangeVar* sequence
         const List* options
         bool for_identity
         bool missing_ok
-
 
     ctypedef struct DefineStmt:
         NodeTag type
@@ -1616,14 +1517,12 @@ cdef extern from "nodes/parsenodes.h":
         bool if_not_exists
         bool replace
 
-
     ctypedef struct CreateDomainStmt:
         NodeTag type
         const List* domainname
         const TypeName* typeName
         const CollateClause* collClause
         const List* constraints
-
 
     ctypedef struct CreateOpClassStmt:
         NodeTag type
@@ -1634,7 +1533,6 @@ cdef extern from "nodes/parsenodes.h":
         const List* items
         bool isDefault
 
-
     ctypedef struct CreateOpClassItem:
         NodeTag type
         int itemtype
@@ -1644,12 +1542,10 @@ cdef extern from "nodes/parsenodes.h":
         const List* class_args
         const TypeName* storedtype
 
-
     ctypedef struct CreateOpFamilyStmt:
         NodeTag type
         const List* opfamilyname
         const char* amname
-
 
     ctypedef struct AlterOpFamilyStmt:
         NodeTag type
@@ -1657,7 +1553,6 @@ cdef extern from "nodes/parsenodes.h":
         const char* amname
         bool isDrop
         const List* items
-
 
     ctypedef struct DropStmt:
         NodeTag type
@@ -1667,20 +1562,17 @@ cdef extern from "nodes/parsenodes.h":
         bool missing_ok
         bool concurrent
 
-
     ctypedef struct TruncateStmt:
         NodeTag type
         const List* relations
         bool restart_seqs
         DropBehavior behavior
 
-
     ctypedef struct CommentStmt:
         NodeTag type
         ObjectType objtype
         const Node* object
         const char* comment
-
 
     ctypedef struct SecLabelStmt:
         NodeTag type
@@ -1689,18 +1581,15 @@ cdef extern from "nodes/parsenodes.h":
         const char* provider
         const char* label
 
-
     ctypedef struct DeclareCursorStmt:
         NodeTag type
         const char* portalname
         int options
         const Node* query
 
-
     ctypedef struct ClosePortalStmt:
         NodeTag type
         const char* portalname
-
 
     ctypedef struct FetchStmt:
         NodeTag type
@@ -1708,7 +1597,6 @@ cdef extern from "nodes/parsenodes.h":
         long howMany
         const char* portalname
         bool ismove
-
 
     ctypedef struct IndexStmt:
         NodeTag type
@@ -1734,7 +1622,6 @@ cdef extern from "nodes/parsenodes.h":
         bool if_not_exists
         bool reset_default_tblspc
 
-
     ctypedef struct CreateStatsStmt:
         NodeTag type
         const List* defnames
@@ -1744,13 +1631,11 @@ cdef extern from "nodes/parsenodes.h":
         const char* stxcomment
         bool if_not_exists
 
-
     ctypedef struct AlterStatsStmt:
         NodeTag type
         const List* defnames
         int stxstattarget
         bool missing_ok
-
 
     ctypedef struct CreateFunctionStmt:
         NodeTag type
@@ -1761,7 +1646,6 @@ cdef extern from "nodes/parsenodes.h":
         const TypeName* returnType
         const List* options
 
-
     ctypedef struct FunctionParameter:
         NodeTag type
         const char* name
@@ -1769,18 +1653,15 @@ cdef extern from "nodes/parsenodes.h":
         FunctionParameterMode mode
         const Node* defexpr
 
-
     ctypedef struct AlterFunctionStmt:
         NodeTag type
         ObjectType objtype
         const ObjectWithArgs* func
         const List* actions
 
-
     ctypedef struct DoStmt:
         NodeTag type
         const List* args
-
 
     ctypedef struct InlineCodeBlock:
         NodeTag type
@@ -1788,17 +1669,14 @@ cdef extern from "nodes/parsenodes.h":
         bool langIsTrusted
         bool atomic
 
-
     ctypedef struct CallStmt:
         NodeTag type
         const FuncCall* funccall
         const FuncExpr* funcexpr
 
-
     ctypedef struct CallContext:
         NodeTag type
         bool atomic
-
 
     ctypedef struct RenameStmt:
         NodeTag type
@@ -1811,7 +1689,6 @@ cdef extern from "nodes/parsenodes.h":
         DropBehavior behavior
         bool missing_ok
 
-
     ctypedef struct AlterObjectDependsStmt:
         NodeTag type
         ObjectType objectType
@@ -1819,7 +1696,6 @@ cdef extern from "nodes/parsenodes.h":
         const Node* object
         const Value* extname
         bool remove
-
 
     ctypedef struct AlterObjectSchemaStmt:
         NodeTag type
@@ -1829,7 +1705,6 @@ cdef extern from "nodes/parsenodes.h":
         const char* newschema
         bool missing_ok
 
-
     ctypedef struct AlterOwnerStmt:
         NodeTag type
         ObjectType objectType
@@ -1837,18 +1712,15 @@ cdef extern from "nodes/parsenodes.h":
         const Node* object
         const RoleSpec* newowner
 
-
     ctypedef struct AlterOperatorStmt:
         NodeTag type
         const ObjectWithArgs* opername
         const List* options
 
-
     ctypedef struct AlterTypeStmt:
         NodeTag type
         const List* typeName
         const List* options
-
 
     ctypedef struct RuleStmt:
         NodeTag type
@@ -1860,22 +1732,18 @@ cdef extern from "nodes/parsenodes.h":
         const List* actions
         bool replace
 
-
     ctypedef struct NotifyStmt:
         NodeTag type
         const char* conditionname
         const char* payload
 
-
     ctypedef struct ListenStmt:
         NodeTag type
         const char* conditionname
 
-
     ctypedef struct UnlistenStmt:
         NodeTag type
         const char* conditionname
-
 
     ctypedef struct TransactionStmt:
         NodeTag type
@@ -1885,24 +1753,20 @@ cdef extern from "nodes/parsenodes.h":
         const char* gid
         bool chain
 
-
     ctypedef struct CompositeTypeStmt:
         NodeTag type
         const RangeVar* typevar
         const List* coldeflist
-
 
     ctypedef struct CreateEnumStmt:
         NodeTag type
         const List* typeName
         const List* vals
 
-
     ctypedef struct CreateRangeStmt:
         NodeTag type
         const List* typeName
         const List* params
-
 
     ctypedef struct AlterEnumStmt:
         NodeTag type
@@ -1913,7 +1777,6 @@ cdef extern from "nodes/parsenodes.h":
         bool newValIsAfter
         bool skipIfNewValExists
 
-
     ctypedef struct ViewStmt:
         NodeTag type
         const RangeVar* view
@@ -1923,29 +1786,24 @@ cdef extern from "nodes/parsenodes.h":
         const List* options
         ViewCheckOption withCheckOption
 
-
     ctypedef struct LoadStmt:
         NodeTag type
         const char* filename
-
 
     ctypedef struct CreatedbStmt:
         NodeTag type
         const char* dbname
         const List* options
 
-
     ctypedef struct AlterDatabaseStmt:
         NodeTag type
         const char* dbname
         const List* options
 
-
     ctypedef struct AlterDatabaseSetStmt:
         NodeTag type
         const char* dbname
         const VariableSetStmt* setstmt
-
 
     ctypedef struct DropdbStmt:
         NodeTag type
@@ -1953,11 +1811,9 @@ cdef extern from "nodes/parsenodes.h":
         bool missing_ok
         const List* options
 
-
     ctypedef struct AlterSystemStmt:
         NodeTag type
         const VariableSetStmt* setstmt
-
 
     ctypedef struct ClusterStmt:
         NodeTag type
@@ -1965,25 +1821,21 @@ cdef extern from "nodes/parsenodes.h":
         const char* indexname
         int options
 
-
     ctypedef struct VacuumStmt:
         NodeTag type
         const List* options
         const List* rels
         bool is_vacuumcmd
 
-
     ctypedef struct VacuumRelation:
         NodeTag type
         const RangeVar* relation
         const List* va_cols
 
-
     ctypedef struct ExplainStmt:
         NodeTag type
         const Node* query
         const List* options
-
 
     ctypedef struct CreateTableAsStmt:
         NodeTag type
@@ -1993,22 +1845,18 @@ cdef extern from "nodes/parsenodes.h":
         bool is_select_into
         bool if_not_exists
 
-
     ctypedef struct RefreshMatViewStmt:
         NodeTag type
         bool concurrent
         bool skipData
         const RangeVar* relation
 
-
     ctypedef struct CheckPointStmt:
         NodeTag type
-
 
     ctypedef struct DiscardStmt:
         NodeTag type
         DiscardMode target
-
 
     ctypedef struct LockStmt:
         NodeTag type
@@ -2016,12 +1864,10 @@ cdef extern from "nodes/parsenodes.h":
         int mode
         bool nowait
 
-
     ctypedef struct ConstraintsSetStmt:
         NodeTag type
         const List* constraints
         bool deferred
-
 
     ctypedef struct ReindexStmt:
         NodeTag type
@@ -2031,7 +1877,6 @@ cdef extern from "nodes/parsenodes.h":
         int options
         bool concurrent
 
-
     ctypedef struct CreateConversionStmt:
         NodeTag type
         const List* conversion_name
@@ -2039,7 +1884,6 @@ cdef extern from "nodes/parsenodes.h":
         const char* to_encoding_name
         const List* func_name
         bool def_ "def"
-
 
     ctypedef struct CreateCastStmt:
         NodeTag type
@@ -2049,7 +1893,6 @@ cdef extern from "nodes/parsenodes.h":
         CoercionContext context
         bool inout
 
-
     ctypedef struct CreateTransformStmt:
         NodeTag type
         bool replace
@@ -2058,42 +1901,35 @@ cdef extern from "nodes/parsenodes.h":
         const ObjectWithArgs* fromsql
         const ObjectWithArgs* tosql
 
-
     ctypedef struct PrepareStmt:
         NodeTag type
         const char* name
         const List* argtypes
         const Node* query
 
-
     ctypedef struct ExecuteStmt:
         NodeTag type
         const char* name
         const List* params
 
-
     ctypedef struct DeallocateStmt:
         NodeTag type
         const char* name
-
 
     ctypedef struct DropOwnedStmt:
         NodeTag type
         const List* roles
         DropBehavior behavior
 
-
     ctypedef struct ReassignOwnedStmt:
         NodeTag type
         const List* roles
         const RoleSpec* newrole
 
-
     ctypedef struct AlterTSDictionaryStmt:
         NodeTag type
         const List* dictname
         const List* options
-
 
     ctypedef struct AlterTSConfigurationStmt:
         NodeTag type
@@ -2105,14 +1941,12 @@ cdef extern from "nodes/parsenodes.h":
         bool replace
         bool missing_ok
 
-
     ctypedef struct CreatePublicationStmt:
         NodeTag type
         const char* pubname
         const List* options
         const List* tables
         bool for_all_tables
-
 
     ctypedef struct AlterPublicationStmt:
         NodeTag type
@@ -2122,14 +1956,12 @@ cdef extern from "nodes/parsenodes.h":
         bool for_all_tables
         DefElemAction tableAction
 
-
     ctypedef struct CreateSubscriptionStmt:
         NodeTag type
         const char* subname
         const char* conninfo
         const List* publication
         const List* options
-
 
     ctypedef struct AlterSubscriptionStmt:
         NodeTag type
@@ -2139,7 +1971,6 @@ cdef extern from "nodes/parsenodes.h":
         const List* publication
         const List* options
 
-
     ctypedef struct DropSubscriptionStmt:
         NodeTag type
         const char* subname
@@ -2148,13 +1979,10 @@ cdef extern from "nodes/parsenodes.h":
 
 
 cdef extern from "nodes/primnodes.h":
-
-
     ctypedef struct Alias:
         NodeTag type
         const char* aliasname
         const List* colnames
-
 
     ctypedef struct RangeVar:
         NodeTag type
@@ -2165,7 +1993,6 @@ cdef extern from "nodes/primnodes.h":
         char relpersistence
         const Alias* alias
         int location
-
 
     ctypedef struct TableFunc:
         NodeTag type
@@ -2183,7 +2010,6 @@ cdef extern from "nodes/primnodes.h":
         int ordinalitycol
         int location
 
-
     ctypedef struct IntoClause:
         NodeTag type
         const RangeVar* rel
@@ -2195,10 +2021,8 @@ cdef extern from "nodes/primnodes.h":
         const Node* viewQuery
         bool skipData
 
-
     ctypedef struct Expr:
         NodeTag type
-
 
     ctypedef struct Var:
         unsigned int varno
@@ -2209,13 +2033,11 @@ cdef extern from "nodes/primnodes.h":
         int varattnosyn
         int location
 
-
     ctypedef struct Param:
         ParamKind paramkind
         int paramid
         int32_t paramtypmod
         int location
-
 
     ctypedef struct Aggref:
         const List* aggargtypes
@@ -2231,14 +2053,12 @@ cdef extern from "nodes/primnodes.h":
         AggSplit aggsplit
         int location
 
-
     ctypedef struct GroupingFunc:
         const List* args
         const List* refs
         const List* cols
         unsigned int agglevelsup
         int location
-
 
     ctypedef struct WindowFunc:
         const List* args
@@ -2248,14 +2068,12 @@ cdef extern from "nodes/primnodes.h":
         bool winagg
         int location
 
-
     ctypedef struct SubscriptingRef:
         int32_t reftypmod
         const List* refupperindexpr
         const List* reflowerindexpr
         const Expr* refexpr
         const Expr* refassgnexpr
-
 
     ctypedef struct FuncExpr:
         bool funcretset
@@ -2264,31 +2082,26 @@ cdef extern from "nodes/primnodes.h":
         const List* args
         int location
 
-
     ctypedef struct NamedArgExpr:
         const Expr* arg
         const char* name
         int argnumber
         int location
 
-
     ctypedef struct OpExpr:
         bool opretset
         const List* args
         int location
-
 
     ctypedef struct ScalarArrayOpExpr:
         bool useOr
         const List* args
         int location
 
-
     ctypedef struct BoolExpr:
         BoolExprType boolop
         const List* args
         int location
-
 
     ctypedef struct SubLink:
         SubLinkType subLinkType
@@ -2297,7 +2110,6 @@ cdef extern from "nodes/primnodes.h":
         const List* operName
         const Node* subselect
         int location
-
 
     ctypedef struct SubPlan:
         SubLinkType subLinkType
@@ -2315,22 +2127,18 @@ cdef extern from "nodes/primnodes.h":
         float startup_cost
         float per_call_cost
 
-
     ctypedef struct AlternativeSubPlan:
         const List* subplans
-
 
     ctypedef struct FieldSelect:
         const Expr* arg
         int fieldnum
         int32_t resulttypmod
 
-
     ctypedef struct FieldStore:
         const Expr* arg
         const List* newvals
         const List* fieldnums
-
 
     ctypedef struct RelabelType:
         const Expr* arg
@@ -2338,12 +2146,10 @@ cdef extern from "nodes/primnodes.h":
         CoercionForm relabelformat
         int location
 
-
     ctypedef struct CoerceViaIO:
         const Expr* arg
         CoercionForm coerceformat
         int location
-
 
     ctypedef struct ArrayCoerceExpr:
         const Expr* arg
@@ -2352,17 +2158,14 @@ cdef extern from "nodes/primnodes.h":
         CoercionForm coerceformat
         int location
 
-
     ctypedef struct ConvertRowtypeExpr:
         const Expr* arg
         CoercionForm convertformat
         int location
 
-
     ctypedef struct CollateExpr:
         const Expr* arg
         int location
-
 
     ctypedef struct CaseExpr:
         const Expr* arg
@@ -2370,29 +2173,24 @@ cdef extern from "nodes/primnodes.h":
         const Expr* defresult
         int location
 
-
     ctypedef struct CaseWhen:
         const Expr* expr
         const Expr* result
         int location
 
-
     ctypedef struct CaseTestExpr:
         int32_t typeMod
-
 
     ctypedef struct ArrayExpr:
         const List* elements
         bool multidims
         int location
 
-
     ctypedef struct RowExpr:
         const List* args
         CoercionForm row_format
         const List* colnames
         int location
-
 
     ctypedef struct RowCompareExpr:
         RowCompareType rctype
@@ -2402,23 +2200,19 @@ cdef extern from "nodes/primnodes.h":
         const List* largs
         const List* rargs
 
-
     ctypedef struct CoalesceExpr:
         const List* args
         int location
-
 
     ctypedef struct MinMaxExpr:
         MinMaxOp op
         const List* args
         int location
 
-
     ctypedef struct SQLValueFunction:
         SQLValueFunctionOp op
         int32_t typmod
         int location
-
 
     ctypedef struct XmlExpr:
         XmlExprOp op
@@ -2430,19 +2224,16 @@ cdef extern from "nodes/primnodes.h":
         int32_t typmod
         int location
 
-
     ctypedef struct NullTest:
         const Expr* arg
         NullTestType nulltesttype
         bool argisrow
         int location
 
-
     ctypedef struct BooleanTest:
         const Expr* arg
         BoolTestType booltesttype
         int location
-
 
     ctypedef struct CoerceToDomain:
         const Expr* arg
@@ -2450,26 +2241,21 @@ cdef extern from "nodes/primnodes.h":
         CoercionForm coercionformat
         int location
 
-
     ctypedef struct CoerceToDomainValue:
         int32_t typeMod
         int location
 
-
     ctypedef struct SetToDefault:
         int32_t typeMod
         int location
-
 
     ctypedef struct CurrentOfExpr:
         unsigned int cvarno
         const char* cursor_name
         int cursor_param
 
-
     ctypedef struct InferenceElem:
         const Node* expr
-
 
     ctypedef struct TargetEntry:
         const Expr* expr
@@ -2479,11 +2265,9 @@ cdef extern from "nodes/primnodes.h":
         int resorigcol
         bool resjunk
 
-
     ctypedef struct RangeTblRef:
         NodeTag type
         int rtindex
-
 
     ctypedef struct JoinExpr:
         NodeTag type
@@ -2496,12 +2280,10 @@ cdef extern from "nodes/primnodes.h":
         const Alias* alias
         int rtindex
 
-
     ctypedef struct FromExpr:
         NodeTag type
         const List* fromlist
         const Node* quals
-
 
     ctypedef struct OnConflictExpr:
         NodeTag type

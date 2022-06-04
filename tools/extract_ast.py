@@ -352,6 +352,7 @@ STRUCTS_PXD_HEADER = f"""\
 
 from libc.stdint cimport int16_t, int32_t, uint32_t, uint64_t
 
+
 cdef extern from "postgres.h":
     ctypedef unsigned char bool
 
@@ -469,7 +470,7 @@ def extract_toc(header):
 
 
 def emit_struct_def(name, fields, output):
-    output.write(f'\n\n    ctypedef struct {name}:\n')
+    output.write(f'    ctypedef struct {name}:\n')
 
     empty = True
     for field in fields:
@@ -895,6 +896,7 @@ def workhorse(args):
             for name in toc:
                 linenos[name] = (header, toc[name])
             defs = structs[header]
+            first = True
             for name in defs:
                 fields = defs[name]['fields']
                 if name not in ('Const', 'NextValueExpr', 'Value'):
@@ -903,6 +905,10 @@ def workhorse(args):
                         # ast.py header above: also, it is an abstract class,
                         # never instantiated directly
                         nodes.append((name, fields))
+                    if first:
+                        first = False
+                    else:
+                        output.write('\n')
                     emit_struct_def(name, fields, output)
 
     ast_py = args.output_dir / 'ast.py'
