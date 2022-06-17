@@ -155,8 +155,10 @@ class AExprKindPrinter(IntEnumPrinter):
         if node.name.string_value == '!~':
             output.swrites('NOT')
         output.swrite('SIMILAR TO ')
-        assert (node.rexpr.node_tag == 'FuncCall'
-                and node.rexpr.funcname[1].val.value == 'similar_to_escape')
+        if ((node.rexpr.node_tag != 'FuncCall'
+             or node.rexpr.funcname[1].val.value != 'similar_to_escape')):
+            raise RuntimeError('Expected a FuncCall to "similar_to_escape", got %r',
+                               node.rexpr)
         pattern = node.rexpr.args[0]
         output.print_node(pattern)
         if len(node.rexpr.args) > 1:
@@ -1758,8 +1760,8 @@ def window_def(node, output):
                 output.writes('UNBOUNDED PRECEDING')
             elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING:  # pragma: no cover
                 # Disallowed
-                assert False
-                output.writes('UNBOUNDED FOLLOWING')
+                #output.writes('UNBOUNDED FOLLOWING')
+                raise RuntimeError('Unexpected "UNBOUNDED FOLLOWING" disallowed option')
             elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
                 output.writes('CURRENT ROW')
             elif fo & enums.FRAMEOPTION_START_OFFSET_PRECEDING:
@@ -1772,8 +1774,8 @@ def window_def(node, output):
                 output.writes('AND')
                 if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING:  # pragma: no cover
                     # Disallowed
-                    assert False
-                    output.writes('UNBOUNDED PRECEDING')
+                    #output.writes('UNBOUNDED PRECEDING')
+                    raise RuntimeError('Unexpected "UNBOUNDED PRECEDING" disallowed option')
                 elif fo & enums.FRAMEOPTION_END_UNBOUNDED_FOLLOWING:
                     output.writes('UNBOUNDED FOLLOWING')
                 elif fo & enums.FRAMEOPTION_END_CURRENT_ROW:
