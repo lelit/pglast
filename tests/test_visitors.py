@@ -12,17 +12,18 @@ from pglast import ast, enums, parse_sql, visitors
 from pglast.stream import RawStream
 
 
-def test_referenced_tables():
-    rr = visitors.referenced_relations
-
-    assert rr('select 1') == set()
-    assert rr('select 1 from schemata.relation') == {'schemata.relation'}
-    assert rr('with q1(x,y) as (select 1,2) select * from q1, q2') == {'q2'}
-    assert rr('create table foo (int a, int b references f(id))') == {'foo', 'f'}
-    assert rr('create view foo.bar as select 1 from there') == {'foo.bar', 'there'}
-    assert rr('drop view foo.bar, bar.foo') == {'foo.bar', 'bar.foo'}
-    assert rr('drop table foo.bar, bar.foo') == {'foo.bar', 'bar.foo'}
-    assert rr('select a from b.c.d') == {'b.c.d'}
+@pytest.mark.parametrize('stmt,rnames', (
+    ('select 1', set()),
+    ('select 1 from schemata.relation', {'schemata.relation'}),
+    ('with q1(x,y) as (select 1,2) select * from q1, q2', {'q2'}),
+    ('create table foo (int a, int b references f(id))', {'foo', 'f'}),
+    ('create view foo.bar as select 1 from there', {'foo.bar', 'there'}),
+    ('drop view foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
+    ('drop table foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
+    ('select a from b.c.d', {'b.c.d'}),
+))
+def test_referenced_tables(stmt, rnames):
+    assert visitors.referenced_relations(stmt) == rnames
 
 
 def test_visiting_path():
