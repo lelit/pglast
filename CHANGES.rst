@@ -8,6 +8,14 @@ Changes
 Version 3
 #########
 
+3.12 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix defects in the ``referenced_relations()`` function (`issue 106`__)
+
+  __ https://github.com/lelit/pglast/issues/106
+
+
 3.11 (2022-05-29)
 ~~~~~~~~~~~~~~~~~
 
