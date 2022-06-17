@@ -357,20 +357,24 @@ class RelationNames(Visitor):
 
     def visit_DropStmt(self, ancestors, node):
         from .enums import ObjectType
+        from .stream import maybe_double_quote_name
+
         if node.removeType in (ObjectType.OBJECT_TABLE, ObjectType.OBJECT_VIEW):
             for obj in node.objects:
-                self.rnames.add('.'.join(n.val for n in obj))
+                self.rnames.add('.'.join(maybe_double_quote_name(n.val) for n in obj))
 
     def visit_RangeVar(self, ancestors, node):
         "Collect relation names."
 
-        tname = node.relname
+        from .stream import maybe_double_quote_name
+
+        tname = maybe_double_quote_name(node.relname)
 
         if node.schemaname:
-            tname = f'{node.schemaname}.{tname}'
+            tname = f'{maybe_double_quote_name(node.schemaname)}.{tname}'
 
         if node.catalogname:
-            tname = f'{node.catalogname}.{tname}'
+            tname = f'{maybe_double_quote_name(node.catalogname)}.{tname}'
 
         self.rnames.add(tname)
 

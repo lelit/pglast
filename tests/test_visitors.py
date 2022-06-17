@@ -21,6 +21,9 @@ from pglast.stream import RawStream
     ('drop view foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
     ('drop table foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
     ('select a from b.c.d', {'b.c.d'}),
+    ('select * from "my.schema"."my.table"', {'"my.schema"."my.table"'}),
+    ('drop view "my.schema".bar, bar."my.table", "foo.bar"',
+     {'"my.schema".bar', 'bar."my.table"', '"foo.bar"'}),
 ))
 def test_referenced_tables(stmt, rnames):
     assert visitors.referenced_relations(stmt) == rnames
