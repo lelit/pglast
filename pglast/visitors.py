@@ -161,6 +161,17 @@ class Ancestor:
             n -= 1
         return path.node
 
+    def __contains__(self, cls):
+        "Tell whether there is an ancestor of type `cls` in the chain."
+
+        path = self
+        while True:
+            if isinstance(path.node, cls):
+                return True
+            path = path.parent
+            if path is None:
+                return False
+
     def __truediv__(self, node_and_member):
         "Create a new instance pointing to the given child node."
 

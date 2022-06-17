@@ -32,7 +32,6 @@ def test_visiting_path():
     root = SN(list=[SN(a='a'), SN(b='b')])
     proot = visitors.Ancestor()
     assert proot @ root is root
-    assert None in proot
     assert list(proot) == [None]
     assert repr(proot) == 'ROOT'
 
@@ -72,8 +71,13 @@ def test_empty_visitor():
 
 def test_ancestors():
     class Checker(visitors.Visitor):
+        def visit_RawStmt(self, ancestors, node):
+            pass
+
         def visit(self, ancestors, node):
             assert ancestors@self.root is node
+            assert ast.RawStmt in ancestors
+            assert ast.InsertStmt not in ancestors
 
     checker = Checker()
 
