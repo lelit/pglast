@@ -347,8 +347,9 @@ class RelationNames(Visitor):
     def __call__(self, node):
         self.ctenames = set()
         self.rnames = set()
+        self.ctes_rnames = set()
         super().__call__(node)
-        return self.rnames - self.ctenames
+        return (self.rnames - self.ctenames).union(self.ctes_rnames)
 
     def visit_CommonTableExpr(self, ancestors, node):
         "Collect CTE names."
@@ -376,7 +377,10 @@ class RelationNames(Visitor):
         if node.catalogname:
             tname = f'{maybe_double_quote_name(node.catalogname)}.{tname}'
 
-        self.rnames.add(tname)
+        if ast.CommonTableExpr in ancestors:
+            self.ctes_rnames.add(tname)
+        else:
+            self.rnames.add(tname)
 
 
 def referenced_relations(stmt):
