@@ -161,16 +161,21 @@ class Ancestor:
             n -= 1
         return path.node
 
-    def __contains__(self, cls):
-        "Tell whether there is an ancestor of type `cls` in the chain."
+    def find_nearest(self, cls):
+        "Find the nearest ancestor with a node of the given `cls`."
 
         path = self
         while True:
             if isinstance(path.node, cls):
-                return True
+                return path
             path = path.parent
             if path is None:
-                return False
+                break
+
+    def __contains__(self, cls):
+        "Tell whether there is a node of type `cls` in the anchestry."
+
+        return self.find_nearest(cls) is not None
 
     def __truediv__(self, node_and_member):
         "Create a new instance pointing to the given child node."
