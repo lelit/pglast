@@ -770,7 +770,7 @@ def insert_stmt(node, output):
             output.print_list(node.cols)
             output.write(')')
         else:
-            output.write(' ')
+            output.separator()
         if node.override:
             if node.override == enums.OverridingKind.OVERRIDING_USER_VALUE:
                 output.write(' OVERRIDING USER VALUE ')
