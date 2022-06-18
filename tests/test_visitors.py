@@ -26,6 +26,21 @@ from pglast.stream import RawStream
      {'"my.schema".bar', 'bar."my.table"', '"foo.bar"'}),
     ('with my_ref as (select * from my_ref where a=1) select * from my_ref',
      {'my_ref'}),
+    ('with cte1 as (select 1), cte2 as (select * from cte1) select * from cte2',
+     set()),
+    ('''
+     with recursive t(n) as (values (1) union all select n+1 from t where n < 100)
+     select sum(n) from t
+     ''', set()),
+    ('''
+     with cte1 as (select 1)
+       select * from (with cte2 as (select * from cte1)
+                        select * from cte2) as a
+     ''', set()),
+    ('''
+     with to_archive as (delete from products where date < '2010-11-01' returning *)
+       insert into products_log select * from to_archive
+     ''', {'products', 'products_log'}),
 ))
 def test_referenced_tables(stmt, rnames):
     assert visitors.referenced_relations(stmt) == rnames

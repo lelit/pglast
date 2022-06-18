@@ -349,17 +349,20 @@ class RelationNames(Visitor):
     relations referenced by the given :class:`node <pglast.ast.Node>`.
     """
 
+    class CTENames(Visitor):
+        def __call__(self, node):
+            self.ctenames = set()
+            super().__call__(node)
+            return self.ctenames
+
+        def visit_CommonTableExpr(self, ancestors, node):
+            self.ctenames.add(node.ctename)
+
     def __call__(self, node):
-        self.ctenames = set()
+        self.ctenames = self.CTENames()(node)
         self.rnames = set()
-        self.ctes_rnames = set()
         super().__call__(node)
-        return (self.rnames - self.ctenames).union(self.ctes_rnames)
-
-    def visit_CommonTableExpr(self, ancestors, node):
-        "Collect CTE names."
-
-        self.ctenames.add(node.ctename)
+        return self.rnames
 
     def visit_DropStmt(self, ancestors, node):
         from .enums import ObjectType
@@ -370,7 +373,7 @@ class RelationNames(Visitor):
                 self.rnames.add('.'.join(maybe_double_quote_name(n.val) for n in obj))
 
     def visit_RangeVar(self, ancestors, node):
-        "Collect relation names."
+        "Collect relation names, taking into account defined CTE names"
 
         from .stream import maybe_double_quote_name
 
@@ -382,10 +385,17 @@ class RelationNames(Visitor):
         if node.catalogname:
             tname = f'{maybe_double_quote_name(node.catalogname)}.{tname}'
 
-        if ast.CommonTableExpr in ancestors:
-            self.ctes_rnames.add(tname)
-        else:
+        if tname not in self.ctenames:
             self.rnames.add(tname)
+        else:
+            # If the name is within a non-recursive CTE and matches its name,
+            # then it is a concrete relation
+            nearest_cte = ancestors.find_nearest(ast.CommonTableExpr)
+            if nearest_cte is not None:
+                with_clause = nearest_cte.find_nearest(ast.WithClause)
+                if not with_clause.node.recursive:
+                    if tname == nearest_cte.node.ctename:
+                        self.rnames.add(tname)
 
 
 def referenced_relations(stmt):
