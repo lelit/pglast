@@ -10,6 +10,7 @@ from collections import deque
 from inspect import getmembers, ismethod
 
 from . import ast
+from .stream import maybe_double_quote_name
 
 
 class ActionMeta(type):
@@ -366,7 +367,6 @@ class RelationNames(Visitor):
 
     def visit_DropStmt(self, ancestors, node):
         from .enums import ObjectType
-        from .stream import maybe_double_quote_name
 
         if node.removeType in (ObjectType.OBJECT_TABLE, ObjectType.OBJECT_VIEW):
             for obj in node.objects:
@@ -374,8 +374,6 @@ class RelationNames(Visitor):
 
     def visit_RangeVar(self, ancestors, node):
         "Collect relation names, taking into account defined CTE names"
-
-        from .stream import maybe_double_quote_name
 
         tname = maybe_double_quote_name(node.relname)
 
