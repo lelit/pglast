@@ -13,24 +13,25 @@ from pglast.stream import RawStream
 
 
 @pytest.mark.parametrize('stmt,rnames', (
-    ('select 1', set()),
-    ('select 1 from schemata.relation', {'schemata.relation'}),
-    ('with q1(x,y) as (select 1,2) select * from q1, q2', {'q2'}),
+    ('alter table foo add foreign key (x) references bar (id)', {'foo', 'bar'}),
     ('create table foo (int a, int b references f(id))', {'foo', 'f'}),
     ('create view foo.bar as select 1 from there', {'foo.bar', 'there'}),
-    ('drop view foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
     ('drop table foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
-    ('select a from b.c.d', {'b.c.d'}),
-    ('select * from "my.schema"."my.table"', {'"my.schema"."my.table"'}),
+    ('drop view foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
     ('drop view "my.schema".bar, bar."my.table", "foo.bar"',
      {'"my.schema".bar', 'bar."my.table"', '"foo.bar"'}),
+    ('select 1', set()),
+    ('select 1 from schemata.relation', {'schemata.relation'}),
+    ('select a from b.c.d', {'b.c.d'}),
+    ('select * from "my.schema"."my.table"', {'"my.schema"."my.table"'}),
+    ('with q1(x,y) as (select 1,2) select * from q1, q2', {'q2'}),
     ('with my_ref as (select * from my_ref where a=1) select * from my_ref',
      {'my_ref'}),
     ('with cte1 as (select 1), cte2 as (select * from cte1) select * from cte2',
      set()),
     ('''
      with recursive t(n) as (values (1) union all select n+1 from t where n < 100)
-     select sum(n) from t
+       select sum(n) from t
      ''', set()),
     ('''
      with cte1 as (select 1)
