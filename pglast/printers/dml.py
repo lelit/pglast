@@ -382,6 +382,7 @@ def common_table_expr(node, output):
             output.space(2)
         output.print_name(node.aliascolnames, ',')
         output.write(')')
+        output.indent(-1, False)
         output.newline()
 
     output.swrite('AS')
@@ -389,6 +390,8 @@ def common_table_expr(node, output):
     output.write(' (')
     output.print_node(node.ctequery)
     output.write(')')
+    if node.aliascolnames:
+        output.dedent()
     output.newline()
 
 
@@ -1721,7 +1724,7 @@ def variable_set_stmt(node, output):
 
 @node_printer('WithClause')
 def with_clause(node, output):
-    relindent = -3
+    relindent = -2
     if node.recursive:
         relindent -= output.write('RECURSIVE ')
     output.print_list(node.ctes, relative_indent=relindent)
