@@ -1260,8 +1260,8 @@ def select_stmt(node, output):
                     output.write(' ON (')
                     output.print_list(node.distinctClause)
                     output.write(')')
-            output.write(' ')
             if node.targetList:
+                output.write(' ')
                 output.print_list(node.targetList)
             if node.intoClause:
                 output.newline()

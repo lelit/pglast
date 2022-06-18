@@ -3,6 +3,11 @@ select * from sometable
 SELECT *
 FROM sometable
 
+select from sometable
+=
+SELECT
+FROM sometable
+
 select 'foo' as barname,b,c from sometable where c between 1 and 2
 =
 SELECT 'foo' AS barname
