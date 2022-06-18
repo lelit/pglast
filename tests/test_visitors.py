@@ -41,6 +41,7 @@ from pglast.stream import RawStream
      with to_archive as (delete from products where date < '2010-11-01' returning *)
        insert into products_log select * from to_archive
      ''', {'products', 'products_log'}),
+    ('with "foo.bar" as (select * from tab) select * from "foo.bar"', {'tab'}),
 ))
 def test_referenced_tables(stmt, rnames):
     assert visitors.referenced_relations(stmt) == rnames

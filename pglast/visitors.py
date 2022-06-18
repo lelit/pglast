@@ -357,7 +357,7 @@ class RelationNames(Visitor):
             return self.ctenames
 
         def visit_CommonTableExpr(self, ancestors, node):
-            self.ctenames.add(node.ctename)
+            self.ctenames.add(maybe_double_quote_name(node.ctename))
 
     def __call__(self, node):
         self.ctenames = self.CTENames()(node)
