@@ -57,9 +57,6 @@ class Ancestor:
     in the parent node: the latter happens when the parent node is actually a tuple, not an
     ``Node`` instance.
 
-    Iteration yields the sequence of involved *members*, that is the path starting from the
-    root of the AST tree that leads to leaf node.
-
     Accessing an instance with a positive index returns the nth node up in the hierarchy.
 
     When applied (using the ``@`` operator) to an :class:`.ast.Node` instance will traverse
