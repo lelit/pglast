@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.12 (unreleased)
+3.12 (2022-06-19)
 ~~~~~~~~~~~~~~~~~
 
 - Rewrite the implementation of the ``referenced_relations()`` function, that was flawed with
