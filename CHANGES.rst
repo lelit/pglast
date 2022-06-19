@@ -24,6 +24,9 @@ Version 4
 
   __ https://github.com/lelit/pglast/issues/80
 
+- The ``Ancestor`` class is not iterable anymore: it was an internal implementation facility,
+  now moved to a ``_iter_members()`` method
+
 
 Version 3
 #########

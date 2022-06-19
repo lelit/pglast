@@ -100,14 +100,12 @@ def test_visiting_path():
     root = SN(list=[SN(a='a'), SN(b='b')])
     proot = visitors.Ancestor()
     assert proot @ root is root
-    assert list(proot) == [None]
     assert repr(proot) == 'ROOT'
 
     plist = proot / (root.list, 'list')
     assert plist @ root is root.list
     assert plist[0] is root.list
     assert plist[1] is None
-    assert list(plist) == [None, 'list']
     assert repr(plist) == 'ROOT → list'
 
     pa = plist / (root.list[0], 0)
@@ -115,7 +113,6 @@ def test_visiting_path():
     assert pa[0] is root.list[0]
     assert pa[1] is root.list
     assert pa[2] is None
-    assert list(pa) == [None, 'list', 0]
     assert repr(pa) == 'ROOT → list → 0'
 
     pb = plist / (root.list[1], 1)
@@ -123,7 +120,6 @@ def test_visiting_path():
     assert pb[0] is root.list[1]
     assert pb[1] is root.list
     assert pb[2] is None
-    assert list(pb) == [None, 'list', 1]
     assert repr(pb) == 'ROOT → list → 1'
 
 

@@ -159,8 +159,8 @@ class Ancestor:
         self.node = node
         self.member = member
 
-    def __iter__(self):
-        "Iterate over each step, yielding either an attribute name or a sequence index."
+    def _iter_members(self):
+        "Return the sequence of `member` of the whole hierarchy."
 
         ancestors = []
 
@@ -172,7 +172,7 @@ class Ancestor:
             path = path.parent
 
     def __repr__(self):
-        return ' → '.join('ROOT' if m is None else str(m) for m in self)
+        return ' → '.join('ROOT' if m is None else str(m) for m in self._iter_members())
 
     def __getitem__(self, n):
         path = self
@@ -213,7 +213,7 @@ class Ancestor:
         "Resolve the ancestry chain against the given `root` node, returning the leaf node."
 
         node = root
-        for member in self:
+        for member in self._iter_members():
             if member is not None:
                 if isinstance(member, int):
                     node = node[member]
