@@ -13,6 +13,7 @@ from pglast.stream import RawStream
 
 
 @pytest.mark.parametrize('stmt,rnames', (
+    # DDL
     ('alter table foo add foreign key (x) references bar (id)', {'foo', 'bar'}),
     ('create table foo (int a, int b references f(id))', {'foo', 'f'}),
     ('create view foo.bar as select 1 from there', {'foo.bar', 'there'}),
@@ -20,10 +21,17 @@ from pglast.stream import RawStream
     ('drop view foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
     ('drop view "my.schema".bar, bar."my.table", "foo.bar"',
      {'"my.schema".bar', 'bar."my.table"', '"foo.bar"'}),
+
+    # DML
+    ('insert into foo values (1)', {'foo'}),
+    ('insert into foo select * from bar', {'foo', 'bar'}),
     ('select 1', set()),
     ('select 1 from schemata.relation', {'schemata.relation'}),
     ('select a from b.c.d', {'b.c.d'}),
     ('select * from "my.schema"."my.table"', {'"my.schema"."my.table"'}),
+    ('update foo set a=1', {'foo'}),
+
+    # CTE
     ('with q1(x,y) as (select 1,2) select * from q1, q2', {'q2'}),
     ('with my_ref as (select * from my_ref where a=1) select * from my_ref',
      {'my_ref'}),
@@ -43,6 +51,44 @@ from pglast.stream import RawStream
        insert into products_log select * from to_archive
      ''', {'products', 'products_log'}),
     ('with "foo.bar" as (select * from tab) select * from "foo.bar"', {'tab'}),
+    ('select (with my_ref as (select 1) select 1) from my_ref', {'my_ref'}),
+    ('''
+     with cte1 as (select 1)
+        , cte2 as (with cte1 as (select * from cte1) select * from cte1)
+       select * from cte2
+     ''', set()),
+    ('''
+     with recursive t1 as (
+       insert into yy select * from t2 returning *
+     ), t2 as (
+       insert into y select * from y returning *
+     )
+     select 1;
+     ''', {'y', 'yy'}),
+    ('''
+     with recursive t(a) as (
+       select 11
+       union all
+       select a+1 from t where a < 50
+     )
+     delete from y using t where t.a = y.a returning y.a
+     ''', {'y'}),
+    ('''
+     with t as (
+         delete from y
+         where a <= 10
+         returning *
+     )
+     select * from t
+     ''', {'y'}),
+    ('''
+     select count(*) from (
+       with q1(x) as (select random() from generate_series(1, 5))
+         select * from q1
+       union
+         select * from q1
+     ) ss
+     ''', set())
 ))
 def test_referenced_tables(stmt, rnames):
     assert visitors.referenced_relations(stmt) == rnames
