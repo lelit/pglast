@@ -52,6 +52,11 @@ jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.arch }} for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+
+    # TODO: remove this whenever v4 enters beta; it basically disable the heavy job (in
+    # particular due to aarch64 build), pointless for now
+    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+
     strategy:
       matrix:
         os: [ubuntu-20.04, macos-10.15]
