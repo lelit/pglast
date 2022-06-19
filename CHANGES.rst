@@ -11,9 +11,15 @@ Version 3
 3.12 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
-- Fix defects in the ``referenced_relations()`` function (`issue 106`__)
+- Rewrite the implementation of the ``referenced_relations()`` function, that was flawed with
+  regard to CTEs handling (`issue 106`__), thanks to Michal Charemza for providing his own
+  version
 
   __ https://github.com/lelit/pglast/issues/106
+
+- Improve ``WithClause`` printer indentation
+
+- Fix minor whitespace related issues in a few printer functions
 
 
 3.11 (2022-05-29)
