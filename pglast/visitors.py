@@ -380,9 +380,8 @@ class ReferencedRelations(Visitor):
             # In the normal case, each CTE must be processed in order, with the CTE names found
             # earlier; in the "WITH RECURSIVE" case all its CTEs must be considered valid at
             # the same time.
-            is_recursive = node.withClause.recursive
             with_clause = node.withClause
-            if is_recursive:
+            if with_clause.recursive:
                 self.cte_names.update(maybe_double_quote_name(cte.ctename)
                                       for cte in with_clause.ctes)
                 self.r_names.update(ReferencedRelations(self.cte_names)(with_clause))
