@@ -12,17 +12,86 @@ from pglast import ast, enums, parse_sql, visitors
 from pglast.stream import RawStream
 
 
-def test_referenced_tables():
-    rr = visitors.referenced_relations
+@pytest.mark.parametrize('stmt,rnames', (
+    # DDL
+    ('alter table foo add foreign key (x) references bar (id)', {'foo', 'bar'}),
+    ('create table foo (int a, int b references f(id))', {'foo', 'f'}),
+    ('create view foo.bar as select 1 from there', {'foo.bar', 'there'}),
+    ('drop table foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
+    ('drop view foo.bar, bar.foo', {'foo.bar', 'bar.foo'}),
+    ('drop view "my.schema".bar, bar."my.table", "foo.bar"',
+     {'"my.schema".bar', 'bar."my.table"', '"foo.bar"'}),
 
-    assert rr('select 1') == set()
-    assert rr('select 1 from schemata.relation') == {'schemata.relation'}
-    assert rr('with q1(x,y) as (select 1,2) select * from q1, q2') == {'q2'}
-    assert rr('create table foo (int a, int b references f(id))') == {'foo', 'f'}
-    assert rr('create view foo.bar as select 1 from there') == {'foo.bar', 'there'}
-    assert rr('drop view foo.bar, bar.foo') == {'foo.bar', 'bar.foo'}
-    assert rr('drop table foo.bar, bar.foo') == {'foo.bar', 'bar.foo'}
-    assert rr('select a from b.c.d') == {'b.c.d'}
+    # DML
+    ('insert into foo values (1)', {'foo'}),
+    ('insert into foo select * from bar', {'foo', 'bar'}),
+    ('select 1', set()),
+    ('select 1 from schemata.relation', {'schemata.relation'}),
+    ('select a from b.c.d', {'b.c.d'}),
+    ('select * from "my.schema"."my.table"', {'"my.schema"."my.table"'}),
+    ('update foo set a=1', {'foo'}),
+
+    # CTE
+    ('with q1(x,y) as (select 1,2) select * from q1, q2', {'q2'}),
+    ('with my_ref as (select * from my_ref where a=1) select * from my_ref',
+     {'my_ref'}),
+    ('with cte1 as (select 1), cte2 as (select * from cte1) select * from cte2',
+     set()),
+    ('''
+     with recursive t(n) as (values (1) union all select n+1 from t where n < 100)
+       select sum(n) from t
+     ''', set()),
+    ('''
+     with cte1 as (select 1)
+       select * from (with cte2 as (select * from cte1)
+                        select * from cte2) as a
+     ''', set()),
+    ('''
+     with to_archive as (delete from products where date < '2010-11-01' returning *)
+       insert into products_log select * from to_archive
+     ''', {'products', 'products_log'}),
+    ('with "foo.bar" as (select * from tab) select * from "foo.bar"', {'tab'}),
+    ('select (with my_ref as (select 1) select 1) from my_ref', {'my_ref'}),
+    ('''
+     with cte1 as (select 1)
+        , cte2 as (with cte1 as (select * from cte1) select * from cte1)
+       select * from cte2
+     ''', set()),
+    ('''
+     with recursive t1 as (
+       insert into yy select * from t2 returning *
+     ), t2 as (
+       insert into y select * from y returning *
+     )
+     select 1;
+     ''', {'y', 'yy'}),
+    ('''
+     with recursive t(a) as (
+       select 11
+       union all
+       select a+1 from t where a < 50
+     )
+     delete from y using t where t.a = y.a returning y.a
+     ''', {'y'}),
+    ('''
+     with t as (
+         delete from y
+         where a <= 10
+         returning *
+     )
+     select * from t
+     ''', {'y'}),
+    ('''
+     select count(*) from (
+       with q1(x) as (select random() from generate_series(1, 5))
+         select * from q1
+       union
+         select * from q1
+     ) ss
+     ''', set())
+))
+def test_referenced_tables(stmt, rnames):
+    assert visitors.referenced_relations(stmt) == rnames
 
 
 def test_visiting_path():
@@ -31,7 +100,6 @@ def test_visiting_path():
     root = SN(list=[SN(a='a'), SN(b='b')])
     proot = visitors.Ancestor()
     assert proot @ root is root
-    assert None in proot
     assert list(proot) == [None]
     assert repr(proot) == 'ROOT'
 
@@ -71,8 +139,13 @@ def test_empty_visitor():
 
 def test_ancestors():
     class Checker(visitors.Visitor):
+        def visit_RawStmt(self, ancestors, node):
+            pass
+
         def visit(self, ancestors, node):
             assert ancestors@self.root is node
+            assert ast.RawStmt in ancestors
+            assert ast.InsertStmt not in ancestors
 
     checker = Checker()
 

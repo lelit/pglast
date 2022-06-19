@@ -154,8 +154,10 @@ class AExprKindPrinter(IntEnumPrinter):
         if get_string_value(node.name) == '!~':
             output.swrites('NOT')
         output.swrite('SIMILAR TO ')
-        assert (isinstance(node.rexpr, ast.FuncCall)
-                and node.rexpr.funcname[1].val == 'similar_to_escape')
+        if ((not isinstance(node.rexpr, ast.FuncCall)
+             or node.rexpr.funcname[1].val != 'similar_to_escape')):
+            raise RuntimeError('Expected a FuncCall to "similar_to_escape", got %r',
+                               node.rexpr)
         pattern = node.rexpr.args[0]
         output.print_node(pattern)
         if len(node.rexpr.args) > 1:
@@ -377,6 +379,7 @@ def common_table_expr(node, output):
             output.space(2)
         output.print_name(node.aliascolnames, ',')
         output.write(')')
+        output.indent(-1, False)
         output.newline()
 
     output.swrite('AS')
@@ -384,6 +387,8 @@ def common_table_expr(node, output):
     output.write(' (')
     output.print_node(node.ctequery)
     output.write(')')
+    if node.aliascolnames:
+        output.dedent()
     output.newline()
 
 
@@ -762,7 +767,7 @@ def insert_stmt(node, output):
             output.print_list(node.cols)
             output.write(')')
         else:
-            output.write(' ')
+            output.separator()
         if node.override:
             if node.override == enums.OverridingKind.OVERRIDING_USER_VALUE:
                 output.write(' OVERRIDING USER VALUE ')
@@ -1252,8 +1257,8 @@ def select_stmt(node, output):
                     output.write(' ON (')
                     output.print_list(node.distinctClause)
                     output.write(')')
-            output.write(' ')
             if node.targetList:
+                output.write(' ')
                 output.print_list(node.targetList)
             if node.intoClause:
                 output.newline()
@@ -1716,7 +1721,7 @@ def variable_set_stmt(node, output):
 
 @node_printer(ast.WithClause)
 def with_clause(node, output):
-    relindent = -3
+    relindent = -2
     if node.recursive:
         relindent -= output.write('RECURSIVE ')
     output.print_list(node.ctes, relative_indent=relindent)
@@ -1755,8 +1760,8 @@ def window_def(node, output):
                 output.writes('UNBOUNDED PRECEDING')
             elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING:  # pragma: no cover
                 # Disallowed
-                assert False
-                output.writes('UNBOUNDED FOLLOWING')
+                #output.writes('UNBOUNDED FOLLOWING')
+                raise RuntimeError('Unexpected "UNBOUNDED FOLLOWING" disallowed option')
             elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
                 output.writes('CURRENT ROW')
             elif fo & enums.FRAMEOPTION_START_OFFSET_PRECEDING:
@@ -1769,8 +1774,8 @@ def window_def(node, output):
                 output.writes('AND')
                 if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING:  # pragma: no cover
                     # Disallowed
-                    assert False
-                    output.writes('UNBOUNDED PRECEDING')
+                    #output.writes('UNBOUNDED PRECEDING')
+                    raise RuntimeError('Unexpected "UNBOUNDED PRECEDING" disallowed option')
                 elif fo & enums.FRAMEOPTION_END_UNBOUNDED_FOLLOWING:
                     output.writes('UNBOUNDED FOLLOWING')
                 elif fo & enums.FRAMEOPTION_END_CURRENT_ROW:

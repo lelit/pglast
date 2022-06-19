@@ -26,3 +26,9 @@ VALUES (1, 'this is short enough'),
        (2, 'this is too long, and will be splitted')
 :
 {'comma_at_eoln': True}
+
+insert into foo select * from bar
+=
+INSERT INTO foo
+SELECT *
+FROM bar

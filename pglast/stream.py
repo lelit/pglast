@@ -8,12 +8,30 @@
 
 from contextlib import contextmanager
 from io import StringIO
-from re import match
+from re import compile
 from sys import stderr
 
-from . import ast, parse_plpgsql, parse_sql, visitors
+from . import ast, parse_plpgsql, parse_sql
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
 from .printers import get_printer_for_node, get_special_function
+
+
+is_simple_name = compile(r'[a-z_][a-z0-9_]*$').match
+"Determine whether a name is simple enough to not require being double quoted."
+
+
+def maybe_double_quote_name(name):
+    """Possibly enclose `name` within double quotes.
+
+    When `name` is not entirely composed by lower case letters, digits or underscores, or it
+    matches one of the PostgreSQL keywords, it must be emitted between double quotes.
+    """
+
+    if ((not is_simple_name(name)
+         or name in RESERVED_KEYWORDS
+         or name in TYPE_FUNC_NAME_KEYWORDS)):
+        name = '"%s"' % name.replace('"', '""')
+    return name
 
 
 class OutputStream(StringIO):
@@ -158,7 +176,7 @@ class RawStream(OutputStream):
         a concrete :class:`.ast.Node` instance or a tuple of them.
         """
 
-        from . import ast
+        from .visitors import Visitor
 
         if isinstance(sql, str):
             sql = parse_plpgsql(sql) if plpgsql else parse_sql(sql)
@@ -168,7 +186,7 @@ class RawStream(OutputStream):
             raise ValueError("Unexpected value for 'sql', must be either a string,"
                              " an ast.Node or tuple of them, got %r" % type(sql))
 
-        class UpdateAncestors(visitors.Visitor):
+        class UpdateAncestors(Visitor):
             def visit(self, ancestors, node):
                 node.ancestors = ancestors
 
@@ -274,15 +292,7 @@ class RawStream(OutputStream):
         if is_symbol and is_string:
             self.write(value)
         elif is_name and is_string:
-            # The `node` represent a name of a column/table/alias: when any of its
-            # characters is not a lower case letter, a digit or underscore, it must be
-            # double quoted
-            value = str(value)
-            if ((not match(r'[a-z_][a-z0-9_]*$', value)
-                 or value in RESERVED_KEYWORDS
-                 or value in TYPE_FUNC_NAME_KEYWORDS)):
-                value = '"%s"' % value.replace('"', '""')
-            self.write(value)
+            self.write(maybe_double_quote_name(value))
         elif is_string:
             self.write_quoted_string(value)
         else:

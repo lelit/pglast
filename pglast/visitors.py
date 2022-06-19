@@ -10,6 +10,7 @@ from collections import deque
 from inspect import getmembers, ismethod
 
 from . import ast
+from .stream import maybe_double_quote_name
 
 
 class ActionMeta(type):
@@ -187,6 +188,22 @@ class Ancestor:
                 return path
             path = path.parent
 
+    def find_nearest(self, cls):
+        "Find the nearest ancestor with a node of the given `cls`."
+
+        path = self
+        while True:
+            if isinstance(path.node, cls):
+                return path
+            path = path.parent
+            if path is None:
+                break
+
+    def __contains__(self, cls):
+        "Tell whether there is a node of type `cls` in the anchestry."
+
+        return self.find_nearest(cls) is not None
+
     def __truediv__(self, node_and_member):
         "Create a new instance pointing to the given child node."
 
@@ -352,42 +369,75 @@ class Visitor:
     """
 
 
-class RelationNames(Visitor):
+class ReferencedRelations(Visitor):
     """Concrete implementation of the :func:`.referenced_relations` function.
+
+    :param set cte_names: the set of surrounding CTE names
+    :param WithClause skip_with_clause: skip this clause, when specified
 
     Calling an instance of this class will return a set of the names of the
     relations referenced by the given :class:`node <pglast.ast.Node>`.
     """
 
+    def __init__(self, cte_names=None, skip_with_clause=None):
+        super().__init__()
+        self.cte_names = set() if cte_names is None else cte_names.copy()
+        self.skip_with_clause = skip_with_clause
+        self.r_names = set()
+
     def __call__(self, node):
-        self.ctenames = set()
-        self.rnames = set()
         super().__call__(node)
-        return self.rnames - self.ctenames
-
-    def visit_CommonTableExpr(self, ancestors, node):
-        "Collect CTE names."
-
-        self.ctenames.add(node.ctename)
+        return self.r_names
 
     def visit_DropStmt(self, ancestors, node):
         from .enums import ObjectType
+
         if node.removeType in (ObjectType.OBJECT_TABLE, ObjectType.OBJECT_VIEW):
             for obj in node.objects:
-                self.rnames.add('.'.join(n.val for n in obj))
+                self.r_names.add('.'.join(maybe_double_quote_name(n.val) for n in obj))
+
+    def visit_SelectStmt(self, ancestors, node):
+        if node.withClause and node.withClause is not self.skip_with_clause:
+            # CTEs are tricky to get right, as issue #106 demonstrates!
+            #
+            # We must first collect the CTE names as well as the table referenced by their
+            # queries, and then process the statement with that knowledge.
+            #
+            # In the normal case, each CTE must be processed in order, with the CTE names found
+            # earlier; in the "WITH RECURSIVE" case all its CTEs must be considered valid at
+            # the same time.
+            with_clause = node.withClause
+            if with_clause.recursive:
+                self.cte_names.update(maybe_double_quote_name(cte.ctename)
+                                      for cte in with_clause.ctes)
+                self.r_names.update(ReferencedRelations(self.cte_names)(with_clause))
+            else:
+                for cte in with_clause.ctes:
+                    cte_name = maybe_double_quote_name(cte.ctename)
+                    self.r_names.update(ReferencedRelations(self.cte_names)(cte))
+                    self.cte_names.add(cte_name)
+            self.r_names.update(ReferencedRelations(self.cte_names, with_clause)(node))
+            return Skip
+
+    visit_UpdateStmt = visit_InsertStmt = visit_DeleteStmt = visit_SelectStmt
+
+    def visit_WithClause(self, ancestors, node):
+        if node is self.skip_with_clause:
+            return Skip
 
     def visit_RangeVar(self, ancestors, node):
-        "Collect relation names."
+        "Collect relation names, taking into account defined CTE names"
 
-        tname = node.relname
+        tname = maybe_double_quote_name(node.relname)
 
         if node.schemaname:
-            tname = f'{node.schemaname}.{tname}'
+            tname = f'{maybe_double_quote_name(node.schemaname)}.{tname}'
 
         if node.catalogname:
-            tname = f'{node.catalogname}.{tname}'
+            tname = f'{maybe_double_quote_name(node.catalogname)}.{tname}'
 
-        self.rnames.add(tname)
+        if tname not in self.cte_names:
+            self.r_names.add(tname)
 
 
 def referenced_relations(stmt):
@@ -399,12 +449,17 @@ def referenced_relations(stmt):
 
     Example:
 
-    .. code-block:: Python
+    .. testsetup::
 
-       assert referenced_relations('WITH q1(x,y) AS (SELECT 1,2)'
-                                   ' SELECT * FROM q1, q2') == {'q2'}
+        from pglast.visitors import referenced_relations
+
+    .. doctest::
+
+        >>> referenced_relations('WITH q1(x,y) AS (SELECT 1,2)'
+        ...                      ' SELECT * FROM q1, q2')
+        {'q2'}
     """
 
     from .parser import parse_sql
 
-    return RelationNames()(parse_sql(stmt) if isinstance(stmt, str) else stmt)
+    return ReferencedRelations()(parse_sql(stmt) if isinstance(stmt, str) else stmt)
