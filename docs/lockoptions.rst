@@ -9,7 +9,7 @@
  :mod:`pglast.enums.lockoptions` --- Constants extracted from `lockoptions.h`__
 ================================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/lockoptions.h
+__ https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/nodes/lockoptions.h
 
 .. module:: pglast.enums.lockoptions
    :synopsis: Constants extracted from lockoptions.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/no
 
 .. class:: pglast.enums.lockoptions.LockClauseStrength
 
-   Corresponds to the `LockClauseStrength enum <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/lockoptions.h#L21>`__.
+   Corresponds to the `LockClauseStrength enum <https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/nodes/lockoptions.h#L21>`__.
 
    .. data:: LCS_NONE
 
@@ -32,7 +32,7 @@ __ https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/no
 
 .. class:: pglast.enums.lockoptions.LockTupleMode
 
-   Corresponds to the `LockTupleMode enum <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/lockoptions.h#L49>`__.
+   Corresponds to the `LockTupleMode enum <https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/nodes/lockoptions.h#L49>`__.
 
    .. data:: LockTupleKeyShare
 
@@ -45,7 +45,7 @@ __ https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/no
 
 .. class:: pglast.enums.lockoptions.LockWaitPolicy
 
-   Corresponds to the `LockWaitPolicy enum <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/lockoptions.h#L36>`__.
+   Corresponds to the `LockWaitPolicy enum <https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/nodes/lockoptions.h#L36>`__.
 
    .. data:: LockWaitBlock
 
