@@ -8,6 +8,14 @@ Changes
 Version 3
 #########
 
+3.13 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Update libpg_query to `13-2.1.2`__
+
+  __ https://github.com/pganalyze/libpg_query/blob/13-latest/CHANGELOG.md#13-212---2022-06-28
+
+
 3.12 (2022-06-19)
 ~~~~~~~~~~~~~~~~~
 
