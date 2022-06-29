@@ -361,14 +361,14 @@
    pair: ColumnDef;DefElem
 
 .. index::
-   pair: CreateFdwStmt;DefElem
+   pair: CreateUserMappingStmt;DefElem
 
 .. index::
-   pair: CreateUserMappingStmt;DefElem
+   pair: CreateFdwStmt;DefElem
 
 .. function:: create_fdw_stmt_def_elem(node, output)
 
-   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `ColumnDef <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L644>`__ or a `CreateFdwStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2281>`__ or a `CreateUserMappingStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2339>`__, to the `output` stream.
+   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `ColumnDef <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L644>`__ or a `CreateUserMappingStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2339>`__ or a `CreateFdwStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2281>`__, to the `output` stream.
 
 .. index:: CreateForeignServerStmt
 
@@ -383,14 +383,14 @@
    Pretty print a `node` of type `CreateForeignTableStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2327>`__ to the `output` stream.
 
 .. index::
-   pair: CreateForeignServerStmt;DefElem
+   pair: CreateForeignTableStmt;DefElem
 
 .. index::
-   pair: CreateForeignTableStmt;DefElem
+   pair: CreateForeignServerStmt;DefElem
 
 .. function:: create_foreign_table_stmt_def_elem(node, output)
 
-   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `CreateForeignServerStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2302>`__ or a `CreateForeignTableStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2327>`__, to the `output` stream.
+   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `CreateForeignTableStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2327>`__ or a `CreateForeignServerStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2302>`__, to the `output` stream.
 
 .. index:: CreateFunctionStmt
 
@@ -489,17 +489,17 @@
    Pretty print a `node` of type `CreateSeqStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2548>`__ to the `output` stream.
 
 .. index::
-   pair: AlterSeqStmt;DefElem
-
-.. index::
    pair: Constraint;DefElem
 
 .. index::
    pair: CreateSeqStmt;DefElem
 
+.. index::
+   pair: AlterSeqStmt;DefElem
+
 .. function:: create_seq_stmt_def_elem(node, output)
 
-   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `AlterSeqStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2558>`__ or a `Constraint <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2155>`__ or a `CreateSeqStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2548>`__, to the `output` stream.
+   Pretty print a `node` of type `DefElem <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L729>`__, when it is inside a `Constraint <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2155>`__ or a `CreateSeqStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2548>`__ or a `AlterSeqStmt <https://github.com/pganalyze/libpg_query/blob/7eb584d/src/postgres/include/nodes/parsenodes.h#L2558>`__, to the `output` stream.
 
 .. index:: CreateStatsStmt
 
