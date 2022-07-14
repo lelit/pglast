@@ -13,6 +13,10 @@ Version 4
 
 .. important:: This is still a work in progress!
 
+- Avoid overly abundancy of parentheses in expressions
+
+- Prefer ``SELECT a FROM b LIMIT ALL`` to ``... LIMIT NONE``
+
 ~~~~~~~~~~~~~~~~~~~~
 **Breaking changes**
 ~~~~~~~~~~~~~~~~~~~~
