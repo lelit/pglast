@@ -1271,16 +1271,12 @@ def select_stmt(node, output):
                 output.write('LIMIT ')
             elif node.limitOption == enums.LimitOption.LIMIT_OPTION_WITH_TIES:
                 output.write('FETCH FIRST ')
-            # FIXME do we need add '()' for all ?
-            if ((node.limitCount
-                 and isinstance(node.limitCount, ast.A_Expr)
-                 and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP)):
-                output.write('(')
-            output.print_node(node.limitCount)
-            if ((node.limitCount
-                 and isinstance(node.limitCount, ast.A_Expr)
-                 and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP)):
-                output.write(')')
+            if isinstance(node.limitCount, ast.A_Const) and isinstance(node.limitCount.val, ast.Null):
+                output.write('ALL')
+            else:
+                with output.expression(isinstance(node.limitCount, ast.A_Expr)
+                  and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP):
+                    output.print_node(node.limitCount)
             if node.limitOption == enums.LimitOption.LIMIT_OPTION_WITH_TIES:
                 output.write(' ROWS WITH TIES ')
         if node.limitOffset:

@@ -361,6 +361,18 @@ SELECT CASE a.a
        END
 FROM a
 
+select x from d limit all
+=
+SELECT x
+FROM d
+LIMIT ALL
+
+select x from d limit null
+=
+SELECT x
+FROM d
+LIMIT ALL
+
 (select x from d1 order by y) intersect (select n from d2 group by y limit 3) limit 2
 =
 (SELECT x
