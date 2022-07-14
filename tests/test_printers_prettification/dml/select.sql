@@ -35,9 +35,9 @@ SELECT 'foo' AS barname
      , c
      , (SELECT somevalue
         FROM othertable
-        WHERE (othertable.x = 1)
-          AND (othertable.y = 2)
-          AND (othertable.z = 3))
+        WHERE othertable.x = 1
+          AND othertable.y = 2
+          AND othertable.z = 3)
 FROM sometable
 WHERE c BETWEEN 1 AND 2
 
@@ -52,7 +52,7 @@ SELECT 'foo' AS barname
      , c
      , (SELECT somevalue
         FROM othertable
-        WHERE (othertable.x = 1) AND (othertable.y = 2) AND (othertable.z = 3))
+        WHERE othertable.x = 1 AND othertable.y = 2 AND othertable.z = 3)
 FROM sometable
 WHERE c BETWEEN 1 AND 2
 :
@@ -69,13 +69,13 @@ SELECT 'foo' AS barname
      , c
      , (SELECT somevalue
         FROM othertable
-        WHERE (othertable.x = 1)
-          AND (othertable.y = 2)
-          AND (othertable.z = 3))
+        WHERE othertable.x = 1
+          AND othertable.y = 2
+          AND othertable.z = 3)
 FROM sometable
 WHERE c BETWEEN 1 AND 2
 :
-{'compact_lists_margin': 75}
+{'compact_lists_margin': 60}
 
 select 'foo' as barname,b,c,
        (select somevalue
@@ -88,9 +88,9 @@ SELECT 'foo' AS barname,
        c,
        (SELECT somevalue
         FROM othertable
-        WHERE (othertable.x = 1)
-          AND (othertable.y = 2)
-          AND (othertable.z = 3))
+        WHERE othertable.x = 1
+          AND othertable.y = 2
+          AND othertable.z = 3)
 FROM sometable
 WHERE c BETWEEN 1 AND 2
 :
@@ -156,7 +156,7 @@ FROM (SELECT c_id
            , count(*) OVER () AS max_rn
       FROM customer
       WHERE c_d_id = 5) AS t
-WHERE rn = (SELECT (floor((random() * max_rn)) + 1))
+WHERE rn = (SELECT floor(random() * max_rn) + 1)
 
 select a.* from a left join (select distinct id from b) as b on a.id = b.id
 =
@@ -172,14 +172,14 @@ from sometable as a
 where not a.bool_flag2 and a.something2 is null or a.other2 = 3
 =
 SELECT a.one
-     , (   (    (NOT a.bool_flag)
-            AND (a.something IS NULL))
-        OR (a.other = 3)) AS foo
-     , a.value1 + ((b.value2 * b.value3)) AS bar
+     ,    (NOT a.bool_flag
+       AND a.something IS NULL)
+       OR a.other = 3 AS foo
+     , a.value1 + (b.value2 * b.value3) AS bar
 FROM sometable AS a
-WHERE ((    (NOT a.bool_flag2)
-        AND (a.something2 IS NULL))
-   OR (a.other2 = 3))
+WHERE (NOT a.bool_flag2
+   AND a.something2 IS NULL)
+   OR a.other2 = 3
 
 select p.name, (select format('[%s] %s', count(*), r.name)
                 from c join r on r.contract_id = c.id
@@ -202,8 +202,8 @@ WHERE p.name LIKE 'lele%'
                    , count(*)
                    , r.name)
        FROM c
-            INNER JOIN r ON (r.contract_id = c.id)
-       WHERE (c.person_id = p.id)) ILIKE 'manager%'
+            INNER JOIN r ON r.contract_id = c.id
+       WHERE c.person_id = p.id) ILIKE 'manager%'
 
 SELECT
 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl'
@@ -322,17 +322,17 @@ SELECT id, CASE WHEN (NOT EXISTS (SELECT TRUE FROM aaa WHERE a = 1) or exists (s
 =
 SELECT id
      , CASE
-         WHEN (    ((   (NOT EXISTS (SELECT TRUE
-                                     FROM aaa
-                                     WHERE (a = 1)))
-                     OR EXISTS (SELECT TRUE
-                                FROM bbb
-                                WHERE (b = 2))))
-               AND (id = 1))
+         WHEN (NOT EXISTS (SELECT TRUE
+                           FROM aaa
+                           WHERE a = 1)
+            OR EXISTS (SELECT TRUE
+                       FROM bbb
+                       WHERE b = 2))
+          AND id = 1
            THEN NULL
          ELSE NOT EXISTS (SELECT TRUE
                           FROM ccc
-                          WHERE (c = 1))
+                          WHERE c = 1)
        END
 FROM bar
 

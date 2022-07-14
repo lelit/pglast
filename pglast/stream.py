@@ -121,8 +121,6 @@ class OutputStream(StringIO):
 class RawStream(OutputStream):
     """Basic SQL parse tree writer.
 
-    :param int expression_level:
-           start the stream with the given expression level depth, 0 by default
     :param int separate_statements:
            ``1`` by default, tells how many empty lines should separate statements
     :param bool special_functions:
@@ -143,12 +141,11 @@ class RawStream(OutputStream):
     without any adornment.
     """
 
-    def __init__(self, expression_level=0, separate_statements=1, special_functions=False,
+    def __init__(self, separate_statements=1, special_functions=False,
                  comma_at_eoln=False, semicolon_after_last_statement=False,
                  comments=None, remove_pg_catalog_from_functions=False):
         super().__init__()
         self.current_column = 0
-        self.expression_level = expression_level
         self.separate_statements = separate_statements
         self.special_functions = special_functions
         self.comma_at_eoln = comma_at_eoln
@@ -159,7 +156,6 @@ class RawStream(OutputStream):
     def show(self, where=stderr):  # pragma: no cover
         """Emit also current expression_level and a "pointer" showing current_column."""
 
-        where.write('expression_level=%d\n' % self.expression_level)
         super().show(where)
         if self.current_column:
             where.write('-' * (self.current_column-1))
@@ -248,18 +244,24 @@ class RawStream(OutputStream):
         yield
 
     @contextmanager
-    def expression(self):
-        "Create a context manager that will wrap subexpressions within parentheses."
 
-        self.expression_level += 1
-        if self.expression_level > 1:
+    def expression(self, need_parens):
+        """Create a context manager usable to conditionally wrap something within parentheses.
+
+        :param bool need_parens: whether to emit opening and closing parentheses
+
+        This method used to be used for *subexpressions*, but now is used to emit almost
+        anything that goes within parentheses.
+        """
+
+        if need_parens:
             self.write('(')
         yield
-        if self.expression_level > 1:
+        if need_parens:
             self.write(')')
-        self.expression_level -= 1
 
     def _concat_nodes(self, nodes, sep=' ', are_names=False):
+
         """Concatenate given `nodes`, using `sep` as the separator.
 
         :param scalars: a sequence of nodes
@@ -273,9 +275,9 @@ class RawStream(OutputStream):
         result.
         """
 
-        rawstream = RawStream(expression_level=self.expression_level,
-                              special_functions=self.special_functions,
-                              remove_pg_catalog_from_functions=self.remove_pg_catalog_from_functions)
+        rawstream = RawStream(
+            special_functions=self.special_functions,
+            remove_pg_catalog_from_functions=self.remove_pg_catalog_from_functions)
         rawstream.print_list(nodes, sep, are_names=are_names, standalone_items=False)
         return rawstream.getvalue()
 
@@ -390,7 +392,8 @@ class RawStream(OutputStream):
             and items[1].val not in ('position', 'xmlexists')
         )
 
-    def _print_items(self, items, sep, newline, are_names=False, is_symbol=False):
+    def _print_items(self, items, sep, newline, are_names=False, is_symbol=False,
+                     item_needs_parens=None):
         first = 1 if self._is_pg_catalog_func(items) else 0
         last = len(items) - 1
         for idx, item in enumerate(items):
@@ -414,10 +417,16 @@ class RawStream(OutputStream):
             if item is None:
                 self.write('None')
             else:
-                self.print_node(item, is_name=are_names, is_symbol=is_symbol and idx == last)
+                if item_needs_parens is None:
+                    needs_parens = False
+                else:
+                    needs_parens = item_needs_parens(item)
+                with self.expression(needs_parens):
+                    self.print_node(item, is_name=are_names,
+                                    is_symbol=is_symbol and idx == last)
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
-                   are_names=False, is_symbol=False):
+                   are_names=False, is_symbol=False, item_needs_parens=None):
         """Execute :meth:`print_node` on all the `nodes`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.ast.Node` instances
@@ -432,6 +441,7 @@ class RawStream(OutputStream):
         :param bool is_symbol:
                whether the nodes are actually a *symbol* such as an *operator name*, in which
                case the last one must be printed verbatim (e.g. ``"MySchema".===``)
+        :param item_needs_parens: either ``None`` or a callable
         """
 
         if relative_indent is None:
@@ -449,7 +459,7 @@ class RawStream(OutputStream):
 
         with self.push_indent(relative_indent):
             self._print_items(nodes, sep, standalone_items, are_names=are_names,
-                              is_symbol=is_symbol)
+                              is_symbol=is_symbol, item_needs_parens=item_needs_parens)
 
     def print_lists(self, lists, sep=',', relative_indent=None, standalone_items=None,
                     are_names=False, sublist_open='(', sublist_close=')', sublist_sep=',',
@@ -597,7 +607,7 @@ class IndentedStream(RawStream):
             self.current_indent = ci
 
     def print_list(self, nodes, sep=',', relative_indent=None, standalone_items=None,
-                   are_names=False, is_symbol=False):
+                   are_names=False, is_symbol=False, item_needs_parens=None):
         """Execute :meth:`print_node` on all the `nodes`, separating them with `sep`.
 
         :param nodes: a sequence of :class:`~.ast.Node` instances
@@ -635,7 +645,8 @@ class IndentedStream(RawStream):
              and standalone_items)):
             self.write(' '*(len(sep) + 1))  # separator added automatically
 
-        super().print_list(nodes, sep, relative_indent, standalone_items, are_names, is_symbol)
+        super().print_list(nodes, sep, relative_indent, standalone_items, are_names, is_symbol,
+                           item_needs_parens)
 
     def write_quoted_string(self, s):
         """Emit the string `s` possibly splitted in successive chunks.

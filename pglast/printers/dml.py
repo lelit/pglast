@@ -37,13 +37,13 @@ class AExprKindPrinter(IntEnumPrinter):
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
 
     def AEXPR_DISTINCT(self, node, output):
-        if isinstance(node.lexpr, ast.BoolExpr):
-            output.write('(')
-        output.print_node(node.lexpr)
-        if isinstance(node.lexpr, ast.BoolExpr):
-            output.write(') ')
+        with output.expression(isinstance(node.lexpr,
+                                          (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
+            output.print_node(node.lexpr)
         output.swrite('IS DISTINCT FROM ')
-        output.print_node(node.rexpr)
+        with output.expression(isinstance(node.rexpr,
+                                          (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
+            output.print_node(node.rexpr)
 
     def AEXPR_ILIKE(self, node, output):
         output.print_node(node.lexpr)
@@ -97,16 +97,11 @@ class AExprKindPrinter(IntEnumPrinter):
         output.write(')')
 
     def AEXPR_OP(self, node, output):
-        with output.expression():
+        with output.expression(isinstance(abs(node.ancestors), ast.A_Expr)):
             # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
             if node.lexpr is not None:
-                if isinstance(node.lexpr, ast.A_Expr):
-                    if node.lexpr.kind == node.kind and node.lexpr.name == node.name:
-                        output.print_node(node.lexpr)
-                    else:
-                        with output.expression():
-                            output.print_node(node.lexpr)
-                else:
+                with output.expression(isinstance(node.lexpr,
+                                                  (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
                     output.print_node(node.lexpr)
                 output.write(' ')
             if isinstance(node.name, tuple) and len(node.name) > 1:
@@ -117,13 +112,8 @@ class AExprKindPrinter(IntEnumPrinter):
                 output.print_symbol(node.name)
                 output.write(' ')
             if node.rexpr is not None:
-                if isinstance(node.rexpr, ast.A_Expr):
-                    if node.rexpr.kind == node.kind and node.rexpr.name == node.name:
-                        output.print_node(node.rexpr)
-                    else:
-                        with output.expression():
-                            output.print_node(node.rexpr)
-                else:
+                with output.expression(isinstance(node.rexpr,
+                                                  (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
                     output.print_node(node.rexpr)
 
     def AEXPR_OP_ALL(self, node, output):
@@ -189,16 +179,12 @@ def a_indices(node, output):
 
 @node_printer(ast.A_Indirection)
 def a_indirection(node, output):
-    bracket = (isinstance(node.arg, (ast.A_ArrayExpr, ast.A_Expr, ast.A_Indirection,
-                                     ast.FuncCall, ast.RowExpr, ast.TypeCast))
-               or
-               (isinstance(node.arg, ast.ColumnRef)
-                and not isinstance(node.indirection[0], ast.A_Indices)))
-    if bracket:
-        output.write('(')
-    output.print_node(node.arg)
-    if bracket:
-        output.write(')')
+    with output.expression(isinstance(node.arg, (ast.A_ArrayExpr, ast.A_Expr,
+                                                 ast.A_Indirection, ast.FuncCall,
+                                                 ast.RowExpr, ast.TypeCast))
+                           or (isinstance(node.arg, ast.ColumnRef)
+                               and not isinstance(node.indirection[0], ast.A_Indices))):
+        output.print_node(node.arg)
     output.print_list(node.indirection, '', standalone_items=False)
 
 
@@ -248,21 +234,26 @@ def bitstring(node, output):
     output.write(f"{node.val[0]}'{node.val[1:]}'")
 
 
+def _bool_expr_needs_to_be_wrapped_in_parens(node):
+    bet = enums.BoolExprType
+    return isinstance(node, ast.BoolExpr) and node.boolop in (bet.AND_EXPR, bet.OR_EXPR)
+
+
 @node_printer(ast.BoolExpr)
 def bool_expr(node, output):
     bet = enums.BoolExprType
-    outer_exp_level = output.expression_level
-    with output.expression():
-        in_res_target = isinstance(node.ancestors[0], ast.ResTarget)
-        if node.boolop == bet.AND_EXPR:
-            relindent = -4 if not in_res_target and outer_exp_level == 0 else None
-            output.print_list(node.args, 'AND', relative_indent=relindent)
-        elif node.boolop == bet.OR_EXPR:
-            with output.expression():
-                relindent = -4 if not in_res_target and outer_exp_level == 0 else None
-                output.print_list(node.args, 'OR', relative_indent=relindent)
-        else:
-            output.writes('NOT')
+    in_res_target = isinstance(node.ancestors[0], ast.ResTarget)
+    if node.boolop == bet.AND_EXPR:
+        relindent = -4 if not in_res_target else None
+        output.print_list(node.args, 'AND', relative_indent=relindent,
+                          item_needs_parens=_bool_expr_needs_to_be_wrapped_in_parens)
+    elif node.boolop == bet.OR_EXPR:
+        relindent = -3 if not in_res_target else None
+        output.print_list(node.args, 'OR', relative_indent=relindent,
+                          item_needs_parens=_bool_expr_needs_to_be_wrapped_in_parens)
+    else:
+        output.writes('NOT')
+        with output.expression(_bool_expr_needs_to_be_wrapped_in_parens(node.args[0])):
             output.print_node(node.args[0])
 
 
@@ -326,8 +317,7 @@ def case_expr(node, output):
 def case_when(node, output):
     output.write('WHEN ')
     with output.push_indent(-3):
-        with output.expression():
-            output.print_node(node.expr)
+        output.print_node(node.expr)
         output.newline()
         output.write('THEN ')
         output.print_node(node.result)
@@ -343,7 +333,7 @@ def coalesce_expr(node, output):
 @node_printer(ast.CollateClause)
 def collate_clause(node, output):
     if node.arg:
-        with output.expression():
+        with output.expression(isinstance(node.arg, ast.A_Expr)):
             output.print_node(node.arg)
     output.swrite('COLLATE ')
     output.print_name(node.collname, '.')
@@ -826,56 +816,51 @@ def into_clause(node, output):
 
 @node_printer(ast.JoinExpr)
 def join_expr(node, output):
-    if node.alias:
-        output.write('(')
-
     with output.push_indent():
-        output.print_node(node.larg)
-        output.newline()
-
-        if node.isNatural:
-            output.write('NATURAL ')
-
-        jt = enums.JoinType
-        if node.jointype == jt.JOIN_INNER:
-            if not node.usingClause and not node.quals and not node.isNatural:
-                output.write('CROSS')
-            else:
-                output.write('INNER')
-        elif node.jointype == jt.JOIN_LEFT:
-            output.write('LEFT')
-        elif node.jointype == jt.JOIN_FULL:
-            output.write('FULL')
-        elif node.jointype == jt.JOIN_RIGHT:
-            output.write('RIGHT')
-
-        output.swrites('JOIN')
-
-        if isinstance(node.rarg, ast.JoinExpr):
-            output.indent(3, relative=False)
-            # need this for:
-            # tests/test_printers_roundtrip.py::test_pg_regress_corpus[join.sql] -
-            # AssertionError: Statement “select * from   int8_tbl x cross join (int4_tbl x cross join lateral (select x.f1) ss)”
-            # from libpg_query/test/sql/postgres_regress/join.sql at line 1998
-            if not node.rarg.alias:
-                output.write(' (')
-            output.print_node(node.rarg)
-            if not node.rarg.alias:
-                output.write(')')
+        with output.expression(bool(node.alias)):
+            output.print_node(node.larg)
             output.newline()
-        else:
-            output.print_node(node.rarg)
 
-        if node.usingClause:
-            output.swrite('USING (')
-            output.print_name(node.usingClause, ',')
-            output.write(')')
-        elif node.quals:
-            output.swrite('ON ')
-            output.print_node(node.quals)
+            if node.isNatural:
+                output.write('NATURAL ')
+
+            jt = enums.JoinType
+            if node.jointype == jt.JOIN_INNER:
+                if not node.usingClause and not node.quals and not node.isNatural:
+                    output.write('CROSS')
+                else:
+                    output.write('INNER')
+            elif node.jointype == jt.JOIN_LEFT:
+                output.write('LEFT')
+            elif node.jointype == jt.JOIN_FULL:
+                output.write('FULL')
+            elif node.jointype == jt.JOIN_RIGHT:
+                output.write('RIGHT')
+
+            output.swrite('JOIN ')
+
+            if isinstance(node.rarg, ast.JoinExpr):
+                output.indent(3, relative=False)
+                # need this for:
+                # tests/test_printers_roundtrip.py::test_pg_regress_corpus[join.sql] -
+                # AssertionError: Statement “select * from   int8_tbl x cross join (int4_tbl x cross join lateral (select x.f1) ss)”
+                # from libpg_query/test/sql/postgres_regress/join.sql at line 1998
+                with output.expression(not bool(node.rarg.alias)):
+                    output.print_node(node.rarg)
+                output.newline()
+            else:
+                output.print_node(node.rarg)
+
+            if node.usingClause:
+                output.swrite('USING ')
+                with output.expression(True):
+                    output.print_name(node.usingClause, ',')
+            elif node.quals:
+                output.swrite('ON ')
+                output.print_node(node.quals)
 
         if node.alias:
-            output.writes(') AS')
+            output.writes(' AS ')
             output.print_name(node.alias)
 
         if isinstance(node.rarg, ast.JoinExpr):
@@ -938,12 +923,11 @@ def null(node, output):
 
 @node_printer(ast.NullTest)
 def null_test(node, output):
-    with output.expression():
-        output.print_node(node.arg)
-        output.write(' IS')
-        if node.nulltesttype == enums.NullTestType.IS_NOT_NULL:
-            output.write(' NOT')
-        output.write(' NULL')
+    output.print_node(node.arg)
+    output.write(' IS')
+    if node.nulltesttype == enums.NullTestType.IS_NOT_NULL:
+        output.write(' NOT')
+    output.write(' NULL')
 
 
 @node_printer(ast.ParamRef)
@@ -1073,22 +1057,23 @@ def range_subselect(node, output):
 def range_table_func(node, output):
     if node.lateral:
         output.write('LATERAL ')
-    output.write('xmltable(')
-    with output.push_indent():
-        if node.namespaces:
-            output.write('xmlnamespaces(')
-            output.print_list(node.namespaces)
-            output.writes('),')
+    output.write('xmltable')
+    with output.expression(True):
+        with output.push_indent():
+            if node.namespaces:
+                output.write('xmlnamespaces')
+                with output.expression(True):
+                    output.print_list(node.namespaces)
+                output.writes(',')
+                output.newline()
+            with output.expression(True):
+                output.print_node(node.rowexpr)
             output.newline()
-        with output.expression():
-            output.print_node(node.rowexpr)
-        output.newline()
-        output.write('PASSING ')
-        output.print_node(node.docexpr)
-        output.newline()
-        output.write('COLUMNS ')
-        output.print_list(node.columns)
-        output.write(')')
+            output.write('PASSING ')
+            output.print_node(node.docexpr)
+            output.newline()
+            output.write('COLUMNS ')
+            output.print_list(node.columns)
     if node.alias:
         # FIXME: find a way to get here
         output.write(' AS ')
@@ -1192,12 +1177,12 @@ def _select_needs_to_be_wrapped_in_parens(node):
     # Accordingly with https://www.postgresql.org/docs/current/sql-select.html, a SELECT
     # statement on either sides of UNION/INTERSECT/EXCEPT must be wrapped in parens if it
     # contains ORDER BY/LIMIT/... or is a nested UNION/INTERSECT/EXCEPT
-    return (node.sortClause
-            or node.limitCount
-            or node.limitOffset
-            or node.lockingClause
-            or node.withClause
-            or node.op != enums.SetOperation.SETOP_NONE)
+    return bool(node.sortClause
+                or node.limitCount
+                or node.limitOffset
+                or node.lockingClause
+                or node.withClause
+                or node.op != enums.SetOperation.SETOP_NONE)
 
 
 @node_printer(ast.SelectStmt)
@@ -1214,21 +1199,13 @@ def select_stmt(node, output):
 
         if node.valuesLists:
             # Is this a SELECT ... FROM (VALUES (...))?
-            require_parens = isinstance(node.ancestors[0], ast.RangeSubselect)
-            if require_parens:
-                output.write('(')
-            output.write('VALUES ')
-            output.print_lists(node.valuesLists)
-            if require_parens:
-                output.write(')')
+            with output.expression(isinstance(node.ancestors[0], ast.RangeSubselect)):
+                output.write('VALUES ')
+                output.print_lists(node.valuesLists)
         elif node.op != so.SETOP_NONE and (node.larg or node.rarg):
             with output.push_indent():
                 if node.larg:
-                    if _select_needs_to_be_wrapped_in_parens(node.larg):
-                        output.write('(')
-                        output.print_node(node.larg)
-                        output.write(')')
-                    else:
+                    with output.expression(_select_needs_to_be_wrapped_in_parens(node.larg)):
                         output.print_node(node.larg)
                 output.newline()
                 output.newline()
@@ -1243,11 +1220,7 @@ def select_stmt(node, output):
                 output.newline()
                 output.newline()
                 if node.rarg:
-                    if _select_needs_to_be_wrapped_in_parens(node.rarg):
-                        output.write('(')
-                        output.print_node(node.rarg)
-                        output.write(')')
-                    else:
+                    with output.expression(_select_needs_to_be_wrapped_in_parens(node.rarg)):
                         output.print_node(node.rarg)
         else:
             output.write('SELECT')
@@ -1536,12 +1509,11 @@ def type_cast(node, output):
             output.print_node(node.arg)
             return
     # FIXME: all other case using CAST
-    output.write('CAST(')
-    with output.expression():
+    output.write('CAST')
+    with output.expression(True):
         output.print_node(node.arg)
-    output.write(' AS ')
-    output.print_node(node.typeName)
-    output.write(')')
+        output.write(' AS ')
+        output.print_node(node.typeName)
 
 
 # Constants taken from PG's include/utils/datetime.h: seem safe to assume they won't change

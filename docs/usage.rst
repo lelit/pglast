@@ -215,8 +215,8 @@ once *reprinted* with a focus on readability.
           b,
           c
    FROM sometable
-   WHERE ((value IS NULL)
-      OR (value = 1))
+   WHERE value IS NULL
+      OR value = 1
 
 Under the cover
 ---------------

@@ -27,16 +27,16 @@ CREATE TRIGGER trg_celery_periodic_tasks_950_after_update
   AFTER UPDATE
   ON celery.periodic_tasks
   FOR EACH ROW
-    WHEN (((   old.active IS DISTINCT FROM new.active
-            OR old.args IS DISTINCT FROM new.args
-            OR old.kwargs IS DISTINCT FROM new.kwargs
-            OR old.options IS DISTINCT FROM new.options
-            OR old.run_every IS DISTINCT FROM new.run_every
-            OR old.run_at_minutes IS DISTINCT FROM new.run_at_minutes
-            OR old.run_at_hours IS DISTINCT FROM new.run_at_hours
-            OR old.run_on_weekdays IS DISTINCT FROM new.run_on_weekdays
-            OR old.run_on_days IS DISTINCT FROM new.run_on_days
-            OR old.run_on_months IS DISTINCT FROM new.run_on_months)))
+    WHEN (old.active IS DISTINCT FROM new.active
+       OR old.args IS DISTINCT FROM new.args
+       OR old.kwargs IS DISTINCT FROM new.kwargs
+       OR old.options IS DISTINCT FROM new.options
+       OR old.run_every IS DISTINCT FROM new.run_every
+       OR old.run_at_minutes IS DISTINCT FROM new.run_at_minutes
+       OR old.run_at_hours IS DISTINCT FROM new.run_at_hours
+       OR old.run_on_weekdays IS DISTINCT FROM new.run_on_weekdays
+       OR old.run_on_days IS DISTINCT FROM new.run_on_days
+       OR old.run_on_months IS DISTINCT FROM new.run_on_months)
     EXECUTE PROCEDURE celery.notify_periodic_tasks_changed()
 
 CREATE TRIGGER trig1 AFTER UPDATE ON schema1.table1
