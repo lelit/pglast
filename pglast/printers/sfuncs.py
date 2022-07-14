@@ -37,9 +37,9 @@ def btrim(node, output):
 @special_function('pg_catalog.pg_collation_for')
 def pg_collation_for(node, output):
     "Emit function ``pg_catalog.pg_collation_for(x)`` as ``COLLATION FOR (x)``."
-    output.write('COLLATION FOR (')
-    output.print_node(node.args[0])
-    output.write(')')
+    output.write('COLLATION FOR ')
+    with output.expression(True):
+        output.print_node(node.args[0])
 
 
 @special_function('pg_catalog.date_part')
@@ -48,11 +48,11 @@ def date_part(node, output):
     Emit function ``pg_catalog.date_part(field, timestamp)`` as
     ``EXTRACT(field FROM timestamp).``.
     """
-    output.write('EXTRACT(')
-    output.write(node.args[0].val.val.upper())
-    output.write(' FROM ')
-    output.print_node(node.args[1])
-    output.write(')')
+    output.write('EXTRACT')
+    with output.expression(True):
+        output.write(node.args[0].val.val.upper())
+        output.write(' FROM ')
+        output.print_node(node.args[1])
 
 
 @special_function('pg_catalog.ltrim')
@@ -71,22 +71,22 @@ def normalize(node, output):
     Emit function ``pg_catalog.normalize(a)`` as ``normalize(x)`` and function
     ``pg_catalog.normalize('a','b')`` as ``normalize('a', b)``.
     """
-    output.write('normalize(')
-    output.print_node(node.args[0])
-    if len(node.args) > 1:
-        output.write(', ')
-        output.write(node.args[1].val.val.upper())
-    output.write(')')
+    output.write('normalize')
+    with output.expression(True):
+        output.print_node(node.args[0])
+        if len(node.args) > 1:
+            output.write(', ')
+            output.write(node.args[1].val.val.upper())
 
 
 @special_function('pg_catalog.overlaps')
 def overlaps(node, output):
     "Emit function ``pg_catalog.overlaps(a, b, c, d)`` as ``(a, b) OVERLAPS (c, d)``."
-    output.write('(')
-    output.print_list((node.args[0], node.args[1]), standalone_items=False)
-    output.write(') OVERLAPS (')
-    output.print_list((node.args[2], node.args[3]), standalone_items=False)
-    output.write(')')
+    with output.expression(True):
+        output.print_list((node.args[0], node.args[1]), standalone_items=False)
+    output.write(' OVERLAPS ')
+    with output.expression(True):
+        output.print_list((node.args[2], node.args[3]), standalone_items=False)
 
 
 @special_function('pg_catalog.overlay')
@@ -95,25 +95,25 @@ def overlay(node, output):
     Emit function ``pg_catalog.overlay('Txxxxas','hom', 2, 4)`` as
     ``overlay('Txxxxas' PLACING 'hom' FROM 2 FOR 4)``."
     """
-    output.write('overlay(')
-    output.print_node(node.args[0])
-    output.write(' PLACING ')
-    output.print_node(node.args[1])
-    output.write(' FROM ')
-    output.print_node(node.args[2])
-    output.write(' FOR ')
-    output.print_node(node.args[3])
-    output.write(')')
+    output.write('overlay')
+    with output.expression(True):
+        output.print_node(node.args[0])
+        output.write(' PLACING ')
+        output.print_node(node.args[1])
+        output.write(' FROM ')
+        output.print_node(node.args[2])
+        output.write(' FOR ')
+        output.print_node(node.args[3])
 
 
 @special_function('pg_catalog.position')
 def position(node, output):
     "Emit function ``pg_catalog.position('abcd', 'a')`` as ``position('a' IN 'abcd')``."
-    output.write('position(')
-    output.print_node(node.args[1])
-    output.write(' IN ')
-    output.print_node(node.args[0])
-    output.write(')')
+    output.write('position')
+    with output.expression(True):
+        output.print_node(node.args[1])
+        output.write(' IN ')
+        output.print_node(node.args[0])
 
 
 @special_function('pg_catalog.rtrim')
@@ -132,14 +132,14 @@ def substring(node, output):
     ``substring('Txxxxas' FROM 2 FOR 4)`` and ``pg_catalog.substring('blabla', 2)``
     as ``substring('blabla' FROM 2)``.
     """
-    output.write('substring(')
-    output.print_node(node.args[0])
-    output.write(' FROM ')
-    output.print_node(node.args[1])
-    if len(node.args) > 2:
-        output.write(' FOR ')
-        output.print_node(node.args[2])
-    output.write(')')
+    output.write('substring')
+    with output.expression(True):
+        output.print_node(node.args[0])
+        output.write(' FROM ')
+        output.print_node(node.args[1])
+        if len(node.args) > 2:
+            output.write(' FOR ')
+            output.print_node(node.args[2])
 
 
 @special_function('pg_catalog.timezone')
@@ -155,8 +155,8 @@ def timezone(node, output):
 @special_function('pg_catalog.xmlexists')
 def xmlexists(node, output):
     "Emit function ``pg_catalog.xmlexists(x, y)`` as ``xmlexists(x PASSING BY REF y)``."
-    output.write('xmlexists(')
-    output.print_node(node.args[0])
-    output.write(' PASSING BY REF ')
-    output.print_node(node.args[1])
-    output.write(')')
+    output.write('xmlexists')
+    with output.expression(True):
+        output.print_node(node.args[0])
+        output.write(' PASSING BY REF ')
+        output.print_node(node.args[1])

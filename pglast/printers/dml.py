@@ -56,9 +56,9 @@ class AExprKindPrinter(IntEnumPrinter):
         output.print_node(node.lexpr)
         if get_string_value(node.name) == '<>':
             output.swrites('NOT')
-        output.swrite('IN (')
-        output.print_list(node.rexpr)
-        output.write(')')
+        output.swrite('IN ')
+        with output.expression(True):
+            output.print_list(node.rexpr)
 
     def AEXPR_LIKE(self, node, output):
         output.print_node(node.lexpr)
@@ -83,18 +83,18 @@ class AExprKindPrinter(IntEnumPrinter):
         output.print_node(node.rexpr)
 
     def AEXPR_NULLIF(self, node, output):
-        output.write('NULLIF(')
-        output.print_list((node.lexpr, node.rexpr))
-        output.write(')')
+        output.write('NULLIF')
+        with output.expression(True):
+            output.print_list((node.lexpr, node.rexpr))
 
     def AEXPR_OF(self, node, output):
         output.print_node(node.lexpr)
         output.swrites('IS')
         if get_string_value(node.name) == '<>':
             output.writes('NOT')
-        output.write('OF (')
-        output.print_list(node.rexpr)
-        output.write(')')
+        output.write('OF ')
+        with output.expression(True):
+            output.print_list(node.rexpr)
 
     def AEXPR_OP(self, node, output):
         with output.expression(isinstance(abs(node.ancestors), ast.A_Expr)):
@@ -105,9 +105,9 @@ class AExprKindPrinter(IntEnumPrinter):
                     output.print_node(node.lexpr)
                 output.write(' ')
             if isinstance(node.name, tuple) and len(node.name) > 1:
-                output.write('OPERATOR(')
-                output.print_symbol(node.name)
-                output.write(') ')
+                output.write('OPERATOR')
+                with output.expression(True):
+                    output.print_symbol(node.name)
             else:
                 output.print_symbol(node.name)
                 output.write(' ')
@@ -120,17 +120,17 @@ class AExprKindPrinter(IntEnumPrinter):
         output.print_node(node.lexpr)
         output.write(' ')
         output.write(get_string_value(node.name))
-        output.write(' ALL(')
-        output.print_node(node.rexpr)
-        output.write(')')
+        output.write(' ALL')
+        with output.expression(True):
+            output.print_node(node.rexpr)
 
     def AEXPR_OP_ANY(self, node, output):
         output.print_node(node.lexpr)
         output.write(' ')
         output.write(get_string_value(node.name))
-        output.write(' ANY(')
-        output.print_node(node.rexpr)
-        output.write(')')
+        output.write(' ANY')
+        with output.expression(True):
+            output.print_node(node.rexpr)
 
     def AEXPR_PAREN(self, node, output):  # pragma: no cover
         # FIXME: accordingly with the documentation of the A_Expr_Kind typedef, AEXPR_PAREN is
@@ -197,16 +197,14 @@ def a_indirection_a_star(node, output):
 
 @node_printer(ast.A_Indirection, ast.ColumnRef)
 def a_indirection_column_ref(node, output):
-    output.write('(')
-    column_ref(node, output)
-    output.write(')')
+    with output.expression(True):
+        column_ref(node, output)
 
 
 @node_printer(ast.A_Indirection, ast.FuncCall)
 def a_indirection_func_call(node, output):
-    output.write('(')
-    func_call(node, output)
-    output.write(')')
+    with output.expression(True):
+        func_call(node, output)
 
 
 @node_printer(ast.A_Indirection, ast.String)
@@ -224,9 +222,9 @@ def a_star(node, output):
 def alias(node, output):
     output.print_name(node.aliasname)
     if node.colnames:
-        output.swrite('(')
-        output.print_name(node.colnames, sep=',')
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            output.print_name(node.colnames, sep=',')
 
 
 @node_printer(ast.BitString)
@@ -325,9 +323,9 @@ def case_when(node, output):
 
 @node_printer(ast.CoalesceExpr)
 def coalesce_expr(node, output):
-    output.write('COALESCE(')
-    output.print_list(node.args)
-    output.write(')')
+    output.write('COALESCE')
+    with output.expression(True):
+        output.print_list(node.args)
 
 
 @node_printer(ast.CollateClause)
@@ -364,19 +362,18 @@ cte_materialize_printer = CTEMaterializedPrinter()
 def common_table_expr(node, output):
     output.print_name(node.ctename)
     if node.aliascolnames:
-        output.write('(')
-        if len(node.aliascolnames) > 1:
-            output.space(2)
-        output.print_name(node.aliascolnames, ',')
-        output.write(')')
+        with output.expression(True):
+            if len(node.aliascolnames) > 1:
+                output.space(2)
+            output.print_name(node.aliascolnames, ',')
         output.indent(-1, False)
         output.newline()
 
     output.swrite('AS')
     cte_materialize_printer(node.ctematerialized, node, output)
-    output.write(' (')
-    output.print_node(node.ctequery)
-    output.write(')')
+    output.write(' ')
+    with output.expression(True):
+        output.print_node(node.ctequery)
     if node.aliascolnames:
         output.dedent()
     output.newline()
@@ -402,14 +399,14 @@ def copy_stmt(node, output):
     if node.relation:
         output.print_node(node.relation)
         if node.attlist:
-            output.write(' (')
-            output.print_list(node.attlist, are_names=True)
-            output.write(')')
+            output.write(' ')
+            with output.expression(True):
+                output.print_list(node.attlist, are_names=True)
     if node.query:
-        output.write(' (')
-        with output.push_indent():
-            output.print_node(node.query)
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            with output.push_indent():
+                output.print_node(node.query)
     if node.is_from:
         output.write(' FROM ')
     else:
@@ -425,9 +422,9 @@ def copy_stmt(node, output):
             output.write('STDOUT')
     if node.options:
         output.newline()
-        output.write('WITH (')
-        output.print_list(node.options)
-        output.write(')')
+        output.write('WITH ')
+        with output.expression(True):
+            output.print_list(node.options)
     if node.whereClause:
         output.newline()
         output.write('WHERE ')
@@ -465,19 +462,18 @@ def copy_stmt_def_elem(node, output):
         output.write('FORCE_QUOTE ')
         # If it is a list print it.
         if isinstance(argv, tuple):
-            output.write('(')
-            output.print_list(argv, are_names=True)
-            output.write(')')
+            with output.expression(True):
+                output.print_list(argv, are_names=True)
         else:
             output.write('* ')
     elif option == 'force_null':
-        output.write('FORCE_NULL (')
-        output.print_list(argv, are_names=True)
-        output.write(')')
+        output.write('FORCE_NULL ')
+        with output.expression(True):
+            output.print_list(argv, are_names=True)
     elif option == 'force_not_null':
-        output.write('FORCE_NOT_NULL (')
-        output.print_list(argv, are_names=True)
-        output.write(')')
+        output.write('FORCE_NOT_NULL ')
+        with output.expression(True):
+            output.print_list(argv, are_names=True)
     elif option == 'encoding':
         output.write('ENCODING ')
         output.print_node(argv)
@@ -542,18 +538,16 @@ def execute_stmt(node, output):
     output.write('EXECUTE ')
     output.print_name(node.name)
     if node.params:
-        output.write('(')
-        output.print_list(node.params)
-        output.write(')')
+        with output.expression(True):
+            output.print_list(node.params)
 
 
 @node_printer(ast.ExplainStmt)
 def explain_stmt(node, output):
     output.write('EXPLAIN ')
     if node.options:
-        output.write('(')
-        output.print_list(node.options)
-        output.write(')')
+        with output.expression(True):
+            output.print_list(node.options)
         output.newline()
         output.space(2)
     output.print_node(node.query)
@@ -620,29 +614,28 @@ def func_call(node, output):
         return
 
     output.print_name(node.funcname)
-    output.write('(')
-    if node.agg_distinct:
-        output.writes('DISTINCT')
-    if node.args is None:
-        if node.agg_star:
-            output.write('*')
-    else:
-        if node.func_variadic:
-            if len(node.args) > 1:
-                output.print_list(node.args[:-1])
-                output.write(', ')
-            output.write('VARIADIC ')
-            output.print_node(node.args[-1])
+    with output.expression(True):
+        if node.agg_distinct:
+            output.writes('DISTINCT')
+        if node.args is None:
+            if node.agg_star:
+                output.write('*')
         else:
-            output.print_list(node.args)
-    if node.agg_order:
-        if not node.agg_within_group:
-            output.swrites('ORDER BY')
-            output.print_list(node.agg_order)
-        else:
-            output.writes(') WITHIN GROUP (ORDER BY')
-            output.print_list(node.agg_order)
-    output.write(')')
+            if node.func_variadic:
+                if len(node.args) > 1:
+                    output.print_list(node.args[:-1])
+                    output.write(', ')
+                output.write('VARIADIC ')
+                output.print_node(node.args[-1])
+            else:
+                output.print_list(node.args)
+        if node.agg_order:
+            if not node.agg_within_group:
+                output.swrites('ORDER BY')
+                output.print_list(node.agg_order)
+            else:
+                output.writes(') WITHIN GROUP (ORDER BY')
+                output.print_list(node.agg_order)
     if node.agg_filter:
         output.swrites('FILTER (WHERE')
         output.print_node(node.agg_filter)
@@ -664,28 +657,28 @@ def func_call_window_def(node, output):
 def grouping_set(node, output):
     kind = node.kind
     if kind == enums.GroupingSetKind.GROUPING_SET_CUBE:
-        output.write('CUBE (')
+        output.write('CUBE ')
     elif kind == enums.GroupingSetKind.GROUPING_SET_ROLLUP:
-        output.write('ROLLUP (')
+        output.write('ROLLUP ')
     elif kind == enums.GroupingSetKind.GROUPING_SET_SETS:
-        output.write('GROUPING SETS (')
+        output.write('GROUPING SETS ')
     elif kind == enums.GroupingSetKind.GROUPING_SET_EMPTY:
         output.write('()')
         return
     elif kind == enums.GroupingSetKind.GROUPING_SET_SIMPLE:
         # No idea how to reach this branch
-        output.write('SIMPLE (')
+        output.write('SIMPLE ')
     else:  # pragma: no cover
         raise NotImplementedError('Unhandled grouping set kind: %s' % kind)
-    output.print_list(node.content, ',')
-    output.write(')')
+    with output.expression(True):
+        output.print_list(node.content, ',')
 
 
 @node_printer(ast.GroupingFunc)
 def grouping_func(node, output):
-    output.write(' GROUPING(')
-    output.print_list(node.args)
-    output.write(')')
+    output.write(' GROUPING')
+    with output.expression(True):
+        output.print_list(node.args)
 
 
 @node_printer(ast.IndexElem)
@@ -693,9 +686,8 @@ def index_elem(node, output):
     if node.name is not None:
         output.print_name(node.name)
     else:
-        output.write('(')
-        output.print_node(node.expr)
-        output.write(')')
+        with output.expression(True):
+            output.print_node(node.expr)
     if node.collation:
         output.swrite('COLLATE ')
         output.print_name(node.collation, ',')
@@ -703,9 +695,9 @@ def index_elem(node, output):
         output.write(' ')
         output.print_name(node.opclass, '.')
         if node.opclassopts:
-            output.write(' (')
-            output.print_list(node.opclassopts)
-            output.write(')')
+            output.write(' ')
+            with output.expression(True):
+                output.print_list(node.opclassopts)
     if node.ordering != enums.SortByDir.SORTBY_DEFAULT:
         if node.ordering == enums.SortByDir.SORTBY_ASC:
             output.swrite('ASC')
@@ -727,9 +719,9 @@ def infer_clause(node, output):
         output.swrite('ON CONSTRAINT ')
         output.print_name(node.conname)
     if node.indexElems:
-        output.swrite('(')
-        output.print_list(node.indexElems)
-        output.write(')')
+        output.separator()
+        with output.expression(True):
+            output.print_list(node.indexElems)
     if node.whereClause:
         output.swrite('WHERE ')
         output.print_node(node.whereClause)
@@ -753,9 +745,9 @@ def insert_stmt(node, output):
         output.write('INSERT INTO ')
         output.print_node(node.relation)
         if node.cols:
-            output.write(' (')
-            output.print_list(node.cols)
-            output.write(')')
+            output.write(' ')
+            with output.expression(True):
+                output.print_list(node.cols)
         else:
             output.separator()
         if node.override:
@@ -785,9 +777,9 @@ def insert_stmt(node, output):
 def into_clause(node, output):
     output.print_node(node.rel)
     if node.colNames:
-        output.write(' (')
-        output.print_name(node.colNames, ',')
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            output.print_name(node.colNames, ',')
     output.newline()
     with output.push_indent(2):
         if node.accessMethod:
@@ -795,9 +787,9 @@ def into_clause(node, output):
             output.print_name(node.accessMethod)
             output.newline()
         if node.options:
-            output.write('WITH (')
-            output.print_list(node.options)
-            output.write(')')
+            output.write('WITH ')
+            with output.expression(True):
+                output.print_list(node.options)
             output.newline()
         if node.onCommit != enums.OnCommitAction.ONCOMMIT_NOOP:
             output.write('ON COMMIT ')
@@ -897,11 +889,11 @@ def listen_stmt(node, output):
 @node_printer(ast.MinMaxExpr)
 def min_max_expr(node, output):
     if node.op == enums.MinMaxOp.IS_GREATEST:
-        output.write('GREATEST(')
+        output.write('GREATEST')
     else:
-        output.write('LEAST(')
-    output.print_list(node.args)
-    output.write(')')
+        output.write('LEAST')
+    with output.expression(True):
+        output.print_list(node.args)
 
 
 @node_printer(ast.MultiAssignRef)
@@ -946,9 +938,8 @@ def prepare_stmt(node, output):
     output.write('PREPARE ')
     output.print_node(node.name, is_name=True)
     if node.argtypes:
-        output.write('(')
-        output.print_list(node.argtypes)
-        output.write(')')
+        with output.expression(True):
+            output.print_list(node.argtypes)
     output.write(' AS')
     output.newline()
     with output.push_indent(2):
@@ -1011,21 +1002,20 @@ def range_function(node, output):
     if node.lateral:
         output.write('LATERAL ')
     if node.is_rowsfrom:
-        output.write('ROWS FROM (')
-    first = True
-    for fun, cdefs in node.functions:
-        if first:
-            first = False
-        else:
-            output.write(', ')
-        output.print_node(fun)
-        if cdefs:
-            # FIXME: find a way to get here
-            output.write(' AS (')
-            output.print_list(cdefs)
-            output.write(')')
-    if node.is_rowsfrom:
-        output.write(')')
+        output.write('ROWS FROM ')
+    with output.expression(node.is_rowsfrom):
+        first = True
+        for fun, cdefs in node.functions:
+            if first:
+                first = False
+            else:
+                output.write(', ')
+            output.print_node(fun)
+            if cdefs:
+                # FIXME: find a way to get here
+                output.write(' AS ')
+                with output.expression(True):
+                    output.print_list(cdefs)
     if node.ordinality:
         output.write(' WITH ORDINALITY')
     if node.alias:
@@ -1034,9 +1024,8 @@ def range_function(node, output):
     if node.coldeflist:
         if not node.alias:
             output.write(' AS ')
-        output.write('(')
-        output.print_list(node.coldeflist, ',')
-        output.write(')')
+        with output.expression(True):
+            output.print_list(node.coldeflist, ',')
 
 
 @node_printer(ast.RangeSubselect)
@@ -1044,10 +1033,9 @@ def range_subselect(node, output):
     if node.lateral:
         output.write('LATERAL')
     output.maybe_write_space()
-    output.write('(')
-    with output.push_indent():
-        output.print_node(node.subquery)
-    output.write(')')
+    with output.expression(True):
+        with output.push_indent():
+            output.print_node(node.subquery)
     if node.alias:
         output.write(' AS ')
         output.print_name(node.alias)
@@ -1130,13 +1118,12 @@ def range_table_sample(node, output):
     output.print_node(node.relation)
     output.write(' TABLESAMPLE ')
     output.print_name(node.method, ' ')
-    output.write('(')
-    output.print_list(node.args, ' ')
-    output.write(') ')
+    with output.expression(True):
+        output.print_list(node.args, ' ')
     if node.repeatable:
-        output.write('REPEATABLE (')
-        output.print_node(node.repeatable)
-        output.write(')')
+        output.write('REPEATABLE ')
+        with output.expression(True):
+            output.print_node(node.repeatable)
 
 
 @node_printer(ast.RawStmt)
@@ -1160,14 +1147,13 @@ def res_target(node, output):
 @node_printer(ast.RowExpr)
 def row_expr(node, output):
     if node.row_format == enums.CoercionForm.COERCE_EXPLICIT_CALL:
-        output.write('ROW(')
-        if node.args:
-            output.print_list(node.args)
-        output.write(')')
+        output.write('ROW')
+        with output.expression(True):
+            if node.args:
+                output.print_list(node.args)
     elif node.row_format == enums.CoercionForm.COERCE_IMPLICIT_CAST:
-        output.write('(')
-        output.print_list(node.args)
-        output.write(')')
+        with output.expression(True):
+            output.print_list(node.args)
     else:
         raise NotImplementedError('Coercion type not implemented: %s' %
                                   node.row_format)
@@ -1227,9 +1213,9 @@ def select_stmt(node, output):
             if node.distinctClause:
                 output.write(' DISTINCT')
                 if node.distinctClause[0]:
-                    output.write(' ON (')
-                    output.print_list(node.distinctClause)
-                    output.write(')')
+                    output.write(' ON ')
+                    with output.expression(True):
+                        output.print_list(node.distinctClause)
             if node.targetList:
                 output.write(' ')
                 output.print_list(node.targetList)
@@ -1336,14 +1322,14 @@ class SQLValueFunctionOpPrinter(IntEnumPrinter):
         output.write('CURRENT_TIMESTAMP')
 
     def SVFOP_CURRENT_TIMESTAMP_N(self, node, output):  # pragma: no cover
-        output.write('CURRENT_TIMESTAMP(')
-        output.write(str(node.typmod))
-        output.write(')')
+        output.write('CURRENT_TIMESTAMP')
+        with output.expression(True):
+            output.write(str(node.typmod))
 
     def SVFOP_CURRENT_TIME_N(self, node, output):  # pragma: no cover
-        output.write('CURRENT_TIME(')
-        output.write(str(node.typmod))
-        output.write(')')
+        output.write('CURRENT_TIME')
+        with output.expression(True):
+            output.write(str(node.typmod))
 
     def SVFOP_CURRENT_USER(self, node, output):
         output.write('CURRENT_USER')
@@ -1355,14 +1341,14 @@ class SQLValueFunctionOpPrinter(IntEnumPrinter):
         output.write('LOCALTIMESTAMP')
 
     def SVFOP_LOCALTIMESTAMP_N(self, node, output):  # pragma: no cover
-        output.write('LOCALTIMESTAMP(')
-        output.write(str(node.typmod))
-        output.write(')')
+        output.write('LOCALTIMESTAMP')
+        with output.expression(True):
+            output.write(str(node.typmod))
 
     def SVFOP_LOCALTIME_N(self, node, output):  # pragma: no cover
-        output.write('LOCALTIME(')
-        output.write(str(node.typmod))
-        output.write(')')
+        output.write('LOCALTIME')
+        with output.expression(True):
+            output.write(str(node.typmod))
 
     def SVFOP_SESSION_USER(self, node, output):
         output.write('SESSION_USER')
@@ -1413,10 +1399,9 @@ def sub_link(node, output):
         raise NotImplementedError('SubLink of type %s not supported yet'
                                   % node.subLinkType)
 
-    output.write('(')
-    with output.push_indent():
-        output.print_node(node.subselect)
-    output.write(')')
+    with output.expression(True):
+        with output.push_indent():
+            output.print_node(node.subselect)
 
 
 @node_printer(ast.TransactionStmt)
@@ -1585,13 +1570,12 @@ def type_name(node, output):
                 if typmod in interval_ranges:
                     output.swrite(interval_ranges[typmod])
                 if len(node.typmods) == 2:
-                    output.write(' (')
-                    output.print_node(node.typmods[1])
-                    output.write(')')
+                    output.write(' ')
+                    with output.expression(True):
+                        output.print_node(node.typmods[1])
             else:
-                output.write('(')
-                output.print_list(node.typmods, ',', standalone_items=False)
-                output.write(')')
+                with output.expression(True):
+                    output.print_list(node.typmods, ',', standalone_items=False)
         output.write(suffix)
         if node.arrayBounds:
             for ab in node.arrayBounds:
@@ -1700,67 +1684,66 @@ def window_def(node, output):
     if node.name:
         output.print_name(node.name)
         output.write(' AS ')
-    output.write('(')
-    if node.refname:
-        output.print_name(node.refname)
-    with output.push_indent():
-        if node.partitionClause:
-            output.write('PARTITION BY ')
-            output.print_list(node.partitionClause)
-        if node.orderClause:
+    with output.expression(True):
+        if node.refname:
+            output.print_name(node.refname)
+        with output.push_indent():
             if node.partitionClause:
-                output.newline()
-            output.write('ORDER BY ')
-            output.print_list(node.orderClause)
-        if node.frameOptions & enums.FRAMEOPTION_NONDEFAULT:
-            if node.partitionClause or node.orderClause:
-                output.newline()
-            fo = node.frameOptions
-            if fo & enums.FRAMEOPTION_RANGE:
-                output.writes('RANGE')
-            elif fo & enums.FRAMEOPTION_ROWS:
-                output.writes('ROWS')
-            elif fo & enums.FRAMEOPTION_GROUPS:
-                output.writes('GROUPS')
-            if fo & enums.FRAMEOPTION_BETWEEN:
-                output.writes('BETWEEN')
-            if fo & enums.FRAMEOPTION_START_UNBOUNDED_PRECEDING:
-                output.writes('UNBOUNDED PRECEDING')
-            elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING:  # pragma: no cover
-                # Disallowed
-                #output.writes('UNBOUNDED FOLLOWING')
-                raise RuntimeError('Unexpected "UNBOUNDED FOLLOWING" disallowed option')
-            elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
-                output.writes('CURRENT ROW')
-            elif fo & enums.FRAMEOPTION_START_OFFSET_PRECEDING:
-                output.print_node(node.startOffset)
-                output.swrites('PRECEDING')
-            elif fo & enums.FRAMEOPTION_START_OFFSET_FOLLOWING:
-                output.print_node(node.startOffset)
-                output.swrites('FOLLOWING')
-            if fo & enums.FRAMEOPTION_BETWEEN:
-                output.writes('AND')
-                if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING:  # pragma: no cover
+                output.write('PARTITION BY ')
+                output.print_list(node.partitionClause)
+            if node.orderClause:
+                if node.partitionClause:
+                    output.newline()
+                output.write('ORDER BY ')
+                output.print_list(node.orderClause)
+            if node.frameOptions & enums.FRAMEOPTION_NONDEFAULT:
+                if node.partitionClause or node.orderClause:
+                    output.newline()
+                fo = node.frameOptions
+                if fo & enums.FRAMEOPTION_RANGE:
+                    output.writes('RANGE')
+                elif fo & enums.FRAMEOPTION_ROWS:
+                    output.writes('ROWS')
+                elif fo & enums.FRAMEOPTION_GROUPS:
+                    output.writes('GROUPS')
+                if fo & enums.FRAMEOPTION_BETWEEN:
+                    output.writes('BETWEEN')
+                if fo & enums.FRAMEOPTION_START_UNBOUNDED_PRECEDING:
+                    output.writes('UNBOUNDED PRECEDING')
+                elif fo & enums.FRAMEOPTION_START_UNBOUNDED_FOLLOWING:  # pragma: no cover
                     # Disallowed
-                    #output.writes('UNBOUNDED PRECEDING')
-                    raise RuntimeError('Unexpected "UNBOUNDED PRECEDING" disallowed option')
-                elif fo & enums.FRAMEOPTION_END_UNBOUNDED_FOLLOWING:
-                    output.writes('UNBOUNDED FOLLOWING')
-                elif fo & enums.FRAMEOPTION_END_CURRENT_ROW:
+                    #output.writes('UNBOUNDED FOLLOWING')
+                    raise RuntimeError('Unexpected "UNBOUNDED FOLLOWING" disallowed option')
+                elif fo & enums.FRAMEOPTION_START_CURRENT_ROW:
                     output.writes('CURRENT ROW')
-                elif fo & enums.FRAMEOPTION_END_OFFSET_PRECEDING:
-                    output.print_node(node.endOffset)
+                elif fo & enums.FRAMEOPTION_START_OFFSET_PRECEDING:
+                    output.print_node(node.startOffset)
                     output.swrites('PRECEDING')
-                elif fo & enums.FRAMEOPTION_END_OFFSET_FOLLOWING:
-                    output.print_node(node.endOffset)
+                elif fo & enums.FRAMEOPTION_START_OFFSET_FOLLOWING:
+                    output.print_node(node.startOffset)
                     output.swrites('FOLLOWING')
-                if fo & enums.FRAMEOPTION_EXCLUDE_CURRENT_ROW:
-                    output.swrite('EXCLUDE CURRENT ROW')
-                elif fo & enums.FRAMEOPTION_EXCLUDE_GROUP:
-                    output.swrite('EXCLUDE GROUP')
-                elif fo & enums.FRAMEOPTION_EXCLUDE_TIES:
-                    output.swrite('EXCLUDE TIES')
-    output.write(')')
+                if fo & enums.FRAMEOPTION_BETWEEN:
+                    output.writes('AND')
+                    if fo & enums.FRAMEOPTION_END_UNBOUNDED_PRECEDING:  # pragma: no cover
+                        # Disallowed
+                        #output.writes('UNBOUNDED PRECEDING')
+                        raise RuntimeError('Unexpected "UNBOUNDED PRECEDING" disallowed option')
+                    elif fo & enums.FRAMEOPTION_END_UNBOUNDED_FOLLOWING:
+                        output.writes('UNBOUNDED FOLLOWING')
+                    elif fo & enums.FRAMEOPTION_END_CURRENT_ROW:
+                        output.writes('CURRENT ROW')
+                    elif fo & enums.FRAMEOPTION_END_OFFSET_PRECEDING:
+                        output.print_node(node.endOffset)
+                        output.swrites('PRECEDING')
+                    elif fo & enums.FRAMEOPTION_END_OFFSET_FOLLOWING:
+                        output.print_node(node.endOffset)
+                        output.swrites('FOLLOWING')
+                    if fo & enums.FRAMEOPTION_EXCLUDE_CURRENT_ROW:
+                        output.swrite('EXCLUDE CURRENT ROW')
+                    elif fo & enums.FRAMEOPTION_EXCLUDE_GROUP:
+                        output.swrite('EXCLUDE GROUP')
+                    elif fo & enums.FRAMEOPTION_EXCLUDE_TIES:
+                        output.swrite('EXCLUDE TIES')
 
 
 def print_indirection(node, output):
@@ -1828,56 +1811,57 @@ class XmlExprOpPrinter(IntEnumPrinter):
     enum = enums.XmlExprOp
 
     def IS_XMLCONCAT(self, node, output):  # XMLCONCAT(args)
-        output.write('xmlconcat(')
-        output.print_list(node.args)
-        output.write(')')
+        output.write('xmlconcat')
+        with output.expression(True):
+            output.print_list(node.args)
 
     def IS_XMLELEMENT(self, node, output):  # XMLELEMENT(name, xml_attributes, args)
         output.write('xmlelement(name ')
         output.print_name(node.name)
         if node.named_args:
-            output.write(', xmlattributes(')
-            output.print_list(node.named_args)
-            output.write(')')
+            output.write(', xmlattributes')
+            with output.expression(True):
+                output.print_list(node.named_args)
         if node.args:
             output.write(', ')
             output.print_list(node.args)
         output.write(')')
 
     def IS_XMLFOREST(self, node, output):  # XMLFOREST(xml_attributes)
-        output.write('xmlforest(')
-        output.print_list(node.named_args)
-        output.write(')')
+        output.write('xmlforest')
+        with output.expression(True):
+            output.print_list(node.named_args)
 
     def IS_XMLPARSE(self, node, output):  # XMLPARSE(text, is_doc, preserve_ws)
-        output.write('xmlparse(')
-        xml_option_type_printer(node.xmloption, node, output)
-        arg, preserve_ws = node.args
-        output.print_node(arg)
-        if preserve_ws.arg.val.val == 't':
-            # FIXME: find a way to get here
-            output.write(' PRESERVE WHITESPACE')
-        output.write(')')
+        output.write('xmlparse')
+        with output.expression(True):
+            xml_option_type_printer(node.xmloption, node, output)
+            arg, preserve_ws = node.args
+            output.print_node(arg)
+            if preserve_ws.arg.val.val == 't':
+                # FIXME: find a way to get here
+                output.write(' PRESERVE WHITESPACE')
 
     def IS_XMLPI(self, node, output):  # XMLPI(name [, args])
-        output.write('xmlpi(name ')
-        output.print_name(node.name)
-        if node.args:
-            output.write(', ')
-            output.print_list(node.args)
-        output.write(')')
+        output.write('xmlpi')
+        with output.expression(True):
+            output.write('name ')
+            output.print_name(node.name)
+            if node.args:
+                output.write(', ')
+                output.print_list(node.args)
 
     def IS_XMLROOT(self, node, output):  # XMLROOT(xml, version, standalone)
-        output.write('xmlroot(')
-        xml, version, standalone = node.args
-        output.print_node(xml)
-        output.write(', version ')
-        if isinstance(version.val, ast.Null):
-            output.write('NO VALUE')
-        else:
-            output.print_node(version)
-        xml_standalone_type_printer(standalone.val, node, output)
-        output.write(')')
+        output.write('xmlroot')
+        with output.expression(True):
+            xml, version, standalone = node.args
+            output.print_node(xml)
+            output.write(', version ')
+            if isinstance(version.val, ast.Null):
+                output.write('NO VALUE')
+            else:
+                output.print_node(version)
+            xml_standalone_type_printer(standalone.val, node, output)
 
     def IS_XMLSERIALIZE(self, node, output):  # XMLSERIALIZE(is_document, xmlval)
         raise NotImplementedError('IS_XMLSERIALIZE??')
@@ -1897,9 +1881,9 @@ def xml_expr(node, output):
 
 @node_printer(ast.XmlSerialize)
 def xml_serialize(node, output):
-    output.write('xmlserialize(')
-    xml_option_type_printer(node.xmloption, node, output)
-    output.print_node(node.expr)
-    output.write(' AS ')
-    output.print_node(node.typeName)
-    output.write(')')
+    output.write('xmlserialize')
+    with output.expression(True):
+        xml_option_type_printer(node.xmloption, node, output)
+        output.print_node(node.expr)
+        output.write(' AS ')
+        output.print_node(node.typeName)

@@ -19,9 +19,9 @@ def access_priv(node, output):
     else:
         output.write(node.priv_name.upper())
     if node.cols is not None:
-        output.write(' (')
-        output.print_list(node.cols, ',', are_names=True)
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            output.print_list(node.cols, ',', are_names=True)
 
 
 OBJECT_NAMES = {
@@ -241,9 +241,9 @@ def alter_object_schema_stmt(node, output):
 def alter_operator_stmt(node, output):
     output.write('ALTER OPERATOR ')
     output.print_node(node.opername)
-    output.write(' SET (')
-    output.print_list(node.options)
-    output.write(')')
+    output.write(' SET ')
+    with output.expression(True):
+        output.print_list(node.options)
 
 
 @node_printer(ast.AlterOperatorStmt, ast.DefElem)
@@ -299,13 +299,13 @@ def alter_policy_stmt(node, output):
         output.write(' TO ')
         output.print_list(node.roles, ',')
     if node.qual:
-        output.write(' USING (')
-        output.print_node(node.qual)
-        output.write(')')
+        output.write(' USING ')
+        with output.expression(True):
+            output.print_node(node.qual)
     if node.with_check:
-        output.write(' WITH CHECK (')
-        output.print_node(node.with_check)
-        output.write(')')
+        output.write(' WITH CHECK ')
+        with output.expression(True):
+            output.print_node(node.with_check)
 
 
 @node_printer(ast.AlterRoleStmt)
@@ -352,31 +352,31 @@ def alter_table_stmt(node, output):
 
 def alter_def_elem(node, output):
     if node:
-        output.write(' OPTIONS (')
-        first = True
-        for option in node:
-            if first:
-                first = False
-            else:
-                output.write(', ')
-            if option.defaction == enums.DefElemAction.DEFELEM_UNSPEC:
-                output.print_name(option.defname)
-                output.write(' ')
-                output.print_node(option.arg)
-            elif option.defaction == enums.DefElemAction.DEFELEM_SET:
-                output.write('SET ')
-                output.print_name(option.defname)
-                output.write(' ')
-                output.print_node(option.arg)
-            elif option.defaction == enums.DefElemAction.DEFELEM_ADD:
-                output.write('ADD ')
-                output.print_name(option.defname)
-                output.write(' ')
-                output.print_node(option.arg)
-            elif option.defaction == enums.DefElemAction.DEFELEM_DROP:
-                output.write('DROP ')
-                output.print_name(option.defname)
-        output.write(')')
+        output.write(' OPTIONS ')
+        with output.expression(True):
+            first = True
+            for option in node:
+                if first:
+                    first = False
+                else:
+                    output.write(', ')
+                if option.defaction == enums.DefElemAction.DEFELEM_UNSPEC:
+                    output.print_name(option.defname)
+                    output.write(' ')
+                    output.print_node(option.arg)
+                elif option.defaction == enums.DefElemAction.DEFELEM_SET:
+                    output.write('SET ')
+                    output.print_name(option.defname)
+                    output.write(' ')
+                    output.print_node(option.arg)
+                elif option.defaction == enums.DefElemAction.DEFELEM_ADD:
+                    output.write('ADD ')
+                    output.print_name(option.defname)
+                    output.write(' ')
+                    output.print_node(option.arg)
+                elif option.defaction == enums.DefElemAction.DEFELEM_DROP:
+                    output.write('DROP ')
+                    output.print_name(option.defname)
 
 
 @node_printer(ast.AlterTableStmt, ast.RangeVar)
@@ -519,16 +519,16 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_ResetOptions(self, node, output):
         output.write('ALTER COLUMN ')
         output.print_name(node.name)
-        output.write(' RESET (')
-        with output.push_indent():
-            output.print_list(node.def_)
-        output.write(')')
+        output.write(' RESET ')
+        with output.expression(True):
+            with output.push_indent():
+                output.print_list(node.def_)
 
     def AT_ResetRelOptions(self, node, output):
-        output.write('RESET (')
-        with output.push_indent():
-            output.print_list(node.def_)
-        output.write(')')
+        output.write('RESET ')
+        with output.expression(True):
+            with output.push_indent():
+                output.print_list(node.def_)
 
     def AT_SetNotNull(self, node, output):
         output.write('ALTER COLUMN ')
@@ -536,10 +536,10 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write(' SET NOT NULL')
 
     def AT_SetRelOptions(self, node, output):
-        output.write('SET (')
-        with output.push_indent():
-            output.print_list(node.def_)
-        output.write(')')
+        output.write('SET ')
+        with output.expression(True):
+            with output.push_indent():
+                output.print_list(node.def_)
 
     def AT_SetStatistics(self, node, output):
         output.write('ALTER COLUMN ')
@@ -565,10 +565,10 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_SetOptions(self, node, output):
         output.write('ALTER COLUMN ')
         output.print_name(node.name)
-        output.write(' SET (')
-        with output.push_indent():
-            output.print_list(node.def_)
-        output.write(')')
+        output.write(' SET ')
+        with output.expression(True):
+            with output.push_indent():
+                output.print_list(node.def_)
 
     def AT_ValidateConstraint(self, node, output):
         output.write('VALIDATE CONSTRAINT ')
@@ -803,14 +803,14 @@ def alter_ts_configuration_stmt(node, output):
 def alter_ts_dictionary_stmt(node, output):
     output.write('ALTER TEXT SEARCH DICTIONARY ')
     output.print_name(node.dictname)
-    output.write(' (')
-    if len(node.options) > 1:
-        output.newline()
-        output.space(2 if output.comma_at_eoln else 4)
-    output.print_list(node.options)
-    if len(node.options) > 1:
-        output.newline()
-    output.write(')')
+    output.write(' ')
+    with output.expression(True):
+        if len(node.options) > 1:
+            output.newline()
+            output.space(2 if output.comma_at_eoln else 4)
+        output.print_list(node.options)
+        if len(node.options) > 1:
+            output.newline()
 
 
 @node_printer(ast.AlterStatsStmt)
@@ -828,24 +828,24 @@ def alter_subscription_stmt(node, output):
     output.write('ALTER SUBSCRIPTION ')
     output.print_name(node.subname)
     if node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_OPTIONS:
-        output.write('SET (')
-        output.print_name(node.options)
-        output.write(')')
+        output.write('SET ')
+        with output.expression(True):
+            output.print_name(node.options)
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_CONNECTION:
         output.write('CONNECTION ')
         output.print_node(node.conninfo)
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_REFRESH:
         output.write('REFRESH PUBLICATION')
         if node.options:
-            output.write(' WITH (')
-            output.print_list(node.options)
-            output.write(')')
+            output.write(' WITH ')
+            with output.expression(True):
+                output.print_list(node.options)
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_PUBLICATION:
         output.write('SET PUBLICATION ')
         output.print_list(node.publication, ',', are_names=True)
-        output.write(' WITH (')
-        output.print_list(node.options)
-        output.write(')')
+        output.write(' WITH ')
+        with output.expression(True):
+            output.print_list(node.options)
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_ENABLED:
         if node.options[0].arg.val == 0:
             output.write('DISABLE')
@@ -867,9 +867,9 @@ def alter_publication_stmt(node, output):
             output.write('DROP TABLE ')
         output.print_list(node.tables, ',')
     elif node.options:
-        output.write('SET (')
-        output.print_list(node.options, ',')
-        output.write(')')
+        output.write('SET ')
+        with output.expression(True):
+            output.print_list(node.options, ',')
 
 
 @node_printer(ast.AlterFdwStmt)
@@ -984,9 +984,9 @@ def alter_event_trig_stmt(node, output):
 def alter_type_stmt(node, output):
     output.write('ALTER TYPE ')
     output.print_name(node.typeName)
-    output.write(' SET (')
-    output.print_list(node.options, ',')
-    output.write(')')
+    output.write(' SET ')
+    with output.expression(True):
+        output.print_list(node.options, ',')
 
 
 @node_printer(ast.CheckPointStmt)
@@ -1017,9 +1017,9 @@ def column_def(node, output):
         if node.constraints:
             output.write('WITH OPTIONS ')
     if node.fdwoptions:
-        output.write(' OPTIONS (')
-        output.print_list(node.fdwoptions, ',')
-        output.write(')')
+        output.write(' OPTIONS ')
+        with output.expression(True):
+            output.print_list(node.fdwoptions, ',')
     if node.collClause:
         output.print_node(node.collClause)
     if node.is_not_null:
@@ -1061,9 +1061,9 @@ def comment_stmt(node, output):
         _object_with_args(node.object, output, empty_placeholder='*')
     elif isinstance(node.object, tuple):
         if not isinstance(node.object[0], ast.String):
-            output.write(' (')
-            output.print_list(node.object, ' AS ', standalone_items=False)
-            output.write(')')
+            output.write(' ')
+            with output.expression(True):
+                output.print_list(node.object, ' AS ', standalone_items=False)
         else:
             output.print_name(node.object)
     else:
@@ -1082,10 +1082,10 @@ def comment_stmt(node, output):
 def composite_type_stmt(node, output):
     output.write('CREATE TYPE ')
     output.print_node(node.typevar)
-    output.write(' AS (')
-    if node.coldeflist:
-        output.print_list(node.coldeflist, ', ')
-    output.write(')')
+    output.write(' AS ')
+    with output.expression(True):
+        if node.coldeflist:
+            output.print_list(node.coldeflist, ', ')
 
 
 @node_printer(ast.CompositeTypeStmt, ast.RangeVar)
@@ -1112,17 +1112,17 @@ class ConstrTypePrinter(IntEnumPrinter):
         output.swrite('INITIALLY DEFERRED')
 
     def CONSTR_CHECK(self, node, output):
-        output.swrite('CHECK (')
-        # From parsenodes.h::ConstrType enum doc:
-        #   For constraints that use expressions (CONSTR_CHECK, CONSTR_DEFAULT)
-        #   we may have the expression in either "raw" form (an untransformed
-        #   parse tree) or "cooked" form (the nodeToString representation of
-        #   an executable expression tree), depending on how this Constraint
-        #   node was created (by parsing, or by inheritance from an existing
-        #   relation).  We should never have both in the same node!
-        assert not (node.raw_expr is not None and node.cooked_expr is not None)
-        output.print_node(node.cooked_expr if node.raw_expr is None else node.raw_expr)
-        output.write(')')
+        output.swrite('CHECK ')
+        with output.expression(True):
+            # From parsenodes.h::ConstrType enum doc:
+            #   For constraints that use expressions (CONSTR_CHECK, CONSTR_DEFAULT)
+            #   we may have the expression in either "raw" form (an untransformed
+            #   parse tree) or "cooked" form (the nodeToString representation of
+            #   an executable expression tree), depending on how this Constraint
+            #   node was created (by parsing, or by inheritance from an existing
+            #   relation).  We should never have both in the same node!
+            assert not (node.raw_expr is not None and node.cooked_expr is not None)
+            output.print_node(node.cooked_expr if node.raw_expr is None else node.raw_expr)
         if node.is_no_inherit:
             output.swrite('NO INHERIT')
 
@@ -1136,36 +1136,34 @@ class ConstrTypePrinter(IntEnumPrinter):
         if node.access_method:
             output.print_symbol(node.access_method)
             output.write(' ')
-        output.write('(')
-        first = True
-        for elem, clauses in node.exclusions:
-            if first:
-                first = False
-            else:
-                output.write(', ')
-            output.print_node(elem)
-            output.swrite('WITH OPERATOR(')
-            output.print_symbol(clauses)
-            output.write(')')
-        output.write(')')
+        with output.expression(True):
+            first = True
+            for elem, clauses in node.exclusions:
+                if first:
+                    first = False
+                else:
+                    output.write(', ')
+                output.print_node(elem)
+                output.swrite('WITH OPERATOR')
+                with output.expression(True):
+                    output.print_symbol(clauses)
         if node.where_clause:
-            output.write(' WHERE (')
-            output.print_node(node.where_clause)
-            output.write(')')
+            output.write(' WHERE ')
+            with output.expression(True):
+                output.print_node(node.where_clause)
 
     def CONSTR_FOREIGN(self, node, output):
         if node.fk_attrs:
             output.swrite('FOREIGN KEY ')
-            output.write(' (')
-            output.print_name(node.fk_attrs, ',')
-            output.write(')')
+            with output.expression(True):
+                output.print_name(node.fk_attrs, ',')
         if node.pktable:
             output.swrite('REFERENCES ')
             output.print_name(node.pktable)
         if node.pk_attrs:
-            output.write(' (')
-            output.print_name(node.pk_attrs, ',')
-            output.write(')')
+            output.write(' ')
+            with output.expression(True):
+                output.print_name(node.pk_attrs, ',')
         if node.fk_matchtype != '\0' and node.fk_matchtype != enums.FKCONSTR_MATCH_SIMPLE:
             output.write(' MATCH ')
             if node.fk_matchtype == enums.FKCONSTR_MATCH_FULL:
@@ -1199,9 +1197,10 @@ class ConstrTypePrinter(IntEnumPrinter):
                 output.swrite('INITIALLY DEFERRED')
 
     def CONSTR_GENERATED(self, node, output):
-        output.swrite('GENERATED ALWAYS AS (')
-        output.print_node(node.raw_expr)
-        output.write(') STORED')
+        output.swrite('GENERATED ALWAYS AS ')
+        with output.expression(True):
+            output.print_node(node.raw_expr)
+        output.write(' STORED')
 
     def CONSTR_IDENTITY(self, node, output):
         output.swrite('GENERATED ')
@@ -1211,9 +1210,8 @@ class ConstrTypePrinter(IntEnumPrinter):
             output.write('BY DEFAULT ')
         output.write('AS IDENTITY ')
         if node.options:
-            output.write('(')
-            output.print_list(node.options, '')
-            output.write(')')
+            with output.expression(True):
+                output.print_list(node.options, '')
 
     def CONSTR_NOTNULL(self, node, output):
         output.swrite('NOT NULL')
@@ -1247,13 +1245,13 @@ def constraint(node, output):
         output.print_name(node.indexname)
     # Common to UNIQUE & PRIMARY_KEY
     if node.keys:
-        output.write(' (')
-        output.print_name(node.keys, ',')
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            output.print_name(node.keys, ',')
     if node.including:
-        output.write(' INCLUDE (')
-        output.print_list(node.including, ',', are_names=True)
-        output.write(') ')
+        output.write(' INCLUDE ')
+        with output.expression(True):
+            output.print_list(node.including, ',', are_names=True)
     if node.deferrable:
         output.swrite('DEFERRABLE')
     if node.initdeferred:
@@ -1261,17 +1259,17 @@ def constraint(node, output):
     with output.push_indent():
         first = True
         if node.options and node.contype == enums.ConstrType.CONSTR_UNIQUE:
-            output.write(' WITH (')
-            firstOption = True
-            for option in node.options:
-                if firstOption:
-                    firstOption = False
-                else:
-                    output.write(', ')
-                output.print_name(option.defname)
-                output.write(' = ')
-                output.print_node(option.arg)
-            output.write(')')
+            output.write(' WITH ')
+            with output.expression(True):
+                firstOption = True
+                for option in node.options:
+                    if firstOption:
+                        firstOption = False
+                    else:
+                        output.write(', ')
+                    output.print_name(option.defname)
+                    output.write(' = ')
+                    output.print_node(option.arg)
             first = False
         if node.indexspace:
             if first:
@@ -1328,11 +1326,11 @@ def create_db_stmt_def_elem(node, output):
 
 @node_printer(ast.CreateCastStmt)
 def create_cast_stmt(node, output):
-    output.write('CREATE CAST (')
-    output.print_node(node.sourcetype)
-    output.write(' AS ')
-    output.print_node(node.targettype)
-    output.write(') ')
+    output.write('CREATE CAST ')
+    with output.expression(True):
+        output.print_node(node.sourcetype)
+        output.write(' AS ')
+        output.print_node(node.targettype)
     if node.func:
         output.write('WITH FUNCTION ')
         output.print_node(node.func)
@@ -1375,9 +1373,9 @@ def create_domain_stmt(node, output):
 def create_enum_stmt(node, output):
     output.write('CREATE TYPE ')
     output.print_name(node.typeName)
-    output.write('AS ENUM (')
-    output.print_list(node.vals)
-    output.write(')')
+    output.write('AS ENUM ')
+    with output.expression(True):
+        output.print_list(node.vals)
 
 
 @node_printer(ast.CreateEventTrigStmt)
@@ -1400,9 +1398,9 @@ def create_event_trig_stmt(node, output):
 @node_printer(ast.CreateEventTrigStmt, ast.DefElem)
 def create_event_trig_stmt_def_elem(node, output):
     output.print_name(node.defname)
-    output.write(' IN (')
-    output.print_list(node.arg, standalone_items=False)
-    output.write(')')
+    output.write(' IN ')
+    with output.expression(True):
+        output.print_list(node.arg, standalone_items=False)
 
 
 @node_printer(ast.CreateExtensionStmt)
@@ -1453,9 +1451,9 @@ def create_fdw_stmt(node, output):
     if node.options:
         output.newline()
         with output.push_indent(2):
-            output.write('OPTIONS (')
-            output.print_list(node.options)
-            output.write(')')
+            output.write('OPTIONS ')
+            with output.expression(True):
+                output.print_list(node.options)
 
 
 @node_printer((ast.ColumnDef, ast.CreateUserMappingStmt, ast.CreateFdwStmt), ast.DefElem)
@@ -1488,9 +1486,9 @@ def create_foreign_server_stmt(node, output):
     output.write('FOREIGN DATA WRAPPER ')
     output.print_name(node.fdwname)
     if node.options:
-        output.write(' OPTIONS (')
-        output.print_list(node.options)
-        output.write(')')
+        output.write(' OPTIONS ')
+        with output.expression(True):
+            output.print_list(node.options)
 
 
 @node_printer(ast.CreateForeignTableStmt)
@@ -1504,9 +1502,9 @@ def create_foreign_table_stmt(node, output):
     if node.options:
         output.newline()
         with output.push_indent(2):
-            output.write('OPTIONS (')
-            output.print_list(node.options)
-            output.write(')')
+            output.write('OPTIONS ')
+            with output.expression(True):
+                output.print_list(node.options)
 
 
 @node_printer((ast.CreateForeignTableStmt, ast.CreateForeignServerStmt), ast.DefElem)
@@ -1529,36 +1527,34 @@ def create_function_stmt(node, output):
     else:
         output.write('FUNCTION ')
     output.print_name(node.funcname)
-    output.write('(')
-
-    if node.parameters is not None:
-        # Functions returning a SETOF needs special care, because the resulting record
-        # definition is intermixed with real parameters: split them into two separated
-        # lists
-        real_params = node.parameters
-        if node.returnType and node.returnType.setof:
-            fpm = enums.FunctionParameterMode
-            record_def = []
-            real_params = []
-            for param in node.parameters:
-                if param.mode == fpm.FUNC_PARAM_TABLE:
-                    record_def.append(param)
-                else:
-                    real_params.append(param)
-        if real_params:
-            output.print_list(real_params)
-    else:
-        record_def = False
-    output.write(')')
+    with output.expression(True):
+        if node.parameters is not None:
+            # Functions returning a SETOF needs special care, because the resulting record
+            # definition is intermixed with real parameters: split them into two separated
+            # lists
+            real_params = node.parameters
+            if node.returnType and node.returnType.setof:
+                fpm = enums.FunctionParameterMode
+                record_def = []
+                real_params = []
+                for param in node.parameters:
+                    if param.mode == fpm.FUNC_PARAM_TABLE:
+                        record_def.append(param)
+                    else:
+                        real_params.append(param)
+            if real_params:
+                output.print_list(real_params)
+        else:
+            record_def = False
 
     if node.returnType:
         output.newline()
         output.writes('RETURNS')
         if node.returnType.setof and record_def:
             # Do not treat them as arguments
-            output.write('TABLE (')
-            output.print_list(record_def, ',', standalone_items=False)
-            output.write(')')
+            output.write('TABLE ')
+            with output.expression(True):
+                output.print_list(record_def, ',', standalone_items=False)
         else:
             output.print_node(node.returnType)
     for option in node.options:
@@ -1671,16 +1667,16 @@ def create_opclass_item(node, output):
             output.write(' FOR ORDER BY ')
             output.print_name(node.order_family)
         if node.class_args:
-            output.write(' (')
-            output.print_list(node.class_args, standalone_items=False)
-            output.write(')')
+            output.write(' ')
+            with output.expression(True):
+                output.print_list(node.class_args, standalone_items=False)
     elif node.itemtype == enums.OPCLASS_ITEM_FUNCTION:
         output.write('FUNCTION ')
         output.write('%d ' % node.number)
         if node.class_args:
-            output.write(' (')
-            output.print_list(node.class_args, standalone_items=False)
-            output.write(')')
+            output.write(' ')
+            with output.expression(True):
+                output.print_list(node.class_args, standalone_items=False)
         if node.name:
             _object_with_args(node.name, output, skip_empty_args=True)
     elif node.itemtype == enums.OPCLASS_ITEM_STORAGETYPE:
@@ -1738,13 +1734,13 @@ def create_policy_stmt(node, output):
     output.write(' TO ')
     output.print_list(node.roles, ',')
     if node.qual:
-        output.write(' USING (')
-        output.print_node(node.qual)
-        output.write(')')
+        output.write(' USING ')
+        with output.expression(True):
+            output.print_node(node.qual)
     if node.with_check:
-        output.write(' WITH CHECK (')
-        output.print_node(node.with_check)
-        output.write(')')
+        output.write(' WITH CHECK ')
+        with output.expression(True):
+            output.print_node(node.with_check)
 
 
 @node_printer(ast.CreatePublicationStmt)
@@ -1758,9 +1754,9 @@ def create_publication_stmt(node, output):
     elif node.for_all_tables:
         output.write('FOR ALL TABLES ')
     if node.options:
-        output.write('WITH (')
-        output.print_list(node.options, ',')
-        output.write(')')
+        output.write('WITH ')
+        with output.expression(True):
+            output.print_list(node.options, ',')
 
 
 @node_printer(ast.CreatePublicationStmt, ast.RangeVar)
@@ -1781,9 +1777,9 @@ def create_publication_stmt_range_var(node, output):
 def create_range_stmt(node, output):
     output.write('CREATE TYPE ')
     output.print_name(node.typeName)
-    output.write(' AS RANGE (')
-    output.print_list(node.params)
-    output.write(')')
+    output.write(' AS RANGE ')
+    with output.expression(True):
+        output.print_list(node.params)
 
 
 class RoleStmtTypePrinter(IntEnumPrinter):
@@ -1936,9 +1932,9 @@ def create_stats_stmt(node, output):
         output.write('IF NOT EXISTS ')
     output.print_name(node.defnames)
     if node.stat_types:
-        output.write(' (')
-        output.print_name(node.stat_types)
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            output.print_name(node.stat_types)
     output.write(' ON ')
     output.print_list(node.exprs)
     output.write(' FROM ')
@@ -1966,12 +1962,12 @@ def create_stmt(node, output):
         output.write(' PARTITION OF ')
         output.print_list(node.inhRelations)
     if node.tableElts:
-        output.write(' (')
-        output.newline()
-        output.space(2 if output.comma_at_eoln or len(node.tableElts) == 1 else 4)
-        output.print_list(node.tableElts)
-        output.newline()
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            output.newline()
+            output.space(2 if output.comma_at_eoln or len(node.tableElts) == 1 else 4)
+            output.print_list(node.tableElts)
+            output.newline()
     elif node.partbound:
         output.newline()
         output.write(' ')
@@ -1980,9 +1976,9 @@ def create_stmt(node, output):
     with output.push_indent():
         first = True
         if node.inhRelations and not node.partbound:
-            output.write(' INHERITS (')
-            output.print_list(node.inhRelations)
-            output.write(')')
+            output.write(' INHERITS ')
+            with output.expression(True):
+                output.print_list(node.inhRelations)
             first = False
         if node.partbound:
             if first:
@@ -2003,9 +1999,9 @@ def create_stmt(node, output):
                 first = False
             else:
                 output.newline()
-            output.write(' WITH (')
-            output.print_list(node.options)
-            output.write(')')
+            output.write(' WITH ')
+            with output.expression(True):
+                output.print_list(node.options)
         if node.oncommit != enums.OnCommitAction.ONCOMMIT_NOOP:
             if first:
                 first = False
@@ -2062,9 +2058,9 @@ def create_table_space_stmt(node, output):
     output.write('LOCATION ')
     output.write_quoted_string(node.location)
     if node.options:
-        output.write(' WITH (')
-        output.print_list(node.options)
-        output.write(')')
+        output.write(' WITH ')
+        with output.expression(True):
+            output.print_list(node.options)
 
 
 @node_printer(ast.CreateTrigStmt)
@@ -2128,10 +2124,9 @@ def create_trig_stmt(node, output):
 
             output.write('EXECUTE PROCEDURE ')
             output.print_name(node.funcname)
-            output.write('(')
-            if node.args:
-                output.print_list(node.args, ',')
-            output.write(')')
+            with output.expression(True):
+                if node.args:
+                    output.print_list(node.args, ',')
 
 
 @node_printer((ast.AlterSubscriptionStmt, ast.CreateSubscriptionStmt), ast.DefElem)
@@ -2158,9 +2153,9 @@ def create_subscription_stmt(node, output):
     output.print_name(node.publication, ',')
     output.write(' ')
     if node.options:
-        output.write('WITH (')
-        output.print_name(node.options, ',')
-        output.write(')')
+        output.write('WITH ')
+        with output.expression(True):
+            output.print_name(node.options, ',')
 
 
 @node_printer(ast.CurrentOfExpr)
@@ -2178,19 +2173,19 @@ def create_transform_stmt(node, output):
     output.print_name(node.type_name)
     output.write('LANGUAGE ')
     output.print_name(node.lang)
-    output.write(' (')
-    output.newline()
-    with output.push_indent(2):
-        if node.fromsql:
-            output.write('FROM SQL WITH FUNCTION ')
-            output.print_node(node.fromsql)
+    output.write(' ')
+    with output.expression(True):
+        output.newline()
+        with output.push_indent(2):
+            if node.fromsql:
+                output.write('FROM SQL WITH FUNCTION ')
+                output.print_node(node.fromsql)
+                if node.tosql:
+                    output.write(',')
+                    output.newline()
             if node.tosql:
-                output.write(',')
-                output.newline()
-        if node.tosql:
-            output.write('TO SQL WITH FUNCTION ')
-            output.print_node(node.tosql)
-        output.write(')')
+                output.write('TO SQL WITH FUNCTION ')
+                output.print_node(node.tosql)
 
 
 @node_printer(ast.ClosePortalStmt)
@@ -2212,9 +2207,9 @@ def create_user_mapping_stmt(node, output):
     output.writes(' SERVER')
     output.write(node.servername)
     if node.options:
-        output.write(' OPTIONS (')
-        output.print_list(node.options, ',')
-        output.write(')')
+        output.write(' OPTIONS ')
+        with output.expression(True):
+            output.print_list(node.options, ',')
 
 
 @node_printer(ast.DeallocateStmt)
@@ -2242,36 +2237,37 @@ def define_stmt(node, output):
         # ORDER BY
         args, count = node.args
         count = count.val
-        output.write(' (')
-        if count == -1:
-            # Special case: if it's an aggregate, and the scalar is equal to
-            # None (not is, since it's a Scalar), write a star
-            if ((node.kind == enums.ObjectType.OBJECT_AGGREGATE
-                 and args == None)):
-                output.write('*')
-                actual_args = []
-                orderby_args = []
+        output.write(' ')
+        with output.expression(True):
+            if count == -1:
+                # Special case: if it's an aggregate, and the scalar is equal to
+                # None (not is, since it's a Scalar), write a star
+                if ((node.kind == enums.ObjectType.OBJECT_AGGREGATE
+                     and args == None)):
+                    output.write('*')
+                    actual_args = []
+                    orderby_args = []
+                else:
+                    count = len(args)
+                    actual_args = args
+                    orderby_args = []
             else:
-                count = len(args)
-                actual_args = args
-                orderby_args = []
-        else:
-            if count > 0:
-                actual_args = args[:count]
-            else:
-                actual_args = []
-            # For aggregates, if we have a count != -1 BUT we don't have an arg
-            # for that, add the last arg as an order by arg.
-            if count == len(args):
-                orderby_args = actual_args[-1:]
-            else:
-                orderby_args = args[count:]
-        if actual_args:
-            output.print_list(actual_args, standalone_items=False)
-        if orderby_args:
-            output.write(' ORDER BY ')
-            output.print_list(orderby_args, standalone_items=False)
-        output.write(') ')
+                if count > 0:
+                    actual_args = args[:count]
+                else:
+                    actual_args = []
+                # For aggregates, if we have a count != -1 BUT we don't have an arg
+                # for that, add the last arg as an order by arg.
+                if count == len(args):
+                    orderby_args = actual_args[-1:]
+                else:
+                    orderby_args = args[count:]
+            if actual_args:
+                output.print_list(actual_args, standalone_items=False)
+            if orderby_args:
+                output.write(' ORDER BY ')
+                output.print_list(orderby_args, standalone_items=False)
+        output.write(' ')
     if ((node.kind == enums.ObjectType.OBJECT_COLLATION
          and len(node.definition) == 1
          and node.definition[0].defname == 'from')):
@@ -2279,12 +2275,11 @@ def define_stmt(node, output):
         output.print_name(node.definition[0].arg)
     else:
         if node.definition:
-            output.write('(')
-            output.newline()
-            output.space(2 if output.comma_at_eoln or len(node.definition) == 1 else 4)
-            output.print_list(node.definition)
-            output.newline()
-            output.write(')')
+            with output.expression(True):
+                output.newline()
+                output.space(2 if output.comma_at_eoln or len(node.definition) == 1 else 4)
+                output.print_list(node.definition)
+                output.newline()
 
 
 @node_printer(ast.DefElem)
@@ -2305,9 +2300,9 @@ def define_stmt_def_elem(node, output):
         if isinstance(node.arg, tuple):
             is_symbol = node.defname in ('commutator', 'negator')
             if is_symbol and len(node.arg) > 1:
-                output.write('OPERATOR(')
-                output.print_symbol(node.arg)
-                output.write(')')
+                output.write('OPERATOR')
+                with output.expression(True):
+                    output.print_symbol(node.arg)
             else:
                 output.print_symbol(node.arg)
         else:
@@ -2355,9 +2350,9 @@ def drop_db_stmt(node, output):
     output.write(' ')
     output.print_name(node.dbname)
     if node.options:
-        output.write(' (')
-        output.print_list(node.options)
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            output.print_list(node.options)
 
 
 @node_printer(ast.DropOwnedStmt)
@@ -2414,11 +2409,10 @@ def drop_stmt(node, output):
             output.print_name(on)
         elif node.removeType == otypes.OBJECT_CAST:
             names = node.objects[0]
-            output.write('(')
-            output.print_name(names[0])
-            output.write(' AS ')
-            output.print_name(names[1])
-            output.write(')')
+            with output.expression(True):
+                output.print_name(names[0])
+                output.write(' AS ')
+                output.print_name(names[1])
         elif isinstance(node.objects[0], tuple):
             output.print_lists(node.objects, sep='.', sublist_open='', sublist_close='',
                                standalone_items=False, are_names=True)
@@ -2553,13 +2547,13 @@ def import_foreign_schema_stmt(node, output):
     if node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_ALL:
         pass
     elif node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_LIMIT_TO:
-        output.write(' LIMIT TO (')
-        output.print_list(node.table_list)
-        output.write(')')
+        output.write(' LIMIT TO ')
+        with output.expression(True):
+            output.print_list(node.table_list)
     elif node.list_type == enums.ImportForeignSchemaType.FDW_IMPORT_SCHEMA_EXCEPT:
-        output.write(' EXCEPT (')
-        output.print_list(node.table_list)
-        output.write(')')
+        output.write(' EXCEPT ')
+        with output.expression(True):
+            output.print_list(node.table_list)
     output.writes(' FROM SERVER ')
     output.print_name(node.server_name)
     output.writes(' INTO ')
@@ -2586,18 +2580,18 @@ def index_stmt(node, output):
         if node.accessMethod != 'btree':
             output.write('USING ')
             output.print_name(node.accessMethod)
-        output.write(' (')
-        output.print_list(node.indexParams)
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            output.print_list(node.indexParams)
         if node.indexIncludingParams:
-            output.write(' INCLUDE (')
-            output.print_list(node.indexIncludingParams)
-            output.write(')')
+            output.write(' INCLUDE ')
+            with output.expression(True):
+                output.print_list(node.indexIncludingParams)
         if node.options:
             output.newline()
-            output.write('WITH (')
-            output.print_list(node.options)
-            output.write(')')
+            output.write('WITH ')
+            with output.expression(True):
+                output.print_list(node.options)
         if node.tableSpace:
             output.newline()
             output.write('TABLESPACE ')
@@ -2659,13 +2653,13 @@ def _object_with_args(node, output, unquote_name=False, symbol=False,
         output.print_name(node.objname)
     if not node.args_unspecified:
         if node.objargs:
-            output.write(' (')
-            output.print_list(node.objargs, ',', standalone_items=False)
-            output.write(')')
+            output.write(' ')
+            with output.expression(True):
+                output.print_list(node.objargs, ',', standalone_items=False)
         elif not skip_empty_args:
-            output.write(' (')
-            output.write(empty_placeholder)
-            output.write(')')
+            output.write(' ')
+            with output.expression(True):
+                output.write(empty_placeholder)
 
 
 @node_printer(ast.ObjectWithArgs)
@@ -2713,15 +2707,16 @@ def partition_bound_spec(node, output):
     else:
         output.write('FOR VALUES ')
         if node.strategy == enums.PARTITION_STRATEGY_RANGE:
-            output.swrite('FROM (')
-            output.print_list(node.lowerdatums)
-            output.write(') TO (')
-            output.print_list(node.upperdatums)
-            output.write(')')
+            output.swrite('FROM ')
+            with output.expression(True):
+                output.print_list(node.lowerdatums)
+            output.write(' TO ')
+            with output.expression(True):
+                output.print_list(node.upperdatums)
         elif node.strategy == enums.PARTITION_STRATEGY_LIST:
-            output.write('IN (')
-            output.print_list(node.listdatums)
-            output.write(')')
+            output.write('IN ')
+            with output.expression(True):
+                output.print_list(node.listdatums)
         elif node.strategy == enums.PARTITION_STRATEGY_HASH:
             output.write('WITH (MODULUS %d, REMAINDER %d)'
                          % (node.modulus, node.remainder))
@@ -2741,9 +2736,8 @@ def partition_elem(node, output):
     if node.name:
         output.print_name(node.name)
     elif node.expr:
-        output.write('(')
-        output.print_node(node.expr)
-        output.write(')')
+        with output.expression(True):
+            output.print_node(node.expr)
     if node.collation:
         output.write('COLLATE ')
         output.print_list(node.collation, are_names=True)
@@ -2765,9 +2759,9 @@ def partition_range_datum(node, output):
 @node_printer(ast.PartitionSpec)
 def partition_spec(node, output):
     output.print_symbol(node.strategy)
-    output.write(' (')
-    output.print_list(node.partParams)
-    output.write(')')
+    output.write(' ')
+    with output.expression(True):
+        output.print_list(node.partParams)
 
 
 class ReindexKindPrinter(IntEnumPrinter):
@@ -2941,13 +2935,13 @@ def rule_stmt_printer(node, output):
             output.writes('ALSO')
         if node.actions:
             if len(node.actions) > 1:
-                output.write(' (')
-                output.newline()
-                with output.push_indent(2):
-                    output.space(2)
-                    output.print_list(node.actions, ';', standalone_items=True)
-                output.newline()
-                output.write(')')
+                output.write(' ')
+                with output.expression(True):
+                    output.newline()
+                    with output.push_indent(2):
+                        output.space(2)
+                        output.print_list(node.actions, ';', standalone_items=True)
+                    output.newline()
             else:
                 output.space()
                 with output.push_indent():
@@ -3033,9 +3027,8 @@ def vacuum_stmt(node, output):
     else:
         output.write('ANALYZE ')
     if node.options:
-        output.write('(')
-        output.print_list(node.options, ',')
-        output.write(') ')
+        with output.expression(True):
+            output.print_list(node.options, ',')
     if node.rels:
         output.print_list(node.rels, ',')
 
@@ -3052,9 +3045,8 @@ def vacuum_stmt_def_elem(node, output):
 def vacuum_relation(node, output):
     output.print_node(node.relation)
     if node.va_cols:
-        output.write('(')
-        output.print_list(node.va_cols, ',', are_names=True)
-        output.write(')')
+        with output.expression(True):
+            output.print_list(node.va_cols, ',', are_names=True)
 
 
 @node_printer(ast.VariableShowStmt)
@@ -3094,15 +3086,15 @@ def view_stmt(node, output):
     output.write('VIEW ')
     output.print_node(node.view)
     if node.aliases:
-        output.write(' (')
-        output.print_list(node.aliases, are_names=True)
-        output.write(')')
+        output.write(' ')
+        with output.expression(True):
+            output.print_list(node.aliases, are_names=True)
     output.newline()
     output.space(2)
     if node.options:
-        output.write('WITH (')
-        output.print_list(node.options)
-        output.write(')')
+        output.write('WITH ')
+        with output.expression(True):
+            output.print_list(node.options)
         output.newline()
         output.space(2)
     output.write('AS ')
