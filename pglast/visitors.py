@@ -69,7 +69,7 @@ class Ancestor:
 
     .. testsetup:: *
 
-        from pglast import parse_sql
+        from pglast import ast, parse_sql
         from pglast.visitors import Ancestor
 
     .. doctest::
@@ -133,12 +133,20 @@ class Ancestor:
         <class 'tuple'>
         >>> generate_series_path.node[0][0]
         <FuncCall funcname=(<String val='generate_series'>,)...
+
+    As an aid to visitors that apply changes to the AST, there are two methods, :meth:`update`
+    and :meth:`apply`, that takes care of the different cases, when `node` is an AST instance
+    or instead it's a tuple (or subtuple); the former does not directly change the AST tree,
+    but postpones that when the latter is called.
     """
+
+    __slots__ = ('parent', 'node', 'member', 'pending_update')
 
     def __init__(self, parent=None, node=None, member=None):
         self.parent = parent
         self.node = node
         self.member = member
+        self.pending_update = None
 
     def __iter__(self):
         "Iterate over each step, yielding either an attribute name or a sequence index."
@@ -194,6 +202,43 @@ class Ancestor:
                 else:
                     node = getattr(node, member)
         return node
+
+    def update(self, new_value):
+        "Set `new_value` as a pending change to the tracked node."
+
+        if isinstance(self.member, int):
+            # We are pointing to one particular item in a tuple, so we need to build a new one,
+            # replacing it with the new value and then update the parent node accordingly:
+            # since there may be further changes, temporarily use a list instead of a tuple, at
+            # apply() time it will be coerced back to a tuple. Note that there are "list of
+            # lists" cases, that are handled at apply time.
+            if self.parent.pending_update is None:
+                self.parent.pending_update = list(self.node)
+            self.parent.pending_update[self.member] = new_value
+            return self.parent
+        else:
+            self.pending_update = new_value
+            return self
+
+    def apply(self):
+        "Apply the pending change, if any, to the actual node."
+
+        if self.pending_update is not None:
+            if isinstance(self.pending_update, list):
+                value = tuple(filter(lambda item: item is not Delete, self.pending_update))
+            else:
+                value = self.pending_update
+            if isinstance(self.member, int):
+                pvalue = list(self.node)
+                pvalue[self.member] = value or None
+                self.parent.update(pvalue)
+                self.parent.apply()
+            else:
+                if self.member is None:
+                    self.node = value or None
+                else:
+                    setattr(self.node, self.member, value or None)
+            self.pending_update = None
 
 
 class Visitor:
@@ -265,6 +310,8 @@ class Visitor:
         chain* as it finds them while traversing the tree.
         """
 
+        pending_updates = []
+
         todo = deque()
 
         if isinstance(node, (tuple, ast.Node)):
@@ -275,14 +322,15 @@ class Visitor:
         while todo:
             ancestors, node = todo.popleft()
 
+            # Here `node` may be either one AST node, a tuple of AST nodes (e.g.
+            # SelectStmt.targetList), or even a tuple of tuples of AST nodes (e.g.
+            # SelectStmt.valuesList). To simplify code, coerce it to a sequence.
+
             is_sequence = isinstance(node, tuple)
             if is_sequence:
                 nodes = list(node)
-                new_nodes = []
             else:
                 nodes = [node]
-                new_nodes = None
-            sequence_changed = False
 
             index = 0
             while nodes:
@@ -294,34 +342,14 @@ class Visitor:
                 if isinstance(sub_node, ast.Node):
                     action = yield sub_ancestors, sub_node
                     if action is Continue:
-                        if is_sequence:
-                            new_nodes.append(sub_node)
-
                         for member in sub_node:
                             value = getattr(sub_node, member)
                             if isinstance(value, (tuple, ast.Node)):
                                 todo.append((sub_ancestors / (sub_node, member), value))
                     elif action is Skip:
-                        if is_sequence:
-                            new_nodes.append(sub_node)
+                        pass
                     else:
-                        if action is Delete:
-                            if is_sequence:
-                                sequence_changed = True
-                            new_node = None
-                        elif action is not sub_node:
-                            if is_sequence:
-                                sequence_changed = True
-                                new_nodes.append(action)
-                            else:
-                                new_node = action
-
-                        if not is_sequence:
-                            parent = ancestors[0]
-                            if parent is not None:
-                                setattr(parent, ancestors.member, new_node)
-                            else:
-                                self.root = new_node
+                        pending_updates.append(sub_ancestors.update(action))
                 elif isinstance(sub_node, tuple):
                     for sub_index, value in enumerate(sub_node):
                         if isinstance(value, (tuple, ast.Node)):
@@ -329,12 +357,10 @@ class Visitor:
 
                 index += 1
 
-            if is_sequence and sequence_changed:
-                parent = ancestors[0]
-                if parent is not None:
-                    setattr(parent, ancestors.member, tuple(new_nodes) if new_nodes else None)
-                else:
-                    self.root = tuple(new_nodes) if new_nodes else None
+        for pending_update in pending_updates:
+            pending_update.apply()
+            if pending_update.member is None:
+                self.root = pending_update.node
 
     visit = None
     """
