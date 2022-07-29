@@ -82,7 +82,7 @@ class Ancestor:
         True
         >>> root[0] is None
         True
-        >>> select_stmt_path = root / (root, 0) / (tree[0], 'stmt')
+        >>> select_stmt_path = root / (tree, 0) / (tree[0], 'stmt')
         >>> select_stmt_path
         ROOT → 0 → stmt
         >>> select_stmt_path@tree is tree[0].stmt
@@ -108,7 +108,7 @@ class Ancestor:
         >>> tree = parse_sql('SELECT * FROM ROWS'
         ...                  ' FROM(generate_series(10,11), get_users())')
         >>> root = Ancestor()
-        >>> from_clause_path = (root / (root, 0) / (tree[0], 'stmt')
+        >>> from_clause_path = (root / (tree, 0) / (tree[0], 'stmt')
         ...                     / (tree[0].stmt, 'fromClause'))
         >>> from_clause = tree[0].stmt.fromClause
         >>> from_clause_path@tree is from_clause
