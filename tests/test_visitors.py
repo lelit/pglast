@@ -243,6 +243,25 @@ def test_delete_action():
     DropNullConstraint()(raw)
     assert RawStream()(raw) == 'CREATE TABLE foo (a integer CHECK (a <> 0))'
 
+    class DeleteOddsInList(visitors.Visitor):
+        def visit_A_Const(self, ancestors, node):
+            if isinstance(node.val, ast.Integer):
+                if node.val.val % 2:
+                    return visitors.Delete
+
+    raw = parse_sql('INSERT INTO foo VALUES (1, 2, 3, 42, 43)')
+    DeleteOddsInList()(raw)
+    assert RawStream()(raw) == 'INSERT INTO foo VALUES (2, 42)'
+
+    raw = parse_sql('INSERT INTO foo VALUES ((1, 2, 3, 42, 43),'
+                    ' (2, 1, 4, 3, 5))')
+    DeleteOddsInList()(raw)
+    assert RawStream()(raw) == 'INSERT INTO foo VALUES ((2, 42), (2, 4))'
+
+    raw = parse_sql('select true from foo where a in (1, 2, 3)')
+    DeleteOddsInList()(raw)
+    assert RawStream()(raw) == 'SELECT TRUE FROM foo WHERE a IN (2)'
+
 
 def test_alter_node():
     class AddNullConstraint(visitors.Visitor):
@@ -272,6 +291,14 @@ def test_alter_node():
     raw = parse_sql('select 21')
     DoubleAllIntegers()(raw)
     assert RawStream()(raw) == 'SELECT 42'
+
+    class ReplaceConstantInList(visitors.Visitor):
+        def visit_A_Const(self, ancestors, node):
+            return ast.A_Const(val=ast.Integer(0))
+
+    raw = parse_sql('INSERT INTO foo VALUES (42)')
+    ReplaceConstantInList()(raw)
+    assert RawStream()(raw) == 'INSERT INTO foo VALUES (0)'
 
 
 def test_replace_root_node():
