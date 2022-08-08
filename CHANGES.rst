@@ -8,12 +8,13 @@ Changes
 Version 3
 #########
 
-3.14 (unreleased)
+3.14 (2022-08-08)
 ~~~~~~~~~~~~~~~~~
 
 - Harden the way ``Visitor`` handle modifications to the AST (`issue 107`__)
 
   __ https://github.com/lelit/pglast/issues/107
+
 
 3.13 (2022-06-29)
 ~~~~~~~~~~~~~~~~~
