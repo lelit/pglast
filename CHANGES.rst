@@ -8,6 +8,16 @@ Changes
 Version 3
 #########
 
+3.15 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Produce Python 3.11 wheels (`PR #108`__), thanks to ``cibuildwheel`` 2.11.1__ and to Bastien
+  Gandouet
+
+  __ https://github.com/lelit/pglast/pull/108
+  __ https://cibuildwheel.readthedocs.io/en/stable/changelog/#v2111
+
+
 3.14 (2022-08-08)
 ~~~~~~~~~~~~~~~~~
 
