@@ -11,7 +11,7 @@ Version 3
 3.14 (2022-08-08)
 ~~~~~~~~~~~~~~~~~
 
-- Harden the way ``Visitor`` handle modifications to the AST (`issue 107`__)
+- Harden the way ``Visitor`` handle modifications to the AST (`issue #107`__)
 
   __ https://github.com/lelit/pglast/issues/107
 
@@ -28,7 +28,7 @@ Version 3
 ~~~~~~~~~~~~~~~~~
 
 - Rewrite the implementation of the ``referenced_relations()`` function, that was flawed with
-  regard to CTEs handling (`issue 106`__), thanks to Michal Charemza for providing his own
+  regard to CTEs handling (`issue #106`__), thanks to Michal Charemza for providing his own
   version
 
   __ https://github.com/lelit/pglast/issues/106
