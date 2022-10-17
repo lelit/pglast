@@ -79,7 +79,7 @@ jobs:
         env:
           CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
-          CIBW_SKIP: "cp2* cp33* cp34* cp35* pp*"
+          CIBW_SKIP: "cp2* cp33* cp34* cp35* cp36* pp*"
           CIBW_ARCHS: ${{matrix.arch}}
 
       - name: Upload artifacts
