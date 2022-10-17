@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.15 (unreleased)
+3.15 (2022-10-17)
 ~~~~~~~~~~~~~~~~~
 
 - Produce Python 3.11 wheels (`PR #108`__), thanks to ``cibuildwheel`` 2.11.1__ and to Bastien
