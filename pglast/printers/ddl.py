@@ -337,7 +337,7 @@ def alter_seq_stmt(node, output):
 @node_printer(ast.AlterTableStmt)
 def alter_table_stmt(node, output):
     output.write('ALTER ')
-    output.writes(OBJECT_NAMES[node.relkind])
+    output.writes(OBJECT_NAMES[node.objtype])
     if node.missing_ok:
         output.write('IF EXISTS ')
     output.print_node(node.relation)
@@ -381,7 +381,7 @@ def alter_def_elem(node, output):
 
 @node_printer(ast.AlterTableStmt, ast.RangeVar)
 def range_var(node, output):
-    if abs(node.ancestors).node.relkind == enums.ObjectType.OBJECT_TABLE and not node.inh:
+    if abs(node.ancestors).node.objtype == enums.ObjectType.OBJECT_TABLE and not node.inh:
         output.write('ONLY ')
     if node.schemaname:
         output.print_name(node.schemaname)
@@ -399,7 +399,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
 
     def AT_AddColumn(self, node, output):
         output.write('ADD ')
-        if abs(node.ancestors).node.relkind == enums.ObjectType.OBJECT_TYPE:
+        if abs(node.ancestors).node.objtype == enums.ObjectType.OBJECT_TYPE:
             output.write('ATTRIBUTE ')
         else:
             output.write('COLUMN ')
@@ -421,7 +421,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
 
     def AT_AlterColumnType(self, node, output):
         output.write('ALTER ')
-        if abs(node.ancestors).node.relkind == enums.ObjectType.OBJECT_TYPE:
+        if abs(node.ancestors).node.objtype == enums.ObjectType.OBJECT_TYPE:
             output.write('ATTRIBUTE ')
         else:
             output.write('COLUMN ')
@@ -474,7 +474,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
 
     def AT_DropColumn(self, node, output):
         output.write('DROP ')
-        if abs(node.ancestors).node.relkind == enums.ObjectType.OBJECT_TYPE:
+        if abs(node.ancestors).node.objtype == enums.ObjectType.OBJECT_TYPE:
             output.write('ATTRIBUTE ')
         else:
             output.write('COLUMN ')
@@ -2033,7 +2033,7 @@ def create_table_as_stmt(node, output):
         output.writes('TEMPORARY')
     elif node.into.rel.relpersistence == enums.RELPERSISTENCE_UNLOGGED:
         output.writes('UNLOGGED')
-    output.writes(OBJECT_NAMES[node.relkind])
+    output.writes(OBJECT_NAMES[node.objtype])
     if node.if_not_exists:
         output.writes('IF NOT EXISTS')
     output.print_node(node.into)
