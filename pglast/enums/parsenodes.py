@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 13-2.1.2-0-g4b30b03
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 14-pglast-0-g496c999
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
@@ -9,7 +9,7 @@ from enum import Enum, IntEnum, IntFlag, auto
 
 try:
     from enum import StrEnum
-except ImportError:
+except ImportError:  # pragma: no cover
     # Python < 3.10
     class StrEnum(str, Enum):
         pass
@@ -22,7 +22,6 @@ class A_Expr_Kind(IntEnum):
     AEXPR_DISTINCT = auto()
     AEXPR_NOT_DISTINCT = auto()
     AEXPR_NULLIF = auto()
-    AEXPR_OF = auto()
     AEXPR_IN = auto()
     AEXPR_LIKE = auto()
     AEXPR_ILIKE = auto()
@@ -31,12 +30,13 @@ class A_Expr_Kind(IntEnum):
     AEXPR_NOT_BETWEEN = auto()
     AEXPR_BETWEEN_SYM = auto()
     AEXPR_NOT_BETWEEN_SYM = auto()
-    AEXPR_PAREN = auto()
 
 class AlterSubscriptionType(IntEnum):
     ALTER_SUBSCRIPTION_OPTIONS = 0
     ALTER_SUBSCRIPTION_CONNECTION = auto()
-    ALTER_SUBSCRIPTION_PUBLICATION = auto()
+    ALTER_SUBSCRIPTION_SET_PUBLICATION = auto()
+    ALTER_SUBSCRIPTION_ADD_PUBLICATION = auto()
+    ALTER_SUBSCRIPTION_DROP_PUBLICATION = auto()
     ALTER_SUBSCRIPTION_REFRESH = auto()
     ALTER_SUBSCRIPTION_ENABLED = auto()
 
@@ -61,6 +61,7 @@ class AlterTableType(IntEnum):
     AT_SetOptions = auto()
     AT_ResetOptions = auto()
     AT_SetStorage = auto()
+    AT_SetCompression = auto()
     AT_DropColumn = auto()
     AT_DropColumnRecurse = auto()
     AT_AddIndex = auto()
@@ -112,18 +113,16 @@ class AlterTableType(IntEnum):
     AT_GenericOptions = auto()
     AT_AttachPartition = auto()
     AT_DetachPartition = auto()
+    AT_DetachPartitionFinalize = auto()
     AT_AddIdentity = auto()
     AT_SetIdentity = auto()
     AT_DropIdentity = auto()
+    AT_ReAddStatistics = auto()
 
 class CTEMaterialize(IntEnum):
     CTEMaterializeDefault = 0
     CTEMaterializeAlways = auto()
     CTEMaterializeNever = auto()
-
-class ClusterOption(IntFlag):
-    CLUOPT_RECHECK = 1 << 0
-    CLUOPT_VERBOSE = 1 << 1
 
 class ConstrType(IntEnum):
     CONSTR_NULL = 0
@@ -169,6 +168,7 @@ class FunctionParameterMode(StrEnum):
     FUNC_PARAM_INOUT = 'b'
     FUNC_PARAM_VARIADIC = 'v'
     FUNC_PARAM_TABLE = 't'
+    FUNC_PARAM_DEFAULT = 'd'
 
 class GrantTargetType(IntEnum):
     ACL_TARGET_OBJECT = 0
@@ -276,6 +276,7 @@ class ReindexObjectType(IntEnum):
 
 class RoleSpecType(IntEnum):
     ROLESPEC_CSTRING = 0
+    ROLESPEC_CURRENT_ROLE = auto()
     ROLESPEC_CURRENT_USER = auto()
     ROLESPEC_SESSION_USER = auto()
     ROLESPEC_PUBLIC = auto()
@@ -291,6 +292,11 @@ class SetOperation(IntEnum):
     SETOP_INTERSECT = auto()
     SETOP_EXCEPT = auto()
 
+class SetQuantifier(IntEnum):
+    SET_QUANTIFIER_DEFAULT = 0
+    SET_QUANTIFIER_ALL = auto()
+    SET_QUANTIFIER_DISTINCT = auto()
+
 class SortByDir(IntEnum):
     SORTBY_DEFAULT = 0
     SORTBY_ASC = auto()
@@ -304,13 +310,14 @@ class SortByNulls(IntEnum):
 
 class TableLikeOption(IntFlag):
     CREATE_TABLE_LIKE_COMMENTS = 1 << 0
-    CREATE_TABLE_LIKE_CONSTRAINTS = 1 << 1
-    CREATE_TABLE_LIKE_DEFAULTS = 1 << 2
-    CREATE_TABLE_LIKE_GENERATED = 1 << 3
-    CREATE_TABLE_LIKE_IDENTITY = 1 << 4
-    CREATE_TABLE_LIKE_INDEXES = 1 << 5
-    CREATE_TABLE_LIKE_STATISTICS = 1 << 6
-    CREATE_TABLE_LIKE_STORAGE = 1 << 7
+    CREATE_TABLE_LIKE_COMPRESSION = 1 << 1
+    CREATE_TABLE_LIKE_CONSTRAINTS = 1 << 2
+    CREATE_TABLE_LIKE_DEFAULTS = 1 << 3
+    CREATE_TABLE_LIKE_GENERATED = 1 << 4
+    CREATE_TABLE_LIKE_IDENTITY = 1 << 5
+    CREATE_TABLE_LIKE_INDEXES = 1 << 6
+    CREATE_TABLE_LIKE_STATISTICS = 1 << 7
+    CREATE_TABLE_LIKE_STORAGE = 1 << 8
     CREATE_TABLE_LIKE_ALL = 0x7FFFFFFF
 
 class TransactionStmtKind(IntEnum):
@@ -447,18 +454,16 @@ CURSOR_OPT_NO_SCROLL = 0x0004
 
 CURSOR_OPT_INSENSITIVE = 0x0008
 
-CURSOR_OPT_HOLD = 0x0010
+CURSOR_OPT_ASENSITIVE = 0x0010
 
-CURSOR_OPT_FAST_PLAN = 0x0020
+CURSOR_OPT_HOLD = 0x0020
 
-CURSOR_OPT_GENERIC_PLAN = 0x0040
+CURSOR_OPT_FAST_PLAN = 0x0100
 
-CURSOR_OPT_CUSTOM_PLAN = 0x0080
+CURSOR_OPT_GENERIC_PLAN = 0x0200
 
-CURSOR_OPT_PARALLEL_OK = 0x0100
+CURSOR_OPT_CUSTOM_PLAN = 0x0400
+
+CURSOR_OPT_PARALLEL_OK = 0x0800
 
 FETCH_ALL = 9223372036854775807
-
-REINDEXOPT_VERBOSE = 1 << 0
-
-REINDEXOPT_REPORT_PROGRESS = 1 << 1

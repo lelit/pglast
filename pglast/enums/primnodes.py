@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from primnodes.h @ 13-2.1.2-0-g4b30b03
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from primnodes.h @ 14-pglast-0-g496c999
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
@@ -9,7 +9,7 @@ from enum import Enum, IntEnum, IntFlag, auto
 
 try:
     from enum import StrEnum
-except ImportError:
+except ImportError:  # pragma: no cover
     # Python < 3.10
     class StrEnum(str, Enum):
         pass
@@ -31,12 +31,14 @@ class BoolTestType(IntEnum):
 class CoercionContext(IntEnum):
     COERCION_IMPLICIT = 0
     COERCION_ASSIGNMENT = auto()
+    COERCION_PLPGSQL = auto()
     COERCION_EXPLICIT = auto()
 
 class CoercionForm(IntEnum):
     COERCE_EXPLICIT_CALL = 0
     COERCE_EXPLICIT_CAST = auto()
     COERCE_IMPLICIT_CAST = auto()
+    COERCE_SQL_SYNTAX = auto()
 
 class MinMaxOp(IntEnum):
     IS_GREATEST = 0
@@ -115,3 +117,5 @@ INNER_VAR = 65000
 OUTER_VAR = 65001
 
 INDEX_VAR = 65002
+
+ROWID_VAR = 65003

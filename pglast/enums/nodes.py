@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from nodes.h @ 13-2.1.2-0-g4b30b03
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from nodes.h @ 14-pglast-0-g496c999
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
@@ -9,7 +9,7 @@ from enum import Enum, IntEnum, IntFlag, auto
 
 try:
     from enum import StrEnum
-except ImportError:
+except ImportError:  # pragma: no cover
     # Python < 3.10
     class StrEnum(str, Enum):
         pass
@@ -77,6 +77,7 @@ class NodeTag(IntEnum):
     T_BitmapIndexScan = auto()
     T_BitmapHeapScan = auto()
     T_TidScan = auto()
+    T_TidRangeScan = auto()
     T_SubqueryScan = auto()
     T_FunctionScan = auto()
     T_ValuesScan = auto()
@@ -91,6 +92,7 @@ class NodeTag(IntEnum):
     T_MergeJoin = auto()
     T_HashJoin = auto()
     T_Material = auto()
+    T_Memoize = auto()
     T_Sort = auto()
     T_IncrementalSort = auto()
     T_Group = auto()
@@ -127,6 +129,7 @@ class NodeTag(IntEnum):
     T_BitmapIndexScanState = auto()
     T_BitmapHeapScanState = auto()
     T_TidScanState = auto()
+    T_TidRangeScanState = auto()
     T_SubqueryScanState = auto()
     T_FunctionScanState = auto()
     T_TableFuncScanState = auto()
@@ -141,6 +144,7 @@ class NodeTag(IntEnum):
     T_MergeJoinState = auto()
     T_HashJoinState = auto()
     T_MaterialState = auto()
+    T_MemoizeState = auto()
     T_SortState = auto()
     T_IncrementalSortState = auto()
     T_GroupState = auto()
@@ -206,11 +210,9 @@ class NodeTag(IntEnum):
     T_OnConflictExpr = auto()
     T_IntoClause = auto()
     T_ExprState = auto()
-    T_AggrefExprState = auto()
     T_WindowFuncExprState = auto()
     T_SetExprState = auto()
     T_SubPlanState = auto()
-    T_AlternativeSubPlanState = auto()
     T_DomainConstraintState = auto()
     T_PlannerInfo = auto()
     T_PlannerGlobal = auto()
@@ -224,6 +226,7 @@ class NodeTag(IntEnum):
     T_BitmapAndPath = auto()
     T_BitmapOrPath = auto()
     T_TidPath = auto()
+    T_TidRangePath = auto()
     T_SubqueryScanPath = auto()
     T_ForeignPath = auto()
     T_CustomPath = auto()
@@ -234,6 +237,7 @@ class NodeTag(IntEnum):
     T_MergeAppendPath = auto()
     T_GroupResultPath = auto()
     T_MaterialPath = auto()
+    T_MemoizePath = auto()
     T_UniquePath = auto()
     T_GatherPath = auto()
     T_GatherMergePath = auto()
@@ -261,6 +265,7 @@ class NodeTag(IntEnum):
     T_PlaceHolderVar = auto()
     T_SpecialJoinInfo = auto()
     T_AppendRelInfo = auto()
+    T_RowIdentityVarInfo = auto()
     T_PlaceHolderInfo = auto()
     T_MinMaxAggInfo = auto()
     T_PlannerParamItem = auto()
@@ -288,6 +293,8 @@ class NodeTag(IntEnum):
     T_DeleteStmt = auto()
     T_UpdateStmt = auto()
     T_SelectStmt = auto()
+    T_ReturnStmt = auto()
+    T_PLAssignStmt = auto()
     T_AlterTableStmt = auto()
     T_AlterTableCmd = auto()
     T_AlterDomainStmt = auto()
@@ -420,6 +427,7 @@ class NodeTag(IntEnum):
     T_TypeName = auto()
     T_ColumnDef = auto()
     T_IndexElem = auto()
+    T_StatsElem = auto()
     T_Constraint = auto()
     T_DefElem = auto()
     T_RangeTblEntry = auto()
@@ -440,6 +448,8 @@ class NodeTag(IntEnum):
     T_WithClause = auto()
     T_InferClause = auto()
     T_OnConflictClause = auto()
+    T_CTESearchClause = auto()
+    T_CTECycleClause = auto()
     T_CommonTableExpr = auto()
     T_RoleSpec = auto()
     T_TriggerTransition = auto()

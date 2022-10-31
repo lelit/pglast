@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_attribute.h @ 13-2.1.2-0-g4b30b03
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_attribute.h @ 14-pglast-0-g496c999
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
@@ -9,7 +9,7 @@ from enum import Enum, IntEnum, IntFlag, auto
 
 try:
     from enum import StrEnum
-except ImportError:
+except ImportError:  # pragma: no cover
     # Python < 3.10
     class StrEnum(str, Enum):
         pass
@@ -17,6 +17,10 @@ except ImportError:
 
 
 # #define-ed constants
+
+AttributeRelidNameIndexId = 2658
+
+AttributeRelidNumIndexId = 2659
 
 ATTRIBUTE_IDENTITY_ALWAYS = 'a'
 
