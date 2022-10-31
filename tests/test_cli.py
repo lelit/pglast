@@ -3,7 +3,7 @@
 # :Created:   lun 07 ago 2017 12:50:37 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
 #
 
 from contextlib import _RedirectStream, redirect_stdout
@@ -125,8 +125,6 @@ select collation for ('abc'),
        normalize('abc', nfc),
        overlay('Txxxxas' placing 'hom' FROM 2 for 4),
        position('bc' in 'abcd'),
-       substring('abcd' from 1 for 2),
-       substring('abcd' from 2),
        trim(both '  abc  '),
        trim(both '*' from '***abc***'),
        trim(leading '*' from '***abc***'),
@@ -142,8 +140,6 @@ SELECT COLLATION FOR ('abc')
      , normalize('abc', NFC)
      , overlay('Txxxxas' PLACING 'hom' FROM 2 FOR 4)
      , position('bc' IN 'abcd')
-     , substring('abcd' FROM 1 FOR 2)
-     , substring('abcd' FROM 2)
      , trim(BOTH FROM '  abc  ')
      , trim(BOTH '*' FROM '***abc***')
      , trim(LEADING '*' FROM '***abc***')
@@ -167,6 +163,12 @@ SELECT COLLATION FOR ('abc')
                                          "     , count(*)\n"
                                          "FROM t1\n")
 
+    with StringIO("select substring('123' from 1 for 2)") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--special-functions', '--compact-lists-margin', '40'])
+            assert output.getvalue() == "SELECT substring('123' FROM 1 FOR 2)\n"
+
     in_stmt = """\
 select substring('123',2,3),
        regexp_split_to_array('x,x,x', ','),
@@ -179,11 +181,11 @@ select substring('123',2,3),
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--compact-lists-margin', '100'])
             assert output.getvalue() == """\
-SELECT pg_catalog.substring('123', 2, 3)
+SELECT substring('123', 2, 3)
      , regexp_split_to_array('x,x,x', ',')
      , btrim('xxx')
      , pg_catalog.btrim('xxx')
-     , pg_catalog.position(pg_catalog.btrim(pg_catalog.substring('xyz hour ', 1, 6)), 'hour')
+     , pg_catalog.position(pg_catalog.btrim(substring('xyz hour ', 1, 6)), 'hour')
 """
 
     with StringIO(in_stmt) as input:
