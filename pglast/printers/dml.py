@@ -358,6 +358,57 @@ class CTEMaterializedPrinter(IntEnumPrinter):
 cte_materialize_printer = CTEMaterializedPrinter()
 
 
+@node_printer(ast.CTECycleClause)
+def cte_cycle_clause(node, output):
+    output.write('CYCLE ')
+    output.print_list(node.cycle_col_list, are_names=True)
+    output.write(' SET ')
+    output.print_name(node.cycle_mark_column)
+    if node.cycle_mark_value:
+        output.write(' TO ')
+        output.print_node(node.cycle_mark_value)
+    if node.cycle_mark_default:
+        output.write(' DEFAULT ')
+        output.print_node(node.cycle_mark_default)
+    output.write(' USING ')
+    output.print_name(node.cycle_path_column)
+
+
+@node_printer(ast.CTECycleClause, ast.TypeCast)
+def cte_cycle_clause_type_cast(node, output):
+    # This is a variant of the standard TypeCast printer, because within a CTECycleClause they
+    # must be spelled as "typename 'value'", not as "CAST('value' AS typename)"
+    if isinstance(node.arg, ast.A_Const):
+        # Special case for boolean constants
+        if ((not isinstance(node.arg.val, ast.Null)
+             and node.arg.val.val in ('t', 'f')
+             and '.'.join(n.val for n in node.typeName.names) == 'pg_catalog.bool')):
+            output.write('TRUE' if node.arg.val.val == 't' else 'FALSE')
+            return
+        # Special case for bpchar
+        elif (('.'.join(n.val for n in node.typeName.names) == 'pg_catalog.bpchar'
+               and not node.typeName.typmods)):
+            output.write('char ')
+            output.print_node(node.arg)
+            return
+    output.print_node(node.typeName)
+    output.write(' ')
+    output.print_node(node.arg)
+
+
+@node_printer(ast.CTESearchClause)
+def cte_search_clause(node, output):
+    output.write('SEARCH ')
+    if node.search_breadth_first:
+        output.write('BREADTH ')
+    else:
+        output.write('DEPTH ')
+    output.write('FIRST BY ')
+    output.print_list(node.search_col_list, are_names=True)
+    output.write(' SET ')
+    output.print_name(node.search_seq_column)
+
+
 @node_printer(ast.CommonTableExpr)
 def common_table_expr(node, output):
     output.print_name(node.ctename)
@@ -374,6 +425,14 @@ def common_table_expr(node, output):
     output.write(' ')
     with output.expression(True):
         output.print_node(node.ctequery)
+    if node.search_clause:
+        output.newline()
+        output.newline()
+        output.print_node(node.search_clause)
+    if node.cycle_clause:
+        output.newline()
+        output.newline()
+        output.print_node(node.cycle_clause)
     if node.aliascolnames:
         output.dedent()
     output.newline()
