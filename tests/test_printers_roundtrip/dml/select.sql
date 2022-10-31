@@ -332,12 +332,6 @@ SELECT true FROM sometable WHERE id1 is not distinct from id2
 
 SELECT NULLIF(value, othervalue) FROM sometable
 
-SELECT x, x IS OF (text) AS is_text FROM q
-
-SELECT x, x IS OF ("MyType") AS "IsMyType" FROM q
-
-SELECT x, x IS NOT OF (text) AS is_not_text FROM q
-
 SELECT true FROM sometable WHERE value IN (1,2,3)
 
 SELECT true FROM sometable WHERE value NOT IN (1,2,3)
