@@ -3,7 +3,7 @@
 # :Created:   dom 06 ago 2017 23:34:53 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
 #
 
 from collections import defaultdict
@@ -40,7 +40,7 @@ def get_target_pg_version():
 def extract_keywords(source):
     for line in source.splitlines():
         if line.startswith('PG_KEYWORD'):
-            m = match(r'PG_KEYWORD\("([^"]+)",[^,]+,\s*([\w_]+)\)', line.strip())
+            m = match(r'PG_KEYWORD\("([^"]+)",[^,]+,\s*([\w_]+),[^)]+\)', line.strip())
             if m:
                 yield m.group(1), m.group(2)
 
