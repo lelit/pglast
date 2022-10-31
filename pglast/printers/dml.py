@@ -906,6 +906,9 @@ def join_expr(node, output):
                 output.swrite('USING ')
                 with output.expression(True):
                     output.print_name(node.usingClause, ',')
+                if node.join_using_alias:
+                    output.write(' AS ')
+                    output.print_node(node.join_using_alias)
             elif node.quals:
                 output.swrite('ON ')
                 output.print_node(node.quals)
