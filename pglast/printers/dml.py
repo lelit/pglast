@@ -536,6 +536,11 @@ def copy_stmt_def_elem(node, output):
     elif option == 'encoding':
         output.write('ENCODING ')
         output.print_node(argv)
+    elif option == 'convert_selectively':
+        output.write(option)
+        output.write(' ')
+        with output.expression(True):
+            output.print_name(argv)
     else:
         raise NotImplementedError(option)
 
