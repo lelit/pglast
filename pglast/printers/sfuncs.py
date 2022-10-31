@@ -42,10 +42,10 @@ def pg_collation_for(node, output):
         output.print_node(node.args[0])
 
 
-@special_function('pg_catalog.date_part')
-def date_part(node, output):
+@special_function('pg_catalog.extract')
+def extract(node, output):
     """
-    Emit function ``pg_catalog.date_part(field, timestamp)`` as
+    Emit function ``pg_catalog.extract(field, timestamp)`` as
     ``EXTRACT(field FROM timestamp).``.
     """
     output.write('EXTRACT')

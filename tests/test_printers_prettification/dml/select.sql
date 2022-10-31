@@ -251,9 +251,9 @@ ORDER BY EXTRACT('year' FROM deliver_date) ASC,
 =
 SELECT *
 FROM manufacturers
-ORDER BY pg_catalog.date_part('year', deliver_date) ASC
-       , pg_catalog.date_part('month', deliver_date) ASC
-       , pg_catalog.date_part('day', deliver_date) ASC
+ORDER BY pg_catalog.extract('year', deliver_date) ASC
+       , pg_catalog.extract('month', deliver_date) ASC
+       , pg_catalog.extract('day', deliver_date) ASC
 
 SELECT * FROM manufacturers
 ORDER BY EXTRACT('year' FROM deliver_date) ASC,
