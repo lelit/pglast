@@ -362,8 +362,6 @@ SELECT user, session_user, current_catalog, current_schema
 
 SELECT value FROM sometable WHERE id = $1
 
-SELECT value FROM sometable WHERE id = ?
-
 SELECT value FROM sometable WHERE value like $1
 
 SELECT concat_ws($1::VARCHAR, p.last_name, p.first_name) AS "Redactor"
