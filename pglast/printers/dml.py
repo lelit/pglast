@@ -1232,6 +1232,8 @@ def select_stmt(node, output):
             if node.groupClause:
                 output.newline()
                 output.write('GROUP BY ')
+                if node.groupDistinct:
+                    output.write('DISTINCT ')
                 output.print_list(node.groupClause)
             if node.havingClause:
                 output.newline()
