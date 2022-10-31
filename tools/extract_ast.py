@@ -120,6 +120,8 @@ class Node:
             attrs = ''
         return '<' + self.__class__.__name__ + attrs + '>'
 
+    _ATTRS_TO_IGNORE_IN_COMPARISON = {{'location', 'stmt_len', 'stmt_location'}}
+
     def __eq__(self, other):
         '''
         Compare two nodes, returning ``True`` if they are considered equivalent.
@@ -132,7 +134,7 @@ class Node:
         if not isinstance(other, type(self)):
             return False
         for a in self:
-            if ((a not in ('location', 'stmt_len', 'stmt_location')
+            if ((a not in self._ATTRS_TO_IGNORE_IN_COMPARISON
                  and getattr(self, a) != getattr(other, a))):
                 return False
         return True
@@ -636,6 +638,7 @@ def emitter_for(fname, ctype, enums):
 
 def emit_node_def(name, fields, enums, url, output, doc):
     attrs = []
+    attrs_to_ignore_in_comparison = set()
 
     superclass = 'Node'
 
@@ -651,6 +654,9 @@ def emit_node_def(name, fields, enums, url, output, doc):
         fname = field['name']
         if iskeyword(fname):
             fname = f'{fname}_'
+
+        if ctype == 'CoercionForm':
+            attrs_to_ignore_in_comparison.add(fname)
 
         emitter = emitter_for(fname, ctype, enums)
         if ctype == 'Expr':
@@ -688,6 +694,11 @@ class {name}({superclass}):
 
 ''')
 
+    if attrs_to_ignore_in_comparison:
+        output.write(f'''\
+    _ATTRS_TO_IGNORE_IN_COMPARISON = {superclass}._ATTRS_TO_IGNORE_IN_COMPARISON | {repr(attrs_to_ignore_in_comparison)}
+
+''')
     if real_attrs:
         output.write(f'''\
     def __init__(self, {', '.join(f'{attr}=None' for attr, __ in real_attrs)}):  # pragma: no cover  # noqa: E501

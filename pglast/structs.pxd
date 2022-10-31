@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.1.1-0-g7eb584d
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 14-pglast-0-g496c999
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2022 Lele Gaifax
@@ -84,9 +84,6 @@ cdef extern from *:
     ctypedef enum CTEMaterialize:
         pass
 
-    ctypedef enum ClusterOption:
-        pass
-
     ctypedef enum CmdType:
         pass
 
@@ -168,6 +165,7 @@ cdef extern from *:
         T_BitmapIndexScan
         T_BitmapHeapScan
         T_TidScan
+        T_TidRangeScan
         T_SubqueryScan
         T_FunctionScan
         T_ValuesScan
@@ -182,6 +180,7 @@ cdef extern from *:
         T_MergeJoin
         T_HashJoin
         T_Material
+        T_Memoize
         T_Sort
         T_IncrementalSort
         T_Group
@@ -218,6 +217,7 @@ cdef extern from *:
         T_BitmapIndexScanState
         T_BitmapHeapScanState
         T_TidScanState
+        T_TidRangeScanState
         T_SubqueryScanState
         T_FunctionScanState
         T_TableFuncScanState
@@ -232,6 +232,7 @@ cdef extern from *:
         T_MergeJoinState
         T_HashJoinState
         T_MaterialState
+        T_MemoizeState
         T_SortState
         T_IncrementalSortState
         T_GroupState
@@ -297,11 +298,9 @@ cdef extern from *:
         T_OnConflictExpr
         T_IntoClause
         T_ExprState
-        T_AggrefExprState
         T_WindowFuncExprState
         T_SetExprState
         T_SubPlanState
-        T_AlternativeSubPlanState
         T_DomainConstraintState
         T_PlannerInfo
         T_PlannerGlobal
@@ -315,6 +314,7 @@ cdef extern from *:
         T_BitmapAndPath
         T_BitmapOrPath
         T_TidPath
+        T_TidRangePath
         T_SubqueryScanPath
         T_ForeignPath
         T_CustomPath
@@ -325,6 +325,7 @@ cdef extern from *:
         T_MergeAppendPath
         T_GroupResultPath
         T_MaterialPath
+        T_MemoizePath
         T_UniquePath
         T_GatherPath
         T_GatherMergePath
@@ -352,6 +353,7 @@ cdef extern from *:
         T_PlaceHolderVar
         T_SpecialJoinInfo
         T_AppendRelInfo
+        T_RowIdentityVarInfo
         T_PlaceHolderInfo
         T_MinMaxAggInfo
         T_PlannerParamItem
@@ -379,6 +381,8 @@ cdef extern from *:
         T_DeleteStmt
         T_UpdateStmt
         T_SelectStmt
+        T_ReturnStmt
+        T_PLAssignStmt
         T_AlterTableStmt
         T_AlterTableCmd
         T_AlterDomainStmt
@@ -511,6 +515,7 @@ cdef extern from *:
         T_TypeName
         T_ColumnDef
         T_IndexElem
+        T_StatsElem
         T_Constraint
         T_DefElem
         T_RangeTblEntry
@@ -531,6 +536,8 @@ cdef extern from *:
         T_WithClause
         T_InferClause
         T_OnConflictClause
+        T_CTESearchClause
+        T_CTECycleClause
         T_CommonTableExpr
         T_RoleSpec
         T_TriggerTransition
@@ -619,6 +626,9 @@ cdef extern from *:
     ctypedef enum SetOperation:
         pass
 
+    ctypedef enum SetQuantifier:
+        pass
+
     ctypedef enum SortByDir:
         pass
 
@@ -634,10 +644,7 @@ cdef extern from *:
     ctypedef enum TransactionStmtKind:
         pass
 
-    ctypedef enum VacOptTernaryValue:
-        pass
-
-    ctypedef enum VacuumOption:
+    ctypedef enum VacOptValue:
         pass
 
     ctypedef enum VariableSetKind:
@@ -685,6 +692,7 @@ cdef extern from "nodes/parsenodes.h":
         bool hasModifyingCTE
         bool hasForUpdate
         bool hasRowSecurity
+        bool isReturn
         const List* cteList
         const List* rtable
         const FromExpr* jointree
@@ -693,6 +701,7 @@ cdef extern from "nodes/parsenodes.h":
         const OnConflictExpr* onConflict
         const List* returningList
         const List* groupClause
+        bool groupDistinct
         const List* groupingSets
         const Node* havingQual
         const List* windowClause
@@ -765,11 +774,12 @@ cdef extern from "nodes/parsenodes.h":
         const List* args
         const List* agg_order
         const Node* agg_filter
+        const WindowDef* over
         bool agg_within_group
         bool agg_star
         bool agg_distinct
         bool func_variadic
-        const WindowDef* over
+        CoercionForm funcformat
         int location
 
     ctypedef struct A_Star:
@@ -870,6 +880,7 @@ cdef extern from "nodes/parsenodes.h":
         NodeTag type
         const char* colname
         const TypeName* typeName
+        const char* compression
         int inhcount
         bool is_local
         bool is_not_null
@@ -957,6 +968,7 @@ cdef extern from "nodes/parsenodes.h":
         NodeTag type
         const RangeVar* name
         const PartitionBoundSpec* bound
+        bool concurrent
 
     ctypedef struct RangeTblEntry:
         NodeTag type
@@ -971,6 +983,7 @@ cdef extern from "nodes/parsenodes.h":
         const List* joinaliasvars
         const List* joinleftcols
         const List* joinrightcols
+        const Alias* join_using_alias
         const List* functions
         bool funcordinality
         const TableFunc* tablefunc
@@ -1072,12 +1085,31 @@ cdef extern from "nodes/parsenodes.h":
         const Node* whereClause
         int location
 
+    ctypedef struct CTESearchClause:
+        NodeTag type
+        const List* search_col_list
+        bool search_breadth_first
+        const char* search_seq_column
+        int location
+
+    ctypedef struct CTECycleClause:
+        NodeTag type
+        const List* cycle_col_list
+        const char* cycle_mark_column
+        const Node* cycle_mark_value
+        const Node* cycle_mark_default
+        const char* cycle_path_column
+        int location
+        int cycle_mark_typmod
+
     ctypedef struct CommonTableExpr:
         NodeTag type
         const char* ctename
         const List* aliascolnames
         CTEMaterialize ctematerialized
         const Node* ctequery
+        const CTESearchClause* search_clause
+        const CTECycleClause* cycle_clause
         int location
         bool cterecursive
         int cterefcount
@@ -1133,6 +1165,7 @@ cdef extern from "nodes/parsenodes.h":
         const List* fromClause
         const Node* whereClause
         const List* groupClause
+        bool groupDistinct
         const Node* havingClause
         const List* windowClause
         const List* valuesLists
@@ -1158,6 +1191,18 @@ cdef extern from "nodes/parsenodes.h":
         const List* colCollations
         const List* groupClauses
 
+    ctypedef struct ReturnStmt:
+        NodeTag type
+        const Node* returnval
+
+    ctypedef struct PLAssignStmt:
+        NodeTag type
+        const char* name
+        const List* indirection
+        int nnames
+        const SelectStmt* val
+        int location
+
     ctypedef struct CreateSchemaStmt:
         NodeTag type
         const char* schemaname
@@ -1169,7 +1214,7 @@ cdef extern from "nodes/parsenodes.h":
         NodeTag type
         const RangeVar* relation
         const List* cmds
-        ObjectType relkind
+        ObjectType objtype
         bool missing_ok
 
     ctypedef struct ReplicaIdentityStmt:
@@ -1186,6 +1231,7 @@ cdef extern from "nodes/parsenodes.h":
         const Node* def_ "def"
         DropBehavior behavior
         bool missing_ok
+        bool recurse
 
     ctypedef struct AlterCollationStmt:
         NodeTag type
@@ -1209,12 +1255,14 @@ cdef extern from "nodes/parsenodes.h":
         const List* privileges
         const List* grantees
         bool grant_option
+        const RoleSpec* grantor
         DropBehavior behavior
 
     ctypedef struct ObjectWithArgs:
         NodeTag type
         const List* objname
         const List* objargs
+        const List* objfuncargs
         bool args_unspecified
 
     ctypedef struct AccessPriv:
@@ -1434,6 +1482,8 @@ cdef extern from "nodes/parsenodes.h":
 
     ctypedef struct CreateTrigStmt:
         NodeTag type
+        bool replace
+        bool isconstraint
         const char* trigname
         const RangeVar* relation
         const List* funcname
@@ -1443,7 +1493,6 @@ cdef extern from "nodes/parsenodes.h":
         int16_t events
         const List* columns
         const Node* whenClause
-        bool isconstraint
         const List* transitionRels
         bool deferrable
         bool initdeferred
@@ -1629,7 +1678,13 @@ cdef extern from "nodes/parsenodes.h":
         const List* exprs
         const List* relations
         const char* stxcomment
+        bool transformed
         bool if_not_exists
+
+    ctypedef struct StatsElem:
+        NodeTag type
+        const char* name
+        const Node* expr
 
     ctypedef struct AlterStatsStmt:
         NodeTag type
@@ -1645,6 +1700,7 @@ cdef extern from "nodes/parsenodes.h":
         const List* parameters
         const TypeName* returnType
         const List* options
+        const Node* sql_body
 
     ctypedef struct FunctionParameter:
         NodeTag type
@@ -1673,6 +1729,7 @@ cdef extern from "nodes/parsenodes.h":
         NodeTag type
         const FuncCall* funccall
         const FuncExpr* funcexpr
+        const List* outargs
 
     ctypedef struct CallContext:
         NodeTag type
@@ -1819,7 +1876,7 @@ cdef extern from "nodes/parsenodes.h":
         NodeTag type
         const RangeVar* relation
         const char* indexname
-        int options
+        const List* params
 
     ctypedef struct VacuumStmt:
         NodeTag type
@@ -1841,7 +1898,7 @@ cdef extern from "nodes/parsenodes.h":
         NodeTag type
         const Node* query
         const IntoClause* into
-        ObjectType relkind
+        ObjectType objtype
         bool is_select_into
         bool if_not_exists
 
@@ -1874,8 +1931,7 @@ cdef extern from "nodes/parsenodes.h":
         ReindexObjectType kind
         const RangeVar* relation
         const char* name
-        int options
-        bool concurrent
+        const List* params
 
     ctypedef struct CreateConversionStmt:
         NodeTag type
@@ -2051,6 +2107,8 @@ cdef extern from "nodes/primnodes.h":
         char aggkind
         unsigned int agglevelsup
         AggSplit aggsplit
+        int aggno
+        int aggtransno
         int location
 
     ctypedef struct GroupingFunc:
@@ -2276,6 +2334,7 @@ cdef extern from "nodes/primnodes.h":
         const Node* larg
         const Node* rarg
         const List* usingClause
+        const Alias* join_using_alias
         const Node* quals
         const Alias* alias
         int rtindex
