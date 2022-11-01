@@ -2783,6 +2783,8 @@ def partition_cmd(node, output):
     output.print_node(node.name, is_name=True)
     if node.bound:
         output.print_node(node.bound)
+    if node.concurrent:
+        output.swrite('CONCURRENTLY')
 
 
 @node_printer(ast.PartitionElem)
