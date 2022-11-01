@@ -2066,6 +2066,8 @@ def create_table_space_stmt(node, output):
 @node_printer(ast.CreateTrigStmt)
 def create_trig_stmt(node, output):
     output.write('CREATE ')
+    if node.replace:
+        output.write('OR REPLACE ')
     if node.isconstraint:
         output.write('CONSTRAINT ')
     output.write('TRIGGER ')
