@@ -2539,6 +2539,10 @@ def grant_stmt(node, output):
         if node.is_grant and node.grant_option:
             output.newline()
             output.write('WITH GRANT OPTION')
+        if node.grantor:
+            output.newline()
+            output.write('GRANTED BY ')
+            output.print_node(node.grantor)
         if node.behavior == enums.DropBehavior.DROP_CASCADE:
             output.write(' CASCADE')
 
@@ -2550,6 +2554,8 @@ def grant_role_stmt(node, output):
         preposition = 'TO'
     else:
         output.write('REVOKE ')
+        if node.admin_opt:
+            output.write('ADMIN OPTION FOR ')
         preposition = 'FROM'
 
     output.print_list(node.granted_roles, ',')
@@ -2557,8 +2563,11 @@ def grant_role_stmt(node, output):
     output.write(preposition)
     output.write(' ')
     output.print_list(node.grantee_roles, ',')
-    if node.admin_opt:
-        output.write('WITH ADMIN OPTION')
+    if node.admin_opt and node.is_grant:
+        output.write(' WITH ADMIN OPTION')
+    if node.grantor:
+        output.write(' GRANTED BY ')
+        output.print_node(node.grantor)
 
 
 @node_printer(ast.ImportForeignSchemaStmt)
@@ -2928,6 +2937,8 @@ def role_spec(node, output):
         output.write('SESSION_USER')
     elif node.roletype == enums.RoleSpecType.ROLESPEC_PUBLIC:
         output.write('PUBLIC')
+    elif node.roletype == enums.RoleSpecType.ROLESPEC_CURRENT_ROLE:
+        output.write('CURRENT_ROLE')
     else:
         output.print_name(node.rolename)
 
