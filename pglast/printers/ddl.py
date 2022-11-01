@@ -2461,8 +2461,10 @@ def drop_user_mapping_stmt(node, output):
 def function_parameter(node, output):
     if node.mode is not None:
         pm = enums.FunctionParameterMode
-        if node.mode == pm.FUNC_PARAM_IN:
-            pass  # omit the default, output.write('IN ')
+        if node.mode == pm.FUNC_PARAM_DEFAULT:
+            pass  # omit the default
+        elif node.mode == pm.FUNC_PARAM_IN:
+            output.write('IN ')
         elif node.mode == pm.FUNC_PARAM_OUT:
             output.write('OUT ')
         elif node.mode == pm.FUNC_PARAM_INOUT:
