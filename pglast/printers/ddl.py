@@ -3033,6 +3033,12 @@ def reassign_owned_stmt(node, output):
     output.print_node(node.newrole)
 
 
+@node_printer(ast.ReturnStmt)
+def return_stmt(node, output):
+    output.write('RETURN ')
+    output.print_node(node.returnval)
+
+
 @node_printer(ast.SecLabelStmt)
 def sec_label_stmt(node, output):
     output.write('SECURITY LABEL ')
