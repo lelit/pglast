@@ -3134,6 +3134,72 @@ def vacuum_relation(node, output):
             output.print_list(node.va_cols, ',', are_names=True)
 
 
+def print_transaction_mode_list(node, output):
+    first = True
+    for elem in node:
+        if first:
+            first = False
+        else:
+            output.write(', ')
+        if elem.defname == 'transaction_isolation':
+            output.write('ISOLATION LEVEL ')
+            if elem.arg.val.val == 'read uncommitted':
+                output.write('READ UNCOMMITTED')
+            elif elem.arg.val.val == 'read committed':
+                output.write('READ COMMITTED')
+            elif elem.arg.val.val == 'repeatable read':
+                output.write('REPEATABLE READ')
+            elif elem.arg.val.val == 'serializable':
+                output.write('SERIALIZABLE')
+        elif elem.defname == 'transaction_read_only':
+            if elem.arg.val.val == 1:
+                output.write('READ ONLY')
+            elif elem.arg.val.val == 0:
+                output.write('READ WRITE')
+        elif elem.defname == 'transaction_deferrable':
+            if elem.arg.val.val == 1:
+                output.write('DEFERRABLE')
+            elif elem.arg.val.val == 0:
+                output.write('NOT DEFERRABLE')
+
+
+@node_printer(ast.VariableSetStmt)
+def variable_set_stmt(node, output):
+    vsk = enums.VariableSetKind
+    if node.kind == vsk.VAR_RESET:
+        output.write('RESET ')
+        output.print_name(node.name.split('.'))
+    elif node.kind == vsk.VAR_RESET_ALL:
+        output.write('RESET ALL')
+    else:
+        output.write('SET ')
+        if node.is_local:
+            output.write('LOCAL ')
+        if node.name == 'timezone':
+            output.write('TIME ZONE ')
+        elif node.name == 'TRANSACTION':
+            output.write('TRANSACTION ')
+            print_transaction_mode_list(node.args, output)
+        elif node.name == 'SESSION CHARACTERISTICS':
+            output.write('SESSION CHARACTERISTICS AS TRANSACTION ')
+            print_transaction_mode_list(node.args, output)
+        elif node.name == 'TRANSACTION SNAPSHOT':
+            output.write('TRANSACTION SNAPSHOT ')
+            output.print_list(node.args, ',')
+        else:
+            output.print_name(node.name.split('.'))
+            output.write(' TO ')
+        if node.kind == vsk.VAR_SET_VALUE:
+            output.print_list(node.args)
+        elif node.kind == vsk.VAR_SET_DEFAULT:
+            output.write('DEFAULT')
+        elif node.kind == vsk.VAR_SET_MULTI:
+            pass
+        else:
+            raise NotImplementedError("SET statement of kind %s not implemented yet"
+                                      % node.kind)
+
+
 @node_printer(ast.VariableShowStmt)
 def variable_show_statement(node, output):
     output.write('SHOW ')
