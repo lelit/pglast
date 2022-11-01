@@ -513,6 +513,12 @@ class AlterTableTypePrinter(IntEnumPrinter):
     def AT_ForceRowSecurity(self, node, output):
         output.write('FORCE ROW LEVEL SECURITY ')
 
+    def AT_SetCompression(self, node, output):
+        output.write('ALTER COLUMN ')
+        output.print_name(node.name)
+        output.write(' SET COMPRESSION ')
+        output.print_name(node.def_)
+
     def AT_ReplicaIdentity(self, node, output):
         output.print_node(node.def_)
 
@@ -1025,6 +1031,9 @@ def column_def(node, output):
         output.space()
     if node.typeName:
         output.print_name(node.typeName)
+        if node.compression:
+            output.write(' COMPRESSION ')
+            output.print_name(node.compression)
     else:
         if node.constraints:
             output.write('WITH OPTIONS ')
@@ -3049,6 +3058,8 @@ def table_like_clause(node, output):
     else:
         if node.options & TLO.CREATE_TABLE_LIKE_COMMENTS:
             output.write(' INCLUDING COMMENTS')
+        if node.options & TLO.CREATE_TABLE_LIKE_COMPRESSION:
+            output.write(' INCLUDING COMPRESSION')
         if node.options & TLO.CREATE_TABLE_LIKE_CONSTRAINTS:
             output.write(' INCLUDING CONSTRAINTS')
         if node.options & TLO.CREATE_TABLE_LIKE_DEFAULTS:
