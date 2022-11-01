@@ -1015,7 +1015,8 @@ def check_point_stmt(node, output):
 @node_printer(ast.ClusterStmt)
 def cluster_stmt(node, output):
     output.write('CLUSTER ')
-    if (node.options or 0) & enums.ClusterOption.CLUOPT_VERBOSE:
+    if node.params:
+        assert node.params[0].defname == 'verbose'
         output.write('VERBOSE ')
     if node.relation:
         output.print_name(node.relation)
