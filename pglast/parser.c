@@ -1294,7 +1294,7 @@ static const char *__pyx_f[] = {
   "pglast/ast.pyx",
   "pglast/parser.pyx",
   "<stringsource>",
-  "venv311/lib/python3.11/site-packages/Cython/Includes/cpython/type.pxd",
+  "env/lib/python3.10/site-packages/Cython/Includes/cpython/type.pxd",
 };
 /* #### Code section: utility_code_proto_before_types ### */
 /* NoFastGil.proto */

@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pglast'
-copyright = '2017, 2018, 2019, 2020, 2021 Lele Gaifax'
+copyright = '2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax'
 author = 'Lele Gaifax'
 
 # The version info for the project you're documenting, acts as replacement for

@@ -35,12 +35,23 @@ Version 4
 Version 3
 #########
 
-3.14 (unreleased)
+3.15 (2022-10-17)
 ~~~~~~~~~~~~~~~~~
 
-- Harden the way ``Visitor`` handle modifications to the AST (`issue 107`__)
+- Produce Python 3.11 wheels (`PR #108`__), thanks to ``cibuildwheel`` 2.11.1__ and to Bastien
+  Gandouet
+
+  __ https://github.com/lelit/pglast/pull/108
+  __ https://cibuildwheel.readthedocs.io/en/stable/changelog/#v2111
+
+
+3.14 (2022-08-08)
+~~~~~~~~~~~~~~~~~
+
+- Harden the way ``Visitor`` handle modifications to the AST (`issue #107`__)
 
   __ https://github.com/lelit/pglast/issues/107
+
 
 3.13 (2022-06-29)
 ~~~~~~~~~~~~~~~~~
@@ -54,7 +65,7 @@ Version 3
 ~~~~~~~~~~~~~~~~~
 
 - Rewrite the implementation of the ``referenced_relations()`` function, that was flawed with
-  regard to CTEs handling (`issue 106`__), thanks to Michal Charemza for providing his own
+  regard to CTEs handling (`issue #106`__), thanks to Michal Charemza for providing his own
   version
 
   __ https://github.com/lelit/pglast/issues/106
