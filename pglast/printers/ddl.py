@@ -1972,8 +1972,10 @@ def create_stats_stmt(node, output):
     if node.stat_types:
         output.write(' ')
         with output.expression(True):
-            output.print_name(node.stat_types)
-    output.write(' ON ')
+            output.print_list(node.stat_types, are_names=True)
+    output.newline()
+    output.space(2)
+    output.write('ON ')
     output.print_list(node.exprs)
     output.write(' FROM ')
     output.print_list(node.relations)
@@ -3046,6 +3048,15 @@ def sec_label_stmt(node, output):
         output.print_node(node.label)
     else:
         output.write('NULL')
+
+
+@node_printer(ast.StatsElem)
+def stats_elem(node, output):
+    if node.name:
+        output.print_name(node.name)
+    else:
+        with output.expression(True):
+            output.print_node(node.expr)
 
 
 @node_printer(ast.TableLikeClause)
