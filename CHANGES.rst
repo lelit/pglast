@@ -11,8 +11,6 @@ Version 4
 4.0 (unreleased)
 ~~~~~~~~~~~~~~~~
 
-.. important:: This is still a work in progress!
-
 - Avoid overly abundancy of parentheses in expressions
 
 - Prefer ``SELECT a FROM b LIMIT ALL`` to ``... LIMIT NONE``
@@ -21,7 +19,13 @@ Version 4
 **Breaking changes**
 ~~~~~~~~~~~~~~~~~~~~
 
-- (Will) target PostgreSQL 14
+- Target PostgreSQL 14, exploiting the combined effort of `Tessa Lisanti`__ and `Wolfgang
+  Walther`__ who upgraded ``libpg_query`` to the latest PG 14 parser: this may change if/when
+  Lukas will solve `issue #127`__
+
+  __ https://github.com/tlisanti/libpg_query/tree/14-latest
+  __ https://github.com/wolfgangwalther/libpg_query/tree/pg-14
+  __ https://github.com/pganalyze/libpg_query/issues/127
 
 - The wrapper classes used in previous versions, implemented in ``pglast.node``, are gone: now
   everything works on top of the ``AST`` classes (`issue #80`__)
