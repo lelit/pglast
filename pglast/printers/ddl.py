@@ -2657,10 +2657,11 @@ def _object_with_args(node, output, unquote_name=False, symbol=False,
     else:
         output.print_name(node.objname)
     if not node.args_unspecified:
-        if node.objargs:
+        args = node.objfuncargs or node.objargs
+        if args:
             output.write(' ')
             with output.expression(True):
-                output.print_list(node.objargs, ',', standalone_items=False)
+                output.print_list(args, ',', standalone_items=False)
         elif not skip_empty_args:
             output.write(' ')
             with output.expression(True):
