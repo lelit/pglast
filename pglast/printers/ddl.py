@@ -840,8 +840,20 @@ def alter_subscription_stmt(node, output):
             output.write(' WITH ')
             with output.expression(True):
                 output.print_list(node.options)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_PUBLICATION:
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_SET_PUBLICATION:
         output.write('SET PUBLICATION ')
+        output.print_list(node.publication, ',', are_names=True)
+        output.write(' WITH ')
+        with output.expression(True):
+            output.print_list(node.options)
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_ADD_PUBLICATION:
+        output.write('ADD PUBLICATION ')
+        output.print_list(node.publication, ',', are_names=True)
+        output.write(' WITH ')
+        with output.expression(True):
+            output.print_list(node.options)
+    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_DROP_PUBLICATION:
+        output.write('DROP PUBLICATION ')
         output.print_list(node.publication, ',', are_names=True)
         output.write(' WITH ')
         with output.expression(True):
