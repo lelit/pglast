@@ -2789,33 +2789,24 @@ def partition_spec(node, output):
 class ReindexKindPrinter(IntEnumPrinter):
     enum = enums.ReindexObjectType
 
-    def _print_options(self, node, output):
-        if node.concurrent:
-            output.write('CONCURRENTLY ')
-
-    def REINDEX_OBJECT_TABLE(self, node, output):
-        output.write('TABLE ')
-        self._print_options(node, output)
-        output.print_node(node.relation)
+    def REINDEX_OBJECT_DATABASE(self, node, output):
+        output.write('DATABASE ')
+        output.print_name(node.name)
 
     def REINDEX_OBJECT_INDEX(self, node, output):
         output.write('INDEX ')
-        self._print_options(node, output)
+        output.print_node(node.relation)
+
+    def REINDEX_OBJECT_TABLE(self, node, output):
+        output.write('TABLE ')
         output.print_node(node.relation)
 
     def REINDEX_OBJECT_SCHEMA(self, node, output):
         output.write('SCHEMA ')
-        self._print_options(node, output)
         output.print_name(node.name)
 
     def REINDEX_OBJECT_SYSTEM(self, node, output):
         output.write('SYSTEM ')
-        self._print_options(node, output)
-        output.print_name(node.name)
-
-    def REINDEX_OBJECT_DATABASE(self, node, output):
-        output.write('DATABASE ')
-        self._print_options(node, output)
         output.print_name(node.name)
 
 
@@ -2825,7 +2816,25 @@ reindex_kind_printer = ReindexKindPrinter()
 @node_printer(ast.ReindexStmt)
 def reindex_stmt(node, output):
     output.write('REINDEX ')
+    if node.params:
+        with output.expression(True):
+            output.print_list(node.params, ',')
+        output.write(' ')
     reindex_kind_printer(node.kind, node, output)
+
+
+@node_printer(ast.ReindexStmt, ast.DefElem)
+def reindex_stmt_def_elem(node, output):
+    output.write(node.defname.upper())
+    if node.arg:
+        output.write(' ')
+        argv = node.arg.val
+        if argv == 'false':
+            output.write('FALSE')
+        elif argv == 'true':
+            pass
+        else:
+            output.print_node(node.arg)
 
 
 @node_printer(ast.RenameStmt)
