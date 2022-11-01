@@ -1638,6 +1638,7 @@ def create_function_option(node, output):
         output.write('WINDOW')
         return
 
+    output.newline()
     output.writes(node.defname.upper())
     output.print_symbol(node.arg)
 
