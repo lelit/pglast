@@ -9,16 +9,24 @@
  :mod:`pglast.enums.pg_am` --- Constants extracted from `pg_am.h`__
 ====================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/catalog/pg_am.h
+__ https://github.com/lelit/libpg_query/blob/496c999/src/postgres/include/catalog/pg_am.h
 
 .. module:: pglast.enums.pg_am
    :synopsis: Constants extracted from pg_am.h
 
 
+.. data:: AmNameIndexId
+
+   See `here for details <https://github.com/lelit/libpg_query/blob/496c999/src/postgres/include/catalog/pg_am.h#L51>`__.
+
+.. data:: AmOidIndexId
+
+   See `here for details <https://github.com/lelit/libpg_query/blob/496c999/src/postgres/include/catalog/pg_am.h#L53>`__.
+
 .. data:: AMTYPE_INDEX
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/catalog/pg_am.h#L55>`__.
+   See `here for details <https://github.com/lelit/libpg_query/blob/496c999/src/postgres/include/catalog/pg_am.h#L60>`__.
 
 .. data:: AMTYPE_TABLE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/catalog/pg_am.h#L56>`__.
+   See `here for details <https://github.com/lelit/libpg_query/blob/496c999/src/postgres/include/catalog/pg_am.h#L61>`__.
