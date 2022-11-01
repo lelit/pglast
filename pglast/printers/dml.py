@@ -1702,7 +1702,7 @@ def variable_set_stmt(node, output):
     vsk = enums.VariableSetKind
     if node.kind == vsk.VAR_RESET:
         output.write('RESET ')
-        output.print_name(node.name)
+        output.print_name(node.name.split('.'))
     elif node.kind == vsk.VAR_RESET_ALL:
         output.write('RESET ALL')
     else:
@@ -1721,7 +1721,7 @@ def variable_set_stmt(node, output):
             output.write('TRANSACTION SNAPSHOT ')
             output.print_list(node.args, ',')
         else:
-            output.print_name(node.name)
+            output.print_name(node.name.split('.'))
             output.write(' TO ')
         if node.kind == vsk.VAR_SET_VALUE:
             output.print_list(node.args)

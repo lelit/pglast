@@ -3055,7 +3055,7 @@ def variable_show_statement(node, output):
     if node.name == 'all':
         output.write('ALL')
     else:
-        output.print_symbol(node.name)
+        output.print_name(node.name.split('.'))
 
 
 class ViewCheckOptionPrinter(IntEnumPrinter):
