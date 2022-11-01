@@ -61,3 +61,17 @@ RETURNS void
 AS $__$
     SELECT $_$$_$;
 $__$ LANGUAGE sql
+
+create procedure test()
+begin atomic
+  insert into foo values (1, 2);
+  insert into bar values (2, 3);
+end
+=
+CREATE PROCEDURE test()
+BEGIN ATOMIC
+  INSERT INTO foo
+  VALUES (1, 2);
+  INSERT INTO bar
+  VALUES (2, 3);
+END

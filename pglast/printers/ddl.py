@@ -1557,8 +1557,24 @@ def create_function_stmt(node, output):
                 output.print_list(record_def, ',', standalone_items=False)
         else:
             output.print_node(node.returnType)
-    for option in node.options:
-        output.print_node(option)
+    if node.options:
+        for option in node.options:
+            output.print_node(option)
+    if node.sql_body:
+        if node.is_procedure:
+            output.newline()
+            output.write('BEGIN ATOMIC')
+            output.newline()
+            if node.sql_body != (None,):
+                output.space(2)
+                with output.push_indent():
+                    for stmt in node.sql_body[0]:
+                        output.print_node(stmt)
+                        output.write(';')
+                        output.newline()
+            output.write('END')
+        else:
+            output.print_node(node.sql_body)
 
 
 @node_printer((ast.AlterFunctionStmt, ast.CreateFunctionStmt, ast.DoStmt), ast.DefElem)
