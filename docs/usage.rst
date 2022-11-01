@@ -61,6 +61,7 @@ such as dictionaries and tuples:
    >>> pprint(stmt(depth=2, skip_none=True))
    {'@': 'SelectStmt',
     'all': False,
+    'groupDistinct': False,
     'limitOption': {'#': 'LimitOption',
                     'name': 'LIMIT_OPTION_DEFAULT',
                     'value': 0},
@@ -112,6 +113,7 @@ or to a dictionary:
    >>> pprint(stmt(depth=1, skip_none=True))
    {'@': 'SelectStmt',
     'all': True,
+    'groupDistinct': False,
     'limitOption': {'#': 'LimitOption', 'name': 'LIMIT_OPTION_COUNT', 'value': 1},
     'op': {'#': 'SetOperation', 'name': 'SETOP_NONE', 'value': 0},
     'targetList': (…,)}
@@ -122,6 +124,7 @@ or to a dictionary:
    >>> pprint(stmt(depth=1, skip_none=True))
    {'@': 'SelectStmt',
     'all': True,
+    'groupDistinct': False,
     'limitOption': {'#': 'LimitOption',
                     'name': 'LIMIT_OPTION_WITH_TIES',
                     'value': 2},
