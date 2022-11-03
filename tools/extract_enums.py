@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:54:39 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
 #
 
 from datetime import date
@@ -74,7 +74,7 @@ def get_libpg_query_info():
 def preprocess(fname, cpp_args=[]):
     "Preprocess the given header and return the result."
 
-    result = subprocess.check_output(['cpp', '-E', *cpp_args, fname])
+    result = subprocess.check_output(['cpp', '-E', '-include', 'c.h', *cpp_args, fname])
 
     return result.decode('utf-8')
 
