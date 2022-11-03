@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.1.2-0-g4b30b03
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.2.0-0-g1097b2c
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2022 Lele Gaifax
@@ -1243,6 +1243,7 @@ cdef extern from "nodes/parsenodes.h":
         const Node* def_ "def"
         DropBehavior behavior
         bool missing_ok
+        bool recurse
 
 
     ctypedef struct AlterCollationStmt:

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.1.2-0-g4b30b03
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.2.0-0-g1097b2c
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2022 Lele Gaifax
@@ -801,11 +801,11 @@ class AlterTSDictionaryStmt(Node):
 
 
 class AlterTableCmd(Node):
-    __slots__ = {'subtype': 'AlterTableType', 'name': 'char*', 'num': 'int16', 'newowner': 'RoleSpec*', 'def_': 'Node*', 'behavior': 'DropBehavior', 'missing_ok': 'bool'}  # noqa: E501
+    __slots__ = {'subtype': 'AlterTableType', 'name': 'char*', 'num': 'int16', 'newowner': 'RoleSpec*', 'def_': 'Node*', 'behavior': 'DropBehavior', 'missing_ok': 'bool', 'recurse': 'bool'}  # noqa: E501
 
-    def __init__(self, subtype=None, name=None, num=None, newowner=None, def_=None, behavior=None, missing_ok=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, subtype=None, name=None, num=None, newowner=None, def_=None, behavior=None, missing_ok=None, recurse=None):  # pragma: no cover  # noqa: E501
         if ((subtype is not None
-             and name is num is newowner is def_ is behavior is missing_ok is None  # noqa: E501
+             and name is num is newowner is def_ is behavior is missing_ok is recurse is None  # noqa: E501
              and isinstance(subtype, dict)
              and '@' in subtype)):
             super().__init__(subtype)
@@ -817,6 +817,7 @@ class AlterTableCmd(Node):
             self.def_ = def_
             self.behavior = behavior
             self.missing_ok = missing_ok
+            self.recurse = recurse
 
 
 class AlterTableMoveAllStmt(Node):

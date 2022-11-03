@@ -9,7 +9,7 @@
  :mod:`pglast.enums.pg_am` --- Constants extracted from `pg_am.h`__
 ====================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/catalog/pg_am.h
+__ https://github.com/pganalyze/libpg_query/blob/1097b2c/src/postgres/include/catalog/pg_am.h
 
 .. module:: pglast.enums.pg_am
    :synopsis: Constants extracted from pg_am.h
@@ -17,8 +17,8 @@ __ https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/ca
 
 .. data:: AMTYPE_INDEX
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/catalog/pg_am.h#L55>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/1097b2c/src/postgres/include/catalog/pg_am.h#L55>`__.
 
 .. data:: AMTYPE_TABLE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/4b30b03/src/postgres/include/catalog/pg_am.h#L56>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/1097b2c/src/postgres/include/catalog/pg_am.h#L56>`__.

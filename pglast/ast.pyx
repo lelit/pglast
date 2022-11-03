@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.1.2-0-g4b30b03
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 13-2.2.0-0-g1097b2c
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2022 Lele Gaifax
@@ -640,7 +640,8 @@ cdef create_AlterTableCmd(structs.AlterTableCmd* data, offset_to_index):
     cdef object v_def_ = create(data.def_, offset_to_index) if data.def_ is not NULL else None
     cdef object v_behavior = getattr(enums, 'DropBehavior')(data.behavior)
     cdef object v_missing_ok = bool(data.missing_ok)
-    return ast.AlterTableCmd(v_subtype, v_name, v_num, v_newowner, v_def_, v_behavior, v_missing_ok)
+    cdef object v_recurse = bool(data.recurse)
+    return ast.AlterTableCmd(v_subtype, v_name, v_num, v_newowner, v_def_, v_behavior, v_missing_ok, v_recurse)
 
 
 cdef create_AlterCollationStmt(structs.AlterCollationStmt* data, offset_to_index):
