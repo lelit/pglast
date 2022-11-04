@@ -841,15 +841,23 @@ def alter_subscription_stmt(node, output):
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_REFRESH:
         output.write('REFRESH PUBLICATION')
         if node.options:
-            output.write(' WITH (')
+            output.newline()
+            output.space(1)
+            output.write('WITH (')
             output.print_list(node.options)
             output.write(')')
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_PUBLICATION:
-        output.write('SET PUBLICATION ')
+        if node.options:
+            output.newline()
+            output.space(2)
+        output.swrite('SET PUBLICATION ')
         output.print_list(node.publication, ',', are_names=True)
-        output.write(' WITH (')
-        output.print_list(node.options)
-        output.write(')')
+        if node.options:
+            output.newline()
+            output.space(1)
+            output.write('WITH (')
+            output.print_list(node.options)
+            output.write(')')
     elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_ENABLED:
         if node.options[0].arg.val.value == 0:
             output.write('DISABLE')
