@@ -39,6 +39,20 @@ Version 4
 Version 3
 #########
 
+3.17 (2022-11-04)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``AlterSubscriptionStmt`` printer, handling "SET PUBLICATION" without options
+
+
+3.16 (2022-11-03)
+~~~~~~~~~~~~~~~~~
+
+- Update libpg_query to `13-2.2.0`__
+
+  __ https://github.com/pganalyze/libpg_query/blob/13-latest/CHANGELOG.md#13-220---2022-11-02
+
+
 3.15 (2022-10-17)
 ~~~~~~~~~~~~~~~~~
 
