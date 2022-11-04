@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.17 (unreleased)
+3.17 (2022-11-04)
 ~~~~~~~~~~~~~~~~~
 
 - Fix ``AlterSubscriptionStmt`` printer, handling "SET PUBLICATION" without options
