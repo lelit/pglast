@@ -469,3 +469,11 @@ WITH cte_1 AS (SELECT 1)
 \n\
   SELECT *
   FROM cte_2
+
+SELECT 1 FROM ONLY "public"."produit" x WHERE "produit_id"
+OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x
+=
+SELECT 1
+FROM ONLY public.produit AS x
+WHERE produit_id OPERATOR(pg_catalog.=) $1
+FOR KEY SHARE OF x

@@ -110,7 +110,7 @@ class AExprKindPrinter(IntEnumPrinter):
                     output.print_symbol(node.name)
             else:
                 output.print_symbol(node.name)
-                output.write(' ')
+            output.write(' ')
             if node.rexpr is not None:
                 with output.expression(isinstance(node.rexpr,
                                                   (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
