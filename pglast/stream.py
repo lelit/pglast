@@ -554,7 +554,7 @@ class IndentedStream(RawStream):
         """Create a context manager that calls :meth:`indent` and :meth:`dedent` around a block
         of code.
 
-        This is just an helper to simplify code that adjust the indentation level:
+        This is just an helper to simplify code that adjusts the indentation level:
 
         .. code-block:: python
 
