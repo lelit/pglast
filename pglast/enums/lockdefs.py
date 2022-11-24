@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from lockdefs.h @ 14-pglast-0-g496c999
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from lockdefs.h @ 14-latest-0-g6ebd8d8
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax

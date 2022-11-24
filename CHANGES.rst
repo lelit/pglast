@@ -11,6 +11,10 @@ Version 4
 4.0 (unreleased)
 ~~~~~~~~~~~~~~~~
 
+- Update libpg_query to `14-3.0.0`__
+
+  __ https://github.com/pganalyze/libpg_query/blob/14-latest/CHANGELOG.md#14-300---2022-11-17
+
 - Avoid overly abundancy of parentheses in expressions
 
 - Prefer ``SELECT a FROM b LIMIT ALL`` to ``... LIMIT NONE``
