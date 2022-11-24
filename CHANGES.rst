@@ -8,8 +8,8 @@ Changes
 Version 4
 #########
 
-4.0 (unreleased)
-~~~~~~~~~~~~~~~~
+4.0.dev0 (2022-11-24)
+~~~~~~~~~~~~~~~~~~~~~
 
 - Update libpg_query to `14-3.0.0`__
 
