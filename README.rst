@@ -22,10 +22,10 @@ PostgreSQL Languages AST and statements prettifier
 __ https://www.gnu.org/licenses/gpl.html
 __ https://pglast.readthedocs.io/en/v4/development.html#history
 
-.. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v3
+.. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v4
    :target: https://github.com/lelit/pglast/actions/workflows/ci.yml
    :alt: Build status
-.. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=v3
+.. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=v4
    :target: https://readthedocs.org/projects/pglast/builds/
    :alt: Documentation status
 .. |codecov| image:: https://codecov.io/gh/lelit/pglast/branch/v3/graph/badge.svg?token=A90D8tWnft
@@ -41,7 +41,7 @@ __ https://github.com/pganalyze/libpg_query
 
 See a `more detailed introduction`__ in the documentation_.
 
-__ https://pglast.readthedocs.io/en/v3/introduction.html
+__ https://pglast.readthedocs.io/en/v4/introduction.html
 
 
 Installation
