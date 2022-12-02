@@ -17,15 +17,15 @@ PostgreSQL Languages AST and statements prettifier
 :Contact: lele@metapensiero.it
 :License: `GNU General Public License version 3 or later`__
 :Status: |build| |doc| |codecov|
-:Version: `4`__
+:Version: `5`__
 
 __ https://www.gnu.org/licenses/gpl.html
-__ https://pglast.readthedocs.io/en/v4/development.html#history
+__ https://pglast.readthedocs.io/en/v5/development.html#history
 
-.. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v4
+.. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v5
    :target: https://github.com/lelit/pglast/actions/workflows/ci.yml
    :alt: Build status
-.. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=v4
+.. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=v5
    :target: https://readthedocs.org/projects/pglast/builds/
    :alt: Documentation status
 .. |codecov| image:: https://codecov.io/gh/lelit/pglast/branch/v3/graph/badge.svg?token=A90D8tWnft
@@ -41,7 +41,7 @@ __ https://github.com/pganalyze/libpg_query
 
 See a `more detailed introduction`__ in the documentation_.
 
-__ https://pglast.readthedocs.io/en/v4/introduction.html
+__ https://pglast.readthedocs.io/en/v5/introduction.html
 
 
 Installation
@@ -68,7 +68,7 @@ show a brief table of contents. A comprehensive test suite, based on pytest__, c
 99% of the source lines.
 
 __ https://docs.pytest.org/en/latest/
-__ https://codecov.io/gh/lelit/pglast/branch/v4/
+__ https://codecov.io/gh/lelit/pglast/branch/v5/
 
 
 Documentation
