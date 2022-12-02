@@ -379,15 +379,15 @@ def cte_cycle_clause_type_cast(node, output):
     # This is a variant of the standard TypeCast printer, because within a CTECycleClause they
     # must be spelled as "typename 'value'", not as "CAST('value' AS typename)"
     if isinstance(node.arg, ast.A_Const):
+        fqtn = '.'.join(n.val for n in node.typeName.names)
         # Special case for boolean constants
         if ((not isinstance(node.arg.val, ast.Null)
              and node.arg.val.val in ('t', 'f')
-             and '.'.join(n.val for n in node.typeName.names) == 'pg_catalog.bool')):
+             and fqtn == 'pg_catalog.bool')):
             output.write('TRUE' if node.arg.val.val == 't' else 'FALSE')
             return
         # Special case for bpchar
-        elif (('.'.join(n.val for n in node.typeName.names) == 'pg_catalog.bpchar'
-               and not node.typeName.typmods)):
+        elif fqtn == 'pg_catalog.bpchar' and not node.typeName.typmods:
             output.write('char ')
             output.print_node(node.arg)
             return
