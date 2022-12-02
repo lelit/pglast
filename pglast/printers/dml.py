@@ -1526,15 +1526,15 @@ def truncate_stmt(node, output):
 @node_printer('TypeCast')
 def type_cast(node, output):
     if node.arg.node_tag == 'A_Const':
+        fqtn = '.'.join(n.val.value for n in node.typeName.names)
         # Special case for boolean constants
         if ((node.arg.val.node_tag != 'Null'
              and node.arg.val.val.value in ('t', 'f')
-             and '.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bool')):
+             and fqtn == 'pg_catalog.bool')):
             output.write('TRUE' if node.arg.val.val == 't' else 'FALSE')
             return
         # Special case for bpchar
-        elif (('.'.join(n.val.value for n in node.typeName.names) == 'pg_catalog.bpchar'
-               and not node.typeName.typmods)):
+        elif fqtn == 'pg_catalog.bpchar' and not node.typeName.typmods:
             output.write('char ')
             output.print_node(node.arg)
             return
