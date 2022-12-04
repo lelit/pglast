@@ -733,7 +733,7 @@ def grouping_set(node, output):
         output.write('()')
         return
     elif kind == enums.GroupingSetKind.GROUPING_SET_SIMPLE:
-        # No idea how to reach this branch
+        # FIXME: no idea how to reach this branch
         output.write('SIMPLE ')
     else:  # pragma: no cover
         raise NotImplementedError('Unhandled grouping set kind: %s' % kind)
