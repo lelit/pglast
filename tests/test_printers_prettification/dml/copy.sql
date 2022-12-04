@@ -1,8 +1,13 @@
-COPY manual_export TO STDOUT WITH (FORMAT CSV, HEADER)
+COPY manual_export TO STDOUT CSV HEADER
+=
+COPY manual_export TO STDOUT
+WITH CSV HEADER
+
+COPY manual_export TO STDOUT WITH (FORMAT CSV, HEADER FALSE)
 =
 COPY manual_export TO STDOUT
 WITH (FORMAT csv
-    , HEADER)
+    , HEADER FALSE)
 
 COPY country TO STDOUT (format csv, delimiter '|', null '~', freeze 0)
 =

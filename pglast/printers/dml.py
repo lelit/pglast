@@ -463,8 +463,28 @@ def copy_stmt(node, output):
     if node.options:
         output.newline()
         output.write('WITH ')
-        with output.expression(True):
-            output.print_list(node.options)
+        old_syntax = False
+        for option in node.options:
+            if isinstance(option.arg, ast.Boolean) or option.defname == 'csv':
+                old_syntax = True
+                break
+        if old_syntax:
+            options = []
+            for option in node.options:
+                if ((option.defname == 'csv'
+                     or option.defname == 'format' and option.arg.sval == 'csv')):
+                    value = 'CSV'
+                elif option.defname == 'force_quote':
+                    value = 'FORCE QUOTE ' + output._concat_nodes(option.arg, are_names=True)
+                elif option.defname in ('delimiter', 'escape', 'quote'):
+                    value = f"{option.defname.upper()} AS '{option.arg.sval}'"
+                else:
+                    value = option.defname.upper()
+                options.append(value)
+            output.write(' '.join(options))
+        else:
+            with output.expression(True):
+                output.print_list(node.options)
     if node.whereClause:
         output.newline()
         output.write('WHERE ')
