@@ -447,8 +447,9 @@ def constraints_set_stmt(node, output):
 
 @node_printer(ast.CopyStmt)
 def copy_stmt(node, output):
-    output.write('COPY ')
+    output.write('COPY')
     if node.relation:
+        output.write(' ')
         output.print_node(node.relation)
         if node.attlist:
             output.write(' ')
@@ -519,7 +520,7 @@ def copy_stmt_def_elem(node, output):
             with output.expression(True):
                 output.print_list(argv, are_names=True)
         else:
-            output.write('* ')
+            output.write('*')
     elif option == 'force_null':
         output.write('FORCE_NULL ')
         with output.expression(True):
