@@ -2988,7 +2988,7 @@ def reindex_stmt_def_elem(node, output):
         if argv == 'false':
             output.swrite('FALSE')
         elif argv == 'true':
-            pass
+            output.swrite('TRUE')
         else:
             output.write(' ')
             output.print_node(node.arg)
