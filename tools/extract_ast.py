@@ -805,7 +805,7 @@ class ValUnion(Node):
 
    __slots__ = {'val': SlotTypeInfo('ValUnion', Node, None)}
 
-   def __init__(self, value=None):
+   def __init__(self, value=None):  # pragma: no cover  # noqa: E501
        if ((value is not None
             and isinstance(value, dict)
             and '@' in value)):
