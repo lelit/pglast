@@ -90,15 +90,6 @@ class AExprKindPrinter(IntEnumPrinter):
         with output.expression(True):
             output.print_list((node.lexpr, node.rexpr))
 
-    def AEXPR_OF(self, node, output):
-        output.print_node(node.lexpr)
-        output.swrites('IS')
-        if get_string_value(node.name) == '<>':
-            output.writes('NOT')
-        output.write('OF ')
-        with output.expression(True):
-            output.print_list(node.rexpr)
-
     def AEXPR_OP(self, node, output):
         with output.expression(isinstance(abs(node.ancestors), ast.A_Expr)):
             # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
@@ -134,13 +125,6 @@ class AExprKindPrinter(IntEnumPrinter):
         output.write(' ANY')
         with output.expression(True):
             output.print_node(node.rexpr)
-
-    def AEXPR_PAREN(self, node, output):  # pragma: no cover
-        # FIXME: accordingly with the documentation of the A_Expr_Kind typedef, AEXPR_PAREN is
-        # a “nameless dummy node for parentheses”. What does that mean? I wasn't able to
-        # “produce” it in any way...
-        raise NotImplementedError("Expression of kind %s not implemented yet"
-                                  % self.enum.AEXPR_PAREN)
 
     def AEXPR_SIMILAR(self, node, output):
         output.print_node(node.lexpr)
