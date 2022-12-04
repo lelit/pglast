@@ -1580,8 +1580,12 @@ def type_name(node, output):
                     with output.expression(True):
                         output.print_node(node.typmods[1])
             else:
-                with output.expression(True):
-                    output.print_list(node.typmods, ',', standalone_items=False)
+                # Simplify "char(1)" to just "char"
+                if ((name != 'pg_catalog.bpchar'
+                     or len(node.typmods) > 1
+                     or node.typmods[0].val.ival != 1)):
+                    with output.expression(True):
+                        output.print_list(node.typmods, ',', standalone_items=False)
         output.write(suffix)
         if node.arrayBounds:
             for ab in node.arrayBounds:
