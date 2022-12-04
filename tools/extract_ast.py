@@ -222,52 +222,6 @@ class Expr(Node):
 
     __slots__ = ()
 
-
-class Value(Node):
-    '''Abstract super class, representing PG's `Value`__ union type.
-
-    __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/include/nodes/value.h
-    '''
-
-    __slots__ = ()
-
-    def __init__(self, value=None):
-        if ((value is not None
-             and isinstance(value, dict)
-             and '@' in value)):
-            super().__init__(value)
-        else:
-            self.val = value
-
-
-class BitString(Value):
-    '''Implement the ``T_BitString`` variant of the :class:`Value` union.'''
-
-    __slots__ = {{'val': SlotTypeInfo('char*', str, None)}}
-
-
-class Float(Value):
-    '''Implement the ``T_Float`` variant of the :class:`Value` union.'''
-
-    __slots__ = {{'val': SlotTypeInfo('char*', (str, Decimal), Decimal)}}
-
-
-class Integer(Value):
-    '''Implement the ``T_Integer`` variant of the :class:`Value` union.'''
-
-    __slots__ = {{'val': SlotTypeInfo('char*', int, None)}}
-
-
-class Null(Value):
-    '''Implement the ``T_Null`` variant of the :class:`Value` union.'''
-
-    __slots__ = {{'val': SlotTypeInfo('char*', type(None), None)}}
-
-
-class String(Value):
-    '''Implement the ``T_String`` variant of the :class:`Value` union.'''
-
-    __slots__ = {{'val': SlotTypeInfo('char*', str, None)}}
 """
 
 
@@ -324,21 +278,6 @@ cdef _pg_list_to_tuple(const structs.List* lst, offset_to_index):
     else:
         result = None
     return result
-
-
-cdef _pg_value_to_py(structs.Value val):
-    cdef object result
-    if val.type == structs.T_Null:
-        result = ast.Null(None)
-    elif val.type == structs.T_Integer:
-        result = ast.Integer(val.val.ival)
-    elif val.type == structs.T_Float:
-        result = _pg_str_to_decimal(val.val.str)
-    elif val.type == structs.T_BitString:
-        result = ast.BitString(val.val.str.decode("utf-8"))
-    else:
-        result = ast.String(val.val.str.decode("utf-8"))
-    return result
 """
 
 
@@ -361,14 +300,6 @@ cdef extern from "postgres.h":
     ctypedef struct Node:
         int type
 
-    ctypedef union ValueUnion:
-        int ival
-        char *str
-
-    ctypedef struct Value:
-        int type
-        ValueUnion val
-
     ctypedef struct Bitmapset:
         int nwords
         unsigned long *words
@@ -389,16 +320,40 @@ cdef extern from "nodes/pg_list.h":
 
 
 cdef extern from "nodes/value.h":
-    ctypedef struct ValUnion:
-        int ival
-        char *str
+    ctypedef struct Integer:
+        NodeTag type;
+        int ival;
 
-    ctypedef struct Value:
-        NodeTag type
-        ValUnion val
+    ctypedef struct Float:
+        NodeTag type;
+        char *fval
 
-    int intVal(Value* v)
-    char* strVal(Value* v)
+    ctypedef struct Boolean:
+        NodeTag type;
+        bool boolval;
+
+    ctypedef struct String:
+        NodeTag type;
+        char *sval;
+
+    ctypedef struct BitString:
+        NodeTag type;
+        char *bsval;
+
+    int intVal(Integer v)
+    double floatVal(Float v)
+    bool boolVal(Boolean)
+    char* strVal(String v)
+
+
+# ValUnion is a private type of the A_Const node, we need to redefine it here
+ctypedef union ValUnion:
+    Node node;
+    Integer ival;
+    Float fval;
+    Boolean boolval;
+    String sval;
+    BitString bsval;
 """
 
 
@@ -430,13 +385,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. autoclass:: Node
    :special-members: __repr__, __eq__, __call__, __setattr__
-
-.. autoclass:: Value
-.. autoclass:: BitString
-.. autoclass:: Float
-.. autoclass:: Integer
-.. autoclass:: Null
-.. autoclass:: String
 
 """
 
@@ -481,7 +429,9 @@ def emit_struct_def(name, fields, output):
         ctype = field['c_type']
         if ctype in ('Expr', 'Oid'):
             continue
-        if ctype == 'int16':
+        if name == 'A_Const' and ctype == 'Node':
+            ctype = 'ValUnion'
+        elif ctype == 'int16':
             ctype = 'int16_t'
         elif ctype in ('bits32', 'int32'):
             ctype = 'int32_t'
@@ -493,8 +443,8 @@ def emit_struct_def(name, fields, output):
             ctype = 'int'
         elif ctype in ('AclMode', 'Index', 'SubTransactionId'):
             ctype = 'unsigned int'
-        elif ctype == 'Cost':
-            ctype = 'float'
+        elif ctype in ('Cardinality', 'Cost'):
+            ctype = 'double'
         elif ctype.endswith('*'):
             ctype = f'const {ctype}'
 
@@ -521,9 +471,25 @@ def emit_bool_attr(name, ctype, output):
 ''')
 
 
-def emit_value_attr(name, ctype, output):
+def emit_valunion_attr(name, ctype, output):
+    # Must inline this code, because ValUnion is a private type of the A_Const node,
+    # so it's difficult to cleanly pass the value to a subfunction
     output.write(f'''\
-    cdef object v_{name} = _pg_value_to_py(data.{name})
+    cdef object v_{name}
+    if data.isnull:
+        v_{name} = None
+    elif data.{name}.boolval.type == structs.T_Boolean:
+        v_{name} = ast.Boolean(data.{name}.boolval.boolval)
+    elif data.{name}.ival.type == structs.T_Integer:
+        v_{name} = ast.Integer(data.{name}.ival.ival)
+    elif data.{name}.fval.type == structs.T_Float:
+        v_{name} = _pg_str_to_decimal(data.{name}.fval.fval)
+    elif data.{name}.bsval.type == structs.T_BitString:
+        v_{name} = ast.BitString(data.{name}.bsval.bsval.decode("utf-8"))
+    elif data.{name}.sval.type == structs.T_String:
+        v_{name} = ast.String(data.{name}.sval.sval.decode("utf-8"))
+    else:
+        v_{name} = data.{name}.node
 ''')
 
 
@@ -613,8 +579,8 @@ def emitter_for(fname, ctype, enums):
         emitter = emit_no_attr
     elif ctype == 'NodeTag':
         emitter = emit_no_attr
-    elif ctype == 'Value':
-        emitter = emit_value_attr
+    elif ctype == 'ValUnion':
+        emitter = emit_valunion_attr
     elif ctype == 'char*':
         emitter = emit_str_attr
     elif ctype == 'char':
@@ -662,7 +628,7 @@ def emit_node_def(name, fields, enums, url, output, doc):
         if ctype == 'Expr':
             superclass = 'Expr'
 
-        comment = field['comment']
+        comment = field.get('comment')
         if comment:
             comment = comment.strip()
             if comment.startswith('/*'):
@@ -816,37 +782,6 @@ cdef create(void* data, offset_to_index):
             output.write(f' tag == structs.{tag.name}:\n')
             output.write(f'        return create_{name}(<structs.{name}*> data, offset_to_index)\n')
             first = False
-
-        elif name == 'Null':
-            output.write('''\
-    elif tag == structs.T_Null:
-        return ast.Null(None)
-''')
-
-        elif name == 'Integer':
-            output.write('''\
-    elif tag == structs.T_Integer:
-        return ast.Integer(structs.intVal(<structs.Value *> data))
-''')
-
-        elif name == 'Float':
-            output.write('''\
-    elif tag == structs.T_Float:
-        return _pg_str_to_decimal(structs.strVal(<structs.Value *> data))
-''')
-
-        elif name == 'BitString':
-            output.write('''\
-    elif tag == structs.T_BitString:
-        return ast.BitString(structs.strVal(<structs.Value *> data).decode("utf-8"))
-''')
-
-        elif name == 'String':
-            output.write('''\
-    elif tag == structs.T_String:
-        return ast.String(structs.strVal(<structs.Value *> data).decode("utf-8"))
-''')
-
         elif name == 'List':
             output.write('''\
     elif tag == structs.T_List:
@@ -856,6 +791,28 @@ cdef create(void* data, offset_to_index):
     output.write('''\
     raise ValueError("Unhandled tag: %s" % tag)
 ''')
+
+
+def emit_valunion_def(output):
+    output.write("""
+
+class ValUnion(Node):
+   '''Represent `ValUnion`__ value.
+
+   __ https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;
+      f=src/include/nodes/parsenodes.h;hb=c5dc80c1bc216f0e21a2f79f5e0415c2d4cfb35d#l309
+   '''
+
+   __slots__ = {'val': SlotTypeInfo('ValUnion', Node, None)}
+
+   def __init__(self, value=None):
+       if ((value is not None
+            and isinstance(value, dict)
+            and '@' in value)):
+           super().__init__(value)
+       else:
+           self.val = value
+""")
 
 
 def workhorse(args):
@@ -900,7 +857,7 @@ def workhorse(args):
         output.write('\n    int nodeTag(void* data)\n')
 
         nodes = []
-        for header in ('nodes/parsenodes', 'nodes/primnodes'):
+        for header in ('nodes/parsenodes', 'nodes/primnodes', 'nodes/value'):
             output.write(f'\n\ncdef extern from "{header}.h":\n')
             toc = extract_toc(pg_inc_dir / (header + '.h'))
             for name in toc:
@@ -909,7 +866,7 @@ def workhorse(args):
             first = True
             for name in defs:
                 fields = defs[name]['fields']
-                if name not in ('Const', 'NextValueExpr', 'Value'):
+                if name not in ('Const', 'NextValueExpr'):
                     if name != 'Expr':
                         # Omit the Expr node, because it is hand written in the
                         # ast.py header above: also, it is an abstract class,
@@ -931,6 +888,12 @@ def workhorse(args):
         for name, fields in sorted(nodes):
             header, lineno = linenos[name]
             url = f'{libpg_query_baseurl}src/postgres/include/{header}.h#L{lineno}'
+            if name == 'A_Const':
+                emit_valunion_def(output)
+                for f in fields:
+                    if f['name'] == 'val':
+                        f['c_type'] = 'ValUnion'
+                        break
             emit_node_def(name, fields, enums, url, output, doc)
 
         output.write('''
@@ -973,6 +936,9 @@ def _fixup_attribute_types_in_slots():
                         raise ValueError(f'Bad value for attribute {cls.__name__}.{attr},'
                                          f' expected a single char, got {value!r}')
                     return value
+            elif cls is Float and ctype == 'char*':
+                ptype = (str, float, Decimal)
+                adaptor = Decimal
             elif ctype == 'char*':
                 ptype = str
             elif ctype in ('Expr*', 'Node*'):
@@ -988,12 +954,10 @@ def _fixup_attribute_types_in_slots():
                                       else i
                                       for i in value)
                     return value
-            elif ctype in ('Value', 'Value*'):
-                ptype = (int, str, float, Decimal, Value)
             elif ctype in ('int', 'int16', 'bits32', 'int32', 'uint32', 'uint64',
                            'AttrNumber', 'AclMode', 'Index', 'SubTransactionId'):
                 ptype = int
-            elif ctype == 'Cost':
+            elif ctype in ('Cardinality', 'Cost'):
                 ptype = float
             elif ctype == 'CreateStmt':
                 ptype = (dict, CreateStmt)
@@ -1011,6 +975,8 @@ def _fixup_attribute_types_in_slots():
                         return set(value)
                     else:
                         return value
+            elif ctype == 'ValUnion':
+                ptype = Node
             else:
                 from pglast import enums
 

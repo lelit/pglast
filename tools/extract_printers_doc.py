@@ -63,10 +63,6 @@ def extract_toc(headers):
                 # rather in partitioning/partdefs.h
                 toc['PartitionBoundSpec'] = (header, lineno)
 
-    # Add implicit "aliases"
-    toc['Integer'] = toc['Float'] = toc['String'] = toc['BitString'] = toc['Null'] = \
-        toc['Value']
-
     return toc
 
 
