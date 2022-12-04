@@ -334,6 +334,18 @@ def alter_seq_stmt(node, output):
         output.print_list(node.options, '')
 
 
+@node_printer(ast.AlterTableSpaceOptionsStmt)
+def alter_tablespace_options_stmt(node, output):
+    output.write('ALTER TABLESPACE ')
+    output.print_name(node.tablespacename)
+    if node.isReset:
+        output.swrite('RESET ')
+    else:
+        output.swrite('SET ')
+    with output.expression(True):
+        output.print_list(node.options)
+
+
 @node_printer(ast.AlterTableStmt)
 def alter_table_stmt(node, output):
     output.write('ALTER ')
@@ -699,6 +711,10 @@ class AlterTableTypePrinter(IntEnumPrinter):
                     elif elem.arg.ival == 100:
                         output.write('BY DEFAULT')
 
+    def AT_SetAccessMethod(self, node, output):
+        output.write('SET ACCESS METHOD ')
+        output.print_name(node.name)
+
 
 alter_table_type_printer = AlterTableTypePrinter()
 
@@ -719,6 +735,19 @@ def alter_table_cmd_def_elem(node, output):
     if node.arg:
         output.write(' = ')
         output.print_node(node.arg)
+
+
+@node_printer(ast.AlterTableMoveAllStmt)
+def alter_table_move_all_stmt(node, output):
+    output.write(f'ALTER {OBJECT_NAMES[node.objtype]} ALL IN TABLESPACE ')
+    output.print_name(node.orig_tablespacename)
+    if node.roles is not None:
+        output.write(' OWNED BY ')
+        output.print_list(node.roles, are_names=True)
+    output.write(' SET TABLESPACE ')
+    output.print_name(node.new_tablespacename)
+    if node.nowait:
+        output.write(' NOWAIT')
 
 
 class AlterTSConfigTypePrinter(IntEnumPrinter):
@@ -829,26 +858,19 @@ def alter_stats_stmt(node, output):
     output.print_node(node.stxstattarget)
 
 
-@node_printer(ast.AlterSubscriptionStmt)
-def alter_subscription_stmt(node, output):
-    output.write('ALTER SUBSCRIPTION ')
-    output.print_name(node.subname)
-    if node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_OPTIONS:
+class AlterSubscriptionTypePrinter(IntEnumPrinter):
+    enum = enums.AlterSubscriptionType
+
+    def ALTER_SUBSCRIPTION_OPTIONS(self, node, output):
         output.write('SET ')
         with output.expression(True):
             output.print_name(node.options)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_CONNECTION:
+
+    def ALTER_SUBSCRIPTION_CONNECTION(self, node, output):
         output.write('CONNECTION ')
         output.print_node(node.conninfo)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_REFRESH:
-        output.write('REFRESH PUBLICATION')
-        if node.options:
-            output.newline()
-            output.space(1)
-            output.write('WITH ')
-            with output.expression(True):
-                output.print_list(node.options)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_SET_PUBLICATION:
+
+    def ALTER_SUBSCRIPTION_SET_PUBLICATION(self, node, output):
         if node.options:
             output.newline()
             output.space(2)
@@ -860,7 +882,8 @@ def alter_subscription_stmt(node, output):
             output.write('WITH ')
             with output.expression(True):
                 output.print_list(node.options)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_ADD_PUBLICATION:
+
+    def ALTER_SUBSCRIPTION_ADD_PUBLICATION(self, node, output):
         if node.options:
             output.newline()
             output.space(2)
@@ -872,7 +895,8 @@ def alter_subscription_stmt(node, output):
             output.write('WITH ')
             with output.expression(True):
                 output.print_list(node.options)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_DROP_PUBLICATION:
+
+    def ALTER_SUBSCRIPTION_DROP_PUBLICATION(self, node, output):
         if node.options:
             output.newline()
             output.space(1)
@@ -884,11 +908,49 @@ def alter_subscription_stmt(node, output):
             output.write('WITH ')
             with output.expression(True):
                 output.print_list(node.options)
-    elif node.kind == enums.AlterSubscriptionType.ALTER_SUBSCRIPTION_ENABLED:
-        if node.options[0].arg.val == 0:
-            output.write('DISABLE')
-        elif node.options[0].arg.val == 1:
-            output.write('ENABLE')
+
+    def ALTER_SUBSCRIPTION_REFRESH(self, node, output):
+        output.write('REFRESH PUBLICATION')
+        if node.options:
+            output.newline()
+            output.space(1)
+            output.write('WITH ')
+            with output.expression(True):
+                output.print_list(node.options)
+
+    def ALTER_SUBSCRIPTION_ENABLED(self, node, output):
+        output.write('ENABLE' if node.options[0].arg.boolval else 'DISABLE')
+
+    def ALTER_SUBSCRIPTION_SKIP(self, node, output):
+        output.write('SKIP ')
+        with output.expression(True):
+            output.print_list(node.options)
+
+
+alter_subscription_type_printer = AlterSubscriptionTypePrinter()
+
+
+@node_printer(ast.AlterSubscriptionStmt)
+def alter_subscription_stmt(node, output):
+    output.write('ALTER SUBSCRIPTION ')
+    output.print_name(node.subname)
+    alter_subscription_type_printer(node.kind, node, output)
+
+
+class AlterPublicationActionPrinter(IntEnumPrinter):
+    enum = enums.AlterPublicationAction
+
+    def AP_AddObjects(self, node, output):
+        output.write('ADD')
+
+    def AP_DropObjects(self, node, output):
+        output.write('DROP')
+
+    def AP_SetObjects(self, node, output):
+        output.write('SET')
+
+
+alter_publication_action_printer = AlterPublicationActionPrinter()
 
 
 @node_printer(ast.AlterPublicationStmt)
@@ -896,14 +958,10 @@ def alter_publication_stmt(node, output):
     output.write('ALTER PUBLICATION ')
     output.print_name(node.pubname)
     output.write(' ')
-    if node.tables:
-        if node.tableAction == enums.DefElemAction.DEFELEM_SET:
-            output.write('SET TABLE ')
-        elif node.tableAction == enums.DefElemAction.DEFELEM_ADD:
-            output.write('ADD TABLE ')
-        elif node.tableAction == enums.DefElemAction.DEFELEM_DROP:
-            output.write('DROP TABLE ')
-        output.print_list(node.tables, ',')
+    if node.pubobjects:
+        alter_publication_action_printer(node.action, node, output)
+        output.write(' ')
+        output.print_list(node.pubobjects)
     elif node.options:
         output.write('SET ')
         with output.expression(True):
@@ -1171,7 +1229,11 @@ class ConstrTypePrinter(IntEnumPrinter):
     def CONSTR_DEFAULT(self, node, output):
         output.swrite('DEFAULT ')
         assert not (node.raw_expr is not None and node.cooked_expr is not None)
-        output.print_node(node.cooked_expr if node.raw_expr is None else node.raw_expr)
+        # Handle DEFAULT (1 IN (1,2))
+        expr = node.cooked_expr if node.raw_expr is None else node.raw_expr
+        need_parens = isinstance(expr, ast.A_Expr) and expr.kind == enums.A_Expr_Kind.AEXPR_IN
+        with output.expression(need_parens):
+            output.print_node(expr)
 
     def CONSTR_EXCLUSION(self, node, output):
         output.swrite('EXCLUDE USING ')
@@ -1223,6 +1285,10 @@ class ConstrTypePrinter(IntEnumPrinter):
                 output.write('SET NULL')
             elif node.fk_del_action == enums.FKCONSTR_ACTION_SETDEFAULT:
                 output.write('SET DEFAULT')
+            if node.fk_del_set_cols is not None:
+                output.write(' ')
+                with output.expression(True):
+                    output.print_name(node.fk_del_set_cols, ',')
         if node.fk_upd_action != '\0' and node.fk_upd_action != enums.FKCONSTR_ACTION_NOACTION:
             output.write(' ON UPDATE ')
             if node.fk_upd_action == enums.FKCONSTR_ACTION_RESTRICT:
@@ -1266,6 +1332,8 @@ class ConstrTypePrinter(IntEnumPrinter):
 
     def CONSTR_UNIQUE(self, node, output):
         output.swrite('UNIQUE')
+        if node.nulls_not_distinct:
+            output.write(' NULLS NOT DISTINCT')
 
     def CONSTR_ATTR_IMMEDIATE(self, node, output):
         output.swrite('INITIALLY IMMEDIATE')
@@ -1805,29 +1873,17 @@ def create_publication_stmt(node, output):
     output.write('CREATE PUBLICATION ')
     output.print_name(node.pubname)
     output.write(' ')
-    if node.tables:
-        output.write('FOR TABLE ')
-        output.print_list(node.tables, ',')
-    elif node.for_all_tables:
+    if node.for_all_tables:
         output.write('FOR ALL TABLES ')
+    elif node.pubobjects is not None:
+        output.newline()
+        output.write('  FOR ')
+        output.print_list(node.pubobjects)
     if node.options:
-        output.write('WITH ')
+        output.newline()
+        output.swrite('  WITH ')
         with output.expression(True):
             output.print_list(node.options, ',')
-
-
-@node_printer(ast.CreatePublicationStmt, ast.RangeVar)
-def create_publication_stmt_range_var(node, output):
-    if not node.inh:
-        output.write('ONLY ')
-    if node.schemaname:
-        output.print_name(node.schemaname)
-        output.write('.')
-    output.print_name(node.relname)
-    if node.alias:
-        # FIXME: find a way to get here
-        output.write(' AS ')
-        output.print_name(node.alias)
 
 
 @node_printer(ast.CreateRangeStmt)
@@ -2672,6 +2728,9 @@ def index_stmt(node, output):
             output.newline()
             output.write('WHERE ')
             output.print_node(node.whereClause)
+        if node.nulls_not_distinct:
+            output.newline()
+            output.write('NULLS NOT DISTINCT')
 
 
 @node_printer(ast.LoadStmt)
@@ -2845,6 +2904,44 @@ def partition_spec(node, output):
         output.print_list(node.partParams)
 
 
+class PublicationObjSpecTypePrinter(IntEnumPrinter):
+    enum = enums.PublicationObjSpecType
+
+    def PUBLICATIONOBJ_TABLE(self, node, output):
+        output.write('TABLE ')
+        with output.push_indent():
+            output.print_node(node.pubtable)
+
+    def PUBLICATIONOBJ_TABLES_IN_SCHEMA(self, node, output):
+        output.write('TABLES IN SCHEMA ')
+        output.print_name(node.name)
+
+    def PUBLICATIONOBJ_TABLES_IN_CUR_SCHEMA(self, node, output):
+        output.write('TABLES IN SCHEMA CURRENT_SCHEMA')
+
+
+publication_obj_spec_type_printer = PublicationObjSpecTypePrinter()
+
+
+@node_printer(ast.PublicationObjSpec)
+def publication_obj_spec(node, output):
+    publication_obj_spec_type_printer(node.pubobjtype, node, output)
+
+
+@node_printer(ast.PublicationTable)
+def publication_table(node, output):
+    output.print_node(node.relation)
+    if node.columns:
+        output.space()
+        with output.expression(True):
+            output.print_list(node.columns, ',', are_names=True)
+    if node.whereClause:
+        output.newline()
+        output.write('WHERE ')
+        with output.expression(True):
+            output.print_node(node.whereClause)
+
+
 class ReindexKindPrinter(IntEnumPrinter):
     enum = enums.ReindexObjectType
 
@@ -2914,11 +3011,9 @@ def rename_stmt(node, output):
     output.write(' ')
     if node.missing_ok:
         output.write('IF EXISTS ')
-    if objtype in (OT.OBJECT_SCHEMA, OT.OBJECT_DATABASE, OT.OBJECT_ROLE):
+    if objtype in (OT.OBJECT_SCHEMA, OT.OBJECT_DATABASE, OT.OBJECT_ROLE, OT.OBJECT_TABLESPACE):
         output.print_name(node.subname)
-    elif (objtype == OT.OBJECT_RULE
-          or objtype == OT.OBJECT_POLICY
-          or objtype == OT.OBJECT_TRIGGER):
+    elif objtype in (OT.OBJECT_RULE, OT.OBJECT_POLICY, OT.OBJECT_TRIGGER):
         output.print_name(node.subname)
         output.write(' ON ')
         output.print_node(node.relation)
@@ -2977,6 +3072,8 @@ def replica_identity_stmt(node, output):
         output.write('DEFAULT')
     elif node.identity_type == enums.REPLICA_IDENTITY_FULL:
         output.write('FULL')
+    elif node.identity_type == enums.REPLICA_IDENTITY_NOTHING:
+        output.write('NOTHING')
 
 
 @node_printer(ast.RoleSpec)
