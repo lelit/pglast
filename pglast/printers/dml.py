@@ -371,19 +371,6 @@ def cte_cycle_clause(node, output):
 def cte_cycle_clause_type_cast(node, output):
     # This is a variant of the standard TypeCast printer, because within a CTECycleClause they
     # must be spelled as "typename 'value'", not as "CAST('value' AS typename)"
-    if isinstance(node.arg, ast.A_Const):
-        fqtn = '.'.join(n.val for n in node.typeName.names)
-        # Special case for boolean constants
-        if ((not isinstance(node.arg.val, ast.Null)
-             and node.arg.val.val in ('t', 'f')
-             and fqtn == 'pg_catalog.bool')):
-            output.write('TRUE' if node.arg.val.val == 't' else 'FALSE')
-            return
-        # Special case for bpchar
-        elif fqtn == 'pg_catalog.bpchar' and not node.typeName.typmods:
-            output.write('char ')
-            output.print_node(node.arg)
-            return
     output.print_node(node.typeName)
     output.write(' ')
     output.print_node(node.arg)
@@ -1502,19 +1489,13 @@ def truncate_stmt(node, output):
 @node_printer(ast.TypeCast)
 def type_cast(node, output):
     if isinstance(node.arg, ast.A_Const):
-        fqtn = '.'.join(n.val for n in node.typeName.names)
-        # Special case for boolean constants
-        if ((not isinstance(node.arg.val, ast.Null)
-             and node.arg.val.val in ('t', 'f')
-             and fqtn == 'pg_catalog.bool')):
-            output.write('TRUE' if node.arg.val.val == 't' else 'FALSE')
-            return
-        # Special case for bpchar
-        elif fqtn == 'pg_catalog.bpchar' and not node.typeName.typmods:
+        fqtn = '.'.join(n.sval for n in node.typeName.names)
+
+        if fqtn == 'pg_catalog.bpchar' and node.typeName.typmods is None:
             output.write('char ')
             output.print_node(node.arg)
             return
-    # FIXME: all other case using CAST
+
     output.write('CAST')
     with output.expression(True):
         output.print_node(node.arg)
