@@ -9,7 +9,7 @@
  :mod:`pglast.enums.nodes` --- Constants extracted from `nodes.h`__
 ====================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h
+__ https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h
 
 .. module:: pglast.enums.nodes
    :synopsis: Constants extracted from nodes.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.AggSplit
 
-   Corresponds to the `AggSplit enum <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L790>`__.
+   Corresponds to the `AggSplit enum <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L799>`__.
 
    .. data:: AGGSPLIT_SIMPLE
 
@@ -28,7 +28,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.AggStrategy
 
-   Corresponds to the `AggStrategy enum <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L768>`__.
+   Corresponds to the `AggStrategy enum <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L777>`__.
 
    .. data:: AGG_PLAIN
 
@@ -41,7 +41,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.CmdType
 
-   Corresponds to the `CmdType enum <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L682>`__.
+   Corresponds to the `CmdType enum <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L690>`__.
 
    .. data:: CMD_UNKNOWN
 
@@ -53,6 +53,8 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
    .. data:: CMD_DELETE
 
+   .. data:: CMD_MERGE
+
    .. data:: CMD_UTILITY
 
    .. data:: CMD_NOTHING
@@ -60,7 +62,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.JoinType
 
-   Corresponds to the `JoinType enum <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L706>`__.
+   Corresponds to the `JoinType enum <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L715>`__.
 
    .. data:: JOIN_INNER
 
@@ -81,7 +83,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.LimitOption
 
-   Corresponds to the `LimitOption enum <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L845>`__.
+   Corresponds to the `LimitOption enum <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L854>`__.
 
    .. data:: LIMIT_OPTION_DEFAULT
 
@@ -92,7 +94,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.NodeTag
 
-   Corresponds to the `NodeTag enum <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L26>`__.
+   Corresponds to the `NodeTag enum <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L26>`__.
 
    .. data:: T_Invalid
 
@@ -105,6 +107,8 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
    .. data:: T_JunkFilter
 
    .. data:: T_OnConflictSetState
+
+   .. data:: T_MergeActionState
 
    .. data:: T_ResultRelInfo
 
@@ -312,8 +316,6 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
    .. data:: T_TableFunc
 
-   .. data:: T_Expr
-
    .. data:: T_Var
 
    .. data:: T_Const
@@ -510,6 +512,8 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
    .. data:: T_PathKey
 
+   .. data:: T_PathKeyInfo
+
    .. data:: T_PathTarget
 
    .. data:: T_RestrictInfo
@@ -536,7 +540,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
    .. data:: T_StatisticExtInfo
 
-   .. data:: T_MemoryContext
+   .. data:: T_MergeAction
 
    .. data:: T_AllocSetContext
 
@@ -544,17 +548,15 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
    .. data:: T_GenerationContext
 
-   .. data:: T_Value
-
    .. data:: T_Integer
 
    .. data:: T_Float
 
+   .. data:: T_Boolean
+
    .. data:: T_String
 
    .. data:: T_BitString
-
-   .. data:: T_Null
 
    .. data:: T_List
 
@@ -575,6 +577,8 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
    .. data:: T_DeleteStmt
 
    .. data:: T_UpdateStmt
+
+   .. data:: T_MergeStmt
 
    .. data:: T_SelectStmt
 
@@ -681,6 +685,8 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
    .. data:: T_CreateSchemaStmt
 
    .. data:: T_AlterDatabaseStmt
+
+   .. data:: T_AlterDatabaseRefreshCollStmt
 
    .. data:: T_AlterDatabaseSetStmt
 
@@ -894,6 +900,8 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
    .. data:: T_CommonTableExpr
 
+   .. data:: T_MergeWhenClause
+
    .. data:: T_RoleSpec
 
    .. data:: T_TriggerTransition
@@ -910,6 +918,10 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
    .. data:: T_VacuumRelation
 
+   .. data:: T_PublicationObjSpec
+
+   .. data:: T_PublicationTable
+
    .. data:: T_IdentifySystemCmd
 
    .. data:: T_BaseBackupCmd
@@ -918,11 +930,11 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
    .. data:: T_DropReplicationSlotCmd
 
+   .. data:: T_ReadReplicationSlotCmd
+
    .. data:: T_StartReplicationCmd
 
    .. data:: T_TimeLineHistoryCmd
-
-   .. data:: T_SQLCmd
 
    .. data:: T_TriggerData
 
@@ -958,10 +970,12 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
    .. data:: T_SupportRequestIndexCondition
 
+   .. data:: T_SupportRequestWFuncMonotonic
+
 
 .. class:: pglast.enums.nodes.OnConflictAction
 
-   Corresponds to the `OnConflictAction enum <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L832>`__.
+   Corresponds to the `OnConflictAction enum <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L841>`__.
 
    .. data:: ONCONFLICT_NONE
 
@@ -972,7 +986,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.SetOpCmd
 
-   Corresponds to the `SetOpCmd enum <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L812>`__.
+   Corresponds to the `SetOpCmd enum <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L821>`__.
 
    .. data:: SETOPCMD_INTERSECT
 
@@ -985,7 +999,7 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.SetOpStrategy
 
-   Corresponds to the `SetOpStrategy enum <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L820>`__.
+   Corresponds to the `SetOpStrategy enum <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L829>`__.
 
    .. data:: SETOP_SORTED
 
@@ -994,16 +1008,16 @@ __ https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/no
 
 .. data:: AGGSPLITOP_COMBINE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L784>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L793>`__.
 
 .. data:: AGGSPLITOP_SKIPFINAL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L785>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L794>`__.
 
 .. data:: AGGSPLITOP_SERIALIZE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L786>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L795>`__.
 
 .. data:: AGGSPLITOP_DESERIALIZE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/6ebd8d8/src/postgres/include/nodes/nodes.h#L787>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/901ad3a/src/postgres/include/nodes/nodes.h#L796>`__.
