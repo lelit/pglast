@@ -1744,7 +1744,7 @@ def window_def(node, output):
 
 
 def print_indirection(node, output):
-    for idx, subnode in enumerate(node):
+    for subnode in node:
         if isinstance(subnode, ast.String):
             output.write('.')
         output.print_node(subnode, is_name=True)
