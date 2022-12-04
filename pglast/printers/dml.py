@@ -1799,7 +1799,7 @@ def window_def(node, output):
 
 
 def print_indirection(node, output):
-    for idx, subnode in enumerate(node):
+    for subnode in node:
         if subnode.node_tag == 'String':
             output.write('.')
         output.print_node(subnode, is_name=True)
