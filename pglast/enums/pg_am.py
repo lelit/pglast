@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_am.h @ 14-latest-0-g6ebd8d8
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_am.h @ 15-latest-dev-0-g901ad3a
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
@@ -17,10 +17,6 @@ except ImportError:  # pragma: no cover
 
 
 # #define-ed constants
-
-AmNameIndexId = 2651
-
-AmOidIndexId = 2652
 
 AMTYPE_INDEX = 'i'
 

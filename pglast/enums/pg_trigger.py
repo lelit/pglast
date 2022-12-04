@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_trigger.h @ 14-latest-0-g6ebd8d8
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_trigger.h @ 15-latest-dev-0-g901ad3a
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
@@ -17,12 +17,6 @@ except ImportError:  # pragma: no cover
 
 
 # #define-ed constants
-
-TriggerConstraintIndexId = 2699
-
-TriggerRelidNameIndexId = 2701
-
-TriggerOidIndexId = 2702
 
 TRIGGER_TYPE_ROW = 1 << 0
 

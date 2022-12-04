@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from primnodes.h @ 14-latest-0-g6ebd8d8
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from primnodes.h @ 15-latest-dev-0-g901ad3a
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
@@ -108,14 +108,3 @@ class XmlExprOp(IntEnum):
 class XmlOptionType(IntEnum):
     XMLOPTION_DOCUMENT = 0
     XMLOPTION_CONTENT = auto()
-
-
-# #define-ed constants
-
-INNER_VAR = 65000
-
-OUTER_VAR = 65001
-
-INDEX_VAR = 65002
-
-ROWID_VAR = 65003

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 14-latest-0-g6ebd8d8
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 15-latest-dev-0-g901ad3a
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
@@ -31,6 +31,11 @@ class A_Expr_Kind(IntEnum):
     AEXPR_BETWEEN_SYM = auto()
     AEXPR_NOT_BETWEEN_SYM = auto()
 
+class AlterPublicationAction(IntEnum):
+    AP_AddObjects = 0
+    AP_DropObjects = auto()
+    AP_SetObjects = auto()
+
 class AlterSubscriptionType(IntEnum):
     ALTER_SUBSCRIPTION_OPTIONS = 0
     ALTER_SUBSCRIPTION_CONNECTION = auto()
@@ -39,6 +44,7 @@ class AlterSubscriptionType(IntEnum):
     ALTER_SUBSCRIPTION_DROP_PUBLICATION = auto()
     ALTER_SUBSCRIPTION_REFRESH = auto()
     ALTER_SUBSCRIPTION_ENABLED = auto()
+    ALTER_SUBSCRIPTION_SKIP = auto()
 
 class AlterTSConfigType(IntEnum):
     ALTER_TSCONFIG_ADD_MAPPING = 0
@@ -85,6 +91,7 @@ class AlterTableType(IntEnum):
     AT_SetLogged = auto()
     AT_SetUnLogged = auto()
     AT_DropOids = auto()
+    AT_SetAccessMethod = auto()
     AT_SetTableSpace = auto()
     AT_SetRelOptions = auto()
     AT_ResetRelOptions = auto()
@@ -215,9 +222,11 @@ class ObjectType(IntEnum):
     OBJECT_OPCLASS = auto()
     OBJECT_OPERATOR = auto()
     OBJECT_OPFAMILY = auto()
+    OBJECT_PARAMETER_ACL = auto()
     OBJECT_POLICY = auto()
     OBJECT_PROCEDURE = auto()
     OBJECT_PUBLICATION = auto()
+    OBJECT_PUBLICATION_NAMESPACE = auto()
     OBJECT_PUBLICATION_REL = auto()
     OBJECT_ROLE = auto()
     OBJECT_ROUTINE = auto()
@@ -248,6 +257,12 @@ class PartitionRangeDatumKind(IntEnum):
     PARTITION_RANGE_DATUM_MINVALUE = -1
     PARTITION_RANGE_DATUM_VALUE = 0
     PARTITION_RANGE_DATUM_MAXVALUE = 1
+
+class PublicationObjSpecType(IntEnum):
+    PUBLICATIONOBJ_TABLE = 0
+    PUBLICATIONOBJ_TABLES_IN_SCHEMA = auto()
+    PUBLICATIONOBJ_TABLES_IN_CUR_SCHEMA = auto()
+    PUBLICATIONOBJ_CONTINUATION = auto()
 
 class QuerySource(IntEnum):
     QSRC_ORIGINAL = 0
@@ -350,6 +365,8 @@ class WCOKind(IntEnum):
     WCO_RLS_INSERT_CHECK = auto()
     WCO_RLS_UPDATE_CHECK = auto()
     WCO_RLS_CONFLICT_CHECK = auto()
+    WCO_RLS_MERGE_UPDATE_CHECK = auto()
+    WCO_RLS_MERGE_DELETE_CHECK = auto()
 
 
 # #define-ed constants
@@ -378,7 +395,11 @@ ACL_CREATE_TEMP = 1<<10
 
 ACL_CONNECT = 1<<11
 
-N_ACL_RIGHTS = 12
+ACL_SET = 1<<12
+
+ACL_ALTER_SYSTEM = 1<<13
+
+N_ACL_RIGHTS = 14
 
 ACL_NO_RIGHTS = 0
 

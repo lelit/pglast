@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 14-latest-0-g6ebd8d8
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 15-latest-dev-0-g901ad3a
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2022 Lele Gaifax
@@ -15,14 +15,6 @@ cdef extern from "postgres.h":
 
     ctypedef struct Node:
         int type
-
-    ctypedef union ValueUnion:
-        int ival
-        char *str
-
-    ctypedef struct Value:
-        int type
-        ValueUnion val
 
     ctypedef struct Bitmapset:
         int nwords
@@ -44,16 +36,40 @@ cdef extern from "nodes/pg_list.h":
 
 
 cdef extern from "nodes/value.h":
-    ctypedef struct ValUnion:
-        int ival
-        char *str
+    ctypedef struct Integer:
+        NodeTag type;
+        int ival;
 
-    ctypedef struct Value:
-        NodeTag type
-        ValUnion val
+    ctypedef struct Float:
+        NodeTag type;
+        char *fval
 
-    int intVal(Value* v)
-    char* strVal(Value* v)
+    ctypedef struct Boolean:
+        NodeTag type;
+        bool boolval;
+
+    ctypedef struct String:
+        NodeTag type;
+        char *sval;
+
+    ctypedef struct BitString:
+        NodeTag type;
+        char *bsval;
+
+    int intVal(Integer v)
+    double floatVal(Float v)
+    bool boolVal(Boolean)
+    char* strVal(String v)
+
+
+# ValUnion is a private type of the A_Const node, we need to redefine it here
+ctypedef union ValUnion:
+    Node node;
+    Integer ival;
+    Float fval;
+    Boolean boolval;
+    String sval;
+    BitString bsval;
 
 
 cdef extern from *:
@@ -64,6 +80,9 @@ cdef extern from *:
         pass
 
     ctypedef enum AggStrategy:
+        pass
+
+    ctypedef enum AlterPublicationAction:
         pass
 
     ctypedef enum AlterSubscriptionType:
@@ -145,6 +164,7 @@ cdef extern from *:
         T_ProjectionInfo
         T_JunkFilter
         T_OnConflictSetState
+        T_MergeActionState
         T_ResultRelInfo
         T_EState
         T_TupleTableSlot
@@ -248,7 +268,6 @@ cdef extern from *:
         T_Alias
         T_RangeVar
         T_TableFunc
-        T_Expr
         T_Var
         T_Const
         T_Param
@@ -347,6 +366,7 @@ cdef extern from *:
         T_EquivalenceClass
         T_EquivalenceMember
         T_PathKey
+        T_PathKeyInfo
         T_PathTarget
         T_RestrictInfo
         T_IndexClause
@@ -360,16 +380,15 @@ cdef extern from *:
         T_RollupData
         T_GroupingSetData
         T_StatisticExtInfo
-        T_MemoryContext
+        T_MergeAction
         T_AllocSetContext
         T_SlabContext
         T_GenerationContext
-        T_Value
         T_Integer
         T_Float
+        T_Boolean
         T_String
         T_BitString
-        T_Null
         T_List
         T_IntList
         T_OidList
@@ -380,6 +399,7 @@ cdef extern from *:
         T_InsertStmt
         T_DeleteStmt
         T_UpdateStmt
+        T_MergeStmt
         T_SelectStmt
         T_ReturnStmt
         T_PLAssignStmt
@@ -433,6 +453,7 @@ cdef extern from *:
         T_CheckPointStmt
         T_CreateSchemaStmt
         T_AlterDatabaseStmt
+        T_AlterDatabaseRefreshCollStmt
         T_AlterDatabaseSetStmt
         T_AlterRoleSetStmt
         T_CreateConversionStmt
@@ -539,6 +560,7 @@ cdef extern from *:
         T_CTESearchClause
         T_CTECycleClause
         T_CommonTableExpr
+        T_MergeWhenClause
         T_RoleSpec
         T_TriggerTransition
         T_PartitionElem
@@ -547,13 +569,15 @@ cdef extern from *:
         T_PartitionRangeDatum
         T_PartitionCmd
         T_VacuumRelation
+        T_PublicationObjSpec
+        T_PublicationTable
         T_IdentifySystemCmd
         T_BaseBackupCmd
         T_CreateReplicationSlotCmd
         T_DropReplicationSlotCmd
+        T_ReadReplicationSlotCmd
         T_StartReplicationCmd
         T_TimeLineHistoryCmd
-        T_SQLCmd
         T_TriggerData
         T_EventTriggerData
         T_ReturnSetInfo
@@ -571,6 +595,7 @@ cdef extern from *:
         T_SupportRequestCost
         T_SupportRequestRows
         T_SupportRequestIndexCondition
+        T_SupportRequestWFuncMonotonic
 
     ctypedef enum NullTestType:
         pass
@@ -591,6 +616,9 @@ cdef extern from *:
         pass
 
     ctypedef enum PartitionRangeDatumKind:
+        pass
+
+    ctypedef enum PublicationObjSpecType:
         pass
 
     ctypedef enum QuerySource:
@@ -696,6 +724,8 @@ cdef extern from "nodes/parsenodes.h":
         const List* cteList
         const List* rtable
         const FromExpr* jointree
+        const List* mergeActionList
+        bool mergeUseOuterJoin
         const List* targetList
         OverridingKind override
         const OnConflictExpr* onConflict
@@ -743,11 +773,6 @@ cdef extern from "nodes/parsenodes.h":
         const List* name
         const Node* lexpr
         const Node* rexpr
-        int location
-
-    ctypedef struct A_Const:
-        NodeTag type
-        Value val
         int location
 
     ctypedef struct TypeCast:
@@ -1052,6 +1077,7 @@ cdef extern from "nodes/parsenodes.h":
         int frameOptions
         const Node* startOffset
         const Node* endOffset
+        const List* runCondition
         bool inRangeAsc
         bool inRangeNullsFirst
         unsigned int winref
@@ -1118,6 +1144,24 @@ cdef extern from "nodes/parsenodes.h":
         const List* ctecoltypmods
         const List* ctecolcollations
 
+    ctypedef struct MergeWhenClause:
+        NodeTag type
+        bool matched
+        CmdType commandType
+        OverridingKind override
+        const Node* condition
+        const List* targetList
+        const List* values
+
+    ctypedef struct MergeAction:
+        NodeTag type
+        bool matched
+        CmdType commandType
+        OverridingKind override
+        const Node* qual
+        const List* targetList
+        const List* updateColnos
+
     ctypedef struct TriggerTransition:
         NodeTag type
         const char* name
@@ -1155,6 +1199,14 @@ cdef extern from "nodes/parsenodes.h":
         const Node* whereClause
         const List* fromClause
         const List* returningList
+        const WithClause* withClause
+
+    ctypedef struct MergeStmt:
+        NodeTag type
+        const RangeVar* relation
+        const Node* sourceRelation
+        const Node* joinCondition
+        const List* mergeWhenClauses
         const WithClause* withClause
 
     ctypedef struct SelectStmt:
@@ -1332,6 +1384,7 @@ cdef extern from "nodes/parsenodes.h":
         const Node* raw_expr
         const char* cooked_expr
         char generated_when
+        bool nulls_not_distinct
         const List* keys
         const List* including
         const List* exclusions
@@ -1347,6 +1400,7 @@ cdef extern from "nodes/parsenodes.h":
         char fk_matchtype
         char fk_upd_action
         char fk_del_action
+        const List* fk_del_set_cols
         const List* old_conpfeqop
         bool skip_validation
         bool initially_valid
@@ -1662,6 +1716,7 @@ cdef extern from "nodes/parsenodes.h":
         unsigned int oldCreateSubid
         unsigned int oldFirstRelfilenodeSubid
         bool unique
+        bool nulls_not_distinct
         bool primary
         bool isconstraint
         bool deferrable
@@ -1751,7 +1806,7 @@ cdef extern from "nodes/parsenodes.h":
         ObjectType objectType
         const RangeVar* relation
         const Node* object
-        const Value* extname
+        const String* extname
         bool remove
 
     ctypedef struct AlterObjectSchemaStmt:
@@ -1856,6 +1911,10 @@ cdef extern from "nodes/parsenodes.h":
         NodeTag type
         const char* dbname
         const List* options
+
+    ctypedef struct AlterDatabaseRefreshCollStmt:
+        NodeTag type
+        const char* dbname
 
     ctypedef struct AlterDatabaseSetStmt:
         NodeTag type
@@ -1997,20 +2056,33 @@ cdef extern from "nodes/parsenodes.h":
         bool replace
         bool missing_ok
 
+    ctypedef struct PublicationTable:
+        NodeTag type
+        const RangeVar* relation
+        const Node* whereClause
+        const List* columns
+
+    ctypedef struct PublicationObjSpec:
+        NodeTag type
+        PublicationObjSpecType pubobjtype
+        const char* name
+        const PublicationTable* pubtable
+        int location
+
     ctypedef struct CreatePublicationStmt:
         NodeTag type
         const char* pubname
         const List* options
-        const List* tables
+        const List* pubobjects
         bool for_all_tables
 
     ctypedef struct AlterPublicationStmt:
         NodeTag type
         const char* pubname
         const List* options
-        const List* tables
+        const List* pubobjects
         bool for_all_tables
-        DefElemAction tableAction
+        AlterPublicationAction action
 
     ctypedef struct CreateSubscriptionStmt:
         NodeTag type
@@ -2081,7 +2153,7 @@ cdef extern from "nodes/primnodes.h":
         NodeTag type
 
     ctypedef struct Var:
-        unsigned int varno
+        int varno
         int varattno
         int32_t vartypmod
         unsigned int varlevelsup
@@ -2182,8 +2254,8 @@ cdef extern from "nodes/primnodes.h":
         const List* setParam
         const List* parParam
         const List* args
-        float startup_cost
-        float per_call_cost
+        double startup_cost
+        double per_call_cost
 
     ctypedef struct AlternativeSubPlan:
         const List* subplans
@@ -2353,3 +2425,24 @@ cdef extern from "nodes/primnodes.h":
         const Node* onConflictWhere
         int exclRelIndex
         const List* exclRelTlist
+
+
+cdef extern from "nodes/value.h":
+    ctypedef struct Integer:
+        long ival
+
+    ctypedef struct Float:
+        const char* fval
+
+    ctypedef struct Boolean:
+        bool boolval
+
+    ctypedef struct String:
+        const char* sval
+
+    ctypedef struct BitString:
+        const char* bsval
+
+    ctypedef struct A_Const:
+        bool isnull
+        ValUnion val

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from nodes.h @ 14-latest-0-g6ebd8d8
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from nodes.h @ 15-latest-dev-0-g901ad3a
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
@@ -32,6 +32,7 @@ class CmdType(IntEnum):
     CMD_UPDATE = auto()
     CMD_INSERT = auto()
     CMD_DELETE = auto()
+    CMD_MERGE = auto()
     CMD_UTILITY = auto()
     CMD_NOTHING = auto()
 
@@ -57,6 +58,7 @@ class NodeTag(IntEnum):
     T_ProjectionInfo = auto()
     T_JunkFilter = auto()
     T_OnConflictSetState = auto()
+    T_MergeActionState = auto()
     T_ResultRelInfo = auto()
     T_EState = auto()
     T_TupleTableSlot = auto()
@@ -160,7 +162,6 @@ class NodeTag(IntEnum):
     T_Alias = auto()
     T_RangeVar = auto()
     T_TableFunc = auto()
-    T_Expr = auto()
     T_Var = auto()
     T_Const = auto()
     T_Param = auto()
@@ -259,6 +260,7 @@ class NodeTag(IntEnum):
     T_EquivalenceClass = auto()
     T_EquivalenceMember = auto()
     T_PathKey = auto()
+    T_PathKeyInfo = auto()
     T_PathTarget = auto()
     T_RestrictInfo = auto()
     T_IndexClause = auto()
@@ -272,16 +274,15 @@ class NodeTag(IntEnum):
     T_RollupData = auto()
     T_GroupingSetData = auto()
     T_StatisticExtInfo = auto()
-    T_MemoryContext = auto()
+    T_MergeAction = auto()
     T_AllocSetContext = auto()
     T_SlabContext = auto()
     T_GenerationContext = auto()
-    T_Value = auto()
     T_Integer = auto()
     T_Float = auto()
+    T_Boolean = auto()
     T_String = auto()
     T_BitString = auto()
-    T_Null = auto()
     T_List = auto()
     T_IntList = auto()
     T_OidList = auto()
@@ -292,6 +293,7 @@ class NodeTag(IntEnum):
     T_InsertStmt = auto()
     T_DeleteStmt = auto()
     T_UpdateStmt = auto()
+    T_MergeStmt = auto()
     T_SelectStmt = auto()
     T_ReturnStmt = auto()
     T_PLAssignStmt = auto()
@@ -345,6 +347,7 @@ class NodeTag(IntEnum):
     T_CheckPointStmt = auto()
     T_CreateSchemaStmt = auto()
     T_AlterDatabaseStmt = auto()
+    T_AlterDatabaseRefreshCollStmt = auto()
     T_AlterDatabaseSetStmt = auto()
     T_AlterRoleSetStmt = auto()
     T_CreateConversionStmt = auto()
@@ -451,6 +454,7 @@ class NodeTag(IntEnum):
     T_CTESearchClause = auto()
     T_CTECycleClause = auto()
     T_CommonTableExpr = auto()
+    T_MergeWhenClause = auto()
     T_RoleSpec = auto()
     T_TriggerTransition = auto()
     T_PartitionElem = auto()
@@ -459,13 +463,15 @@ class NodeTag(IntEnum):
     T_PartitionRangeDatum = auto()
     T_PartitionCmd = auto()
     T_VacuumRelation = auto()
+    T_PublicationObjSpec = auto()
+    T_PublicationTable = auto()
     T_IdentifySystemCmd = auto()
     T_BaseBackupCmd = auto()
     T_CreateReplicationSlotCmd = auto()
     T_DropReplicationSlotCmd = auto()
+    T_ReadReplicationSlotCmd = auto()
     T_StartReplicationCmd = auto()
     T_TimeLineHistoryCmd = auto()
-    T_SQLCmd = auto()
     T_TriggerData = auto()
     T_EventTriggerData = auto()
     T_ReturnSetInfo = auto()
@@ -483,6 +489,7 @@ class NodeTag(IntEnum):
     T_SupportRequestCost = auto()
     T_SupportRequestRows = auto()
     T_SupportRequestIndexCondition = auto()
+    T_SupportRequestWFuncMonotonic = auto()
 
 class OnConflictAction(IntEnum):
     ONCONFLICT_NONE = 0
