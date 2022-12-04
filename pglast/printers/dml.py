@@ -1273,7 +1273,7 @@ def select_stmt(node, output):
                 output.write('ALL')
             else:
                 with output.expression(isinstance(node.limitCount, ast.A_Expr)
-                  and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP):
+                                       and node.limitCount.kind == enums.A_Expr_Kind.AEXPR_OP):
                     output.print_node(node.limitCount)
             if node.limitOption == enums.LimitOption.LIMIT_OPTION_WITH_TIES:
                 output.write(' ROWS WITH TIES ')
