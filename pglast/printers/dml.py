@@ -936,6 +936,79 @@ def listen_stmt(node, output):
     output.print_name(node.conditionname)
 
 
+@node_printer(ast.MergeStmt)
+def merge_stmt(node, output):
+    with output.push_indent():
+        if node.withClause is not None:
+            output.write('WITH ')
+            output.print_node(node.withClause)
+            output.newline()
+            output.space(2)
+            output.indent()
+
+        output.write('MERGE INTO ')
+        output.print_node(node.relation)
+        output.newline()
+
+        output.write('USING ')
+        with output.push_indent():
+            output.print_node(node.sourceRelation)
+            if isinstance(node.sourceRelation, ast.RangeSubselect):
+                output.newline()
+            output.swrite('ON ')
+            output.print_node(node.joinCondition)
+
+        for when in node.mergeWhenClauses:
+            output.newline()
+            output.write('WHEN ')
+            if not when.matched:
+                output.write('NOT ')
+            output.write('MATCHED ')
+            if when.condition is not None:
+                output.write('AND ')
+                output.print_node(when.condition)
+            output.swrite('THEN')
+            if when.commandType in (enums.CmdType.CMD_NOTHING, enums.CmdType.CMD_DELETE):
+                output.space()
+            else:
+                output.newline()
+            output.print_node(when)
+
+        if node.withClause is not None:
+            output.dedent()
+
+
+@node_printer(ast.MergeWhenClause)
+def merge_when_clause(node, output):
+    oke = enums.OverridingKind
+
+    if node.commandType == enums.CmdType.CMD_NOTHING:
+        output.write('DO NOTHING')
+    elif node.commandType == enums.CmdType.CMD_DELETE:
+        output.write('DELETE')
+    elif node.commandType == enums.CmdType.CMD_INSERT:
+        with output.push_indent(2):
+            output.write('INSERT ')
+            if node.targetList is not None:
+                with output.expression(True):
+                    output.print_list(node.targetList)
+                output.newline()
+            if node.override != oke.OVERRIDING_NOT_SET:
+                ouv = 'USER' if node.override == oke.OVERRIDING_USER_VALUE else 'SYSTEM'
+                output.write(f'OVERRIDING {ouv} VALUE')
+                output.newline()
+            if node.values is None:
+                output.write('DEFAULT VALUES')
+            else:
+                output.write('VALUES ')
+                with output.expression(True):
+                    output.print_list(node.values)
+    elif node.commandType == enums.CmdType.CMD_UPDATE:
+        with output.push_indent(2):
+            output.write('UPDATE SET ')
+            output.print_list(node.targetList)
+
+
 @node_printer(ast.MinMaxExpr)
 def min_max_expr(node, output):
     if node.op == enums.MinMaxOp.IS_GREATEST:
@@ -1726,7 +1799,7 @@ def print_indirection(node, output):
         output.print_node(subnode, is_name=True)
 
 
-@node_printer((ast.OnConflictClause, ast.UpdateStmt), ast.ResTarget)
+@node_printer((ast.MergeWhenClause, ast.OnConflictClause, ast.UpdateStmt), ast.ResTarget)
 def update_stmt_res_target(node, output):
     if isinstance(node.val, ast.MultiAssignRef):
         if node.val.colno == 1:
@@ -1740,12 +1813,18 @@ def update_stmt_res_target(node, output):
             output.write(') = ')
             output.print_node(node.val)
     else:
-        if node.name:
+        parent_node = abs(node.ancestors).node
+        is_merge_insert = (isinstance(parent_node, ast.MergeWhenClause)
+                           and parent_node.commandType == enums.CmdType.CMD_INSERT)
+        if is_merge_insert:
             output.print_name(node.name)
-            if node.indirection:
-                print_indirection(node.indirection, output)
-            output.write(' = ')
-        output.print_node(node.val)
+        else:
+            if node.name:
+                output.print_name(node.name)
+                if node.indirection:
+                    print_indirection(node.indirection, output)
+                output.write(' = ')
+            output.print_node(node.val)
 
 
 class XmlOptionTypePrinter(IntEnumPrinter):
