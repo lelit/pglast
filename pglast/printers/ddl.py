@@ -2674,6 +2674,12 @@ def index_stmt(node, output):
             output.print_node(node.whereClause)
 
 
+@node_printer(ast.LoadStmt)
+def load_stmt(node, output):
+    output.write('LOAD ')
+    output.write_quoted_string(node.filename)
+
+
 LOCK_MODE_NAMES = {
     enums.AccessShareLock: 'ACCESS SHARE',
     enums.RowShareLock: 'ROW SHARE',
