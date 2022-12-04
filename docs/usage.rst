@@ -33,7 +33,7 @@ The function :func:`~pglast.parser.parse_sql` returns a tuple containing one or 
    >>> from pglast import parse_sql
    >>> root = parse_sql('select 1')
    >>> print(root)
-   (<RawStmt stmt=<SelectStmt targetList=(<ResTarget val=<A_Const val=<Integer val=1>>>,) ...,)
+   (<RawStmt stmt=<SelectStmt targetList=(<ResTarget val=<A_Const isnull=False val=<Integer ival=1>>>,) ...,)
 
 The textual ``repr``\ esentation of a parse node carries all its *not* ``None`` attributes,
 recursively.
@@ -247,7 +247,7 @@ that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
    >>> sql = 'select a.x, b.y from a join b on a.bid = b.id'
    >>> astnode = parse_sql(sql)[0].stmt
    >>> astnode
-   <SelectStmt targetList=(<ResTarget val=<ColumnRef fields=(<String val='a'>, <String val='x'>)>>...
+   <SelectStmt targetList=(<ResTarget val=<ColumnRef fields=(<String sval='a'>, <String sval='x'>)>>...
    >>> print(RawStream()(astnode.fromClause))
    a INNER JOIN b ON a.bid = b.id
 
@@ -287,8 +287,8 @@ that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
    ROOT → 0 → stmt → fromClause → 0 : {'@': 'RangeVar', 'relname': 'c', 'inh': True, ...
    ROOT → 0 → stmt → targetList → 0 → val : {'@': 'ColumnRef', 'fields': …, 'location': 7}
    ROOT → 0 → stmt → targetList → 1 → val : {'@': 'ColumnRef', 'fields': …, 'location': 10}
-   ROOT → 0 → stmt → targetList → 0 → val → fields → 0 : {'@': 'String', 'val': 'a'}
-   ROOT → 0 → stmt → targetList → 1 → val → fields → 0 : {'@': 'String', 'val': 'b'}
+   ROOT → 0 → stmt → targetList → 0 → val → fields → 0 : {'@': 'String', 'sval': 'a'}
+   ROOT → 0 → stmt → targetList → 1 → val → fields → 0 : {'@': 'String', 'sval': 'b'}
    (<RawStmt stmt=<SelectStmt ...
 
 .. doctest::

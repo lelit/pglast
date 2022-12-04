@@ -286,10 +286,9 @@ class RawStream(OutputStream):
 
         self.write("'%s'" % s.replace("'", "''"))
 
-    def _print_scalar(self, node, is_name, is_symbol):
-        "Print the scalar `node`, special-casing string literals."
+    def _print_scalar(self, value, is_name, is_symbol):
+        "Print the scalar `value`, special-casing string literals."
 
-        value = node.val if isinstance(node, ast.Value) else node
         is_string = isinstance(value, str)
         if is_symbol and is_string:
             self.write(value)
@@ -385,11 +384,11 @@ class RawStream(OutputStream):
             and len(items) > 1
             and isinstance(items, (list, tuple))
             and items[0].ancestors.parent.member == 'funcname'
-            and items[0].val == 'pg_catalog'
+            and items[0].sval == 'pg_catalog'
             # The list contains all functions that cannot be found without an
             # explicit pg_catalog schema. ie:
             # position(a,b) is invalid but pg_catalog.position(a,b) is fine
-            and items[1].val not in ('position', 'xmlexists')
+            and items[1].sval not in ('position', 'xmlexists')
         )
 
     def _print_items(self, items, sep, newline, are_names=False, is_symbol=False,

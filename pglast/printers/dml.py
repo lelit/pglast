@@ -20,7 +20,10 @@ def a_array_expr(node, output):
 
 @node_printer(ast.A_Const)
 def a_const(node, output):
-    output.print_node(node.val)
+    if node.isnull:
+        output.write('NULL')
+    else:
+        output.print_node(node.val)
 
 
 class AExprKindPrinter(IntEnumPrinter):
@@ -145,7 +148,7 @@ class AExprKindPrinter(IntEnumPrinter):
             output.swrites('NOT')
         output.swrite('SIMILAR TO ')
         if ((not isinstance(node.rexpr, ast.FuncCall)
-             or node.rexpr.funcname[1].val != 'similar_to_escape')):
+             or node.rexpr.funcname[1].sval != 'similar_to_escape')):
             raise RuntimeError('Expected a FuncCall to "similar_to_escape", got %r',
                                node.rexpr)
         pattern = node.rexpr.args[0]
@@ -229,7 +232,13 @@ def alias(node, output):
 
 @node_printer(ast.BitString)
 def bitstring(node, output):
-    output.write(f"{node.val[0]}'{node.val[1:]}'")
+    value = node.bsval
+    output.write(f"{value[0]}'{value[1:]}'")
+
+
+@node_printer(ast.Boolean)
+def boolean(node, output):
+    output.write('TRUE' if node.boolval else 'FALSE')
 
 
 def _bool_expr_needs_to_be_wrapped_in_parens(node):
@@ -499,8 +508,10 @@ def copy_stmt_def_elem(node, output):
         output.print_symbol(argv)
     elif option == 'freeze':
         output.write('FREEZE')
-        if argv:
-            output.swrite(str(argv.val))
+        if isinstance(argv, ast.String):
+            output.swrite(argv.sval.upper())
+        elif isinstance(argv, ast.Integer):
+            output.swrite(str(argv.ival))
     elif option == 'delimiter':
         output.write('DELIMITER ')
         output.print_node(argv)
@@ -509,8 +520,8 @@ def copy_stmt_def_elem(node, output):
         output.print_node(argv)
     elif option == 'header':
         output.write('HEADER')
-        if argv:
-            output.swrite(str(argv.val))
+        if argv is not None:
+            output.swrite(argv.sval.upper())
     elif option == 'quote':
         output.write('QUOTE ')
         output.print_node(argv)
@@ -666,12 +677,12 @@ def fetch_stmt(node, output):
 
 @node_printer(ast.Float)
 def float(node, output):
-    output.print_node(node.val)
+    output.print_node(node.fval)
 
 
 @node_printer(ast.FuncCall)
 def func_call(node, output):
-    name = '.'.join(n.val for n in node.funcname)
+    name = '.'.join(n.sval for n in node.funcname)
     special_printer = output.get_printer_for_function(name)
     if special_printer is not None:
         special_printer(node, output)
@@ -793,7 +804,7 @@ def infer_clause(node, output):
 
 @node_printer(ast.Integer)
 def integer(node, output):
-    output.print_node(node.val)
+    output.print_node(node.ival)
 
 
 @node_printer(ast.InsertStmt)
@@ -973,11 +984,6 @@ def named_arg_expr(node, output):
     output.print_name(node.name)
     output.write(' => ')
     output.print_node(node.arg)
-
-
-@node_printer(ast.Null)
-def null(node, output):
-    output.write('NULL')
 
 
 @node_printer(ast.NullTest)
@@ -1291,7 +1297,7 @@ def select_stmt(node, output):
                 output.write('LIMIT ')
             elif node.limitOption == enums.LimitOption.LIMIT_OPTION_WITH_TIES:
                 output.write('FETCH FIRST ')
-            if isinstance(node.limitCount, ast.A_Const) and isinstance(node.limitCount.val, ast.Null):
+            if isinstance(node.limitCount, ast.A_Const) and node.limitCount.isnull:
                 output.write('ALL')
             else:
                 with output.expression(isinstance(node.limitCount, ast.A_Expr)
@@ -1401,7 +1407,7 @@ def sql_value_function(node, output):
 
 @node_printer(ast.String)
 def string(node, output, is_name=False, is_symbol=False):
-    output.print_node(node.val, is_name=is_name, is_symbol=is_symbol)
+    output.print_node(node.sval, is_name=is_name, is_symbol=is_symbol)
 
 
 @node_printer(ast.SubLink)
@@ -1483,15 +1489,15 @@ def transaction_stmt_def_elem(node, output):
     argv = node.arg.val
     if value == 'transaction_isolation':
         output.write('ISOLATION LEVEL ')
-        output.write(argv.val.upper())
+        output.write(argv.sval.upper())
     elif value == 'transaction_read_only':
         output.write('READ ')
-        if argv.val == 0:
+        if argv.ival == 0:
             output.write('WRITE')
         else:
             output.write('ONLY')
     elif value == 'transaction_deferrable':
-        if argv.val == 0:
+        if argv.ival == 0:
             output.write('NOT ')
         output.write('DEFERRABLE')
     else:  # pragma: no cover
@@ -1584,7 +1590,7 @@ def type_name(node, output):
     if node.setof:
         # FIXME: is this used only by plpgsql?
         output.writes('SETOF')
-    name = '.'.join(n.val for n in node.names)
+    name = '.'.join(n.sval for n in node.names)
     suffix = ''
     if name in system_types:
         prefix, suffix = system_types[name]
@@ -1600,7 +1606,7 @@ def type_name(node, output):
     else:
         if node.typmods:
             if name == 'pg_catalog.interval':
-                typmod = node.typmods[0].val.val
+                typmod = node.typmods[0].val.ival
                 if typmod in interval_ranges:
                     output.swrite(interval_ranges[typmod])
                 if len(node.typmods) == 2:
@@ -1614,7 +1620,7 @@ def type_name(node, output):
         if node.arrayBounds:
             for ab in node.arrayBounds:
                 output.write('[')
-                if ab.val >= 0:
+                if ab.ival >= 0:
                     output.print_node(ab)
                 output.write(']')
 
@@ -1835,7 +1841,7 @@ class XmlExprOpPrinter(IntEnumPrinter):
             xml_option_type_printer(node.xmloption, node, output)
             arg, preserve_ws = node.args
             output.print_node(arg)
-            if preserve_ws.arg.val.val == 't':
+            if preserve_ws.val.boolval:
                 # FIXME: find a way to get here
                 output.write(' PRESERVE WHITESPACE')
 
@@ -1854,7 +1860,7 @@ class XmlExprOpPrinter(IntEnumPrinter):
             xml, version, standalone = node.args
             output.print_node(xml)
             output.write(', version ')
-            if isinstance(version.val, ast.Null):
+            if version.isnull:
                 output.write('NO VALUE')
             else:
                 output.print_node(version)

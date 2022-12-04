@@ -134,7 +134,7 @@ class IntEnumPrinter:
         elif isinstance(value, self.enum):
             symbol = self.value_to_symbol.get(value)
         elif isinstance(value, ast.Integer):
-            symbol = self.value_to_symbol.get(value.val)
+            symbol = self.value_to_symbol.get(value.ival)
         else:
             symbol = value
         if symbol is None:  # pragma: no cover
@@ -155,7 +155,7 @@ def get_string_value(lst):
 
     if len(lst) != 1 or not isinstance(lst[0], ast.String):  # pragma: no cover
         raise TypeError('%r does not contain a single String node' % lst)
-    return lst[0].val
+    return lst[0].sval
 
 
 from . import ddl, dml, sfuncs  # noqa: F401,E402

@@ -93,7 +93,7 @@ class Ancestor:
         >>> first_col_path
         ROOT → 0 → stmt → targetList → 0
         >>> first_col_path[0]
-        <ResTarget val=<A_Const val=<Integer val=1>>>
+        <ResTarget val=<A_Const isnull=False val=<Integer ival=1>>>
         >>> first_col_path[1] is columns_path[0]
         True
 
@@ -143,7 +143,7 @@ class Ancestor:
         >>> range_function = tree[0].stmt.fromClause[0]
         >>> gen_series_funccall = range_function.functions[0][0]
         >>> gen_series_funccall
-        <FuncCall funcname=(<String val='generate_series'>,) ...>
+        <FuncCall funcname=(<String sval='generate_series'>,) ...>
         >>> generate_series_ancestry = VerboseVisitor.all_ancestors[6]
         >>> generate_series_ancestry@tree is gen_series_funccall
         True
@@ -417,7 +417,7 @@ class ReferencedRelations(Visitor):
 
         if node.removeType in (ObjectType.OBJECT_TABLE, ObjectType.OBJECT_VIEW):
             for obj in node.objects:
-                self.r_names.add('.'.join(maybe_double_quote_name(n.val) for n in obj))
+                self.r_names.add('.'.join(maybe_double_quote_name(n.sval) for n in obj))
 
     def visit_SelectStmt(self, ancestors, node):
         if node.withClause and node.withClause is not self.skip_with_clause:

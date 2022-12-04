@@ -64,7 +64,7 @@ WHERE foo <> 0
         with UnclosableStream() as output:
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--parse-tree'])
-            assert "'val': {'@': 'Integer', 'val': 1}" in output.getvalue()
+            assert "'val': {'@': 'Integer', 'ival': 1}" in output.getvalue()
 
     with StringIO("""\
 CREATE FUNCTION add (a integer, b integer) RETURNS integer AS $$

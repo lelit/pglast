@@ -50,7 +50,7 @@ def extract(node, output):
     """
     output.write('EXTRACT')
     with output.expression(True):
-        output.write(node.args[0].val.val.upper())
+        output.write(node.args[0].val.sval.upper())
         output.write(' FROM ')
         output.print_node(node.args[1])
 
@@ -76,7 +76,7 @@ def normalize(node, output):
         output.print_node(node.args[0])
         if len(node.args) > 1:
             output.write(', ')
-            output.write(node.args[1].val.val.upper())
+            output.write(node.args[1].val.sval.upper())
 
 
 @special_function('pg_catalog.overlaps')

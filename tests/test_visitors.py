@@ -246,7 +246,7 @@ def test_delete_action():
     class DeleteOddsInList(visitors.Visitor):
         def visit_A_Const(self, ancestors, node):
             if isinstance(node.val, ast.Integer):
-                if node.val.val % 2:
+                if node.val.ival % 2:
                     return visitors.Delete
 
     raw = parse_sql('INSERT INTO foo VALUES (1, 2, 3, 42, 43)')
@@ -286,7 +286,7 @@ def test_alter_node():
 
     class DoubleAllIntegers(visitors.Visitor):
         def visit_Integer(self, ancestors, node):
-            return ast.Integer(node.val * 2)
+            return ast.Integer(node.ival * 2)
 
     raw = parse_sql('select 21')
     DoubleAllIntegers()(raw)

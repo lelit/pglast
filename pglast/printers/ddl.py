@@ -560,7 +560,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write('ALTER COLUMN ')
         output.print_name(node.name)
         output.write(' SET STORAGE ')
-        output.write(node.def_.val)
+        output.write(node.def_.sval)
 
     def AT_SetUnLogged(self, node, output):
         output.write('SET UNLOGGED')
@@ -666,7 +666,7 @@ class AlterTableTypePrinter(IntEnumPrinter):
                     output.write('CACHE ')
                     output.print_node(elem.arg)
                 elif elem.defname == 'cycle':
-                    if elem.arg.val == 0:
+                    if not elem.arg.boolval:
                         output.write('NO ')
                     output.write('CYCLE')
                 elif elem.defname == 'increment':
@@ -694,9 +694,9 @@ class AlterTableTypePrinter(IntEnumPrinter):
                     output.print_node(elem.arg)
                 elif elem.defname == 'generated':
                     output.write('GENERATED ')
-                    if elem.arg.val == 97:
+                    if elem.arg.ival == 97:
                         output.write('ALWAYS')
-                    elif elem.arg.val == 100:
+                    elif elem.arg.ival == 100:
                         output.write('BY DEFAULT')
 
 
@@ -727,7 +727,7 @@ class AlterTSConfigTypePrinter(IntEnumPrinter):
     def print_simple_name(self, node, output):
         if isinstance(node, tuple):
             node = node[0]
-        output.write(node.val)
+        output.write(node.sval)
 
     def print_simple_list(self, nodes, output):
         first = True
@@ -1361,7 +1361,7 @@ def create_db_stmt_def_elem(node, output):
     if node.arg is not None:
         output.write(' = ')
         if isinstance(node.arg, tuple) or option in ('allow_connections', 'is_template'):
-            output.write(node.arg.val)
+            output.write(node.arg.sval)
         else:
             output.print_node(node.arg)
 
@@ -1462,7 +1462,7 @@ def create_extension_stmt(node, output):
 def create_extension_stmt_def_elem(node, output):
     option = node.defname
     if option == 'cascade':
-        if node.arg.val == 1:
+        if node.arg.boolval:
             output.write('CASCADE')
     elif option == 'old_version':
         # FIXME: find a way to get here
@@ -1637,9 +1637,9 @@ def create_function_option(node, output):
         # Choose a valid dollar-string delimiter
 
         if isinstance(node.arg, tuple):
-            code = node.arg[0].val
+            code = node.arg[0].sval
         else:
-            code = node.arg.val
+            code = node.arg.sval
         used_delimiters = set(re.findall(r"\$(\w*)(?=\$)", code))
         unique_delimiter = ''
         while unique_delimiter in used_delimiters:
@@ -1654,22 +1654,20 @@ def create_function_option(node, output):
         return
 
     if option == 'security':
-        if node.arg.val == 1:
+        if node.arg.boolval:
             output.swrite('SECURITY DEFINER')
         else:
             output.swrite('SECURITY INVOKER')
         return
 
     if option == 'strict':
-        if node.arg.val == 0:
-            output.swrite('CALLED ON NULL INPUT')
-        elif node.arg.val == 1:
-            output.swrite('RETURNS NULL ON NULL INPUT')
+        output.swrite('RETURNS NULL ON NULL INPUT' if node.arg.boolval
+                      else 'CALLED ON NULL INPUT')
         return
 
     if option == 'volatility':
         output.separator()
-        output.write(node.arg.val.upper())
+        output.write(node.arg.sval.upper())
         return
 
     if option == 'parallel':
@@ -1682,7 +1680,7 @@ def create_function_option(node, output):
         return
 
     if option == 'leakproof':
-        if node.arg.val == 0:
+        if not node.arg.boolval:
             output.swrite('NOT')
         output.swrite('LEAKPROOF')
         return
@@ -1885,13 +1883,13 @@ def create_or_alter_role_option(node, output):
         output.write('IN ROLE ')
         output.print_list(argv)
     elif option == 'superuser':
-        output.write('SUPERUSER' if argv.val == 1 else 'NOSUPERUSER')
+        output.write('SUPERUSER' if argv.boolval else 'NOSUPERUSER')
     elif option == 'createdb':
-        output.write('CREATEDB' if argv.val == 1 else 'NOCREATEDB')
+        output.write('CREATEDB' if argv.boolval else 'NOCREATEDB')
     elif option == 'createrole':
-        output.write('CREATEROLE' if argv.val == 1 else 'NOCREATEROLE')
+        output.write('CREATEROLE' if argv.boolval else 'NOCREATEROLE')
     elif option == 'canlogin':
-        output.write('LOGIN' if argv.val == 1 else 'NOLOGIN')
+        output.write('LOGIN' if argv.boolval else 'NOLOGIN')
     elif option == 'connectionlimit':
         output.write('CONNECTION LIMIT ')
         output.print_node(argv)
@@ -1905,11 +1903,11 @@ def create_or_alter_role_option(node, output):
         else:
             output.write('NULL')
     elif option == 'inherit':
-        output.write('INHERIT' if argv.val == 1 else 'NOINHERIT')
+        output.write('INHERIT' if argv.boolval else 'NOINHERIT')
     elif option == 'isreplication':
-        output.write('REPLICATION' if argv.val == 1 else 'NOREPLICATION')
+        output.write('REPLICATION' if argv.boolval else 'NOREPLICATION')
     elif option == 'bypassrls':
-        output.write('BYPASSRLS' if argv.val == 1 else 'NOBYPASSRLS')
+        output.write('BYPASSRLS' if argv.boolval else 'NOBYPASSRLS')
     else:
         raise NotImplementedError('Unhandled option: %s' % option)
 
@@ -1956,7 +1954,7 @@ def create_seq_stmt(node, output):
 def create_seq_stmt_def_elem(node, output):
     option = node.defname
     if option == 'cycle':
-        if node.arg.val == 0:
+        if not node.arg.boolval:
             output.write('NO ')
         output.write('CYCLE')
     elif option == 'increment':
@@ -2197,8 +2195,8 @@ def create_subscription_stmt_stmt_def_elem(node, output):
     output.print_name(node.defname)
     if node.arg:
         output.write(' = ')
-        if isinstance(node.arg, ast.String) and node.arg.val in ('true', 'false'):
-            output.write(node.arg.val)
+        if isinstance(node.arg, ast.String) and node.arg.sval in ('true', 'false'):
+            output.write(node.arg.sval)
         else:
             output.print_node(node.arg)
 
@@ -2299,7 +2297,7 @@ def define_stmt(node, output):
         # from -1, is the number of nodes representing the actual arguments, remaining are
         # ORDER BY
         args, count = node.args
-        count = count.val
+        count = count.ival
         output.write(' ')
         with output.expression(True):
             if count == -1:
@@ -2718,7 +2716,7 @@ def _object_with_args(node, output, unquote_name=False, symbol=False,
             for idx, name in enumerate(node.objname):
                 if idx > 0:
                     output.write('.')
-                output.write(name.val)
+                output.write(name.sval)
         else:
             output.write(get_string_value(node.objname))
     elif symbol:
@@ -2882,13 +2880,13 @@ def reindex_stmt(node, output):
 def reindex_stmt_def_elem(node, output):
     output.write(node.defname.upper())
     if node.arg:
-        output.write(' ')
-        argv = node.arg.val
+        argv = node.arg.sval
         if argv == 'false':
-            output.write('FALSE')
+            output.swrite('FALSE')
         elif argv == 'true':
             pass
         else:
+            output.write(' ')
             output.print_node(node.arg)
 
 
@@ -3143,7 +3141,8 @@ def vacuum_stmt_def_elem(node, output):
     output.write(node.defname.upper())
     if node.arg:
         output.write(' ')
-        output.write(str(node.arg.val))
+        output.write(str(node.arg.ival) if isinstance(node.arg, ast.Integer)
+                     else node.arg.sval)
 
 
 @node_printer(ast.VacuumRelation)
@@ -3163,24 +3162,21 @@ def print_transaction_mode_list(node, output):
             output.write(', ')
         if elem.defname == 'transaction_isolation':
             output.write('ISOLATION LEVEL ')
-            if elem.arg.val.val == 'read uncommitted':
+            ilevel = elem.arg.val.sval
+            if ilevel == 'read uncommitted':
                 output.write('READ UNCOMMITTED')
-            elif elem.arg.val.val == 'read committed':
+            elif ilevel == 'read committed':
                 output.write('READ COMMITTED')
-            elif elem.arg.val.val == 'repeatable read':
+            elif ilevel == 'repeatable read':
                 output.write('REPEATABLE READ')
-            elif elem.arg.val.val == 'serializable':
+            elif ilevel == 'serializable':
                 output.write('SERIALIZABLE')
         elif elem.defname == 'transaction_read_only':
-            if elem.arg.val.val == 1:
-                output.write('READ ONLY')
-            elif elem.arg.val.val == 0:
-                output.write('READ WRITE')
+            ronly = elem.arg.val.ival
+            output.write('READ ONLY' if ronly else 'READ WRITE')
         elif elem.defname == 'transaction_deferrable':
-            if elem.arg.val.val == 1:
-                output.write('DEFERRABLE')
-            elif elem.arg.val.val == 0:
-                output.write('NOT DEFERRABLE')
+            defer = elem.arg.val.ival
+            output.write('DEFERRABLE' if defer else 'NOT DEFERRABLE')
 
 
 @node_printer(ast.VariableSetStmt)

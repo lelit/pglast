@@ -3,7 +3,7 @@
 # :Created:   sab 29 mag 2021, 21:25:46
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021 Lele Gaifax
+# :Copyright: © 2021, 2022 Lele Gaifax
 #
 
 import pytest
@@ -38,7 +38,7 @@ def test_call():
           'nulls_ordering': {'#': 'SortByNulls',
                              'name': 'SORTBY_NULLS_DEFAULT',
                              'value': 0}},
-         ({'@': 'String', 'val': '&&'},)),
+         ({'@': 'String', 'sval': '&&'},)),
     )
 
 
