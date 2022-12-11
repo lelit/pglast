@@ -26,6 +26,12 @@ __author__ = 'Lele Gaifax <lele@metapensiero.it>'
 
 
 def parse_plpgsql(statement):
+    """Parse the given ``PLPGSQL`` `statement` and return its abstract syntax tree.
+
+    Note that this currently returns the raw tree, represented by plain Python structures such
+    as lists, dictionaries and scalar values.
+    """
+
     from json import loads
     from .parser import parse_plpgsql_json
 

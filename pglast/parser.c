@@ -53364,7 +53364,7 @@ static PyObject *__pyx_pf_6pglast_6parser_get_postgresql_version(CYTHON_UNUSED P
  * 
  * 
  * def parse_sql(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its abstract parse tree."
+ *     "Parse the given ``SQL`` `query` and return its abstract syntax tree."
  * 
  */
 
@@ -53376,7 +53376,7 @@ PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6pglast_6parser_2parse_sql, "Parse the given ``SQL`` `query` and return its abstract parse tree.");
+PyDoc_STRVAR(__pyx_doc_6pglast_6parser_2parse_sql, "Parse the given ``SQL`` `query` and return its abstract syntax tree.");
 static PyMethodDef __pyx_mdef_6pglast_6parser_3parse_sql = {"parse_sql", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pglast_6parser_3parse_sql, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pglast_6parser_2parse_sql};
 static PyObject *__pyx_pw_6pglast_6parser_3parse_sql(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -53837,7 +53837,7 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
  * 
  * 
  * def parse_sql(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its abstract parse tree."
+ *     "Parse the given ``SQL`` `query` and return its abstract syntax tree."
  * 
  */
 
@@ -53866,7 +53866,7 @@ static PyObject *__pyx_pf_6pglast_6parser_2parse_sql(CYTHON_UNUSED PyObject *__p
  * 
  * 
  * def parse_sql_json(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its JSON encoded parse tree."
+ *     "Parse the given ``SQL`` `query` and return its ``JSON`` encoded syntax tree."
  * 
  */
 
@@ -53878,7 +53878,7 @@ PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6pglast_6parser_4parse_sql_json, "Parse the given ``SQL`` `query` and return its JSON encoded parse tree.");
+PyDoc_STRVAR(__pyx_doc_6pglast_6parser_4parse_sql_json, "Parse the given ``SQL`` `query` and return its ``JSON`` encoded syntax tree.");
 static PyMethodDef __pyx_mdef_6pglast_6parser_5parse_sql_json = {"parse_sql_json", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pglast_6parser_5parse_sql_json, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pglast_6parser_4parse_sql_json};
 static PyObject *__pyx_pw_6pglast_6parser_5parse_sql_json(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -54313,7 +54313,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
  * 
  * 
  * def parse_sql_json(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its JSON encoded parse tree."
+ *     "Parse the given ``SQL`` `query` and return its ``JSON`` encoded syntax tree."
  * 
  */
 
@@ -54340,7 +54340,7 @@ static PyObject *__pyx_pf_6pglast_6parser_4parse_sql_json(CYTHON_UNUSED PyObject
  * 
  * 
  * def parse_sql_protobuf(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its Protobuf encoded parse tree."
+ *     "Parse the given ``SQL`` `query` and return its ``protobuf`` encoded syntax tree."
  * 
  */
 
@@ -54352,7 +54352,7 @@ PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6pglast_6parser_6parse_sql_protobuf, "Parse the given ``SQL`` `query` and return its Protobuf encoded parse tree.");
+PyDoc_STRVAR(__pyx_doc_6pglast_6parser_6parse_sql_protobuf, "Parse the given ``SQL`` `query` and return its ``protobuf`` encoded syntax tree.");
 static PyMethodDef __pyx_mdef_6pglast_6parser_7parse_sql_protobuf = {"parse_sql_protobuf", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pglast_6parser_7parse_sql_protobuf, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pglast_6parser_6parse_sql_protobuf};
 static PyObject *__pyx_pw_6pglast_6parser_7parse_sql_protobuf(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -54796,7 +54796,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
  * 
  * 
  * def parse_sql_protobuf(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its Protobuf encoded parse tree."
+ *     "Parse the given ``SQL`` `query` and return its ``protobuf`` encoded syntax tree."
  * 
  */
 
@@ -54823,7 +54823,7 @@ static PyObject *__pyx_pf_6pglast_6parser_6parse_sql_protobuf(CYTHON_UNUSED PyOb
  * 
  * 
  * def parse_plpgsql_json(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``pgpgsql`` `query` and return its JSON encoded parse tree."
+ *     "Parse the given ``pgpgsql`` `query` and return its ``JSON`` encoded syntax tree."
  * 
  */
 
@@ -54835,7 +54835,7 @@ PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6pglast_6parser_8parse_plpgsql_json, "Parse the given ``pgpgsql`` `query` and return its JSON encoded parse tree.");
+PyDoc_STRVAR(__pyx_doc_6pglast_6parser_8parse_plpgsql_json, "Parse the given ``pgpgsql`` `query` and return its ``JSON`` encoded syntax tree.");
 static PyMethodDef __pyx_mdef_6pglast_6parser_9parse_plpgsql_json = {"parse_plpgsql_json", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pglast_6parser_9parse_plpgsql_json, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pglast_6parser_8parse_plpgsql_json};
 static PyObject *__pyx_pw_6pglast_6parser_9parse_plpgsql_json(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -55270,7 +55270,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
  * 
  * 
  * def parse_plpgsql_json(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``pgpgsql`` `query` and return its JSON encoded parse tree."
+ *     "Parse the given ``pgpgsql`` `query` and return its ``JSON`` encoded syntax tree."
  * 
  */
 
@@ -56528,7 +56528,7 @@ static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_
  * 
  * 
  * def deparse_protobuf(bytes protobuf):             # <<<<<<<<<<<<<<
- *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
+ *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
 
@@ -56540,7 +56540,7 @@ PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6pglast_6parser_14deparse_protobuf, "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement.");
+PyDoc_STRVAR(__pyx_doc_6pglast_6parser_14deparse_protobuf, "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement.");
 static PyMethodDef __pyx_mdef_6pglast_6parser_15deparse_protobuf = {"deparse_protobuf", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pglast_6parser_15deparse_protobuf, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pglast_6parser_14deparse_protobuf};
 static PyObject *__pyx_pw_6pglast_6parser_15deparse_protobuf(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -56917,7 +56917,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse_protobuf(CYTHON_UNUSED PyObj
  * 
  * 
  * def deparse_protobuf(bytes protobuf):             # <<<<<<<<<<<<<<
- *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
+ *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
 
@@ -56940,8 +56940,8 @@ static PyObject *__pyx_pf_6pglast_6parser_14deparse_protobuf(CYTHON_UNUSED PyObj
  * 
  * 
  * def scan(str query):             # <<<<<<<<<<<<<<
- *     cdef PgQueryScanResult scanned
- *     cdef PgQuery__ScanResult* scan_result
+ *     "Lexify the given ``SQL`` `query` and return a list of its lexical tokens."
+ * 
  */
 
 /* Python wrapper */
@@ -56952,7 +56952,8 @@ PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_6pglast_6parser_17scan = {"scan", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pglast_6parser_17scan, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+PyDoc_STRVAR(__pyx_doc_6pglast_6parser_16scan, "Lexify the given ``SQL`` `query` and return a list of its lexical tokens.");
+static PyMethodDef __pyx_mdef_6pglast_6parser_17scan = {"scan", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pglast_6parser_17scan, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6pglast_6parser_16scan};
 static PyObject *__pyx_pw_6pglast_6parser_17scan(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
@@ -57067,7 +57068,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("scan", 0);
 
-  /* "pglast/parser.pyx":464
+  /* "pglast/parser.pyx":466
  *     cdef size_t i
  * 
  *     utf8 = query.encode('utf-8')             # <<<<<<<<<<<<<<
@@ -57076,36 +57077,36 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  */
   if (unlikely(__pyx_v_query == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "encode");
-    __PYX_ERR(1, 464, __pyx_L1_error)
+    __PYX_ERR(1, 466, __pyx_L1_error)
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 464, __pyx_L1_error)
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 466, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_utf8 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pglast/parser.pyx":465
+  /* "pglast/parser.pyx":467
  * 
  *     utf8 = query.encode('utf-8')
  *     offset_to_index = Displacements(query)             # <<<<<<<<<<<<<<
  *     cstring = utf8
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_6pglast_6parser_Displacements), __pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 465, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_6pglast_6parser_Displacements), __pyx_v_query); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 467, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_offset_to_index = ((struct __pyx_obj_6pglast_6parser_Displacements *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pglast/parser.pyx":466
+  /* "pglast/parser.pyx":468
  *     utf8 = query.encode('utf-8')
  *     offset_to_index = Displacements(query)
  *     cstring = utf8             # <<<<<<<<<<<<<<
  * 
  *     with nogil:
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 466, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_utf8); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(1, 468, __pyx_L1_error)
   __pyx_v_cstring = __pyx_t_2;
 
-  /* "pglast/parser.pyx":468
+  /* "pglast/parser.pyx":470
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -57121,7 +57122,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
       #endif
       /*try:*/ {
 
-        /* "pglast/parser.pyx":469
+        /* "pglast/parser.pyx":471
  * 
  *     with nogil:
  *         scanned = pg_query_scan(cstring)             # <<<<<<<<<<<<<<
@@ -57131,7 +57132,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_v_scanned = pg_query_scan(__pyx_v_cstring);
       }
 
-      /* "pglast/parser.pyx":468
+      /* "pglast/parser.pyx":470
  *     cstring = utf8
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -57150,7 +57151,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
       }
   }
 
-  /* "pglast/parser.pyx":471
+  /* "pglast/parser.pyx":473
  *         scanned = pg_query_scan(cstring)
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -57159,7 +57160,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  */
   /*try:*/ {
 
-    /* "pglast/parser.pyx":472
+    /* "pglast/parser.pyx":474
  * 
  *     try:
  *         if scanned.error:             # <<<<<<<<<<<<<<
@@ -57169,7 +57170,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_t_3 = (__pyx_v_scanned.error != 0);
     if (unlikely(__pyx_t_3)) {
 
-      /* "pglast/parser.pyx":473
+      /* "pglast/parser.pyx":475
  *     try:
  *         if scanned.error:
  *             message = scanned.error.message.decode('utf8')             # <<<<<<<<<<<<<<
@@ -57177,22 +57178,22 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  * 
  */
       __pyx_t_4 = __pyx_v_scanned.error->message;
-      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 473, __pyx_L7_error)
+      __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_4, 0, strlen(__pyx_t_4), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 475, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_v_message = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pglast/parser.pyx":474
+      /* "pglast/parser.pyx":476
  *         if scanned.error:
  *             message = scanned.error.message.decode('utf8')
  *             raise ParseError(message, offset_to_index(scanned.error.cursorpos-1))             # <<<<<<<<<<<<<<
  * 
  *         with nogil:
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 474, __pyx_L7_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_ParseError); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 476, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_7 = __Pyx_PyInt_From_long((__pyx_v_scanned.error->cursorpos - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 474, __pyx_L7_error)
+      __pyx_t_7 = __Pyx_PyInt_From_long((__pyx_v_scanned.error->cursorpos - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 476, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_INCREF((PyObject *)__pyx_v_offset_to_index);
       __pyx_t_8 = ((PyObject *)__pyx_v_offset_to_index); __pyx_t_9 = NULL;
@@ -57212,7 +57213,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_10, 1+__pyx_t_10);
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 474, __pyx_L7_error)
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 476, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
@@ -57233,15 +57234,15 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_10, 2+__pyx_t_10);
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 474, __pyx_L7_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 476, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __PYX_ERR(1, 474, __pyx_L7_error)
+      __PYX_ERR(1, 476, __pyx_L7_error)
 
-      /* "pglast/parser.pyx":472
+      /* "pglast/parser.pyx":474
  * 
  *     try:
  *         if scanned.error:             # <<<<<<<<<<<<<<
@@ -57250,7 +57251,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  */
     }
 
-    /* "pglast/parser.pyx":476
+    /* "pglast/parser.pyx":478
  *             raise ParseError(message, offset_to_index(scanned.error.cursorpos-1))
  * 
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -57266,7 +57267,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         #endif
         /*try:*/ {
 
-          /* "pglast/parser.pyx":477
+          /* "pglast/parser.pyx":479
  * 
  *         with nogil:
  *             scan_result = pg_query__scan_result__unpack(NULL, scanned.pbuf.len,             # <<<<<<<<<<<<<<
@@ -57276,7 +57277,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
           __pyx_v_scan_result = pg_query__scan_result__unpack(NULL, __pyx_v_scanned.pbuf.len, ((uint8_t *)__pyx_v_scanned.pbuf.data));
         }
 
-        /* "pglast/parser.pyx":476
+        /* "pglast/parser.pyx":478
  *             raise ParseError(message, offset_to_index(scanned.error.cursorpos-1))
  * 
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -57295,19 +57296,19 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         }
     }
 
-    /* "pglast/parser.pyx":480
+    /* "pglast/parser.pyx":482
  *                                                         <uint8_t*> scanned.pbuf.data)
  * 
  *         result = PyList_New(scan_result.n_tokens)             # <<<<<<<<<<<<<<
  * 
  *         for i in range(scan_result.n_tokens):
  */
-    __pyx_t_1 = PyList_New(__pyx_v_scan_result->n_tokens); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 480, __pyx_L7_error)
+    __pyx_t_1 = PyList_New(__pyx_v_scan_result->n_tokens); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 482, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_result = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pglast/parser.pyx":482
+    /* "pglast/parser.pyx":484
  *         result = PyList_New(scan_result.n_tokens)
  * 
  *         for i in range(scan_result.n_tokens):             # <<<<<<<<<<<<<<
@@ -57319,7 +57320,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
     for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
       __pyx_v_i = __pyx_t_13;
 
-      /* "pglast/parser.pyx":483
+      /* "pglast/parser.pyx":485
  * 
  *         for i in range(scan_result.n_tokens):
  *             scan_token = scan_result.tokens[i]             # <<<<<<<<<<<<<<
@@ -57328,7 +57329,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  */
       __pyx_v_scan_token = (__pyx_v_scan_result->tokens[__pyx_v_i]);
 
-      /* "pglast/parser.pyx":484
+      /* "pglast/parser.pyx":486
  *         for i in range(scan_result.n_tokens):
  *             scan_token = scan_result.tokens[i]
  *             tkind = protobuf_c_enum_descriptor_get_value(&pg_query__token__descriptor,             # <<<<<<<<<<<<<<
@@ -57337,7 +57338,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  */
       __pyx_v_tkind = protobuf_c_enum_descriptor_get_value((&pg_query__token__descriptor), __pyx_v_scan_token->token);
 
-      /* "pglast/parser.pyx":486
+      /* "pglast/parser.pyx":488
  *             tkind = protobuf_c_enum_descriptor_get_value(&pg_query__token__descriptor,
  *                                                          scan_token.token)
  *             kwkind = protobuf_c_enum_descriptor_get_value(&pg_query__keyword_kind__descriptor,             # <<<<<<<<<<<<<<
@@ -57346,16 +57347,16 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  */
       __pyx_v_kwkind = protobuf_c_enum_descriptor_get_value((&pg_query__keyword_kind__descriptor), __pyx_v_scan_token->keyword_kind);
 
-      /* "pglast/parser.pyx":489
+      /* "pglast/parser.pyx":491
  *                                                           scan_token.keyword_kind)
  * 
  *             token = Token(offset_to_index(scan_token.start), offset_to_index(scan_token.end-1),             # <<<<<<<<<<<<<<
  *                           tkind.name.decode('ascii') if tkind != NULL else "UNKNOWN",
  *                           kwkind.name.decode('ascii'))
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_Token); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 489, __pyx_L7_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_Token); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 491, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_8 = __Pyx_PyInt_From_int32_t(__pyx_v_scan_token->start); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 489, __pyx_L7_error)
+      __pyx_t_8 = __Pyx_PyInt_From_int32_t(__pyx_v_scan_token->start); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 491, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_INCREF((PyObject *)__pyx_v_offset_to_index);
       __pyx_t_7 = ((PyObject *)__pyx_v_offset_to_index); __pyx_t_9 = NULL;
@@ -57375,11 +57376,11 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_6 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_10, 1+__pyx_t_10);
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 489, __pyx_L7_error)
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 491, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
-      __pyx_t_8 = __Pyx_PyInt_From_long((__pyx_v_scan_token->end - 1)); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 489, __pyx_L7_error)
+      __pyx_t_8 = __Pyx_PyInt_From_long((__pyx_v_scan_token->end - 1)); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 491, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_INCREF((PyObject *)__pyx_v_offset_to_index);
       __pyx_t_9 = ((PyObject *)__pyx_v_offset_to_index); __pyx_t_14 = NULL;
@@ -57399,12 +57400,12 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_10, 1+__pyx_t_10);
         __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 489, __pyx_L7_error)
+        if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 491, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       }
 
-      /* "pglast/parser.pyx":490
+      /* "pglast/parser.pyx":492
  * 
  *             token = Token(offset_to_index(scan_token.start), offset_to_index(scan_token.end-1),
  *                           tkind.name.decode('ascii') if tkind != NULL else "UNKNOWN",             # <<<<<<<<<<<<<<
@@ -57413,7 +57414,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  */
       if ((__pyx_v_tkind != NULL)) {
         __pyx_t_15 = __pyx_v_tkind->name;
-        __pyx_t_8 = __Pyx_decode_c_string(__pyx_t_15, 0, strlen(__pyx_t_15), NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 490, __pyx_L7_error)
+        __pyx_t_8 = __Pyx_decode_c_string(__pyx_t_15, 0, strlen(__pyx_t_15), NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 492, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_INCREF(__pyx_t_8);
         __pyx_t_9 = __pyx_t_8;
@@ -57423,7 +57424,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_9 = __pyx_n_u_UNKNOWN;
       }
 
-      /* "pglast/parser.pyx":491
+      /* "pglast/parser.pyx":493
  *             token = Token(offset_to_index(scan_token.start), offset_to_index(scan_token.end-1),
  *                           tkind.name.decode('ascii') if tkind != NULL else "UNKNOWN",
  *                           kwkind.name.decode('ascii'))             # <<<<<<<<<<<<<<
@@ -57431,7 +57432,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  *             PyList_SET_ITEM(result, i, token)
  */
       __pyx_t_15 = __pyx_v_kwkind->name;
-      __pyx_t_8 = __Pyx_decode_c_string(__pyx_t_15, 0, strlen(__pyx_t_15), NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 491, __pyx_L7_error)
+      __pyx_t_8 = __Pyx_decode_c_string(__pyx_t_15, 0, strlen(__pyx_t_15), NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 493, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_8);
       __pyx_t_14 = NULL;
       __pyx_t_10 = 0;
@@ -57453,14 +57454,14 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 489, __pyx_L7_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 491, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
       __Pyx_XDECREF_SET(__pyx_v_token, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "pglast/parser.pyx":492
+      /* "pglast/parser.pyx":494
  *                           tkind.name.decode('ascii') if tkind != NULL else "UNKNOWN",
  *                           kwkind.name.decode('ascii'))
  *             Py_INCREF(token)             # <<<<<<<<<<<<<<
@@ -57469,7 +57470,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  */
       Py_INCREF(__pyx_v_token);
 
-      /* "pglast/parser.pyx":493
+      /* "pglast/parser.pyx":495
  *                           kwkind.name.decode('ascii'))
  *             Py_INCREF(token)
  *             PyList_SET_ITEM(result, i, token)             # <<<<<<<<<<<<<<
@@ -57479,7 +57480,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
       PyList_SET_ITEM(__pyx_v_result, __pyx_v_i, __pyx_v_token);
     }
 
-    /* "pglast/parser.pyx":495
+    /* "pglast/parser.pyx":497
  *             PyList_SET_ITEM(result, i, token)
  * 
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -57495,7 +57496,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
         #endif
         /*try:*/ {
 
-          /* "pglast/parser.pyx":496
+          /* "pglast/parser.pyx":498
  * 
  *         with nogil:
  *             pg_query__scan_result__free_unpacked(scan_result, NULL)             # <<<<<<<<<<<<<<
@@ -57505,7 +57506,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
           pg_query__scan_result__free_unpacked(__pyx_v_scan_result, NULL);
         }
 
-        /* "pglast/parser.pyx":495
+        /* "pglast/parser.pyx":497
  *             PyList_SET_ITEM(result, i, token)
  * 
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -57525,7 +57526,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
     }
   }
 
-  /* "pglast/parser.pyx":498
+  /* "pglast/parser.pyx":500
  *             pg_query__scan_result__free_unpacked(scan_result, NULL)
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -57543,7 +57544,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
           #endif
           /*try:*/ {
 
-            /* "pglast/parser.pyx":499
+            /* "pglast/parser.pyx":501
  *     finally:
  *         with nogil:
  *             pg_query_free_scan_result(scanned)             # <<<<<<<<<<<<<<
@@ -57553,7 +57554,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
             pg_query_free_scan_result(__pyx_v_scanned);
           }
 
-          /* "pglast/parser.pyx":498
+          /* "pglast/parser.pyx":500
  *             pg_query__scan_result__free_unpacked(scan_result, NULL)
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -57604,7 +57605,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
             #endif
             /*try:*/ {
 
-              /* "pglast/parser.pyx":499
+              /* "pglast/parser.pyx":501
  *     finally:
  *         with nogil:
  *             pg_query_free_scan_result(scanned)             # <<<<<<<<<<<<<<
@@ -57614,7 +57615,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
               pg_query_free_scan_result(__pyx_v_scanned);
             }
 
-            /* "pglast/parser.pyx":498
+            /* "pglast/parser.pyx":500
  *             pg_query__scan_result__free_unpacked(scan_result, NULL)
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -57650,7 +57651,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_L8:;
   }
 
-  /* "pglast/parser.pyx":501
+  /* "pglast/parser.pyx":503
  *             pg_query_free_scan_result(scanned)
  * 
  *     return result             # <<<<<<<<<<<<<<
@@ -57664,8 +57665,8 @@ static PyObject *__pyx_pf_6pglast_6parser_16scan(CYTHON_UNUSED PyObject *__pyx_s
  * 
  * 
  * def scan(str query):             # <<<<<<<<<<<<<<
- *     cdef PgQueryScanResult scanned
- *     cdef PgQuery__ScanResult* scan_result
+ *     "Lexify the given ``SQL`` `query` and return a list of its lexical tokens."
+ * 
  */
 
   /* function exit code */
@@ -59188,7 +59189,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  * def parse_sql(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its abstract parse tree."
+ *     "Parse the given ``SQL`` `query` and return its abstract syntax tree."
  * 
  */
   __pyx_tuple__13 = PyTuple_Pack(10, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_mctx, __pyx_n_s_i, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_offset_to_index, __pyx_n_s_stmts, __pyx_n_s_item, __pyx_n_s_message); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(1, 247, __pyx_L1_error)
@@ -59200,7 +59201,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  * def parse_sql_json(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its JSON encoded parse tree."
+ *     "Parse the given ``SQL`` `query` and return its ``JSON`` encoded syntax tree."
  * 
  */
   __pyx_tuple__15 = PyTuple_Pack(6, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_offset_to_index); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(1, 281, __pyx_L1_error)
@@ -59212,7 +59213,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  * def parse_sql_protobuf(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its Protobuf encoded parse tree."
+ *     "Parse the given ``SQL`` `query` and return its ``protobuf`` encoded syntax tree."
  * 
  */
   __pyx_tuple__17 = PyTuple_Pack(7, __pyx_n_s_query, __pyx_n_s_parsed, __pyx_n_s_cstring, __pyx_n_s_utf8, __pyx_n_s_message, __pyx_n_s_cursorpos, __pyx_n_s_offset_to_index); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(1, 305, __pyx_L1_error)
@@ -59224,7 +59225,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  * def parse_plpgsql_json(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``pgpgsql`` `query` and return its JSON encoded parse tree."
+ *     "Parse the given ``pgpgsql`` `query` and return its ``JSON`` encoded syntax tree."
  * 
  */
   __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pglast_parser_pyx, __pyx_n_s_parse_plpgsql_json, 330, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 330, __pyx_L1_error)
@@ -59257,7 +59258,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  * def deparse_protobuf(bytes protobuf):             # <<<<<<<<<<<<<<
- *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
+ *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
   __pyx_tuple__24 = PyTuple_Pack(4, __pyx_n_s_protobuf, __pyx_n_s_tree, __pyx_n_s_deparsed, __pyx_n_s_message); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(1, 431, __pyx_L1_error)
@@ -59283,8 +59284,8 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  * def scan(str query):             # <<<<<<<<<<<<<<
- *     cdef PgQueryScanResult scanned
- *     cdef PgQuery__ScanResult* scan_result
+ *     "Lexify the given ``SQL`` `query` and return a list of its lexical tokens."
+ * 
  */
   __pyx_tuple__28 = PyTuple_Pack(13, __pyx_n_s_query, __pyx_n_s_scanned, __pyx_n_s_scan_result, __pyx_n_s_scan_token, __pyx_n_s_tkind, __pyx_n_s_kwkind, __pyx_n_s_cstring, __pyx_n_s_i, __pyx_n_s_utf8, __pyx_n_s_offset_to_index, __pyx_n_s_message, __pyx_n_s_result, __pyx_n_s_token); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(1, 455, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__28);
@@ -60379,7 +60380,7 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  * def parse_sql(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its abstract parse tree."
+ *     "Parse the given ``SQL`` `query` and return its abstract syntax tree."
  * 
  */
   __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_3parse_sql, 0, __pyx_n_s_parse_sql, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 247, __pyx_L1_error)
@@ -60391,7 +60392,7 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  * def parse_sql_json(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its JSON encoded parse tree."
+ *     "Parse the given ``SQL`` `query` and return its ``JSON`` encoded syntax tree."
  * 
  */
   __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_5parse_sql_json, 0, __pyx_n_s_parse_sql_json, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 281, __pyx_L1_error)
@@ -60403,7 +60404,7 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  * def parse_sql_protobuf(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``SQL`` `query` and return its Protobuf encoded parse tree."
+ *     "Parse the given ``SQL`` `query` and return its ``protobuf`` encoded syntax tree."
  * 
  */
   __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_7parse_sql_protobuf, 0, __pyx_n_s_parse_sql_protobuf, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 305, __pyx_L1_error)
@@ -60415,7 +60416,7 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  * def parse_plpgsql_json(str query):             # <<<<<<<<<<<<<<
- *     "Parse the given ``pgpgsql`` `query` and return its JSON encoded parse tree."
+ *     "Parse the given ``pgpgsql`` `query` and return its ``JSON`` encoded syntax tree."
  * 
  */
   __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_9parse_plpgsql_json, 0, __pyx_n_s_parse_plpgsql_json, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 330, __pyx_L1_error)
@@ -60465,7 +60466,7 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  * def deparse_protobuf(bytes protobuf):             # <<<<<<<<<<<<<<
- *     "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
+ *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
  * 
  */
   __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_15deparse_protobuf, 0, __pyx_n_s_deparse_protobuf, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 431, __pyx_L1_error)
@@ -60492,8 +60493,8 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  * def scan(str query):             # <<<<<<<<<<<<<<
- *     cdef PgQueryScanResult scanned
- *     cdef PgQuery__ScanResult* scan_result
+ *     "Lexify the given ``SQL`` `query` and return a list of its lexical tokens."
+ * 
  */
   __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_17scan, 0, __pyx_n_s_scan, NULL, __pyx_n_s_pglast_parser, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 455, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
