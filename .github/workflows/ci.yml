@@ -55,10 +55,10 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-10.15]
+        os: [ubuntu-22.04, macos-12]
         arch: [auto]
         include:
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             arch: aarch64
     steps:
       - name: Checkout sources
@@ -73,7 +73,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
+          python-version: '3.10'
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.11.3
