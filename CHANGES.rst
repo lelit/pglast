@@ -8,6 +8,14 @@ Changes
 Version 4
 #########
 
+4.0 (2022-12-12)
+~~~~~~~~~~~~~~~~
+
+- Update libpg_query to final `14-3.0.0`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/14-3.0.0
+
+
 4.0.dev0 (2022-11-24)
 ~~~~~~~~~~~~~~~~~~~~~
 
