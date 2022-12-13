@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:12:49 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
 #
 
 #cython: language_level=3
@@ -245,7 +245,7 @@ def get_postgresql_version():
 
 
 def parse_sql(str query):
-    "Parse the given ``SQL`` `query` and return its abstract parse tree."
+    "Parse the given ``SQL`` `query` and return its abstract syntax tree."
 
     cdef PgQueryInternalParsetreeAndError parsed
     cdef MemoryContext mctx
@@ -279,7 +279,7 @@ def parse_sql(str query):
 
 
 def parse_sql_json(str query):
-    "Parse the given ``SQL`` `query` and return its JSON encoded parse tree."
+    "Parse the given ``SQL`` `query` and return its ``JSON`` encoded syntax tree."
 
     cdef PgQueryParseResult parsed
     cdef const char *cstring
@@ -303,7 +303,7 @@ def parse_sql_json(str query):
 
 
 def parse_sql_protobuf(str query):
-    "Parse the given ``SQL`` `query` and return its Protobuf encoded parse tree."
+    "Parse the given ``SQL`` `query` and return its ``protobuf`` encoded syntax tree."
 
     cdef PgQueryProtobufParseResult parsed
     cdef const char *cstring
@@ -328,7 +328,7 @@ def parse_sql_protobuf(str query):
 
 
 def parse_plpgsql_json(str query):
-    "Parse the given ``pgpgsql`` `query` and return its JSON encoded parse tree."
+    "Parse the given ``pgpgsql`` `query` and return its ``JSON`` encoded syntax tree."
 
     cdef PgQueryPlpgsqlParseResult parsed
     cdef const char *cstring
@@ -429,7 +429,7 @@ def split(str stmts, bint with_parser=True, bint only_slices=False):
 
 
 def deparse_protobuf(bytes protobuf):
-    "Convert the `protobuf` serialized parse tree into an equivalent ``SQL`` statement."
+    "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
 
     cdef PgQueryProtobuf tree
     cdef PgQueryDeparseResult deparsed
@@ -453,6 +453,8 @@ Token = namedtuple('Token', ('start', 'end', 'name', 'kind'))
 
 
 def scan(str query):
+    "Lexify the given ``SQL`` `query` and return a list of its lexical tokens."
+
     cdef PgQueryScanResult scanned
     cdef PgQuery__ScanResult* scan_result
     cdef PgQuery__ScanToken* scan_token

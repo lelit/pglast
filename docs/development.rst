@@ -128,15 +128,18 @@ __ https://github.com/lelit/pglast/pull/77
 Version 4
 #########
 
-The ultimate goal of this version is targeting ``PostgreSQL 14``, when ``libpg_query`` `will
-support`__ that.
+The ultimate goal of this version is targeting ``PostgreSQL 14``, exploiting the combined
+effort of `Tessa Lisanti`__ and `Wolfgang Walther`__ who upgraded ``libpg_query`` to the latest
+PG 14 parser that eventually has been finalized in the `14-latest`__ branch.
 
-__ https://github.com/pganalyze/libpg_query/issues/127
+__ https://github.com/tlisanti/libpg_query/tree/14-latest
+__ https://github.com/wolfgangwalther/libpg_query/tree/pg-14
+__ https://github.com/pganalyze/libpg_query/tree/14-latest
 
-Waiting for that, I simplified the code getting rid of the `wrapper classes`__. They were
-required in `version 1`_, when ``pglast`` consumed the ``JSON``-serialized parse tree emitted
-by ``libpg_query`` exposing those structures as generic ``Node``\ s distinguishable by their
-*tag*.
+While I was waiting for that to happen, I simplified the code getting rid of the `wrapper
+classes`__. They were required in `version 1`_, when ``pglast`` consumed the
+``JSON``-serialized parse tree emitted by ``libpg_query`` exposing those structures as generic
+``Node``\ s distinguishable by their *tag*.
 
 `Version 3`_ retained them, although rewritten on top of the new concrete AST parser nodes, to
 make them aware of their ancestry, notion required by some printers to choose different

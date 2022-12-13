@@ -18,7 +18,7 @@ except ModuleNotFoundError:  # pragma: no cover
 
 
 # This is injected automatically at release time
-__version__ = 'v4.0.dev0'
+__version__ = 'v4.0'
 "Package's version."
 
 __author__ = 'Lele Gaifax <lele@metapensiero.it>'
@@ -26,6 +26,12 @@ __author__ = 'Lele Gaifax <lele@metapensiero.it>'
 
 
 def parse_plpgsql(statement):
+    """Parse the given ``PLPGSQL`` `statement` and return its abstract syntax tree.
+
+    Note that this currently returns the raw tree, represented by plain Python structures such
+    as lists, dictionaries and scalar values.
+    """
+
     from json import loads
     from .parser import parse_plpgsql_json
 

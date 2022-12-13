@@ -53,16 +53,12 @@ jobs:
     name: Build wheels on ${{ matrix.arch }} for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
-    # TODO: remove this whenever v4 enters beta; it basically disable the heavy job (in
-    # particular due to aarch64 build), pointless for now
-    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
-
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-10.15]
+        os: [ubuntu-22.04, macos-12]
         arch: [auto]
         include:
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             arch: aarch64
     steps:
       - name: Checkout sources
@@ -72,15 +68,15 @@ jobs:
 
       - name: Set up QEMU
         if: ${{ matrix.arch == 'aarch64' }}
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
 
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
+          python-version: '3.10'
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.11.2
+        uses: pypa/cibuildwheel@v2.11.3
         env:
           CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
@@ -89,7 +85,7 @@ jobs:
           CIBW_PRERELEASE_PYTHONS: True
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
 
