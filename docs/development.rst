@@ -152,6 +152,14 @@ receive one concrete AST node.
 __ https://github.com/lelit/pglast/issues/80
 
 
+Version 5
+#########
+
+This version tracks the *still in development* `15-latest-dev`__ branch of ``libpg_query``.
+
+__ https://github.com/pganalyze/libpg_query/tree/15-latest-dev
+
+
 .. toctree::
    :maxdepth: 2
 

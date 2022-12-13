@@ -5,6 +5,19 @@
 Changes
 -------
 
+Version 5
+#########
+
+5.0.dev0 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
+~~~~~~~~~~~~~~~~~~~~
+
+- Target PostgreSQL 15
+
+
 Version 4
 #########
 
