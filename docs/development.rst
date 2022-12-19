@@ -155,10 +155,12 @@ __ https://github.com/lelit/pglast/issues/80
 Version 5
 #########
 
-This version tracks the *still in development* `15-latest-dev`__ branch of ``libpg_query``.
+This version tracks the `15-latest`__ branch of ``libpg_query`` and thus targets ``PostgreSQL
+15``: other than handling new statements (`MERGE`__ to mention just one) and revised
+syntaxes,_there are currently no other significant differences from `Version 4`_.
 
-__ https://github.com/pganalyze/libpg_query/tree/15-latest-dev
-
+__ https://github.com/pganalyze/libpg_query/tree/15-latest
+__ https://www.postgresql.org/docs/15/sql-merge.html
 
 .. toctree::
    :maxdepth: 2

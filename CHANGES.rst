@@ -11,11 +11,18 @@ Version 5
 5.0.dev0 (unreleased)
 ~~~~~~~~~~~~~~~~~~~~~
 
+- No visible changes with respect to v4, apart from the support for new/revised syntaxes of
+  `PostgreSQL 15`__
+
+  __ https://www.postgresql.org/docs/15/release-15.html
+
 ~~~~~~~~~~~~~~~~~~~~
 **Breaking changes**
 ~~~~~~~~~~~~~~~~~~~~
 
-- Target PostgreSQL 15
+- Target PostgreSQL 15, thanks to libpg_query `15-4.0.0`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/15-4.0.0
 
 
 Version 4
