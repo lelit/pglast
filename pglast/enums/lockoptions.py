@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from lockoptions.h @ 15-latest-dev-0-g901ad3a
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from lockoptions.h @ 15-4.0.0-0-g1ada550
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2022 Lele Gaifax
