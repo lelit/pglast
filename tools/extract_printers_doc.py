@@ -7,7 +7,6 @@
 #
 
 from datetime import date
-from ast import literal_eval
 from os.path import basename, splitext
 from re import match
 import subprocess
