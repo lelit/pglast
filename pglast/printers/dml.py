@@ -1153,7 +1153,7 @@ def range_table_sample(node, output):
     with output.expression(True):
         output.print_list(node.args, ' ')
     if node.repeatable:
-        output.write('REPEATABLE ')
+        output.write(' REPEATABLE ')
         with output.expression(True):
             output.print_node(node.repeatable)
 

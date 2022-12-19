@@ -8,6 +8,15 @@ Changes
 Version 4
 #########
 
+4.1 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix serialization glitches introduced by “Avoid overly abundancy of parentheses in
+  expressions” (to be precise, by this__ commit)
+
+  __ https://github.com/lelit/pglast/commit/6cfe75eea80f9c9bec4ba467e7ec1ec0796020de
+
+
 4.0 (2022-12-12)
 ~~~~~~~~~~~~~~~~
 
