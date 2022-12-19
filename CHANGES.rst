@@ -8,7 +8,7 @@ Changes
 Version 5
 #########
 
-5.0.dev0 (unreleased)
+5.0.dev0 (2022-12-19)
 ~~~~~~~~~~~~~~~~~~~~~
 
 - No visible changes with respect to v4, apart from the support for new/revised syntaxes of
