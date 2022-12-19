@@ -8,7 +8,7 @@ Changes
 Version 4
 #########
 
-4.1 (unreleased)
+4.1 (2022-12-19)
 ~~~~~~~~~~~~~~~~
 
 - Fix serialization glitches introduced by “Avoid overly abundancy of parentheses in
