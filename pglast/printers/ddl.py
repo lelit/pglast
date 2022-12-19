@@ -710,7 +710,8 @@ def alter_table_cmd(node, output):
         output.swrite('CASCADE')
 
 
-@node_printer((ast.AlterTableCmd, ast.CreatePublicationStmt, ast.CreateStmt, ast.IndexStmt, ast.IntoClause), ast.DefElem)
+@node_printer((ast.AlterTableCmd, ast.CreatePublicationStmt, ast.CreateStmt, ast.IndexStmt,
+               ast.IntoClause), ast.DefElem)
 def alter_table_cmd_def_elem(node, output):
     if node.defnamespace:
         output.print_name(node.defnamespace)

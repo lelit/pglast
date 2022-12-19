@@ -78,14 +78,16 @@ def extract_printers(source):
         content = f.read()
 
     nps = []
-    for line in content.splitlines():
+    lines = iter(content.splitlines())
+    for line in lines:
         if line.startswith('@node_printer('):
+            while not line.endswith(')'):
+                line += next(lines)
             m = match(r'@node_printer\((.*,\s)?([\w._]+)\)', line)
+            assert m is not None, f"Could not parse @node_printer(): {line}"
             scope = m.group(1)
             if scope:
                 scope = scope.lstrip('(').rstrip('), ').split(',')
-                if isinstance(scope, str):
-                    scope = (scope,)
                 scope = tuple(s.strip() for s in scope)
             node = m.group(2)
             nps.append((scope, node))
