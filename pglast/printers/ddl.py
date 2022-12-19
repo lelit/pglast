@@ -268,7 +268,7 @@ def alter_op_family_stmt(node, output):
     output.print_name(node.amname)
     output.newline()
     output.space(2)
-    output.write('DROP ' if node.isDrop else ' ADD ')
+    output.write('DROP ' if node.isDrop else 'ADD ')
     output.print_list(node.items)
 
 
@@ -1443,12 +1443,12 @@ def create_cast_stmt(node, output):
         output.write(' AS ')
         output.print_node(node.targettype)
     if node.func:
-        output.write('WITH FUNCTION ')
+        output.write(' WITH FUNCTION ')
         output.print_node(node.func)
     elif node.inout:
-        output.write('WITH INOUT')
+        output.write(' WITH INOUT')
     else:
-        output.write('WITHOUT FUNCTION')
+        output.write(' WITHOUT FUNCTION')
     if node.context == enums.CoercionContext.COERCION_ASSIGNMENT:
         output.write(' AS ASSIGNMENT')
     elif node.context == enums.CoercionContext.COERCION_IMPLICIT:
@@ -1800,9 +1800,10 @@ def create_opclass_item(node, output):
         output.write('FUNCTION ')
         output.write('%d ' % node.number)
         if node.class_args:
-            output.write(' ')
             with output.expression(True):
                 output.print_list(node.class_args, standalone_items=False)
+            if node.name:
+                output.space()
         if node.name:
             _object_with_args(node.name, output, skip_empty_args=True)
     elif node.itemtype == enums.OPCLASS_ITEM_STORAGETYPE:
@@ -2880,7 +2881,7 @@ def partition_elem(node, output):
         with output.expression(True):
             output.print_node(node.expr)
     if node.collation:
-        output.write('COLLATE ')
+        output.swrite('COLLATE ')
         output.print_list(node.collation, are_names=True)
     if node.opclass:
         output.print_name(node.opclass)
@@ -3237,6 +3238,7 @@ def vacuum_stmt(node, output):
         with output.expression(True):
             output.print_list(node.options, ',')
     if node.rels:
+        output.space()
         output.print_list(node.rels, ',')
 
 
