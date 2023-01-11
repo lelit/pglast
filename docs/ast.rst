@@ -2,7 +2,7 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2021-2022 Lele Gaifax
+.. :Copyright: © 2021-2023 Lele Gaifax
 ..
 
 .. _pglast.ast:
