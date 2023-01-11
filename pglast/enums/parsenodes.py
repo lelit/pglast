@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 14-latest-0-g6ebd8d8
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 14-3.0.0-0-g397cbb9
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2022 Lele Gaifax
+# :Copyright: © 2017-2023 Lele Gaifax
 #
 
 from enum import Enum, IntEnum, IntFlag, auto
