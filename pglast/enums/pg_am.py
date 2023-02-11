@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_am.h @ 15-4.1.0-0-g346b34d
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_am.h @ 15-4.2.0-0-gfc5775e
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2023 Lele Gaifax
