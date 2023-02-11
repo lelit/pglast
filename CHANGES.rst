@@ -8,6 +8,27 @@ Changes
 Version 5
 #########
 
+5.0.dev1 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+- Update libpg_query to `15-4.2.0`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/15-4.2.0
+
+~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
+~~~~~~~~~~~~~~~~~~~~
+
+- Change the type of the ``ast.Float`` value from ``Decimal`` to ``str``
+
+  Using a ``Decimal`` implies potential differences in the representation of floating numbers,
+  and already caused issues (`#91`__ and `#100`__) in the past, making it impossible to render,
+  say, ``SELECT 0.0e1``, due to the fact that ``Decimal('0.0e1')`` resolves to
+  ``Decimal('0')``.
+
+  __ https://github.com/lelit/pglast/issues/91
+  __ https://github.com/lelit/pglast/issues/100
+
 5.0.dev0 (2022-12-19)
 ~~~~~~~~~~~~~~~~~~~~~
 
