@@ -3,7 +3,7 @@
 # :Created:   sab 29 mag 2021, 21:25:46
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022 Lele Gaifax
+# :Copyright: © 2021, 2022, 2023 Lele Gaifax
 #
 
 import pytest
@@ -83,6 +83,7 @@ def test_setattr():
     raw.stmt.argType = {'@': 'TypeName'}
     raw.stmt = ast.CreateForeignTableStmt()
     raw.stmt.base = {'@': 'CreateStmt'}
+
 
 def test_issue_97():
     ast.SubLink({
