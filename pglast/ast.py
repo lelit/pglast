@@ -361,7 +361,6 @@ class AlterCollationStmt(Node):
     __slots__ = {'collname': 'List*'}  # noqa: E501
 
     def __init__(self, collname=None):  # pragma: no cover  # noqa: E501
-
         if ((collname is not None
              and isinstance(collname, dict)
              and '@' in collname)):
@@ -374,7 +373,6 @@ class AlterDatabaseRefreshCollStmt(Node):
     __slots__ = {'dbname': 'char*'}  # noqa: E501
 
     def __init__(self, dbname=None):  # pragma: no cover  # noqa: E501
-
         if ((dbname is not None
              and isinstance(dbname, dict)
              and '@' in dbname)):
@@ -747,7 +745,6 @@ class AlterSystemStmt(Node):
     __slots__ = {'setstmt': 'VariableSetStmt*'}  # noqa: E501
 
     def __init__(self, setstmt=None):  # pragma: no cover  # noqa: E501
-
         if ((setstmt is not None
              and isinstance(setstmt, dict)
              and '@' in setstmt)):
@@ -890,7 +887,6 @@ class AlternativeSubPlan(Expr):
     __slots__ = {'subplans': 'List*'}  # noqa: E501
 
     def __init__(self, subplans=None):  # pragma: no cover  # noqa: E501
-
         if ((subplans is not None
              and isinstance(subplans, dict)
              and '@' in subplans)):
@@ -937,7 +933,6 @@ class BitString(Node):
     __slots__ = {'bsval': 'char*'}  # noqa: E501
 
     def __init__(self, bsval=None):  # pragma: no cover  # noqa: E501
-
         if ((bsval is not None
              and isinstance(bsval, dict)
              and '@' in bsval)):
@@ -965,7 +960,6 @@ class Boolean(Node):
     __slots__ = {'boolval': 'bool'}  # noqa: E501
 
     def __init__(self, boolval=None):  # pragma: no cover  # noqa: E501
-
         if ((boolval is not None
              and isinstance(boolval, dict)
              and '@' in boolval)):
@@ -1028,7 +1022,6 @@ class CallContext(Node):
     __slots__ = {'atomic': 'bool'}  # noqa: E501
 
     def __init__(self, atomic=None):  # pragma: no cover  # noqa: E501
-
         if ((atomic is not None
              and isinstance(atomic, dict)
              and '@' in atomic)):
@@ -1072,7 +1065,6 @@ class CaseTestExpr(Expr):
     __slots__ = {'typeMod': 'int32'}  # noqa: E501
 
     def __init__(self, typeMod=None):  # pragma: no cover  # noqa: E501
-
         if ((typeMod is not None
              and isinstance(typeMod, dict)
              and '@' in typeMod)):
@@ -1107,7 +1099,6 @@ class ClosePortalStmt(Node):
     __slots__ = {'portalname': 'char*'}  # noqa: E501
 
     def __init__(self, portalname=None):  # pragma: no cover  # noqa: E501
-
         if ((portalname is not None
              and isinstance(portalname, dict)
              and '@' in portalname)):
@@ -1938,7 +1929,6 @@ class DeallocateStmt(Node):
     __slots__ = {'name': 'char*'}  # noqa: E501
 
     def __init__(self, name=None):  # pragma: no cover  # noqa: E501
-
         if ((name is not None
              and isinstance(name, dict)
              and '@' in name)):
@@ -2019,7 +2009,6 @@ class DiscardStmt(Node):
     __slots__ = {'target': 'DiscardMode'}  # noqa: E501
 
     def __init__(self, target=None):  # pragma: no cover  # noqa: E501
-
         if ((target is not None
              and isinstance(target, dict)
              and '@' in target)):
@@ -2032,7 +2021,6 @@ class DoStmt(Node):
     __slots__ = {'args': 'List*'}  # noqa: E501
 
     def __init__(self, args=None):  # pragma: no cover  # noqa: E501
-
         if ((args is not None
              and isinstance(args, dict)
              and '@' in args)):
@@ -2223,7 +2211,6 @@ class Float(Node):
     __slots__ = {'fval': 'char*'}  # noqa: E501
 
     def __init__(self, fval=None):  # pragma: no cover  # noqa: E501
-
         if ((fval is not None
              and isinstance(fval, dict)
              and '@' in fval)):
@@ -2469,7 +2456,6 @@ class InferenceElem(Expr):
     __slots__ = {'expr': 'Node*'}  # noqa: E501
 
     def __init__(self, expr=None):  # pragma: no cover  # noqa: E501
-
         if ((expr is not None
              and isinstance(expr, dict)
              and '@' in expr)):
@@ -2516,7 +2502,6 @@ class Integer(Node):
     __slots__ = {'ival': 'long'}  # noqa: E501
 
     def __init__(self, ival=None):  # pragma: no cover  # noqa: E501
-
         if ((ival is not None
              and isinstance(ival, dict)
              and '@' in ival)):
@@ -2570,7 +2555,6 @@ class ListenStmt(Node):
     __slots__ = {'conditionname': 'char*'}  # noqa: E501
 
     def __init__(self, conditionname=None):  # pragma: no cover  # noqa: E501
-
         if ((conditionname is not None
              and isinstance(conditionname, dict)
              and '@' in conditionname)):
@@ -2583,7 +2567,6 @@ class LoadStmt(Node):
     __slots__ = {'filename': 'char*'}  # noqa: E501
 
     def __init__(self, filename=None):  # pragma: no cover  # noqa: E501
-
         if ((filename is not None
              and isinstance(filename, dict)
              and '@' in filename)):
@@ -3204,7 +3187,6 @@ class RangeTblRef(Node):
     __slots__ = {'rtindex': 'int'}  # noqa: E501
 
     def __init__(self, rtindex=None):  # pragma: no cover  # noqa: E501
-
         if ((rtindex is not None
              and isinstance(rtindex, dict)
              and '@' in rtindex)):
@@ -3364,7 +3346,6 @@ class ReturnStmt(Node):
     __slots__ = {'returnval': 'Node*'}  # noqa: E501
 
     def __init__(self, returnval=None):  # pragma: no cover  # noqa: E501
-
         if ((returnval is not None
              and isinstance(returnval, dict)
              and '@' in returnval)):
@@ -3621,7 +3602,6 @@ class String(Node):
     __slots__ = {'sval': 'char*'}  # noqa: E501
 
     def __init__(self, sval=None):  # pragma: no cover  # noqa: E501
-
         if ((sval is not None
              and isinstance(sval, dict)
              and '@' in sval)):
@@ -3847,7 +3827,6 @@ class UnlistenStmt(Node):
     __slots__ = {'conditionname': 'char*'}  # noqa: E501
 
     def __init__(self, conditionname=None):  # pragma: no cover  # noqa: E501
-
         if ((conditionname is not None
              and isinstance(conditionname, dict)
              and '@' in conditionname)):
@@ -3942,7 +3921,6 @@ class VariableShowStmt(Node):
     __slots__ = {'name': 'char*'}  # noqa: E501
 
     def __init__(self, name=None):  # pragma: no cover  # noqa: E501
-
         if ((name is not None
              and isinstance(name, dict)
              and '@' in name)):
