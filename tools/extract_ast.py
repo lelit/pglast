@@ -3,7 +3,7 @@
 # :Created:   sab 27 feb 2021, 19:47:11
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022 Lele Gaifax
+# :Copyright: © 2021, 2022, 2023 Lele Gaifax
 #
 
 from datetime import date
@@ -238,8 +238,6 @@ AST_PYX_HEADER = f"""\
 from cpython.ref cimport Py_INCREF
 from cpython.tuple cimport PyTuple_New, PyTuple_SET_ITEM
 
-from decimal import Decimal
-
 from pglast import ast, enums
 from pglast cimport structs
 
@@ -256,14 +254,6 @@ cdef _pg_bitmapset_to_set(const structs.Bitmapset* bms):
     else:
         result = None
     return result
-
-
-cdef _pg_str_to_decimal(const char* cstr):
-    # Add a trailing zero to truncated floats like "2.", see issues #91 and #100
-    cdef s = cstr.decode("utf-8")
-    if s.endswith('.'):
-        s += '0'
-    return ast.Float(Decimal(s))
 
 
 cdef _pg_list_to_tuple(const structs.List* lst, offset_to_index):
@@ -483,7 +473,7 @@ def emit_valunion_attr(name, ctype, output):
     elif data.{name}.ival.type == structs.T_Integer:
         v_{name} = ast.Integer(data.{name}.ival.ival)
     elif data.{name}.fval.type == structs.T_Float:
-        v_{name} = _pg_str_to_decimal(data.{name}.fval.fval)
+        v_{name} = ast.Float(data.{name}.fval.fval.decode("utf-8"))
     elif data.{name}.bsval.type == structs.T_BitString:
         v_{name} = ast.BitString(data.{name}.bsval.bsval.decode("utf-8"))
     elif data.{name}.sval.type == structs.T_String:
@@ -935,8 +925,8 @@ def _fixup_attribute_types_in_slots():
                                          f' expected a single char, got {value!r}')
                     return value
             elif cls is Float and ctype == 'char*':
-                ptype = (str, float, Decimal)
-                adaptor = Decimal
+                ptype = (str, int, float, Decimal)
+                adaptor = str
             elif ctype == 'char*':
                 ptype = str
             elif ctype in ('Expr*', 'Node*'):

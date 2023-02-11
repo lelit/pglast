@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 15-4.1.0-0-g346b34d
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 15-4.2.0-0-gfc5775e
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2023 Lele Gaifax
@@ -9,8 +9,6 @@
 
 from cpython.ref cimport Py_INCREF
 from cpython.tuple cimport PyTuple_New, PyTuple_SET_ITEM
-
-from decimal import Decimal
 
 from pglast import ast, enums
 from pglast cimport structs
@@ -28,14 +26,6 @@ cdef _pg_bitmapset_to_set(const structs.Bitmapset* bms):
     else:
         result = None
     return result
-
-
-cdef _pg_str_to_decimal(const char* cstr):
-    # Add a trailing zero to truncated floats like "2.", see issues #91 and #100
-    cdef s = cstr.decode("utf-8")
-    if s.endswith('.'):
-        s += '0'
-    return ast.Float(Decimal(s))
 
 
 cdef _pg_list_to_tuple(const structs.List* lst, offset_to_index):
@@ -2072,7 +2062,7 @@ cdef create_A_Const(structs.A_Const* data, offset_to_index):
     elif data.val.ival.type == structs.T_Integer:
         v_val = ast.Integer(data.val.ival.ival)
     elif data.val.fval.type == structs.T_Float:
-        v_val = _pg_str_to_decimal(data.val.fval.fval)
+        v_val = ast.Float(data.val.fval.fval.decode("utf-8"))
     elif data.val.bsval.type == structs.T_BitString:
         v_val = ast.BitString(data.val.bsval.bsval.decode("utf-8"))
     elif data.val.sval.type == structs.T_String:

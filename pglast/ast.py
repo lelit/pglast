@@ -4116,8 +4116,8 @@ def _fixup_attribute_types_in_slots():
                                          f' expected a single char, got {value!r}')
                     return value
             elif cls is Float and ctype == 'char*':
-                ptype = (str, float, Decimal)
-                adaptor = Decimal
+                ptype = (str, int, float, Decimal)
+                adaptor = str
             elif ctype == 'char*':
                 ptype = str
             elif ctype in ('Expr*', 'Node*'):

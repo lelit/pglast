@@ -17,6 +17,8 @@ SELECT 'foo' as "Naïve"
 
 SELECT 'foo' as """DoubleQuoted"""
 
+SELECT 0.0e1
+
 SELECT CAST('accbf276-705b-11e7-b8e4-0242ac120002' AS uuid) as "X"
 
 SELECT CAST('accbf276-705b-11e7-b8e4-0242ac120002' AS "MySchema"."MyType") as "X"
