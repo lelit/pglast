@@ -8,6 +8,12 @@ Changes
 Version 5
 #########
 
+5.0 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- No changes
+
+
 5.0.dev1 (2023-02-11)
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -28,6 +34,7 @@ Version 5
 
   __ https://github.com/lelit/pglast/issues/91
   __ https://github.com/lelit/pglast/issues/100
+
 
 5.0.dev0 (2022-12-19)
 ~~~~~~~~~~~~~~~~~~~~~
