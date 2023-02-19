@@ -8,7 +8,7 @@ Changes
 Version 5
 #########
 
-5.0 (unreleased)
+5.0 (2023-02-19)
 ~~~~~~~~~~~~~~~~
 
 - No changes
