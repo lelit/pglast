@@ -3,7 +3,7 @@
 # :Created:   sab 27 feb 2021, 19:47:11
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022 Lele Gaifax
+# :Copyright: © 2021, 2022, 2023 Lele Gaifax
 #
 
 from datetime import date
@@ -1020,9 +1020,13 @@ def _fixup_attribute_types_in_slots():
                     if ctype.endswith('*'):
                         ptype = G.get(ctype[:-1])
                         if ptype is None:
-                            raise NotImplementedError(f'unknown {ctype!r}') from None
+                            aname = f'{cls.__name__}.{attr}'
+                            raise NotImplementedError(f'Unhandled C type of {aname}: {ctype}')
                         else:
                             ptype = (dict, ptype)
+                    else:
+                        aname = f'{cls.__name__}.{attr}'
+                        raise NotImplementedError(f'Unhandled C type of {aname}: {ctype}')
             slots[attr] = SlotTypeInfo(ctype, ptype, adaptor)
 
 
