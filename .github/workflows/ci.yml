@@ -46,8 +46,6 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-        with:
-          fail_ci_if_error: true
 
   build_wheels:
     name: Build wheels on ${{ matrix.arch }} for ${{ matrix.os }}
