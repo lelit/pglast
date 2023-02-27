@@ -12,6 +12,12 @@ SET LOCAL TIME ZONE DEFAULT
 
 SET SESSION TIME ZONE 'Europe/Rome'
 
+SET TIME ZONE INTERVAL '-08:00' hour TO minute
+
+SET TIME ZONE 'Europe/Rome';
+
+SET TIME ZONE -7;
+
 SET datestyle TO postgres, dmy
 
 SET search_path TO my_schema, public

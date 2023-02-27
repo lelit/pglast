@@ -1617,6 +1617,21 @@ def type_name(node, output):
                 output.write(']')
 
 
+@node_printer(ast.VariableSetStmt, ast.TypeCast)
+def variable_set_stmt_type_cast(node, output):
+    # This is a variant of the standard TypeCast printer, to handle the special case of
+    # ”SET TIME ZONE INTERVAL 'xx' hour TO minute”, not as "CAST('xx' AS interval...)"
+    type_name = '.'.join(n.val for n in node.typeName.names)
+    if type_name == 'pg_catalog.interval':
+        output.write('INTERVAL ')
+        output.print_node(node.arg)
+        typmod = node.typeName.typmods[0].val.val
+        if typmod in interval_ranges:
+            output.swrite(interval_ranges[typmod])
+    else:
+        raise NotImplementedError('Unhandled typecast to %r' % type_name)
+
+
 @node_printer(ast.UpdateStmt)
 def update_stmt(node, output):
     with output.push_indent():

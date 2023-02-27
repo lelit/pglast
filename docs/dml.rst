@@ -472,6 +472,13 @@
 
    Pretty print a `node` of type `TypeName <https://github.com/pganalyze/libpg_query/blob/397cbb9/src/postgres/include/nodes/parsenodes.h#L218>`__ to the `output` stream.
 
+.. index::
+   pair: VariableSetStmt;TypeCast
+
+.. function:: variable_set_stmt_type_cast(node, output)
+
+   Pretty print a `node` of type `TypeCast <https://github.com/pganalyze/libpg_query/blob/397cbb9/src/postgres/include/nodes/parsenodes.h#L305>`__, when it is inside a `VariableSetStmt <https://github.com/pganalyze/libpg_query/blob/397cbb9/src/postgres/include/nodes/parsenodes.h#L2138>`__, to the `output` stream.
+
 .. index:: UpdateStmt
 
 .. function:: update_stmt(node, output)
