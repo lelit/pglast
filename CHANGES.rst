@@ -8,6 +8,15 @@ Changes
 Version 4
 #########
 
+4.2 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Handle special syntax required by ``SET TIME ZONE INTERVAL '-08:00' hour to minute``
+
+- Fix mistype mapping of raw C "long" and "double" attributes, that were decorated with the
+  wrong Python type
+
+
 4.1 (2022-12-19)
 ~~~~~~~~~~~~~~~~
 
