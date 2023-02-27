@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023 Lele Gaifax
 #
 
 from .. import ast, enums
@@ -1523,7 +1523,7 @@ def type_cast(node, output):
             output.write('char ')
             output.print_node(node.arg)
             return
-    # FIXME: all other case using CAST
+
     output.write('CAST')
     with output.expression(True):
         output.print_node(node.arg)
@@ -1582,7 +1582,6 @@ system_types = {
 @node_printer(ast.TypeName)
 def type_name(node, output):
     if node.setof:
-        # FIXME: is this used only by plpgsql?
         output.writes('SETOF')
     name = '.'.join(n.val for n in node.names)
     suffix = ''
@@ -1595,7 +1594,6 @@ def type_name(node, output):
         else:
             output.print_name(node.names)
     if node.pct_type:
-        # FIXME: is this used only by plpgsql?
         output.write('%TYPE')
     else:
         if node.typmods:
