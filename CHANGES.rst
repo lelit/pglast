@@ -8,7 +8,7 @@ Changes
 Version 4
 #########
 
-4.2 (unreleased)
+4.2 (2023-02-27)
 ~~~~~~~~~~~~~~~~
 
 - Handle special syntax required by ``SET TIME ZONE INTERVAL '-08:00' hour to minute``
