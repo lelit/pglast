@@ -3,11 +3,11 @@
 # :Created:   ven 04 ago 2017 08:40:30 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023 Lele Gaifax
 
 -r requirements-test.txt
 
-cython==3.0.0a11
+cython==3.0.0b1
 metapensiero.tool.bump_version==1.3
 pycparser==2.21
 readme-renderer==37.3

@@ -929,7 +929,7 @@ def _fixup_attribute_types_in_slots():
                 adaptor = str
             elif ctype == 'char*':
                 ptype = str
-            elif ctype in ('Expr*', 'Node*'):
+            elif ctype in {'Expr*', 'Node*'}:
                 ptype = (dict, list, tuple, Node)
 
                 def adaptor(value):
@@ -942,10 +942,10 @@ def _fixup_attribute_types_in_slots():
                                       else i
                                       for i in value)
                     return value
-            elif ctype in ('int', 'int16', 'bits32', 'int32', 'uint32', 'uint64',
-                           'AttrNumber', 'AclMode', 'Index', 'SubTransactionId'):
+            elif ctype in {'int', 'int16', 'bits32', 'int32', 'long', 'uint32', 'uint64',
+                           'AttrNumber', 'AclMode', 'Index', 'SubTransactionId'}:
                 ptype = int
-            elif ctype in ('Cardinality', 'Cost'):
+            elif ctype in {'Cardinality', 'Cost'}:
                 ptype = float
             elif ctype == 'CreateStmt':
                 ptype = (dict, CreateStmt)
@@ -974,9 +974,13 @@ def _fixup_attribute_types_in_slots():
                     if ctype.endswith('*'):
                         ptype = G.get(ctype[:-1])
                         if ptype is None:
-                            raise NotImplementedError(f'unknown {ctype!r}') from None
+                            aname = f'{cls.__name__}.{attr}'
+                            raise NotImplementedError(f'Unhandled C type of {aname}: {ctype}')
                         else:
                             ptype = (dict, ptype)
+                    else:
+                        aname = f'{cls.__name__}.{attr}'
+                        raise NotImplementedError(f'Unhandled C type of {aname}: {ctype}')
             slots[attr] = SlotTypeInfo(ctype, ptype, adaptor)
 
 

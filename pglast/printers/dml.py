@@ -1647,7 +1647,6 @@ system_types = {
 @node_printer(ast.TypeName)
 def type_name(node, output):
     if node.setof:
-        # FIXME: is this used only by plpgsql?
         output.writes('SETOF')
     name = '.'.join(n.sval for n in node.names)
     suffix = ''
@@ -1660,7 +1659,6 @@ def type_name(node, output):
         else:
             output.print_name(node.names)
     if node.pct_type:
-        # FIXME: is this used only by plpgsql?
         output.write('%TYPE')
     else:
         if node.typmods:
@@ -1686,6 +1684,21 @@ def type_name(node, output):
                 if ab.ival >= 0:
                     output.print_node(ab)
                 output.write(']')
+
+
+@node_printer(ast.VariableSetStmt, ast.TypeCast)
+def variable_set_stmt_type_cast(node, output):
+    # This is a variant of the standard TypeCast printer, to handle the special case of
+    # ”SET TIME ZONE INTERVAL 'xx' hour TO minute”, not as "CAST('xx' AS interval...)"
+    type_name = '.'.join(n.sval for n in node.typeName.names)
+    if type_name == 'pg_catalog.interval':
+        output.write('INTERVAL ')
+        output.print_node(node.arg)
+        typmod = node.typeName.typmods[0].val.ival
+        if typmod in interval_ranges:
+            output.swrite(interval_ranges[typmod])
+    else:
+        raise NotImplementedError('Unhandled typecast to %r' % type_name)
 
 
 @node_printer(ast.UpdateStmt)
