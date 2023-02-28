@@ -8,7 +8,7 @@ Changes
 Version 5
 #########
 
-5.1 (unreleased)
+5.1 (2023-02-28)
 ~~~~~~~~~~~~~~~~
 
 - Merge `version 4.2`__ changes
