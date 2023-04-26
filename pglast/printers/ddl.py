@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023 Lele Gaifax
 #
 
 import re
@@ -1172,7 +1172,11 @@ class ConstrTypePrinter(IntEnumPrinter):
     def CONSTR_DEFAULT(self, node, output):
         output.swrite('DEFAULT ')
         assert not (node.raw_expr is not None and node.cooked_expr is not None)
-        output.print_node(node.cooked_expr if node.raw_expr is None else node.raw_expr)
+        expr = node.cooked_expr if node.raw_expr is None else node.raw_expr
+        # Handle the ``DEFAULT (1 IN (1, 2))`` case as seen here:
+        # https://github.com/postgres/postgres/blob/REL_14_STABLE/src/test/regress/input/constraints.source#L41
+        with output.expression(isinstance(expr, ast.A_Expr)):
+            output.print_node(expr)
 
     def CONSTR_EXCLUSION(self, node, output):
         output.swrite('EXCLUDE USING ')
