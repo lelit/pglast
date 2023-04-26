@@ -87,15 +87,6 @@ class AExprKindPrinter(IntEnumPrinter):
         with output.expression(True):
             output.print_list((node.lexpr, node.rexpr))
 
-    def AEXPR_OF(self, node, output):
-        output.print_node(node.lexpr)
-        output.swrites('IS')
-        if get_string_value(node.name) == '<>':
-            output.writes('NOT')
-        output.write('OF ')
-        with output.expression(True):
-            output.print_list(node.rexpr)
-
     def AEXPR_OP(self, node, output):
         with output.expression(isinstance(abs(node.ancestors), ast.A_Expr)):
             # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
