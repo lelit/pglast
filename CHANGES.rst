@@ -8,7 +8,7 @@ Changes
 Version 4
 #########
 
-4.3 (unreleased)
+4.3 (2023-04-27)
 ~~~~~~~~~~~~~~~~
 
 - Fix `serialization issue`__ when column's ``DEFAULT`` value is an expression
