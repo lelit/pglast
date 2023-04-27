@@ -64,6 +64,14 @@ Version 5
 Version 4
 #########
 
+4.3 (2023-04-27)
+~~~~~~~~~~~~~~~~
+
+- Fix `serialization issue`__ when column's ``DEFAULT`` value is an expression
+
+  __ https://github.com/pganalyze/libpg_query/issues/188
+
+
 4.2 (2023-02-27)
 ~~~~~~~~~~~~~~~~
 
