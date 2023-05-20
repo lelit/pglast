@@ -8,7 +8,7 @@ Changes
 Version 5
 #########
 
-5.2 (unreleased)
+5.2 (2023-05-20)
 ~~~~~~~~~~~~~~~~
 
 - Update libpg_query to `15-4.2.1`__
