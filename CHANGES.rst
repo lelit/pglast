@@ -8,6 +8,14 @@ Changes
 Version 5
 #########
 
+5.2 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Update libpg_query to `15-4.2.1`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/15-4.2.1
+
+
 5.1 (2023-02-28)
 ~~~~~~~~~~~~~~~~
 
