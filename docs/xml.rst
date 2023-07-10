@@ -9,7 +9,7 @@
  :mod:`pglast.enums.xml` --- Constants extracted from `xml.h`__
 ================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/1f2d166/src/postgres/include/utils/xml.h
+__ https://github.com/pganalyze/libpg_query/blob/cb3aa9e/src/postgres/include/utils/xml.h
 
 .. module:: pglast.enums.xml
    :synopsis: Constants extracted from xml.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/1f2d166/src/postgres/include/ut
 
 .. class:: pglast.enums.xml.PgXmlStrictness
 
-   Corresponds to the `PgXmlStrictness enum <https://github.com/pganalyze/libpg_query/blob/1f2d166/src/postgres/include/utils/xml.h#L39>`__.
+   Corresponds to the `PgXmlStrictness enum <https://github.com/pganalyze/libpg_query/blob/cb3aa9e/src/postgres/include/utils/xml.h#L39>`__.
 
    .. data:: PG_XML_STRICTNESS_LEGACY
 
@@ -28,7 +28,7 @@ __ https://github.com/pganalyze/libpg_query/blob/1f2d166/src/postgres/include/ut
 
 .. class:: pglast.enums.xml.XmlBinaryType
 
-   Corresponds to the `XmlBinaryType enum <https://github.com/pganalyze/libpg_query/blob/1f2d166/src/postgres/include/utils/xml.h#L33>`__.
+   Corresponds to the `XmlBinaryType enum <https://github.com/pganalyze/libpg_query/blob/cb3aa9e/src/postgres/include/utils/xml.h#L33>`__.
 
    .. data:: XMLBINARY_BASE64
 
@@ -37,7 +37,7 @@ __ https://github.com/pganalyze/libpg_query/blob/1f2d166/src/postgres/include/ut
 
 .. class:: pglast.enums.xml.XmlStandaloneType
 
-   Corresponds to the `XmlStandaloneType enum <https://github.com/pganalyze/libpg_query/blob/1f2d166/src/postgres/include/utils/xml.h#L25>`__.
+   Corresponds to the `XmlStandaloneType enum <https://github.com/pganalyze/libpg_query/blob/cb3aa9e/src/postgres/include/utils/xml.h#L25>`__.
 
    .. data:: XML_STANDALONE_YES
 
