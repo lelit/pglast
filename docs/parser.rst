@@ -146,10 +146,22 @@ underlying ``libpg_query`` library it links against.
      the index of the end of the token
 
    name : str
-     the name of the offset
+     the name of the token
 
-   keyword : str
-     the keyword kind
+   kind : str
+     the kind of the token
+
+   Example:
+
+   .. doctest::
+
+      >>> from pprint import pprint
+      >>> from pglast.parser import scan
+      >>> pprint(scan('select a from b'))
+      [Token(start=0, end=5, name='SELECT', kind='RESERVED_KEYWORD'),
+       Token(start=7, end=7, name='IDENT', kind='NO_KEYWORD'),
+       Token(start=9, end=12, name='FROM', kind='RESERVED_KEYWORD'),
+       Token(start=14, end=14, name='IDENT', kind='NO_KEYWORD')]
 
 .. function:: split(query, with_parser=True, only_slices=False)
 
