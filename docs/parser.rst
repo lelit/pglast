@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:19:26 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2021 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2021, 2023 Lele Gaifax
 ..
 
 ===========================================================
@@ -28,6 +28,53 @@ underlying ``libpg_query`` library it links against.
 .. exception:: DeparseError
 
    Exception representing the error state returned by the deparser.
+
+.. class:: Displacements(string)
+
+   Helper class used to find the index of Unicode character from its offset in the
+   corresponding UTF-8 encoded array.
+
+   Example:
+
+   .. doctest::
+
+      >>> from pglast.parser import Displacements
+      >>> unicode = '€ 0.01'
+      >>> utf8 = unicode.encode('utf-8')
+      >>> d = Displacements(unicode)
+      >>> for offset in range(len(utf8)):
+      ...   idx = d(offset)
+      ...   print(f'{offset} [{utf8[offset]:2x}] -> {idx} [{unicode[idx]}]')
+      ...
+      0 [e2] -> 0 [€]
+      1 [82] -> 0 [€]
+      2 [ac] -> 0 [€]
+      3 [20] -> 1 [ ]
+      4 [30] -> 2 [0]
+      5 [2e] -> 3 [.]
+      6 [30] -> 4 [0]
+      7 [31] -> 5 [1]
+
+   The underlying ``libpg_parse`` library operates on ``UTF-8`` strings: its parser functions
+   emit tokens with a ``location``, that is actually the offset within the ``UTF-8``
+   representation of the statement. With this class you can fixup those offsets, like in the
+   following example:
+
+   .. doctest::
+
+      >>> import json
+      >>> from pglast.parser import parse_sql_json
+      >>> stmt = 'select alias.bar as alìbàbà from foo as alias'
+      >>> parsed = json.loads(parse_sql_json(stmt))
+      >>> select = parsed['stmts'][0]['stmt']['SelectStmt']
+      >>> rangevar = select['fromClause'][0]['RangeVar']
+      >>> loc = rangevar['location']
+      >>> print(stmt[loc:loc+3])
+       as
+      >>> d = Displacements(stmt)
+      >>> adjloc = d(loc)
+      >>> print(stmt[adjloc:adjloc+3])
+      foo
 
 .. function:: deparse_protobuf(buffer)
 

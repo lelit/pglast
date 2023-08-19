@@ -3,14 +3,17 @@
 # :Created:   ven 04 ago 2017 08:37:10 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2023 Lele Gaifax
 #
+
+import json
 
 import pytest
 
 from pglast import Error, ast, parse_plpgsql, parse_sql
-from pglast.parser import ParseError, fingerprint, get_postgresql_version, scan, split
-from pglast.parser import deparse_protobuf, parse_sql_protobuf
+from pglast.parser import Displacements, ParseError, deparse_protobuf, fingerprint
+from pglast.parser import get_postgresql_version, parse_sql_json, parse_sql_protobuf
+from pglast.parser import scan, split
 
 
 def test_parse_sql():
@@ -182,3 +185,45 @@ def test_scan():
 
 def test_deparse_protobuf():
     assert deparse_protobuf(parse_sql_protobuf('select 1')) == 'SELECT 1'
+
+
+def test_parse_sql_json():
+    # See issue #128
+
+    def _find(tree, subtree_key):
+        """ Recursive searcher. """
+        for key, val in tree.items():
+            if key == subtree_key:
+                yield val
+            elif type(val) == list:
+                for i in val:
+                    yield from _find(i, subtree_key)
+            elif type(val) == dict:
+                yield from _find(val, subtree_key)
+
+    def used_tables(sql_query):
+        disp = Displacements(sql_query)
+        json_str = parse_sql_json(sql_query)
+        parse_tree = json.loads(json_str)
+
+        deps = set()
+        for subtree in _find(parse_tree, 'RangeVar'):
+            # Instead of using `schemaname` and `relname`, I use the location to
+            # extract the dependency in a case-sensitive manner.
+            tot_length = len(subtree['schemaname']) + len(subtree['relname']) + 1
+            start_idx = disp(subtree['location'])
+            dep = sql_query[start_idx:start_idx + tot_length]
+            deps.add(dep)
+
+        return deps
+
+    # Note that the last word of first line is not "Satis" but "Satış" with a
+    # dotless i and an s with cedilla.
+    turkish_chars = '''
+    select t1.Sales Satış
+    from Schema.Table t1
+    join Schema2.Table2 t2
+    on t1.col = t2.col
+    '''
+
+    assert used_tables(turkish_chars) == {'Schema.Table', 'Schema2.Table2'}
