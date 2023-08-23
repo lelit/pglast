@@ -155,13 +155,13 @@ underlying ``libpg_query`` library it links against.
 
    .. doctest::
 
-      >>> from pprint import pprint
       >>> from pglast.parser import scan
-      >>> pprint(scan('select a from b'))
-      [Token(start=0, end=5, name='SELECT', kind='RESERVED_KEYWORD'),
-       Token(start=7, end=7, name='IDENT', kind='NO_KEYWORD'),
-       Token(start=9, end=12, name='FROM', kind='RESERVED_KEYWORD'),
-       Token(start=14, end=14, name='IDENT', kind='NO_KEYWORD')]
+      >>> stmt = 'select bar as alìbàbà from foo'
+      >>> tokens = scan(stmt)
+      >>> print(tokens[0])
+      Token(start=0, end=5, name='SELECT', kind='RESERVED_KEYWORD')
+      >>> print([stmt[t.start:t.end+1] for t in tokens])
+      ['select', 'bar', 'as', 'alìbàbà', 'from', 'foo']
 
 .. function:: split(query, with_parser=True, only_slices=False)
 
@@ -179,5 +179,20 @@ underlying ``libpg_query`` library it links against.
    statement, instead of statements text.
 
    .. note:: Leading and trailing whitespace are removed from the statements.
+
+   Example:
+
+   .. doctest::
+
+      >>> from pglast.parser import split
+      >>> split('select 1 for; select 2')
+      Traceback (most recent call last):
+        ...
+      pglast.parser.ParseError: syntax error at or near ";", at index 12
+      >>> split('select 1 for; select 2', with_parser=False)
+      ('select 1 for', 'select 2')
+      >>> stmts = "select 'fòò'; select 'bàr'"
+      >>> print([stmts[r] for r in split(stmts, only_slices=True)])
+      ["select 'fòò'", "select 'bàr'"]
 
 __ http://cython.org/
