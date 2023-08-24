@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023 Lele Gaifax
 #
 
 from .. import enums
@@ -294,11 +294,23 @@ class BooleanTestPrinter(IntEnumPrinter):
 boolean_test_printer = BooleanTestPrinter()
 
 
-@node_printer('BooleanTest')
-def boolean_test(node, output):
-    output.print_node(node.arg)
+def _boolean_test(node, output):
+    if node.arg.node_tag == 'BoolExpr':
+        with output.expression():
+            output.print_node(node.arg)
+    else:
+        output.print_node(node.arg)
     output.write(' IS ')
     boolean_test_printer(node.booltesttype, node, output)
+
+
+@node_printer('BooleanTest')
+def boolean_test(node, output):
+    if node.parent_node.node_tag == 'A_Expr':
+        with output.expression():
+            _boolean_test(node, output)
+    else:
+        _boolean_test(node, output)
 
 
 @node_printer('CallStmt')
