@@ -8,7 +8,7 @@ Changes
 Version 5
 #########
 
-5.4 (unreleased)
+5.4 (2023-08-24)
 ~~~~~~~~~~~~~~~~
 
 - Improve documentation, adding ``parser.Displacements``, ``parser.scan`` and ``parser.split``
