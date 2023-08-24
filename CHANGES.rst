@@ -8,6 +8,21 @@ Changes
 Version 5
 #########
 
+5.4 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Improve documentation, adding ``parser.Displacements``, ``parser.scan`` and ``parser.split``
+  examples (`issue #128`__)
+
+  __ https://github.com/lelit/pglast/issues/128
+
+- Fix issues `#129`__ and `#130`__ (merged from `version 4.4`__)
+
+  __ https://github.com/lelit/pglast/issues/129
+  __ https://github.com/lelit/pglast/issues/130
+  __ `4.4 (2023-08-24)`_
+
+
 5.3 (2023-08-05)
 ~~~~~~~~~~~~~~~~
 
