@@ -8,6 +8,16 @@ Changes
 Version 4
 #########
 
+4.4 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix issues `#129`__ and `#130`__ (merged from `version 3.18`__)
+
+  __ https://github.com/lelit/pglast/issues/129
+  __ https://github.com/lelit/pglast/issues/130
+  __ `3.18 (2023-08-24)`_
+
+
 4.3 (2023-04-27)
 ~~~~~~~~~~~~~~~~
 
