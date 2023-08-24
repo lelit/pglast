@@ -8,7 +8,7 @@ Changes
 Version 4
 #########
 
-4.4 (unreleased)
+4.4 (2023-08-24)
 ~~~~~~~~~~~~~~~~
 
 - Fix issues `#129`__ and `#130`__ (merged from `version 3.18`__)
