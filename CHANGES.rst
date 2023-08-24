@@ -8,7 +8,7 @@ Changes
 Version 3
 #########
 
-3.18 (unreleased)
+3.18 (2023-08-24)
 ~~~~~~~~~~~~~~~~~
 
 - Fix ``BooleanTest`` printer, enclosing expression within parens in more cases (`issue
