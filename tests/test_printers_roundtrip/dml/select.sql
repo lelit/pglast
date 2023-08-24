@@ -495,3 +495,13 @@ select 1/2.
 select 1e1/2.e1
 
 select (array[1])[1]
+
+select (false and true) is false
+
+select false and true is false
+
+select (not false) is true
+
+select not false is true
+
+select a = (true is false)
