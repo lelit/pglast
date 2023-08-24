@@ -1300,10 +1300,6 @@ class ConstrTypePrinter(IntEnumPrinter):
                 output.write('SET NULL')
             elif node.fk_upd_action == enums.FKCONSTR_ACTION_SETDEFAULT:
                 output.write('SET DEFAULT')
-        if node.deferrable:
-            output.swrite('DEFERRABLE')
-            if node.initdeferred:
-                output.swrite('INITIALLY DEFERRED')
 
     def CONSTR_GENERATED(self, node, output):
         output.swrite('GENERATED ALWAYS AS ')
@@ -1365,8 +1361,8 @@ def constraint(node, output):
             output.print_list(node.including, ',', are_names=True)
     if node.deferrable:
         output.swrite('DEFERRABLE')
-    if node.initdeferred:
-        output.swrite('INITIALLY DEFERRED')
+        if node.initdeferred:
+            output.swrite('INITIALLY DEFERRED')
     with output.push_indent():
         first = True
         if node.options and node.contype == enums.ConstrType.CONSTR_UNIQUE:

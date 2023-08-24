@@ -275,9 +275,11 @@ boolean_test_printer = BooleanTestPrinter()
 
 @node_printer(ast.BooleanTest)
 def boolean_test(node, output):
-    output.print_node(node.arg)
-    output.write(' IS ')
-    boolean_test_printer(node.booltesttype, node, output)
+    with output.expression(isinstance(node.ancestors[0], ast.A_Expr)):
+        with output.expression(isinstance(node.arg, ast.BoolExpr)):
+            output.print_node(node.arg)
+        output.write(' IS ')
+        boolean_test_printer(node.booltesttype, node, output)
 
 
 @node_printer(ast.CallStmt)

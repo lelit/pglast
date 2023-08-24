@@ -80,6 +80,16 @@ Version 5
 Version 4
 #########
 
+4.4 (2023-08-24)
+~~~~~~~~~~~~~~~~
+
+- Fix issues `#129`__ and `#130`__ (merged from `version 3.18`__)
+
+  __ https://github.com/lelit/pglast/issues/129
+  __ https://github.com/lelit/pglast/issues/130
+  __ `3.18 (2023-08-24)`_
+
+
 4.3 (2023-04-27)
 ~~~~~~~~~~~~~~~~
 
@@ -142,6 +152,20 @@ Version 4
 
 Version 3
 #########
+
+3.18 (2023-08-24)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``BooleanTest`` printer, enclosing expression within parens in more cases (`issue
+  #129`__)
+
+  __ https://github.com/lelit/pglast/issues/129
+
+- Fix ``Constraint`` printer, avoiding repetition of "DEFERRABLE INITIALLY DEFERRED" on some
+  kind of constraints (`issue #130`__)
+
+  __ https://github.com/lelit/pglast/issues/130
+
 
 3.17 (2022-11-04)
 ~~~~~~~~~~~~~~~~~
