@@ -1164,7 +1164,7 @@ class ConstrTypePrinter(IntEnumPrinter):
     def CONSTR_FOREIGN(self, node, output):
         if node.fk_attrs:
             output.swrite('FOREIGN KEY ')
-            output.write(' (')
+            output.write('(')
             output.print_name(node.fk_attrs, ',')
             output.write(')')
         if node.pktable:
