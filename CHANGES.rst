@@ -95,6 +95,14 @@ Version 5
 Version 4
 #########
 
+4.5 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Use `Cython 3.0.2`__
+
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#302-2023-08-27
+
+
 4.4 (2023-08-24)
 ~~~~~~~~~~~~~~~~
 
