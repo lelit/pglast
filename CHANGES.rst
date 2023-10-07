@@ -8,6 +8,18 @@ Changes
 Version 5
 #########
 
+5.5 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Use `Cython 3.0.3`__
+
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#303-2023-10-05
+
+- Produce wheels using final Python 3.12 release, thanks to ``cibuildwheel`` `2.16.2`__
+
+  __ https://cibuildwheel.readthedocs.io/en/stable/changelog/#v2162
+
+
 5.4 (2023-08-24)
 ~~~~~~~~~~~~~~~~
 
