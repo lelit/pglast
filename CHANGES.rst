@@ -8,7 +8,7 @@ Changes
 Version 5
 #########
 
-5.5 (unreleased)
+5.5 (2023-10-07)
 ~~~~~~~~~~~~~~~~
 
 - Use `Cython 3.0.3`__
