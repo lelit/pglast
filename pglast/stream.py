@@ -244,7 +244,6 @@ class RawStream(OutputStream):
         yield
 
     @contextmanager
-
     def expression(self, need_parens):
         """Create a context manager usable to conditionally wrap something within parentheses.
 
