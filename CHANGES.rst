@@ -11,6 +11,10 @@ Version 5
 5.6 (unreleased)
 ~~~~~~~~~~~~~~~~
 
+- Use `Cython 3.0.6`__
+
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#306-2023-11-26
+
 - Handle the ``ENABLE TRIGGER ALL`` in ``AlterTableCmd``
 
 - Fix issue `#136`__, a regression introduced by “Avoid overly abundancy of parentheses in
