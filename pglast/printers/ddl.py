@@ -522,6 +522,9 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write('ENABLE TRIGGER ')
         output.print_name(node.name)
 
+    def AT_EnableTrigAll(self, node, output):
+        output.write('ENABLE TRIGGER ALL')
+
     def AT_ForceRowSecurity(self, node, output):
         output.write('FORCE ROW LEVEL SECURITY ')
 
