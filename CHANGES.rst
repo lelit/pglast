@@ -8,6 +8,17 @@ Changes
 Version 5
 #########
 
+5.6 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Handle the ``ENABLE TRIGGER ALL`` in ``AlterTableCmd``
+
+- Fix issue `#136`__, a regression introduced by “Avoid overly abundancy of parentheses in
+  expressions”
+
+  __ https://github.com/lelit/pglast/issues/136
+
+
 5.5 (2023-10-07)
 ~~~~~~~~~~~~~~~~
 
