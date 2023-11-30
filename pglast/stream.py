@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:46:11 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023 Lele Gaifax
 #
 
 from contextlib import contextmanager
@@ -260,7 +260,7 @@ class RawStream(OutputStream):
         if need_parens:
             self.write(')')
 
-    def _concat_nodes(self, nodes, sep=' ', are_names=False):
+    def _concat_nodes(self, nodes, sep=' ', are_names=False, item_needs_parens=None):
 
         """Concatenate given `nodes`, using `sep` as the separator.
 
@@ -269,6 +269,7 @@ class RawStream(OutputStream):
         :param bool are_names:
                whether the nodes are actually *names*, which possibly require to be enclosed
                between double-quotes
+        :param item_needs_parens: either ``None`` or a callable
         :returns: a string
 
         Use a temporary :class:`RawStream` instance to print the list of nodes and return the
@@ -278,7 +279,8 @@ class RawStream(OutputStream):
         rawstream = RawStream(
             special_functions=self.special_functions,
             remove_pg_catalog_from_functions=self.remove_pg_catalog_from_functions)
-        rawstream.print_list(nodes, sep, are_names=are_names, standalone_items=False)
+        rawstream.print_list(nodes, sep, are_names=are_names, standalone_items=False,
+                             item_needs_parens=item_needs_parens)
         return rawstream.getvalue()
 
     def write_quoted_string(self, s):
@@ -621,12 +623,13 @@ class IndentedStream(RawStream):
         :param bool is_symbol:
                whether the nodes are actually an *operator name*, in which case the last one
                must be printed verbatim (such as ``"MySchema".===``)
+        :param item_needs_parens: either ``None`` or a callable
         """
 
         if standalone_items is None:
             clm = self.compact_lists_margin
             if clm is not None and clm > 0:
-                rawlist = self._concat_nodes(nodes, sep, are_names)
+                rawlist = self._concat_nodes(nodes, sep, are_names, item_needs_parens)
                 if self.current_column + len(rawlist) < clm:
                     self.write(rawlist)
                     return

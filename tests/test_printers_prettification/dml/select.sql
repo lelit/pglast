@@ -24,6 +24,31 @@ WHERE c BETWEEN 1 AND 2
 :
 {'compact_lists_margin': 80}
 
+select * from fmt a, fmt b where a.id <> b.id and (not a.f or b.f)
+=
+SELECT *
+FROM fmt AS a, fmt AS b
+WHERE a.id <> b.id
+  AND (NOT a.f
+    OR b.f)
+
+select * from fmt a, fmt b where a.id <> b.id and (not a.f or b.f)
+=
+SELECT *
+FROM fmt AS a, fmt AS b
+WHERE a.id <> b.id
+  AND (NOT a.f OR b.f)
+:
+{'compact_lists_margin': 30}
+
+select * from fmt a, fmt b where a.id <> b.id and (not a.f or b.f)
+=
+SELECT *
+FROM fmt AS a, fmt AS b
+WHERE a.id <> b.id AND (NOT a.f OR b.f)
+:
+{'compact_lists_margin': 120}
+
 select 'foo' as barname,b,c,
        (select somevalue
         from othertable
