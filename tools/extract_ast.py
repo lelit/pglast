@@ -94,9 +94,13 @@ class Node:
             v = data.get(a)
             if v is not None:
                 if isinstance(v, dict) and '@' in v:
-                    v = G[v['@']](v)
+                    if len(v) > 1:
+                        v = G[v['@']](v)
+                    else:
+                        v = G[v['@']]()
                 elif isinstance(v, (tuple, list)):
-                    v = tuple(G[i['@']](i) if isinstance(i, dict) and '@' in i else i
+                    v = tuple((G[i['@']](i) if len(i) > 1 else G[i['@']]())
+                              if isinstance(i, dict) and '@' in i else i
                               for i in v)
             setattr(self, a, v)
 

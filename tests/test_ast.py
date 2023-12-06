@@ -99,3 +99,8 @@ def test_issue_97():
             }
         ),
     })
+
+
+def test_issue_138():
+    raw = parse_sql('select * from foo')[0]
+    ast.RawStmt(raw())

@@ -11,6 +11,11 @@ Version 5
 5.6 (unreleased)
 ~~~~~~~~~~~~~~~~
 
+- Fix issue `#138`__, a defect that hindered the creation of AST nodes that act as *markers*,
+  (currently ``A_Star`` and ``CheckPointStmt``), that do not carry any other information
+
+  __ https://github.com/lelit/pglast/issues/138
+
 - Use `Cython 3.0.6`__
 
   __ https://github.com/cython/cython/blob/master/CHANGES.rst#306-2023-11-26
