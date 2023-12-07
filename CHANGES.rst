@@ -8,7 +8,7 @@ Changes
 Version 5
 #########
 
-5.6 (unreleased)
+5.6 (2023-12-07)
 ~~~~~~~~~~~~~~~~
 
 - Fix issue `#138`__, a defect that hindered the creation of AST nodes that act as *markers*,
