@@ -1974,3 +1974,5 @@ def xml_serialize(node, output):
         output.print_node(node.expr)
         output.write(' AS ')
         output.print_node(node.typeName)
+        if node.indent:
+            output.write('INDENT')
