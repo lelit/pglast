@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:54:39 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023 Lele Gaifax
 #
 
 from datetime import date
@@ -20,12 +20,15 @@ except ModuleNotFoundError:
     from sys import maxsize as LONG_MAX
 
 
-PY_HEADER = """\
+CYEARS = f'2017-{date.today().year}'
+
+
+PY_HEADER = f"""\
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from %%s @ %%s
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from %s @ %s
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-%d Lele Gaifax
+# :Copyright: © {CYEARS} Lele Gaifax
 #
 
 from enum import Enum, IntEnum, IntFlag, auto
@@ -37,25 +40,25 @@ except ImportError:  # pragma: no cover
     class StrEnum(str, Enum):
         pass
 
-""" % date.today().year
+"""
 
-RST_HEADER = """\
+RST_HEADER = f"""\
 .. -*- coding: utf-8 -*-
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-%d Lele Gaifax
+.. :Copyright: © {CYEARS} Lele Gaifax
 ..
 
-========================================================%%(extra_decoration)s
- :mod:`pglast.enums.%%(mod_name)s` --- Constants extracted from `%%(header_fname)s`__
-========================================================%%(extra_decoration)s
+========================================================%(extra_decoration)s
+ :mod:`pglast.enums.%(mod_name)s` --- Constants extracted from `%(header_fname)s`__
+========================================================%(extra_decoration)s
 
-__ %%(header_url)s
+__ %(header_url)s
 
-.. module:: pglast.enums.%%(mod_name)s
-   :synopsis: Constants extracted from %%(header_fname)s
-""" % date.today().year
+.. module:: pglast.enums.%(mod_name)s
+   :synopsis: Constants extracted from %(header_fname)s
+"""
 
 
 def get_libpg_query_info():

@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 12:56:35 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2022, 2023 Lele Gaifax
 #
 
 from datetime import date
@@ -12,21 +12,24 @@ from re import match
 import subprocess
 
 
-RST_HEADER = """\
+CYEARS = f'2017-{date.today().year}'
+
+
+RST_HEADER = f"""\
 .. -*- coding: utf-8 -*-
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-%d Lele Gaifax
+.. :Copyright: © {CYEARS} Lele Gaifax
 ..
 
-================================================%%(extra_decoration)s
- :mod:`pglast.printers.%%(mod_name)s` --- %%(mod_nick_name)s printer functions
-================================================%%(extra_decoration)s
+================================================%(extra_decoration)s
+ :mod:`pglast.printers.%(mod_name)s` --- %(mod_nick_name)s printer functions
+================================================%(extra_decoration)s
 
-.. module:: pglast.printers.%%(mod_name)s
-   :synopsis: %%(mod_nick_name)s printer functions
-""" % date.today().year
+.. module:: pglast.printers.%(mod_name)s
+   :synopsis: %(mod_nick_name)s printer functions
+"""
 
 
 def get_libpg_query_info():
