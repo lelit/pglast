@@ -775,10 +775,11 @@ cdef create(void* data, offset_to_index):
             output.write(f'        return create_{name}(<structs.{name}*> data, offset_to_index)\n')
             first = False
         elif name == 'List':
-            output.write('''\
-    elif tag == structs.T_List:
-        return _pg_list_to_tuple(<structs.List *> data, offset_to_index)
-''')
+            output.write('    ')
+            output.write('if' if first else 'elif')
+            output.write(' tag == structs.T_List:\n')
+            output.write('         return _pg_list_to_tuple(<structs.List *> data, offset_to_index)\n')
+            first = False
 
     output.write('''\
     raise ValueError("Unhandled tag: %s" % tag)
