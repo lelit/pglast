@@ -2055,9 +2055,10 @@ def create_stats_stmt(node, output):
     output.write('CREATE STATISTICS ')
     if node.if_not_exists:
         output.write('IF NOT EXISTS ')
-    output.print_name(node.defnames)
+    if node.defnames:
+        output.print_name(node.defnames)
+        output.space()
     if node.stat_types:
-        output.write(' ')
         with output.expression(True):
             output.print_list(node.stat_types, are_names=True)
     output.newline()
