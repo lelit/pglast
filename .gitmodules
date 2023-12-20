@@ -1,4 +1,4 @@
 [submodule "libpg_query"]
 	path = libpg_query
 	url = https://github.com/pganalyze/libpg_query.git
-	branch = 14-latest
+	branch = 16-latest-dev
