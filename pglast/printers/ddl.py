@@ -59,6 +59,7 @@ OBJECT_NAMES = {
     enums.ObjectType.OBJECT_OPCLASS: 'OPERATOR CLASS',
     enums.ObjectType.OBJECT_OPERATOR: 'OPERATOR',
     enums.ObjectType.OBJECT_OPFAMILY: 'OPERATOR FAMILY',
+    enums.ObjectType.OBJECT_PARAMETER_ACL: 'PARAMETER',
     enums.ObjectType.OBJECT_POLICY: 'POLICY',
     enums.ObjectType.OBJECT_PROCEDURE: 'PROCEDURE',
     enums.ObjectType.OBJECT_PUBLICATION: 'PUBLICATION',
