@@ -3250,8 +3250,12 @@ def vacuum_stmt_def_elem(node, output):
     output.write(node.defname.upper())
     if node.arg:
         output.write(' ')
-        output.write(str(node.arg.ival) if isinstance(node.arg, ast.Integer)
-                     else node.arg.sval)
+        if isinstance(node.arg, ast.Integer):
+            output.write(str(node.arg.ival))
+        elif isinstance(node.arg, ast.Float):
+            output.write(node.arg.fval)
+        else:
+            output.write(f"'{node.arg.sval}'")
 
 
 @node_printer(ast.VacuumRelation)
