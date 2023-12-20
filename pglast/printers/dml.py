@@ -935,6 +935,186 @@ def join_expr(node, output):
             output.dedent()
 
 
+@node_printer(ast.JsonAggConstructor)
+def json_agg_constructor(node, output):
+    if node.agg_order:
+        output.write('ORDER BY ')
+        output.print_list(node.agg_order)
+    parent_node = node.ancestors[0]
+    output.swrite('ABSENT' if parent_node.absent_on_null else 'NULL')
+    output.write(' ON NULL')
+    if getattr(parent_node, 'unique', False):
+        output.swrite('WITH UNIQUE KEYS')
+    if node.output:
+        output.print_node(node.output)
+
+
+@node_printer(ast.JsonArrayAgg)
+def json_array_agg(node, output):
+    output.write('json_arrayagg')
+    with output.expression(True):
+        output.print_node(node.arg)
+        output.print_node(node.constructor)
+    # Sigh, the following sub-nodes of JsonAggConstructor must be handled here,
+    # because they go outside the json_arrayagg() "function"...
+    if node.constructor.agg_filter:
+        output.write(' FILTER ')
+        with output.expression(True):
+            output.write('WHERE ')
+            output.print_node(node.constructor.agg_filter)
+    if node.constructor.over:
+        output.write(' OVER ')
+        output.print_node(node.constructor.over)
+
+
+@node_printer(ast.JsonArrayConstructor)
+def json_array_constructor(node, output):
+    output.write('json_array')
+    with output.expression(True):
+        if node.exprs:
+            output.print_list(node.exprs)
+            output.swrite('ABSENT' if node.absent_on_null else 'NULL')
+            output.write(' ON NULL')
+        if node.output:
+            output.print_node(node.output)
+
+
+@node_printer(ast.JsonArrayQueryConstructor)
+def json_array_query_constructor(node, output):
+    output.write('json_array')
+    with output.expression(True):
+        output.print_node(node.query)
+        output.print_node(node.format)
+        if node.output:
+            output.print_node(node.output)
+
+
+class JsonEncodingPrinter(IntEnumPrinter):
+    enum = enums.JsonEncoding
+
+    def JS_ENC_UTF8(self, node, output):
+        output.write('UTF8')
+
+    def JS_ENC_UTF16(self, node, output):
+        output.write('UTF16')
+
+    def JS_ENC_UTF32(self, node, output):
+        output.write('UTF32')
+
+
+json_encoding_printer = JsonEncodingPrinter()
+
+
+class JsonFormatTypePrinter(IntEnumPrinter):
+    enum = enums.JsonFormatType
+
+    def JS_FORMAT_JSON(self, node, output):
+        output.write('JSON')
+
+    def JS_FORMAT_JSONB(self, node, output):
+        output.write('JSONB')
+
+
+json_format_type_printer = JsonFormatTypePrinter()
+
+
+@node_printer(ast.JsonFormat)
+def json_format(node, output):
+    if node.format_type != enums.JsonFormatType.JS_FORMAT_DEFAULT:
+        output.swrite('FORMAT ')
+        json_format_type_printer(node.format_type, node, output)
+    if node.encoding != enums.JsonEncoding.JS_ENC_DEFAULT:
+        output.swrite('ENCODING ')
+        json_encoding_printer(node.encoding, node, output)
+
+
+@node_printer(ast.JsonIsPredicate)
+def json_is_predicate(node, output):
+    output.print_node(node.expr)
+    output.print_node(node.format)
+    output.write(' IS ')
+    json_value_type_printer(node.item_type, node, output)
+    if node.unique_keys:
+        output.write(' WITH UNIQUE KEYS')
+
+
+@node_printer(ast.JsonKeyValue)
+def json_key_value(node, output):
+    output.print_node(node.key)
+    output.writes(':')
+    output.print_node(node.value)
+
+
+@node_printer(ast.JsonObjectAgg)
+def json_object_agg(node, output):
+    output.write('json_objectagg')
+    with output.expression(True):
+        output.print_node(node.arg)
+        output.print_node(node.constructor)
+    # Sigh, the following sub-nodes of JsonAggConstructor must be handled here,
+    # because they go outside the json_objectagg() "function"...
+    if node.constructor.agg_filter:
+        output.write(' FILTER ')
+        with output.expression(True):
+            output.write('WHERE ')
+            output.print_node(node.constructor.agg_filter)
+    if node.constructor.over:
+        output.write(' OVER ')
+        output.print_node(node.constructor.over)
+
+
+@node_printer(ast.JsonObjectConstructor)
+def json_object_constructor(node, output):
+    output.write('json_object')
+    with output.expression(True):
+        if node.exprs:
+            output.print_list(node.exprs)
+        if node.absent_on_null:
+            output.swrite('ABSENT ON NULL')
+        if node.unique:
+            output.swrite('WITH UNIQUE KEYS')
+        if node.output:
+            output.print_node(node.output)
+
+
+@node_printer(ast.JsonOutput)
+def json_output(node, output):
+    if node.returning:
+        output.swrite('RETURNING ')
+        output.print_node(node.typeName)
+        output.print_node(node.returning)
+
+
+@node_printer(ast.JsonReturning)
+def json_returning(node, output):
+    output.print_node(node.format)
+
+
+@node_printer(ast.JsonValueExpr)
+def json_value_expr(node, output):
+    output.print_node(node.raw_expr)
+    output.print_node(node.format)
+
+
+class JsonValueTypePrinter(IntEnumPrinter):
+    enum = enums.JsonValueType
+
+    def JS_TYPE_ANY(self, node, output):
+        output.write('JSON')
+
+    def JS_TYPE_OBJECT(self, node, output):
+        output.write('JSON OBJECT')
+
+    def JS_TYPE_ARRAY(self, node, output):
+        output.write('JSON ARRAY')
+
+    def JS_TYPE_SCALAR(self, node, output):
+        output.write('JSON SCALAR')
+
+
+json_value_type_printer = JsonValueTypePrinter()
+
+
 @node_printer(ast.LockingClause)
 def locking_clause(node, output):
     lcs = enums.LockClauseStrength
