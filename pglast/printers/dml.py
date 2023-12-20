@@ -546,6 +546,10 @@ def copy_stmt_def_elem(node, output):
         output.write(' ')
         with output.expression(True):
             output.print_name(argv)
+    elif option == 'default':
+        output.write(option)
+        output.write(' ')
+        output.print_node(argv)
     else:
         raise NotImplementedError(option)
 
