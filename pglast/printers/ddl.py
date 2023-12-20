@@ -1127,6 +1127,10 @@ def column_def(node, output):
     else:
         if node.constraints:
             output.write('WITH OPTIONS ')
+    if node.storage_name:
+        output.write('STORAGE ')
+        output.write(node.storage_name)
+        output.write(' ')
     if node.fdwoptions:
         output.write(' OPTIONS ')
         with output.expression(True):
