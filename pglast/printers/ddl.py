@@ -2666,20 +2666,31 @@ def grant_role_stmt(node, output):
         preposition = 'TO'
     else:
         output.write('REVOKE ')
-        if node.admin_opt:
-            output.write('ADMIN OPTION FOR ')
         preposition = 'FROM'
+        if node.opt:
+            output.write(node.opt[0].defname.upper())
+            output.write(' OPTION FOR ')
 
     output.print_list(node.granted_roles, ',')
     output.write(' ')
     output.write(preposition)
     output.write(' ')
     output.print_list(node.grantee_roles, ',')
-    if node.admin_opt and node.is_grant:
-        output.write(' WITH ADMIN OPTION')
+    if node.is_grant:
+        if node.opt:
+            output.write(' WITH ')
+            output.print_list(node.opt, ',')
     if node.grantor:
         output.write(' GRANTED BY ')
         output.print_node(node.grantor)
+    if node.behavior == enums.DropBehavior.DROP_CASCADE:
+        output.write(' CASCADE')
+
+
+@node_printer(ast.GrantRoleStmt, ast.DefElem)
+def grant_role_stmt_opt(node, output):
+    output.write(node.defname.upper())
+    output.write(' OPTION' if node.arg.boolval else ' FALSE')
 
 
 @node_printer(ast.ImportForeignSchemaStmt)
