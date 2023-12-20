@@ -435,7 +435,7 @@ def emit_struct_def(name, fields, output):
             ctype = 'uint64_t'
         if ctype == 'AttrNumber':
             ctype = 'int'
-        elif ctype in ('AclMode', 'Index', 'SubTransactionId'):
+        elif ctype in {'AclMode', 'Index', 'RelFileNumber', 'SubTransactionId'}:
             ctype = 'unsigned int'
         elif ctype in ('Cardinality', 'Cost'):
             ctype = 'double'
@@ -946,8 +946,9 @@ def _fixup_attribute_types_in_slots():
                                       else i
                                       for i in value)
                     return value
-            elif ctype in {'int', 'int16', 'bits32', 'int32', 'long', 'uint32', 'uint64',
-                           'AttrNumber', 'AclMode', 'Index', 'SubTransactionId'}:
+            elif ctype in {'AclMode', 'AttrNumber', 'Index', 'RelFileNumber',
+                           'SubTransactionId', 'bits32', 'int', 'int16', 'int32', 'long',
+                           'uint32', 'uint64'}:
                 ptype = int
             elif ctype in {'Cardinality', 'Cost'}:
                 ptype = float
