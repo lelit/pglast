@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 15-4.2.3-0-g9b21e32
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 16-latest-dev-0-gebeba2d
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2023 Lele Gaifax
@@ -55,7 +55,6 @@ class AlterTSConfigType(IntEnum):
 
 class AlterTableType(IntEnum):
     AT_AddColumn = 0
-    AT_AddColumnRecurse = auto()
     AT_AddColumnToView = auto()
     AT_ColumnDefault = auto()
     AT_CookedColumnDefault = auto()
@@ -69,19 +68,15 @@ class AlterTableType(IntEnum):
     AT_SetStorage = auto()
     AT_SetCompression = auto()
     AT_DropColumn = auto()
-    AT_DropColumnRecurse = auto()
     AT_AddIndex = auto()
     AT_ReAddIndex = auto()
     AT_AddConstraint = auto()
-    AT_AddConstraintRecurse = auto()
     AT_ReAddConstraint = auto()
     AT_ReAddDomainConstraint = auto()
     AT_AlterConstraint = auto()
     AT_ValidateConstraint = auto()
-    AT_ValidateConstraintRecurse = auto()
     AT_AddIndexConstraint = auto()
     AT_DropConstraint = auto()
-    AT_DropConstraintRecurse = auto()
     AT_ReAddComment = auto()
     AT_AlterColumnType = auto()
     AT_AlterColumnGenericOptions = auto()
@@ -257,6 +252,11 @@ class PartitionRangeDatumKind(IntEnum):
     PARTITION_RANGE_DATUM_MINVALUE = -1
     PARTITION_RANGE_DATUM_VALUE = 0
     PARTITION_RANGE_DATUM_MAXVALUE = 1
+
+class PartitionStrategy(StrEnum):
+    PARTITION_STRATEGY_LIST = 'l'
+    PARTITION_STRATEGY_RANGE = 'r'
+    PARTITION_STRATEGY_HASH = 'h'
 
 class PublicationObjSpecType(IntEnum):
     PUBLICATIONOBJ_TABLE = 0
@@ -438,12 +438,6 @@ FRAMEOPTION_EXCLUDE_CURRENT_ROW = 0x08000
 FRAMEOPTION_EXCLUDE_GROUP = 0x10000
 
 FRAMEOPTION_EXCLUDE_TIES = 0x20000
-
-PARTITION_STRATEGY_HASH = 'h'
-
-PARTITION_STRATEGY_LIST = 'l'
-
-PARTITION_STRATEGY_RANGE = 'r'
 
 FKCONSTR_ACTION_NOACTION = 'a'
 

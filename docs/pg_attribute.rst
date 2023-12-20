@@ -9,7 +9,7 @@
  :mod:`pglast.enums.pg_attribute` --- Constants extracted from `pg_attribute.h`__
 ==================================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/catalog/pg_attribute.h
+__ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/catalog/pg_attribute.h
 
 .. module:: pglast.enums.pg_attribute
    :synopsis: Constants extracted from pg_attribute.h
@@ -17,12 +17,12 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/ca
 
 .. data:: ATTRIBUTE_IDENTITY_ALWAYS
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/catalog/pg_attribute.h#L214>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/catalog/pg_attribute.h#L216>`__.
 
 .. data:: ATTRIBUTE_IDENTITY_BY_DEFAULT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/catalog/pg_attribute.h#L215>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/catalog/pg_attribute.h#L217>`__.
 
 .. data:: ATTRIBUTE_GENERATED_STORED
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/catalog/pg_attribute.h#L217>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/catalog/pg_attribute.h#L219>`__.

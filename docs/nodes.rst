@@ -9,7 +9,7 @@
  :mod:`pglast.enums.nodes` --- Constants extracted from `nodes.h`__
 ====================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h
+__ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h
 
 .. module:: pglast.enums.nodes
    :synopsis: Constants extracted from nodes.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.AggSplit
 
-   Corresponds to the `AggSplit enum <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L799>`__.
+   Corresponds to the `AggSplit enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L384>`__.
 
    .. data:: AGGSPLIT_SIMPLE
 
@@ -28,7 +28,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.AggStrategy
 
-   Corresponds to the `AggStrategy enum <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L777>`__.
+   Corresponds to the `AggStrategy enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L362>`__.
 
    .. data:: AGG_PLAIN
 
@@ -41,7 +41,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.CmdType
 
-   Corresponds to the `CmdType enum <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L690>`__.
+   Corresponds to the `CmdType enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L273>`__.
 
    .. data:: CMD_UNKNOWN
 
@@ -62,7 +62,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.JoinType
 
-   Corresponds to the `JoinType enum <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L715>`__.
+   Corresponds to the `JoinType enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L298>`__.
 
    .. data:: JOIN_INNER
 
@@ -76,6 +76,8 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: JOIN_ANTI
 
+   .. data:: JOIN_RIGHT_ANTI
+
    .. data:: JOIN_UNIQUE_OUTER
 
    .. data:: JOIN_UNIQUE_INNER
@@ -83,7 +85,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.LimitOption
 
-   Corresponds to the `LimitOption enum <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L854>`__.
+   Corresponds to the `LimitOption enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L439>`__.
 
    .. data:: LIMIT_OPTION_DEFAULT
 
@@ -94,227 +96,19 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.NodeTag
 
-   Corresponds to the `NodeTag enum <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L26>`__.
+   Corresponds to the `NodeTag enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L26>`__.
 
    .. data:: T_Invalid
 
-   .. data:: T_IndexInfo
-
-   .. data:: T_ExprContext
-
-   .. data:: T_ProjectionInfo
-
-   .. data:: T_JunkFilter
-
-   .. data:: T_OnConflictSetState
-
-   .. data:: T_MergeActionState
-
-   .. data:: T_ResultRelInfo
-
-   .. data:: T_EState
-
-   .. data:: T_TupleTableSlot
-
-   .. data:: T_Plan
-
-   .. data:: T_Result
-
-   .. data:: T_ProjectSet
-
-   .. data:: T_ModifyTable
-
-   .. data:: T_Append
-
-   .. data:: T_MergeAppend
-
-   .. data:: T_RecursiveUnion
-
-   .. data:: T_BitmapAnd
-
-   .. data:: T_BitmapOr
-
-   .. data:: T_Scan
-
-   .. data:: T_SeqScan
-
-   .. data:: T_SampleScan
-
-   .. data:: T_IndexScan
-
-   .. data:: T_IndexOnlyScan
-
-   .. data:: T_BitmapIndexScan
-
-   .. data:: T_BitmapHeapScan
-
-   .. data:: T_TidScan
-
-   .. data:: T_TidRangeScan
-
-   .. data:: T_SubqueryScan
-
-   .. data:: T_FunctionScan
-
-   .. data:: T_ValuesScan
-
-   .. data:: T_TableFuncScan
-
-   .. data:: T_CteScan
-
-   .. data:: T_NamedTuplestoreScan
-
-   .. data:: T_WorkTableScan
-
-   .. data:: T_ForeignScan
-
-   .. data:: T_CustomScan
-
-   .. data:: T_Join
-
-   .. data:: T_NestLoop
-
-   .. data:: T_MergeJoin
-
-   .. data:: T_HashJoin
-
-   .. data:: T_Material
-
-   .. data:: T_Memoize
-
-   .. data:: T_Sort
-
-   .. data:: T_IncrementalSort
-
-   .. data:: T_Group
-
-   .. data:: T_Agg
-
-   .. data:: T_WindowAgg
-
-   .. data:: T_Unique
-
-   .. data:: T_Gather
-
-   .. data:: T_GatherMerge
-
-   .. data:: T_Hash
-
-   .. data:: T_SetOp
-
-   .. data:: T_LockRows
-
-   .. data:: T_Limit
-
-   .. data:: T_NestLoopParam
-
-   .. data:: T_PlanRowMark
-
-   .. data:: T_PartitionPruneInfo
-
-   .. data:: T_PartitionedRelPruneInfo
-
-   .. data:: T_PartitionPruneStepOp
-
-   .. data:: T_PartitionPruneStepCombine
-
-   .. data:: T_PlanInvalItem
-
-   .. data:: T_PlanState
-
-   .. data:: T_ResultState
-
-   .. data:: T_ProjectSetState
-
-   .. data:: T_ModifyTableState
-
-   .. data:: T_AppendState
-
-   .. data:: T_MergeAppendState
-
-   .. data:: T_RecursiveUnionState
-
-   .. data:: T_BitmapAndState
-
-   .. data:: T_BitmapOrState
-
-   .. data:: T_ScanState
-
-   .. data:: T_SeqScanState
-
-   .. data:: T_SampleScanState
-
-   .. data:: T_IndexScanState
-
-   .. data:: T_IndexOnlyScanState
-
-   .. data:: T_BitmapIndexScanState
-
-   .. data:: T_BitmapHeapScanState
-
-   .. data:: T_TidScanState
-
-   .. data:: T_TidRangeScanState
-
-   .. data:: T_SubqueryScanState
-
-   .. data:: T_FunctionScanState
-
-   .. data:: T_TableFuncScanState
-
-   .. data:: T_ValuesScanState
-
-   .. data:: T_CteScanState
-
-   .. data:: T_NamedTuplestoreScanState
-
-   .. data:: T_WorkTableScanState
-
-   .. data:: T_ForeignScanState
-
-   .. data:: T_CustomScanState
-
-   .. data:: T_JoinState
-
-   .. data:: T_NestLoopState
-
-   .. data:: T_MergeJoinState
-
-   .. data:: T_HashJoinState
-
-   .. data:: T_MaterialState
-
-   .. data:: T_MemoizeState
-
-   .. data:: T_SortState
-
-   .. data:: T_IncrementalSortState
-
-   .. data:: T_GroupState
-
-   .. data:: T_AggState
-
-   .. data:: T_WindowAggState
-
-   .. data:: T_UniqueState
-
-   .. data:: T_GatherState
-
-   .. data:: T_GatherMergeState
-
-   .. data:: T_HashState
-
-   .. data:: T_SetOpState
-
-   .. data:: T_LockRowsState
-
-   .. data:: T_LimitState
+   .. data:: T_List
 
    .. data:: T_Alias
 
    .. data:: T_RangeVar
 
    .. data:: T_TableFunc
+
+   .. data:: T_IntoClause
 
    .. data:: T_Var
 
@@ -384,6 +178,16 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: T_XmlExpr
 
+   .. data:: T_JsonFormat
+
+   .. data:: T_JsonReturning
+
+   .. data:: T_JsonValueExpr
+
+   .. data:: T_JsonConstructorExpr
+
+   .. data:: T_JsonIsPredicate
+
    .. data:: T_NullTest
 
    .. data:: T_BooleanTest
@@ -410,21 +214,387 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: T_OnConflictExpr
 
-   .. data:: T_IntoClause
+   .. data:: T_Query
 
-   .. data:: T_ExprState
+   .. data:: T_TypeName
 
-   .. data:: T_WindowFuncExprState
+   .. data:: T_ColumnRef
 
-   .. data:: T_SetExprState
+   .. data:: T_ParamRef
 
-   .. data:: T_SubPlanState
+   .. data:: T_A_Expr
 
-   .. data:: T_DomainConstraintState
+   .. data:: T_A_Const
 
-   .. data:: T_PlannerInfo
+   .. data:: T_TypeCast
+
+   .. data:: T_CollateClause
+
+   .. data:: T_RoleSpec
+
+   .. data:: T_FuncCall
+
+   .. data:: T_A_Star
+
+   .. data:: T_A_Indices
+
+   .. data:: T_A_Indirection
+
+   .. data:: T_A_ArrayExpr
+
+   .. data:: T_ResTarget
+
+   .. data:: T_MultiAssignRef
+
+   .. data:: T_SortBy
+
+   .. data:: T_WindowDef
+
+   .. data:: T_RangeSubselect
+
+   .. data:: T_RangeFunction
+
+   .. data:: T_RangeTableFunc
+
+   .. data:: T_RangeTableFuncCol
+
+   .. data:: T_RangeTableSample
+
+   .. data:: T_ColumnDef
+
+   .. data:: T_TableLikeClause
+
+   .. data:: T_IndexElem
+
+   .. data:: T_DefElem
+
+   .. data:: T_LockingClause
+
+   .. data:: T_XmlSerialize
+
+   .. data:: T_PartitionElem
+
+   .. data:: T_PartitionSpec
+
+   .. data:: T_PartitionBoundSpec
+
+   .. data:: T_PartitionRangeDatum
+
+   .. data:: T_PartitionCmd
+
+   .. data:: T_RangeTblEntry
+
+   .. data:: T_RTEPermissionInfo
+
+   .. data:: T_RangeTblFunction
+
+   .. data:: T_TableSampleClause
+
+   .. data:: T_WithCheckOption
+
+   .. data:: T_SortGroupClause
+
+   .. data:: T_GroupingSet
+
+   .. data:: T_WindowClause
+
+   .. data:: T_RowMarkClause
+
+   .. data:: T_WithClause
+
+   .. data:: T_InferClause
+
+   .. data:: T_OnConflictClause
+
+   .. data:: T_CTESearchClause
+
+   .. data:: T_CTECycleClause
+
+   .. data:: T_CommonTableExpr
+
+   .. data:: T_MergeWhenClause
+
+   .. data:: T_MergeAction
+
+   .. data:: T_TriggerTransition
+
+   .. data:: T_JsonOutput
+
+   .. data:: T_JsonKeyValue
+
+   .. data:: T_JsonObjectConstructor
+
+   .. data:: T_JsonArrayConstructor
+
+   .. data:: T_JsonArrayQueryConstructor
+
+   .. data:: T_JsonAggConstructor
+
+   .. data:: T_JsonObjectAgg
+
+   .. data:: T_JsonArrayAgg
+
+   .. data:: T_RawStmt
+
+   .. data:: T_InsertStmt
+
+   .. data:: T_DeleteStmt
+
+   .. data:: T_UpdateStmt
+
+   .. data:: T_MergeStmt
+
+   .. data:: T_SelectStmt
+
+   .. data:: T_SetOperationStmt
+
+   .. data:: T_ReturnStmt
+
+   .. data:: T_PLAssignStmt
+
+   .. data:: T_CreateSchemaStmt
+
+   .. data:: T_AlterTableStmt
+
+   .. data:: T_ReplicaIdentityStmt
+
+   .. data:: T_AlterTableCmd
+
+   .. data:: T_AlterCollationStmt
+
+   .. data:: T_AlterDomainStmt
+
+   .. data:: T_GrantStmt
+
+   .. data:: T_ObjectWithArgs
+
+   .. data:: T_AccessPriv
+
+   .. data:: T_GrantRoleStmt
+
+   .. data:: T_AlterDefaultPrivilegesStmt
+
+   .. data:: T_CopyStmt
+
+   .. data:: T_VariableSetStmt
+
+   .. data:: T_VariableShowStmt
+
+   .. data:: T_CreateStmt
+
+   .. data:: T_Constraint
+
+   .. data:: T_CreateTableSpaceStmt
+
+   .. data:: T_DropTableSpaceStmt
+
+   .. data:: T_AlterTableSpaceOptionsStmt
+
+   .. data:: T_AlterTableMoveAllStmt
+
+   .. data:: T_CreateExtensionStmt
+
+   .. data:: T_AlterExtensionStmt
+
+   .. data:: T_AlterExtensionContentsStmt
+
+   .. data:: T_CreateFdwStmt
+
+   .. data:: T_AlterFdwStmt
+
+   .. data:: T_CreateForeignServerStmt
+
+   .. data:: T_AlterForeignServerStmt
+
+   .. data:: T_CreateForeignTableStmt
+
+   .. data:: T_CreateUserMappingStmt
+
+   .. data:: T_AlterUserMappingStmt
+
+   .. data:: T_DropUserMappingStmt
+
+   .. data:: T_ImportForeignSchemaStmt
+
+   .. data:: T_CreatePolicyStmt
+
+   .. data:: T_AlterPolicyStmt
+
+   .. data:: T_CreateAmStmt
+
+   .. data:: T_CreateTrigStmt
+
+   .. data:: T_CreateEventTrigStmt
+
+   .. data:: T_AlterEventTrigStmt
+
+   .. data:: T_CreatePLangStmt
+
+   .. data:: T_CreateRoleStmt
+
+   .. data:: T_AlterRoleStmt
+
+   .. data:: T_AlterRoleSetStmt
+
+   .. data:: T_DropRoleStmt
+
+   .. data:: T_CreateSeqStmt
+
+   .. data:: T_AlterSeqStmt
+
+   .. data:: T_DefineStmt
+
+   .. data:: T_CreateDomainStmt
+
+   .. data:: T_CreateOpClassStmt
+
+   .. data:: T_CreateOpClassItem
+
+   .. data:: T_CreateOpFamilyStmt
+
+   .. data:: T_AlterOpFamilyStmt
+
+   .. data:: T_DropStmt
+
+   .. data:: T_TruncateStmt
+
+   .. data:: T_CommentStmt
+
+   .. data:: T_SecLabelStmt
+
+   .. data:: T_DeclareCursorStmt
+
+   .. data:: T_ClosePortalStmt
+
+   .. data:: T_FetchStmt
+
+   .. data:: T_IndexStmt
+
+   .. data:: T_CreateStatsStmt
+
+   .. data:: T_StatsElem
+
+   .. data:: T_AlterStatsStmt
+
+   .. data:: T_CreateFunctionStmt
+
+   .. data:: T_FunctionParameter
+
+   .. data:: T_AlterFunctionStmt
+
+   .. data:: T_DoStmt
+
+   .. data:: T_InlineCodeBlock
+
+   .. data:: T_CallStmt
+
+   .. data:: T_CallContext
+
+   .. data:: T_RenameStmt
+
+   .. data:: T_AlterObjectDependsStmt
+
+   .. data:: T_AlterObjectSchemaStmt
+
+   .. data:: T_AlterOwnerStmt
+
+   .. data:: T_AlterOperatorStmt
+
+   .. data:: T_AlterTypeStmt
+
+   .. data:: T_RuleStmt
+
+   .. data:: T_NotifyStmt
+
+   .. data:: T_ListenStmt
+
+   .. data:: T_UnlistenStmt
+
+   .. data:: T_TransactionStmt
+
+   .. data:: T_CompositeTypeStmt
+
+   .. data:: T_CreateEnumStmt
+
+   .. data:: T_CreateRangeStmt
+
+   .. data:: T_AlterEnumStmt
+
+   .. data:: T_ViewStmt
+
+   .. data:: T_LoadStmt
+
+   .. data:: T_CreatedbStmt
+
+   .. data:: T_AlterDatabaseStmt
+
+   .. data:: T_AlterDatabaseRefreshCollStmt
+
+   .. data:: T_AlterDatabaseSetStmt
+
+   .. data:: T_DropdbStmt
+
+   .. data:: T_AlterSystemStmt
+
+   .. data:: T_ClusterStmt
+
+   .. data:: T_VacuumStmt
+
+   .. data:: T_VacuumRelation
+
+   .. data:: T_ExplainStmt
+
+   .. data:: T_CreateTableAsStmt
+
+   .. data:: T_RefreshMatViewStmt
+
+   .. data:: T_CheckPointStmt
+
+   .. data:: T_DiscardStmt
+
+   .. data:: T_LockStmt
+
+   .. data:: T_ConstraintsSetStmt
+
+   .. data:: T_ReindexStmt
+
+   .. data:: T_CreateConversionStmt
+
+   .. data:: T_CreateCastStmt
+
+   .. data:: T_CreateTransformStmt
+
+   .. data:: T_PrepareStmt
+
+   .. data:: T_ExecuteStmt
+
+   .. data:: T_DeallocateStmt
+
+   .. data:: T_DropOwnedStmt
+
+   .. data:: T_ReassignOwnedStmt
+
+   .. data:: T_AlterTSDictionaryStmt
+
+   .. data:: T_AlterTSConfigurationStmt
+
+   .. data:: T_PublicationTable
+
+   .. data:: T_PublicationObjSpec
+
+   .. data:: T_CreatePublicationStmt
+
+   .. data:: T_AlterPublicationStmt
+
+   .. data:: T_CreateSubscriptionStmt
+
+   .. data:: T_AlterSubscriptionStmt
+
+   .. data:: T_DropSubscriptionStmt
 
    .. data:: T_PlannerGlobal
+
+   .. data:: T_PlannerInfo
 
    .. data:: T_RelOptInfo
 
@@ -432,11 +602,25 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: T_ForeignKeyOptInfo
 
+   .. data:: T_StatisticExtInfo
+
+   .. data:: T_JoinDomain
+
+   .. data:: T_EquivalenceClass
+
+   .. data:: T_EquivalenceMember
+
+   .. data:: T_PathKey
+
+   .. data:: T_PathTarget
+
    .. data:: T_ParamPathInfo
 
    .. data:: T_Path
 
    .. data:: T_IndexPath
+
+   .. data:: T_IndexClause
 
    .. data:: T_BitmapHeapPath
 
@@ -454,12 +638,6 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: T_CustomPath
 
-   .. data:: T_NestPath
-
-   .. data:: T_MergePath
-
-   .. data:: T_HashPath
-
    .. data:: T_AppendPath
 
    .. data:: T_MergeAppendPath
@@ -476,6 +654,12 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: T_GatherMergePath
 
+   .. data:: T_NestPath
+
+   .. data:: T_MergePath
+
+   .. data:: T_HashPath
+
    .. data:: T_ProjectionPath
 
    .. data:: T_ProjectSetPath
@@ -489,6 +673,10 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
    .. data:: T_UpperUniquePath
 
    .. data:: T_AggPath
+
+   .. data:: T_GroupingSetData
+
+   .. data:: T_RollupData
 
    .. data:: T_GroupingSetsPath
 
@@ -506,23 +694,13 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: T_LimitPath
 
-   .. data:: T_EquivalenceClass
-
-   .. data:: T_EquivalenceMember
-
-   .. data:: T_PathKey
-
-   .. data:: T_PathKeyInfo
-
-   .. data:: T_PathTarget
-
    .. data:: T_RestrictInfo
-
-   .. data:: T_IndexClause
 
    .. data:: T_PlaceHolderVar
 
    .. data:: T_SpecialJoinInfo
+
+   .. data:: T_OuterJoinClauseInfo
 
    .. data:: T_AppendRelInfo
 
@@ -534,393 +712,245 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: T_PlannerParamItem
 
-   .. data:: T_RollupData
+   .. data:: T_AggInfo
 
-   .. data:: T_GroupingSetData
-
-   .. data:: T_StatisticExtInfo
-
-   .. data:: T_MergeAction
-
-   .. data:: T_AllocSetContext
-
-   .. data:: T_SlabContext
-
-   .. data:: T_GenerationContext
-
-   .. data:: T_Integer
-
-   .. data:: T_Float
-
-   .. data:: T_Boolean
-
-   .. data:: T_String
-
-   .. data:: T_BitString
-
-   .. data:: T_List
-
-   .. data:: T_IntList
-
-   .. data:: T_OidList
-
-   .. data:: T_ExtensibleNode
-
-   .. data:: T_RawStmt
-
-   .. data:: T_Query
+   .. data:: T_AggTransInfo
 
    .. data:: T_PlannedStmt
 
-   .. data:: T_InsertStmt
+   .. data:: T_Result
 
-   .. data:: T_DeleteStmt
+   .. data:: T_ProjectSet
 
-   .. data:: T_UpdateStmt
+   .. data:: T_ModifyTable
 
-   .. data:: T_MergeStmt
+   .. data:: T_Append
 
-   .. data:: T_SelectStmt
+   .. data:: T_MergeAppend
 
-   .. data:: T_ReturnStmt
+   .. data:: T_RecursiveUnion
 
-   .. data:: T_PLAssignStmt
+   .. data:: T_BitmapAnd
 
-   .. data:: T_AlterTableStmt
+   .. data:: T_BitmapOr
 
-   .. data:: T_AlterTableCmd
+   .. data:: T_SeqScan
 
-   .. data:: T_AlterDomainStmt
+   .. data:: T_SampleScan
 
-   .. data:: T_SetOperationStmt
+   .. data:: T_IndexScan
 
-   .. data:: T_GrantStmt
+   .. data:: T_IndexOnlyScan
 
-   .. data:: T_GrantRoleStmt
+   .. data:: T_BitmapIndexScan
 
-   .. data:: T_AlterDefaultPrivilegesStmt
+   .. data:: T_BitmapHeapScan
 
-   .. data:: T_ClosePortalStmt
+   .. data:: T_TidScan
 
-   .. data:: T_ClusterStmt
+   .. data:: T_TidRangeScan
 
-   .. data:: T_CopyStmt
+   .. data:: T_SubqueryScan
 
-   .. data:: T_CreateStmt
+   .. data:: T_FunctionScan
 
-   .. data:: T_DefineStmt
+   .. data:: T_ValuesScan
 
-   .. data:: T_DropStmt
+   .. data:: T_TableFuncScan
 
-   .. data:: T_TruncateStmt
+   .. data:: T_CteScan
 
-   .. data:: T_CommentStmt
+   .. data:: T_NamedTuplestoreScan
 
-   .. data:: T_FetchStmt
+   .. data:: T_WorkTableScan
 
-   .. data:: T_IndexStmt
+   .. data:: T_ForeignScan
 
-   .. data:: T_CreateFunctionStmt
+   .. data:: T_CustomScan
 
-   .. data:: T_AlterFunctionStmt
+   .. data:: T_NestLoop
 
-   .. data:: T_DoStmt
+   .. data:: T_NestLoopParam
 
-   .. data:: T_RenameStmt
+   .. data:: T_MergeJoin
 
-   .. data:: T_RuleStmt
+   .. data:: T_HashJoin
 
-   .. data:: T_NotifyStmt
+   .. data:: T_Material
 
-   .. data:: T_ListenStmt
+   .. data:: T_Memoize
 
-   .. data:: T_UnlistenStmt
+   .. data:: T_Sort
 
-   .. data:: T_TransactionStmt
+   .. data:: T_IncrementalSort
 
-   .. data:: T_ViewStmt
+   .. data:: T_Group
 
-   .. data:: T_LoadStmt
+   .. data:: T_Agg
 
-   .. data:: T_CreateDomainStmt
+   .. data:: T_WindowAgg
 
-   .. data:: T_CreatedbStmt
+   .. data:: T_Unique
 
-   .. data:: T_DropdbStmt
+   .. data:: T_Gather
 
-   .. data:: T_VacuumStmt
+   .. data:: T_GatherMerge
 
-   .. data:: T_ExplainStmt
+   .. data:: T_Hash
 
-   .. data:: T_CreateTableAsStmt
+   .. data:: T_SetOp
 
-   .. data:: T_CreateSeqStmt
+   .. data:: T_LockRows
 
-   .. data:: T_AlterSeqStmt
+   .. data:: T_Limit
 
-   .. data:: T_VariableSetStmt
+   .. data:: T_PlanRowMark
 
-   .. data:: T_VariableShowStmt
+   .. data:: T_PartitionPruneInfo
 
-   .. data:: T_DiscardStmt
+   .. data:: T_PartitionedRelPruneInfo
 
-   .. data:: T_CreateTrigStmt
+   .. data:: T_PartitionPruneStepOp
 
-   .. data:: T_CreatePLangStmt
+   .. data:: T_PartitionPruneStepCombine
 
-   .. data:: T_CreateRoleStmt
+   .. data:: T_PlanInvalItem
 
-   .. data:: T_AlterRoleStmt
+   .. data:: T_ExprState
 
-   .. data:: T_DropRoleStmt
+   .. data:: T_IndexInfo
 
-   .. data:: T_LockStmt
+   .. data:: T_ExprContext
 
-   .. data:: T_ConstraintsSetStmt
+   .. data:: T_ReturnSetInfo
 
-   .. data:: T_ReindexStmt
+   .. data:: T_ProjectionInfo
 
-   .. data:: T_CheckPointStmt
+   .. data:: T_JunkFilter
 
-   .. data:: T_CreateSchemaStmt
+   .. data:: T_OnConflictSetState
 
-   .. data:: T_AlterDatabaseStmt
+   .. data:: T_MergeActionState
 
-   .. data:: T_AlterDatabaseRefreshCollStmt
+   .. data:: T_ResultRelInfo
 
-   .. data:: T_AlterDatabaseSetStmt
+   .. data:: T_EState
 
-   .. data:: T_AlterRoleSetStmt
+   .. data:: T_WindowFuncExprState
 
-   .. data:: T_CreateConversionStmt
+   .. data:: T_SetExprState
 
-   .. data:: T_CreateCastStmt
+   .. data:: T_SubPlanState
 
-   .. data:: T_CreateOpClassStmt
+   .. data:: T_DomainConstraintState
 
-   .. data:: T_CreateOpFamilyStmt
+   .. data:: T_ResultState
 
-   .. data:: T_AlterOpFamilyStmt
+   .. data:: T_ProjectSetState
 
-   .. data:: T_PrepareStmt
+   .. data:: T_ModifyTableState
 
-   .. data:: T_ExecuteStmt
+   .. data:: T_AppendState
 
-   .. data:: T_DeallocateStmt
+   .. data:: T_MergeAppendState
 
-   .. data:: T_DeclareCursorStmt
+   .. data:: T_RecursiveUnionState
 
-   .. data:: T_CreateTableSpaceStmt
+   .. data:: T_BitmapAndState
 
-   .. data:: T_DropTableSpaceStmt
+   .. data:: T_BitmapOrState
 
-   .. data:: T_AlterObjectDependsStmt
+   .. data:: T_ScanState
 
-   .. data:: T_AlterObjectSchemaStmt
+   .. data:: T_SeqScanState
 
-   .. data:: T_AlterOwnerStmt
+   .. data:: T_SampleScanState
 
-   .. data:: T_AlterOperatorStmt
+   .. data:: T_IndexScanState
 
-   .. data:: T_AlterTypeStmt
+   .. data:: T_IndexOnlyScanState
 
-   .. data:: T_DropOwnedStmt
+   .. data:: T_BitmapIndexScanState
 
-   .. data:: T_ReassignOwnedStmt
+   .. data:: T_BitmapHeapScanState
 
-   .. data:: T_CompositeTypeStmt
+   .. data:: T_TidScanState
 
-   .. data:: T_CreateEnumStmt
+   .. data:: T_TidRangeScanState
 
-   .. data:: T_CreateRangeStmt
+   .. data:: T_SubqueryScanState
 
-   .. data:: T_AlterEnumStmt
+   .. data:: T_FunctionScanState
 
-   .. data:: T_AlterTSDictionaryStmt
+   .. data:: T_ValuesScanState
 
-   .. data:: T_AlterTSConfigurationStmt
+   .. data:: T_TableFuncScanState
 
-   .. data:: T_CreateFdwStmt
+   .. data:: T_CteScanState
 
-   .. data:: T_AlterFdwStmt
+   .. data:: T_NamedTuplestoreScanState
 
-   .. data:: T_CreateForeignServerStmt
+   .. data:: T_WorkTableScanState
 
-   .. data:: T_AlterForeignServerStmt
+   .. data:: T_ForeignScanState
 
-   .. data:: T_CreateUserMappingStmt
+   .. data:: T_CustomScanState
 
-   .. data:: T_AlterUserMappingStmt
+   .. data:: T_JoinState
 
-   .. data:: T_DropUserMappingStmt
+   .. data:: T_NestLoopState
 
-   .. data:: T_AlterTableSpaceOptionsStmt
+   .. data:: T_MergeJoinState
 
-   .. data:: T_AlterTableMoveAllStmt
+   .. data:: T_HashJoinState
 
-   .. data:: T_SecLabelStmt
+   .. data:: T_MaterialState
 
-   .. data:: T_CreateForeignTableStmt
+   .. data:: T_MemoizeState
 
-   .. data:: T_ImportForeignSchemaStmt
+   .. data:: T_SortState
 
-   .. data:: T_CreateExtensionStmt
+   .. data:: T_IncrementalSortState
 
-   .. data:: T_AlterExtensionStmt
+   .. data:: T_GroupState
 
-   .. data:: T_AlterExtensionContentsStmt
+   .. data:: T_AggState
 
-   .. data:: T_CreateEventTrigStmt
+   .. data:: T_WindowAggState
 
-   .. data:: T_AlterEventTrigStmt
+   .. data:: T_UniqueState
 
-   .. data:: T_RefreshMatViewStmt
+   .. data:: T_GatherState
 
-   .. data:: T_ReplicaIdentityStmt
+   .. data:: T_GatherMergeState
 
-   .. data:: T_AlterSystemStmt
+   .. data:: T_HashState
 
-   .. data:: T_CreatePolicyStmt
+   .. data:: T_SetOpState
 
-   .. data:: T_AlterPolicyStmt
+   .. data:: T_LockRowsState
 
-   .. data:: T_CreateTransformStmt
+   .. data:: T_LimitState
 
-   .. data:: T_CreateAmStmt
+   .. data:: T_IndexAmRoutine
 
-   .. data:: T_CreatePublicationStmt
+   .. data:: T_TableAmRoutine
 
-   .. data:: T_AlterPublicationStmt
+   .. data:: T_TsmRoutine
 
-   .. data:: T_CreateSubscriptionStmt
+   .. data:: T_EventTriggerData
 
-   .. data:: T_AlterSubscriptionStmt
+   .. data:: T_TriggerData
 
-   .. data:: T_DropSubscriptionStmt
+   .. data:: T_TupleTableSlot
 
-   .. data:: T_CreateStatsStmt
+   .. data:: T_FdwRoutine
 
-   .. data:: T_AlterCollationStmt
+   .. data:: T_Bitmapset
 
-   .. data:: T_CallStmt
+   .. data:: T_ExtensibleNode
 
-   .. data:: T_AlterStatsStmt
-
-   .. data:: T_A_Expr
-
-   .. data:: T_ColumnRef
-
-   .. data:: T_ParamRef
-
-   .. data:: T_A_Const
-
-   .. data:: T_FuncCall
-
-   .. data:: T_A_Star
-
-   .. data:: T_A_Indices
-
-   .. data:: T_A_Indirection
-
-   .. data:: T_A_ArrayExpr
-
-   .. data:: T_ResTarget
-
-   .. data:: T_MultiAssignRef
-
-   .. data:: T_TypeCast
-
-   .. data:: T_CollateClause
-
-   .. data:: T_SortBy
-
-   .. data:: T_WindowDef
-
-   .. data:: T_RangeSubselect
-
-   .. data:: T_RangeFunction
-
-   .. data:: T_RangeTableSample
-
-   .. data:: T_RangeTableFunc
-
-   .. data:: T_RangeTableFuncCol
-
-   .. data:: T_TypeName
-
-   .. data:: T_ColumnDef
-
-   .. data:: T_IndexElem
-
-   .. data:: T_StatsElem
-
-   .. data:: T_Constraint
-
-   .. data:: T_DefElem
-
-   .. data:: T_RangeTblEntry
-
-   .. data:: T_RangeTblFunction
-
-   .. data:: T_TableSampleClause
-
-   .. data:: T_WithCheckOption
-
-   .. data:: T_SortGroupClause
-
-   .. data:: T_GroupingSet
-
-   .. data:: T_WindowClause
-
-   .. data:: T_ObjectWithArgs
-
-   .. data:: T_AccessPriv
-
-   .. data:: T_CreateOpClassItem
-
-   .. data:: T_TableLikeClause
-
-   .. data:: T_FunctionParameter
-
-   .. data:: T_LockingClause
-
-   .. data:: T_RowMarkClause
-
-   .. data:: T_XmlSerialize
-
-   .. data:: T_WithClause
-
-   .. data:: T_InferClause
-
-   .. data:: T_OnConflictClause
-
-   .. data:: T_CTESearchClause
-
-   .. data:: T_CTECycleClause
-
-   .. data:: T_CommonTableExpr
-
-   .. data:: T_MergeWhenClause
-
-   .. data:: T_RoleSpec
-
-   .. data:: T_TriggerTransition
-
-   .. data:: T_PartitionElem
-
-   .. data:: T_PartitionSpec
-
-   .. data:: T_PartitionBoundSpec
-
-   .. data:: T_PartitionRangeDatum
-
-   .. data:: T_PartitionCmd
-
-   .. data:: T_VacuumRelation
-
-   .. data:: T_PublicationObjSpec
-
-   .. data:: T_PublicationTable
+   .. data:: T_ErrorSaveContext
 
    .. data:: T_IdentifySystemCmd
 
@@ -930,35 +960,11 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: T_DropReplicationSlotCmd
 
-   .. data:: T_ReadReplicationSlotCmd
-
    .. data:: T_StartReplicationCmd
 
+   .. data:: T_ReadReplicationSlotCmd
+
    .. data:: T_TimeLineHistoryCmd
-
-   .. data:: T_TriggerData
-
-   .. data:: T_EventTriggerData
-
-   .. data:: T_ReturnSetInfo
-
-   .. data:: T_WindowObjectData
-
-   .. data:: T_TIDBitmap
-
-   .. data:: T_InlineCodeBlock
-
-   .. data:: T_FdwRoutine
-
-   .. data:: T_IndexAmRoutine
-
-   .. data:: T_TableAmRoutine
-
-   .. data:: T_TsmRoutine
-
-   .. data:: T_ForeignKeyCacheInfo
-
-   .. data:: T_CallContext
 
    .. data:: T_SupportRequestSimplify
 
@@ -972,10 +978,40 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
    .. data:: T_SupportRequestWFuncMonotonic
 
+   .. data:: T_SupportRequestOptimizeWindowClause
+
+   .. data:: T_Integer
+
+   .. data:: T_Float
+
+   .. data:: T_Boolean
+
+   .. data:: T_String
+
+   .. data:: T_BitString
+
+   .. data:: T_ForeignKeyCacheInfo
+
+   .. data:: T_IntList
+
+   .. data:: T_OidList
+
+   .. data:: T_XidList
+
+   .. data:: T_AllocSetContext
+
+   .. data:: T_GenerationContext
+
+   .. data:: T_SlabContext
+
+   .. data:: T_TIDBitmap
+
+   .. data:: T_WindowObjectData
+
 
 .. class:: pglast.enums.nodes.OnConflictAction
 
-   Corresponds to the `OnConflictAction enum <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L841>`__.
+   Corresponds to the `OnConflictAction enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L426>`__.
 
    .. data:: ONCONFLICT_NONE
 
@@ -986,7 +1022,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.SetOpCmd
 
-   Corresponds to the `SetOpCmd enum <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L821>`__.
+   Corresponds to the `SetOpCmd enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L406>`__.
 
    .. data:: SETOPCMD_INTERSECT
 
@@ -999,7 +1035,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.SetOpStrategy
 
-   Corresponds to the `SetOpStrategy enum <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L829>`__.
+   Corresponds to the `SetOpStrategy enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L414>`__.
 
    .. data:: SETOP_SORTED
 
@@ -1008,16 +1044,16 @@ __ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/no
 
 .. data:: AGGSPLITOP_COMBINE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L793>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L378>`__.
 
 .. data:: AGGSPLITOP_SKIPFINAL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L794>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L379>`__.
 
 .. data:: AGGSPLITOP_SERIALIZE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L795>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L380>`__.
 
 .. data:: AGGSPLITOP_DESERIALIZE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/nodes.h#L796>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L381>`__.

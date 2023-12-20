@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from primnodes.h @ 15-4.2.3-0-g9b21e32
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from primnodes.h @ 16-latest-dev-0-gebeba2d
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2023 Lele Gaifax
@@ -39,6 +39,29 @@ class CoercionForm(IntEnum):
     COERCE_EXPLICIT_CAST = auto()
     COERCE_IMPLICIT_CAST = auto()
     COERCE_SQL_SYNTAX = auto()
+
+class JsonConstructorType(IntEnum):
+    JSCTOR_JSON_OBJECT = 1
+    JSCTOR_JSON_ARRAY = 2
+    JSCTOR_JSON_OBJECTAGG = 3
+    JSCTOR_JSON_ARRAYAGG = 4
+
+class JsonEncoding(IntEnum):
+    JS_ENC_DEFAULT = 0
+    JS_ENC_UTF8 = auto()
+    JS_ENC_UTF16 = auto()
+    JS_ENC_UTF32 = auto()
+
+class JsonFormatType(IntEnum):
+    JS_FORMAT_DEFAULT = 0
+    JS_FORMAT_JSON = auto()
+    JS_FORMAT_JSONB = auto()
+
+class JsonValueType(IntEnum):
+    JS_TYPE_ANY = 0
+    JS_TYPE_OBJECT = auto()
+    JS_TYPE_ARRAY = auto()
+    JS_TYPE_SCALAR = auto()
 
 class MinMaxOp(IntEnum):
     IS_GREATEST = 0

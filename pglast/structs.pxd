@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 15-4.2.3-0-g9b21e32
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 16-latest-dev-0-gebeba2d
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2023 Lele Gaifax
@@ -142,6 +142,18 @@ cdef extern from *:
     ctypedef enum JoinType:
         pass
 
+    ctypedef enum JsonConstructorType:
+        pass
+
+    ctypedef enum JsonEncoding:
+        pass
+
+    ctypedef enum JsonFormatType:
+        pass
+
+    ctypedef enum JsonValueType:
+        pass
+
     ctypedef enum LimitOption:
         pass
 
@@ -159,115 +171,11 @@ cdef extern from *:
 
     ctypedef enum NodeTag:
         T_Invalid
-        T_IndexInfo
-        T_ExprContext
-        T_ProjectionInfo
-        T_JunkFilter
-        T_OnConflictSetState
-        T_MergeActionState
-        T_ResultRelInfo
-        T_EState
-        T_TupleTableSlot
-        T_Plan
-        T_Result
-        T_ProjectSet
-        T_ModifyTable
-        T_Append
-        T_MergeAppend
-        T_RecursiveUnion
-        T_BitmapAnd
-        T_BitmapOr
-        T_Scan
-        T_SeqScan
-        T_SampleScan
-        T_IndexScan
-        T_IndexOnlyScan
-        T_BitmapIndexScan
-        T_BitmapHeapScan
-        T_TidScan
-        T_TidRangeScan
-        T_SubqueryScan
-        T_FunctionScan
-        T_ValuesScan
-        T_TableFuncScan
-        T_CteScan
-        T_NamedTuplestoreScan
-        T_WorkTableScan
-        T_ForeignScan
-        T_CustomScan
-        T_Join
-        T_NestLoop
-        T_MergeJoin
-        T_HashJoin
-        T_Material
-        T_Memoize
-        T_Sort
-        T_IncrementalSort
-        T_Group
-        T_Agg
-        T_WindowAgg
-        T_Unique
-        T_Gather
-        T_GatherMerge
-        T_Hash
-        T_SetOp
-        T_LockRows
-        T_Limit
-        T_NestLoopParam
-        T_PlanRowMark
-        T_PartitionPruneInfo
-        T_PartitionedRelPruneInfo
-        T_PartitionPruneStepOp
-        T_PartitionPruneStepCombine
-        T_PlanInvalItem
-        T_PlanState
-        T_ResultState
-        T_ProjectSetState
-        T_ModifyTableState
-        T_AppendState
-        T_MergeAppendState
-        T_RecursiveUnionState
-        T_BitmapAndState
-        T_BitmapOrState
-        T_ScanState
-        T_SeqScanState
-        T_SampleScanState
-        T_IndexScanState
-        T_IndexOnlyScanState
-        T_BitmapIndexScanState
-        T_BitmapHeapScanState
-        T_TidScanState
-        T_TidRangeScanState
-        T_SubqueryScanState
-        T_FunctionScanState
-        T_TableFuncScanState
-        T_ValuesScanState
-        T_CteScanState
-        T_NamedTuplestoreScanState
-        T_WorkTableScanState
-        T_ForeignScanState
-        T_CustomScanState
-        T_JoinState
-        T_NestLoopState
-        T_MergeJoinState
-        T_HashJoinState
-        T_MaterialState
-        T_MemoizeState
-        T_SortState
-        T_IncrementalSortState
-        T_GroupState
-        T_AggState
-        T_WindowAggState
-        T_UniqueState
-        T_GatherState
-        T_GatherMergeState
-        T_HashState
-        T_SetOpState
-        T_LockRowsState
-        T_LimitState
+        T_List
         T_Alias
         T_RangeVar
         T_TableFunc
+        T_IntoClause
         T_Var
         T_Const
         T_Param
@@ -302,6 +210,11 @@ cdef extern from *:
         T_MinMaxExpr
         T_SQLValueFunction
         T_XmlExpr
+        T_JsonFormat
+        T_JsonReturning
+        T_JsonValueExpr
+        T_JsonConstructorExpr
+        T_JsonIsPredicate
         T_NullTest
         T_BooleanTest
         T_CoerceToDomain
@@ -315,20 +228,210 @@ cdef extern from *:
         T_JoinExpr
         T_FromExpr
         T_OnConflictExpr
-        T_IntoClause
-        T_ExprState
-        T_WindowFuncExprState
-        T_SetExprState
-        T_SubPlanState
-        T_DomainConstraintState
-        T_PlannerInfo
+        T_Query
+        T_TypeName
+        T_ColumnRef
+        T_ParamRef
+        T_A_Expr
+        T_A_Const
+        T_TypeCast
+        T_CollateClause
+        T_RoleSpec
+        T_FuncCall
+        T_A_Star
+        T_A_Indices
+        T_A_Indirection
+        T_A_ArrayExpr
+        T_ResTarget
+        T_MultiAssignRef
+        T_SortBy
+        T_WindowDef
+        T_RangeSubselect
+        T_RangeFunction
+        T_RangeTableFunc
+        T_RangeTableFuncCol
+        T_RangeTableSample
+        T_ColumnDef
+        T_TableLikeClause
+        T_IndexElem
+        T_DefElem
+        T_LockingClause
+        T_XmlSerialize
+        T_PartitionElem
+        T_PartitionSpec
+        T_PartitionBoundSpec
+        T_PartitionRangeDatum
+        T_PartitionCmd
+        T_RangeTblEntry
+        T_RTEPermissionInfo
+        T_RangeTblFunction
+        T_TableSampleClause
+        T_WithCheckOption
+        T_SortGroupClause
+        T_GroupingSet
+        T_WindowClause
+        T_RowMarkClause
+        T_WithClause
+        T_InferClause
+        T_OnConflictClause
+        T_CTESearchClause
+        T_CTECycleClause
+        T_CommonTableExpr
+        T_MergeWhenClause
+        T_MergeAction
+        T_TriggerTransition
+        T_JsonOutput
+        T_JsonKeyValue
+        T_JsonObjectConstructor
+        T_JsonArrayConstructor
+        T_JsonArrayQueryConstructor
+        T_JsonAggConstructor
+        T_JsonObjectAgg
+        T_JsonArrayAgg
+        T_RawStmt
+        T_InsertStmt
+        T_DeleteStmt
+        T_UpdateStmt
+        T_MergeStmt
+        T_SelectStmt
+        T_SetOperationStmt
+        T_ReturnStmt
+        T_PLAssignStmt
+        T_CreateSchemaStmt
+        T_AlterTableStmt
+        T_ReplicaIdentityStmt
+        T_AlterTableCmd
+        T_AlterCollationStmt
+        T_AlterDomainStmt
+        T_GrantStmt
+        T_ObjectWithArgs
+        T_AccessPriv
+        T_GrantRoleStmt
+        T_AlterDefaultPrivilegesStmt
+        T_CopyStmt
+        T_VariableSetStmt
+        T_VariableShowStmt
+        T_CreateStmt
+        T_Constraint
+        T_CreateTableSpaceStmt
+        T_DropTableSpaceStmt
+        T_AlterTableSpaceOptionsStmt
+        T_AlterTableMoveAllStmt
+        T_CreateExtensionStmt
+        T_AlterExtensionStmt
+        T_AlterExtensionContentsStmt
+        T_CreateFdwStmt
+        T_AlterFdwStmt
+        T_CreateForeignServerStmt
+        T_AlterForeignServerStmt
+        T_CreateForeignTableStmt
+        T_CreateUserMappingStmt
+        T_AlterUserMappingStmt
+        T_DropUserMappingStmt
+        T_ImportForeignSchemaStmt
+        T_CreatePolicyStmt
+        T_AlterPolicyStmt
+        T_CreateAmStmt
+        T_CreateTrigStmt
+        T_CreateEventTrigStmt
+        T_AlterEventTrigStmt
+        T_CreatePLangStmt
+        T_CreateRoleStmt
+        T_AlterRoleStmt
+        T_AlterRoleSetStmt
+        T_DropRoleStmt
+        T_CreateSeqStmt
+        T_AlterSeqStmt
+        T_DefineStmt
+        T_CreateDomainStmt
+        T_CreateOpClassStmt
+        T_CreateOpClassItem
+        T_CreateOpFamilyStmt
+        T_AlterOpFamilyStmt
+        T_DropStmt
+        T_TruncateStmt
+        T_CommentStmt
+        T_SecLabelStmt
+        T_DeclareCursorStmt
+        T_ClosePortalStmt
+        T_FetchStmt
+        T_IndexStmt
+        T_CreateStatsStmt
+        T_StatsElem
+        T_AlterStatsStmt
+        T_CreateFunctionStmt
+        T_FunctionParameter
+        T_AlterFunctionStmt
+        T_DoStmt
+        T_InlineCodeBlock
+        T_CallStmt
+        T_CallContext
+        T_RenameStmt
+        T_AlterObjectDependsStmt
+        T_AlterObjectSchemaStmt
+        T_AlterOwnerStmt
+        T_AlterOperatorStmt
+        T_AlterTypeStmt
+        T_RuleStmt
+        T_NotifyStmt
+        T_ListenStmt
+        T_UnlistenStmt
+        T_TransactionStmt
+        T_CompositeTypeStmt
+        T_CreateEnumStmt
+        T_CreateRangeStmt
+        T_AlterEnumStmt
+        T_ViewStmt
+        T_LoadStmt
+        T_CreatedbStmt
+        T_AlterDatabaseStmt
+        T_AlterDatabaseRefreshCollStmt
+        T_AlterDatabaseSetStmt
+        T_DropdbStmt
+        T_AlterSystemStmt
+        T_ClusterStmt
+        T_VacuumStmt
+        T_VacuumRelation
+        T_ExplainStmt
+        T_CreateTableAsStmt
+        T_RefreshMatViewStmt
+        T_CheckPointStmt
+        T_DiscardStmt
+        T_LockStmt
+        T_ConstraintsSetStmt
+        T_ReindexStmt
+        T_CreateConversionStmt
+        T_CreateCastStmt
+        T_CreateTransformStmt
+        T_PrepareStmt
+        T_ExecuteStmt
+        T_DeallocateStmt
+        T_DropOwnedStmt
+        T_ReassignOwnedStmt
+        T_AlterTSDictionaryStmt
+        T_AlterTSConfigurationStmt
+        T_PublicationTable
+        T_PublicationObjSpec
+        T_CreatePublicationStmt
+        T_AlterPublicationStmt
+        T_CreateSubscriptionStmt
+        T_AlterSubscriptionStmt
+        T_DropSubscriptionStmt
         T_PlannerGlobal
+        T_PlannerInfo
         T_RelOptInfo
         T_IndexOptInfo
         T_ForeignKeyOptInfo
+        T_StatisticExtInfo
+        T_JoinDomain
+        T_EquivalenceClass
+        T_EquivalenceMember
+        T_PathKey
+        T_PathTarget
         T_ParamPathInfo
         T_Path
         T_IndexPath
+        T_IndexClause
         T_BitmapHeapPath
         T_BitmapAndPath
         T_BitmapOrPath
@@ -337,9 +440,6 @@ cdef extern from *:
         T_SubqueryScanPath
         T_ForeignPath
         T_CustomPath
-        T_NestPath
-        T_MergePath
-        T_HashPath
         T_AppendPath
         T_MergeAppendPath
         T_GroupResultPath
@@ -348,6 +448,9 @@ cdef extern from *:
         T_UniquePath
         T_GatherPath
         T_GatherMergePath
+        T_NestPath
+        T_MergePath
+        T_HashPath
         T_ProjectionPath
         T_ProjectSetPath
         T_SortPath
@@ -355,6 +458,8 @@ cdef extern from *:
         T_GroupPath
         T_UpperUniquePath
         T_AggPath
+        T_GroupingSetData
+        T_RollupData
         T_GroupingSetsPath
         T_MinMaxAggPath
         T_WindowAggPath
@@ -363,239 +468,163 @@ cdef extern from *:
         T_LockRowsPath
         T_ModifyTablePath
         T_LimitPath
-        T_EquivalenceClass
-        T_EquivalenceMember
-        T_PathKey
-        T_PathKeyInfo
-        T_PathTarget
         T_RestrictInfo
-        T_IndexClause
         T_PlaceHolderVar
         T_SpecialJoinInfo
+        T_OuterJoinClauseInfo
         T_AppendRelInfo
         T_RowIdentityVarInfo
         T_PlaceHolderInfo
         T_MinMaxAggInfo
         T_PlannerParamItem
-        T_RollupData
-        T_GroupingSetData
-        T_StatisticExtInfo
-        T_MergeAction
-        T_AllocSetContext
-        T_SlabContext
-        T_GenerationContext
-        T_Integer
-        T_Float
-        T_Boolean
-        T_String
-        T_BitString
-        T_List
-        T_IntList
-        T_OidList
-        T_ExtensibleNode
-        T_RawStmt
-        T_Query
+        T_AggInfo
+        T_AggTransInfo
         T_PlannedStmt
-        T_InsertStmt
-        T_DeleteStmt
-        T_UpdateStmt
-        T_MergeStmt
-        T_SelectStmt
-        T_ReturnStmt
-        T_PLAssignStmt
-        T_AlterTableStmt
-        T_AlterTableCmd
-        T_AlterDomainStmt
-        T_SetOperationStmt
-        T_GrantStmt
-        T_GrantRoleStmt
-        T_AlterDefaultPrivilegesStmt
-        T_ClosePortalStmt
-        T_ClusterStmt
-        T_CopyStmt
-        T_CreateStmt
-        T_DefineStmt
-        T_DropStmt
-        T_TruncateStmt
-        T_CommentStmt
-        T_FetchStmt
-        T_IndexStmt
-        T_CreateFunctionStmt
-        T_AlterFunctionStmt
-        T_DoStmt
-        T_RenameStmt
-        T_RuleStmt
-        T_NotifyStmt
-        T_ListenStmt
-        T_UnlistenStmt
-        T_TransactionStmt
-        T_ViewStmt
-        T_LoadStmt
-        T_CreateDomainStmt
-        T_CreatedbStmt
-        T_DropdbStmt
-        T_VacuumStmt
-        T_ExplainStmt
-        T_CreateTableAsStmt
-        T_CreateSeqStmt
-        T_AlterSeqStmt
-        T_VariableSetStmt
-        T_VariableShowStmt
-        T_DiscardStmt
-        T_CreateTrigStmt
-        T_CreatePLangStmt
-        T_CreateRoleStmt
-        T_AlterRoleStmt
-        T_DropRoleStmt
-        T_LockStmt
-        T_ConstraintsSetStmt
-        T_ReindexStmt
-        T_CheckPointStmt
-        T_CreateSchemaStmt
-        T_AlterDatabaseStmt
-        T_AlterDatabaseRefreshCollStmt
-        T_AlterDatabaseSetStmt
-        T_AlterRoleSetStmt
-        T_CreateConversionStmt
-        T_CreateCastStmt
-        T_CreateOpClassStmt
-        T_CreateOpFamilyStmt
-        T_AlterOpFamilyStmt
-        T_PrepareStmt
-        T_ExecuteStmt
-        T_DeallocateStmt
-        T_DeclareCursorStmt
-        T_CreateTableSpaceStmt
-        T_DropTableSpaceStmt
-        T_AlterObjectDependsStmt
-        T_AlterObjectSchemaStmt
-        T_AlterOwnerStmt
-        T_AlterOperatorStmt
-        T_AlterTypeStmt
-        T_DropOwnedStmt
-        T_ReassignOwnedStmt
-        T_CompositeTypeStmt
-        T_CreateEnumStmt
-        T_CreateRangeStmt
-        T_AlterEnumStmt
-        T_AlterTSDictionaryStmt
-        T_AlterTSConfigurationStmt
-        T_CreateFdwStmt
-        T_AlterFdwStmt
-        T_CreateForeignServerStmt
-        T_AlterForeignServerStmt
-        T_CreateUserMappingStmt
-        T_AlterUserMappingStmt
-        T_DropUserMappingStmt
-        T_AlterTableSpaceOptionsStmt
-        T_AlterTableMoveAllStmt
-        T_SecLabelStmt
-        T_CreateForeignTableStmt
-        T_ImportForeignSchemaStmt
-        T_CreateExtensionStmt
-        T_AlterExtensionStmt
-        T_AlterExtensionContentsStmt
-        T_CreateEventTrigStmt
-        T_AlterEventTrigStmt
-        T_RefreshMatViewStmt
-        T_ReplicaIdentityStmt
-        T_AlterSystemStmt
-        T_CreatePolicyStmt
-        T_AlterPolicyStmt
-        T_CreateTransformStmt
-        T_CreateAmStmt
-        T_CreatePublicationStmt
-        T_AlterPublicationStmt
-        T_CreateSubscriptionStmt
-        T_AlterSubscriptionStmt
-        T_DropSubscriptionStmt
-        T_CreateStatsStmt
-        T_AlterCollationStmt
-        T_CallStmt
-        T_AlterStatsStmt
-        T_A_Expr
-        T_ColumnRef
-        T_ParamRef
-        T_A_Const
-        T_FuncCall
-        T_A_Star
-        T_A_Indices
-        T_A_Indirection
-        T_A_ArrayExpr
-        T_ResTarget
-        T_MultiAssignRef
-        T_TypeCast
-        T_CollateClause
-        T_SortBy
-        T_WindowDef
-        T_RangeSubselect
-        T_RangeFunction
-        T_RangeTableSample
-        T_RangeTableFunc
-        T_RangeTableFuncCol
-        T_TypeName
-        T_ColumnDef
-        T_IndexElem
-        T_StatsElem
-        T_Constraint
-        T_DefElem
-        T_RangeTblEntry
-        T_RangeTblFunction
-        T_TableSampleClause
-        T_WithCheckOption
-        T_SortGroupClause
-        T_GroupingSet
-        T_WindowClause
-        T_ObjectWithArgs
-        T_AccessPriv
-        T_CreateOpClassItem
-        T_TableLikeClause
-        T_FunctionParameter
-        T_LockingClause
-        T_RowMarkClause
-        T_XmlSerialize
-        T_WithClause
-        T_InferClause
-        T_OnConflictClause
-        T_CTESearchClause
-        T_CTECycleClause
-        T_CommonTableExpr
-        T_MergeWhenClause
-        T_RoleSpec
-        T_TriggerTransition
-        T_PartitionElem
-        T_PartitionSpec
-        T_PartitionBoundSpec
-        T_PartitionRangeDatum
-        T_PartitionCmd
-        T_VacuumRelation
-        T_PublicationObjSpec
-        T_PublicationTable
+        T_Result
+        T_ProjectSet
+        T_ModifyTable
+        T_Append
+        T_MergeAppend
+        T_RecursiveUnion
+        T_BitmapAnd
+        T_BitmapOr
+        T_SeqScan
+        T_SampleScan
+        T_IndexScan
+        T_IndexOnlyScan
+        T_BitmapIndexScan
+        T_BitmapHeapScan
+        T_TidScan
+        T_TidRangeScan
+        T_SubqueryScan
+        T_FunctionScan
+        T_ValuesScan
+        T_TableFuncScan
+        T_CteScan
+        T_NamedTuplestoreScan
+        T_WorkTableScan
+        T_ForeignScan
+        T_CustomScan
+        T_NestLoop
+        T_NestLoopParam
+        T_MergeJoin
+        T_HashJoin
+        T_Material
+        T_Memoize
+        T_Sort
+        T_IncrementalSort
+        T_Group
+        T_Agg
+        T_WindowAgg
+        T_Unique
+        T_Gather
+        T_GatherMerge
+        T_Hash
+        T_SetOp
+        T_LockRows
+        T_Limit
+        T_PlanRowMark
+        T_PartitionPruneInfo
+        T_PartitionedRelPruneInfo
+        T_PartitionPruneStepOp
+        T_PartitionPruneStepCombine
+        T_PlanInvalItem
+        T_ExprState
+        T_IndexInfo
+        T_ExprContext
+        T_ReturnSetInfo
+        T_ProjectionInfo
+        T_JunkFilter
+        T_OnConflictSetState
+        T_MergeActionState
+        T_ResultRelInfo
+        T_EState
+        T_WindowFuncExprState
+        T_SetExprState
+        T_SubPlanState
+        T_DomainConstraintState
+        T_ResultState
+        T_ProjectSetState
+        T_ModifyTableState
+        T_AppendState
+        T_MergeAppendState
+        T_RecursiveUnionState
+        T_BitmapAndState
+        T_BitmapOrState
+        T_ScanState
+        T_SeqScanState
+        T_SampleScanState
+        T_IndexScanState
+        T_IndexOnlyScanState
+        T_BitmapIndexScanState
+        T_BitmapHeapScanState
+        T_TidScanState
+        T_TidRangeScanState
+        T_SubqueryScanState
+        T_FunctionScanState
+        T_ValuesScanState
+        T_TableFuncScanState
+        T_CteScanState
+        T_NamedTuplestoreScanState
+        T_WorkTableScanState
+        T_ForeignScanState
+        T_CustomScanState
+        T_JoinState
+        T_NestLoopState
+        T_MergeJoinState
+        T_HashJoinState
+        T_MaterialState
+        T_MemoizeState
+        T_SortState
+        T_IncrementalSortState
+        T_GroupState
+        T_AggState
+        T_WindowAggState
+        T_UniqueState
+        T_GatherState
+        T_GatherMergeState
+        T_HashState
+        T_SetOpState
+        T_LockRowsState
+        T_LimitState
+        T_IndexAmRoutine
+        T_TableAmRoutine
+        T_TsmRoutine
+        T_EventTriggerData
+        T_TriggerData
+        T_TupleTableSlot
+        T_FdwRoutine
+        T_Bitmapset
+        T_ExtensibleNode
+        T_ErrorSaveContext
         T_IdentifySystemCmd
         T_BaseBackupCmd
         T_CreateReplicationSlotCmd
         T_DropReplicationSlotCmd
-        T_ReadReplicationSlotCmd
         T_StartReplicationCmd
+        T_ReadReplicationSlotCmd
         T_TimeLineHistoryCmd
-        T_TriggerData
-        T_EventTriggerData
-        T_ReturnSetInfo
-        T_WindowObjectData
-        T_TIDBitmap
-        T_InlineCodeBlock
-        T_FdwRoutine
-        T_IndexAmRoutine
-        T_TableAmRoutine
-        T_TsmRoutine
-        T_ForeignKeyCacheInfo
-        T_CallContext
         T_SupportRequestSimplify
         T_SupportRequestSelectivity
         T_SupportRequestCost
         T_SupportRequestRows
         T_SupportRequestIndexCondition
         T_SupportRequestWFuncMonotonic
+        T_SupportRequestOptimizeWindowClause
+        T_Integer
+        T_Float
+        T_Boolean
+        T_String
+        T_BitString
+        T_ForeignKeyCacheInfo
+        T_IntList
+        T_OidList
+        T_XidList
+        T_AllocSetContext
+        T_GenerationContext
+        T_SlabContext
+        T_TIDBitmap
+        T_WindowObjectData
 
     ctypedef enum NullTestType:
         pass
@@ -616,6 +645,9 @@ cdef extern from *:
         pass
 
     ctypedef enum PartitionRangeDatumKind:
+        pass
+
+    ctypedef enum PartitionStrategy:
         pass
 
     ctypedef enum PublicationObjSpecType:
@@ -693,9 +725,6 @@ cdef extern from *:
     ctypedef enum pg_enc:
         pass
 
-    ctypedef enum vartag_external:
-        pass
-
     ctypedef enum yytokentype:
         pass
 
@@ -707,7 +736,6 @@ cdef extern from "nodes/parsenodes.h":
         NodeTag type
         CmdType commandType
         QuerySource querySource
-        uint64_t queryId
         bool canSetTag
         const Node* utilityStmt
         int resultRelation
@@ -723,6 +751,7 @@ cdef extern from "nodes/parsenodes.h":
         bool isReturn
         const List* cteList
         const List* rtable
+        const List* rteperminfos
         const FromExpr* jointree
         const List* mergeActionList
         bool mergeUseOuterJoin
@@ -911,6 +940,7 @@ cdef extern from "nodes/parsenodes.h":
         bool is_not_null
         bool is_from_type
         char storage
+        const char* storage_name
         const Node* raw_default
         const Node* cooked_default
         char identity
@@ -956,6 +986,7 @@ cdef extern from "nodes/parsenodes.h":
         XmlOptionType xmloption
         const Node* expr
         const TypeName* typeName
+        bool indent
         int location
 
     ctypedef struct PartitionElem:
@@ -968,7 +999,7 @@ cdef extern from "nodes/parsenodes.h":
 
     ctypedef struct PartitionSpec:
         NodeTag type
-        const char* strategy
+        PartitionStrategy strategy
         const List* partParams
         int location
 
@@ -1001,6 +1032,7 @@ cdef extern from "nodes/parsenodes.h":
         char relkind
         int rellockmode
         const TableSampleClause* tablesample
+        unsigned int perminfoindex
         const Query* subquery
         bool security_barrier
         JoinType jointype
@@ -1026,12 +1058,15 @@ cdef extern from "nodes/parsenodes.h":
         bool lateral
         bool inh
         bool inFromCl
+        const List* securityQuals
+
+    ctypedef struct RTEPermissionInfo:
+        NodeTag type
+        bool inh
         unsigned int requiredPerms
         const Bitmapset* selectedCols
         const Bitmapset* insertedCols
         const Bitmapset* updatedCols
-        const Bitmapset* extraUpdatedCols
-        const List* securityQuals
 
     ctypedef struct RangeTblFunction:
         NodeTag type
@@ -1167,6 +1202,60 @@ cdef extern from "nodes/parsenodes.h":
         const char* name
         bool isNew
         bool isTable
+
+    ctypedef struct JsonOutput:
+        NodeTag type
+        const TypeName* typeName
+        const JsonReturning* returning
+
+    ctypedef struct JsonKeyValue:
+        NodeTag type
+        const Expr* key
+        const JsonValueExpr* value
+
+    ctypedef struct JsonObjectConstructor:
+        NodeTag type
+        const List* exprs
+        const JsonOutput* output
+        bool absent_on_null
+        bool unique
+        int location
+
+    ctypedef struct JsonArrayConstructor:
+        NodeTag type
+        const List* exprs
+        const JsonOutput* output
+        bool absent_on_null
+        int location
+
+    ctypedef struct JsonArrayQueryConstructor:
+        NodeTag type
+        const Node* query
+        const JsonOutput* output
+        const JsonFormat* format
+        bool absent_on_null
+        int location
+
+    ctypedef struct JsonAggConstructor:
+        NodeTag type
+        const JsonOutput* output
+        const Node* agg_filter
+        const List* agg_order
+        const WindowDef* over
+        int location
+
+    ctypedef struct JsonObjectAgg:
+        NodeTag type
+        const JsonAggConstructor* constructor
+        const JsonKeyValue* arg
+        bool absent_on_null
+        bool unique
+
+    ctypedef struct JsonArrayAgg:
+        NodeTag type
+        const JsonAggConstructor* constructor
+        const JsonValueExpr* arg
+        bool absent_on_null
 
     ctypedef struct RawStmt:
         NodeTag type
@@ -1327,7 +1416,7 @@ cdef extern from "nodes/parsenodes.h":
         const List* granted_roles
         const List* grantee_roles
         bool is_grant
-        bool admin_opt
+        const List* opt
         const RoleSpec* grantor
         DropBehavior behavior
 
@@ -1713,8 +1802,9 @@ cdef extern from "nodes/parsenodes.h":
         const Node* whereClause
         const List* excludeOpNames
         const char* idxcomment
+        unsigned int oldNumber
         unsigned int oldCreateSubid
-        unsigned int oldFirstRelfilenodeSubid
+        unsigned int oldFirstRelfilelocatorSubid
         bool unique
         bool nulls_not_distinct
         bool primary
@@ -2156,9 +2246,8 @@ cdef extern from "nodes/primnodes.h":
         int varno
         int varattno
         int32_t vartypmod
+        const Bitmapset* varnullingrels
         unsigned int varlevelsup
-        unsigned int varnosyn
-        int varattnosyn
         int location
 
     ctypedef struct Param:
@@ -2186,7 +2275,6 @@ cdef extern from "nodes/primnodes.h":
     ctypedef struct GroupingFunc:
         const List* args
         const List* refs
-        const List* cols
         unsigned int agglevelsup
         int location
 
@@ -2351,7 +2439,43 @@ cdef extern from "nodes/primnodes.h":
         const List* arg_names
         const List* args
         XmlOptionType xmloption
+        bool indent
         int32_t typmod
+        int location
+
+    ctypedef struct JsonFormat:
+        NodeTag type
+        JsonFormatType format_type
+        JsonEncoding encoding
+        int location
+
+    ctypedef struct JsonReturning:
+        NodeTag type
+        const JsonFormat* format
+        int32_t typmod
+
+    ctypedef struct JsonValueExpr:
+        NodeTag type
+        const Expr* raw_expr
+        const Expr* formatted_expr
+        const JsonFormat* format
+
+    ctypedef struct JsonConstructorExpr:
+        JsonConstructorType type
+        const List* args
+        const Expr* func
+        const Expr* coercion
+        const JsonReturning* returning
+        bool absent_on_null
+        bool unique
+        int location
+
+    ctypedef struct JsonIsPredicate:
+        NodeTag type
+        const Node* expr
+        const JsonFormat* format
+        JsonValueType item_type
+        bool unique_keys
         int location
 
     ctypedef struct NullTest:

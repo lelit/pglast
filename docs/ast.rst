@@ -14,7 +14,7 @@
 The module implements a set of *data* classes, one for each ``C`` structure defined in several
 PostgreSQL headers, primarily those in the `include/nodes/`__ directory.
 
-__ https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes
+__ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes
 
 The :class:`pglast.ast.Node` is an abstract class that implements the common behaviour of all
 the concrete classes. In particular any node can be :meth:`compared <pglast.ast.Node.__eq__>`
@@ -29,7 +29,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: A_ArrayExpr(elements=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L444>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L486>`__ parser node.
 
    .. attribute:: elements
       :type: tuple
@@ -44,7 +44,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: A_Const(isnull=None, val=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L301>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L354>`__ parser node.
 
    .. attribute:: isnull
       :type: bool
@@ -55,7 +55,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: A_Expr(kind=None, name=None, lexpr=None, rexpr=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L288>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L326>`__ parser node.
 
    .. attribute:: kind
       :type: A_Expr_Kind
@@ -83,7 +83,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: A_Indices(is_slice=None, lidx=None, uidx=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L411>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L453>`__ parser node.
 
    .. attribute:: is_slice
       :type: bool
@@ -103,7 +103,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: A_Indirection(arg=None, indirection=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L434>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L476>`__ parser node.
 
    .. attribute:: arg
       :type: Node
@@ -118,12 +118,12 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: A_Star()
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L400>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L442>`__ parser node.
 
 
 .. class:: AccessPriv(priv_name=None, cols=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2134>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2362>`__ parser node.
 
    .. attribute:: priv_name
       :type: str
@@ -138,83 +138,54 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: Aggref(aggargtypes=None, aggdirectargs=None, args=None, aggorder=None, aggdistinct=None, aggfilter=None, aggstar=None, aggvariadic=None, aggkind=None, agglevelsup=None, aggsplit=None, aggno=None, aggtransno=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L320>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L417>`__ parser node.
 
    .. attribute:: aggargtypes
       :type: tuple
 
-      Type Oids of direct and aggregated args
-
    .. attribute:: aggdirectargs
       :type: tuple
-
-      Direct arguments, if an ordered-set agg
 
    .. attribute:: args
       :type: tuple
 
-      Aggregated arguments and sort expressions
-
    .. attribute:: aggorder
       :type: tuple
-
-      ORDER BY (list of SortGroupClause)
 
    .. attribute:: aggdistinct
       :type: tuple
 
-      DISTINCT (list of SortGroupClause)
-
    .. attribute:: aggfilter
       :type: Expr*
-
-      FILTER expression, if any
 
    .. attribute:: aggstar
       :type: bool
 
-      True if argument list was really '*'
-
    .. attribute:: aggvariadic
       :type: bool
-
-      True if variadic arguments have been
-      combined into an array last argument
 
    .. attribute:: aggkind
       :type: str
 
-      Aggregate kind (see pg_aggregate.h)
-
    .. attribute:: agglevelsup
       :type: Index
-
-      > 0 if agg belongs to outer query
 
    .. attribute:: aggsplit
       :type: AggSplit
 
-      Expected agg-splitting mode of parent Agg
-
    .. attribute:: aggno
       :type: int
-
-      Unique ID within the Agg node
 
    .. attribute:: aggtransno
       :type: int
 
-      Unique ID of transition state in the Agg
-
    .. attribute:: location
       :type: int
-
-      Token location, or -1 if unknown
 
 
 .. class:: Alias(aliasname=None, colnames=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L39>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L39>`__ parser node.
 
    .. attribute:: aliasname
       :type: str
@@ -229,7 +200,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterCollationStmt(collname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2041>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2269>`__ parser node.
 
    .. attribute:: collname
       :type: tuple
@@ -237,7 +208,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterDatabaseRefreshCollStmt(dbname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3371>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3609>`__ parser node.
 
    .. attribute:: dbname
       :type: str
@@ -245,7 +216,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterDatabaseSetStmt(dbname=None, setstmt=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3377>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3615>`__ parser node.
 
    .. attribute:: dbname
       :type: str
@@ -260,7 +231,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterDatabaseStmt(dbname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3364>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3602>`__ parser node.
 
    .. attribute:: dbname
       :type: str
@@ -275,7 +246,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterDefaultPrivilegesStmt(options=None, action=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2165>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2393>`__ parser node.
 
    .. attribute:: options
       :type: tuple
@@ -290,7 +261,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterDomainStmt(subtype=None, typeName=None, name=None, def_=None, behavior=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2055>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2283>`__ parser node.
 
    .. attribute:: subtype
       :type: str
@@ -329,7 +300,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterEnumStmt(typeName=None, oldVal=None, newVal=None, newValNeighbor=None, newValIsAfter=None, skipIfNewValExists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3306>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3544>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
@@ -364,7 +335,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterEventTrigStmt(trigname=None, tgenabled=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2643>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2873>`__ parser node.
 
    .. attribute:: trigname
       :type: str
@@ -380,7 +351,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterExtensionContentsStmt(extname=None, action=None, objtype=None, object=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2436>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2666>`__ parser node.
 
    .. attribute:: extname
       :type: str
@@ -405,7 +376,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterExtensionStmt(extname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2429>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2659>`__ parser node.
 
    .. attribute:: extname
       :type: str
@@ -418,7 +389,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterFdwStmt(fdwname=None, func_options=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2458>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2688>`__ parser node.
 
    .. attribute:: fdwname
       :type: str
@@ -438,7 +409,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterForeignServerStmt(servername=None, version=None, options=None, has_version=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2482>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2712>`__ parser node.
 
    .. attribute:: servername
       :type: str
@@ -463,7 +434,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterFunctionStmt(objtype=None, func=None, actions=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3061>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3291>`__ parser node.
 
    .. attribute:: objtype
       :type: ObjectType
@@ -481,7 +452,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterObjectDependsStmt(objectType=None, relation=None, object=None, extname=None, remove=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3135>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3373>`__ parser node.
 
    .. attribute:: objectType
       :type: ObjectType
@@ -511,7 +482,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterObjectSchemaStmt(objectType=None, relation=None, object=None, newschema=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3149>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3387>`__ parser node.
 
    .. attribute:: objectType
       :type: ObjectType
@@ -541,7 +512,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterOpFamilyStmt(opfamilyname=None, amname=None, isDrop=None, items=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2813>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3043>`__ parser node.
 
    .. attribute:: opfamilyname
       :type: tuple
@@ -566,7 +537,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterOperatorStmt(opername=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3176>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3414>`__ parser node.
 
    .. attribute:: opername
       :type: ObjectWithArgs*
@@ -581,7 +552,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterOwnerStmt(objectType=None, relation=None, object=None, newowner=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3163>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3401>`__ parser node.
 
    .. attribute:: objectType
       :type: ObjectType
@@ -606,7 +577,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterPolicyStmt(policy_name=None, table=None, roles=None, qual=None, with_check=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2576>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2806>`__ parser node.
 
    .. attribute:: policy_name
       :type: str
@@ -636,7 +607,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterPublicationStmt(pubname=None, options=None, pubobjects=None, for_all_tables=None, action=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3755>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3993>`__ parser node.
 
    .. attribute:: pubname
       :type: str
@@ -667,7 +638,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterRoleSetStmt(role=None, database=None, setstmt=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2698>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2928>`__ parser node.
 
    .. attribute:: role
       :type: RoleSpec*
@@ -687,7 +658,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterRoleStmt(role=None, options=None, action=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2690>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2920>`__ parser node.
 
    .. attribute:: role
       :type: RoleSpec*
@@ -707,7 +678,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterSeqStmt(sequence=None, options=None, for_identity=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2728>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2958>`__ parser node.
 
    .. attribute:: sequence
       :type: RangeVar*
@@ -728,7 +699,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterStatsStmt(defnames=None, stxstattarget=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3016>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3246>`__ parser node.
 
    .. attribute:: defnames
       :type: tuple
@@ -748,7 +719,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterSubscriptionStmt(kind=None, subname=None, conninfo=None, publication=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3794>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L4032>`__ parser node.
 
    .. attribute:: kind
       :type: AlterSubscriptionType
@@ -778,7 +749,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterSystemStmt(setstmt=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3400>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3638>`__ parser node.
 
    .. attribute:: setstmt
       :type: VariableSetStmt*
@@ -788,7 +759,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterTSConfigurationStmt(kind=None, cfgname=None, tokentype=None, dicts=None, override=None, replace=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3693>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3931>`__ parser node.
 
    .. attribute:: kind
       :type: AlterTSConfigType
@@ -828,7 +799,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterTSDictionaryStmt(dictname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3674>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3912>`__ parser node.
 
    .. attribute:: dictname
       :type: tuple
@@ -843,7 +814,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterTableCmd(subtype=None, name=None, num=None, newowner=None, def_=None, behavior=None, missing_ok=None, recurse=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2020>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2248>`__ parser node.
 
    .. attribute:: subtype
       :type: AlterTableType
@@ -889,7 +860,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterTableMoveAllStmt(orig_tablespacename=None, objtype=None, roles=None, new_tablespacename=None, nowait=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2405>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2635>`__ parser node.
 
    .. attribute:: orig_tablespacename
       :type: str
@@ -913,7 +884,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterTableSpaceOptionsStmt(tablespacename=None, options=None, isReset=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2397>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2627>`__ parser node.
 
    .. attribute:: tablespacename
       :type: str
@@ -927,7 +898,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterTableStmt(relation=None, cmds=None, objtype=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1929>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2162>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -952,7 +923,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterTypeStmt(typeName=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3187>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3425>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
@@ -967,7 +938,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlterUserMappingStmt(user=None, servername=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2517>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2747>`__ parser node.
 
    .. attribute:: user
       :type: RoleSpec*
@@ -987,7 +958,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: AlternativeSubPlan(subplans=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L790>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1035>`__ parser node.
 
    .. attribute:: subplans
       :type: tuple
@@ -997,7 +968,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ArrayCoerceExpr(arg=None, elemexpr=None, resulttypmod=None, coerceformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L901>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1157>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1012,12 +983,8 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: resulttypmod
       :type: int32
 
-      Output typmod (also element typmod)
-
    .. attribute:: coerceformat
       :type: CoercionForm
-
-      How to display this node
 
    .. attribute:: location
       :type: int
@@ -1027,27 +994,21 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ArrayExpr(elements=None, multidims=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1031>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1297>`__ parser node.
 
    .. attribute:: elements
       :type: tuple
 
-      The array elements or sub-arrays
-
    .. attribute:: multidims
       :type: bool
-
-      True if elements are sub-arrays
 
    .. attribute:: location
       :type: int
 
-      Token location, or -1 if unknown
-
 
 .. class:: BitString(bsval=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/value.h#L63>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/value.h#L71>`__ parser node.
 
    .. attribute:: bsval
       :type: str
@@ -1055,7 +1016,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: BoolExpr(boolop=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L622>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L861>`__ parser node.
 
    .. attribute:: boolop
       :type: BoolExprType
@@ -1073,7 +1034,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: Boolean(boolval=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/value.h#L51>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/value.h#L55>`__ parser node.
 
    .. attribute:: boolval
       :type: bool
@@ -1081,7 +1042,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: BooleanTest(arg=None, booltesttype=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1283>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1710>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1101,7 +1062,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CTECycleClause(cycle_col_list=None, cycle_mark_column=None, cycle_mark_value=None, cycle_mark_default=None, cycle_path_column=None, location=None, cycle_mark_typmod=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1505>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1605>`__ parser node.
 
    .. attribute:: cycle_col_list
       :type: tuple
@@ -1127,7 +1088,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CTESearchClause(search_col_list=None, search_breadth_first=None, search_seq_column=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1496>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1596>`__ parser node.
 
    .. attribute:: search_col_list
       :type: tuple
@@ -1144,7 +1105,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CallContext(atomic=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3107>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3343>`__ parser node.
 
    .. attribute:: atomic
       :type: bool
@@ -1152,7 +1113,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CallStmt(funccall=None, funcexpr=None, outargs=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3099>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3333>`__ parser node.
 
    .. attribute:: funccall
       :type: FuncCall*
@@ -1162,17 +1123,13 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: funcexpr
       :type: FuncExpr*
 
-      Transformed call, with only input args
-
    .. attribute:: outargs
       :type: tuple
-
-      Transformed output-argument expressions
 
 
 .. class:: CaseExpr(arg=None, args=None, defresult=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L973>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1233>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1197,17 +1154,15 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CaseTestExpr(typeMod=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1015>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1279>`__ parser node.
 
    .. attribute:: typeMod
       :type: int32
 
-      Typemod for substituted value
-
 
 .. class:: CaseWhen(expr=None, result=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L987>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1249>`__ parser node.
 
    .. attribute:: expr
       :type: Expr*
@@ -1227,12 +1182,12 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CheckPointStmt()
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3502>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3740>`__ parser node.
 
 
 .. class:: ClosePortalStmt(portalname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2906>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3136>`__ parser node.
 
    .. attribute:: portalname
       :type: str
@@ -1242,7 +1197,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ClusterStmt(relation=None, indexname=None, params=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3410>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3648>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -1262,22 +1217,18 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CoalesceExpr(args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1125>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1411>`__ parser node.
 
    .. attribute:: args
       :type: tuple
 
-      The arguments
-
    .. attribute:: location
       :type: int
-
-      Token location, or -1 if unknown
 
 
 .. class:: CoerceToDomain(arg=None, resulttypmod=None, coercionformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1300>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1727>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1287,12 +1238,8 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: resulttypmod
       :type: int32
 
-      Output typmod (currently always -1)
-
    .. attribute:: coercionformat
       :type: CoercionForm
-
-      How to display this node
 
    .. attribute:: location
       :type: int
@@ -1302,22 +1249,18 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CoerceToDomainValue(typeMod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1320>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1750>`__ parser node.
 
    .. attribute:: typeMod
       :type: int32
 
-      Typemod for substituted value
-
    .. attribute:: location
       :type: int
-
-      Token location, or -1 if unknown
 
 
 .. class:: CoerceViaIO(arg=None, coerceformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L877>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1131>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1327,8 +1270,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: coerceformat
       :type: CoercionForm
 
-      How to display this node
-
    .. attribute:: location
       :type: int
 
@@ -1337,7 +1278,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CollateClause(arg=None, collname=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L336>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L378>`__ parser node.
 
    .. attribute:: arg
       :type: Node
@@ -1357,7 +1298,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CollateExpr(arg=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L943>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1203>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1370,9 +1311,9 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       Token location, or -1 if unknown
 
 
-.. class:: ColumnDef(colname=None, typeName=None, compression=None, inhcount=None, is_local=None, is_not_null=None, is_from_type=None, storage=None, raw_default=None, cooked_default=None, identity=None, identitySequence=None, generated=None, collClause=None, constraints=None, fdwoptions=None, location=None)
+.. class:: ColumnDef(colname=None, typeName=None, compression=None, inhcount=None, is_local=None, is_not_null=None, is_from_type=None, storage=None, storage_name=None, raw_default=None, cooked_default=None, identity=None, identitySequence=None, generated=None, collClause=None, constraints=None, fdwoptions=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L675>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L717>`__ parser node.
 
    .. attribute:: colname
       :type: str
@@ -1413,6 +1354,11 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: str
 
       Attstorage setting, or 0 for default
+
+   .. attribute:: storage_name
+      :type: str
+
+      Attstorage setting name or NULL for default
 
    .. attribute:: raw_default
       :type: Node
@@ -1463,7 +1409,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ColumnRef(fields=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L250>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L288>`__ parser node.
 
    .. attribute:: fields
       :type: tuple
@@ -1478,7 +1424,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CommentStmt(objtype=None, object=None, comment=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2853>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3083>`__ parser node.
 
    .. attribute:: objtype
       :type: ObjectType
@@ -1498,17 +1444,13 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CommonTableExpr(ctename=None, aliascolnames=None, ctematerialized=None, ctequery=None, search_clause=None, cycle_clause=None, location=None, cterecursive=None, cterefcount=None, ctecolnames=None, ctecoltypes=None, ctecoltypmods=None, ctecolcollations=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1521>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1621>`__ parser node.
 
    .. attribute:: ctename
       :type: str
 
-      Query name (never qualified)
-
    .. attribute:: aliascolnames
       :type: tuple
-
-      Optional list of column names
 
    .. attribute:: ctematerialized
       :type: CTEMaterialize
@@ -1534,38 +1476,25 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: cterecursive
       :type: bool
 
-      Is this CTE actually recursive?
-
    .. attribute:: cterefcount
       :type: int
-
-      Number of RTEs referencing this CTE
-      (excluding internal self-references)
 
    .. attribute:: ctecolnames
       :type: tuple
 
-      List of output column names
-
    .. attribute:: ctecoltypes
       :type: tuple
-
-      OID list of output column type OIDs
 
    .. attribute:: ctecoltypmods
       :type: tuple
 
-      Integer list of output column typmods
-
    .. attribute:: ctecolcollations
       :type: tuple
-
-      OID list of column collation OIDs
 
 
 .. class:: CompositeTypeStmt(typevar=None, coldeflist=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3273>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3511>`__ parser node.
 
    .. attribute:: typevar
       :type: RangeVar*
@@ -1580,7 +1509,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: Constraint(contype=None, conname=None, deferrable=None, initdeferred=None, location=None, is_no_inherit=None, raw_expr=None, cooked_expr=None, generated_when=None, nulls_not_distinct=None, keys=None, including=None, exclusions=None, options=None, indexname=None, indexspace=None, reset_default_tblspc=None, access_method=None, where_clause=None, pktable=None, fk_attrs=None, pk_attrs=None, fk_matchtype=None, fk_upd_action=None, fk_del_action=None, fk_del_set_cols=None, old_conpfeqop=None, skip_validation=None, initially_valid=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2322>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2550>`__ parser node.
 
    .. attribute:: contype
       :type: ConstrType
@@ -1731,7 +1660,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ConstraintsSetStmt(constraints=None, deferred=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3542>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3780>`__ parser node.
 
    .. attribute:: constraints
       :type: tuple
@@ -1744,7 +1673,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ConvertRowtypeExpr(arg=None, convertformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L926>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1185>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -1754,8 +1683,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: convertformat
       :type: CoercionForm
 
-      How to display this node
-
    .. attribute:: location
       :type: int
 
@@ -1764,7 +1691,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CopyStmt(relation=None, query=None, attlist=None, is_from=None, is_program=None, filename=None, options=None, whereClause=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2180>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2408>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -1811,7 +1738,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateAmStmt(amname=None, handler_name=None, amtype=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2590>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2820>`__ parser node.
 
    .. attribute:: amname
       :type: str
@@ -1831,7 +1758,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateCastStmt(sourcetype=None, targettype=None, func=None, context=None, inout=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3590>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3828>`__ parser node.
 
    .. attribute:: sourcetype
       :type: TypeName*
@@ -1851,7 +1778,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateConversionStmt(conversion_name=None, for_encoding_name=None, to_encoding_name=None, func_name=None, def_=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3576>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3814>`__ parser node.
 
    .. attribute:: conversion_name
       :type: tuple
@@ -1881,7 +1808,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateDomainStmt(domainname=None, typeName=None, collClause=None, constraints=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2757>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2987>`__ parser node.
 
    .. attribute:: domainname
       :type: tuple
@@ -1906,7 +1833,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateEnumStmt(typeName=None, vals=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3284>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3522>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
@@ -1921,7 +1848,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateEventTrigStmt(trigname=None, eventname=None, whenclause=None, funcname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2630>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2860>`__ parser node.
 
    .. attribute:: trigname
       :type: str
@@ -1946,7 +1873,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateExtensionStmt(extname=None, if_not_exists=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2420>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2650>`__ parser node.
 
    .. attribute:: extname
       :type: str
@@ -1964,7 +1891,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateFdwStmt(fdwname=None, func_options=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2450>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2680>`__ parser node.
 
    .. attribute:: fdwname
       :type: str
@@ -1984,7 +1911,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateForeignServerStmt(servername=None, servertype=None, version=None, fdwname=None, if_not_exists=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2471>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2701>`__ parser node.
 
    .. attribute:: servername
       :type: str
@@ -2019,7 +1946,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateForeignTableStmt(base=None, servername=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2496>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2726>`__ parser node.
 
    .. attribute:: base
       :type: CreateStmt
@@ -2033,7 +1960,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateFunctionStmt(is_procedure=None, replace=None, funcname=None, parameters=None, returnType=None, options=None, sql_body=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3028>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3258>`__ parser node.
 
    .. attribute:: is_procedure
       :type: bool
@@ -2071,7 +1998,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateOpClassItem(itemtype=None, name=None, number=None, order_family=None, class_args=None, storedtype=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2785>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3015>`__ parser node.
 
    .. attribute:: itemtype
       :type: int
@@ -2107,7 +2034,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateOpClassStmt(opclassname=None, opfamilyname=None, amname=None, datatype=None, items=None, isDefault=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2770>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3000>`__ parser node.
 
    .. attribute:: opclassname
       :type: tuple
@@ -2142,7 +2069,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateOpFamilyStmt(opfamilyname=None, amname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2802>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3032>`__ parser node.
 
    .. attribute:: opfamilyname
       :type: tuple
@@ -2157,7 +2084,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreatePLangStmt(replace=None, plname=None, plhandler=None, plinline=None, plvalidator=None, pltrusted=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2655>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2885>`__ parser node.
 
    .. attribute:: replace
       :type: bool
@@ -2192,7 +2119,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreatePolicyStmt(policy_name=None, table=None, cmd_name=None, permissive=None, roles=None, qual=None, with_check=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2560>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2790>`__ parser node.
 
    .. attribute:: policy_name
       :type: str
@@ -2232,7 +2159,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreatePublicationStmt(pubname=None, options=None, pubobjects=None, for_all_tables=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3739>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3977>`__ parser node.
 
    .. attribute:: pubname
       :type: str
@@ -2257,7 +2184,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateRangeStmt(typeName=None, params=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3295>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3533>`__ parser node.
 
    .. attribute:: typeName
       :type: tuple
@@ -2272,7 +2199,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateRoleStmt(stmt_type=None, role=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2682>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2912>`__ parser node.
 
    .. attribute:: stmt_type
       :type: RoleStmtType
@@ -2292,7 +2219,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateSchemaStmt(schemaname=None, authrole=None, schemaElts=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1910>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2143>`__ parser node.
 
    .. attribute:: schemaname
       :type: str
@@ -2317,7 +2244,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateSeqStmt(sequence=None, options=None, for_identity=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2718>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2948>`__ parser node.
 
    .. attribute:: sequence
       :type: RangeVar*
@@ -2338,7 +2265,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateStatsStmt(defnames=None, stat_types=None, exprs=None, relations=None, stxcomment=None, transformed=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2985>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3215>`__ parser node.
 
    .. attribute:: defnames
       :type: tuple
@@ -2378,7 +2305,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateStmt(relation=None, tableElts=None, inhRelations=None, partbound=None, partspec=None, ofTypename=None, constraints=None, options=None, oncommit=None, tablespacename=None, accessMethod=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2242>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2470>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -2444,7 +2371,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateSubscriptionStmt(subname=None, conninfo=None, publication=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3773>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L4011>`__ parser node.
 
    .. attribute:: subname
       :type: str
@@ -2469,7 +2396,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateTableAsStmt(query=None, into=None, objtype=None, is_select_into=None, if_not_exists=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3476>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3714>`__ parser node.
 
    .. attribute:: query
       :type: Node
@@ -2499,7 +2426,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateTableSpaceStmt(tablespacename=None, owner=None, location=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2381>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2611>`__ parser node.
 
    .. attribute:: tablespacename
       :type: str
@@ -2516,7 +2443,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateTransformStmt(replace=None, type_name=None, lang=None, fromsql=None, tosql=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3604>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3842>`__ parser node.
 
    .. attribute:: replace
       :type: bool
@@ -2536,7 +2463,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateTrigStmt(replace=None, isconstraint=None, trigname=None, relation=None, funcname=None, args=None, row=None, timing=None, events=None, columns=None, whenClause=None, transitionRels=None, deferrable=None, initdeferred=None, constrrel=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2602>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2832>`__ parser node.
 
    .. attribute:: replace
       :type: bool
@@ -2616,7 +2543,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreateUserMappingStmt(user=None, servername=None, if_not_exists=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2508>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2738>`__ parser node.
 
    .. attribute:: user
       :type: RoleSpec*
@@ -2641,7 +2568,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CreatedbStmt(dbname=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3353>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3591>`__ parser node.
 
    .. attribute:: dbname
       :type: str
@@ -2656,7 +2583,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: CurrentOfExpr(cvarno=None, cursor_name=None, cursor_param=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1358>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1796>`__ parser node.
 
    .. attribute:: cvarno
       :type: Index
@@ -2676,7 +2603,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DeallocateStmt(name=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3644>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3882>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -2686,7 +2613,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DeclareCursorStmt(portalname=None, options=None, query=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2894>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3124>`__ parser node.
 
    .. attribute:: portalname
       :type: str
@@ -2706,7 +2633,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DefElem(defnamespace=None, defname=None, arg=None, defaction=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L762>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L805>`__ parser node.
 
    .. attribute:: defnamespace
       :type: str
@@ -2735,7 +2662,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DefineStmt(kind=None, oldstyle=None, defnames=None, args=None, definition=None, if_not_exists=None, replace=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2741>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2971>`__ parser node.
 
    .. attribute:: kind
       :type: ObjectType
@@ -2775,7 +2702,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DeleteStmt(relation=None, usingClause=None, whereClause=None, returningList=None, withClause=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1650>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1879>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -2805,7 +2732,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DiscardStmt(target=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3520>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3758>`__ parser node.
 
    .. attribute:: target
       :type: DiscardMode
@@ -2813,7 +2740,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DoStmt(args=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3075>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3305>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -2823,7 +2750,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DropOwnedStmt(roles=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3654>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3892>`__ parser node.
 
    .. attribute:: roles
       :type: tuple
@@ -2834,7 +2761,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DropRoleStmt(roles=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2706>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2936>`__ parser node.
 
    .. attribute:: roles
       :type: tuple
@@ -2849,7 +2776,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DropStmt(objects=None, removeType=None, behavior=None, missing_ok=None, concurrent=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2827>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3057>`__ parser node.
 
    .. attribute:: objects
       :type: tuple
@@ -2879,7 +2806,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DropSubscriptionStmt(subname=None, missing_ok=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3804>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L4042>`__ parser node.
 
    .. attribute:: subname
       :type: str
@@ -2899,7 +2826,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DropTableSpaceStmt(tablespacename=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2390>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2620>`__ parser node.
 
    .. attribute:: tablespacename
       :type: str
@@ -2912,7 +2839,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DropUserMappingStmt(user=None, servername=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2525>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2755>`__ parser node.
 
    .. attribute:: user
       :type: RoleSpec*
@@ -2932,7 +2859,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: DropdbStmt(dbname=None, missing_ok=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3388>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3626>`__ parser node.
 
    .. attribute:: dbname
       :type: str
@@ -2952,7 +2879,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ExecuteStmt(name=None, params=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3632>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3870>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -2967,7 +2894,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ExplainStmt(query=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3456>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3694>`__ parser node.
 
    .. attribute:: query
       :type: Node
@@ -2982,7 +2909,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: FetchStmt(direction=None, howMany=None, portalname=None, ismove=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2929>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3159>`__ parser node.
 
    .. attribute:: direction
       :type: FetchDirection
@@ -3005,7 +2932,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: FieldSelect(arg=None, fieldnum=None, resulttypmod=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L805>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1052>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -3020,12 +2947,10 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: resulttypmod
       :type: int32
 
-      Output typmod (usually -1)
-
 
 .. class:: FieldStore(arg=None, newvals=None, fieldnums=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L834>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1083>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -3040,12 +2965,10 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: fieldnums
       :type: tuple
 
-      Integer list of field attnums
-
 
 .. class:: Float(fval=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/value.h#L45>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/value.h#L47>`__ parser node.
 
    .. attribute:: fval
       :type: str
@@ -3053,7 +2976,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: FromExpr(fromlist=None, quals=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1559>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L2007>`__ parser node.
 
    .. attribute:: fromlist
       :type: tuple
@@ -3068,7 +2991,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: FuncCall(funcname=None, args=None, agg_order=None, agg_filter=None, over=None, agg_within_group=None, agg_star=None, agg_distinct=None, func_variadic=None, funcformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L378>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L420>`__ parser node.
 
    .. attribute:: funcname
       :type: tuple
@@ -3128,38 +3051,27 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: FuncExpr(funcretset=None, funcvariadic=None, funcformat=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L492>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L673>`__ parser node.
 
    .. attribute:: funcretset
       :type: bool
 
-      True if function returns set
-
    .. attribute:: funcvariadic
       :type: bool
-
-      True if variadic arguments have been
-      combined into an array last argument
 
    .. attribute:: funcformat
       :type: CoercionForm
 
-      How to display this function call
-
    .. attribute:: args
       :type: tuple
-
-      Arguments to the function
 
    .. attribute:: location
       :type: int
 
-      Token location, or -1 if unknown
-
 
 .. class:: FunctionParameter(name=None, argType=None, mode=None, defexpr=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3052>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3282>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -3182,9 +3094,9 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       Raw default expr, or NULL if not given
 
 
-.. class:: GrantRoleStmt(granted_roles=None, grantee_roles=None, is_grant=None, admin_opt=None, grantor=None, behavior=None)
+.. class:: GrantRoleStmt(granted_roles=None, grantee_roles=None, is_grant=None, opt=None, grantor=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2150>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2378>`__ parser node.
 
    .. attribute:: granted_roles
       :type: tuple
@@ -3201,10 +3113,10 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
       True = GRANT, false = REVOKE
 
-   .. attribute:: admin_opt
-      :type: bool
+   .. attribute:: opt
+      :type: tuple
 
-      With admin option
+      Options e.g. WITH GRANT OPTION
 
    .. attribute:: grantor
       :type: RoleSpec*
@@ -3219,7 +3131,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: GrantStmt(is_grant=None, targtype=None, objtype=None, objects=None, privileges=None, grantees=None, grant_option=None, grantor=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2085>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2313>`__ parser node.
 
    .. attribute:: is_grant
       :type: bool
@@ -3266,40 +3178,26 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       Drop behavior (for REVOKE)
 
 
-.. class:: GroupingFunc(args=None, refs=None, cols=None, agglevelsup=None, location=None)
+.. class:: GroupingFunc(args=None, refs=None, agglevelsup=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L369>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L515>`__ parser node.
 
    .. attribute:: args
       :type: tuple
 
-      Arguments, not evaluated but kept for
-      benefit of EXPLAIN etc.
-
    .. attribute:: refs
       :type: tuple
-
-      Ressortgrouprefs of arguments
-
-   .. attribute:: cols
-      :type: tuple
-
-      Actual column positions set by planner
 
    .. attribute:: agglevelsup
       :type: Index
 
-      Same as Aggref.agglevelsup
-
    .. attribute:: location
       :type: int
-
-      Token location
 
 
 .. class:: GroupingSet(kind=None, content=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1372>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1459>`__ parser node.
 
    .. attribute:: kind
       :type: GroupingSetKind
@@ -3313,7 +3211,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ImportForeignSchemaStmt(server_name=None, remote_schema=None, local_schema=None, list_type=None, table_list=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2545>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2775>`__ parser node.
 
    .. attribute:: server_name
       :type: str
@@ -3348,7 +3246,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: IndexElem(name=None, expr=None, indexcolname=None, collation=None, opclass=None, opclassopts=None, ordering=None, nulls_ordering=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L731>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L774>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -3391,9 +3289,9 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       FIRST/LAST/default
 
 
-.. class:: IndexStmt(idxname=None, relation=None, accessMethod=None, tableSpace=None, indexParams=None, indexIncludingParams=None, options=None, whereClause=None, excludeOpNames=None, idxcomment=None, oldCreateSubid=None, oldFirstRelfilenodeSubid=None, unique=None, nulls_not_distinct=None, primary=None, isconstraint=None, deferrable=None, initdeferred=None, transformed=None, concurrent=None, if_not_exists=None, reset_default_tblspc=None)
+.. class:: IndexStmt(idxname=None, relation=None, accessMethod=None, tableSpace=None, indexParams=None, indexIncludingParams=None, options=None, whereClause=None, excludeOpNames=None, idxcomment=None, oldNumber=None, oldCreateSubid=None, oldFirstRelfilelocatorSubid=None, unique=None, nulls_not_distinct=None, primary=None, isconstraint=None, deferrable=None, initdeferred=None, transformed=None, concurrent=None, if_not_exists=None, reset_default_tblspc=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2949>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3179>`__ parser node.
 
    .. attribute:: idxname
       :type: str
@@ -3446,16 +3344,21 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
       Comment to apply to index, or NULL
 
+   .. attribute:: oldNumber
+      :type: RelFileNumber
+
+      Relfilenumber of existing storage, if any
+
    .. attribute:: oldCreateSubid
       :type: SubTransactionId
 
-      Rd_createSubid of oldNode
+      Rd_createSubid of oldNumber
 
-   .. attribute:: oldFirstRelfilenodeSubid
+   .. attribute:: oldFirstRelfilelocatorSubid
       :type: SubTransactionId
 
-      Rd_firstRelfilenodeSubid of
-      oldNode
+      Rd_firstRelfilelocatorSubid
+      of oldNumber
 
    .. attribute:: unique
       :type: bool
@@ -3511,7 +3414,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: InferClause(indexElems=None, whereClause=None, conname=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1459>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1559>`__ parser node.
 
    .. attribute:: indexElems
       :type: tuple
@@ -3536,7 +3439,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: InferenceElem(expr=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1387>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1825>`__ parser node.
 
    .. attribute:: expr
       :type: Node
@@ -3546,7 +3449,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: InlineCodeBlock(source_text=None, langIsTrusted=None, atomic=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3081>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3311>`__ parser node.
 
    .. attribute:: source_text
       :type: str
@@ -3566,7 +3469,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: InsertStmt(relation=None, cols=None, selectStmt=None, onConflictClause=None, returningList=None, withClause=None, override=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1634>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1863>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -3606,7 +3509,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: Integer(ival=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/value.h#L28>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/value.h#L28>`__ parser node.
 
    .. attribute:: ival
       :type: long
@@ -3614,7 +3517,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: IntoClause(rel=None, colNames=None, accessMethod=None, options=None, onCommit=None, tableSpaceName=None, viewQuery=None, skipData=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L108>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L136>`__ parser node.
 
    .. attribute:: rel
       :type: RangeVar*
@@ -3649,8 +3552,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: viewQuery
       :type: Node
 
-      Materialized view's SELECT query
-
    .. attribute:: skipData
       :type: bool
 
@@ -3659,7 +3560,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: JoinExpr(jointype=None, isNatural=None, larg=None, rarg=None, usingClause=None, join_using_alias=None, quals=None, alias=None, rtindex=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1536>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1979>`__ parser node.
 
    .. attribute:: jointype
       :type: JoinType
@@ -3684,32 +3585,338 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: usingClause
       :type: tuple
 
-      USING clause, if any (list of String)
-
    .. attribute:: join_using_alias
       :type: Alias*
-
-      Alias attached to USING clause, if any
 
    .. attribute:: quals
       :type: Node
 
-      Qualifiers on join, if any
-
    .. attribute:: alias
       :type: Alias*
-
-      User-written alias clause, if any
 
    .. attribute:: rtindex
       :type: int
 
-      RT index assigned for join, or 0
+
+.. class:: JsonAggConstructor(output=None, agg_filter=None, agg_order=None, over=None, location=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1786>`__ parser node.
+
+   .. attribute:: output
+      :type: JsonOutput*
+
+      RETURNING clause, if any
+
+   .. attribute:: agg_filter
+      :type: Node
+
+      FILTER clause, if any
+
+   .. attribute:: agg_order
+      :type: tuple
+
+      ORDER BY clause, if any
+
+   .. attribute:: over
+      :type: WindowDef*
+
+      OVER clause, if any
+
+   .. attribute:: location
+      :type: int
+
+      Token location, or -1 if unknown
+
+
+.. class:: JsonArrayAgg(constructor=None, arg=None, absent_on_null=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1813>`__ parser node.
+
+   .. attribute:: constructor
+      :type: JsonAggConstructor*
+
+      Common fields
+
+   .. attribute:: arg
+      :type: JsonValueExpr*
+
+      Array element expression
+
+   .. attribute:: absent_on_null
+      :type: bool
+
+      Skip NULL elements?
+
+
+.. class:: JsonArrayConstructor(exprs=None, output=None, absent_on_null=None, location=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1758>`__ parser node.
+
+   .. attribute:: exprs
+      :type: tuple
+
+      List of JsonValueExpr elements
+
+   .. attribute:: output
+      :type: JsonOutput*
+
+      RETURNING clause, if specified
+
+   .. attribute:: absent_on_null
+      :type: bool
+
+      Skip NULL elements?
+
+   .. attribute:: location
+      :type: int
+
+      Token location, or -1 if unknown
+
+
+.. class:: JsonArrayQueryConstructor(query=None, output=None, format=None, absent_on_null=None, location=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1771>`__ parser node.
+
+   .. attribute:: query
+      :type: Node
+
+      Subquery
+
+   .. attribute:: output
+      :type: JsonOutput*
+
+      RETURNING clause, if specified
+
+   .. attribute:: format
+      :type: JsonFormat*
+
+      FORMAT clause for subquery, if specified
+
+   .. attribute:: absent_on_null
+      :type: bool
+
+      Skip NULL elements?
+
+   .. attribute:: location
+      :type: int
+
+      Token location, or -1 if unknown
+
+
+.. class:: JsonConstructorExpr(type=None, args=None, func=None, coercion=None, returning=None, absent_on_null=None, unique=None, location=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1623>`__ parser node.
+
+   .. attribute:: type
+      :type: JsonConstructorType
+
+      Constructor type
+
+   .. attribute:: args
+      :type: tuple
+
+   .. attribute:: func
+      :type: Expr*
+
+      Underlying json[b]_xxx() function call
+
+   .. attribute:: coercion
+      :type: Expr*
+
+      Coercion to RETURNING type
+
+   .. attribute:: returning
+      :type: JsonReturning*
+
+      RETURNING clause
+
+   .. attribute:: absent_on_null
+      :type: bool
+
+      ABSENT ON NULL?
+
+   .. attribute:: unique
+      :type: bool
+
+      WITH UNIQUE KEYS? (JSON_OBJECT[AGG] only)
+
+   .. attribute:: location
+      :type: int
+
+
+.. class:: JsonFormat(format_type=None, encoding=None, location=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1575>`__ parser node.
+
+   .. attribute:: format_type
+      :type: JsonFormatType
+
+      Format type
+
+   .. attribute:: encoding
+      :type: JsonEncoding
+
+      JSON encoding
+
+   .. attribute:: location
+      :type: int
+
+      Token location, or -1 if unknown
+
+
+.. class:: JsonIsPredicate(expr=None, format=None, item_type=None, unique_keys=None, location=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1652>`__ parser node.
+
+   .. attribute:: expr
+      :type: Node
+
+      Subject expression
+
+   .. attribute:: format
+      :type: JsonFormat*
+
+      FORMAT clause, if specified
+
+   .. attribute:: item_type
+      :type: JsonValueType
+
+      JSON item type
+
+   .. attribute:: unique_keys
+      :type: bool
+
+      Check key uniqueness?
+
+   .. attribute:: location
+      :type: int
+
+      Token location, or -1 if unknown
+
+
+.. class:: JsonKeyValue(key=None, value=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1733>`__ parser node.
+
+   .. attribute:: key
+      :type: Expr*
+
+      Key expression
+
+   .. attribute:: value
+      :type: JsonValueExpr*
+
+      JSON value expression
+
+
+.. class:: JsonObjectAgg(constructor=None, arg=None, absent_on_null=None, unique=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1800>`__ parser node.
+
+   .. attribute:: constructor
+      :type: JsonAggConstructor*
+
+      Common fields
+
+   .. attribute:: arg
+      :type: JsonKeyValue*
+
+      Object key-value pair
+
+   .. attribute:: absent_on_null
+      :type: bool
+
+      Skip NULL values?
+
+   .. attribute:: unique
+      :type: bool
+
+      Check key uniqueness?
+
+
+.. class:: JsonObjectConstructor(exprs=None, output=None, absent_on_null=None, unique=None, location=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1744>`__ parser node.
+
+   .. attribute:: exprs
+      :type: tuple
+
+      List of JsonKeyValue pairs
+
+   .. attribute:: output
+      :type: JsonOutput*
+
+      RETURNING clause, if specified
+
+   .. attribute:: absent_on_null
+      :type: bool
+
+      Skip NULL values?
+
+   .. attribute:: unique
+      :type: bool
+
+      Check key uniqueness?
+
+   .. attribute:: location
+      :type: int
+
+      Token location, or -1 if unknown
+
+
+.. class:: JsonOutput(typeName=None, returning=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1721>`__ parser node.
+
+   .. attribute:: typeName
+      :type: TypeName*
+
+      RETURNING type name, if specified
+
+   .. attribute:: returning
+      :type: JsonReturning*
+
+      RETURNING FORMAT clause and type Oids
+
+
+.. class:: JsonReturning(format=None, typmod=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1587>`__ parser node.
+
+   .. attribute:: format
+      :type: JsonFormat*
+
+      Output JSON format
+
+   .. attribute:: typmod
+      :type: int32
+
+      Target type modifier
+
+
+.. class:: JsonValueExpr(raw_expr=None, formatted_expr=None, format=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1603>`__ parser node.
+
+   .. attribute:: raw_expr
+      :type: Expr*
+
+      Raw expression
+
+   .. attribute:: formatted_expr
+      :type: Expr*
+
+      Formatted expression
+
+   .. attribute:: format
+      :type: JsonFormat*
+
+      FORMAT clause, if specified
 
 
 .. class:: ListenStmt(conditionname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3225>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3463>`__ parser node.
 
    .. attribute:: conditionname
       :type: str
@@ -3719,7 +3926,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: LoadStmt(filename=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3343>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3581>`__ parser node.
 
    .. attribute:: filename
       :type: str
@@ -3729,7 +3936,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: LockStmt(relations=None, mode=None, nowait=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3530>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3768>`__ parser node.
 
    .. attribute:: relations
       :type: tuple
@@ -3749,7 +3956,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: LockingClause(lockedRels=None, strength=None, waitPolicy=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L782>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L825>`__ parser node.
 
    .. attribute:: lockedRels
       :type: tuple
@@ -3767,7 +3974,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: MergeAction(matched=None, commandType=None, override=None, qual=None, targetList=None, updateColnos=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1571>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1686>`__ parser node.
 
    .. attribute:: matched
       :type: bool
@@ -3782,8 +3989,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: override
       :type: OverridingKind
 
-      OVERRIDING clause
-
    .. attribute:: qual
       :type: Node
 
@@ -3797,12 +4002,10 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: updateColnos
       :type: tuple
 
-      Target attribute numbers of an UPDATE
-
 
 .. class:: MergeStmt(relation=None, sourceRelation=None, joinCondition=None, mergeWhenClauses=None, withClause=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1679>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1908>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -3832,7 +4035,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: MergeWhenClause(matched=None, commandType=None, override=None, condition=None, targetList=None, values=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1555>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1670>`__ parser node.
 
    .. attribute:: matched
       :type: bool
@@ -3867,27 +4070,21 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: MinMaxExpr(op=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1143>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1433>`__ parser node.
 
    .. attribute:: op
       :type: MinMaxOp
 
-      Function to execute
-
    .. attribute:: args
       :type: tuple
-
-      The arguments
 
    .. attribute:: location
       :type: int
 
-      Token location, or -1 if unknown
-
 
 .. class:: MultiAssignRef(source=None, colno=None, ncolumns=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L487>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L529>`__ parser node.
 
    .. attribute:: source
       :type: Node
@@ -3907,32 +4104,24 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: NamedArgExpr(arg=None, name=None, argnumber=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L521>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L714>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
 
-      The argument expression
-
    .. attribute:: name
       :type: str
-
-      The name
 
    .. attribute:: argnumber
       :type: int
 
-      Argument's number in positional notation
-
    .. attribute:: location
       :type: int
-
-      Argument name location, or -1 if unknown
 
 
 .. class:: NotifyStmt(conditionname=None, payload=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3214>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3452>`__ parser node.
 
    .. attribute:: conditionname
       :type: str
@@ -3947,7 +4136,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: NullTest(arg=None, nulltesttype=None, argisrow=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1260>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1686>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -3962,8 +4151,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: argisrow
       :type: bool
 
-      T to perform field-by-field null checks
-
    .. attribute:: location
       :type: int
 
@@ -3972,7 +4159,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ObjectWithArgs(objname=None, objargs=None, objfuncargs=None, args_unspecified=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2118>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2346>`__ parser node.
 
    .. attribute:: objname
       :type: tuple
@@ -3997,7 +4184,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: OnConflictClause(action=None, infer=None, targetList=None, whereClause=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1474>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1574>`__ parser node.
 
    .. attribute:: action
       :type: OnConflictAction
@@ -4027,7 +4214,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: OnConflictExpr(action=None, arbiterElems=None, arbiterWhere=None, onConflictSet=None, onConflictWhere=None, exclRelIndex=None, exclRelTlist=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1575>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L2023>`__ parser node.
 
    .. attribute:: action
       :type: OnConflictAction
@@ -4068,27 +4255,21 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: OpExpr(opretset=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L539>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L740>`__ parser node.
 
    .. attribute:: opretset
       :type: bool
 
-      True if operator returns set
-
    .. attribute:: args
       :type: tuple
-
-      Arguments to the operator (1 or 2)
 
    .. attribute:: location
       :type: int
 
-      Token location, or -1 if unknown
-
 
 .. class:: PLAssignStmt(name=None, indirection=None, nnames=None, val=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1814>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2047>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -4118,7 +4299,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: Param(paramkind=None, paramid=None, paramtypmod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L264>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L351>`__ parser node.
 
    .. attribute:: paramkind
       :type: ParamKind
@@ -4133,17 +4314,13 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: paramtypmod
       :type: int32
 
-      Typmod value, if known
-
    .. attribute:: location
       :type: int
-
-      Token location, or -1 if unknown
 
 
 .. class:: ParamRef(number=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L260>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L298>`__ parser node.
 
    .. attribute:: number
       :type: int
@@ -4158,7 +4335,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: PartitionBoundSpec(strategy=None, is_default=None, modulus=None, remainder=None, listdatums=None, lowerdatums=None, upperdatums=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L845>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L890>`__ parser node.
 
    .. attribute:: strategy
       :type: str
@@ -4199,7 +4376,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: PartitionCmd(name=None, bound=None, concurrent=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L892>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L937>`__ parser node.
 
    .. attribute:: name
       :type: RangeVar*
@@ -4217,7 +4394,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: PartitionElem(name=None, expr=None, collation=None, opclass=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L810>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L854>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -4247,7 +4424,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: PartitionRangeDatum(kind=None, value=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L878>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L923>`__ parser node.
 
    .. attribute:: kind
       :type: PartitionRangeDatumKind
@@ -4266,13 +4443,10 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: PartitionSpec(strategy=None, partParams=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L825>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L876>`__ parser node.
 
    .. attribute:: strategy
-      :type: str
-
-      Partitioning strategy ('hash', 'list' or
-      'range')
+      :type: PartitionStrategy
 
    .. attribute:: partParams
       :type: tuple
@@ -4287,7 +4461,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: PrepareStmt(name=None, argtypes=None, query=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3618>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3856>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -4307,7 +4481,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: PublicationObjSpec(pubobjtype=None, name=None, pubtable=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3730>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3968>`__ parser node.
 
    .. attribute:: pubobjtype
       :type: PublicationObjSpecType
@@ -4328,7 +4502,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: PublicationTable(relation=None, whereClause=None, columns=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3710>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3948>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -4346,9 +4520,9 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       List of columns in a publication table
 
 
-.. class:: Query(commandType=None, querySource=None, queryId=None, canSetTag=None, utilityStmt=None, resultRelation=None, hasAggs=None, hasWindowFuncs=None, hasTargetSRFs=None, hasSubLinks=None, hasDistinctOn=None, hasRecursive=None, hasModifyingCTE=None, hasForUpdate=None, hasRowSecurity=None, isReturn=None, cteList=None, rtable=None, jointree=None, mergeActionList=None, mergeUseOuterJoin=None, targetList=None, override=None, onConflict=None, returningList=None, groupClause=None, groupDistinct=None, groupingSets=None, havingQual=None, windowClause=None, distinctClause=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, rowMarks=None, setOperations=None, constraintDeps=None, withCheckOptions=None, stmt_location=None, stmt_len=None)
+.. class:: Query(commandType=None, querySource=None, canSetTag=None, utilityStmt=None, resultRelation=None, hasAggs=None, hasWindowFuncs=None, hasTargetSRFs=None, hasSubLinks=None, hasDistinctOn=None, hasRecursive=None, hasModifyingCTE=None, hasForUpdate=None, hasRowSecurity=None, isReturn=None, cteList=None, rtable=None, rteperminfos=None, jointree=None, mergeActionList=None, mergeUseOuterJoin=None, targetList=None, override=None, onConflict=None, returningList=None, groupClause=None, groupDistinct=None, groupingSets=None, havingQual=None, windowClause=None, distinctClause=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, rowMarks=None, setOperations=None, constraintDeps=None, withCheckOptions=None, stmt_location=None, stmt_len=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L118>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L123>`__ parser node.
 
    .. attribute:: commandType
       :type: CmdType
@@ -4358,17 +4532,8 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: querySource
       :type: QuerySource
 
-      Where did I come from?
-
-   .. attribute:: queryId
-      :type: uint64
-
-      Query identifier (can be set by plugins)
-
    .. attribute:: canSetTag
       :type: bool
-
-      Do I set the command result tag?
 
    .. attribute:: utilityStmt
       :type: Node
@@ -4378,58 +4543,35 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: resultRelation
       :type: int
 
-      Rtable index of target relation for
-      INSERT/UPDATE/DELETE/MERGE; 0 for SELECT
-
    .. attribute:: hasAggs
       :type: bool
-
-      Has aggregates in tlist or havingQual
 
    .. attribute:: hasWindowFuncs
       :type: bool
 
-      Has window functions in tlist
-
    .. attribute:: hasTargetSRFs
       :type: bool
-
-      Has set-returning functions in tlist
 
    .. attribute:: hasSubLinks
       :type: bool
 
-      Has subquery SubLink
-
    .. attribute:: hasDistinctOn
       :type: bool
-
-      DistinctClause is from DISTINCT ON
 
    .. attribute:: hasRecursive
       :type: bool
 
-      WITH RECURSIVE was specified
-
    .. attribute:: hasModifyingCTE
       :type: bool
-
-      Has INSERT/UPDATE/DELETE in WITH
 
    .. attribute:: hasForUpdate
       :type: bool
 
-      FOR [KEY] UPDATE/SHARE was specified
-
    .. attribute:: hasRowSecurity
       :type: bool
 
-      Rewriter has applied some RLS policy
-
    .. attribute:: isReturn
       :type: bool
-
-      Is a RETURN statement
 
    .. attribute:: cteList
       :type: tuple
@@ -4440,6 +4582,9 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: tuple
 
       List of range table entries
+
+   .. attribute:: rteperminfos
+      :type: tuple
 
    .. attribute:: jointree
       :type: FromExpr*
@@ -4455,8 +4600,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: mergeUseOuterJoin
       :type: bool
 
-      Whether to use outer join
-
    .. attribute:: targetList
       :type: tuple
 
@@ -4464,8 +4607,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
    .. attribute:: override
       :type: OverridingKind
-
-      OVERRIDING clause
 
    .. attribute:: onConflict
       :type: OnConflictExpr*
@@ -4541,29 +4682,49 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: constraintDeps
       :type: tuple
 
-      A list of pg_constraint OIDs that the query
-      depends on to be semantically valid
-
    .. attribute:: withCheckOptions
       :type: tuple
-
-      A list of WithCheckOption's (added
-      during rewrite)
 
    .. attribute:: stmt_location
       :type: int
 
-      Start location, or -1 if unknown
-
    .. attribute:: stmt_len
       :type: int
 
-      Length in bytes; 0 means "rest of string"
+
+.. class:: RTEPermissionInfo(inh=None, requiredPerms=None, selectedCols=None, insertedCols=None, updatedCols=None)
+
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1239>`__ parser node.
+
+   .. attribute:: inh
+      :type: bool
+
+      Separately check inheritance children?
+
+   .. attribute:: requiredPerms
+      :type: AclMode
+
+      Bitmask of required access permissions
+
+   .. attribute:: selectedCols
+      :type: Bitmapset*
+
+      Columns needing SELECT permission
+
+   .. attribute:: insertedCols
+      :type: Bitmapset*
+
+      Columns needing INSERT permission
+
+   .. attribute:: updatedCols
+      :type: Bitmapset*
+
+      Columns needing UPDATE permission
 
 
 .. class:: RangeFunction(lateral=None, ordinality=None, is_rowsfrom=None, functions=None, alias=None, coldeflist=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L592>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L634>`__ parser node.
 
    .. attribute:: lateral
       :type: bool
@@ -4599,7 +4760,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RangeSubselect(lateral=None, subquery=None, alias=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L570>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L612>`__ parser node.
 
    .. attribute:: lateral
       :type: bool
@@ -4619,7 +4780,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RangeTableFunc(lateral=None, docexpr=None, rowexpr=None, namespaces=None, columns=None, alias=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L607>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L649>`__ parser node.
 
    .. attribute:: lateral
       :type: bool
@@ -4659,7 +4820,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RangeTableFuncCol(colname=None, typeName=None, for_ordinality=None, is_not_null=None, colexpr=None, coldefexpr=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L625>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L667>`__ parser node.
 
    .. attribute:: colname
       :type: str
@@ -4699,7 +4860,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RangeTableSample(relation=None, method=None, args=None, repeatable=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L647>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L689>`__ parser node.
 
    .. attribute:: relation
       :type: Node
@@ -4727,9 +4888,9 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       Method name location, or -1 if unknown
 
 
-.. class:: RangeTblEntry(rtekind=None, relkind=None, rellockmode=None, tablesample=None, subquery=None, security_barrier=None, jointype=None, joinmergedcols=None, joinaliasvars=None, joinleftcols=None, joinrightcols=None, join_using_alias=None, functions=None, funcordinality=None, tablefunc=None, values_lists=None, ctename=None, ctelevelsup=None, self_reference=None, coltypes=None, coltypmods=None, colcollations=None, enrname=None, enrtuples=None, alias=None, eref=None, lateral=None, inh=None, inFromCl=None, requiredPerms=None, selectedCols=None, insertedCols=None, updatedCols=None, extraUpdatedCols=None, securityQuals=None)
+.. class:: RangeTblEntry(rtekind=None, relkind=None, rellockmode=None, tablesample=None, perminfoindex=None, subquery=None, security_barrier=None, jointype=None, joinmergedcols=None, joinaliasvars=None, joinleftcols=None, joinrightcols=None, join_using_alias=None, functions=None, funcordinality=None, tablefunc=None, values_lists=None, ctename=None, ctelevelsup=None, self_reference=None, coltypes=None, coltypmods=None, colcollations=None, enrname=None, enrtuples=None, alias=None, eref=None, lateral=None, inh=None, inFromCl=None, securityQuals=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1012>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1026>`__ parser node.
 
    .. attribute:: rtekind
       :type: RTEKind
@@ -4748,6 +4909,9 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       :type: TableSampleClause*
 
       Sampling info, or NULL
+
+   .. attribute:: perminfoindex
+      :type: Index
 
    .. attribute:: subquery
       :type: Query*
@@ -4870,31 +5034,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
       Present in FROM clause?
 
-   .. attribute:: requiredPerms
-      :type: AclMode
-
-      Bitmask of required access permissions
-
-   .. attribute:: selectedCols
-      :type: Bitmapset*
-
-      Columns needing SELECT permission
-
-   .. attribute:: insertedCols
-      :type: Bitmapset*
-
-      Columns needing INSERT permission
-
-   .. attribute:: updatedCols
-      :type: Bitmapset*
-
-      Columns needing UPDATE permission
-
-   .. attribute:: extraUpdatedCols
-      :type: Bitmapset*
-
-      Generated columns being updated
-
    .. attribute:: securityQuals
       :type: tuple
 
@@ -4903,7 +5042,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RangeTblFunction(funcexpr=None, funccolcount=None, funccolnames=None, funccoltypes=None, funccoltypmods=None, funccolcollations=None, funcparams=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1191>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1270>`__ parser node.
 
    .. attribute:: funcexpr
       :type: Node
@@ -4913,37 +5052,25 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: funccolcount
       :type: int
 
-      Number of columns it contributes to RTE
-
    .. attribute:: funccolnames
       :type: tuple
-
-      Column names (list of String)
 
    .. attribute:: funccoltypes
       :type: tuple
 
-      OID list of column type OIDs
-
    .. attribute:: funccoltypmods
       :type: tuple
-
-      Integer list of column typmods
 
    .. attribute:: funccolcollations
       :type: tuple
 
-      OID list of column collation OIDs
-
    .. attribute:: funcparams
       :type: Bitmapset*
-
-      PARAM_EXEC Param IDs affecting this func
 
 
 .. class:: RangeTblRef(rtindex=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1502>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1945>`__ parser node.
 
    .. attribute:: rtindex
       :type: int
@@ -4951,48 +5078,33 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RangeVar(catalogname=None, schemaname=None, relname=None, inh=None, relpersistence=None, alias=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L63>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L63>`__ parser node.
 
    .. attribute:: catalogname
       :type: str
 
-      The catalog (database) name, or NULL
-
    .. attribute:: schemaname
       :type: str
-
-      The schema name, or NULL
 
    .. attribute:: relname
       :type: str
 
-      The relation/sequence name
-
    .. attribute:: inh
       :type: bool
-
-      Expand rel by inheritance? recursively act
-      on children?
 
    .. attribute:: relpersistence
       :type: str
 
-      See RELPERSISTENCE_* in pg_class.h
-
    .. attribute:: alias
       :type: Alias*
-
-      Table alias & optional column aliases
 
    .. attribute:: location
       :type: int
 
-      Token location, or -1 if unknown
-
 
 .. class:: RawStmt(stmt=None, stmt_location=None, stmt_len=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1614>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1841>`__ parser node.
 
    .. attribute:: stmt
       :type: Node
@@ -5012,7 +5124,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ReassignOwnedStmt(roles=None, newrole=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3664>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3902>`__ parser node.
 
    .. attribute:: roles
       :type: tuple
@@ -5023,7 +5135,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RefreshMatViewStmt(concurrent=None, skipData=None, relation=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3490>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3728>`__ parser node.
 
    .. attribute:: concurrent
       :type: bool
@@ -5043,7 +5155,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ReindexStmt(kind=None, relation=None, name=None, params=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3562>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3800>`__ parser node.
 
    .. attribute:: kind
       :type: ReindexObjectType
@@ -5069,7 +5181,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RelabelType(arg=None, resulttypmod=None, relabelformat=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L857>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1108>`__ parser node.
 
    .. attribute:: arg
       :type: Expr*
@@ -5079,12 +5191,8 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: resulttypmod
       :type: int32
 
-      Output typmod (usually -1)
-
    .. attribute:: relabelformat
       :type: CoercionForm
-
-      How to display this node
 
    .. attribute:: location
       :type: int
@@ -5094,7 +5202,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RenameStmt(renameType=None, relationType=None, relation=None, object=None, subname=None, newname=None, behavior=None, missing_ok=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3117>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3355>`__ parser node.
 
    .. attribute:: renameType
       :type: ObjectType
@@ -5140,7 +5248,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ReplicaIdentityStmt(identity_type=None, name=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2013>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2241>`__ parser node.
 
    .. attribute:: identity_type
       :type: str
@@ -5151,7 +5259,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ResTarget(name=None, indirection=None, val=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L469>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L511>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -5176,7 +5284,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ReturnStmt(returnval=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1800>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2033>`__ parser node.
 
    .. attribute:: returnval
       :type: Node
@@ -5184,7 +5292,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RoleSpec(roletype=None, rolename=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L356>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L398>`__ parser node.
 
    .. attribute:: roletype
       :type: RoleSpecType
@@ -5204,42 +5312,30 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RowCompareExpr(rctype=None, opnos=None, opfamilies=None, inputcollids=None, largs=None, rargs=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1111>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1390>`__ parser node.
 
    .. attribute:: rctype
       :type: RowCompareType
 
-      LT LE GE or GT, never EQ or NE
-
    .. attribute:: opnos
       :type: tuple
-
-      OID list of pairwise comparison ops
 
    .. attribute:: opfamilies
       :type: tuple
 
-      OID list of containing operator families
-
    .. attribute:: inputcollids
       :type: tuple
-
-      OID list of collations for comparisons
 
    .. attribute:: largs
       :type: tuple
 
-      The left-hand input arguments
-
    .. attribute:: rargs
       :type: tuple
-
-      The right-hand input arguments
 
 
 .. class:: RowExpr(args=None, row_format=None, colnames=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1063>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1335>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -5249,12 +5345,8 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: row_format
       :type: CoercionForm
 
-      How to display this node
-
    .. attribute:: colnames
       :type: tuple
-
-      List of String, or NIL
 
    .. attribute:: location
       :type: int
@@ -5264,7 +5356,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RowMarkClause(rti=None, strength=None, waitPolicy=None, pushedDown=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1429>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1529>`__ parser node.
 
    .. attribute:: rti
       :type: Index
@@ -5287,7 +5379,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: RuleStmt(relation=None, rulename=None, whereClause=None, event=None, instead=None, actions=None, replace=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3198>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3436>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -5327,7 +5419,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: SQLValueFunction(op=None, typmod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1184>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1480>`__ parser node.
 
    .. attribute:: op
       :type: SQLValueFunctionOp
@@ -5345,27 +5437,21 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ScalarArrayOpExpr(useOr=None, args=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L596>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L820>`__ parser node.
 
    .. attribute:: useOr
       :type: bool
 
-      True for ANY, false for ALL
-
    .. attribute:: args
       :type: tuple
-
-      The scalar and array operands
 
    .. attribute:: location
       :type: int
 
-      Token location, or -1 if unknown
-
 
 .. class:: SecLabelStmt(objtype=None, object=None, provider=None, label=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2865>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3095>`__ parser node.
 
    .. attribute:: objtype
       :type: ObjectType
@@ -5390,7 +5476,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: SelectStmt(distinctClause=None, intoClause=None, targetList=None, fromClause=None, whereClause=None, groupClause=None, groupDistinct=None, havingClause=None, windowClause=None, valuesLists=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, lockingClause=None, withClause=None, op=None, all=None, larg=None, rarg=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1710>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1939>`__ parser node.
 
    .. attribute:: distinctClause
       :type: tuple
@@ -5496,7 +5582,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: SetOperationStmt(op=None, all=None, larg=None, rarg=None, colTypes=None, colTypmods=None, colCollations=None, groupClauses=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1779>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2008>`__ parser node.
 
    .. attribute:: op
       :type: SetOperation
@@ -5521,42 +5607,30 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: colTypes
       :type: tuple
 
-      OID list of output column type OIDs
-
    .. attribute:: colTypmods
       :type: tuple
-
-      Integer list of output column typmods
 
    .. attribute:: colCollations
       :type: tuple
 
-      OID list of output column collation OIDs
-
    .. attribute:: groupClauses
       :type: tuple
-
-      A list of SortGroupClause's
 
 
 .. class:: SetToDefault(typeMod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1336>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1770>`__ parser node.
 
    .. attribute:: typeMod
       :type: int32
 
-      Typemod for substituted value
-
    .. attribute:: location
       :type: int
-
-      Token location, or -1 if unknown
 
 
 .. class:: SortBy(node=None, sortby_dir=None, sortby_nulls=None, useOp=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L498>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L540>`__ parser node.
 
    .. attribute:: node
       :type: Node
@@ -5586,7 +5660,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: SortGroupClause(tleSortGroupRef=None, nulls_first=None, hashable=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1303>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1389>`__ parser node.
 
    .. attribute:: tleSortGroupRef
       :type: Index
@@ -5601,12 +5675,10 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: hashable
       :type: bool
 
-      Can eqop be implemented by hashing?
-
 
 .. class:: StatsElem(name=None, expr=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3004>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3234>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -5621,7 +5693,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: String(sval=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/value.h#L57>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/value.h#L63>`__ parser node.
 
    .. attribute:: sval
       :type: str
@@ -5629,7 +5701,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: SubLink(subLinkType=None, subLinkId=None, testexpr=None, operName=None, subselect=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L694>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L935>`__ parser node.
 
    .. attribute:: subLinkType
       :type: SubLinkType
@@ -5647,12 +5719,8 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: operName
       :type: tuple
 
-      Originally specified operator name
-
    .. attribute:: subselect
       :type: Node
-
-      Subselect as Query* or raw parsetree
 
    .. attribute:: location
       :type: int
@@ -5662,7 +5730,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: SubPlan(subLinkType=None, testexpr=None, paramIds=None, plan_id=None, plan_name=None, firstColTypmod=None, useHashTable=None, unknownEqFalse=None, parallel_safe=None, setParam=None, parParam=None, args=None, startup_cost=None, per_call_cost=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L743>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L986>`__ parser node.
 
    .. attribute:: subLinkType
       :type: SubLinkType
@@ -5713,8 +5781,8 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: setParam
       :type: tuple
 
-      Initplan subqueries have to set these
-      Params for parent plan
+      Initplan and MULTIEXPR subqueries have to
+      set these Params for parent plan
 
    .. attribute:: parParam
       :type: tuple
@@ -5739,112 +5807,71 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: SubscriptingRef(reftypmod=None, refupperindexpr=None, reflowerindexpr=None, refexpr=None, refassgnexpr=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L436>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L606>`__ parser node.
 
    .. attribute:: reftypmod
       :type: int32
 
-      Typmod of the result
-
    .. attribute:: refupperindexpr
       :type: tuple
-
-      Expressions that evaluate to upper
-      container indexes
 
    .. attribute:: reflowerindexpr
       :type: tuple
 
-      Expressions that evaluate to lower
-      container indexes, or NIL for single
-      container element
-
    .. attribute:: refexpr
       :type: Expr*
-
-      The expression that evaluates to a
-      container value
 
    .. attribute:: refassgnexpr
       :type: Expr*
 
-      Expression for the source value, or NULL if
-      fetch
-
 
 .. class:: TableFunc(ns_uris=None, ns_names=None, docexpr=None, rowexpr=None, colnames=None, coltypes=None, coltypmods=None, colcollations=None, colexprs=None, coldefexprs=None, notnulls=None, ordinalitycol=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L82>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L95>`__ parser node.
 
    .. attribute:: ns_uris
       :type: tuple
 
-      List of namespace URI expressions
-
    .. attribute:: ns_names
       :type: tuple
-
-      List of namespace names or NULL
 
    .. attribute:: docexpr
       :type: Node
 
-      Input document expression
-
    .. attribute:: rowexpr
       :type: Node
-
-      Row filter expression
 
    .. attribute:: colnames
       :type: tuple
 
-      Column names (list of String)
-
    .. attribute:: coltypes
       :type: tuple
-
-      OID list of column type OIDs
 
    .. attribute:: coltypmods
       :type: tuple
 
-      Integer list of column typmods
-
    .. attribute:: colcollations
       :type: tuple
-
-      OID list of column collation OIDs
 
    .. attribute:: colexprs
       :type: tuple
 
-      List of column filter expressions
-
    .. attribute:: coldefexprs
       :type: tuple
-
-      List of column default expressions
 
    .. attribute:: notnulls
       :type: Bitmapset*
 
-      Nullability flag for each output column
-
    .. attribute:: ordinalitycol
       :type: int
-
-      Counts from 0; -1 if none specified
 
    .. attribute:: location
       :type: int
 
-      Token location, or -1 if unknown
-
 
 .. class:: TableLikeClause(relation=None, options=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L702>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L745>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -5857,7 +5884,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: TableSampleClause(args=None, repeatable=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1211>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1297>`__ parser node.
 
    .. attribute:: args
       :type: tuple
@@ -5872,44 +5899,30 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: TargetEntry(expr=None, resno=None, resname=None, ressortgroupref=None, resorigcol=None, resjunk=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1450>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1888>`__ parser node.
 
    .. attribute:: expr
       :type: Expr*
 
-      Expression to evaluate
-
    .. attribute:: resno
       :type: AttrNumber
-
-      Attribute number (see notes above)
 
    .. attribute:: resname
       :type: str
 
-      Name of the column (could be NULL)
-
    .. attribute:: ressortgroupref
       :type: Index
-
-      Nonzero if referenced by a sort/group
-      clause
 
    .. attribute:: resorigcol
       :type: AttrNumber
 
-      Column's number in source table
-
    .. attribute:: resjunk
       :type: bool
-
-      Set to true to eliminate the attribute from
-      final target list
 
 
 .. class:: TransactionStmt(kind=None, options=None, savepoint_name=None, gid=None, chain=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3259>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3497>`__ parser node.
 
    .. attribute:: kind
       :type: TransactionStmtKind
@@ -5937,7 +5950,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: TriggerTransition(name=None, isNew=None, isTable=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1590>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1707>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -5951,7 +5964,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: TruncateStmt(relations=None, restart_seqs=None, behavior=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2841>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3071>`__ parser node.
 
    .. attribute:: relations
       :type: tuple
@@ -5971,7 +5984,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: TypeCast(arg=None, typeName=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L325>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L367>`__ parser node.
 
    .. attribute:: arg
       :type: Node
@@ -5991,7 +6004,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: TypeName(names=None, setof=None, pct_type=None, typmods=None, typemod=None, arrayBounds=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L224>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L262>`__ parser node.
 
    .. attribute:: names
       :type: tuple
@@ -6031,7 +6044,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: UnlistenStmt(conditionname=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3235>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3473>`__ parser node.
 
    .. attribute:: conditionname
       :type: str
@@ -6041,7 +6054,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: UpdateStmt(relation=None, targetList=None, whereClause=None, fromClause=None, returningList=None, withClause=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1664>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1893>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -6076,7 +6089,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: VacuumRelation(relation=None, va_cols=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3440>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3678>`__ parser node.
 
    .. attribute:: relation
       :type: RangeVar*
@@ -6091,7 +6104,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: VacuumStmt(options=None, rels=None, is_vacuumcmd=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3425>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3663>`__ parser node.
 
    .. attribute:: options
       :type: tuple
@@ -6109,53 +6122,32 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       True for VACUUM, false for ANALYZE
 
 
-.. class:: Var(varno=None, varattno=None, vartypmod=None, varlevelsup=None, varnosyn=None, varattnosyn=None, location=None)
+.. class:: Var(varno=None, varattno=None, vartypmod=None, varnullingrels=None, varlevelsup=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L186>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L225>`__ parser node.
 
    .. attribute:: varno
       :type: int
 
-      Index of this var's relation in the range
-      table, or INNER_VAR/OUTER_VAR/etc
-
    .. attribute:: varattno
       :type: AttrNumber
-
-      Attribute number of this var, or zero for
-      all attrs ("whole-row Var")
 
    .. attribute:: vartypmod
       :type: int32
 
-      Pg_attribute typmod value
+   .. attribute:: varnullingrels
+      :type: Bitmapset*
 
    .. attribute:: varlevelsup
       :type: Index
 
-      For subquery variables referencing outer
-      relations; 0 in a normal var, >0 means N
-      levels up
-
-   .. attribute:: varnosyn
-      :type: Index
-
-      Syntactic relation index (0 if unknown)
-
-   .. attribute:: varattnosyn
-      :type: AttrNumber
-
-      Syntactic attribute number
-
    .. attribute:: location
       :type: int
-
-      Token location, or -1 if unknown
 
 
 .. class:: VariableSetStmt(kind=None, name=None, args=None, is_local=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2212>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2440>`__ parser node.
 
    .. attribute:: kind
       :type: VariableSetKind
@@ -6178,7 +6170,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: VariableShowStmt(name=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L2225>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L2453>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -6186,7 +6178,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: ViewStmt(view=None, aliases=None, query=None, replace=None, options=None, withCheckOption=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L3328>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L3566>`__ parser node.
 
    .. attribute:: view
       :type: RangeVar*
@@ -6221,17 +6213,13 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: WindowClause(name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, runCondition=None, inRangeAsc=None, inRangeNullsFirst=None, winref=None, copiedOrder=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1397>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1487>`__ parser node.
 
    .. attribute:: name
       :type: str
 
-      Window name (NULL in an OVER clause)
-
    .. attribute:: refname
       :type: str
-
-      Referenced window name, if any
 
    .. attribute:: partitionClause
       :type: tuple
@@ -6240,8 +6228,6 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
    .. attribute:: orderClause
       :type: tuple
-
-      ORDER BY list
 
    .. attribute:: frameOptions
       :type: int
@@ -6261,17 +6247,11 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: runCondition
       :type: tuple
 
-      Qual to help short-circuit execution
-
    .. attribute:: inRangeAsc
       :type: bool
 
-      Use ASC sort order for in_range tests?
-
    .. attribute:: inRangeNullsFirst
       :type: bool
-
-      Nulls sort first for in_range tests?
 
    .. attribute:: winref
       :type: Index
@@ -6281,12 +6261,10 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: copiedOrder
       :type: bool
 
-      Did we copy orderClause from refname?
-
 
 .. class:: WindowDef(name=None, refname=None, partitionClause=None, orderClause=None, frameOptions=None, startOffset=None, endOffset=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L516>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L558>`__ parser node.
 
    .. attribute:: name
       :type: str
@@ -6331,42 +6309,30 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: WindowFunc(args=None, aggfilter=None, winref=None, winstar=None, winagg=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L383>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L541>`__ parser node.
 
    .. attribute:: args
       :type: tuple
 
-      Arguments to the window function
-
    .. attribute:: aggfilter
       :type: Expr*
-
-      FILTER expression, if any
 
    .. attribute:: winref
       :type: Index
 
-      Index of associated WindowClause
-
    .. attribute:: winstar
       :type: bool
-
-      True if argument list was really '*'
 
    .. attribute:: winagg
       :type: bool
 
-      Is function a simple aggregate?
-
    .. attribute:: location
       :type: int
-
-      Token location, or -1 if unknown
 
 
 .. class:: WithCheckOption(kind=None, relname=None, polname=None, qual=None, cascaded=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1235>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1321>`__ parser node.
 
    .. attribute:: kind
       :type: WCOKind
@@ -6396,7 +6362,7 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
 .. class:: WithClause(ctes=None, recursive=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L1445>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L1545>`__ parser node.
 
    .. attribute:: ctes
       :type: tuple
@@ -6414,39 +6380,30 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
       Token location, or -1 if unknown
 
 
-.. class:: XmlExpr(op=None, name=None, named_args=None, arg_names=None, args=None, xmloption=None, typmod=None, location=None)
+.. class:: XmlExpr(op=None, name=None, named_args=None, arg_names=None, args=None, xmloption=None, indent=None, typmod=None, location=None)
 
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/primnodes.h#L1222>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/primnodes.h#L1523>`__ parser node.
 
    .. attribute:: op
       :type: XmlExprOp
 
-      Xml function ID
-
    .. attribute:: name
       :type: str
-
-      Name in xml(NAME foo ...) syntaxes
 
    .. attribute:: named_args
       :type: tuple
 
-      Non-XML expressions for xml_attributes
-
    .. attribute:: arg_names
       :type: tuple
-
-      Parallel list of String values
 
    .. attribute:: args
       :type: tuple
 
-      List of expressions
-
    .. attribute:: xmloption
       :type: XmlOptionType
 
-      DOCUMENT or CONTENT
+   .. attribute:: indent
+      :type: bool
 
    .. attribute:: typmod
       :type: int32
@@ -6454,12 +6411,10 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
    .. attribute:: location
       :type: int
 
-      Token location, or -1 if unknown
 
+.. class:: XmlSerialize(xmloption=None, expr=None, typeName=None, indent=None, location=None)
 
-.. class:: XmlSerialize(xmloption=None, expr=None, typeName=None, location=None)
-
-   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/9b21e32/src/postgres/include/nodes/parsenodes.h#L793>`__ parser node.
+   Wrapper for the `homonymous <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/parsenodes.h#L836>`__ parser node.
 
    .. attribute:: xmloption
       :type: XmlOptionType
@@ -6471,6 +6426,11 @@ be :meth:`altered <pglast.ast.Node.__setattr__>`.
 
    .. attribute:: typeName
       :type: TypeName*
+
+   .. attribute:: indent
+      :type: bool
+
+      [NO] INDENT
 
    .. attribute:: location
       :type: int

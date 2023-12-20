@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 15-4.2.3-0-g9b21e32
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 16-latest-dev-0-gebeba2d
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2023 Lele Gaifax
@@ -1219,11 +1219,11 @@ class CollateExpr(Expr):
 
 
 class ColumnDef(Node):
-    __slots__ = {'colname': 'char*', 'typeName': 'TypeName*', 'compression': 'char*', 'inhcount': 'int', 'is_local': 'bool', 'is_not_null': 'bool', 'is_from_type': 'bool', 'storage': 'char', 'raw_default': 'Node*', 'cooked_default': 'Node*', 'identity': 'char', 'identitySequence': 'RangeVar*', 'generated': 'char', 'collClause': 'CollateClause*', 'constraints': 'List*', 'fdwoptions': 'List*', 'location': 'int'}  # noqa: E501
+    __slots__ = {'colname': 'char*', 'typeName': 'TypeName*', 'compression': 'char*', 'inhcount': 'int', 'is_local': 'bool', 'is_not_null': 'bool', 'is_from_type': 'bool', 'storage': 'char', 'storage_name': 'char*', 'raw_default': 'Node*', 'cooked_default': 'Node*', 'identity': 'char', 'identitySequence': 'RangeVar*', 'generated': 'char', 'collClause': 'CollateClause*', 'constraints': 'List*', 'fdwoptions': 'List*', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, colname=None, typeName=None, compression=None, inhcount=None, is_local=None, is_not_null=None, is_from_type=None, storage=None, raw_default=None, cooked_default=None, identity=None, identitySequence=None, generated=None, collClause=None, constraints=None, fdwoptions=None, location=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, colname=None, typeName=None, compression=None, inhcount=None, is_local=None, is_not_null=None, is_from_type=None, storage=None, storage_name=None, raw_default=None, cooked_default=None, identity=None, identitySequence=None, generated=None, collClause=None, constraints=None, fdwoptions=None, location=None):  # pragma: no cover  # noqa: E501
         if ((colname is not None
-             and typeName is compression is inhcount is is_local is is_not_null is is_from_type is storage is raw_default is cooked_default is identity is identitySequence is generated is collClause is constraints is fdwoptions is location is None  # noqa: E501
+             and typeName is compression is inhcount is is_local is is_not_null is is_from_type is storage is storage_name is raw_default is cooked_default is identity is identitySequence is generated is collClause is constraints is fdwoptions is location is None  # noqa: E501
              and isinstance(colname, dict)
              and '@' in colname)):
             super().__init__(colname)
@@ -1236,6 +1236,7 @@ class ColumnDef(Node):
             self.is_not_null = is_not_null
             self.is_from_type = is_from_type
             self.storage = storage
+            self.storage_name = storage_name
             self.raw_default = raw_default
             self.cooked_default = cooked_default
             self.identity = identity
@@ -2298,11 +2299,11 @@ class FunctionParameter(Node):
 
 
 class GrantRoleStmt(Node):
-    __slots__ = {'granted_roles': 'List*', 'grantee_roles': 'List*', 'is_grant': 'bool', 'admin_opt': 'bool', 'grantor': 'RoleSpec*', 'behavior': 'DropBehavior'}  # noqa: E501
+    __slots__ = {'granted_roles': 'List*', 'grantee_roles': 'List*', 'is_grant': 'bool', 'opt': 'List*', 'grantor': 'RoleSpec*', 'behavior': 'DropBehavior'}  # noqa: E501
 
-    def __init__(self, granted_roles=None, grantee_roles=None, is_grant=None, admin_opt=None, grantor=None, behavior=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, granted_roles=None, grantee_roles=None, is_grant=None, opt=None, grantor=None, behavior=None):  # pragma: no cover  # noqa: E501
         if ((granted_roles is not None
-             and grantee_roles is is_grant is admin_opt is grantor is behavior is None  # noqa: E501
+             and grantee_roles is is_grant is opt is grantor is behavior is None  # noqa: E501
              and isinstance(granted_roles, dict)
              and '@' in granted_roles)):
             super().__init__(granted_roles)
@@ -2310,7 +2311,7 @@ class GrantRoleStmt(Node):
             self.granted_roles = granted_roles
             self.grantee_roles = grantee_roles
             self.is_grant = is_grant
-            self.admin_opt = admin_opt
+            self.opt = opt
             self.grantor = grantor
             self.behavior = behavior
 
@@ -2337,18 +2338,17 @@ class GrantStmt(Node):
 
 
 class GroupingFunc(Expr):
-    __slots__ = {'args': 'List*', 'refs': 'List*', 'cols': 'List*', 'agglevelsup': 'Index', 'location': 'int'}  # noqa: E501
+    __slots__ = {'args': 'List*', 'refs': 'List*', 'agglevelsup': 'Index', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, args=None, refs=None, cols=None, agglevelsup=None, location=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, args=None, refs=None, agglevelsup=None, location=None):  # pragma: no cover  # noqa: E501
         if ((args is not None
-             and refs is cols is agglevelsup is location is None  # noqa: E501
+             and refs is agglevelsup is location is None  # noqa: E501
              and isinstance(args, dict)
              and '@' in args)):
             super().__init__(args)
         else:
             self.args = args
             self.refs = refs
-            self.cols = cols
             self.agglevelsup = agglevelsup
             self.location = location
 
@@ -2407,11 +2407,11 @@ class IndexElem(Node):
 
 
 class IndexStmt(Node):
-    __slots__ = {'idxname': 'char*', 'relation': 'RangeVar*', 'accessMethod': 'char*', 'tableSpace': 'char*', 'indexParams': 'List*', 'indexIncludingParams': 'List*', 'options': 'List*', 'whereClause': 'Node*', 'excludeOpNames': 'List*', 'idxcomment': 'char*', 'oldCreateSubid': 'SubTransactionId', 'oldFirstRelfilenodeSubid': 'SubTransactionId', 'unique': 'bool', 'nulls_not_distinct': 'bool', 'primary': 'bool', 'isconstraint': 'bool', 'deferrable': 'bool', 'initdeferred': 'bool', 'transformed': 'bool', 'concurrent': 'bool', 'if_not_exists': 'bool', 'reset_default_tblspc': 'bool'}  # noqa: E501
+    __slots__ = {'idxname': 'char*', 'relation': 'RangeVar*', 'accessMethod': 'char*', 'tableSpace': 'char*', 'indexParams': 'List*', 'indexIncludingParams': 'List*', 'options': 'List*', 'whereClause': 'Node*', 'excludeOpNames': 'List*', 'idxcomment': 'char*', 'oldNumber': 'RelFileNumber', 'oldCreateSubid': 'SubTransactionId', 'oldFirstRelfilelocatorSubid': 'SubTransactionId', 'unique': 'bool', 'nulls_not_distinct': 'bool', 'primary': 'bool', 'isconstraint': 'bool', 'deferrable': 'bool', 'initdeferred': 'bool', 'transformed': 'bool', 'concurrent': 'bool', 'if_not_exists': 'bool', 'reset_default_tblspc': 'bool'}  # noqa: E501
 
-    def __init__(self, idxname=None, relation=None, accessMethod=None, tableSpace=None, indexParams=None, indexIncludingParams=None, options=None, whereClause=None, excludeOpNames=None, idxcomment=None, oldCreateSubid=None, oldFirstRelfilenodeSubid=None, unique=None, nulls_not_distinct=None, primary=None, isconstraint=None, deferrable=None, initdeferred=None, transformed=None, concurrent=None, if_not_exists=None, reset_default_tblspc=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, idxname=None, relation=None, accessMethod=None, tableSpace=None, indexParams=None, indexIncludingParams=None, options=None, whereClause=None, excludeOpNames=None, idxcomment=None, oldNumber=None, oldCreateSubid=None, oldFirstRelfilelocatorSubid=None, unique=None, nulls_not_distinct=None, primary=None, isconstraint=None, deferrable=None, initdeferred=None, transformed=None, concurrent=None, if_not_exists=None, reset_default_tblspc=None):  # pragma: no cover  # noqa: E501
         if ((idxname is not None
-             and relation is accessMethod is tableSpace is indexParams is indexIncludingParams is options is whereClause is excludeOpNames is idxcomment is oldCreateSubid is oldFirstRelfilenodeSubid is unique is nulls_not_distinct is primary is isconstraint is deferrable is initdeferred is transformed is concurrent is if_not_exists is reset_default_tblspc is None  # noqa: E501
+             and relation is accessMethod is tableSpace is indexParams is indexIncludingParams is options is whereClause is excludeOpNames is idxcomment is oldNumber is oldCreateSubid is oldFirstRelfilelocatorSubid is unique is nulls_not_distinct is primary is isconstraint is deferrable is initdeferred is transformed is concurrent is if_not_exists is reset_default_tblspc is None  # noqa: E501
              and isinstance(idxname, dict)
              and '@' in idxname)):
             super().__init__(idxname)
@@ -2426,8 +2426,9 @@ class IndexStmt(Node):
             self.whereClause = whereClause
             self.excludeOpNames = excludeOpNames
             self.idxcomment = idxcomment
+            self.oldNumber = oldNumber
             self.oldCreateSubid = oldCreateSubid
-            self.oldFirstRelfilenodeSubid = oldFirstRelfilenodeSubid
+            self.oldFirstRelfilelocatorSubid = oldFirstRelfilelocatorSubid
             self.unique = unique
             self.nulls_not_distinct = nulls_not_distinct
             self.primary = primary
@@ -2553,6 +2554,213 @@ class JoinExpr(Node):
             self.quals = quals
             self.alias = alias
             self.rtindex = rtindex
+
+
+class JsonAggConstructor(Node):
+    __slots__ = {'output': 'JsonOutput*', 'agg_filter': 'Node*', 'agg_order': 'List*', 'over': 'WindowDef*', 'location': 'int'}  # noqa: E501
+
+    def __init__(self, output=None, agg_filter=None, agg_order=None, over=None, location=None):  # pragma: no cover  # noqa: E501
+        if ((output is not None
+             and agg_filter is agg_order is over is location is None  # noqa: E501
+             and isinstance(output, dict)
+             and '@' in output)):
+            super().__init__(output)
+        else:
+            self.output = output
+            self.agg_filter = agg_filter
+            self.agg_order = agg_order
+            self.over = over
+            self.location = location
+
+
+class JsonArrayAgg(Node):
+    __slots__ = {'constructor': 'JsonAggConstructor*', 'arg': 'JsonValueExpr*', 'absent_on_null': 'bool'}  # noqa: E501
+
+    def __init__(self, constructor=None, arg=None, absent_on_null=None):  # pragma: no cover  # noqa: E501
+        if ((constructor is not None
+             and arg is absent_on_null is None  # noqa: E501
+             and isinstance(constructor, dict)
+             and '@' in constructor)):
+            super().__init__(constructor)
+        else:
+            self.constructor = constructor
+            self.arg = arg
+            self.absent_on_null = absent_on_null
+
+
+class JsonArrayConstructor(Node):
+    __slots__ = {'exprs': 'List*', 'output': 'JsonOutput*', 'absent_on_null': 'bool', 'location': 'int'}  # noqa: E501
+
+    def __init__(self, exprs=None, output=None, absent_on_null=None, location=None):  # pragma: no cover  # noqa: E501
+        if ((exprs is not None
+             and output is absent_on_null is location is None  # noqa: E501
+             and isinstance(exprs, dict)
+             and '@' in exprs)):
+            super().__init__(exprs)
+        else:
+            self.exprs = exprs
+            self.output = output
+            self.absent_on_null = absent_on_null
+            self.location = location
+
+
+class JsonArrayQueryConstructor(Node):
+    __slots__ = {'query': 'Node*', 'output': 'JsonOutput*', 'format': 'JsonFormat*', 'absent_on_null': 'bool', 'location': 'int'}  # noqa: E501
+
+    def __init__(self, query=None, output=None, format=None, absent_on_null=None, location=None):  # pragma: no cover  # noqa: E501
+        if ((query is not None
+             and output is format is absent_on_null is location is None  # noqa: E501
+             and isinstance(query, dict)
+             and '@' in query)):
+            super().__init__(query)
+        else:
+            self.query = query
+            self.output = output
+            self.format = format
+            self.absent_on_null = absent_on_null
+            self.location = location
+
+
+class JsonConstructorExpr(Expr):
+    __slots__ = {'type': 'JsonConstructorType', 'args': 'List*', 'func': 'Expr*', 'coercion': 'Expr*', 'returning': 'JsonReturning*', 'absent_on_null': 'bool', 'unique': 'bool', 'location': 'int'}  # noqa: E501
+
+    def __init__(self, type=None, args=None, func=None, coercion=None, returning=None, absent_on_null=None, unique=None, location=None):  # pragma: no cover  # noqa: E501
+        if ((type is not None
+             and args is func is coercion is returning is absent_on_null is unique is location is None  # noqa: E501
+             and isinstance(type, dict)
+             and '@' in type)):
+            super().__init__(type)
+        else:
+            self.type = type
+            self.args = args
+            self.func = func
+            self.coercion = coercion
+            self.returning = returning
+            self.absent_on_null = absent_on_null
+            self.unique = unique
+            self.location = location
+
+
+class JsonFormat(Node):
+    __slots__ = {'format_type': 'JsonFormatType', 'encoding': 'JsonEncoding', 'location': 'int'}  # noqa: E501
+
+    def __init__(self, format_type=None, encoding=None, location=None):  # pragma: no cover  # noqa: E501
+        if ((format_type is not None
+             and encoding is location is None  # noqa: E501
+             and isinstance(format_type, dict)
+             and '@' in format_type)):
+            super().__init__(format_type)
+        else:
+            self.format_type = format_type
+            self.encoding = encoding
+            self.location = location
+
+
+class JsonIsPredicate(Node):
+    __slots__ = {'expr': 'Node*', 'format': 'JsonFormat*', 'item_type': 'JsonValueType', 'unique_keys': 'bool', 'location': 'int'}  # noqa: E501
+
+    def __init__(self, expr=None, format=None, item_type=None, unique_keys=None, location=None):  # pragma: no cover  # noqa: E501
+        if ((expr is not None
+             and format is item_type is unique_keys is location is None  # noqa: E501
+             and isinstance(expr, dict)
+             and '@' in expr)):
+            super().__init__(expr)
+        else:
+            self.expr = expr
+            self.format = format
+            self.item_type = item_type
+            self.unique_keys = unique_keys
+            self.location = location
+
+
+class JsonKeyValue(Node):
+    __slots__ = {'key': 'Expr*', 'value': 'JsonValueExpr*'}  # noqa: E501
+
+    def __init__(self, key=None, value=None):  # pragma: no cover  # noqa: E501
+        if ((key is not None
+             and value is None  # noqa: E501
+             and isinstance(key, dict)
+             and '@' in key)):
+            super().__init__(key)
+        else:
+            self.key = key
+            self.value = value
+
+
+class JsonObjectAgg(Node):
+    __slots__ = {'constructor': 'JsonAggConstructor*', 'arg': 'JsonKeyValue*', 'absent_on_null': 'bool', 'unique': 'bool'}  # noqa: E501
+
+    def __init__(self, constructor=None, arg=None, absent_on_null=None, unique=None):  # pragma: no cover  # noqa: E501
+        if ((constructor is not None
+             and arg is absent_on_null is unique is None  # noqa: E501
+             and isinstance(constructor, dict)
+             and '@' in constructor)):
+            super().__init__(constructor)
+        else:
+            self.constructor = constructor
+            self.arg = arg
+            self.absent_on_null = absent_on_null
+            self.unique = unique
+
+
+class JsonObjectConstructor(Node):
+    __slots__ = {'exprs': 'List*', 'output': 'JsonOutput*', 'absent_on_null': 'bool', 'unique': 'bool', 'location': 'int'}  # noqa: E501
+
+    def __init__(self, exprs=None, output=None, absent_on_null=None, unique=None, location=None):  # pragma: no cover  # noqa: E501
+        if ((exprs is not None
+             and output is absent_on_null is unique is location is None  # noqa: E501
+             and isinstance(exprs, dict)
+             and '@' in exprs)):
+            super().__init__(exprs)
+        else:
+            self.exprs = exprs
+            self.output = output
+            self.absent_on_null = absent_on_null
+            self.unique = unique
+            self.location = location
+
+
+class JsonOutput(Node):
+    __slots__ = {'typeName': 'TypeName*', 'returning': 'JsonReturning*'}  # noqa: E501
+
+    def __init__(self, typeName=None, returning=None):  # pragma: no cover  # noqa: E501
+        if ((typeName is not None
+             and returning is None  # noqa: E501
+             and isinstance(typeName, dict)
+             and '@' in typeName)):
+            super().__init__(typeName)
+        else:
+            self.typeName = typeName
+            self.returning = returning
+
+
+class JsonReturning(Node):
+    __slots__ = {'format': 'JsonFormat*', 'typmod': 'int32'}  # noqa: E501
+
+    def __init__(self, format=None, typmod=None):  # pragma: no cover  # noqa: E501
+        if ((format is not None
+             and typmod is None  # noqa: E501
+             and isinstance(format, dict)
+             and '@' in format)):
+            super().__init__(format)
+        else:
+            self.format = format
+            self.typmod = typmod
+
+
+class JsonValueExpr(Node):
+    __slots__ = {'raw_expr': 'Expr*', 'formatted_expr': 'Expr*', 'format': 'JsonFormat*'}  # noqa: E501
+
+    def __init__(self, raw_expr=None, formatted_expr=None, format=None):  # pragma: no cover  # noqa: E501
+        if ((raw_expr is not None
+             and formatted_expr is format is None  # noqa: E501
+             and isinstance(raw_expr, dict)
+             and '@' in raw_expr)):
+            super().__init__(raw_expr)
+        else:
+            self.raw_expr = raw_expr
+            self.formatted_expr = formatted_expr
+            self.format = format
 
 
 class ListenStmt(Node):
@@ -2920,7 +3128,7 @@ class PartitionRangeDatum(Node):
 
 
 class PartitionSpec(Node):
-    __slots__ = {'strategy': 'char*', 'partParams': 'List*', 'location': 'int'}  # noqa: E501
+    __slots__ = {'strategy': 'PartitionStrategy', 'partParams': 'List*', 'location': 'int'}  # noqa: E501
 
     def __init__(self, strategy=None, partParams=None, location=None):  # pragma: no cover  # noqa: E501
         if ((strategy is not None
@@ -2981,18 +3189,17 @@ class PublicationTable(Node):
 
 
 class Query(Node):
-    __slots__ = {'commandType': 'CmdType', 'querySource': 'QuerySource', 'queryId': 'uint64', 'canSetTag': 'bool', 'utilityStmt': 'Node*', 'resultRelation': 'int', 'hasAggs': 'bool', 'hasWindowFuncs': 'bool', 'hasTargetSRFs': 'bool', 'hasSubLinks': 'bool', 'hasDistinctOn': 'bool', 'hasRecursive': 'bool', 'hasModifyingCTE': 'bool', 'hasForUpdate': 'bool', 'hasRowSecurity': 'bool', 'isReturn': 'bool', 'cteList': 'List*', 'rtable': 'List*', 'jointree': 'FromExpr*', 'mergeActionList': 'List*', 'mergeUseOuterJoin': 'bool', 'targetList': 'List*', 'override': 'OverridingKind', 'onConflict': 'OnConflictExpr*', 'returningList': 'List*', 'groupClause': 'List*', 'groupDistinct': 'bool', 'groupingSets': 'List*', 'havingQual': 'Node*', 'windowClause': 'List*', 'distinctClause': 'List*', 'sortClause': 'List*', 'limitOffset': 'Node*', 'limitCount': 'Node*', 'limitOption': 'LimitOption', 'rowMarks': 'List*', 'setOperations': 'Node*', 'constraintDeps': 'List*', 'withCheckOptions': 'List*', 'stmt_location': 'int', 'stmt_len': 'int'}  # noqa: E501
+    __slots__ = {'commandType': 'CmdType', 'querySource': 'QuerySource', 'canSetTag': 'bool', 'utilityStmt': 'Node*', 'resultRelation': 'int', 'hasAggs': 'bool', 'hasWindowFuncs': 'bool', 'hasTargetSRFs': 'bool', 'hasSubLinks': 'bool', 'hasDistinctOn': 'bool', 'hasRecursive': 'bool', 'hasModifyingCTE': 'bool', 'hasForUpdate': 'bool', 'hasRowSecurity': 'bool', 'isReturn': 'bool', 'cteList': 'List*', 'rtable': 'List*', 'rteperminfos': 'List*', 'jointree': 'FromExpr*', 'mergeActionList': 'List*', 'mergeUseOuterJoin': 'bool', 'targetList': 'List*', 'override': 'OverridingKind', 'onConflict': 'OnConflictExpr*', 'returningList': 'List*', 'groupClause': 'List*', 'groupDistinct': 'bool', 'groupingSets': 'List*', 'havingQual': 'Node*', 'windowClause': 'List*', 'distinctClause': 'List*', 'sortClause': 'List*', 'limitOffset': 'Node*', 'limitCount': 'Node*', 'limitOption': 'LimitOption', 'rowMarks': 'List*', 'setOperations': 'Node*', 'constraintDeps': 'List*', 'withCheckOptions': 'List*', 'stmt_location': 'int', 'stmt_len': 'int'}  # noqa: E501
 
-    def __init__(self, commandType=None, querySource=None, queryId=None, canSetTag=None, utilityStmt=None, resultRelation=None, hasAggs=None, hasWindowFuncs=None, hasTargetSRFs=None, hasSubLinks=None, hasDistinctOn=None, hasRecursive=None, hasModifyingCTE=None, hasForUpdate=None, hasRowSecurity=None, isReturn=None, cteList=None, rtable=None, jointree=None, mergeActionList=None, mergeUseOuterJoin=None, targetList=None, override=None, onConflict=None, returningList=None, groupClause=None, groupDistinct=None, groupingSets=None, havingQual=None, windowClause=None, distinctClause=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, rowMarks=None, setOperations=None, constraintDeps=None, withCheckOptions=None, stmt_location=None, stmt_len=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, commandType=None, querySource=None, canSetTag=None, utilityStmt=None, resultRelation=None, hasAggs=None, hasWindowFuncs=None, hasTargetSRFs=None, hasSubLinks=None, hasDistinctOn=None, hasRecursive=None, hasModifyingCTE=None, hasForUpdate=None, hasRowSecurity=None, isReturn=None, cteList=None, rtable=None, rteperminfos=None, jointree=None, mergeActionList=None, mergeUseOuterJoin=None, targetList=None, override=None, onConflict=None, returningList=None, groupClause=None, groupDistinct=None, groupingSets=None, havingQual=None, windowClause=None, distinctClause=None, sortClause=None, limitOffset=None, limitCount=None, limitOption=None, rowMarks=None, setOperations=None, constraintDeps=None, withCheckOptions=None, stmt_location=None, stmt_len=None):  # pragma: no cover  # noqa: E501
         if ((commandType is not None
-             and querySource is queryId is canSetTag is utilityStmt is resultRelation is hasAggs is hasWindowFuncs is hasTargetSRFs is hasSubLinks is hasDistinctOn is hasRecursive is hasModifyingCTE is hasForUpdate is hasRowSecurity is isReturn is cteList is rtable is jointree is mergeActionList is mergeUseOuterJoin is targetList is override is onConflict is returningList is groupClause is groupDistinct is groupingSets is havingQual is windowClause is distinctClause is sortClause is limitOffset is limitCount is limitOption is rowMarks is setOperations is constraintDeps is withCheckOptions is stmt_location is stmt_len is None  # noqa: E501
+             and querySource is canSetTag is utilityStmt is resultRelation is hasAggs is hasWindowFuncs is hasTargetSRFs is hasSubLinks is hasDistinctOn is hasRecursive is hasModifyingCTE is hasForUpdate is hasRowSecurity is isReturn is cteList is rtable is rteperminfos is jointree is mergeActionList is mergeUseOuterJoin is targetList is override is onConflict is returningList is groupClause is groupDistinct is groupingSets is havingQual is windowClause is distinctClause is sortClause is limitOffset is limitCount is limitOption is rowMarks is setOperations is constraintDeps is withCheckOptions is stmt_location is stmt_len is None  # noqa: E501
              and isinstance(commandType, dict)
              and '@' in commandType)):
             super().__init__(commandType)
         else:
             self.commandType = commandType
             self.querySource = querySource
-            self.queryId = queryId
             self.canSetTag = canSetTag
             self.utilityStmt = utilityStmt
             self.resultRelation = resultRelation
@@ -3008,6 +3215,7 @@ class Query(Node):
             self.isReturn = isReturn
             self.cteList = cteList
             self.rtable = rtable
+            self.rteperminfos = rteperminfos
             self.jointree = jointree
             self.mergeActionList = mergeActionList
             self.mergeUseOuterJoin = mergeUseOuterJoin
@@ -3031,6 +3239,23 @@ class Query(Node):
             self.withCheckOptions = withCheckOptions
             self.stmt_location = stmt_location
             self.stmt_len = stmt_len
+
+
+class RTEPermissionInfo(Node):
+    __slots__ = {'inh': 'bool', 'requiredPerms': 'AclMode', 'selectedCols': 'Bitmapset*', 'insertedCols': 'Bitmapset*', 'updatedCols': 'Bitmapset*'}  # noqa: E501
+
+    def __init__(self, inh=None, requiredPerms=None, selectedCols=None, insertedCols=None, updatedCols=None):  # pragma: no cover  # noqa: E501
+        if ((inh is not None
+             and requiredPerms is selectedCols is insertedCols is updatedCols is None  # noqa: E501
+             and isinstance(inh, dict)
+             and '@' in inh)):
+            super().__init__(inh)
+        else:
+            self.inh = inh
+            self.requiredPerms = requiredPerms
+            self.selectedCols = selectedCols
+            self.insertedCols = insertedCols
+            self.updatedCols = updatedCols
 
 
 class RangeFunction(Node):
@@ -3122,11 +3347,11 @@ class RangeTableSample(Node):
 
 
 class RangeTblEntry(Node):
-    __slots__ = {'rtekind': 'RTEKind', 'relkind': 'char', 'rellockmode': 'int', 'tablesample': 'TableSampleClause*', 'subquery': 'Query*', 'security_barrier': 'bool', 'jointype': 'JoinType', 'joinmergedcols': 'int', 'joinaliasvars': 'List*', 'joinleftcols': 'List*', 'joinrightcols': 'List*', 'join_using_alias': 'Alias*', 'functions': 'List*', 'funcordinality': 'bool', 'tablefunc': 'TableFunc*', 'values_lists': 'List*', 'ctename': 'char*', 'ctelevelsup': 'Index', 'self_reference': 'bool', 'coltypes': 'List*', 'coltypmods': 'List*', 'colcollations': 'List*', 'enrname': 'char*', 'enrtuples': 'Cardinality', 'alias': 'Alias*', 'eref': 'Alias*', 'lateral': 'bool', 'inh': 'bool', 'inFromCl': 'bool', 'requiredPerms': 'AclMode', 'selectedCols': 'Bitmapset*', 'insertedCols': 'Bitmapset*', 'updatedCols': 'Bitmapset*', 'extraUpdatedCols': 'Bitmapset*', 'securityQuals': 'List*'}  # noqa: E501
+    __slots__ = {'rtekind': 'RTEKind', 'relkind': 'char', 'rellockmode': 'int', 'tablesample': 'TableSampleClause*', 'perminfoindex': 'Index', 'subquery': 'Query*', 'security_barrier': 'bool', 'jointype': 'JoinType', 'joinmergedcols': 'int', 'joinaliasvars': 'List*', 'joinleftcols': 'List*', 'joinrightcols': 'List*', 'join_using_alias': 'Alias*', 'functions': 'List*', 'funcordinality': 'bool', 'tablefunc': 'TableFunc*', 'values_lists': 'List*', 'ctename': 'char*', 'ctelevelsup': 'Index', 'self_reference': 'bool', 'coltypes': 'List*', 'coltypmods': 'List*', 'colcollations': 'List*', 'enrname': 'char*', 'enrtuples': 'Cardinality', 'alias': 'Alias*', 'eref': 'Alias*', 'lateral': 'bool', 'inh': 'bool', 'inFromCl': 'bool', 'securityQuals': 'List*'}  # noqa: E501
 
-    def __init__(self, rtekind=None, relkind=None, rellockmode=None, tablesample=None, subquery=None, security_barrier=None, jointype=None, joinmergedcols=None, joinaliasvars=None, joinleftcols=None, joinrightcols=None, join_using_alias=None, functions=None, funcordinality=None, tablefunc=None, values_lists=None, ctename=None, ctelevelsup=None, self_reference=None, coltypes=None, coltypmods=None, colcollations=None, enrname=None, enrtuples=None, alias=None, eref=None, lateral=None, inh=None, inFromCl=None, requiredPerms=None, selectedCols=None, insertedCols=None, updatedCols=None, extraUpdatedCols=None, securityQuals=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, rtekind=None, relkind=None, rellockmode=None, tablesample=None, perminfoindex=None, subquery=None, security_barrier=None, jointype=None, joinmergedcols=None, joinaliasvars=None, joinleftcols=None, joinrightcols=None, join_using_alias=None, functions=None, funcordinality=None, tablefunc=None, values_lists=None, ctename=None, ctelevelsup=None, self_reference=None, coltypes=None, coltypmods=None, colcollations=None, enrname=None, enrtuples=None, alias=None, eref=None, lateral=None, inh=None, inFromCl=None, securityQuals=None):  # pragma: no cover  # noqa: E501
         if ((rtekind is not None
-             and relkind is rellockmode is tablesample is subquery is security_barrier is jointype is joinmergedcols is joinaliasvars is joinleftcols is joinrightcols is join_using_alias is functions is funcordinality is tablefunc is values_lists is ctename is ctelevelsup is self_reference is coltypes is coltypmods is colcollations is enrname is enrtuples is alias is eref is lateral is inh is inFromCl is requiredPerms is selectedCols is insertedCols is updatedCols is extraUpdatedCols is securityQuals is None  # noqa: E501
+             and relkind is rellockmode is tablesample is perminfoindex is subquery is security_barrier is jointype is joinmergedcols is joinaliasvars is joinleftcols is joinrightcols is join_using_alias is functions is funcordinality is tablefunc is values_lists is ctename is ctelevelsup is self_reference is coltypes is coltypmods is colcollations is enrname is enrtuples is alias is eref is lateral is inh is inFromCl is securityQuals is None  # noqa: E501
              and isinstance(rtekind, dict)
              and '@' in rtekind)):
             super().__init__(rtekind)
@@ -3135,6 +3360,7 @@ class RangeTblEntry(Node):
             self.relkind = relkind
             self.rellockmode = rellockmode
             self.tablesample = tablesample
+            self.perminfoindex = perminfoindex
             self.subquery = subquery
             self.security_barrier = security_barrier
             self.jointype = jointype
@@ -3160,11 +3386,6 @@ class RangeTblEntry(Node):
             self.lateral = lateral
             self.inh = inh
             self.inFromCl = inFromCl
-            self.requiredPerms = requiredPerms
-            self.selectedCols = selectedCols
-            self.insertedCols = insertedCols
-            self.updatedCols = updatedCols
-            self.extraUpdatedCols = extraUpdatedCols
             self.securityQuals = securityQuals
 
 
@@ -3887,11 +4108,11 @@ class VacuumStmt(Node):
 
 
 class Var(Expr):
-    __slots__ = {'varno': 'int', 'varattno': 'AttrNumber', 'vartypmod': 'int32', 'varlevelsup': 'Index', 'varnosyn': 'Index', 'varattnosyn': 'AttrNumber', 'location': 'int'}  # noqa: E501
+    __slots__ = {'varno': 'int', 'varattno': 'AttrNumber', 'vartypmod': 'int32', 'varnullingrels': 'Bitmapset*', 'varlevelsup': 'Index', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, varno=None, varattno=None, vartypmod=None, varlevelsup=None, varnosyn=None, varattnosyn=None, location=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, varno=None, varattno=None, vartypmod=None, varnullingrels=None, varlevelsup=None, location=None):  # pragma: no cover  # noqa: E501
         if ((varno is not None
-             and varattno is vartypmod is varlevelsup is varnosyn is varattnosyn is location is None  # noqa: E501
+             and varattno is vartypmod is varnullingrels is varlevelsup is location is None  # noqa: E501
              and isinstance(varno, dict)
              and '@' in varno)):
             super().__init__(varno)
@@ -3899,9 +4120,8 @@ class Var(Expr):
             self.varno = varno
             self.varattno = varattno
             self.vartypmod = vartypmod
+            self.varnullingrels = varnullingrels
             self.varlevelsup = varlevelsup
-            self.varnosyn = varnosyn
-            self.varattnosyn = varattnosyn
             self.location = location
 
 
@@ -4046,11 +4266,11 @@ class WithClause(Node):
 
 
 class XmlExpr(Expr):
-    __slots__ = {'op': 'XmlExprOp', 'name': 'char*', 'named_args': 'List*', 'arg_names': 'List*', 'args': 'List*', 'xmloption': 'XmlOptionType', 'typmod': 'int32', 'location': 'int'}  # noqa: E501
+    __slots__ = {'op': 'XmlExprOp', 'name': 'char*', 'named_args': 'List*', 'arg_names': 'List*', 'args': 'List*', 'xmloption': 'XmlOptionType', 'indent': 'bool', 'typmod': 'int32', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, op=None, name=None, named_args=None, arg_names=None, args=None, xmloption=None, typmod=None, location=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, op=None, name=None, named_args=None, arg_names=None, args=None, xmloption=None, indent=None, typmod=None, location=None):  # pragma: no cover  # noqa: E501
         if ((op is not None
-             and name is named_args is arg_names is args is xmloption is typmod is location is None  # noqa: E501
+             and name is named_args is arg_names is args is xmloption is indent is typmod is location is None  # noqa: E501
              and isinstance(op, dict)
              and '@' in op)):
             super().__init__(op)
@@ -4061,16 +4281,17 @@ class XmlExpr(Expr):
             self.arg_names = arg_names
             self.args = args
             self.xmloption = xmloption
+            self.indent = indent
             self.typmod = typmod
             self.location = location
 
 
 class XmlSerialize(Node):
-    __slots__ = {'xmloption': 'XmlOptionType', 'expr': 'Node*', 'typeName': 'TypeName*', 'location': 'int'}  # noqa: E501
+    __slots__ = {'xmloption': 'XmlOptionType', 'expr': 'Node*', 'typeName': 'TypeName*', 'indent': 'bool', 'location': 'int'}  # noqa: E501
 
-    def __init__(self, xmloption=None, expr=None, typeName=None, location=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, xmloption=None, expr=None, typeName=None, indent=None, location=None):  # pragma: no cover  # noqa: E501
         if ((xmloption is not None
-             and expr is typeName is location is None  # noqa: E501
+             and expr is typeName is indent is location is None  # noqa: E501
              and isinstance(xmloption, dict)
              and '@' in xmloption)):
             super().__init__(xmloption)
@@ -4078,6 +4299,7 @@ class XmlSerialize(Node):
             self.xmloption = xmloption
             self.expr = expr
             self.typeName = typeName
+            self.indent = indent
             self.location = location
 
 
@@ -4137,8 +4359,9 @@ def _fixup_attribute_types_in_slots():
                                       else i
                                       for i in value)
                     return value
-            elif ctype in {'int', 'int16', 'bits32', 'int32', 'long', 'uint32', 'uint64',
-                           'AttrNumber', 'AclMode', 'Index', 'SubTransactionId'}:
+            elif ctype in {'AclMode', 'AttrNumber', 'Index', 'RelFileNumber',
+                           'SubTransactionId', 'bits32', 'int', 'int16', 'int32', 'long',
+                           'uint32', 'uint64'}:
                 ptype = int
             elif ctype in {'Cardinality', 'Cost'}:
                 ptype = float

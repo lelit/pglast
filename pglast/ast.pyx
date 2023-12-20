@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 15-4.2.3-0-g9b21e32
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 16-latest-dev-0-gebeba2d
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2023 Lele Gaifax
@@ -45,7 +45,6 @@ cdef _pg_list_to_tuple(const structs.List* lst, offset_to_index):
 cdef create_Query(structs.Query* data, offset_to_index):
     cdef object v_commandType = getattr(enums, 'CmdType')(data.commandType)
     cdef object v_querySource = getattr(enums, 'QuerySource')(data.querySource)
-    cdef object v_queryId = data.queryId
     cdef object v_canSetTag = bool(data.canSetTag)
     cdef object v_utilityStmt = create(data.utilityStmt, offset_to_index) if data.utilityStmt is not NULL else None
     cdef object v_resultRelation = data.resultRelation
@@ -61,6 +60,7 @@ cdef create_Query(structs.Query* data, offset_to_index):
     cdef object v_isReturn = bool(data.isReturn)
     cdef tuple v_cteList = _pg_list_to_tuple(data.cteList, offset_to_index)
     cdef tuple v_rtable = _pg_list_to_tuple(data.rtable, offset_to_index)
+    cdef tuple v_rteperminfos = _pg_list_to_tuple(data.rteperminfos, offset_to_index)
     cdef object v_jointree = create(data.jointree, offset_to_index) if data.jointree is not NULL else None
     cdef tuple v_mergeActionList = _pg_list_to_tuple(data.mergeActionList, offset_to_index)
     cdef object v_mergeUseOuterJoin = bool(data.mergeUseOuterJoin)
@@ -84,7 +84,7 @@ cdef create_Query(structs.Query* data, offset_to_index):
     cdef tuple v_withCheckOptions = _pg_list_to_tuple(data.withCheckOptions, offset_to_index)
     cdef object v_stmt_location = offset_to_index(data.stmt_location)
     cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)
-    return ast.Query(v_commandType, v_querySource, v_queryId, v_canSetTag, v_utilityStmt, v_resultRelation, v_hasAggs, v_hasWindowFuncs, v_hasTargetSRFs, v_hasSubLinks, v_hasDistinctOn, v_hasRecursive, v_hasModifyingCTE, v_hasForUpdate, v_hasRowSecurity, v_isReturn, v_cteList, v_rtable, v_jointree, v_mergeActionList, v_mergeUseOuterJoin, v_targetList, v_override, v_onConflict, v_returningList, v_groupClause, v_groupDistinct, v_groupingSets, v_havingQual, v_windowClause, v_distinctClause, v_sortClause, v_limitOffset, v_limitCount, v_limitOption, v_rowMarks, v_setOperations, v_constraintDeps, v_withCheckOptions, v_stmt_location, v_stmt_len)
+    return ast.Query(v_commandType, v_querySource, v_canSetTag, v_utilityStmt, v_resultRelation, v_hasAggs, v_hasWindowFuncs, v_hasTargetSRFs, v_hasSubLinks, v_hasDistinctOn, v_hasRecursive, v_hasModifyingCTE, v_hasForUpdate, v_hasRowSecurity, v_isReturn, v_cteList, v_rtable, v_rteperminfos, v_jointree, v_mergeActionList, v_mergeUseOuterJoin, v_targetList, v_override, v_onConflict, v_returningList, v_groupClause, v_groupDistinct, v_groupingSets, v_havingQual, v_windowClause, v_distinctClause, v_sortClause, v_limitOffset, v_limitCount, v_limitOption, v_rowMarks, v_setOperations, v_constraintDeps, v_withCheckOptions, v_stmt_location, v_stmt_len)
 
 
 cdef create_TypeName(structs.TypeName* data, offset_to_index):
@@ -271,6 +271,7 @@ cdef create_ColumnDef(structs.ColumnDef* data, offset_to_index):
     cdef object v_is_not_null = bool(data.is_not_null)
     cdef object v_is_from_type = bool(data.is_from_type)
     cdef object v_storage = chr(data.storage)
+    cdef object v_storage_name = data.storage_name.decode("utf-8") if data.storage_name is not NULL else None
     cdef object v_raw_default = create(data.raw_default, offset_to_index) if data.raw_default is not NULL else None
     cdef object v_cooked_default = create(data.cooked_default, offset_to_index) if data.cooked_default is not NULL else None
     cdef object v_identity = chr(data.identity)
@@ -280,7 +281,7 @@ cdef create_ColumnDef(structs.ColumnDef* data, offset_to_index):
     cdef tuple v_constraints = _pg_list_to_tuple(data.constraints, offset_to_index)
     cdef tuple v_fdwoptions = _pg_list_to_tuple(data.fdwoptions, offset_to_index)
     cdef object v_location = offset_to_index(data.location)
-    return ast.ColumnDef(v_colname, v_typeName, v_compression, v_inhcount, v_is_local, v_is_not_null, v_is_from_type, v_storage, v_raw_default, v_cooked_default, v_identity, v_identitySequence, v_generated, v_collClause, v_constraints, v_fdwoptions, v_location)
+    return ast.ColumnDef(v_colname, v_typeName, v_compression, v_inhcount, v_is_local, v_is_not_null, v_is_from_type, v_storage, v_storage_name, v_raw_default, v_cooked_default, v_identity, v_identitySequence, v_generated, v_collClause, v_constraints, v_fdwoptions, v_location)
 
 
 cdef create_TableLikeClause(structs.TableLikeClause* data, offset_to_index):
@@ -321,8 +322,9 @@ cdef create_XmlSerialize(structs.XmlSerialize* data, offset_to_index):
     cdef object v_xmloption = getattr(enums, 'XmlOptionType')(data.xmloption)
     cdef object v_expr = create(data.expr, offset_to_index) if data.expr is not NULL else None
     cdef object v_typeName = create(data.typeName, offset_to_index) if data.typeName is not NULL else None
+    cdef object v_indent = bool(data.indent)
     cdef object v_location = offset_to_index(data.location)
-    return ast.XmlSerialize(v_xmloption, v_expr, v_typeName, v_location)
+    return ast.XmlSerialize(v_xmloption, v_expr, v_typeName, v_indent, v_location)
 
 
 cdef create_PartitionElem(structs.PartitionElem* data, offset_to_index):
@@ -335,7 +337,7 @@ cdef create_PartitionElem(structs.PartitionElem* data, offset_to_index):
 
 
 cdef create_PartitionSpec(structs.PartitionSpec* data, offset_to_index):
-    cdef object v_strategy = data.strategy.decode("utf-8") if data.strategy is not NULL else None
+    cdef object v_strategy = getattr(enums, 'PartitionStrategy')(chr(data.strategy))
     cdef tuple v_partParams = _pg_list_to_tuple(data.partParams, offset_to_index)
     cdef object v_location = offset_to_index(data.location)
     return ast.PartitionSpec(v_strategy, v_partParams, v_location)
@@ -372,6 +374,7 @@ cdef create_RangeTblEntry(structs.RangeTblEntry* data, offset_to_index):
     cdef object v_relkind = chr(data.relkind)
     cdef object v_rellockmode = data.rellockmode
     cdef object v_tablesample = create(data.tablesample, offset_to_index) if data.tablesample is not NULL else None
+    cdef object v_perminfoindex = data.perminfoindex
     cdef object v_subquery = create(data.subquery, offset_to_index) if data.subquery is not NULL else None
     cdef object v_security_barrier = bool(data.security_barrier)
     cdef object v_jointype = getattr(enums, 'JoinType')(data.jointype)
@@ -397,13 +400,17 @@ cdef create_RangeTblEntry(structs.RangeTblEntry* data, offset_to_index):
     cdef object v_lateral = bool(data.lateral)
     cdef object v_inh = bool(data.inh)
     cdef object v_inFromCl = bool(data.inFromCl)
+    cdef tuple v_securityQuals = _pg_list_to_tuple(data.securityQuals, offset_to_index)
+    return ast.RangeTblEntry(v_rtekind, v_relkind, v_rellockmode, v_tablesample, v_perminfoindex, v_subquery, v_security_barrier, v_jointype, v_joinmergedcols, v_joinaliasvars, v_joinleftcols, v_joinrightcols, v_join_using_alias, v_functions, v_funcordinality, v_tablefunc, v_values_lists, v_ctename, v_ctelevelsup, v_self_reference, v_coltypes, v_coltypmods, v_colcollations, v_enrname, v_enrtuples, v_alias, v_eref, v_lateral, v_inh, v_inFromCl, v_securityQuals)
+
+
+cdef create_RTEPermissionInfo(structs.RTEPermissionInfo* data, offset_to_index):
+    cdef object v_inh = bool(data.inh)
     cdef object v_requiredPerms = data.requiredPerms
     cdef set v_selectedCols = _pg_bitmapset_to_set(data.selectedCols)
     cdef set v_insertedCols = _pg_bitmapset_to_set(data.insertedCols)
     cdef set v_updatedCols = _pg_bitmapset_to_set(data.updatedCols)
-    cdef set v_extraUpdatedCols = _pg_bitmapset_to_set(data.extraUpdatedCols)
-    cdef tuple v_securityQuals = _pg_list_to_tuple(data.securityQuals, offset_to_index)
-    return ast.RangeTblEntry(v_rtekind, v_relkind, v_rellockmode, v_tablesample, v_subquery, v_security_barrier, v_jointype, v_joinmergedcols, v_joinaliasvars, v_joinleftcols, v_joinrightcols, v_join_using_alias, v_functions, v_funcordinality, v_tablefunc, v_values_lists, v_ctename, v_ctelevelsup, v_self_reference, v_coltypes, v_coltypmods, v_colcollations, v_enrname, v_enrtuples, v_alias, v_eref, v_lateral, v_inh, v_inFromCl, v_requiredPerms, v_selectedCols, v_insertedCols, v_updatedCols, v_extraUpdatedCols, v_securityQuals)
+    return ast.RTEPermissionInfo(v_inh, v_requiredPerms, v_selectedCols, v_insertedCols, v_updatedCols)
 
 
 cdef create_RangeTblFunction(structs.RangeTblFunction* data, offset_to_index):
@@ -555,6 +562,68 @@ cdef create_TriggerTransition(structs.TriggerTransition* data, offset_to_index):
     cdef object v_isNew = bool(data.isNew)
     cdef object v_isTable = bool(data.isTable)
     return ast.TriggerTransition(v_name, v_isNew, v_isTable)
+
+
+cdef create_JsonOutput(structs.JsonOutput* data, offset_to_index):
+    cdef object v_typeName = create(data.typeName, offset_to_index) if data.typeName is not NULL else None
+    cdef object v_returning = create(data.returning, offset_to_index) if data.returning is not NULL else None
+    return ast.JsonOutput(v_typeName, v_returning)
+
+
+cdef create_JsonKeyValue(structs.JsonKeyValue* data, offset_to_index):
+    cdef object v_key = create(data.key, offset_to_index) if data.key is not NULL else None
+    cdef object v_value = create(data.value, offset_to_index) if data.value is not NULL else None
+    return ast.JsonKeyValue(v_key, v_value)
+
+
+cdef create_JsonObjectConstructor(structs.JsonObjectConstructor* data, offset_to_index):
+    cdef tuple v_exprs = _pg_list_to_tuple(data.exprs, offset_to_index)
+    cdef object v_output = create(data.output, offset_to_index) if data.output is not NULL else None
+    cdef object v_absent_on_null = bool(data.absent_on_null)
+    cdef object v_unique = bool(data.unique)
+    cdef object v_location = offset_to_index(data.location)
+    return ast.JsonObjectConstructor(v_exprs, v_output, v_absent_on_null, v_unique, v_location)
+
+
+cdef create_JsonArrayConstructor(structs.JsonArrayConstructor* data, offset_to_index):
+    cdef tuple v_exprs = _pg_list_to_tuple(data.exprs, offset_to_index)
+    cdef object v_output = create(data.output, offset_to_index) if data.output is not NULL else None
+    cdef object v_absent_on_null = bool(data.absent_on_null)
+    cdef object v_location = offset_to_index(data.location)
+    return ast.JsonArrayConstructor(v_exprs, v_output, v_absent_on_null, v_location)
+
+
+cdef create_JsonArrayQueryConstructor(structs.JsonArrayQueryConstructor* data, offset_to_index):
+    cdef object v_query = create(data.query, offset_to_index) if data.query is not NULL else None
+    cdef object v_output = create(data.output, offset_to_index) if data.output is not NULL else None
+    cdef object v_format = create(data.format, offset_to_index) if data.format is not NULL else None
+    cdef object v_absent_on_null = bool(data.absent_on_null)
+    cdef object v_location = offset_to_index(data.location)
+    return ast.JsonArrayQueryConstructor(v_query, v_output, v_format, v_absent_on_null, v_location)
+
+
+cdef create_JsonAggConstructor(structs.JsonAggConstructor* data, offset_to_index):
+    cdef object v_output = create(data.output, offset_to_index) if data.output is not NULL else None
+    cdef object v_agg_filter = create(data.agg_filter, offset_to_index) if data.agg_filter is not NULL else None
+    cdef tuple v_agg_order = _pg_list_to_tuple(data.agg_order, offset_to_index)
+    cdef object v_over = create(data.over, offset_to_index) if data.over is not NULL else None
+    cdef object v_location = offset_to_index(data.location)
+    return ast.JsonAggConstructor(v_output, v_agg_filter, v_agg_order, v_over, v_location)
+
+
+cdef create_JsonObjectAgg(structs.JsonObjectAgg* data, offset_to_index):
+    cdef object v_constructor = create(data.constructor, offset_to_index) if data.constructor is not NULL else None
+    cdef object v_arg = create(data.arg, offset_to_index) if data.arg is not NULL else None
+    cdef object v_absent_on_null = bool(data.absent_on_null)
+    cdef object v_unique = bool(data.unique)
+    return ast.JsonObjectAgg(v_constructor, v_arg, v_absent_on_null, v_unique)
+
+
+cdef create_JsonArrayAgg(structs.JsonArrayAgg* data, offset_to_index):
+    cdef object v_constructor = create(data.constructor, offset_to_index) if data.constructor is not NULL else None
+    cdef object v_arg = create(data.arg, offset_to_index) if data.arg is not NULL else None
+    cdef object v_absent_on_null = bool(data.absent_on_null)
+    return ast.JsonArrayAgg(v_constructor, v_arg, v_absent_on_null)
 
 
 cdef create_RawStmt(structs.RawStmt* data, offset_to_index):
@@ -733,10 +802,10 @@ cdef create_GrantRoleStmt(structs.GrantRoleStmt* data, offset_to_index):
     cdef tuple v_granted_roles = _pg_list_to_tuple(data.granted_roles, offset_to_index)
     cdef tuple v_grantee_roles = _pg_list_to_tuple(data.grantee_roles, offset_to_index)
     cdef object v_is_grant = bool(data.is_grant)
-    cdef object v_admin_opt = bool(data.admin_opt)
+    cdef tuple v_opt = _pg_list_to_tuple(data.opt, offset_to_index)
     cdef object v_grantor = create(data.grantor, offset_to_index) if data.grantor is not NULL else None
     cdef object v_behavior = getattr(enums, 'DropBehavior')(data.behavior)
-    return ast.GrantRoleStmt(v_granted_roles, v_grantee_roles, v_is_grant, v_admin_opt, v_grantor, v_behavior)
+    return ast.GrantRoleStmt(v_granted_roles, v_grantee_roles, v_is_grant, v_opt, v_grantor, v_behavior)
 
 
 cdef create_AlterDefaultPrivilegesStmt(structs.AlterDefaultPrivilegesStmt* data, offset_to_index):
@@ -1170,8 +1239,9 @@ cdef create_IndexStmt(structs.IndexStmt* data, offset_to_index):
     cdef object v_whereClause = create(data.whereClause, offset_to_index) if data.whereClause is not NULL else None
     cdef tuple v_excludeOpNames = _pg_list_to_tuple(data.excludeOpNames, offset_to_index)
     cdef object v_idxcomment = data.idxcomment.decode("utf-8") if data.idxcomment is not NULL else None
+    cdef object v_oldNumber = data.oldNumber
     cdef object v_oldCreateSubid = data.oldCreateSubid
-    cdef object v_oldFirstRelfilenodeSubid = data.oldFirstRelfilenodeSubid
+    cdef object v_oldFirstRelfilelocatorSubid = data.oldFirstRelfilelocatorSubid
     cdef object v_unique = bool(data.unique)
     cdef object v_nulls_not_distinct = bool(data.nulls_not_distinct)
     cdef object v_primary = bool(data.primary)
@@ -1182,7 +1252,7 @@ cdef create_IndexStmt(structs.IndexStmt* data, offset_to_index):
     cdef object v_concurrent = bool(data.concurrent)
     cdef object v_if_not_exists = bool(data.if_not_exists)
     cdef object v_reset_default_tblspc = bool(data.reset_default_tblspc)
-    return ast.IndexStmt(v_idxname, v_relation, v_accessMethod, v_tableSpace, v_indexParams, v_indexIncludingParams, v_options, v_whereClause, v_excludeOpNames, v_idxcomment, v_oldCreateSubid, v_oldFirstRelfilenodeSubid, v_unique, v_nulls_not_distinct, v_primary, v_isconstraint, v_deferrable, v_initdeferred, v_transformed, v_concurrent, v_if_not_exists, v_reset_default_tblspc)
+    return ast.IndexStmt(v_idxname, v_relation, v_accessMethod, v_tableSpace, v_indexParams, v_indexIncludingParams, v_options, v_whereClause, v_excludeOpNames, v_idxcomment, v_oldNumber, v_oldCreateSubid, v_oldFirstRelfilelocatorSubid, v_unique, v_nulls_not_distinct, v_primary, v_isconstraint, v_deferrable, v_initdeferred, v_transformed, v_concurrent, v_if_not_exists, v_reset_default_tblspc)
 
 
 cdef create_CreateStatsStmt(structs.CreateStatsStmt* data, offset_to_index):
@@ -1675,11 +1745,10 @@ cdef create_Var(structs.Var* data, offset_to_index):
     cdef object v_varno = data.varno
     cdef object v_varattno = data.varattno
     cdef object v_vartypmod = data.vartypmod
+    cdef set v_varnullingrels = _pg_bitmapset_to_set(data.varnullingrels)
     cdef object v_varlevelsup = data.varlevelsup
-    cdef object v_varnosyn = data.varnosyn
-    cdef object v_varattnosyn = data.varattnosyn
     cdef object v_location = offset_to_index(data.location)
-    return ast.Var(v_varno, v_varattno, v_vartypmod, v_varlevelsup, v_varnosyn, v_varattnosyn, v_location)
+    return ast.Var(v_varno, v_varattno, v_vartypmod, v_varnullingrels, v_varlevelsup, v_location)
 
 
 cdef create_Param(structs.Param* data, offset_to_index):
@@ -1711,10 +1780,9 @@ cdef create_Aggref(structs.Aggref* data, offset_to_index):
 cdef create_GroupingFunc(structs.GroupingFunc* data, offset_to_index):
     cdef tuple v_args = _pg_list_to_tuple(data.args, offset_to_index)
     cdef tuple v_refs = _pg_list_to_tuple(data.refs, offset_to_index)
-    cdef tuple v_cols = _pg_list_to_tuple(data.cols, offset_to_index)
     cdef object v_agglevelsup = data.agglevelsup
     cdef object v_location = offset_to_index(data.location)
-    return ast.GroupingFunc(v_args, v_refs, v_cols, v_agglevelsup, v_location)
+    return ast.GroupingFunc(v_args, v_refs, v_agglevelsup, v_location)
 
 
 cdef create_WindowFunc(structs.WindowFunc* data, offset_to_index):
@@ -1930,9 +1998,51 @@ cdef create_XmlExpr(structs.XmlExpr* data, offset_to_index):
     cdef tuple v_arg_names = _pg_list_to_tuple(data.arg_names, offset_to_index)
     cdef tuple v_args = _pg_list_to_tuple(data.args, offset_to_index)
     cdef object v_xmloption = getattr(enums, 'XmlOptionType')(data.xmloption)
+    cdef object v_indent = bool(data.indent)
     cdef object v_typmod = data.typmod
     cdef object v_location = offset_to_index(data.location)
-    return ast.XmlExpr(v_op, v_name, v_named_args, v_arg_names, v_args, v_xmloption, v_typmod, v_location)
+    return ast.XmlExpr(v_op, v_name, v_named_args, v_arg_names, v_args, v_xmloption, v_indent, v_typmod, v_location)
+
+
+cdef create_JsonFormat(structs.JsonFormat* data, offset_to_index):
+    cdef object v_format_type = getattr(enums, 'JsonFormatType')(data.format_type)
+    cdef object v_encoding = getattr(enums, 'JsonEncoding')(data.encoding)
+    cdef object v_location = offset_to_index(data.location)
+    return ast.JsonFormat(v_format_type, v_encoding, v_location)
+
+
+cdef create_JsonReturning(structs.JsonReturning* data, offset_to_index):
+    cdef object v_format = create(data.format, offset_to_index) if data.format is not NULL else None
+    cdef object v_typmod = data.typmod
+    return ast.JsonReturning(v_format, v_typmod)
+
+
+cdef create_JsonValueExpr(structs.JsonValueExpr* data, offset_to_index):
+    cdef object v_raw_expr = create(data.raw_expr, offset_to_index) if data.raw_expr is not NULL else None
+    cdef object v_formatted_expr = create(data.formatted_expr, offset_to_index) if data.formatted_expr is not NULL else None
+    cdef object v_format = create(data.format, offset_to_index) if data.format is not NULL else None
+    return ast.JsonValueExpr(v_raw_expr, v_formatted_expr, v_format)
+
+
+cdef create_JsonConstructorExpr(structs.JsonConstructorExpr* data, offset_to_index):
+    cdef object v_type = getattr(enums, 'JsonConstructorType')(data.type)
+    cdef tuple v_args = _pg_list_to_tuple(data.args, offset_to_index)
+    cdef object v_func = create(data.func, offset_to_index) if data.func is not NULL else None
+    cdef object v_coercion = create(data.coercion, offset_to_index) if data.coercion is not NULL else None
+    cdef object v_returning = create(data.returning, offset_to_index) if data.returning is not NULL else None
+    cdef object v_absent_on_null = bool(data.absent_on_null)
+    cdef object v_unique = bool(data.unique)
+    cdef object v_location = offset_to_index(data.location)
+    return ast.JsonConstructorExpr(v_type, v_args, v_func, v_coercion, v_returning, v_absent_on_null, v_unique, v_location)
+
+
+cdef create_JsonIsPredicate(structs.JsonIsPredicate* data, offset_to_index):
+    cdef object v_expr = create(data.expr, offset_to_index) if data.expr is not NULL else None
+    cdef object v_format = create(data.format, offset_to_index) if data.format is not NULL else None
+    cdef object v_item_type = getattr(enums, 'JsonValueType')(data.item_type)
+    cdef object v_unique_keys = bool(data.unique_keys)
+    cdef object v_location = offset_to_index(data.location)
+    return ast.JsonIsPredicate(v_expr, v_format, v_item_type, v_unique_keys, v_location)
 
 
 cdef create_NullTest(structs.NullTest* data, offset_to_index):
@@ -2081,12 +2191,16 @@ cdef create(void* data, offset_to_index):
     cdef str s
     cdef int tag = structs.nodeTag(data)
 
-    if tag == structs.T_Alias:
+    if tag == structs.T_List:
+         return _pg_list_to_tuple(<structs.List *> data, offset_to_index)
+    elif tag == structs.T_Alias:
         return create_Alias(<structs.Alias*> data, offset_to_index)
     elif tag == structs.T_RangeVar:
         return create_RangeVar(<structs.RangeVar*> data, offset_to_index)
     elif tag == structs.T_TableFunc:
         return create_TableFunc(<structs.TableFunc*> data, offset_to_index)
+    elif tag == structs.T_IntoClause:
+        return create_IntoClause(<structs.IntoClause*> data, offset_to_index)
     elif tag == structs.T_Var:
         return create_Var(<structs.Var*> data, offset_to_index)
     elif tag == structs.T_Param:
@@ -2149,6 +2263,16 @@ cdef create(void* data, offset_to_index):
         return create_SQLValueFunction(<structs.SQLValueFunction*> data, offset_to_index)
     elif tag == structs.T_XmlExpr:
         return create_XmlExpr(<structs.XmlExpr*> data, offset_to_index)
+    elif tag == structs.T_JsonFormat:
+        return create_JsonFormat(<structs.JsonFormat*> data, offset_to_index)
+    elif tag == structs.T_JsonReturning:
+        return create_JsonReturning(<structs.JsonReturning*> data, offset_to_index)
+    elif tag == structs.T_JsonValueExpr:
+        return create_JsonValueExpr(<structs.JsonValueExpr*> data, offset_to_index)
+    elif tag == structs.T_JsonConstructorExpr:
+        return create_JsonConstructorExpr(<structs.JsonConstructorExpr*> data, offset_to_index)
+    elif tag == structs.T_JsonIsPredicate:
+        return create_JsonIsPredicate(<structs.JsonIsPredicate*> data, offset_to_index)
     elif tag == structs.T_NullTest:
         return create_NullTest(<structs.NullTest*> data, offset_to_index)
     elif tag == structs.T_BooleanTest:
@@ -2173,268 +2297,24 @@ cdef create(void* data, offset_to_index):
         return create_FromExpr(<structs.FromExpr*> data, offset_to_index)
     elif tag == structs.T_OnConflictExpr:
         return create_OnConflictExpr(<structs.OnConflictExpr*> data, offset_to_index)
-    elif tag == structs.T_IntoClause:
-        return create_IntoClause(<structs.IntoClause*> data, offset_to_index)
-    elif tag == structs.T_MergeAction:
-        return create_MergeAction(<structs.MergeAction*> data, offset_to_index)
-    elif tag == structs.T_Integer:
-        return create_Integer(<structs.Integer*> data, offset_to_index)
-    elif tag == structs.T_Float:
-        return create_Float(<structs.Float*> data, offset_to_index)
-    elif tag == structs.T_Boolean:
-        return create_Boolean(<structs.Boolean*> data, offset_to_index)
-    elif tag == structs.T_String:
-        return create_String(<structs.String*> data, offset_to_index)
-    elif tag == structs.T_BitString:
-        return create_BitString(<structs.BitString*> data, offset_to_index)
-    elif tag == structs.T_List:
-        return _pg_list_to_tuple(<structs.List *> data, offset_to_index)
-    elif tag == structs.T_RawStmt:
-        return create_RawStmt(<structs.RawStmt*> data, offset_to_index)
     elif tag == structs.T_Query:
         return create_Query(<structs.Query*> data, offset_to_index)
-    elif tag == structs.T_InsertStmt:
-        return create_InsertStmt(<structs.InsertStmt*> data, offset_to_index)
-    elif tag == structs.T_DeleteStmt:
-        return create_DeleteStmt(<structs.DeleteStmt*> data, offset_to_index)
-    elif tag == structs.T_UpdateStmt:
-        return create_UpdateStmt(<structs.UpdateStmt*> data, offset_to_index)
-    elif tag == structs.T_MergeStmt:
-        return create_MergeStmt(<structs.MergeStmt*> data, offset_to_index)
-    elif tag == structs.T_SelectStmt:
-        return create_SelectStmt(<structs.SelectStmt*> data, offset_to_index)
-    elif tag == structs.T_ReturnStmt:
-        return create_ReturnStmt(<structs.ReturnStmt*> data, offset_to_index)
-    elif tag == structs.T_PLAssignStmt:
-        return create_PLAssignStmt(<structs.PLAssignStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterTableStmt:
-        return create_AlterTableStmt(<structs.AlterTableStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterTableCmd:
-        return create_AlterTableCmd(<structs.AlterTableCmd*> data, offset_to_index)
-    elif tag == structs.T_AlterDomainStmt:
-        return create_AlterDomainStmt(<structs.AlterDomainStmt*> data, offset_to_index)
-    elif tag == structs.T_SetOperationStmt:
-        return create_SetOperationStmt(<structs.SetOperationStmt*> data, offset_to_index)
-    elif tag == structs.T_GrantStmt:
-        return create_GrantStmt(<structs.GrantStmt*> data, offset_to_index)
-    elif tag == structs.T_GrantRoleStmt:
-        return create_GrantRoleStmt(<structs.GrantRoleStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterDefaultPrivilegesStmt:
-        return create_AlterDefaultPrivilegesStmt(<structs.AlterDefaultPrivilegesStmt*> data, offset_to_index)
-    elif tag == structs.T_ClosePortalStmt:
-        return create_ClosePortalStmt(<structs.ClosePortalStmt*> data, offset_to_index)
-    elif tag == structs.T_ClusterStmt:
-        return create_ClusterStmt(<structs.ClusterStmt*> data, offset_to_index)
-    elif tag == structs.T_CopyStmt:
-        return create_CopyStmt(<structs.CopyStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateStmt:
-        return create_CreateStmt(<structs.CreateStmt*> data, offset_to_index)
-    elif tag == structs.T_DefineStmt:
-        return create_DefineStmt(<structs.DefineStmt*> data, offset_to_index)
-    elif tag == structs.T_DropStmt:
-        return create_DropStmt(<structs.DropStmt*> data, offset_to_index)
-    elif tag == structs.T_TruncateStmt:
-        return create_TruncateStmt(<structs.TruncateStmt*> data, offset_to_index)
-    elif tag == structs.T_CommentStmt:
-        return create_CommentStmt(<structs.CommentStmt*> data, offset_to_index)
-    elif tag == structs.T_FetchStmt:
-        return create_FetchStmt(<structs.FetchStmt*> data, offset_to_index)
-    elif tag == structs.T_IndexStmt:
-        return create_IndexStmt(<structs.IndexStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateFunctionStmt:
-        return create_CreateFunctionStmt(<structs.CreateFunctionStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterFunctionStmt:
-        return create_AlterFunctionStmt(<structs.AlterFunctionStmt*> data, offset_to_index)
-    elif tag == structs.T_DoStmt:
-        return create_DoStmt(<structs.DoStmt*> data, offset_to_index)
-    elif tag == structs.T_RenameStmt:
-        return create_RenameStmt(<structs.RenameStmt*> data, offset_to_index)
-    elif tag == structs.T_RuleStmt:
-        return create_RuleStmt(<structs.RuleStmt*> data, offset_to_index)
-    elif tag == structs.T_NotifyStmt:
-        return create_NotifyStmt(<structs.NotifyStmt*> data, offset_to_index)
-    elif tag == structs.T_ListenStmt:
-        return create_ListenStmt(<structs.ListenStmt*> data, offset_to_index)
-    elif tag == structs.T_UnlistenStmt:
-        return create_UnlistenStmt(<structs.UnlistenStmt*> data, offset_to_index)
-    elif tag == structs.T_TransactionStmt:
-        return create_TransactionStmt(<structs.TransactionStmt*> data, offset_to_index)
-    elif tag == structs.T_ViewStmt:
-        return create_ViewStmt(<structs.ViewStmt*> data, offset_to_index)
-    elif tag == structs.T_LoadStmt:
-        return create_LoadStmt(<structs.LoadStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateDomainStmt:
-        return create_CreateDomainStmt(<structs.CreateDomainStmt*> data, offset_to_index)
-    elif tag == structs.T_CreatedbStmt:
-        return create_CreatedbStmt(<structs.CreatedbStmt*> data, offset_to_index)
-    elif tag == structs.T_DropdbStmt:
-        return create_DropdbStmt(<structs.DropdbStmt*> data, offset_to_index)
-    elif tag == structs.T_VacuumStmt:
-        return create_VacuumStmt(<structs.VacuumStmt*> data, offset_to_index)
-    elif tag == structs.T_ExplainStmt:
-        return create_ExplainStmt(<structs.ExplainStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateTableAsStmt:
-        return create_CreateTableAsStmt(<structs.CreateTableAsStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateSeqStmt:
-        return create_CreateSeqStmt(<structs.CreateSeqStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterSeqStmt:
-        return create_AlterSeqStmt(<structs.AlterSeqStmt*> data, offset_to_index)
-    elif tag == structs.T_VariableSetStmt:
-        return create_VariableSetStmt(<structs.VariableSetStmt*> data, offset_to_index)
-    elif tag == structs.T_VariableShowStmt:
-        return create_VariableShowStmt(<structs.VariableShowStmt*> data, offset_to_index)
-    elif tag == structs.T_DiscardStmt:
-        return create_DiscardStmt(<structs.DiscardStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateTrigStmt:
-        return create_CreateTrigStmt(<structs.CreateTrigStmt*> data, offset_to_index)
-    elif tag == structs.T_CreatePLangStmt:
-        return create_CreatePLangStmt(<structs.CreatePLangStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateRoleStmt:
-        return create_CreateRoleStmt(<structs.CreateRoleStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterRoleStmt:
-        return create_AlterRoleStmt(<structs.AlterRoleStmt*> data, offset_to_index)
-    elif tag == structs.T_DropRoleStmt:
-        return create_DropRoleStmt(<structs.DropRoleStmt*> data, offset_to_index)
-    elif tag == structs.T_LockStmt:
-        return create_LockStmt(<structs.LockStmt*> data, offset_to_index)
-    elif tag == structs.T_ConstraintsSetStmt:
-        return create_ConstraintsSetStmt(<structs.ConstraintsSetStmt*> data, offset_to_index)
-    elif tag == structs.T_ReindexStmt:
-        return create_ReindexStmt(<structs.ReindexStmt*> data, offset_to_index)
-    elif tag == structs.T_CheckPointStmt:
-        return create_CheckPointStmt(<structs.CheckPointStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateSchemaStmt:
-        return create_CreateSchemaStmt(<structs.CreateSchemaStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterDatabaseStmt:
-        return create_AlterDatabaseStmt(<structs.AlterDatabaseStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterDatabaseRefreshCollStmt:
-        return create_AlterDatabaseRefreshCollStmt(<structs.AlterDatabaseRefreshCollStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterDatabaseSetStmt:
-        return create_AlterDatabaseSetStmt(<structs.AlterDatabaseSetStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterRoleSetStmt:
-        return create_AlterRoleSetStmt(<structs.AlterRoleSetStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateConversionStmt:
-        return create_CreateConversionStmt(<structs.CreateConversionStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateCastStmt:
-        return create_CreateCastStmt(<structs.CreateCastStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateOpClassStmt:
-        return create_CreateOpClassStmt(<structs.CreateOpClassStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateOpFamilyStmt:
-        return create_CreateOpFamilyStmt(<structs.CreateOpFamilyStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterOpFamilyStmt:
-        return create_AlterOpFamilyStmt(<structs.AlterOpFamilyStmt*> data, offset_to_index)
-    elif tag == structs.T_PrepareStmt:
-        return create_PrepareStmt(<structs.PrepareStmt*> data, offset_to_index)
-    elif tag == structs.T_ExecuteStmt:
-        return create_ExecuteStmt(<structs.ExecuteStmt*> data, offset_to_index)
-    elif tag == structs.T_DeallocateStmt:
-        return create_DeallocateStmt(<structs.DeallocateStmt*> data, offset_to_index)
-    elif tag == structs.T_DeclareCursorStmt:
-        return create_DeclareCursorStmt(<structs.DeclareCursorStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateTableSpaceStmt:
-        return create_CreateTableSpaceStmt(<structs.CreateTableSpaceStmt*> data, offset_to_index)
-    elif tag == structs.T_DropTableSpaceStmt:
-        return create_DropTableSpaceStmt(<structs.DropTableSpaceStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterObjectDependsStmt:
-        return create_AlterObjectDependsStmt(<structs.AlterObjectDependsStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterObjectSchemaStmt:
-        return create_AlterObjectSchemaStmt(<structs.AlterObjectSchemaStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterOwnerStmt:
-        return create_AlterOwnerStmt(<structs.AlterOwnerStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterOperatorStmt:
-        return create_AlterOperatorStmt(<structs.AlterOperatorStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterTypeStmt:
-        return create_AlterTypeStmt(<structs.AlterTypeStmt*> data, offset_to_index)
-    elif tag == structs.T_DropOwnedStmt:
-        return create_DropOwnedStmt(<structs.DropOwnedStmt*> data, offset_to_index)
-    elif tag == structs.T_ReassignOwnedStmt:
-        return create_ReassignOwnedStmt(<structs.ReassignOwnedStmt*> data, offset_to_index)
-    elif tag == structs.T_CompositeTypeStmt:
-        return create_CompositeTypeStmt(<structs.CompositeTypeStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateEnumStmt:
-        return create_CreateEnumStmt(<structs.CreateEnumStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateRangeStmt:
-        return create_CreateRangeStmt(<structs.CreateRangeStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterEnumStmt:
-        return create_AlterEnumStmt(<structs.AlterEnumStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterTSDictionaryStmt:
-        return create_AlterTSDictionaryStmt(<structs.AlterTSDictionaryStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterTSConfigurationStmt:
-        return create_AlterTSConfigurationStmt(<structs.AlterTSConfigurationStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateFdwStmt:
-        return create_CreateFdwStmt(<structs.CreateFdwStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterFdwStmt:
-        return create_AlterFdwStmt(<structs.AlterFdwStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateForeignServerStmt:
-        return create_CreateForeignServerStmt(<structs.CreateForeignServerStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterForeignServerStmt:
-        return create_AlterForeignServerStmt(<structs.AlterForeignServerStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateUserMappingStmt:
-        return create_CreateUserMappingStmt(<structs.CreateUserMappingStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterUserMappingStmt:
-        return create_AlterUserMappingStmt(<structs.AlterUserMappingStmt*> data, offset_to_index)
-    elif tag == structs.T_DropUserMappingStmt:
-        return create_DropUserMappingStmt(<structs.DropUserMappingStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterTableSpaceOptionsStmt:
-        return create_AlterTableSpaceOptionsStmt(<structs.AlterTableSpaceOptionsStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterTableMoveAllStmt:
-        return create_AlterTableMoveAllStmt(<structs.AlterTableMoveAllStmt*> data, offset_to_index)
-    elif tag == structs.T_SecLabelStmt:
-        return create_SecLabelStmt(<structs.SecLabelStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateForeignTableStmt:
-        return create_CreateForeignTableStmt(<structs.CreateForeignTableStmt*> data, offset_to_index)
-    elif tag == structs.T_ImportForeignSchemaStmt:
-        return create_ImportForeignSchemaStmt(<structs.ImportForeignSchemaStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateExtensionStmt:
-        return create_CreateExtensionStmt(<structs.CreateExtensionStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterExtensionStmt:
-        return create_AlterExtensionStmt(<structs.AlterExtensionStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterExtensionContentsStmt:
-        return create_AlterExtensionContentsStmt(<structs.AlterExtensionContentsStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateEventTrigStmt:
-        return create_CreateEventTrigStmt(<structs.CreateEventTrigStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterEventTrigStmt:
-        return create_AlterEventTrigStmt(<structs.AlterEventTrigStmt*> data, offset_to_index)
-    elif tag == structs.T_RefreshMatViewStmt:
-        return create_RefreshMatViewStmt(<structs.RefreshMatViewStmt*> data, offset_to_index)
-    elif tag == structs.T_ReplicaIdentityStmt:
-        return create_ReplicaIdentityStmt(<structs.ReplicaIdentityStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterSystemStmt:
-        return create_AlterSystemStmt(<structs.AlterSystemStmt*> data, offset_to_index)
-    elif tag == structs.T_CreatePolicyStmt:
-        return create_CreatePolicyStmt(<structs.CreatePolicyStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterPolicyStmt:
-        return create_AlterPolicyStmt(<structs.AlterPolicyStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateTransformStmt:
-        return create_CreateTransformStmt(<structs.CreateTransformStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateAmStmt:
-        return create_CreateAmStmt(<structs.CreateAmStmt*> data, offset_to_index)
-    elif tag == structs.T_CreatePublicationStmt:
-        return create_CreatePublicationStmt(<structs.CreatePublicationStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterPublicationStmt:
-        return create_AlterPublicationStmt(<structs.AlterPublicationStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateSubscriptionStmt:
-        return create_CreateSubscriptionStmt(<structs.CreateSubscriptionStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterSubscriptionStmt:
-        return create_AlterSubscriptionStmt(<structs.AlterSubscriptionStmt*> data, offset_to_index)
-    elif tag == structs.T_DropSubscriptionStmt:
-        return create_DropSubscriptionStmt(<structs.DropSubscriptionStmt*> data, offset_to_index)
-    elif tag == structs.T_CreateStatsStmt:
-        return create_CreateStatsStmt(<structs.CreateStatsStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterCollationStmt:
-        return create_AlterCollationStmt(<structs.AlterCollationStmt*> data, offset_to_index)
-    elif tag == structs.T_CallStmt:
-        return create_CallStmt(<structs.CallStmt*> data, offset_to_index)
-    elif tag == structs.T_AlterStatsStmt:
-        return create_AlterStatsStmt(<structs.AlterStatsStmt*> data, offset_to_index)
-    elif tag == structs.T_A_Expr:
-        return create_A_Expr(<structs.A_Expr*> data, offset_to_index)
+    elif tag == structs.T_TypeName:
+        return create_TypeName(<structs.TypeName*> data, offset_to_index)
     elif tag == structs.T_ColumnRef:
         return create_ColumnRef(<structs.ColumnRef*> data, offset_to_index)
     elif tag == structs.T_ParamRef:
         return create_ParamRef(<structs.ParamRef*> data, offset_to_index)
+    elif tag == structs.T_A_Expr:
+        return create_A_Expr(<structs.A_Expr*> data, offset_to_index)
     elif tag == structs.T_A_Const:
         return create_A_Const(<structs.A_Const*> data, offset_to_index)
+    elif tag == structs.T_TypeCast:
+        return create_TypeCast(<structs.TypeCast*> data, offset_to_index)
+    elif tag == structs.T_CollateClause:
+        return create_CollateClause(<structs.CollateClause*> data, offset_to_index)
+    elif tag == structs.T_RoleSpec:
+        return create_RoleSpec(<structs.RoleSpec*> data, offset_to_index)
     elif tag == structs.T_FuncCall:
         return create_FuncCall(<structs.FuncCall*> data, offset_to_index)
     elif tag == structs.T_A_Star:
@@ -2449,10 +2329,6 @@ cdef create(void* data, offset_to_index):
         return create_ResTarget(<structs.ResTarget*> data, offset_to_index)
     elif tag == structs.T_MultiAssignRef:
         return create_MultiAssignRef(<structs.MultiAssignRef*> data, offset_to_index)
-    elif tag == structs.T_TypeCast:
-        return create_TypeCast(<structs.TypeCast*> data, offset_to_index)
-    elif tag == structs.T_CollateClause:
-        return create_CollateClause(<structs.CollateClause*> data, offset_to_index)
     elif tag == structs.T_SortBy:
         return create_SortBy(<structs.SortBy*> data, offset_to_index)
     elif tag == structs.T_WindowDef:
@@ -2461,26 +2337,38 @@ cdef create(void* data, offset_to_index):
         return create_RangeSubselect(<structs.RangeSubselect*> data, offset_to_index)
     elif tag == structs.T_RangeFunction:
         return create_RangeFunction(<structs.RangeFunction*> data, offset_to_index)
-    elif tag == structs.T_RangeTableSample:
-        return create_RangeTableSample(<structs.RangeTableSample*> data, offset_to_index)
     elif tag == structs.T_RangeTableFunc:
         return create_RangeTableFunc(<structs.RangeTableFunc*> data, offset_to_index)
     elif tag == structs.T_RangeTableFuncCol:
         return create_RangeTableFuncCol(<structs.RangeTableFuncCol*> data, offset_to_index)
-    elif tag == structs.T_TypeName:
-        return create_TypeName(<structs.TypeName*> data, offset_to_index)
+    elif tag == structs.T_RangeTableSample:
+        return create_RangeTableSample(<structs.RangeTableSample*> data, offset_to_index)
     elif tag == structs.T_ColumnDef:
         return create_ColumnDef(<structs.ColumnDef*> data, offset_to_index)
+    elif tag == structs.T_TableLikeClause:
+        return create_TableLikeClause(<structs.TableLikeClause*> data, offset_to_index)
     elif tag == structs.T_IndexElem:
         return create_IndexElem(<structs.IndexElem*> data, offset_to_index)
-    elif tag == structs.T_StatsElem:
-        return create_StatsElem(<structs.StatsElem*> data, offset_to_index)
-    elif tag == structs.T_Constraint:
-        return create_Constraint(<structs.Constraint*> data, offset_to_index)
     elif tag == structs.T_DefElem:
         return create_DefElem(<structs.DefElem*> data, offset_to_index)
+    elif tag == structs.T_LockingClause:
+        return create_LockingClause(<structs.LockingClause*> data, offset_to_index)
+    elif tag == structs.T_XmlSerialize:
+        return create_XmlSerialize(<structs.XmlSerialize*> data, offset_to_index)
+    elif tag == structs.T_PartitionElem:
+        return create_PartitionElem(<structs.PartitionElem*> data, offset_to_index)
+    elif tag == structs.T_PartitionSpec:
+        return create_PartitionSpec(<structs.PartitionSpec*> data, offset_to_index)
+    elif tag == structs.T_PartitionBoundSpec:
+        return create_PartitionBoundSpec(<structs.PartitionBoundSpec*> data, offset_to_index)
+    elif tag == structs.T_PartitionRangeDatum:
+        return create_PartitionRangeDatum(<structs.PartitionRangeDatum*> data, offset_to_index)
+    elif tag == structs.T_PartitionCmd:
+        return create_PartitionCmd(<structs.PartitionCmd*> data, offset_to_index)
     elif tag == structs.T_RangeTblEntry:
         return create_RangeTblEntry(<structs.RangeTblEntry*> data, offset_to_index)
+    elif tag == structs.T_RTEPermissionInfo:
+        return create_RTEPermissionInfo(<structs.RTEPermissionInfo*> data, offset_to_index)
     elif tag == structs.T_RangeTblFunction:
         return create_RangeTblFunction(<structs.RangeTblFunction*> data, offset_to_index)
     elif tag == structs.T_TableSampleClause:
@@ -2493,22 +2381,8 @@ cdef create(void* data, offset_to_index):
         return create_GroupingSet(<structs.GroupingSet*> data, offset_to_index)
     elif tag == structs.T_WindowClause:
         return create_WindowClause(<structs.WindowClause*> data, offset_to_index)
-    elif tag == structs.T_ObjectWithArgs:
-        return create_ObjectWithArgs(<structs.ObjectWithArgs*> data, offset_to_index)
-    elif tag == structs.T_AccessPriv:
-        return create_AccessPriv(<structs.AccessPriv*> data, offset_to_index)
-    elif tag == structs.T_CreateOpClassItem:
-        return create_CreateOpClassItem(<structs.CreateOpClassItem*> data, offset_to_index)
-    elif tag == structs.T_TableLikeClause:
-        return create_TableLikeClause(<structs.TableLikeClause*> data, offset_to_index)
-    elif tag == structs.T_FunctionParameter:
-        return create_FunctionParameter(<structs.FunctionParameter*> data, offset_to_index)
-    elif tag == structs.T_LockingClause:
-        return create_LockingClause(<structs.LockingClause*> data, offset_to_index)
     elif tag == structs.T_RowMarkClause:
         return create_RowMarkClause(<structs.RowMarkClause*> data, offset_to_index)
-    elif tag == structs.T_XmlSerialize:
-        return create_XmlSerialize(<structs.XmlSerialize*> data, offset_to_index)
     elif tag == structs.T_WithClause:
         return create_WithClause(<structs.WithClause*> data, offset_to_index)
     elif tag == structs.T_InferClause:
@@ -2523,28 +2397,292 @@ cdef create(void* data, offset_to_index):
         return create_CommonTableExpr(<structs.CommonTableExpr*> data, offset_to_index)
     elif tag == structs.T_MergeWhenClause:
         return create_MergeWhenClause(<structs.MergeWhenClause*> data, offset_to_index)
-    elif tag == structs.T_RoleSpec:
-        return create_RoleSpec(<structs.RoleSpec*> data, offset_to_index)
+    elif tag == structs.T_MergeAction:
+        return create_MergeAction(<structs.MergeAction*> data, offset_to_index)
     elif tag == structs.T_TriggerTransition:
         return create_TriggerTransition(<structs.TriggerTransition*> data, offset_to_index)
-    elif tag == structs.T_PartitionElem:
-        return create_PartitionElem(<structs.PartitionElem*> data, offset_to_index)
-    elif tag == structs.T_PartitionSpec:
-        return create_PartitionSpec(<structs.PartitionSpec*> data, offset_to_index)
-    elif tag == structs.T_PartitionBoundSpec:
-        return create_PartitionBoundSpec(<structs.PartitionBoundSpec*> data, offset_to_index)
-    elif tag == structs.T_PartitionRangeDatum:
-        return create_PartitionRangeDatum(<structs.PartitionRangeDatum*> data, offset_to_index)
-    elif tag == structs.T_PartitionCmd:
-        return create_PartitionCmd(<structs.PartitionCmd*> data, offset_to_index)
-    elif tag == structs.T_VacuumRelation:
-        return create_VacuumRelation(<structs.VacuumRelation*> data, offset_to_index)
-    elif tag == structs.T_PublicationObjSpec:
-        return create_PublicationObjSpec(<structs.PublicationObjSpec*> data, offset_to_index)
-    elif tag == structs.T_PublicationTable:
-        return create_PublicationTable(<structs.PublicationTable*> data, offset_to_index)
+    elif tag == structs.T_JsonOutput:
+        return create_JsonOutput(<structs.JsonOutput*> data, offset_to_index)
+    elif tag == structs.T_JsonKeyValue:
+        return create_JsonKeyValue(<structs.JsonKeyValue*> data, offset_to_index)
+    elif tag == structs.T_JsonObjectConstructor:
+        return create_JsonObjectConstructor(<structs.JsonObjectConstructor*> data, offset_to_index)
+    elif tag == structs.T_JsonArrayConstructor:
+        return create_JsonArrayConstructor(<structs.JsonArrayConstructor*> data, offset_to_index)
+    elif tag == structs.T_JsonArrayQueryConstructor:
+        return create_JsonArrayQueryConstructor(<structs.JsonArrayQueryConstructor*> data, offset_to_index)
+    elif tag == structs.T_JsonAggConstructor:
+        return create_JsonAggConstructor(<structs.JsonAggConstructor*> data, offset_to_index)
+    elif tag == structs.T_JsonObjectAgg:
+        return create_JsonObjectAgg(<structs.JsonObjectAgg*> data, offset_to_index)
+    elif tag == structs.T_JsonArrayAgg:
+        return create_JsonArrayAgg(<structs.JsonArrayAgg*> data, offset_to_index)
+    elif tag == structs.T_RawStmt:
+        return create_RawStmt(<structs.RawStmt*> data, offset_to_index)
+    elif tag == structs.T_InsertStmt:
+        return create_InsertStmt(<structs.InsertStmt*> data, offset_to_index)
+    elif tag == structs.T_DeleteStmt:
+        return create_DeleteStmt(<structs.DeleteStmt*> data, offset_to_index)
+    elif tag == structs.T_UpdateStmt:
+        return create_UpdateStmt(<structs.UpdateStmt*> data, offset_to_index)
+    elif tag == structs.T_MergeStmt:
+        return create_MergeStmt(<structs.MergeStmt*> data, offset_to_index)
+    elif tag == structs.T_SelectStmt:
+        return create_SelectStmt(<structs.SelectStmt*> data, offset_to_index)
+    elif tag == structs.T_SetOperationStmt:
+        return create_SetOperationStmt(<structs.SetOperationStmt*> data, offset_to_index)
+    elif tag == structs.T_ReturnStmt:
+        return create_ReturnStmt(<structs.ReturnStmt*> data, offset_to_index)
+    elif tag == structs.T_PLAssignStmt:
+        return create_PLAssignStmt(<structs.PLAssignStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateSchemaStmt:
+        return create_CreateSchemaStmt(<structs.CreateSchemaStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterTableStmt:
+        return create_AlterTableStmt(<structs.AlterTableStmt*> data, offset_to_index)
+    elif tag == structs.T_ReplicaIdentityStmt:
+        return create_ReplicaIdentityStmt(<structs.ReplicaIdentityStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterTableCmd:
+        return create_AlterTableCmd(<structs.AlterTableCmd*> data, offset_to_index)
+    elif tag == structs.T_AlterCollationStmt:
+        return create_AlterCollationStmt(<structs.AlterCollationStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterDomainStmt:
+        return create_AlterDomainStmt(<structs.AlterDomainStmt*> data, offset_to_index)
+    elif tag == structs.T_GrantStmt:
+        return create_GrantStmt(<structs.GrantStmt*> data, offset_to_index)
+    elif tag == structs.T_ObjectWithArgs:
+        return create_ObjectWithArgs(<structs.ObjectWithArgs*> data, offset_to_index)
+    elif tag == structs.T_AccessPriv:
+        return create_AccessPriv(<structs.AccessPriv*> data, offset_to_index)
+    elif tag == structs.T_GrantRoleStmt:
+        return create_GrantRoleStmt(<structs.GrantRoleStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterDefaultPrivilegesStmt:
+        return create_AlterDefaultPrivilegesStmt(<structs.AlterDefaultPrivilegesStmt*> data, offset_to_index)
+    elif tag == structs.T_CopyStmt:
+        return create_CopyStmt(<structs.CopyStmt*> data, offset_to_index)
+    elif tag == structs.T_VariableSetStmt:
+        return create_VariableSetStmt(<structs.VariableSetStmt*> data, offset_to_index)
+    elif tag == structs.T_VariableShowStmt:
+        return create_VariableShowStmt(<structs.VariableShowStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateStmt:
+        return create_CreateStmt(<structs.CreateStmt*> data, offset_to_index)
+    elif tag == structs.T_Constraint:
+        return create_Constraint(<structs.Constraint*> data, offset_to_index)
+    elif tag == structs.T_CreateTableSpaceStmt:
+        return create_CreateTableSpaceStmt(<structs.CreateTableSpaceStmt*> data, offset_to_index)
+    elif tag == structs.T_DropTableSpaceStmt:
+        return create_DropTableSpaceStmt(<structs.DropTableSpaceStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterTableSpaceOptionsStmt:
+        return create_AlterTableSpaceOptionsStmt(<structs.AlterTableSpaceOptionsStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterTableMoveAllStmt:
+        return create_AlterTableMoveAllStmt(<structs.AlterTableMoveAllStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateExtensionStmt:
+        return create_CreateExtensionStmt(<structs.CreateExtensionStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterExtensionStmt:
+        return create_AlterExtensionStmt(<structs.AlterExtensionStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterExtensionContentsStmt:
+        return create_AlterExtensionContentsStmt(<structs.AlterExtensionContentsStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateFdwStmt:
+        return create_CreateFdwStmt(<structs.CreateFdwStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterFdwStmt:
+        return create_AlterFdwStmt(<structs.AlterFdwStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateForeignServerStmt:
+        return create_CreateForeignServerStmt(<structs.CreateForeignServerStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterForeignServerStmt:
+        return create_AlterForeignServerStmt(<structs.AlterForeignServerStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateForeignTableStmt:
+        return create_CreateForeignTableStmt(<structs.CreateForeignTableStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateUserMappingStmt:
+        return create_CreateUserMappingStmt(<structs.CreateUserMappingStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterUserMappingStmt:
+        return create_AlterUserMappingStmt(<structs.AlterUserMappingStmt*> data, offset_to_index)
+    elif tag == structs.T_DropUserMappingStmt:
+        return create_DropUserMappingStmt(<structs.DropUserMappingStmt*> data, offset_to_index)
+    elif tag == structs.T_ImportForeignSchemaStmt:
+        return create_ImportForeignSchemaStmt(<structs.ImportForeignSchemaStmt*> data, offset_to_index)
+    elif tag == structs.T_CreatePolicyStmt:
+        return create_CreatePolicyStmt(<structs.CreatePolicyStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterPolicyStmt:
+        return create_AlterPolicyStmt(<structs.AlterPolicyStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateAmStmt:
+        return create_CreateAmStmt(<structs.CreateAmStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateTrigStmt:
+        return create_CreateTrigStmt(<structs.CreateTrigStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateEventTrigStmt:
+        return create_CreateEventTrigStmt(<structs.CreateEventTrigStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterEventTrigStmt:
+        return create_AlterEventTrigStmt(<structs.AlterEventTrigStmt*> data, offset_to_index)
+    elif tag == structs.T_CreatePLangStmt:
+        return create_CreatePLangStmt(<structs.CreatePLangStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateRoleStmt:
+        return create_CreateRoleStmt(<structs.CreateRoleStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterRoleStmt:
+        return create_AlterRoleStmt(<structs.AlterRoleStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterRoleSetStmt:
+        return create_AlterRoleSetStmt(<structs.AlterRoleSetStmt*> data, offset_to_index)
+    elif tag == structs.T_DropRoleStmt:
+        return create_DropRoleStmt(<structs.DropRoleStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateSeqStmt:
+        return create_CreateSeqStmt(<structs.CreateSeqStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterSeqStmt:
+        return create_AlterSeqStmt(<structs.AlterSeqStmt*> data, offset_to_index)
+    elif tag == structs.T_DefineStmt:
+        return create_DefineStmt(<structs.DefineStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateDomainStmt:
+        return create_CreateDomainStmt(<structs.CreateDomainStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateOpClassStmt:
+        return create_CreateOpClassStmt(<structs.CreateOpClassStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateOpClassItem:
+        return create_CreateOpClassItem(<structs.CreateOpClassItem*> data, offset_to_index)
+    elif tag == structs.T_CreateOpFamilyStmt:
+        return create_CreateOpFamilyStmt(<structs.CreateOpFamilyStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterOpFamilyStmt:
+        return create_AlterOpFamilyStmt(<structs.AlterOpFamilyStmt*> data, offset_to_index)
+    elif tag == structs.T_DropStmt:
+        return create_DropStmt(<structs.DropStmt*> data, offset_to_index)
+    elif tag == structs.T_TruncateStmt:
+        return create_TruncateStmt(<structs.TruncateStmt*> data, offset_to_index)
+    elif tag == structs.T_CommentStmt:
+        return create_CommentStmt(<structs.CommentStmt*> data, offset_to_index)
+    elif tag == structs.T_SecLabelStmt:
+        return create_SecLabelStmt(<structs.SecLabelStmt*> data, offset_to_index)
+    elif tag == structs.T_DeclareCursorStmt:
+        return create_DeclareCursorStmt(<structs.DeclareCursorStmt*> data, offset_to_index)
+    elif tag == structs.T_ClosePortalStmt:
+        return create_ClosePortalStmt(<structs.ClosePortalStmt*> data, offset_to_index)
+    elif tag == structs.T_FetchStmt:
+        return create_FetchStmt(<structs.FetchStmt*> data, offset_to_index)
+    elif tag == structs.T_IndexStmt:
+        return create_IndexStmt(<structs.IndexStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateStatsStmt:
+        return create_CreateStatsStmt(<structs.CreateStatsStmt*> data, offset_to_index)
+    elif tag == structs.T_StatsElem:
+        return create_StatsElem(<structs.StatsElem*> data, offset_to_index)
+    elif tag == structs.T_AlterStatsStmt:
+        return create_AlterStatsStmt(<structs.AlterStatsStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateFunctionStmt:
+        return create_CreateFunctionStmt(<structs.CreateFunctionStmt*> data, offset_to_index)
+    elif tag == structs.T_FunctionParameter:
+        return create_FunctionParameter(<structs.FunctionParameter*> data, offset_to_index)
+    elif tag == structs.T_AlterFunctionStmt:
+        return create_AlterFunctionStmt(<structs.AlterFunctionStmt*> data, offset_to_index)
+    elif tag == structs.T_DoStmt:
+        return create_DoStmt(<structs.DoStmt*> data, offset_to_index)
     elif tag == structs.T_InlineCodeBlock:
         return create_InlineCodeBlock(<structs.InlineCodeBlock*> data, offset_to_index)
+    elif tag == structs.T_CallStmt:
+        return create_CallStmt(<structs.CallStmt*> data, offset_to_index)
     elif tag == structs.T_CallContext:
         return create_CallContext(<structs.CallContext*> data, offset_to_index)
+    elif tag == structs.T_RenameStmt:
+        return create_RenameStmt(<structs.RenameStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterObjectDependsStmt:
+        return create_AlterObjectDependsStmt(<structs.AlterObjectDependsStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterObjectSchemaStmt:
+        return create_AlterObjectSchemaStmt(<structs.AlterObjectSchemaStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterOwnerStmt:
+        return create_AlterOwnerStmt(<structs.AlterOwnerStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterOperatorStmt:
+        return create_AlterOperatorStmt(<structs.AlterOperatorStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterTypeStmt:
+        return create_AlterTypeStmt(<structs.AlterTypeStmt*> data, offset_to_index)
+    elif tag == structs.T_RuleStmt:
+        return create_RuleStmt(<structs.RuleStmt*> data, offset_to_index)
+    elif tag == structs.T_NotifyStmt:
+        return create_NotifyStmt(<structs.NotifyStmt*> data, offset_to_index)
+    elif tag == structs.T_ListenStmt:
+        return create_ListenStmt(<structs.ListenStmt*> data, offset_to_index)
+    elif tag == structs.T_UnlistenStmt:
+        return create_UnlistenStmt(<structs.UnlistenStmt*> data, offset_to_index)
+    elif tag == structs.T_TransactionStmt:
+        return create_TransactionStmt(<structs.TransactionStmt*> data, offset_to_index)
+    elif tag == structs.T_CompositeTypeStmt:
+        return create_CompositeTypeStmt(<structs.CompositeTypeStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateEnumStmt:
+        return create_CreateEnumStmt(<structs.CreateEnumStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateRangeStmt:
+        return create_CreateRangeStmt(<structs.CreateRangeStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterEnumStmt:
+        return create_AlterEnumStmt(<structs.AlterEnumStmt*> data, offset_to_index)
+    elif tag == structs.T_ViewStmt:
+        return create_ViewStmt(<structs.ViewStmt*> data, offset_to_index)
+    elif tag == structs.T_LoadStmt:
+        return create_LoadStmt(<structs.LoadStmt*> data, offset_to_index)
+    elif tag == structs.T_CreatedbStmt:
+        return create_CreatedbStmt(<structs.CreatedbStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterDatabaseStmt:
+        return create_AlterDatabaseStmt(<structs.AlterDatabaseStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterDatabaseRefreshCollStmt:
+        return create_AlterDatabaseRefreshCollStmt(<structs.AlterDatabaseRefreshCollStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterDatabaseSetStmt:
+        return create_AlterDatabaseSetStmt(<structs.AlterDatabaseSetStmt*> data, offset_to_index)
+    elif tag == structs.T_DropdbStmt:
+        return create_DropdbStmt(<structs.DropdbStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterSystemStmt:
+        return create_AlterSystemStmt(<structs.AlterSystemStmt*> data, offset_to_index)
+    elif tag == structs.T_ClusterStmt:
+        return create_ClusterStmt(<structs.ClusterStmt*> data, offset_to_index)
+    elif tag == structs.T_VacuumStmt:
+        return create_VacuumStmt(<structs.VacuumStmt*> data, offset_to_index)
+    elif tag == structs.T_VacuumRelation:
+        return create_VacuumRelation(<structs.VacuumRelation*> data, offset_to_index)
+    elif tag == structs.T_ExplainStmt:
+        return create_ExplainStmt(<structs.ExplainStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateTableAsStmt:
+        return create_CreateTableAsStmt(<structs.CreateTableAsStmt*> data, offset_to_index)
+    elif tag == structs.T_RefreshMatViewStmt:
+        return create_RefreshMatViewStmt(<structs.RefreshMatViewStmt*> data, offset_to_index)
+    elif tag == structs.T_CheckPointStmt:
+        return create_CheckPointStmt(<structs.CheckPointStmt*> data, offset_to_index)
+    elif tag == structs.T_DiscardStmt:
+        return create_DiscardStmt(<structs.DiscardStmt*> data, offset_to_index)
+    elif tag == structs.T_LockStmt:
+        return create_LockStmt(<structs.LockStmt*> data, offset_to_index)
+    elif tag == structs.T_ConstraintsSetStmt:
+        return create_ConstraintsSetStmt(<structs.ConstraintsSetStmt*> data, offset_to_index)
+    elif tag == structs.T_ReindexStmt:
+        return create_ReindexStmt(<structs.ReindexStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateConversionStmt:
+        return create_CreateConversionStmt(<structs.CreateConversionStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateCastStmt:
+        return create_CreateCastStmt(<structs.CreateCastStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateTransformStmt:
+        return create_CreateTransformStmt(<structs.CreateTransformStmt*> data, offset_to_index)
+    elif tag == structs.T_PrepareStmt:
+        return create_PrepareStmt(<structs.PrepareStmt*> data, offset_to_index)
+    elif tag == structs.T_ExecuteStmt:
+        return create_ExecuteStmt(<structs.ExecuteStmt*> data, offset_to_index)
+    elif tag == structs.T_DeallocateStmt:
+        return create_DeallocateStmt(<structs.DeallocateStmt*> data, offset_to_index)
+    elif tag == structs.T_DropOwnedStmt:
+        return create_DropOwnedStmt(<structs.DropOwnedStmt*> data, offset_to_index)
+    elif tag == structs.T_ReassignOwnedStmt:
+        return create_ReassignOwnedStmt(<structs.ReassignOwnedStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterTSDictionaryStmt:
+        return create_AlterTSDictionaryStmt(<structs.AlterTSDictionaryStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterTSConfigurationStmt:
+        return create_AlterTSConfigurationStmt(<structs.AlterTSConfigurationStmt*> data, offset_to_index)
+    elif tag == structs.T_PublicationTable:
+        return create_PublicationTable(<structs.PublicationTable*> data, offset_to_index)
+    elif tag == structs.T_PublicationObjSpec:
+        return create_PublicationObjSpec(<structs.PublicationObjSpec*> data, offset_to_index)
+    elif tag == structs.T_CreatePublicationStmt:
+        return create_CreatePublicationStmt(<structs.CreatePublicationStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterPublicationStmt:
+        return create_AlterPublicationStmt(<structs.AlterPublicationStmt*> data, offset_to_index)
+    elif tag == structs.T_CreateSubscriptionStmt:
+        return create_CreateSubscriptionStmt(<structs.CreateSubscriptionStmt*> data, offset_to_index)
+    elif tag == structs.T_AlterSubscriptionStmt:
+        return create_AlterSubscriptionStmt(<structs.AlterSubscriptionStmt*> data, offset_to_index)
+    elif tag == structs.T_DropSubscriptionStmt:
+        return create_DropSubscriptionStmt(<structs.DropSubscriptionStmt*> data, offset_to_index)
+    elif tag == structs.T_Integer:
+        return create_Integer(<structs.Integer*> data, offset_to_index)
+    elif tag == structs.T_Float:
+        return create_Float(<structs.Float*> data, offset_to_index)
+    elif tag == structs.T_Boolean:
+        return create_Boolean(<structs.Boolean*> data, offset_to_index)
+    elif tag == structs.T_String:
+        return create_String(<structs.String*> data, offset_to_index)
+    elif tag == structs.T_BitString:
+        return create_BitString(<structs.BitString*> data, offset_to_index)
     raise ValueError("Unhandled tag: %s" % tag)
