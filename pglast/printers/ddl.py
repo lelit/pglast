@@ -2845,18 +2845,18 @@ def partition_bound_spec(node, output):
         output.write('DEFAULT')
     else:
         output.write('FOR VALUES ')
-        if node.strategy == enums.PARTITION_STRATEGY_RANGE:
+        if node.strategy == enums.PartitionStrategy.PARTITION_STRATEGY_RANGE:
             output.swrite('FROM ')
             with output.expression(True):
                 output.print_list(node.lowerdatums)
             output.write(' TO ')
             with output.expression(True):
                 output.print_list(node.upperdatums)
-        elif node.strategy == enums.PARTITION_STRATEGY_LIST:
+        elif node.strategy == enums.PartitionStrategy.PARTITION_STRATEGY_LIST:
             output.write('IN ')
             with output.expression(True):
                 output.print_list(node.listdatums)
-        elif node.strategy == enums.PARTITION_STRATEGY_HASH:
+        elif node.strategy == enums.PartitionStrategy.PARTITION_STRATEGY_HASH:
             output.write('WITH (MODULUS %d, REMAINDER %d)'
                          % (node.modulus, node.remainder))
         else:
@@ -2899,7 +2899,12 @@ def partition_range_datum(node, output):
 
 @node_printer(ast.PartitionSpec)
 def partition_spec(node, output):
-    output.print_symbol(node.strategy)
+    strategy = {
+        enums.PartitionStrategy.PARTITION_STRATEGY_LIST: 'list',
+        enums.PartitionStrategy.PARTITION_STRATEGY_RANGE: 'range',
+        enums.PartitionStrategy.PARTITION_STRATEGY_HASH: 'hash',
+    }[node.strategy]
+    output.print_symbol(strategy)
     output.write(' ')
     with output.expression(True):
         output.print_list(node.partParams)
