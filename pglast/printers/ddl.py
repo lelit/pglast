@@ -2947,8 +2947,10 @@ class ReindexKindPrinter(IntEnumPrinter):
     enum = enums.ReindexObjectType
 
     def REINDEX_OBJECT_DATABASE(self, node, output):
-        output.write('DATABASE ')
-        output.print_name(node.name)
+        output.write('DATABASE')
+        if node.name:
+            output.write(' ')
+            output.print_name(node.name)
 
     def REINDEX_OBJECT_INDEX(self, node, output):
         output.write('INDEX ')
@@ -2963,8 +2965,10 @@ class ReindexKindPrinter(IntEnumPrinter):
         output.print_name(node.name)
 
     def REINDEX_OBJECT_SYSTEM(self, node, output):
-        output.write('SYSTEM ')
-        output.print_name(node.name)
+        output.write('SYSTEM')
+        if node.name:
+            output.write(' ')
+            output.print_name(node.name)
 
 
 reindex_kind_printer = ReindexKindPrinter()
