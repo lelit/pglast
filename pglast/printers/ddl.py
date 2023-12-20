@@ -17,7 +17,14 @@ def access_priv(node, output):
     if node.priv_name is None:
         output.write('ALL PRIVILEGES')
     else:
-        output.write(node.priv_name.upper())
+        pn = node.priv_name
+        if pn in {'select', 'insert', 'update', 'delete',
+                  'truncate', 'references', 'trigger',
+                  'execute', 'usage',
+                  'create', 'connect', 'temporary', 'temp',
+                  'set', 'alter system'}:
+            pn = pn.upper()
+        output.write(pn)
     if node.cols is not None:
         output.write(' ')
         with output.expression(True):
