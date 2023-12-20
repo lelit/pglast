@@ -3,7 +3,7 @@
 # :Created:   dom 17 mar 2019 09:24:11 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2019, 2021, 2022 Lele Gaifax
+# :Copyright: © 2019, 2021, 2022, 2023 Lele Gaifax
 #
 
 from pathlib import Path
@@ -89,13 +89,14 @@ def test_stream_call_with_single_node(src, lineno, statement):
 
 pg_regressions_dir = this_dir / '..' / 'libpg_query' / 'test' / 'sql' / 'postgres_regress'
 
-# Following scripts contain intentional errors, and it's difficult to isolate them
-skip_due_syntax_error = {'unicode.sql'}
+# Following scripts contain intentional errors which are difficult to isolate, or
+# are systems specific
+skip_for_good_reasons = {'unicode.sql', 'collate.windows.win1252.sql'}
 
 
 @pytest.mark.parametrize('filename',
                          (src.name for src in sorted(pg_regressions_dir.glob('*.sql'))
-                          if src.name not in skip_due_syntax_error),
+                          if src.name not in skip_for_good_reasons),
                          ids=make_id)
 def test_pg_regress_corpus(filename):
     # we do this dance to minimize the length of the test name
