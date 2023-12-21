@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_trigger.h @ 15-4.2.3-0-g9b21e32
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from pg_trigger.h @ 15-4.2.4-0-gdb39825
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2023 Lele Gaifax
