@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:04:43 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2021, 2022 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2021, 2022, 2023 Lele Gaifax
 ..
 
 =============
@@ -157,7 +157,7 @@ Version 5
 
 This version tracks the `15-latest`__ branch of ``libpg_query`` and thus targets ``PostgreSQL
 15``: other than handling new statements (`MERGE`__ to mention just one) and revised
-syntaxes,_there are currently no other significant differences from `Version 4`_.
+syntaxes, there are currently no other significant differences from `Version 4`_.
 
 __ https://github.com/pganalyze/libpg_query/tree/15-latest
 __ https://www.postgresql.org/docs/15/sql-merge.html
