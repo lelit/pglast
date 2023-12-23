@@ -162,6 +162,17 @@ syntaxes, there are currently no other significant differences from `Version 4`_
 __ https://github.com/pganalyze/libpg_query/tree/15-latest
 __ https://www.postgresql.org/docs/15/sql-merge.html
 
+
+Version 6
+#########
+
+This version tracks the `16-latest`__ branch of ``libpg_query`` and thus targets ``PostgreSQL
+16``: other than handling new statements (most notably, ``SQL/JSON`` constructor functions like
+``json_array()`` or aggregators such as ``json_objectagg()``) and revised syntaxes, there are
+currently no other significant differences from `Version 5`_.
+
+__ https://github.com/pganalyze/libpg_query/tree/16-latest
+
 .. toctree::
    :maxdepth: 2
 

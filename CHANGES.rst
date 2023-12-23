@@ -5,6 +5,26 @@
 Changes
 -------
 
+Version 6
+#########
+
+6.0.dev0 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+- No visible changes with respect to v5, apart from the support for new/revised syntaxes of
+  `PostgreSQL 16`__
+
+  __ https://www.postgresql.org/docs/16/release-16.html
+
+~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
+~~~~~~~~~~~~~~~~~~~~
+
+- Target PostgreSQL 16, thanks to libpg_query `16-5.0.0`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/16-5.0.0
+
+
 Version 5
 #########
 
