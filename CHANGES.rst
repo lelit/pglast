@@ -8,6 +8,18 @@ Changes
 Version 5
 #########
 
+5.7 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Use `Cython 3.0.7`__
+
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#307-2023-12-19
+
+- Update libpg_query to `15-4.2.4`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/15-4.2.4
+
+
 5.6 (2023-12-07)
 ~~~~~~~~~~~~~~~~
 

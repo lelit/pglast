@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:12:49 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023 Lele Gaifax
 #
 
 #cython: language_level=3
@@ -116,6 +116,8 @@ cdef extern from "pg_query.h" nogil:
     PgQueryScanResult pg_query_scan(const char* input)
     void pg_query_free_scan_result(PgQueryScanResult result)
 
+    int PG_QUERY_PARSE_DEFAULT
+
 
 cdef extern from "src/pg_query_internal.h" nogil:
     ctypedef struct PgQueryInternalParsetreeAndError:
@@ -128,7 +130,7 @@ cdef extern from "src/pg_query_internal.h" nogil:
     MemoryContext pg_query_enter_memory_context()
     void pg_query_exit_memory_context(MemoryContext ctx)
 
-    PgQueryInternalParsetreeAndError pg_query_raw_parse(const char* input)
+    PgQueryInternalParsetreeAndError pg_query_raw_parse(const char* input, int parser_options)
 
 
 cdef extern from "protobuf-c/protobuf-c.h":
@@ -259,7 +261,7 @@ def parse_sql(str query):
     mctx = pg_query_enter_memory_context()
 
     with nogil:
-        parsed = pg_query_raw_parse(cstring)
+        parsed = pg_query_raw_parse(cstring, PG_QUERY_PARSE_DEFAULT)
 
     try:
         if parsed.tree is not NULL:

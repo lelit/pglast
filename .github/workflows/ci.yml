@@ -18,7 +18,7 @@ jobs:
           submodules: true
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -69,7 +69,7 @@ jobs:
         uses: docker/setup-qemu-action@v3
 
       - name: Install Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
@@ -83,8 +83,9 @@ jobs:
           CIBW_PRERELEASE_PYTHONS: True
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: wheels-for-${{ matrix.os }}-${{ matrix.arch }}
           path: ./wheelhouse/*.whl
 
   upload_pypi:
@@ -96,10 +97,11 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
 
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
-          name: artifact
           path: dist
+          pattern: wheels-for-*
+          merge-multiple: true
 
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
