@@ -9,7 +9,7 @@
  :mod:`pglast.enums.nodes` --- Constants extracted from `nodes.h`__
 ====================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h
+__ https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h
 
 .. module:: pglast.enums.nodes
    :synopsis: Constants extracted from nodes.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.AggSplit
 
-   Corresponds to the `AggSplit enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L384>`__.
+   Corresponds to the `AggSplit enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L384>`__.
 
    .. data:: AGGSPLIT_SIMPLE
 
@@ -28,7 +28,7 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.AggStrategy
 
-   Corresponds to the `AggStrategy enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L362>`__.
+   Corresponds to the `AggStrategy enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L362>`__.
 
    .. data:: AGG_PLAIN
 
@@ -41,7 +41,7 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.CmdType
 
-   Corresponds to the `CmdType enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L273>`__.
+   Corresponds to the `CmdType enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L273>`__.
 
    .. data:: CMD_UNKNOWN
 
@@ -62,7 +62,7 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.JoinType
 
-   Corresponds to the `JoinType enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L298>`__.
+   Corresponds to the `JoinType enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L298>`__.
 
    .. data:: JOIN_INNER
 
@@ -85,7 +85,7 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.LimitOption
 
-   Corresponds to the `LimitOption enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L439>`__.
+   Corresponds to the `LimitOption enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L439>`__.
 
    .. data:: LIMIT_OPTION_DEFAULT
 
@@ -96,7 +96,7 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.NodeTag
 
-   Corresponds to the `NodeTag enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L26>`__.
+   Corresponds to the `NodeTag enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L26>`__.
 
    .. data:: T_Invalid
 
@@ -1011,7 +1011,7 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.OnConflictAction
 
-   Corresponds to the `OnConflictAction enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L426>`__.
+   Corresponds to the `OnConflictAction enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L426>`__.
 
    .. data:: ONCONFLICT_NONE
 
@@ -1022,7 +1022,7 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.SetOpCmd
 
-   Corresponds to the `SetOpCmd enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L406>`__.
+   Corresponds to the `SetOpCmd enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L406>`__.
 
    .. data:: SETOPCMD_INTERSECT
 
@@ -1035,7 +1035,7 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. class:: pglast.enums.nodes.SetOpStrategy
 
-   Corresponds to the `SetOpStrategy enum <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L414>`__.
+   Corresponds to the `SetOpStrategy enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L414>`__.
 
    .. data:: SETOP_SORTED
 
@@ -1044,16 +1044,16 @@ __ https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/no
 
 .. data:: AGGSPLITOP_COMBINE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L378>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L378>`__.
 
 .. data:: AGGSPLITOP_SKIPFINAL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L379>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L379>`__.
 
 .. data:: AGGSPLITOP_SERIALIZE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L380>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L380>`__.
 
 .. data:: AGGSPLITOP_DESERIALIZE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/ebeba2d/src/postgres/include/nodes/nodes.h#L381>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/nodes.h#L381>`__.
