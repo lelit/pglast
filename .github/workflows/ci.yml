@@ -71,14 +71,14 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.2
         env:
           CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
-          CIBW_SKIP: "cp2* cp33* cp34* cp35* cp36* cp37* pp*"
+          CIBW_SKIP: "cp2* cp33* cp34* cp35* cp36* cp37* cp38* pp* *linux_i686"
           CIBW_ARCHS: ${{matrix.arch}}
           CIBW_PRERELEASE_PYTHONS: True
 

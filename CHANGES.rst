@@ -16,6 +16,12 @@ Version 6
 
   __ https://www.postgresql.org/docs/16/release-16.html
 
+- Do not build binary wheels for Python 3.8
+
+- Skip compilation on Linux 32bit (see `this comment`__ for details)
+
+  __ https://github.com/pganalyze/libpg_query/pull/225#issuecomment-1864145089
+
 ~~~~~~~~~~~~~~~~~~~~
 **Breaking changes**
 ~~~~~~~~~~~~~~~~~~~~
