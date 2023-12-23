@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+# :Project:   pglast — Configuration for Read the Docs
+# :Created:   sab 23 dic 2023, 18:10:10
+# :Author:    Lele Gaifax <lele@metapensiero.it>
+# :License:   GNU General Public License version 3 or later
+# :Copyright: © 2023 Lele Gaifax
+#
+
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+version: 2
+
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.11"
+
+sphinx:
+  configuration: docs/conf.py
