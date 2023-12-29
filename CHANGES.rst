@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.0.dev0 (unreleased)
+6.0.dev0 (2023-12-29)
 ~~~~~~~~~~~~~~~~~~~~~
 
 - No visible changes with respect to v5, apart from the support for new/revised syntaxes of
