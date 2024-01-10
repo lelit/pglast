@@ -2,7 +2,7 @@
 # :Project:   pglast -- DO NOT EDIT: automatically extracted from parsenodes.h @ 15-4.2.4-0-gdb39825
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2023 Lele Gaifax
+# :Copyright: © 2017-2024 Lele Gaifax
 #
 
 from enum import Enum, IntEnum, IntFlag, auto
@@ -486,5 +486,3 @@ CURSOR_OPT_GENERIC_PLAN = 0x0200
 CURSOR_OPT_CUSTOM_PLAN = 0x0400
 
 CURSOR_OPT_PARALLEL_OK = 0x0800
-
-FETCH_ALL = 9223372036854775807

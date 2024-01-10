@@ -3,10 +3,11 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Lele Gaifax
 #
 
 from .. import ast, enums
+from ..parser import LONG_MAX
 from . import IntEnumPrinter, get_string_value, node_printer
 
 
@@ -634,29 +635,29 @@ class FetchDirectionPrinter(IntEnumPrinter):
     enum = enums.FetchDirection
 
     def FETCH_FORWARD(self, node, output):
-        if node.howMany == enums.FETCH_ALL:
-            output.write('ALL ')
-        elif node.howMany != 1:
-            output.write(f'FORWARD {node.howMany} ')
+        if node.howMany == 1:
+            output.write('NEXT')
+        else:
+            output.write('FORWARD')
+            output.swrite('ALL' if node.howMany == LONG_MAX else str(node.howMany))
 
     def FETCH_BACKWARD(self, node, output):
-        if node.howMany == enums.FETCH_ALL:
-            output.write('BACKWARD ALL ')
-        elif node.howMany != 1:
-            output.write(f'BACKWARD {node.howMany} ')
+        if node.howMany == 1:
+            output.write('PRIOR')
         else:
-            output.write('PRIOR ')
+            output.write('BACKWARD')
+            output.swrite('ALL' if node.howMany == LONG_MAX else str(node.howMany))
 
     def FETCH_ABSOLUTE(self, node, output):
         if node.howMany == 1:
-            output.write('FIRST ')
+            output.write('FIRST')
         elif node.howMany == -1:
-            output.write('LAST ')
+            output.write('LAST')
         else:
-            output.write(f'ABSOLUTE {node.howMany} ')
+            output.write(f'ABSOLUTE {node.howMany}')
 
     def FETCH_RELATIVE(self, node, output):
-        output.write(f'RELATIVE {node.howMany} ')
+        output.write(f'RELATIVE {node.howMany}')
 
 
 fetch_direction_printer = FetchDirectionPrinter()
@@ -666,6 +667,7 @@ fetch_direction_printer = FetchDirectionPrinter()
 def fetch_stmt(node, output):
     output.write('MOVE ' if node.ismove else 'FETCH ')
     fetch_direction_printer(node.direction, node, output)
+    output.write(' IN ' if node.ismove else ' FROM ')
     output.print_name(node.portalname)
 
 

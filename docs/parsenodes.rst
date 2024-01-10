@@ -2,7 +2,7 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2023 Lele Gaifax
+.. :Copyright: © 2017-2024 Lele Gaifax
 ..
 
 ==============================================================================
@@ -985,7 +985,3 @@ __ https://github.com/pganalyze/libpg_query/blob/db39825/src/postgres/include/no
 .. data:: CURSOR_OPT_PARALLEL_OK
 
    See `here for details <https://github.com/pganalyze/libpg_query/blob/db39825/src/postgres/include/nodes/parsenodes.h#L2892>`__.
-
-.. data:: FETCH_ALL
-
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/db39825/src/postgres/include/nodes/parsenodes.h#L2927>`__.

@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:54:39 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2024 Lele Gaifax
 #
 
 from datetime import date
@@ -12,12 +12,6 @@ from re import match
 import subprocess
 
 from pycparser import c_ast, c_parser
-
-try:
-    from pglast.parser import LONG_MAX
-except ModuleNotFoundError:
-    # bootstrap
-    from sys import maxsize as LONG_MAX
 
 
 PY_HEADER = """\
@@ -144,10 +138,6 @@ def extract_defines(source):
                       line)
             if m is not None:
                 yield m.group(1), m.group(2)
-            else:
-                m = match(r"#define\s+([a-zA-Z_]+)\s+LONG_MAX", line)
-                if m is not None:
-                    yield m.group(1), LONG_MAX
 
 
 def emit_constant(value):
