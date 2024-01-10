@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:54:39 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Lele Gaifax
 #
 
 from datetime import date
@@ -12,12 +12,6 @@ from re import match
 import subprocess
 
 from pycparser import c_ast, c_parser
-
-try:
-    from pglast.parser import LONG_MAX
-except ModuleNotFoundError:
-    # bootstrap
-    from sys import maxsize as LONG_MAX
 
 
 CYEARS = f'2017-{date.today().year}'
@@ -147,10 +141,6 @@ def extract_defines(source):
                       line)
             if m is not None:
                 yield m.group(1), m.group(2)
-            else:
-                m = match(r"#define\s+([a-zA-Z_]+)\s+LONG_MAX", line)
-                if m is not None:
-                    yield m.group(1), LONG_MAX
 
 
 def emit_constant(value):
@@ -221,7 +211,7 @@ def write_enum_doc(name, enum, output, toc, url, mod_name):
     if name in toc:
         output.write('\n   Corresponds to the `%s enum <%s#L%d>`__.\n' %
                      (name, url, toc[name]))
-    for index, item in enumerate(enum.values.enumerators):
+    for item in enum.values.enumerators:
         output.write('\n   .. data:: %s\n' % item.name)
 
 

@@ -974,7 +974,3 @@ __ https://github.com/pganalyze/libpg_query/blob/1ec3894/src/postgres/include/no
 .. data:: CURSOR_OPT_PARALLEL_OK
 
    See `here for details <https://github.com/pganalyze/libpg_query/blob/1ec3894/src/postgres/include/nodes/parsenodes.h#L3122>`__.
-
-.. data:: FETCH_ALL
-
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/1ec3894/src/postgres/include/nodes/parsenodes.h#L3157>`__.

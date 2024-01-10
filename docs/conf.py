@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pglast'
-copyright = '2017-2023 Lele Gaifax'
+copyright = '2017-2024 Lele Gaifax'
 author = 'Lele Gaifax'
 
 # The version info for the project you're documenting, acts as replacement for
