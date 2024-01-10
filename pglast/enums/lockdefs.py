@@ -2,7 +2,7 @@
 # :Project:   pglast -- DO NOT EDIT: automatically extracted from lockdefs.h @ 15-4.2.4-0-gdb39825
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2023 Lele Gaifax
+# :Copyright: © 2017-2024 Lele Gaifax
 #
 
 from enum import Enum, IntEnum, IntFlag, auto
