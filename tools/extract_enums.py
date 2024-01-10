@@ -218,7 +218,7 @@ def write_enum_doc(name, enum, output, toc, url, mod_name):
     if name in toc:
         output.write('\n   Corresponds to the `%s enum <%s#L%d>`__.\n' %
                      (name, url, toc[name]))
-    for index, item in enumerate(enum.values.enumerators):
+    for item in enum.values.enumerators:
         output.write('\n   .. data:: %s\n' % item.name)
 
 
