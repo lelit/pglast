@@ -78,7 +78,7 @@ jobs:
         env:
           CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
-          CIBW_SKIP: "cp2* cp33* cp34* cp35* cp36* cp37* cp38* pp* *linux_i686"
+          CIBW_SKIP: "cp2* cp33* cp34* cp35* cp36* cp37* cp38* pp*"
           CIBW_ARCHS: ${{matrix.arch}}
           CIBW_PRERELEASE_PYTHONS: True
 
