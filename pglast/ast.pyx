@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 16-5.0.0-0-g2a00188
+# :Project:   pglast -- DO NOT EDIT: automatically extracted from struct_defs.json @ 16-5.1.0-0-g1ec3894
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021-2023 Lele Gaifax
+# :Copyright: © 2021-2024 Lele Gaifax
 #
 
 #cython: language_level=3

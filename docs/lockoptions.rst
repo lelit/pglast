@@ -2,14 +2,14 @@
 .. :Project:   pglast -- DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2023 Lele Gaifax
+.. :Copyright: © 2017-2024 Lele Gaifax
 ..
 
 ================================================================================
  :mod:`pglast.enums.lockoptions` --- Constants extracted from `lockoptions.h`__
 ================================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/lockoptions.h
+__ https://github.com/pganalyze/libpg_query/blob/1ec3894/src/postgres/include/nodes/lockoptions.h
 
 .. module:: pglast.enums.lockoptions
    :synopsis: Constants extracted from lockoptions.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/no
 
 .. class:: pglast.enums.lockoptions.LockClauseStrength
 
-   Corresponds to the `LockClauseStrength enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/lockoptions.h#L21>`__.
+   Corresponds to the `LockClauseStrength enum <https://github.com/pganalyze/libpg_query/blob/1ec3894/src/postgres/include/nodes/lockoptions.h#L21>`__.
 
    .. data:: LCS_NONE
 
@@ -32,7 +32,7 @@ __ https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/no
 
 .. class:: pglast.enums.lockoptions.LockTupleMode
 
-   Corresponds to the `LockTupleMode enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/lockoptions.h#L49>`__.
+   Corresponds to the `LockTupleMode enum <https://github.com/pganalyze/libpg_query/blob/1ec3894/src/postgres/include/nodes/lockoptions.h#L49>`__.
 
    .. data:: LockTupleKeyShare
 
@@ -45,7 +45,7 @@ __ https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/no
 
 .. class:: pglast.enums.lockoptions.LockWaitPolicy
 
-   Corresponds to the `LockWaitPolicy enum <https://github.com/pganalyze/libpg_query/blob/2a00188/src/postgres/include/nodes/lockoptions.h#L36>`__.
+   Corresponds to the `LockWaitPolicy enum <https://github.com/pganalyze/libpg_query/blob/1ec3894/src/postgres/include/nodes/lockoptions.h#L36>`__.
 
    .. data:: LockWaitBlock
 
