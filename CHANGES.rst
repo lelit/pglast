@@ -8,7 +8,7 @@ Changes
 Version 5
 #########
 
-5.8 (unreleased)
+5.8 (2024-01-11)
 ~~~~~~~~~~~~~~~~
 
 - Fix issue `#142`__, a glitch that affected 32-bit systems
