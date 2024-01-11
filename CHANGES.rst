@@ -8,6 +8,14 @@ Changes
 Version 6
 #########
 
+6.0.dev1 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+- Re-enable Linux 32bit wheels, thanks to libpg_query to `16-5.1.0`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/16-5.1.0
+
+
 6.0.dev0 (2023-12-29)
 ~~~~~~~~~~~~~~~~~~~~~
 
