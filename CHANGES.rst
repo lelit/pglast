@@ -8,6 +8,14 @@ Changes
 Version 5
 #########
 
+5.8 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix issue `#142`__, a glitch that affected 32-bit systems
+
+  __ https://github.com/lelit/pglast/issues/142
+
+
 5.7 (2023-12-23)
 ~~~~~~~~~~~~~~~~
 
