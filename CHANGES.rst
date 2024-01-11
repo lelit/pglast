@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.0.dev1 (unreleased)
+6.0.dev1 (2024-01-11)
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Re-enable Linux 32bit wheels, thanks to libpg_query to `16-5.1.0`__
