@@ -1063,7 +1063,7 @@ cdef extern from "nodes/parsenodes.h":
     ctypedef struct RTEPermissionInfo:
         NodeTag type
         bool inh
-        unsigned int requiredPerms
+        uint64_t requiredPerms
         const Bitmapset* selectedCols
         const Bitmapset* insertedCols
         const Bitmapset* updatedCols

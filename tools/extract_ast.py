@@ -431,11 +431,11 @@ def emit_struct_def(name, fields, output):
             ctype = 'int32_t'
         elif ctype == 'uint32':
             ctype = 'uint32_t'
-        elif ctype == 'uint64':
+        elif ctype in ('AclMode', 'uint64'):
             ctype = 'uint64_t'
         if ctype == 'AttrNumber':
             ctype = 'int'
-        elif ctype in {'AclMode', 'Index', 'RelFileNumber', 'SubTransactionId'}:
+        elif ctype in ('Index', 'RelFileNumber', 'SubTransactionId'):
             ctype = 'unsigned int'
         elif ctype in ('Cardinality', 'Cost'):
             ctype = 'double'
