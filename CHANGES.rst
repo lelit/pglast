@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.0.dev2 (unreleased)
+6.0.dev2 (2024-01-21)
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Enable compilation on Windows and produce related 32bit and 64bit wheels (issue `#7`__)
