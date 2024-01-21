@@ -8,6 +8,14 @@ Changes
 Version 6
 #########
 
+6.0.dev2 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+- Enable compilation on Windows and produce related 32bit and 64bit wheels (issue `#7`__)
+
+  __ https://github.com/lelit/pglast/issues/7
+
+
 6.0.dev1 (2024-01-11)
 ~~~~~~~~~~~~~~~~~~~~~
 
