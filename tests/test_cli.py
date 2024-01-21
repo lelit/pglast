@@ -3,7 +3,7 @@
 # :Created:   lun 07 ago 2017 12:50:37 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024 Lele Gaifax
 #
 
 from contextlib import _RedirectStream, redirect_stdout
@@ -58,7 +58,12 @@ WHERE foo <> 0
         with open(output.name) as f:
             assert f.read() == "SELECT 1\n"
     finally:
-        unlink(output.name)
+        try:
+            unlink(output.name)
+        except PermissionError:
+            # This happens under Windows, for some reason the file is still
+            # in use...
+            pass
 
     with StringIO("Select 1") as input:
         with UnclosableStream() as output:
@@ -205,4 +210,3 @@ SELECT substring('123', 2, 3)
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--remove-pg_catalog-from-functions'])
             assert output.getvalue() == "SELECT NULLIF(1, 0)\n"
-

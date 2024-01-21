@@ -58,6 +58,11 @@ jobs:
         include:
           - os: ubuntu-22.04
             arch: aarch64
+          - os: windows-2022
+            arch: x86
+          - os: windows-2022
+            arch: AMD64
+
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -73,13 +78,19 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Set up MSVC CLI tools
+        if: ${{ matrix.os == 'windows-2022' }}
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.arch }}
+
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.2
         env:
           CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
           CIBW_SKIP: "cp2* cp33* cp34* cp35* cp36* cp37* cp38* pp*"
-          CIBW_ARCHS: ${{matrix.arch}}
+          CIBW_ARCHS: ${{ matrix.arch }}
           CIBW_PRERELEASE_PYTHONS: True
 
       - name: Upload artifacts

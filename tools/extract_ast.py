@@ -3,7 +3,7 @@
 # :Created:   sab 27 feb 2021, 19:47:11
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022, 2023 Lele Gaifax
+# :Copyright: © 2021, 2022, 2023, 2024 Lele Gaifax
 #
 
 from datetime import date
@@ -285,8 +285,6 @@ STRUCTS_PXD_HEADER = f"""\
 
 #cython: language_level=3
 
-from libc.stdint cimport int16_t, int32_t, uint32_t, uint64_t
-
 
 cdef extern from "postgres.h":
     ctypedef unsigned char bool
@@ -348,6 +346,8 @@ ctypedef union ValUnion:
     Boolean boolval;
     String sval;
     BitString bsval;
+
+from libc.stdint cimport int16_t, int32_t, uint32_t, uint64_t
 """
 
 

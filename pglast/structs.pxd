@@ -7,8 +7,6 @@
 
 #cython: language_level=3
 
-from libc.stdint cimport int16_t, int32_t, uint32_t, uint64_t
-
 
 cdef extern from "postgres.h":
     ctypedef unsigned char bool
@@ -70,6 +68,8 @@ ctypedef union ValUnion:
     Boolean boolval;
     String sval;
     BitString bsval;
+
+from libc.stdint cimport int16_t, int32_t, uint32_t, uint64_t
 
 
 cdef extern from *:

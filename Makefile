@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:52:45 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024 Lele Gaifax
 #
 
 export TOPDIR := $(CURDIR)
@@ -13,6 +13,7 @@ else
 export VENVDIR := $(VIRTUAL_ENV)
 endif
 export PYTHON := $(VENVDIR)/bin/python
+export CYTHON := $(VENVDIR)/bin/cython
 export SHELL := /bin/bash
 export SYS_PYTHON := $(shell command -v python3)
 
@@ -49,14 +50,20 @@ $(VENVDIR)/libpg_query.hash: FORCE
 
 $(VENVDIR)/extension.timestamp: setup.py
 $(VENVDIR)/extension.timestamp: libpg_query/libpg_query.a
-$(VENVDIR)/extension.timestamp: pglast/ast.pyx pglast/parser.pyx
-	touch pglast/parser.pyx
+$(VENVDIR)/extension.timestamp: pglast/parser.c
 	$(PYTHON) setup.py build_ext --inplace --force
 	@touch $@
 
 libpg_query/libpg_query.a: libpg_query/Makefile
 libpg_query/libpg_query.a: libpg_query/src/*.c libpg_query/src/*.h
 	$(MAKE) -C libpg_query build
+
+pglast/parser.c: pglast/ast.pyx
+pglast/parser.c: pglast/parser.pyx
+pglast/parser.c: pglast/structs.pxd
+	$(CYTHON) pglast/parser.pyx
+	@: Ensure postgres.h is included as early as possible, to support win32
+	printf "%s\n" '/^#include "postgres.h"/m1' 'wq' | ed -s pglast/parser.c
 
 help::
 	@printf "recythonize\n\tforce retranslation of the pyx module\n"

@@ -3,11 +3,12 @@
 # :Created:   dom 17 mar 2019 09:24:11 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2019, 2021, 2022, 2023 Lele Gaifax
+# :Copyright: © 2019, 2021, 2022, 2023, 2024 Lele Gaifax
 #
 
 from pathlib import Path
 from re import sub, subn
+import sys
 
 import pytest
 
@@ -91,7 +92,10 @@ pg_regressions_dir = this_dir / '..' / 'libpg_query' / 'test' / 'sql' / 'postgre
 
 # Following scripts contain intentional errors which are difficult to isolate, or
 # are systems specific
-skip_for_good_reasons = {'unicode.sql', 'collate.windows.win1252.sql'}
+skip_for_good_reasons = {
+    'unicode.sql',
+    'collate.icu.utf8.sql' if sys.platform == 'win32' else 'collate.windows.win1252.sql'
+}
 
 
 @pytest.mark.parametrize('filename',
