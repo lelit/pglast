@@ -8,6 +8,14 @@ Changes
 Version 6
 #########
 
+6.1 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Inherit fix for issue `143`__ from `version 5`_
+
+  __ https://github.com/lelit/pglast/issues/143
+
+
 6.0 (2024-01-22)
 ~~~~~~~~~~~~~~~~
 
