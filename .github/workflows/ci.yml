@@ -62,6 +62,8 @@ jobs:
             arch: x86
           - os: windows-2022
             arch: AMD64
+          - os: macos-12
+            arch: arm64
 
     steps:
       - name: Checkout sources
