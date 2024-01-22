@@ -8,7 +8,7 @@ Changes
 Version 5
 #########
 
-5.9 (unreleased)
+5.9 (2024-01-22)
 ~~~~~~~~~~~~~~~~
 
 - Fix issue `143`__, affecting ``AlterOwnerStmt`` and ``RenameStmt`` printers
