@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.1 (unreleased)
+6.1 (2024-01-22)
 ~~~~~~~~~~~~~~~~
 
 - Inherit fix for issue `143`__ from `version 5`_
