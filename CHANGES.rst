@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.0 (unreleased)
+6.0 (2024-01-22)
 ~~~~~~~~~~~~~~~~
 
 - Produce wheels for macOS arm64
