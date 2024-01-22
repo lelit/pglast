@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Lele Gaifax
 #
 
 import re
@@ -279,7 +279,7 @@ def alter_owner_stmt(node, output):
     OT = enums.ObjectType
     if node.objectType in (OT.OBJECT_OPFAMILY,
                            OT.OBJECT_OPCLASS):
-        method, name = node.object
+        method, *name = node.object
         output.print_name(name)
         output.write(' USING ')
         output.print_symbol(method)
@@ -3021,7 +3021,7 @@ def rename_stmt(node, output):
     elif node.relation:
         output.print_node(node.relation)
     elif objtype in (OT.OBJECT_OPFAMILY, OT.OBJECT_OPCLASS):
-        method, name = node.object
+        method, *name = node.object
         output.print_name(name)
         output.write(' USING ')
         output.print_symbol(method)
