@@ -8,6 +8,14 @@ Changes
 Version 5
 #########
 
+5.9 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix issue `143`__, affecting ``AlterOwnerStmt`` and ``RenameStmt`` printers
+
+  __ https://github.com/lelit/pglast/issues/143
+
+
 5.8 (2024-01-11)
 ~~~~~~~~~~~~~~~~
 
