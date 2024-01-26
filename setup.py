@@ -38,6 +38,17 @@ class BuildLibPgQueryFirst(build_ext):
         super().run()
 
 
+if sys.platform == 'win32':
+    libpg_query_extension_args = {
+        "libraries": ['pg_query'],
+        "library_dirs": [str(LIBPG_QUERY_DIR)]
+    }
+else:
+    libpg_query_extension_args = {
+        "extra_objects": [str(LIBPG_QUERY_DIR / 'libpg_query.a')],
+    }
+
+
 setup(
     name="pglast",
     version=VERSION,
@@ -74,17 +85,18 @@ setup(
 
     cmdclass={'build_ext': BuildLibPgQueryFirst},
     ext_modules=[
-        Extension('pglast.parser',
-                  sources=['pglast/parser.c'],
-                  libraries=['pg_query'],
-                  include_dirs=list(
-                      map(str, (LIBPG_QUERY_DIR, VENDOR_DIR, INCLUDE_DIR)
-                          +
-                          ((INCLUDE_DIR / 'port' / 'win32',
-                            INCLUDE_DIR / 'port' / 'win32_msvc')
-                           if sys.platform == 'win32'
-                           else ()))),
-                  library_dirs=[str(LIBPG_QUERY_DIR)]),
+        Extension(
+            'pglast.parser',
+            sources=['pglast/parser.c'],
+            include_dirs=list(
+                map(str, (LIBPG_QUERY_DIR, VENDOR_DIR, INCLUDE_DIR)
+                    +
+                    ((INCLUDE_DIR / 'port' / 'win32',
+                      INCLUDE_DIR / 'port' / 'win32_msvc')
+                     if sys.platform == 'win32'
+                     else ()))),
+            **libpg_query_extension_args,
+        ),
     ],
 
     install_requires=[
