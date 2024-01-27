@@ -24,8 +24,18 @@ with (here / 'version.txt').open(encoding='utf-8') as f:
 
 
 LIBPG_QUERY_DIR = here / 'libpg_query'
-INCLUDE_DIR = LIBPG_QUERY_DIR / 'src' / 'postgres' / 'include'
+SRC_DIR = LIBPG_QUERY_DIR / 'src'
+INCLUDE_DIR = SRC_DIR / 'include'
+PG_SRC_DIR = SRC_DIR / 'postgres'
+PG_INCLUDE_DIR = PG_SRC_DIR / 'include'
 VENDOR_DIR = LIBPG_QUERY_DIR / 'vendor'
+
+SOURCES = ['pglast/parser.c']
+SOURCES.extend(SRC_DIR.glob('*.c'))
+SOURCES.extend(PG_SRC_DIR.glob('*.c'))
+SOURCES.append(VENDOR_DIR / 'protobuf-c' / 'protobuf-c.c')
+SOURCES.append(VENDOR_DIR / 'xxhash' / 'xxhash.c')
+SOURCES.append(LIBPG_QUERY_DIR / 'protobuf' / 'pg_query.pb-c.c')
 
 
 class BuildLibPgQueryFirst(build_ext):
@@ -36,17 +46,6 @@ class BuildLibPgQueryFirst(build_ext):
             make = ['make', '-s', 'build']
         subprocess.check_call(make, cwd=LIBPG_QUERY_DIR)
         super().run()
-
-
-if sys.platform == 'win32':
-    libpg_query_extension_args = {
-        "libraries": ['pg_query'],
-        "library_dirs": [str(LIBPG_QUERY_DIR)]
-    }
-else:
-    libpg_query_extension_args = {
-        "extra_objects": [str(LIBPG_QUERY_DIR / 'libpg_query.a')],
-    }
 
 
 setup(
@@ -83,19 +82,25 @@ setup(
 
     packages=find_packages('.'),
 
-    cmdclass={'build_ext': BuildLibPgQueryFirst},
+    #cmdclass={'build_ext': BuildLibPgQueryFirst},
     ext_modules=[
         Extension(
             'pglast.parser',
-            sources=['pglast/parser.c'],
+            sources=list(map(str, SOURCES)),
+            extra_compile_args=(['-Wno-unused-function',
+                                 '-Wno-unused-value',
+                                 '-Wno-unused-variable',
+                                 '-Wno-unused-but-set-variable',
+                                 '-Wno-sign-compare']
+                                if sys.platform == 'linux'
+                                else []),
             include_dirs=list(
-                map(str, (LIBPG_QUERY_DIR, VENDOR_DIR, INCLUDE_DIR)
+                map(str, (LIBPG_QUERY_DIR, VENDOR_DIR, INCLUDE_DIR, PG_INCLUDE_DIR)
                     +
-                    ((INCLUDE_DIR / 'port' / 'win32',
-                      INCLUDE_DIR / 'port' / 'win32_msvc')
+                    ((PG_INCLUDE_DIR / 'port' / 'win32',
+                      PG_INCLUDE_DIR / 'port' / 'win32_msvc')
                      if sys.platform == 'win32'
                      else ()))),
-            **libpg_query_extension_args,
         ),
     ],
 
