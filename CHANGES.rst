@@ -8,6 +8,13 @@ Changes
 Version 6
 #########
 
+6.2 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Almost no-op release to fix issue `144`__, producing correct wheels for macOS arm64
+
+  __ https://github.com/lelit/pglast/issues/144
+
 6.1 (2024-01-22)
 ~~~~~~~~~~~~~~~~
 
