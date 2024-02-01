@@ -14,7 +14,7 @@ export VENVDIR := $(VIRTUAL_ENV)
 endif
 export PYTHON := $(VENVDIR)/bin/python
 export CYTHON := $(VENVDIR)/bin/cython
-export SHELL := /bin/bash
+export SHELL := bash
 export SYS_PYTHON := $(shell command -v python3)
 
 GENERATED_DOCS := $(shell git grep -l "DO NOT EDIT: " docs/)
