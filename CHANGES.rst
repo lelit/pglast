@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.2 (unreleased)
+6.2 (2024-02-01)
 ~~~~~~~~~~~~~~~~
 
 - Almost no-op release to fix issue `144`__, producing correct wheels for macOS arm64
