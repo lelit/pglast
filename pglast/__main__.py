@@ -54,11 +54,11 @@ def workhorse(args):
 
 def main(options=None):
     from argparse import ArgumentParser
-    from pkg_resources import get_distribution
+    from importlib.metadata import metadata
     from .parser import get_postgresql_version
 
     version = '%s, with PostgreSQL %s parser' % (
-        get_distribution('pglast').version,
+        metadata('pglast')['Version'],
         '.'.join(str(p) for p in get_postgresql_version()))
 
     parser = ArgumentParser(description="PostgreSQL language prettifier")
