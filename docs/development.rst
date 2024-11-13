@@ -173,6 +173,17 @@ currently no other significant differences from `Version 5`_.
 
 __ https://github.com/pganalyze/libpg_query/tree/16-latest
 
+
+Version 7
+#########
+
+This version tracks the `17-latest`__ branch of ``libpg_query`` and thus targets ``PostgreSQL
+17``: other than handling new statements (most notably, more ``SQL/JSON`` functions like
+``json_table()`` or ``json_query()``) and revised syntaxes, there are currently no other
+significant differences from `Version 6`_.
+
+__ https://github.com/pganalyze/libpg_query/tree/17-latest
+
 .. toctree::
    :maxdepth: 2
 
