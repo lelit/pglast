@@ -44,6 +44,15 @@ Version 7
 Version 6
 #########
 
+6.11 (2024-11-26)
+~~~~~~~~~~~~~~~~~
+
+- Remove spurious trailing space in the ``ConstrTypePrinter.CONSTR_IDENTITY`` and the
+  ``Constraint`` printers (issue `#165`__)
+
+  __ https://github.com/lelit/pglast/issues/165
+
+
 6.10 (2024-11-01)
 ~~~~~~~~~~~~~~~~~
 

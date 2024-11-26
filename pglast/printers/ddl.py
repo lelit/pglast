@@ -1340,8 +1340,9 @@ class ConstrTypePrinter(IntEnumPrinter):
             output.write('ALWAYS ')
         elif node.generated_when == enums.ATTRIBUTE_IDENTITY_BY_DEFAULT:
             output.write('BY DEFAULT ')
-        output.write('AS IDENTITY ')
+        output.write('AS IDENTITY')
         if node.options:
+            output.space()
             with output.expression(True):
                 output.print_list(node.options, '')
 
@@ -1414,7 +1415,7 @@ def constraint(node, output):
             output.write(' USING INDEX TABLESPACE ')
             output.print_name(node.indexspace)
         if node.skip_validation:
-            output.write(' NOT VALID ')
+            output.write(' NOT VALID')
 
 
 @node_printer(ast.CreateAmStmt)
