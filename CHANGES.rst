@@ -8,6 +8,12 @@ Changes
 Version 7
 #########
 
+7.1 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Merge with `Version 6`_
+
+
 7.0 (2024-11-13)
 ~~~~~~~~~~~~~~~~
 
