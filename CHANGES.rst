@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.11 (unreleased)
+6.11 (2024-11-26)
 ~~~~~~~~~~~~~~~~~
 
 - Remove spurious trailing space in the ``ConstrTypePrinter.CONSTR_IDENTITY`` and the
