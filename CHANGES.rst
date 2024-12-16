@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.12 (unreleased)
+6.12 (2024-12-16)
 ~~~~~~~~~~~~~~~~~
 
 - Properly wrap ``x AT TIME ZONE foo`` in parens when it is the argument of a ``DEFAULT``
