@@ -3,9 +3,10 @@
 # :Created:   mer 22 nov 2017 08:34:34 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2021, 2022 Lele Gaifax
+# :Copyright: © 2017, 2018, 2021, 2022, 2024 Lele Gaifax
 #
 
+from .. import ast, enums
 from . import special_function
 
 # reminder for not yet implemented special functions:
@@ -147,9 +148,14 @@ def timezone(node, output):
     """
     Emit function ``pg_catalog.timezone(tz, timestamp)`` as ``timestamp AT TIME ZONE tz``.
     """
-    output.print_node(node.args[1])
-    output.write(' AT TIME ZONE ')
-    output.print_node(node.args[0])
+    # It must be wrapped in parens when it is within a DEFAULT constraint
+    parent = abs(node.ancestors)[0]
+    needs_paren = (isinstance(parent, ast.Constraint)
+                   and parent.contype == enums.ConstrType.CONSTR_DEFAULT)
+    with output.expression(needs_paren):
+        output.print_node(node.args[1])
+        output.write(' AT TIME ZONE ')
+        output.print_node(node.args[0])
 
 
 @special_function('pg_catalog.xmlexists')
