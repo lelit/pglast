@@ -8,6 +8,13 @@ Changes
 Version 6
 #########
 
+6.12 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Properly wrap ``x AT TIME ZONE foo`` in parens when it is the argument of a ``DEFAULT``
+  constraint
+
+
 6.11 (2024-11-26)
 ~~~~~~~~~~~~~~~~~
 
