@@ -8,6 +8,12 @@ Changes
 Version 6
 #########
 
+6.13 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Better fix to the ``x AT TIME ZONE foo`` glitch, v6.12 solution was incomplete.
+
+
 6.12 (2024-12-16)
 ~~~~~~~~~~~~~~~~~
 
