@@ -3,7 +3,7 @@
 # :Created:   dom 9 mag 2021, 16:15:05
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022 Lele Gaifax
+# :Copyright: © 2021, 2022, 2024 Lele Gaifax
 #
 
 from collections import deque
@@ -205,7 +205,7 @@ class Ancestor:
                 break
 
     def __contains__(self, cls):
-        "Tell whether there is a node of type `cls` in the anchestry."
+        "Tell whether there is a node of type `cls` in the ancestry."
 
         return self.find_nearest(cls) is not None
 
