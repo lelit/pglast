@@ -512,8 +512,7 @@ FROM ONLY public.produit AS x
 WHERE produit_id OPERATOR(pg_catalog.=) $1
 FOR KEY SHARE OF x
 
-create table my_table (created_at timestamptz not null default (current_timestamp at time zone 'UTC'), constraint in_the_past check (created_at <= (current_timestamp at time zone 'UTC'))
-)
+create table my_table (created_at timestamptz not null default (current_timestamp at time zone 'UTC'), constraint in_the_past check (created_at <= (current_timestamp at time zone 'UTC')))
 =
 CREATE TABLE my_table (
     created_at timestamptz NOT NULL DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'UTC')
@@ -522,8 +521,10 @@ CREATE TABLE my_table (
 :
 {'special_functions': True}
 
-
+create table my_table (created_at timestamptz not null default ('1 hour'::interval + current_timestamp at time zone 'UTC'))
+=
 CREATE TABLE my_table (
-    created_at timestamptz NOT NULL DEFAULT ('1 hour'::interval + CURRENT_TIMESTAMP AT TIME ZONE 'UTC')
-  , CONSTRAINT in_the_past CHECK (created_at <= CURRENT_TIMESTAMP AT TIME ZONE 'UTC')
+  created_at timestamptz NOT NULL DEFAULT CAST('1 hour' AS interval) + (CURRENT_TIMESTAMP AT TIME ZONE 'UTC')
 )
+:
+{'special_functions': True}

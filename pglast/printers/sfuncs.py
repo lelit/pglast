@@ -149,10 +149,12 @@ def timezone(node, output):
     Emit function ``pg_catalog.timezone(tz, timestamp)`` as ``timestamp AT TIME ZONE tz``.
     """
     # It must be wrapped in parens when it is within a DEFAULT constraint
-    parent = abs(node.ancestors)[0]
-    needs_paren = (isinstance(parent, ast.Constraint)
-                   and parent.contype == enums.ConstrType.CONSTR_DEFAULT)
-    with output.expression(needs_paren):
+    nearest_constraint = node.ancestors.find_nearest(ast.Constraint)
+    if nearest_constraint is None:
+        needs_parens = False
+    else:
+        needs_parens = nearest_constraint.node.contype == enums.ConstrType.CONSTR_DEFAULT
+    with output.expression(needs_parens):
         output.print_node(node.args[1])
         output.write(' AT TIME ZONE ')
         output.print_node(node.args[0])
