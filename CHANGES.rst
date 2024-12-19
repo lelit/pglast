@@ -50,6 +50,19 @@ Version 7
 Version 6
 #########
 
+6.13 (2024-12-17)
+~~~~~~~~~~~~~~~~~
+
+- Better fix to the ``x AT TIME ZONE foo`` glitch, v6.12 solution was incomplete.
+
+
+6.12 (2024-12-16)
+~~~~~~~~~~~~~~~~~
+
+- Properly wrap ``x AT TIME ZONE foo`` in parens when it is the argument of a ``DEFAULT``
+  constraint
+
+
 6.11 (2024-11-26)
 ~~~~~~~~~~~~~~~~~
 

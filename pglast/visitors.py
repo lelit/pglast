@@ -205,7 +205,7 @@ class Ancestor:
                 break
 
     def __contains__(self, cls):
-        "Tell whether there is a node of type `cls` in the anchestry."
+        "Tell whether there is a node of type `cls` in the ancestry."
 
         return self.find_nearest(cls) is not None
 

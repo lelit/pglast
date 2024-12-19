@@ -6,6 +6,7 @@
 # :Copyright: © 2017, 2018, 2021, 2022, 2024 Lele Gaifax
 #
 
+from .. import ast, enums
 from . import special_function
 
 # reminder for not yet implemented special functions:
@@ -147,9 +148,16 @@ def timezone(node, output):
     """
     Emit function ``pg_catalog.timezone(tz, timestamp)`` as ``timestamp AT TIME ZONE tz``.
     """
-    output.print_node(node.args[1])
-    output.write(' AT TIME ZONE ')
-    output.print_node(node.args[0])
+    # It must be wrapped in parens when it is within a DEFAULT constraint
+    nearest_constraint = node.ancestors.find_nearest(ast.Constraint)
+    if nearest_constraint is None:
+        needs_parens = False
+    else:
+        needs_parens = nearest_constraint.node.contype == enums.ConstrType.CONSTR_DEFAULT
+    with output.expression(needs_parens):
+        output.print_node(node.args[1])
+        output.write(' AT TIME ZONE ')
+        output.print_node(node.args[0])
 
 
 @special_function('pg_catalog.xmlexists')
