@@ -8,6 +8,14 @@ Changes
 Version 7
 #########
 
+7.2 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Merge with `Version 6`_
+
+- Handle ``timestamp AT LOCAL`` expression, new in PG17
+
+
 7.1 (2024-11-26)
 ~~~~~~~~~~~~~~~~
 
@@ -53,7 +61,7 @@ Version 6
 6.13 (2024-12-17)
 ~~~~~~~~~~~~~~~~~
 
-- Better fix to the ``x AT TIME ZONE foo`` glitch, v6.12 solution was incomplete.
+- Better fix to the ``x AT TIME ZONE foo`` glitch, v6.12 solution was incomplete
 
 
 6.12 (2024-12-16)
