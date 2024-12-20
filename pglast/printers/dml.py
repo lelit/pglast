@@ -133,7 +133,7 @@ class AExprKindPrinter(IntEnumPrinter):
             output.swrites('NOT')
         output.swrite('SIMILAR TO ')
         if ((not isinstance(node.rexpr, ast.FuncCall)
-             or node.rexpr.funcname[1].sval != 'similar_to_escape')):
+             or node.rexpr.funcname[1].sval != 'similar_to_escape')):  # pragma: no cover
             raise RuntimeError('Expected a FuncCall to "similar_to_escape", got %r',
                                node.rexpr)
         pattern = node.rexpr.args[0]
