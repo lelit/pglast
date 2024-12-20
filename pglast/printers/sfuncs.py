@@ -155,9 +155,13 @@ def timezone(node, output):
     else:
         needs_parens = nearest_constraint.node.contype == enums.ConstrType.CONSTR_DEFAULT
     with output.expression(needs_parens):
-        output.print_node(node.args[1])
-        output.write(' AT TIME ZONE ')
-        output.print_node(node.args[0])
+        if len(node.args) == 1:
+            output.print_node(node.args[0])
+            output.write(' AT LOCAL')
+        else:
+            output.print_node(node.args[1])
+            output.write(' AT TIME ZONE ')
+            output.print_node(node.args[0])
 
 
 @special_function('pg_catalog.xmlexists')

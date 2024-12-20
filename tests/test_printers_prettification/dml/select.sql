@@ -529,6 +529,14 @@ CREATE TABLE my_table (
 :
 {'special_functions': True}
 
+create table my_table (created_at timestamptz not null default (now() at local))
+=
+CREATE TABLE my_table (
+  created_at timestamptz NOT NULL DEFAULT (now() AT LOCAL)
+)
+:
+{'special_functions': True}
+
 SELECT jt.* FROM
  my_films,
  JSON_TABLE (js, '$.favorites[*]' COLUMNS (
