@@ -26,3 +26,9 @@ $$ language sql
 CREATE FUNCTION func() RETURNS SETOF montype AS $$ $$ language sql
 
 CREATE PROCEDURE func() AS $$ $$ language sql
+
+CREATE FUNCTION funcb(somearg text)
+RETURNS TABLE(c1 int, c2 text)
+AS $$
+SELECT 1, 'Label 1'
+$$ language sql SET search_path FROM CURRENT
