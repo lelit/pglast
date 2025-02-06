@@ -86,8 +86,9 @@ AS $$
 SELECT 1, 'Label 1'
 $$ language sql SET search_path FROM CURRENT
 =
-CREATE OR REPLACE FUNCTION funcb(somearg text)
-RETURNS TABLE(c1 int, c2 text)
+CREATE FUNCTION funcb(somearg text)
+RETURNS TABLE (c1 integer, c2 text)
 AS $$
 SELECT 1, 'Label 1'
-$$ language sql SET search_path FROM CURRENT
+$$
+LANGUAGE sql SET search_path FROM CURRENT

@@ -3364,15 +3364,15 @@ def variable_set_stmt(node, output):
         else:
             output.print_name(node.name.split('.'))
             if node.kind == vsk.VAR_SET_CURRENT:
-                output.write('FROM CURRENT')
+                output.write(' FROM CURRENT')
             else:
                 output.write(' TO ')
-            if node.kind == vsk.VAR_SET_VALUE:
-                output.print_list(node.args)
-            elif node.kind == vsk.VAR_SET_DEFAULT:
-                output.write('DEFAULT')
-            elif node.kind == vsk.VAR_SET_MULTI:
-                pass
+        if node.kind == vsk.VAR_SET_VALUE:
+            output.print_list(node.args)
+        elif node.kind == vsk.VAR_SET_DEFAULT:
+            output.write('DEFAULT')
+        elif node.kind == vsk.VAR_SET_MULTI:
+            pass
 
 
 @node_printer(ast.VariableShowStmt)
