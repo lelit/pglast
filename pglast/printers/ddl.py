@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
 #
 
 import re
@@ -3338,21 +3338,36 @@ def print_transaction_mode_list(node, output):
             output.write('DEFERRABLE' if defer else 'NOT DEFERRABLE')
 
 
-@node_printer(ast.VariableSetStmt)
-def variable_set_stmt(node, output):
-    vsk = enums.VariableSetKind
-    if node.kind == vsk.VAR_RESET:
-        output.write('RESET ')
-        output.print_name(node.name.split('.'))
-    elif node.kind == vsk.VAR_RESET_ALL:
-        output.write('RESET ALL')
-    else:
+class VariableSetKindPrinter(IntEnumPrinter):
+    enum = enums.VariableSetKind
+
+    def _set_prologue(self, node, output):
         output.write('SET ')
         if node.is_local:
             output.write('LOCAL ')
+
+    def VAR_SET_VALUE(self, node, output):
+        self._set_prologue(node, output)
         if node.name == 'timezone':
             output.write('TIME ZONE ')
-        elif node.name == 'TRANSACTION':
+        else:
+            output.print_name(node.name.split('.'))
+            output.write(' TO ')
+        output.print_list(node.args)
+
+    def VAR_SET_DEFAULT(self, node, output):
+        self._set_prologue(node, output)
+        output.print_name(node.name.split('.'))
+        output.write(' TO DEFAULT')
+
+    def VAR_SET_CURRENT(self, node, output):
+        self._set_prologue(node, output)
+        output.print_name(node.name.split('.'))
+        output.write(' FROM CURRENT')
+
+    def VAR_SET_MULTI(self, node, output):
+        self._set_prologue(node, output)
+        if node.name == 'TRANSACTION':
             output.write('TRANSACTION ')
             print_transaction_mode_list(node.args, output)
         elif node.name == 'SESSION CHARACTERISTICS':
@@ -3361,18 +3376,21 @@ def variable_set_stmt(node, output):
         elif node.name == 'TRANSACTION SNAPSHOT':
             output.write('TRANSACTION SNAPSHOT ')
             output.print_list(node.args, ',')
-        else:
-            output.print_name(node.name.split('.'))
-            if node.kind == vsk.VAR_SET_CURRENT:
-                output.write(' FROM CURRENT')
-            else:
-                output.write(' TO ')
-        if node.kind == vsk.VAR_SET_VALUE:
-            output.print_list(node.args)
-        elif node.kind == vsk.VAR_SET_DEFAULT:
-            output.write('DEFAULT')
-        elif node.kind == vsk.VAR_SET_MULTI:
-            pass
+
+    def VAR_RESET(self, node, output):
+        output.write('RESET ')
+        output.print_name(node.name.split('.'))
+
+    def VAR_RESET_ALL(self, node, output):
+        output.write('RESET ALL')
+
+
+variable_set_kind_printer = VariableSetKindPrinter()
+
+
+@node_printer(ast.VariableSetStmt)
+def variable_set_stmt(node, output):
+    variable_set_kind_printer(node.kind, node, output)
 
 
 @node_printer(ast.VariableShowStmt)
