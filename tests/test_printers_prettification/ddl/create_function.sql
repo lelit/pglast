@@ -79,16 +79,3 @@ BEGIN ATOMIC
   INSERT INTO bar
   VALUES (2, 3);
 END
-
-CREATE FUNCTION funcb(somearg text)
-RETURNS TABLE(c1 int, c2 text)
-AS $$
-SELECT 1, 'Label 1'
-$$ language sql SET search_path FROM CURRENT
-=
-CREATE FUNCTION funcb(somearg text)
-RETURNS TABLE (c1 integer, c2 text)
-AS $$
-SELECT 1, 'Label 1'
-$$
-LANGUAGE sql SET search_path FROM CURRENT
