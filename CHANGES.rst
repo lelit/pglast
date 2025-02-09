@@ -8,6 +8,15 @@ Changes
 Version 6
 #########
 
+6.14 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Handle the ``SET configuration_parameter FROM CURRENT`` case in the ``VariableSetStmt``
+  printer (backport of `PR #168`__)
+
+  __ https://github.com/lelit/pglast/pull/168
+
+
 6.13 (2024-12-17)
 ~~~~~~~~~~~~~~~~~
 
