@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.3 (unreleased)
+7.3 (2025-02-09)
 ~~~~~~~~~~~~~~~~
 
 - Handle the ``SET configuration_parameter FROM CURRENT`` case in the ``VariableSetStmt``
