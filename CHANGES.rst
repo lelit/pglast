@@ -67,6 +67,15 @@ Version 7
 Version 6
 #########
 
+6.15 (2025-03-17)
+~~~~~~~~~~~~~~~~~
+
+- Escape occurrences of C-style end markers in SQL-style comments, when changing comment style
+  in the ``RawStream`` (issue `#170`__)
+
+  __ https://github.com/lelit/pglast/issues/170
+
+
 6.14 (2025-02-09)
 ~~~~~~~~~~~~~~~~~
 

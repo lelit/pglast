@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:11:02 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024, 2025 Lele Gaifax
 #
 
 from collections import namedtuple
