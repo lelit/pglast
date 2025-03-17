@@ -3,7 +3,7 @@
 # :Created:   dom 17 mar 2019 10:46:03 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2019, 2020, 2021, 2024 Lele Gaifax
+# :Copyright: © 2019, 2020, 2021, 2024, 2025 Lele Gaifax
 #
 
 from ast import literal_eval
@@ -84,6 +84,9 @@ def test_prettification(src, lineno, case):
     expected = parts[0].strip().replace('\\n\\\n', '\n').replace('\\s', ' ')
     if expected.endswith('\\'):
         expected = expected[:-1] + '\n'
+    if '{ZERO WIDTH NO-BREAK SPACE}' in expected:
+        expected = expected.replace('{ZERO WIDTH NO-BREAK SPACE}',
+                                    '\N{ZERO WIDTH NO-BREAK SPACE}')
     if len(parts) == 2:
         options = literal_eval(parts[1])
     else:
