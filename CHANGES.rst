@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.15 (unreleased)
+6.15 (2025-03-17)
 ~~~~~~~~~~~~~~~~~
 
 - Escape occurrences of C-style end markers in SQL-style comments, when changing comment style
