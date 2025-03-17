@@ -455,6 +455,13 @@ footer
 :
 {'preserve_comments': True, 'raw_stream': True}
 
+select 1
+-- */ foobar
+=
+SELECT 1 /**﻿/ foobar*/
+:
+{'preserve_comments': True, 'raw_stream': True}
+
 select 4294967310
 =
 SELECT 4294967310

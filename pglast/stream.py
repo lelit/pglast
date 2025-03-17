@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:46:11 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
 #
 
 from contextlib import contextmanager
@@ -308,11 +308,28 @@ class RawStream(OutputStream):
             self.write(str(value))
 
     def print_comment(self, comment):
-        "Print the given `comment`, unconditionally in the ``C`` syntax, joining all lines."
+        """Print the given `comment`, unconditionally in the ``C`` syntax, joining all lines.
+
+        :param comment: a :class:`Comment <.Comment>` tuple containing the original comment
+
+        The comment style must change because the ``RawStream`` does not admit newlines, the
+        whole statement is emitted in a single line of code, so ``SQL`` style comments are a
+        no-no.
+
+        .. warning::
+
+           When the original style of `comment` was ``SQL``, any occurrence of the string
+           ``*/`` it contains is replaced with a *visually equivalent* but **different**
+           ``*\\N{ZERO WIDTH NO-BREAK SPACE}/``, to avoid a premature end of the ``C`` style
+           comment and thus a syntax error.
+        """
 
         is_sql_comment = comment.text.startswith('--')
         if is_sql_comment:
-            text = comment.text[2:].strip()
+            # Issue #170: we are morphing from SQL-style to C-style comment, we must ensure
+            # that any occurrence of "*/" in the original text gets not interpreted as the
+            # end-of-the comment, as in ``SELECT ':*/' -- :*/ is a custom emoticon``
+            text = comment.text[2:].strip().replace('*/', '*\N{ZERO WIDTH NO-BREAK SPACE}/' )
         else:
             text = comment.text[2:-2].strip()
         if text:
@@ -593,6 +610,8 @@ class IndentedStream(RawStream):
         self.write(' '*count)
 
     def print_comment(self, comment):
+        """Print the given `comment`, respecting the original style."""
+
         is_sql_comment = comment.text.startswith('--')
         if is_sql_comment:
             text = comment.text[2:].strip()
