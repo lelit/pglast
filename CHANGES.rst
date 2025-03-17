@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.16 (unreleased)
+6.16 (2025-03-17)
 ~~~~~~~~~~~~~~~~~
 
 - No visible changes, just a workaround to a strange CI Windows-only failure on a test
