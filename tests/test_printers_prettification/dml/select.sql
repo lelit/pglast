@@ -458,7 +458,7 @@ footer
 select 1
 -- */ foobar
 =
-SELECT 1 /**﻿/ foobar*/
+SELECT 1 /**{ZERO WIDTH NO-BREAK SPACE}/ foobar*/
 :
 {'preserve_comments': True, 'raw_stream': True}
 
