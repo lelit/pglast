@@ -38,7 +38,7 @@ class BuildLibPgQueryFirst(build_ext):
 
 setup(
     name="pglast",
-    version="7.4",
+    version="7.5",
     url="https://github.com/lelit/pglast",
 
     description="PostgreSQL Languages AST and statements prettifier",
