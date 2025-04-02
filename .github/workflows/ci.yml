@@ -53,11 +53,11 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-13]
+        os: [ubuntu-24.04, macos-13]
         arch: [auto]
         include:
-          - os: ubuntu-22.04
-            arch: aarch64
+          - os: ubuntu-24.04-arm
+            arch: arm64
           - os: windows-2022
             arch: x86
           - os: windows-2022
@@ -70,10 +70,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
-
-      - name: Set up QEMU
-        if: ${{ matrix.arch == 'aarch64' }}
-        uses: docker/setup-qemu-action@v3
 
       - name: Install Python
         uses: actions/setup-python@v5
