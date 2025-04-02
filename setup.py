@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:20:43 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025 Lele Gaifax
 #
 
 from pathlib import Path
@@ -48,11 +48,10 @@ setup(
     author="Lele Gaifax",
     author_email="lele@metapensiero.it",
 
-    license="GPLv3+",
+    license="GPL-3.0-or-later",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
