@@ -57,7 +57,7 @@ jobs:
         arch: [auto]
         include:
           - os: ubuntu-24.04-arm
-            arch: arm64
+            arch: aarch64
           - os: windows-2022
             arch: x86
           - os: windows-2022
