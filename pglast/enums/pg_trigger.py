@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast — DO NOT EDIT: automatically extracted from pg_trigger.h @ 17-latest-0-g27b2af9
+# :Project:   pglast — DO NOT EDIT: automatically extracted from pg_trigger.h @ 17-6.1.0-0-g2d511a3
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2024 Lele Gaifax
+# :Copyright: © 2017-2025 Lele Gaifax
 #
 
 from enum import Enum, IntEnum, IntFlag, auto
