@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.6 (unreleased)
+7.6 (2025-04-03)
 ~~~~~~~~~~~~~~~~
 
 - Upgrade libpg_query to `17-6.1.0`__
