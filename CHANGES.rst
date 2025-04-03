@@ -8,6 +8,14 @@ Changes
 Version 7
 #########
 
+7.6 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Upgrade libpg_query to `17-6.1.0`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/17-6.1.0
+
+
 7.5 (2025-03-17)
 ~~~~~~~~~~~~~~~~
 
