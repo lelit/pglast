@@ -1485,7 +1485,7 @@ static const char *__pyx_f[] = {
   "pglast/ast.pyx",
   "pglast/parser.pyx",
   "<stringsource>",
-  "env/lib/python3.12/site-packages/Cython/Includes/cpython/type.pxd",
+  "env/lib/python3.13/site-packages/Cython/Includes/cpython/type.pxd",
 };
 /* #### Code section: utility_code_proto_before_types ### */
 /* ForceInitThreads.proto */
