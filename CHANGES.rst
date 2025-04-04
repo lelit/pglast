@@ -8,6 +8,12 @@ Changes
 Version 7
 #########
 
+7.7 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Nothing visible, fix GitHub Actions CI environment
+
+
 7.6 (2025-04-03)
 ~~~~~~~~~~~~~~~~
 
