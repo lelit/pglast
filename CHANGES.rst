@@ -8,6 +8,12 @@ Changes
 Version 7
 #########
 
+7.8 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix prettification of single keyword statements (`PR #173`__), thanks to Vlastimil Zíma
+
+
 7.7 (2025-04-04)
 ~~~~~~~~~~~~~~~~
 
