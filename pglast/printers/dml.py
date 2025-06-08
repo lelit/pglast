@@ -1937,21 +1937,22 @@ def sub_link(node, output):
 def transaction_stmt(node, output):
     tsk = enums.TransactionStmtKind
     if node.kind == tsk.TRANS_STMT_BEGIN:
-        output.write('BEGIN ')
+        output.write('BEGIN')
         if node.options:
+            output.space()
             output.print_list(node.options)
     elif node.kind == tsk.TRANS_STMT_START:
         output.write('START TRANSACTION ')
         if node.options:
             output.print_list(node.options)
     elif node.kind == tsk.TRANS_STMT_COMMIT:
-        output.write('COMMIT ')
+        output.write('COMMIT')
         if node.chain:
-            output.write('AND CHAIN ')
+            output.write(' AND CHAIN')
     elif node.kind == tsk.TRANS_STMT_ROLLBACK:
-        output.write('ROLLBACK ')
+        output.write('ROLLBACK')
         if node.chain:
-            output.write('AND CHAIN ')
+            output.write(' AND CHAIN')
     elif node.kind == tsk.TRANS_STMT_SAVEPOINT:
         output.write('SAVEPOINT ')
         output.write(node.savepoint_name)

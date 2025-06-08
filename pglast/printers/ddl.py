@@ -3280,10 +3280,11 @@ def trigger_transition(node, output):
 @node_printer(ast.VacuumStmt)
 def vacuum_stmt(node, output):
     if node.is_vacuumcmd:
-        output.write('VACUUM ')
+        output.write('VACUUM')
     else:
-        output.write('ANALYZE ')
+        output.write('ANALYZE')
     if node.options:
+        output.space()
         with output.expression(True):
             output.print_list(node.options, ',')
     if node.rels:
