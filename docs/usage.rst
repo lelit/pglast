@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:06:38 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024, 2025 Lele Gaifax
 ..
 
 .. _usage:
@@ -306,6 +306,18 @@ that extends :class:`pglast.stream.RawStream` adding a bit a aesthetic sense.
    (<RawStmt stmt=<CreateStmt ...
    >>> print(RawStream()(raw))
    CREATE TABLE foo (a integer, b integer NOT NULL)
+
+.. doctest::
+
+   >>> class DropCreateTable(Visitor):
+   ...     def visit_CreateStmt(self, ancestors, node):
+   ...         return Delete
+   ...
+   >>> raw = parse_sql('create table foo (a integer); update bar set b = 1')
+   >>> DropCreateTable()(raw)
+   (<RawStmt stmt_location=0 stmt_len=28>, <RawStmt stmt=<UpdateStmt ...
+   >>> print(RawStream()(raw))
+   UPDATE bar SET b = 1
 
 Customize a :func:`node printer <pglast.printers.node_printer>`
 ===============================================================

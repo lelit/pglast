@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
 #
 
 from .. import ast, enums
@@ -1655,7 +1655,8 @@ def range_table_sample(node, output):
 
 @node_printer(ast.RawStmt)
 def raw_stmt(node, output):
-    output.print_node(node.stmt)
+    if node.stmt is not None:
+        output.print_node(node.stmt)
 
 
 @node_printer(ast.ResTarget)

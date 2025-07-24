@@ -262,6 +262,22 @@ def test_delete_action():
     DeleteOddsInList()(raw)
     assert RawStream()(raw) == 'SELECT TRUE FROM foo WHERE a IN (2)'
 
+    class DropTableColumns(visitors.Visitor):
+        def visit_ColumnDef(self, ancestors, node):
+            return visitors.Delete
+
+    raw = parse_sql('create table foo (a integer null, b integer not null)')
+    DropTableColumns()(raw)
+    assert RawStream()(raw) == 'CREATE TABLE foo ()'
+
+    class DropCreateTable(visitors.Visitor):
+        def visit_CreateStmt(self, ancestors, node):
+            return visitors.Delete
+
+    raw = parse_sql('create table foo (a integer null, b integer not null)')
+    DropCreateTable()(raw)
+    assert RawStream()(raw) == ''
+
 
 def test_alter_node():
     class AddNullConstraint(visitors.Visitor):

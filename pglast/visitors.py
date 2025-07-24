@@ -3,7 +3,7 @@
 # :Created:   dom 9 mag 2021, 16:15:05
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022, 2024 Lele Gaifax
+# :Copyright: © 2021, 2022, 2024, 2025 Lele Gaifax
 #
 
 from collections import deque
@@ -260,6 +260,8 @@ class Ancestor:
                 if self.member is None:
                     self.node = value or None
                 else:
+                    if value is Delete:
+                        value = None
                     setattr(self.node, self.member, value or None)
             self.pending_update = None
 

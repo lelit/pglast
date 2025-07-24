@@ -190,6 +190,9 @@ class RawStream(OutputStream):
 
         first = True
         for statement in sql:
+            if isinstance(statement, ast.RawStmt) and statement.stmt is None:
+                continue
+
             if first:
                 first = False
             else:
@@ -199,7 +202,7 @@ class RawStream(OutputStream):
                     self.newline()
             self.print_node(statement)
 
-        if self.semicolon_after_last_statement:
+        if self.semicolon_after_last_statement and not first:
             self.write(';')
 
         if self.comments:
