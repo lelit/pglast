@@ -3,7 +3,7 @@
 # :Created:   mar 11 mag 2021, 08:36:23
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022, 2024 Lele Gaifax
+# :Copyright: © 2021, 2022, 2024, 2025 Lele Gaifax
 #
 
 import pytest
@@ -253,8 +253,8 @@ def test_delete_action():
     DeleteOddsInList()(raw)
     assert RawStream()(raw) == 'INSERT INTO foo VALUES (2, 42)'
 
-    raw = parse_sql('INSERT INTO foo VALUES ((1, 2, 3, 42, 43),'
-                    ' (2, 1, 4, 3, 5))')
+    raw = parse_sql(
+        'INSERT INTO foo VALUES ((1, 2, 3, 42, 43), (2, 1, 4, 3, 5))')
     DeleteOddsInList()(raw)
     assert RawStream()(raw) == 'INSERT INTO foo VALUES ((2, 42), (2, 4))'
 
