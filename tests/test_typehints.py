@@ -26,9 +26,15 @@ def stub_parse_sql_basic() -> None:
     query: str = "SELECT 1"
     result: Tuple[Node, ...] = parse_sql(query)
     
+    # Runtime type checks
+    assert isinstance(result, tuple), f"Expected tuple, got {type(result)}"
+    assert len(result) > 0, "Expected non-empty result"
+    assert isinstance(result[0], Node), f"Expected Node, got {type(result[0])}"
+    
     # These should work fine
     first_stmt: Node = result[0]
     stmt_count: int = len(result)
+    assert isinstance(stmt_count, int), f"Expected int, got {type(stmt_count)}"
 
 
 def stub_parse_sql_empty() -> None:
@@ -40,8 +46,14 @@ def stub_parse_sql_empty() -> None:
     empty_query: str = ""
     empty_result: Tuple[Node, ...] = parse_sql(empty_query)
     
+    # Runtime type checks
+    assert isinstance(empty_result, tuple), f"Expected tuple, got {type(empty_result)}"
+    assert len(empty_result) == 0, f"Expected empty tuple, got {len(empty_result)} items"
+    
     # Should be empty tuple
     count: int = len(empty_result)
+    assert isinstance(count, int), f"Expected int, got {type(count)}"
+    assert count == 0, f"Expected 0, got {count}"
 
 
 def stub_parser_functions() -> None:
@@ -53,21 +65,34 @@ def stub_parser_functions() -> None:
     
     # Test get_postgresql_version
     version: Tuple[int, int] = get_postgresql_version()
+    assert isinstance(version, tuple), f"Expected tuple, got {type(version)}"
+    assert len(version) == 2, f"Expected tuple of length 2, got {len(version)}"
     major: int = version[0]
     minor: int = version[1]
+    assert isinstance(major, int), f"Expected int, got {type(major)}"
+    assert isinstance(minor, int), f"Expected int, got {type(minor)}"
     
     # Test fingerprint
     fp: str = fingerprint(query)
+    assert isinstance(fp, str), f"Expected str, got {type(fp)}"
     fp_length: int = len(fp)
+    assert isinstance(fp_length, int), f"Expected int, got {type(fp_length)}"
     
     # Test scan
     tokens: List[Token] = scan(query)
+    assert isinstance(tokens, list), f"Expected list, got {type(tokens)}"
+    assert len(tokens) > 0, "Expected non-empty token list"
     first_token: Token = tokens[0]
+    assert isinstance(first_token, Token), f"Expected Token, got {type(first_token)}"
     token_start: int = first_token.start
+    assert isinstance(token_start, int), f"Expected int, got {type(token_start)}"
     
     # Test split
     statements: Tuple[str, ...] = split("SELECT 1; SELECT 2;")
+    assert isinstance(statements, tuple), f"Expected tuple, got {type(statements)}"
+    assert len(statements) == 2, f"Expected 2 statements, got {len(statements)}"
     first_stmt: str = statements[0]
+    assert isinstance(first_stmt, str), f"Expected str, got {type(first_stmt)}"
 
 
 def stub_prettify_function() -> None:
@@ -78,10 +103,13 @@ def stub_prettify_function() -> None:
     
     # Test basic prettify
     pretty: str = prettify(query)
+    assert isinstance(pretty, str), f"Expected str, got {type(pretty)}"
     pretty_length: int = len(pretty)
+    assert isinstance(pretty_length, int), f"Expected int, got {type(pretty_length)}"
     
     # Test with options
     pretty_with_options: str = prettify(query, safety_belt=True, preserve_comments=False)
+    assert isinstance(pretty_with_options, str), f"Expected str, got {type(pretty_with_options)}"
 
 
 def stub_parse_plpgsql_function() -> None:
@@ -99,7 +127,10 @@ def stub_parse_plpgsql_function() -> None:
     '''
     
     result: List[Dict[str, Any]] = parse_plpgsql(plpgsql_stmt)
+    assert isinstance(result, list), f"Expected list, got {type(result)}"
+    assert len(result) > 0, "Expected non-empty result"
     first_item: Dict[str, Any] = result[0]
+    assert isinstance(first_item, dict), f"Expected dict, got {type(first_item)}"
 
 
 def stub_type_errors() -> None:
@@ -113,7 +144,7 @@ def stub_type_errors() -> None:
 
 def _run_mypy_on_stub(stub_function, should_pass: bool = True) -> None:
     """
-    Helper function to run mypy on a stub function.
+    Helper function to run mypy on a stub function and execute it for runtime validation.
     
     Args:
         stub_function: The stub function to test
@@ -142,8 +173,8 @@ if __name__ == "__main__":
             f.write(test_code)
         
         try:
-            # Run mypy with explicit file path and follow-imports=silent to avoid scanning pglast source
-            result = subprocess.run(
+            # First, run mypy type checking
+            mypy_result = subprocess.run(
                 [sys.executable, '-m', 'mypy', 
                  '--ignore-missing-imports', 
                  '--strict', 
@@ -156,9 +187,20 @@ if __name__ == "__main__":
             )
             
             if should_pass:
-                assert result.returncode == 0, f"mypy found unexpected type errors in {stub_function.__name__}:\n{result.stdout}\n{result.stderr}"
+                assert mypy_result.returncode == 0, f"mypy found unexpected type errors in {stub_function.__name__}:\n{mypy_result.stdout}\n{mypy_result.stderr}"
+                
+                # If mypy passes, also run the stub function to validate runtime types
+                runtime_result = subprocess.run(
+                    [sys.executable, temp_file],
+                    capture_output=True,
+                    text=True,
+                    cwd=temp_dir
+                )
+                
+                assert runtime_result.returncode == 0, f"Runtime validation failed for {stub_function.__name__}:\n{runtime_result.stdout}\n{runtime_result.stderr}"
+                
             else:
-                assert result.returncode != 0, f"mypy should have found type errors in {stub_function.__name__} but didn't:\n{result.stdout}\n{result.stderr}"
+                assert mypy_result.returncode != 0, f"mypy should have found type errors in {stub_function.__name__} but didn't:\n{mypy_result.stdout}\n{mypy_result.stderr}"
                 
         except FileNotFoundError:
             pytest.skip("mypy not available")
