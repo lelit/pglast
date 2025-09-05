@@ -134,27 +134,34 @@ if __name__ == "__main__":
     {stub_function.__name__}()
 '''
     
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
-        f.write(test_code)
-        temp_file = f.name
-    
-    try:
-        # Run mypy
-        result = subprocess.run(
-            [sys.executable, '-m', 'mypy', '--ignore-missing-imports', '--strict', temp_file],
-            capture_output=True,
-            text=True
-        )
+    # Create a temporary directory to isolate the test
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp_file = os.path.join(temp_dir, f"{stub_function.__name__}.py")
         
-        if should_pass:
-            assert result.returncode == 0, f"mypy found unexpected type errors in {stub_function.__name__}:\n{result.stdout}\n{result.stderr}"
-        else:
-            assert result.returncode != 0, f"mypy should have found type errors in {stub_function.__name__} but didn't:\n{result.stdout}\n{result.stderr}"
+        with open(temp_file, 'w') as f:
+            f.write(test_code)
+        
+        try:
+            # Run mypy with explicit file path and follow-imports=silent to avoid scanning pglast source
+            result = subprocess.run(
+                [sys.executable, '-m', 'mypy', 
+                 '--ignore-missing-imports', 
+                 '--strict', 
+                 '--follow-imports=silent',
+                 '--no-site-packages',
+                 temp_file],
+                capture_output=True,
+                text=True,
+                cwd=temp_dir  # Run from temp directory
+            )
             
-    except FileNotFoundError:
-        pytest.skip("mypy not available")
-    finally:
-        os.unlink(temp_file)
+            if should_pass:
+                assert result.returncode == 0, f"mypy found unexpected type errors in {stub_function.__name__}:\n{result.stdout}\n{result.stderr}"
+            else:
+                assert result.returncode != 0, f"mypy should have found type errors in {stub_function.__name__} but didn't:\n{result.stdout}\n{result.stderr}"
+                
+        except FileNotFoundError:
+            pytest.skip("mypy not available")
 
 
 def test_mypy_parse_sql_basic() -> None:
