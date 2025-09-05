@@ -1330,7 +1330,7 @@ static const char* const __pyx_f[] = {
   "pglast/parser.pyx",
   "pglast/ast.pyx",
   "<stringsource>",
-  "env/lib/python3.13/site-packages/Cython/Includes/cpython/type.pxd",
+  "env/lib/python3.12/site-packages/Cython/Includes/cpython/type.pxd",
 };
 /* #### Code section: utility_code_proto_before_types ### */
 /* Atomics.proto */
