@@ -407,17 +407,18 @@ def common_table_expr(node, output):
     # See https://github.com/lelit/pglast/issues/163: the "forced" space will happen only in
     # the RawStream, that otherwise would not emit it before the opening paren of the
     # expression. The IndentedStream ignores the `force` argument.
-    output.space(2, force=True)
-    with output.expression(True):
-        output.print_node(node.ctequery)
-    if node.search_clause:
-        output.newline()
-        output.newline()
-        output.print_node(node.search_clause)
-    if node.cycle_clause:
-        output.newline()
-        output.newline()
-        output.print_node(node.cycle_clause)
+    output.space(4, force=True)
+    with output.push_indent(2):
+        with output.expression(True):
+            output.print_node(node.ctequery)
+        if node.search_clause:
+            output.newline()
+            output.newline()
+            output.print_node(node.search_clause)
+        if node.cycle_clause:
+            output.newline()
+            output.newline()
+            output.print_node(node.cycle_clause)
     output.newline()
 
 
@@ -2178,10 +2179,12 @@ def unlisten_stmt(node, output):
 
 @node_printer(ast.WithClause)
 def with_clause(node, output):
-    relindent = -2
-    if node.recursive:
-        relindent -= output.write('RECURSIVE ')
-    output.print_list(node.ctes, relative_indent=relindent)
+    with output.push_indent(-2):
+        if node.recursive:
+            output.write('RECURSIVE')
+            output.newline()
+            output.space(2)
+        output.print_list(node.ctes)
 
 
 @node_printer(ast.WindowDef)

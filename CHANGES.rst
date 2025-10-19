@@ -13,6 +13,8 @@ Version 7
 
 - Fix prettification of single keyword statements (`PR #173`__), thanks to Vlastimil Zíma
 
+- Improve ``WithClause`` printer, when there is more than one *CTE*
+
 
 7.7 (2025-04-04)
 ~~~~~~~~~~~~~~~~
