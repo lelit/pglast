@@ -8,10 +8,12 @@ Changes
 Version 7
 #########
 
-7.8 (unreleased)
+7.8 (2025-10-19)
 ~~~~~~~~~~~~~~~~
 
 - Fix prettification of single keyword statements (`PR #173`__), thanks to Vlastimil Zíma
+
+  __ https://github.com/lelit/pglast/pull/173
 
 - Improve ``WithClause`` printer, when there is more than one *CTE*
 

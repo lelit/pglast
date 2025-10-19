@@ -7,7 +7,7 @@
 #
 
 [tool.bumpversion]
-current_version = "7.7"
+current_version = "7.8"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)"
 serialize = [
     "{major}.{minor}",
