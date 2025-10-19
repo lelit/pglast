@@ -17,6 +17,15 @@ Version 7
 
 - Avoid spurious parenthesis around expression terms in some common cases like ``1 + 2 + 3 + 4``
 
+- Use macOS 14 to build arm 64 wheels and macOS 15 to build x86-64 wheels, given that GH is
+  going to `drop macOS 13 runners`__ in a couple of months
+
+  __ https://app.github.media/e/es?s=88570519&e=4325169&elq=c19630476abd40d0b7c6ff415b964f56
+
+- Generate Python 3.14 wheels, thanks to cibuildwheel `3.2.1`__
+
+  __ https://cibuildwheel.pypa.io/en/stable/changelog/#v321
+
 
 7.7 (2025-04-04)
 ~~~~~~~~~~~~~~~~
