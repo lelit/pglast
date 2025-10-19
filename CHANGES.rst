@@ -15,6 +15,8 @@ Version 7
 
 - Improve ``WithClause`` printer, when there is more than one *CTE*
 
+- Avoid spurious parenthesis around expression terms in some common cases like ``1 + 2 + 3 + 4``
+
 
 7.7 (2025-04-04)
 ~~~~~~~~~~~~~~~~

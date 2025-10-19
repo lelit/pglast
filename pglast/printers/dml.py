@@ -92,24 +92,34 @@ class AExprKindPrinter(IntEnumPrinter):
             output.print_list((node.lexpr, node.rexpr))
 
     def AEXPR_OP(self, node, output):
-        with output.expression(isinstance(abs(node.ancestors), ast.A_Expr)):
-            # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
-            if node.lexpr is not None:
-                with output.expression(isinstance(node.lexpr,
-                                                  (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
-                    output.print_node(node.lexpr)
-                output.write(' ')
-            if isinstance(node.name, tuple) and len(node.name) > 1:
-                output.write('OPERATOR')
-                with output.expression(True):
-                    output.print_symbol(node.name)
-            else:
-                output.print_symbol(node.name)
+        # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
+        if node.lexpr is not None:
+            needs_parens = isinstance(node.lexpr,
+                                      (ast.BoolExpr, ast.NullTest, ast.A_Expr))
+            if needs_parens and isinstance(node.lexpr, ast.A_Expr):
+                # Do not wrap lexpr in parenthesis when it has the same operator
+                # as the current node and the operator is...
+                # This is to avoid common cases such as
+                #   1 + 2 + 3 + 4
+                # to result in
+                #   ((1 + 2) + 3) + 4
+                if node.lexpr.name == node.name:
+                    if get_string_value(node.name) in {'*', '/', '+', '-', '||'}:
+                        needs_parens = False
+            with output.expression(needs_parens):
+                output.print_node(node.lexpr)
             output.write(' ')
-            if node.rexpr is not None:
-                with output.expression(isinstance(node.rexpr,
-                                                  (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
-                    output.print_node(node.rexpr)
+        if isinstance(node.name, tuple) and len(node.name) > 1:
+            output.write('OPERATOR')
+            with output.expression(True):
+                output.print_symbol(node.name)
+        else:
+            output.print_symbol(node.name)
+        output.write(' ')
+        if node.rexpr is not None:
+            with output.expression(isinstance(node.rexpr,
+                                              (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
+                output.print_node(node.rexpr)
 
     def AEXPR_OP_ALL(self, node, output):
         output.print_node(node.lexpr)

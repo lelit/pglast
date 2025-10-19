@@ -588,3 +588,9 @@ FROM json_table(favorites, '$.favorites[*]'
                                                          , bname text PATH '$.name'
                                                          , NESTED PATH '$.authors[*]' COLUMNS (author_id FOR ORDINALITY
                                                                                              , author_name text PATH '$.name'))))
+
+select 1+2+3+4, 1*2*3, 'a'||'b'||'c'
+=
+SELECT 1 + 2 + 3 + 4
+     , 1 * 2 * 3
+     , 'a' || 'b' || 'c'
