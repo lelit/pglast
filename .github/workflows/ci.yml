@@ -81,13 +81,13 @@ jobs:
           arch: ${{ matrix.arch }}
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.23.2
+        uses: pypa/cibuildwheel@v3.2.1
         env:
           CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
           CIBW_SKIP: "cp36* cp37* cp38* pp*"
           CIBW_ARCHS: ${{ matrix.arch }}
-          CIBW_PRERELEASE_PYTHONS: True
+          CIBW_ENABLE: cpython-prerelease
           # Skip tests on emulated hardware, take too long or not supported
           CIBW_TEST_SKIP: "*-*linux_{aarch64,ppc64le}"
 
