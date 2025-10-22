@@ -1747,6 +1747,8 @@ def select_stmt(node, output):
                 if node.rarg:
                     with output.expression(_select_needs_to_be_wrapped_in_parens(node.rarg)):
                         output.print_node(node.rarg)
+                    if node.sortClause or node.limitCount or node.limitOffset or node.lockingClause:
+                        output.newline()
         else:
             output.write('SELECT')
             if node.distinctClause:

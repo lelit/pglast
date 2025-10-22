@@ -410,6 +410,7 @@ INTERSECT
  FROM d2
  GROUP BY y
  LIMIT 3)
+\n\
 LIMIT 2
 
 /*
@@ -594,3 +595,15 @@ select 1+2+3+4, 1*2*3, 'a'||'b'||'c'
 SELECT 1 + 2 + 3 + 4
      , 1 * 2 * 3
      , 'a' || 'b' || 'c'
+
+select a from table1 union all select x from table2 order by a
+=
+SELECT a
+FROM table1
+\n\
+UNION ALL
+\n\
+SELECT x
+FROM table2
+\n\
+ORDER BY a
