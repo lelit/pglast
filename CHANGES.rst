@@ -8,6 +8,14 @@ Changes
 Version 7
 #########
 
+7.9 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Add an empty line between a ``SELECT foo UNION SELECT bar`` and its ``ORDER
+  BY``/``LIMIT``/``OFFSET`` clause, to emphasize the fact that it applies to the whole
+  statement, not to the "right" subquery.
+
+
 7.8 (2025-10-19)
 ~~~~~~~~~~~~~~~~
 
