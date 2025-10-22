@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.9 (unreleased)
+7.9 (2025-10-22)
 ~~~~~~~~~~~~~~~~
 
 - Add an empty line between a ``SELECT foo UNION SELECT bar`` and its ``ORDER
