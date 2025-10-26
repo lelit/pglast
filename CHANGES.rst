@@ -8,10 +8,14 @@ Changes
 Version 7
 #########
 
-7.10 (unreleased)
+7.10 (2025-10-26)
 ~~~~~~~~~~~~~~~~~
 
 - Fix ``AlterTableCmd`` printer, to handle ``ALTER TABLE a ALTER b SET STATISTICS DEFAULT``
+
+- Use `Cython 3.1.6`__
+
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#316-2025-10-23
 
 
 7.9 (2025-10-22)
