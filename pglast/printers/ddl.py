@@ -577,7 +577,10 @@ class AlterTableTypePrinter(IntEnumPrinter):
         elif node.num:
             output.write(str(node.num))
         output.write(' SET STATISTICS ')
-        output.print_node(node.def_)
+        if node.def_:
+            output.print_node(node.def_)
+        else:
+            output.write('DEFAULT')
 
     def AT_SetStorage(self, node, output):
         output.write('ALTER COLUMN ')

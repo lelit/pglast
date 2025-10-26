@@ -8,6 +8,12 @@ Changes
 Version 7
 #########
 
+7.10 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``AlterTableCmd`` printer, to handle ``ALTER TABLE a ALTER b SET STATISTICS DEFAULT``
+
+
 7.9 (2025-10-22)
 ~~~~~~~~~~~~~~~~
 
