@@ -3,13 +3,12 @@
 # :Created:   gio 03 ago 2017 16:55:55 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2020, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2020, 2024, 2025 Lele Gaifax
 #
 
-ACTIVATE_SCRIPT := $(VENVDIR)/bin/activate
 PIP := $(VENVDIR)/bin/pip
-REQUIREMENTS ?= requirements.txt
-REQUIREMENTS_TIMESTAMP := $(VENVDIR)/$(REQUIREMENTS).timestamp
+PYPROJECT_TOML ?= pyproject.toml
+PYPROJECT_TOML_TIMESTAMP := $(VENVDIR)/$(PYPROJECT_TOML).timestamp
 
 help::
 	@printf "\nPython virtualenv related targets\n"
@@ -19,7 +18,7 @@ help::
 	@printf "virtualenv\n\tsetup the Python virtualenv and install required packages\n"
 
 .PHONY: virtualenv
-virtualenv: $(VENVDIR) requirements
+virtualenv: $(VENVDIR) install-editable
 
 $(VENVDIR):
 	@echo "Bootstrapping Python 3 virtualenv..."
@@ -35,14 +34,14 @@ upgrade-pip:
 	@$(PIP) install --no-cache-dir --upgrade pip
 
 help::
-	@printf "requirements\n\tinstall/update required Python packages\n"
+	@printf "install-editable\n\tinstall/update required Python packages\n"
 
-.PHONY: requirements
-requirements: $(REQUIREMENTS_TIMESTAMP)
+.PHONY: install-editable
+install-editable: $(PYPROJECT_TOML_TIMESTAMP)
 
-$(REQUIREMENTS_TIMESTAMP): $(REQUIREMENTS)
-	@echo "Installing pre-requirements..."
-	@PATH="$(TOPDIR)/bin:$(PATH)" $(PIP) install --no-cache-dir -r $(REQUIREMENTS)
+$(PYPROJECT_TOML_TIMESTAMP): $(PYPROJECT_TOML)
+	@echo "Installing pglast in editable mode..."
+	@PATH="$(TOPDIR)/bin:$(PATH)" $(PIP) install .[dev,test]
 	@touch $@
 
 distclean::
