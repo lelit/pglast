@@ -8,6 +8,18 @@ Changes
 Version 7
 #########
 
+7.11 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- :PEP:`518` (issue `#180`__)
+
+  __ https://github.com/lelit/pglast/issues/180
+
+- Use `Cython 3.2.0`__
+
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#320-2025-11-05
+
+
 7.10 (2025-10-26)
 ~~~~~~~~~~~~~~~~~
 
