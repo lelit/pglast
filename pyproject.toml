@@ -15,7 +15,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pglast"
-version = "7.10"
+version = "7.11"
 description="PostgreSQL Languages AST and statements prettifier"
 readme = "README.rst"
 authors = [{name = "Lele Gaifax", email = "lele@metapensiero.it"}]
@@ -92,7 +92,7 @@ packages = [
 ]
 
 [tool.bumpversion]
-current_version = "7.10"
+current_version = "7.11"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)"
 serialize = [
     "{major}.{minor}",
