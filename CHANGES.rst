@@ -15,9 +15,13 @@ Version 7
 
   __ https://github.com/lelit/pglast/issues/180
 
-- Use `Cython 3.2.0`__
+- Use `Cython 3.2.3`__
 
-  __ https://github.com/cython/cython/blob/master/CHANGES.rst#320-2025-11-05
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#323-2025-12-14
+
+- Upgrade libpg_query to `17-6.2.0`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/17-6.2.0
 
 
 7.10 (2025-10-26)
