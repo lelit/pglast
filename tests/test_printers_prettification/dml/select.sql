@@ -481,14 +481,15 @@ with recursive t(n) as (values (1) union all select n+1 from t where n < 100)
 select sum(n) from t;
 =
 WITH RECURSIVE
-     t(n) AS
-       (VALUES (1)
+     t(n) AS (
+       VALUES (1)
 \n\
-        UNION ALL
+       UNION ALL
 \n\
-        SELECT n + 1
-        FROM t
-        WHERE n < 100)
+       SELECT n + 1
+       FROM t
+       WHERE n < 100
+     )
 \n\
   SELECT sum(n)
   FROM t
@@ -496,12 +497,14 @@ WITH RECURSIVE
 with cte_1 as (select 1), cte_2 as (select * from cte_1)
 select * from cte_2
 =
-WITH cte_1 AS
-       (SELECT 1)
+WITH cte_1 AS (
+       SELECT 1
+     )
 \n\
-   , cte_2 AS
-       (SELECT *
-        FROM cte_1)
+   , cte_2 AS (
+       SELECT *
+       FROM cte_1
+     )
 \n\
   SELECT *
   FROM cte_2
@@ -607,3 +610,38 @@ SELECT x
 FROM table2
 \n\
 ORDER BY a
+
+with recursive va as (
+  select repository_id, target_version_id
+  from version_alias
+  where repository_id = new.repository_id and version_id = new.version_id
+  union all
+  select t.repository_id, t.target_version_id
+  from version_alias as t, va
+  where t.repository_id = va.repository_id and t.version_id = va.target_version_id
+) cycle target_version_id set is_cycle to true default false using cycle_path
+select * from va where is_cycle is true
+=
+WITH RECURSIVE
+     va AS (
+       SELECT repository_id
+            , target_version_id
+       FROM version_alias
+       WHERE repository_id = new.repository_id
+         AND version_id = new.version_id
+\n\
+       UNION ALL
+\n\
+       SELECT t.repository_id
+            , t.target_version_id
+       FROM version_alias AS t, va
+       WHERE t.repository_id = va.repository_id
+         AND t.version_id = va.target_version_id
+     )
+     CYCLE target_version_id
+     SET is_cycle TO TRUE DEFAULT FALSE
+     USING cycle_path
+\n\
+  SELECT *
+  FROM va
+  WHERE is_cycle IS TRUE

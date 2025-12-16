@@ -369,7 +369,8 @@ cte_materialize_printer = CTEMaterializedPrinter()
 def cte_cycle_clause(node, output):
     output.write('CYCLE ')
     output.print_list(node.cycle_col_list, are_names=True)
-    output.write(' SET ')
+    output.newline()
+    output.write('SET ')
     output.print_name(node.cycle_mark_column)
     if node.cycle_mark_value:
         output.write(' TO ')
@@ -377,7 +378,8 @@ def cte_cycle_clause(node, output):
     if node.cycle_mark_default:
         output.write(' DEFAULT ')
         output.print_node(node.cycle_mark_default)
-    output.write(' USING ')
+    output.newline()
+    output.write('USING ')
     output.print_name(node.cycle_path_column)
 
 
@@ -399,7 +401,8 @@ def cte_search_clause(node, output):
         output.write('DEPTH ')
     output.write('FIRST BY ')
     output.print_list(node.search_col_list, are_names=True)
-    output.write(' SET ')
+    output.newline()
+    output.write('SET ')
     output.print_name(node.search_seq_column)
 
 
@@ -413,20 +416,20 @@ def common_table_expr(node, output):
             output.print_name(node.aliascolnames, ',')
     output.swrite('AS')
     cte_materialize_printer(node.ctematerialized, node, output)
-    output.newline()
     # See https://github.com/lelit/pglast/issues/163: the "forced" space will happen only in
     # the RawStream, that otherwise would not emit it before the opening paren of the
     # expression. The IndentedStream ignores the `force` argument.
-    output.space(4, force=True)
-    with output.push_indent(2):
+    output.space(force=True)
+    with output.push_indent(2, False):
         with output.expression(True):
-            output.print_node(node.ctequery)
-        if node.search_clause:
             output.newline()
+            with output.push_indent(2):
+                output.print_node(node.ctequery)
+            output.newline()
+        if node.search_clause:
             output.newline()
             output.print_node(node.search_clause)
         if node.cycle_clause:
-            output.newline()
             output.newline()
             output.print_node(node.cycle_clause)
     output.newline()
