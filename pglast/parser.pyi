@@ -7,7 +7,7 @@
 
 from typing import NamedTuple, Union
 
-from .ast import Node
+from .ast import RawStmt
 from .error import Error
 
 
@@ -33,7 +33,7 @@ class Token(NamedTuple):
 
 def get_postgresql_version() -> tuple[int, int]: ...
 
-def parse_sql(query: str) -> tuple[Node, ...]: ...
+def parse_sql(query: str) -> tuple[RawStmt, ...]: ...
 
 def parse_sql_json(query: str) -> str: ...
 
