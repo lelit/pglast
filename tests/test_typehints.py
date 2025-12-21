@@ -131,112 +131,123 @@ def stub_parse_plpgsql_function() -> None:
 
 
 def stub_type_errors() -> None:
-    """Stub function that should cause mypy errors - used to test that mypy is working."""
+    """
+    Stub function that should cause type checker errors.
+    """
     from pglast import parse_sql
 
-    query: str = "SELECT 1"
-    # This should cause a mypy error - assigning tuple to int
-    wrong_type: int = parse_sql(query)  # type: ignore
+    query: str = 'SELECT 1'
+    # Intentional error, to assert that the type checker is not cheating
+    wrong_type: int = parse_sql(query)
 
 
-def _run_mypy_on_stub(stub_function, should_pass: bool = True) -> None:
+def run_type_checker_on_stub(
+    stub_function,
+    checker: tuple[str, ...],
+    should_pass: bool = True,
+) -> None:
     """
-    Helper function to run mypy on a stub function and execute it for runtime validation.
+    Helper function to run a type checker on a stub function and execute it for runtime
+    validation.
 
-    Args:
-        stub_function: The stub function to test
-        should_pass: Whether mypy should pass (True) or fail (False)
+    :param stub_function: the stub function to test
+    :param checker: which checker
+    :param should_pass: whether the check should pass (``True``) or fail (``False``)
     """
     import tempfile
     import os
     import inspect
 
-    # Get the source code of the stub function
+    stub_function_name = stub_function.__name__
     source = inspect.getsource(stub_function)
+    test_code = f"""# Test file for type specs validation
 
-    # Create the full test file content
-    test_code = f'''# Test file for mypy validation
 {source}
 
-if __name__ == "__main__":
-    {stub_function.__name__}()
-'''
+
+if __name__ == '__main__':
+    {stub_function_name}()
+"""
 
     # Create a temporary directory to isolate the test
     with tempfile.TemporaryDirectory() as temp_dir:
-        temp_file = os.path.join(temp_dir, f"{stub_function.__name__}.py")
+        temp_file = os.path.join(temp_dir, f'{stub_function_name}.py')
 
         with open(temp_file, 'w') as f:
             f.write(test_code)
 
         try:
-            # First, run mypy type checking
-            mypy_result = subprocess.run(
-                [sys.executable, '-m', 'mypy',
-                 '--ignore-missing-imports',
-                 '--strict',
-                 '--follow-imports=silent',
-                 '--no-site-packages',
-                 temp_file],
+            result = subprocess.run(
+                checker + (temp_file,),
                 capture_output=True,
                 text=True,
-                cwd=temp_dir  # Run from temp directory
+                cwd=temp_dir,
+            )
+        except FileNotFoundError:
+            pytest.skip(f'Could not execute type checker: {checker!r}')
+            return
+
+        if result.returncode and ': No module named ' in result.stderr:
+            pytest.skip(f'Could not execute type checker: {checker!r}')
+            return
+
+        if should_pass:
+            assert result.returncode == 0, (
+                f'Type checker found unexpected type errors in {stub_function_name}:'
+                f'\n{result.stdout}\n{result.stderr}'
             )
 
-            if should_pass:
-                assert mypy_result.returncode == 0, (
-                    f"mypy found unexpected type errors in {stub_function.__name__}:"
-                    f"\n{mypy_result.stdout}\n{mypy_result.stderr}"
-                )
+            # Dunno if this is useful or not: when the type checker is happy, also run the stub
+            # function to validate runtime types
+            runtime_result = subprocess.run(
+                [sys.executable, temp_file],
+                capture_output=True,
+                text=True,
+                cwd=temp_dir
+            )
 
-                # If mypy passes, also run the stub function to validate runtime types
-                runtime_result = subprocess.run(
-                    [sys.executable, temp_file],
-                    capture_output=True,
-                    text=True,
-                    cwd=temp_dir
-                )
+            assert runtime_result.returncode == 0, (
+                f'Runtime validation failed for {stub_function_name}:\n'
+                f'{runtime_result.stdout}\n{runtime_result.stderr}'
+            )
 
-                assert runtime_result.returncode == 0, (
-                    f"Runtime validation failed for {stub_function.__name__}:\n"
-                    f"{runtime_result.stdout}\n{runtime_result.stderr}"
-                )
-
-            else:
-                assert mypy_result.returncode != 0, (
-                    f"mypy should have found type errors in {stub_function.__name__}"
-                    f" but didn't:\n{mypy_result.stdout}\n{mypy_result.stderr}"
-                )
-
-        except FileNotFoundError:
-            pytest.skip("mypy not available")
+        else:
+            assert result.returncode != 0, (
+                f'Type checker should have found type errors in {stub_function_name}'
+                f' but did not:\n{result.stdout}\n{result.stderr}'
+            )
 
 
-def test_mypy_parse_sql_basic() -> None:
-    """Test mypy validation for basic parse_sql usage."""
-    _run_mypy_on_stub(stub_parse_sql_basic)
+mypy_checker: tuple[str, ...] = (
+    sys.executable,
+    '-m',
+    'mypy',
+    '--strict',
+    '--ignore-missing-imports',
+)
 
 
-def test_mypy_parse_sql_empty() -> None:
-    """Test mypy validation for parse_sql with empty input."""
-    _run_mypy_on_stub(stub_parse_sql_empty)
+ty_checker: tuple[str, ...] = (
+    'ty',
+    'check',
+    '--python',
+    sys.executable,
+    '--ignore',
+    'possibly-missing-import',
+)
 
 
-def test_mypy_parser_functions() -> None:
-    """Test mypy validation for other parser functions."""
-    _run_mypy_on_stub(stub_parser_functions)
-
-
-def test_mypy_prettify_function() -> None:
-    """Test mypy validation for prettify function."""
-    _run_mypy_on_stub(stub_prettify_function)
-
-
-def test_mypy_parse_plpgsql_function() -> None:
-    """Test mypy validation for parse_plpgsql function."""
-    _run_mypy_on_stub(stub_parse_plpgsql_function)
-
-
-def test_mypy_detects_type_errors() -> None:
-    """Test that mypy properly detects type errors."""
-    _run_mypy_on_stub(stub_type_errors, should_pass=False)
+@pytest.mark.parametrize('checker', (ty_checker, mypy_checker))
+@pytest.mark.parametrize(
+    'stub_function, expected_to_pass',
+    (
+        (stub_parse_sql_basic, True),
+        (stub_parse_sql_empty, True),
+        (stub_parser_functions, True),
+        (stub_prettify_function, True),
+        (stub_parse_plpgsql_function, True),
+        (stub_type_errors, False),
+    )
+)
+def test_type_check(checker, stub_function, expected_to_pass) -> None:
+    run_type_checker_on_stub(stub_function, checker, expected_to_pass)
