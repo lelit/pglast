@@ -12,107 +12,106 @@ especially those originally implemented in Cython.
 
 import sys
 import subprocess
+
 import pytest
 
 
 def stub_parse_sql_basic() -> None:
     """Stub function to test basic parse_sql type hints."""
-    from typing import Tuple
-    from pglast import parse_sql
     from pglast.ast import Node
+    from pglast.parser import parse_sql
 
     query: str = "SELECT 1"
-    result: Tuple[Node, ...] = parse_sql(query)
+    result: tuple[Node, ...] = parse_sql(query)
 
     # Runtime type checks
-    assert isinstance(result, tuple), f"Expected tuple, got {type(result)}"
-    assert len(result) > 0, "Expected non-empty result"
-    assert isinstance(result[0], Node), f"Expected Node, got {type(result[0])}"
+    assert isinstance(result, tuple), f'Expected tuple, got {type(result)}'
+    assert len(result) > 0, 'Expected non-empty result'
+    assert isinstance(result[0], Node), f'Expected Node, got {type(result[0])}'
 
     # These should work fine
     first_stmt: Node = result[0]
     stmt_count: int = len(result)
-    assert isinstance(stmt_count, int), f"Expected int, got {type(stmt_count)}"
+    assert isinstance(stmt_count, int), f'Expected int, got {type(stmt_count)}'
 
 
 def stub_parse_sql_empty() -> None:
     """Stub function to test parse_sql with empty input."""
-    from typing import Tuple
-    from pglast import parse_sql
     from pglast.ast import Node
+    from pglast.parser import parse_sql
 
-    empty_query: str = ""
-    empty_result: Tuple[Node, ...] = parse_sql(empty_query)
+    empty_query: str = ''
+    empty_result: tuple[Node, ...] = parse_sql(empty_query)
 
     # Runtime type checks
-    assert isinstance(empty_result, tuple), f"Expected tuple, got {type(empty_result)}"
-    assert len(empty_result) == 0, f"Expected empty tuple, got {len(empty_result)} items"
+    assert isinstance(empty_result, tuple), f'Expected tuple, got {type(empty_result)}'
+    assert len(empty_result) == 0, f'Expected empty tuple, got {len(empty_result)} items'
 
     # Should be empty tuple
     count: int = len(empty_result)
-    assert isinstance(count, int), f"Expected int, got {type(count)}"
-    assert count == 0, f"Expected 0, got {count}"
+    assert isinstance(count, int), f'Expected int, got {type(count)}'
+    assert count == 0, f'Expected 0, got {count}'
 
 
 def stub_parser_functions() -> None:
     """Stub function to test other parser function type hints."""
-    from typing import Tuple, List
+    from typing import Union
     from pglast.parser import get_postgresql_version, fingerprint, scan, split, Token
 
-    query: str = "SELECT name FROM users WHERE id = 1"
+    query: str = 'SELECT name FROM users WHERE id = 1'
 
     # Test get_postgresql_version
-    version: Tuple[int, int] = get_postgresql_version()
-    assert isinstance(version, tuple), f"Expected tuple, got {type(version)}"
-    assert len(version) == 2, f"Expected tuple of length 2, got {len(version)}"
+    version: tuple[int, int] = get_postgresql_version()
+    assert isinstance(version, tuple), f'Expected tuple, got {type(version)}'
+    assert len(version) == 2, f'Expected tuple of length 2, got {len(version)}'
     major: int = version[0]
     minor: int = version[1]
-    assert isinstance(major, int), f"Expected int, got {type(major)}"
-    assert isinstance(minor, int), f"Expected int, got {type(minor)}"
+    assert isinstance(major, int), f'Expected int, got {type(major)}'
+    assert isinstance(minor, int), f'Expected int, got {type(minor)}'
 
     # Test fingerprint
     fp: str = fingerprint(query)
-    assert isinstance(fp, str), f"Expected str, got {type(fp)}"
+    assert isinstance(fp, str), f'Expected str, got {type(fp)}'
     fp_length: int = len(fp)
-    assert isinstance(fp_length, int), f"Expected int, got {type(fp_length)}"
+    assert isinstance(fp_length, int), f'Expected int, got {type(fp_length)}'
 
     # Test scan
-    tokens: List[Token] = scan(query)
-    assert isinstance(tokens, list), f"Expected list, got {type(tokens)}"
-    assert len(tokens) > 0, "Expected non-empty token list"
+    tokens: list[Token] = scan(query)
+    assert isinstance(tokens, list), f'Expected list, got {type(tokens)}'
+    assert len(tokens) > 0, 'Expected non-empty token list'
     first_token: Token = tokens[0]
-    assert isinstance(first_token, Token), f"Expected Token, got {type(first_token)}"
+    assert isinstance(first_token, Token), f'Expected Token, got {type(first_token)}'
     token_start: int = first_token.start
-    assert isinstance(token_start, int), f"Expected int, got {type(token_start)}"
+    assert isinstance(token_start, int), f'Expected int, got {type(token_start)}'
 
     # Test split
-    statements: Tuple[str, ...] = split("SELECT 1; SELECT 2;")
-    assert isinstance(statements, tuple), f"Expected tuple, got {type(statements)}"
-    assert len(statements) == 2, f"Expected 2 statements, got {len(statements)}"
-    first_stmt: str = statements[0]
-    assert isinstance(first_stmt, str), f"Expected str, got {type(first_stmt)}"
+    statements: tuple[Union[str, slice], ...] = split('SELECT 1; SELECT 2;')
+    assert isinstance(statements, tuple), f'Expected tuple, got {type(statements)}'
+    assert len(statements) == 2, f'Expected 2 statements, got {len(statements)}'
+    first_stmt: Union[str, slice] = statements[0]
+    assert isinstance(first_stmt, str), f'Expected str, got {type(first_stmt)}'
 
 
 def stub_prettify_function() -> None:
     """Stub function to test prettify type hints."""
     from pglast import prettify
 
-    query: str = "select 1"
+    query: str = 'select 1'
 
     # Test basic prettify
     pretty: str = prettify(query)
-    assert isinstance(pretty, str), f"Expected str, got {type(pretty)}"
+    assert isinstance(pretty, str), f'Expected str, got {type(pretty)}'
     pretty_length: int = len(pretty)
-    assert isinstance(pretty_length, int), f"Expected int, got {type(pretty_length)}"
+    assert isinstance(pretty_length, int), f'Expected int, got {type(pretty_length)}'
 
     # Test with options
-    pretty_with_options: str = prettify(query, safety_belt=True, preserve_comments=False)
-    assert isinstance(pretty_with_options, str), f"Expected str, got {type(pretty_with_options)}"
+    pretty_options: str = prettify(query, safety_belt=True, preserve_comments=False)
+    assert isinstance(pretty_options, str), f'Expected str, got {type(pretty_options)}'
 
 
 def stub_parse_plpgsql_function() -> None:
     """Stub function to test parse_plpgsql type hints."""
-    from typing import List, Dict, Any
+    from typing import Any
     from pglast import parse_plpgsql
 
     plpgsql_stmt: str = '''
@@ -124,11 +123,11 @@ def stub_parse_plpgsql_function() -> None:
     $$ LANGUAGE plpgsql
     '''
 
-    result: List[Dict[str, Any]] = parse_plpgsql(plpgsql_stmt)
-    assert isinstance(result, list), f"Expected list, got {type(result)}"
-    assert len(result) > 0, "Expected non-empty result"
-    first_item: Dict[str, Any] = result[0]
-    assert isinstance(first_item, dict), f"Expected dict, got {type(first_item)}"
+    result: list[dict[str, Any]] = parse_plpgsql(plpgsql_stmt)
+    assert isinstance(result, list), f'Expected list, got {type(result)}'
+    assert len(result) > 0, 'Expected non-empty result'
+    first_item: dict[str, Any] = result[0]
+    assert isinstance(first_item, dict), f'Expected dict, got {type(first_item)}'
 
 
 def stub_type_errors() -> None:

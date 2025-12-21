@@ -7,7 +7,7 @@
 #
 
 from collections import namedtuple
-from typing import List, Dict, Any, Tuple, Union, Optional
+from typing import Any
 
 from . import enums
 from .error import Error
@@ -26,7 +26,7 @@ __author__ = 'Lele Gaifax <lele@metapensiero.it>'
 "Package's author."
 
 
-def parse_plpgsql(statement: str) -> List[Dict[str, Any]]:
+def parse_plpgsql(statement: str) -> list[dict[str, Any]]:
     """Parse the given ``PLPGSQL`` `statement` and return its tokens stream.
 
    .. note:: This is currently somewhat of limited usefulness, because neither ``libpg_query``
@@ -157,14 +157,14 @@ Comment = namedtuple('Comment', ('location', 'text', 'at_start_of_line', 'contin
 "A structure to carry information about a single SQL comment."
 
 
-def _extract_comments(statement: str) -> List['Comment']:
-    lines = []
+def _extract_comments(statement: str) -> list['Comment']:
+    lines: list[tuple[int, int, str]] = []
     lofs = 0
     for line in statement.splitlines(True):
         llen = len(line)
         lines.append((lofs, lofs+llen, line))
         lofs += llen
-    comments = []
+    comments: list[Comment] = []
     continue_previous = False
     for token in scan(statement):
         if token.name in ('C_COMMENT', 'SQL_COMMENT'):
