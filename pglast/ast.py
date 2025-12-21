@@ -55,7 +55,7 @@ def _serialize_value(v, depth, ellipsis, skip_none):
     return v
 
 
-class Omissis:
+class __Omissis:
     def __eq__(self, other):
         if other is ... or other is self:
             return True
@@ -65,7 +65,7 @@ class Omissis:
         return '…'
 
 
-Omissis = Omissis()
+Omissis = __Omissis()
 "Marker value used as default for the ellipsis argument"
 
 
