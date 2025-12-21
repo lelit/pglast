@@ -3,8 +3,10 @@
 # :Created:   sab 05 ago 2017 16:33:14 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2020, 2021, 2022, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2020, 2021, 2022, 2024, 2025 Lele Gaifax
 #
+
+from enum import IntEnum
 
 from .. import ast
 from ..error import Error
@@ -111,12 +113,10 @@ get_special_function = SPECIAL_FUNCTIONS.get
 class IntEnumPrinter:
     "Helper class used to implement printers for specific enumerated values."
 
-    enum = None
+    enum: type[IntEnum]
     "The enum class this is a printer for."
 
     def __init__(self):
-        from enum import IntEnum
-
         if not issubclass(self.enum, IntEnum):
             raise ValueError(f'Given enum {self.enum!r} is not an IntEnum subclass')
         if len(set(m.value for m in self.enum)) != len(self.enum):  # pragma: no cover
