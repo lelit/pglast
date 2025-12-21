@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-# Type stubs for pglast.parser module
+# :Project:   pglast — Type stubs for pglast.parser module
+# :Created:   2025-01-27
+# :Author:    Pierce Freeman <hi@pierce.dev>
+# :License:   GNU General Public License version 3 or later
+#
+
 
 from typing import Tuple, List, Union, NamedTuple, Optional
 from .ast import Node
