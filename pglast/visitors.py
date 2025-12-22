@@ -290,10 +290,10 @@ class Visitor:
     __ https://en.wikipedia.org/wiki/Breadth-first_search
     """
 
-    def __call__(self, root):
-        "Iteratively visit the `root` node calling related ``visit_XYZ`` methods."
+    def __call__(self, node):
+        "Iteratively visit the `node` calling related ``visit_XYZ`` methods."
 
-        self.root = root
+        self.root = node
 
         by_ast_class = {}
         for name, method in getmembers(self, ismethod):
@@ -307,7 +307,7 @@ class Visitor:
 
         default_method = self.visit
 
-        generator = self.iterate(root)
+        generator = self.iterate(node)
         try:
             ancestors, node = generator.send(None)
         except StopIteration:
