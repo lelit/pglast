@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:12:49 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
 #
 
 #cython: language_level=3
@@ -13,8 +13,8 @@ from . import Error
 
 from cpython.bytes cimport PyBytes_AsStringAndSize, PyBytes_FromStringAndSize
 from cpython.list cimport PyList_New, PyList_SET_ITEM
-from libc.stdint cimport int32_t, uint64_t, uint8_t
 from libc cimport limits
+from libc.stdint cimport int32_t, uint64_t, uint8_t
 
 from collections import namedtuple
 
@@ -274,7 +274,7 @@ def parse_sql(str query):
         elif parsed.error is NULL:
             return ()
         else:
-            message = parsed.error.message.decode('utf8')
+            message = parsed.error.message.decode('utf-8')
             raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
     finally:
         pg_query_exit_memory_context(mctx);
@@ -294,11 +294,11 @@ def parse_sql_json(str query):
 
     try:
         if parsed.error:
-            message = parsed.error.message.decode('utf8')
+            message = parsed.error.message.decode('utf-8')
             offset_to_index = Displacements(query)
             raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
 
-        return parsed.parse_tree.decode('utf8')
+        return parsed.parse_tree.decode('utf-8')
     finally:
         with nogil:
             pg_query_free_parse_result(parsed)
@@ -318,7 +318,7 @@ def parse_sql_protobuf(str query):
 
     try:
         if parsed.error:
-            message = parsed.error.message.decode('utf8')
+            message = parsed.error.message.decode('utf-8')
             cursorpos = parsed.error.cursorpos
             offset_to_index = Displacements(query)
             raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
@@ -343,11 +343,11 @@ def parse_plpgsql_json(str query):
 
     try:
         if parsed.error:
-            message = parsed.error.message.decode('utf8')
+            message = parsed.error.message.decode('utf-8')
             offset_to_index = Displacements(query)
             raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
 
-        return parsed.plpgsql_funcs.decode('utf8')
+        return parsed.plpgsql_funcs.decode('utf-8')
     finally:
         with nogil:
             pg_query_free_plpgsql_parse_result(parsed)
@@ -367,7 +367,7 @@ def fingerprint(str query):
 
     try:
         if result.error:
-            message = result.error.message.decode('utf8')
+            message = result.error.message.decode('utf-8')
             offset_to_index = Displacements(query)
             raise ParseError(message, offset_to_index(result.error.cursorpos-1))
 
@@ -407,7 +407,7 @@ def split(str stmts, bint with_parser=True, bint only_slices=False):
 
     try:
         if splitted.error:
-            message = splitted.error.message.decode('utf8')
+            message = splitted.error.message.decode('utf-8')
             offset_to_index = Displacements(stmts)
             raise ParseError(message, offset_to_index(splitted.error.cursorpos-1))
 
@@ -442,7 +442,7 @@ def deparse_protobuf(bytes protobuf):
 
     try:
         if deparsed.error:
-            message = deparsed.error.message.decode('utf8')
+            message = deparsed.error.message.decode('utf-8')
             raise DeparseError(message, deparsed.error.cursorpos)
 
         return deparsed.query.decode('utf-8')
@@ -474,7 +474,7 @@ def scan(str query):
 
     try:
         if scanned.error:
-            message = scanned.error.message.decode('utf8')
+            message = scanned.error.message.decode('utf-8')
             raise ParseError(message, offset_to_index(scanned.error.cursorpos-1))
 
         with nogil:
