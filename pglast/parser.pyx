@@ -90,6 +90,17 @@ cdef extern from "pg_query.h" nogil:
         char* query
         PgQueryError* error
 
+    ctypedef struct PostgresDeparseComment:
+        int match_location
+        int newlines_before_comment
+        int newlines_after_comment
+        char* str
+
+    ctypedef struct PgQueryDeparseCommentsResult:
+        PostgresDeparseComment** comments
+        size_t comment_count
+        PgQueryError* error
+
     ctypedef struct PgQueryScanResult:
         PgQueryProtobuf pbuf
         PgQueryError *error
@@ -105,6 +116,9 @@ cdef extern from "pg_query.h" nogil:
 
     PgQueryFingerprintResult pg_query_fingerprint(const char* input)
     void pg_query_free_fingerprint_result(PgQueryFingerprintResult result)
+
+    PgQueryDeparseCommentsResult pg_query_deparse_comments_for_query(const char* query)
+    void pg_query_free_deparse_comments_result(PgQueryDeparseCommentsResult result)
 
     PgQueryDeparseResult pg_query_deparse_protobuf(PgQueryProtobuf parse_tree)
     void pg_query_free_deparse_result(PgQueryDeparseResult result)
@@ -428,6 +442,47 @@ def split(str stmts, bint with_parser=True, bint only_slices=False):
     finally:
         with nogil:
             pg_query_free_split_result(splitted)
+
+
+Comment = namedtuple('Comment',
+                     ('match_location',
+                      'newlines_before_comment',
+                      'newlines_after_comment',
+                      'str'))
+
+
+def comments(str query):
+    "Extract the comments embedded in the ``SQL`` query."
+
+    cdef PgQueryDeparseCommentsResult comments
+    cdef const char *cstring
+    cdef size_t i = 0
+
+    utf8 = query.encode('utf-8')
+    offset_to_index = Displacements(query)
+    cstring = utf8
+
+    with nogil:
+        comments = pg_query_deparse_comments_for_query(cstring)
+
+    try:
+        if comments.error:
+            message = comments.error.message.decode('utf-8')
+            raise ParseError(message, offset_to_index(comments.error.cursorpos-1))
+
+        result = []
+        while i < comments.comment_count:
+            result.append(Comment(
+                offset_to_index(comments.comments[i].match_location),
+                comments.comments[i].newlines_before_comment,
+                comments.comments[i].newlines_after_comment,
+                comments.comments[i].str.decode('utf-8'),
+            ))
+            i += 1
+        return tuple(result)
+    finally:
+        with nogil:
+            pg_query_free_deparse_comments_result(comments);
 
 
 def deparse_protobuf(bytes protobuf):

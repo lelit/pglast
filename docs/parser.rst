@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 10:19:26 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2021, 2023, 2024 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2021, 2023, 2024, 2025 Lele Gaifax
 ..
 
 ==========================================================
@@ -162,6 +162,42 @@ underlying ``libpg_query`` library it links against.
       Token(start=0, end=5, name='SELECT', kind='RESERVED_KEYWORD')
       >>> print([stmt[t.start:t.end+1] for t in tokens])
       ['select', 'bar', 'as', 'alìbàbà', 'from', 'foo']
+
+.. function:: comments(query)
+
+   :param str query: The SQL statement
+   :returns: sequence of tuples
+
+   Extract the comments embedded in the given `query`. Each comment is a `namedtuple` with the
+   following slots:
+
+   match_location : int
+     the position of the comment within the `query`: note that it is *not* the exact offset
+     from the start, but rather it's the `end of the prior non-comment-token`__
+
+   newlines_before_comment : int
+     the number of newlines that precede the comment
+
+   newlines_after_comment : int
+     the number of newlines that follow the comment
+
+   str : str
+     the comment itself
+
+   .. note:: This is mainly an *internal* function, used by the *deparse* functions: its
+             exposure here is just an accident... (TBH, to investigate on `#172`__, but
+             I'm afraid it does not solve any problem...).
+
+   Example:
+
+   .. doctest::
+
+      >>> from pglast.parser import comments
+      >>> comments('exists (select /* no columns */ from foo)')
+      (Comment(match_location=14, newlines_before_comment=0, newlines_after_comment=0, str='/* no columns */'),)
+
+   __ https://github.com/pganalyze/libpg_query/blob/release-17-6-2-0/src/pg_query_deparse.c#L126-L138
+   __ https://github.com/lelit/pglast/issues/172
 
 .. function:: split(query, with_parser=True, only_slices=False)
 

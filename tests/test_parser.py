@@ -3,17 +3,27 @@
 # :Created:   ven 04 ago 2017 08:37:10 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2023, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2023, 2024, 2025 Lele Gaifax
 #
 
 import json
 
 import pytest
 
-from pglast import Error, ast, parse_plpgsql, parse_sql
-from pglast.parser import Displacements, ParseError, deparse_protobuf, fingerprint
-from pglast.parser import get_postgresql_version, parse_sql_json, parse_sql_protobuf
-from pglast.parser import scan, split
+from pglast import Error
+from pglast import ast
+from pglast import parse_plpgsql
+from pglast import parse_sql
+from pglast.parser import Displacements
+from pglast.parser import ParseError
+from pglast.parser import comments
+from pglast.parser import deparse_protobuf
+from pglast.parser import fingerprint
+from pglast.parser import get_postgresql_version
+from pglast.parser import parse_sql_json
+from pglast.parser import parse_sql_protobuf
+from pglast.parser import scan
+from pglast.parser import split
 
 
 def test_parse_sql():
@@ -198,6 +208,26 @@ def test_scan():
                       ( 8,  8, 'IDENT',    'NO_KEYWORD'),        # noqa E201
                       (10, 10, 'ICONST',   'NO_KEYWORD')]
     assert sql[result[1].start] == '\\'
+
+
+def test_comments():
+    sql = '/* 👀 here, */ select /* 🐜 here */ 1 -- and 🪲 there'
+    remarks = comments(sql)
+    assert len(remarks) == 3
+
+    rem = remarks[0]
+    assert rem.str == '/* 👀 here, */'
+    assert rem.match_location == 0
+    assert rem.newlines_before_comment == 0
+    assert rem.newlines_after_comment == 0
+
+    rem = remarks[1]
+    assert rem.str == '/* 🐜 here */'
+    assert sql[rem.match_location-2:rem.match_location+5] == 'ct /* 🐜'
+
+    rem = remarks[2]
+    assert rem.str == '-- and 🪲 there'
+    assert sql[rem.match_location-2:rem.match_location+5] == ' 1 -- a'
 
 
 def test_deparse_protobuf():

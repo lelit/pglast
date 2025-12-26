@@ -52,3 +52,11 @@ def split(
 def deparse_protobuf(protobuf: bytes) -> str: ...
 
 def scan(query: str) -> list[Token]: ...
+
+class Comment(NamedTuple):
+    match_location: int
+    newlines_before_comment: int
+    newlines_after_comment: int
+    str: str
+
+def comments(query: str) -> tuple[Comment]: ...
