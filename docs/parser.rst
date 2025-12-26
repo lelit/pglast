@@ -31,8 +31,8 @@ underlying ``libpg_query`` library it links against.
 
 .. class:: Displacements(string)
 
-   Helper class used to find the index of Unicode character from its offset in the
-   corresponding UTF-8 encoded array.
+   Helper class used to find the index of ``Unicode`` character from its offset in the
+   corresponding ``UTF-8`` encoded array.
 
    Example:
 
