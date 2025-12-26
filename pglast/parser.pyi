@@ -46,7 +46,7 @@ def fingerprint(query: str) -> str: ...
 def split(
     stmts: str,
     with_parser: bool = True,
-    only_slices: bool = False
+    only_slices: bool = False,
 ) -> tuple[Union[str, slice], ...]: ...
 
 def deparse_protobuf(
