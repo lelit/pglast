@@ -8,6 +8,17 @@ Changes
 Version 7
 #########
 
+7.12 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Add basic type hints (`PR #178`__), thanks to Pierce Freeman
+
+  __ https://github.com/lelit/pglast/pull/178
+
+- Expose ``pg_query_deparse_protobuf_opts()`` instead of its ``pg_query_deparse_protobuf()``
+  wrapper
+
+
 7.11 (2025-12-15)
 ~~~~~~~~~~~~~~~~~
 
