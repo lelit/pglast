@@ -101,6 +101,15 @@ cdef extern from "pg_query.h" nogil:
         size_t comment_count
         PgQueryError* error
 
+    ctypedef struct PostgresDeparseOpts:
+        PostgresDeparseComment** comments
+        size_t comment_count
+        bint pretty_print
+        int indent_size
+        int max_line_length
+        bint trailing_newline
+        bint commas_start_of_line
+
     ctypedef struct PgQueryScanResult:
         PgQueryProtobuf pbuf
         PgQueryError *error
@@ -120,7 +129,8 @@ cdef extern from "pg_query.h" nogil:
     PgQueryDeparseCommentsResult pg_query_deparse_comments_for_query(const char* query)
     void pg_query_free_deparse_comments_result(PgQueryDeparseCommentsResult result)
 
-    PgQueryDeparseResult pg_query_deparse_protobuf(PgQueryProtobuf parse_tree)
+    PgQueryDeparseResult pg_query_deparse_protobuf_opts(PgQueryProtobuf parse_tree,
+                                                        PostgresDeparseOpts opts)
     void pg_query_free_deparse_result(PgQueryDeparseResult result)
 
     PgQuerySplitResult pg_query_split_with_scanner(const char* input)
@@ -485,15 +495,28 @@ def comments(str query):
             pg_query_free_deparse_comments_result(comments);
 
 
-def deparse_protobuf(bytes protobuf):
+def deparse_protobuf(bytes protobuf,
+                     bool pretty_print=False,
+                     int indent_size=4,
+                     int max_line_length=80,
+                     bool trailing_newline=False,
+                     bool commas_start_of_line=False):
     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
 
     cdef PgQueryProtobuf tree
     cdef PgQueryDeparseResult deparsed
+    cdef size_t i
+    cdef PostgresDeparseOpts opts = PostgresDeparseOpts(comments=<PostgresDeparseComment**> 0,
+                                                        comment_count=0,
+                                                        pretty_print=pretty_print,
+                                                        indent_size=indent_size,
+                                                        max_line_length=max_line_length,
+                                                        trailing_newline=trailing_newline,
+                                                        commas_start_of_line=commas_start_of_line)
 
     PyBytes_AsStringAndSize(protobuf, &tree.data, <Py_ssize_t *>&tree.len)
     with nogil:
-         deparsed = pg_query_deparse_protobuf(tree)
+        deparsed = pg_query_deparse_protobuf_opts(tree, opts)
 
     try:
         if deparsed.error:

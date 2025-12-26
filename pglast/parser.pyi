@@ -49,7 +49,14 @@ def split(
     only_slices: bool = False
 ) -> tuple[Union[str, slice], ...]: ...
 
-def deparse_protobuf(protobuf: bytes) -> str: ...
+def deparse_protobuf(
+    protobuf: bytes,
+    pretty_print: bool = False,
+    indent_size: int = 2,
+    max_line_length: int = 150,
+    trailing_newline: bool = True,
+    commas_start_of_line: bool = True,
+) -> str: ...
 
 def scan(query: str) -> list[Token]: ...
 

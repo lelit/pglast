@@ -232,6 +232,8 @@ def test_comments():
 
 def test_deparse_protobuf():
     assert deparse_protobuf(parse_sql_protobuf('select 1')) == 'SELECT 1'
+    assert deparse_protobuf(parse_sql_protobuf('select 1 from (select 2)'), True) \
+        == 'SELECT 1\nFROM\n    (\n        SELECT 2\n    )'
 
 
 def test_parse_sql_json():
