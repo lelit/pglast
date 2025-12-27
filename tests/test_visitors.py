@@ -291,6 +291,7 @@ def test_alter_node():
             if ancestors[1].colname == 'b':
                 return ast.Constraint(
                     contype=enums.ConstrType.CONSTR_CHECK,
+                    is_enforced=True,
                     raw_expr=ast.A_Expr(kind=enums.A_Expr_Kind.AEXPR_OP,
                                         lexpr=ast.ColumnRef(fields=(ast.String('b'),)),
                                         name=(ast.String('>'),),
