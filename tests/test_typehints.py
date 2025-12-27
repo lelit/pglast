@@ -55,7 +55,6 @@ def stub_parse_sql_empty() -> None:
 
 def stub_parser_functions() -> None:
     """Stub function to test other parser function type hints."""
-    from typing import Union
     from pglast.parser import get_postgresql_version, fingerprint, scan, split, Token
 
     query: str = 'SELECT name FROM users WHERE id = 1'
@@ -85,10 +84,10 @@ def stub_parser_functions() -> None:
     assert isinstance(token_start, int), f'Expected int, got {type(token_start)}'
 
     # Test split
-    statements: tuple[Union[str, slice], ...] = split('SELECT 1; SELECT 2;')
+    statements: tuple[str | slice, ...] = split('SELECT 1; SELECT 2;')
     assert isinstance(statements, tuple), f'Expected tuple, got {type(statements)}'
     assert len(statements) == 2, f'Expected 2 statements, got {len(statements)}'
-    first_stmt: Union[str, slice] = statements[0]
+    first_stmt: str | slice = statements[0]
     assert isinstance(first_stmt, str), f'Expected str, got {type(first_stmt)}'
 
 

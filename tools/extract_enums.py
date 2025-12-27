@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:54:39 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
 #
 
 from datetime import date
@@ -25,14 +25,7 @@ PY_HEADER = f"""\
 # :Copyright: © {CYEARS} Lele Gaifax
 #
 
-from enum import Enum, IntEnum, IntFlag, auto
-
-try:
-    from enum import StrEnum
-except ImportError:  # pragma: no cover
-    # Python < 3.10
-    class StrEnum(str, Enum):
-        pass
+from enum import Enum, IntEnum, IntFlag, StrEnum, auto
 """
 
 RST_HEADER = f"""\

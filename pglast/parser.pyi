@@ -5,23 +5,23 @@
 # :License:   GNU General Public License version 3 or later
 #
 
-from typing import NamedTuple, Union
+from typing import NamedTuple
 
 from .ast import RawStmt
 from .error import Error
 
 
 class ParseError(Error):
-    def __init__(self, message: str, location: Union[int, None] = None) -> None: ...
+    def __init__(self, message: str, location: int | None = None) -> None: ...
 
 
 class DeparseError(Error):
-    def __init__(self, message: str, location: Union[int, None] = None) -> None: ...
+    def __init__(self, message: str, location: int | None = None) -> None: ...
 
 
 class Displacements:
     def __init__(self, s: str) -> None: ...
-    def __call__(self, offset: int) -> Union[int, None]: ...
+    def __call__(self, offset: int) -> int | None: ...
 
 
 class Token(NamedTuple):
@@ -47,7 +47,7 @@ def split(
     stmts: str,
     with_parser: bool = True,
     only_slices: bool = False,
-) -> tuple[Union[str, slice], ...]: ...
+) -> tuple[str | slice, ...]: ...
 
 def deparse_protobuf(
     protobuf: bytes,

@@ -5,14 +5,7 @@
 # :Copyright: © 2017-2025 Lele Gaifax
 #
 
-from enum import Enum, IntEnum, IntFlag, auto
-
-try:
-    from enum import StrEnum
-except ImportError:  # pragma: no cover
-    # Python < 3.10
-    class StrEnum(str, Enum):
-        pass
+from enum import Enum, IntEnum, IntFlag, StrEnum, auto
 
 
 class A_Expr_Kind(IntEnum):
