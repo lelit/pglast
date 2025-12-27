@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 17-6.2.0-0-ga192b38
+# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 18-latest-dev-0-g8e5b04b
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2025 Lele Gaifax
@@ -57,6 +57,7 @@ cdef create_Query(structs.Query* data, offset_to_index):
     cdef object v_hasModifyingCTE = bool(data.hasModifyingCTE)
     cdef object v_hasForUpdate = bool(data.hasForUpdate)
     cdef object v_hasRowSecurity = bool(data.hasRowSecurity)
+    cdef object v_hasGroupRTE = bool(data.hasGroupRTE)
     cdef object v_isReturn = bool(data.isReturn)
     cdef tuple v_cteList = _pg_list_to_tuple(data.cteList, offset_to_index)
     cdef tuple v_rtable = _pg_list_to_tuple(data.rtable, offset_to_index)
@@ -68,6 +69,8 @@ cdef create_Query(structs.Query* data, offset_to_index):
     cdef tuple v_targetList = _pg_list_to_tuple(data.targetList, offset_to_index)
     cdef object v_override = getattr(enums, 'OverridingKind')(data.override)
     cdef object v_onConflict = create(data.onConflict, offset_to_index) if data.onConflict is not NULL else None
+    cdef object v_returningOldAlias = data.returningOldAlias.decode("utf-8") if data.returningOldAlias is not NULL else None
+    cdef object v_returningNewAlias = data.returningNewAlias.decode("utf-8") if data.returningNewAlias is not NULL else None
     cdef tuple v_returningList = _pg_list_to_tuple(data.returningList, offset_to_index)
     cdef tuple v_groupClause = _pg_list_to_tuple(data.groupClause, offset_to_index)
     cdef object v_groupDistinct = bool(data.groupDistinct)
@@ -85,7 +88,7 @@ cdef create_Query(structs.Query* data, offset_to_index):
     cdef tuple v_withCheckOptions = _pg_list_to_tuple(data.withCheckOptions, offset_to_index)
     cdef object v_stmt_location = offset_to_index(data.stmt_location)
     cdef object v_stmt_len = offset_to_index(data.stmt_len)
-    return ast.Query(v_commandType, v_querySource, v_canSetTag, v_utilityStmt, v_resultRelation, v_hasAggs, v_hasWindowFuncs, v_hasTargetSRFs, v_hasSubLinks, v_hasDistinctOn, v_hasRecursive, v_hasModifyingCTE, v_hasForUpdate, v_hasRowSecurity, v_isReturn, v_cteList, v_rtable, v_rteperminfos, v_jointree, v_mergeActionList, v_mergeTargetRelation, v_mergeJoinCondition, v_targetList, v_override, v_onConflict, v_returningList, v_groupClause, v_groupDistinct, v_groupingSets, v_havingQual, v_windowClause, v_distinctClause, v_sortClause, v_limitOffset, v_limitCount, v_limitOption, v_rowMarks, v_setOperations, v_constraintDeps, v_withCheckOptions, v_stmt_location, v_stmt_len)
+    return ast.Query(v_commandType, v_querySource, v_canSetTag, v_utilityStmt, v_resultRelation, v_hasAggs, v_hasWindowFuncs, v_hasTargetSRFs, v_hasSubLinks, v_hasDistinctOn, v_hasRecursive, v_hasModifyingCTE, v_hasForUpdate, v_hasRowSecurity, v_hasGroupRTE, v_isReturn, v_cteList, v_rtable, v_rteperminfos, v_jointree, v_mergeActionList, v_mergeTargetRelation, v_mergeJoinCondition, v_targetList, v_override, v_onConflict, v_returningOldAlias, v_returningNewAlias, v_returningList, v_groupClause, v_groupDistinct, v_groupingSets, v_havingQual, v_windowClause, v_distinctClause, v_sortClause, v_limitOffset, v_limitCount, v_limitOption, v_rowMarks, v_setOperations, v_constraintDeps, v_withCheckOptions, v_stmt_location, v_stmt_len)
 
 
 cdef create_TypeName(structs.TypeName* data, offset_to_index):
@@ -116,8 +119,10 @@ cdef create_A_Expr(structs.A_Expr* data, offset_to_index):
     cdef tuple v_name = _pg_list_to_tuple(data.name, offset_to_index)
     cdef object v_lexpr = create(data.lexpr, offset_to_index) if data.lexpr is not NULL else None
     cdef object v_rexpr = create(data.rexpr, offset_to_index) if data.rexpr is not NULL else None
+    cdef object v_rexpr_list_start = offset_to_index(data.rexpr_list_start)
+    cdef object v_rexpr_list_end = offset_to_index(data.rexpr_list_end)
     cdef object v_location = offset_to_index(data.location)
-    return ast.A_Expr(v_kind, v_name, v_lexpr, v_rexpr, v_location)
+    return ast.A_Expr(v_kind, v_name, v_lexpr, v_rexpr, v_rexpr_list_start, v_rexpr_list_end, v_location)
 
 
 cdef create_TypeCast(structs.TypeCast* data, offset_to_index):
@@ -175,8 +180,10 @@ cdef create_A_Indirection(structs.A_Indirection* data, offset_to_index):
 
 cdef create_A_ArrayExpr(structs.A_ArrayExpr* data, offset_to_index):
     cdef tuple v_elements = _pg_list_to_tuple(data.elements, offset_to_index)
+    cdef object v_list_start = offset_to_index(data.list_start)
+    cdef object v_list_end = offset_to_index(data.list_end)
     cdef object v_location = offset_to_index(data.location)
-    return ast.A_ArrayExpr(v_elements, v_location)
+    return ast.A_ArrayExpr(v_elements, v_list_start, v_list_end, v_location)
 
 
 cdef create_ResTarget(structs.ResTarget* data, offset_to_index):
@@ -363,10 +370,6 @@ cdef create_PartitionRangeDatum(structs.PartitionRangeDatum* data, offset_to_ind
     return ast.PartitionRangeDatum(v_kind, v_value, v_location)
 
 
-cdef create_SinglePartitionSpec(structs.SinglePartitionSpec* data, offset_to_index):
-    return ast.SinglePartitionSpec()
-
-
 cdef create_PartitionCmd(structs.PartitionCmd* data, offset_to_index):
     cdef object v_name = create(data.name, offset_to_index) if data.name is not NULL else None
     cdef object v_bound = create(data.bound, offset_to_index) if data.bound is not NULL else None
@@ -403,10 +406,11 @@ cdef create_RangeTblEntry(structs.RangeTblEntry* data, offset_to_index):
     cdef tuple v_colcollations = _pg_list_to_tuple(data.colcollations, offset_to_index)
     cdef object v_enrname = data.enrname.decode("utf-8") if data.enrname is not NULL else None
     cdef object v_enrtuples = data.enrtuples
+    cdef tuple v_groupexprs = _pg_list_to_tuple(data.groupexprs, offset_to_index)
     cdef object v_lateral = bool(data.lateral)
     cdef object v_inFromCl = bool(data.inFromCl)
     cdef tuple v_securityQuals = _pg_list_to_tuple(data.securityQuals, offset_to_index)
-    return ast.RangeTblEntry(v_alias, v_eref, v_rtekind, v_inh, v_relkind, v_rellockmode, v_perminfoindex, v_tablesample, v_subquery, v_security_barrier, v_jointype, v_joinmergedcols, v_joinaliasvars, v_joinleftcols, v_joinrightcols, v_join_using_alias, v_functions, v_funcordinality, v_tablefunc, v_values_lists, v_ctename, v_ctelevelsup, v_self_reference, v_coltypes, v_coltypmods, v_colcollations, v_enrname, v_enrtuples, v_lateral, v_inFromCl, v_securityQuals)
+    return ast.RangeTblEntry(v_alias, v_eref, v_rtekind, v_inh, v_relkind, v_rellockmode, v_perminfoindex, v_tablesample, v_subquery, v_security_barrier, v_jointype, v_joinmergedcols, v_joinaliasvars, v_joinleftcols, v_joinrightcols, v_join_using_alias, v_functions, v_funcordinality, v_tablefunc, v_values_lists, v_ctename, v_ctelevelsup, v_self_reference, v_coltypes, v_coltypmods, v_colcollations, v_enrname, v_enrtuples, v_groupexprs, v_lateral, v_inFromCl, v_securityQuals)
 
 
 cdef create_RTEPermissionInfo(structs.RTEPermissionInfo* data, offset_to_index):
@@ -446,9 +450,10 @@ cdef create_WithCheckOption(structs.WithCheckOption* data, offset_to_index):
 
 cdef create_SortGroupClause(structs.SortGroupClause* data, offset_to_index):
     cdef object v_tleSortGroupRef = data.tleSortGroupRef
+    cdef object v_reverse_sort = bool(data.reverse_sort)
     cdef object v_nulls_first = bool(data.nulls_first)
     cdef object v_hashable = bool(data.hashable)
-    return ast.SortGroupClause(v_tleSortGroupRef, v_nulls_first, v_hashable)
+    return ast.SortGroupClause(v_tleSortGroupRef, v_reverse_sort, v_nulls_first, v_hashable)
 
 
 cdef create_GroupingSet(structs.GroupingSet* data, offset_to_index):
@@ -549,6 +554,19 @@ cdef create_MergeWhenClause(structs.MergeWhenClause* data, offset_to_index):
     cdef tuple v_targetList = _pg_list_to_tuple(data.targetList, offset_to_index)
     cdef tuple v_values = _pg_list_to_tuple(data.values, offset_to_index)
     return ast.MergeWhenClause(v_matchKind, v_commandType, v_override, v_condition, v_targetList, v_values)
+
+
+cdef create_ReturningOption(structs.ReturningOption* data, offset_to_index):
+    cdef object v_option = getattr(enums, 'ReturningOptionKind')(data.option)
+    cdef object v_value = data.value.decode("utf-8") if data.value is not NULL else None
+    cdef object v_location = offset_to_index(data.location)
+    return ast.ReturningOption(v_option, v_value, v_location)
+
+
+cdef create_ReturningClause(structs.ReturningClause* data, offset_to_index):
+    cdef tuple v_options = _pg_list_to_tuple(data.options, offset_to_index)
+    cdef tuple v_exprs = _pg_list_to_tuple(data.exprs, offset_to_index)
+    return ast.ReturningClause(v_options, v_exprs)
 
 
 cdef create_TriggerTransition(structs.TriggerTransition* data, offset_to_index):
@@ -710,19 +728,19 @@ cdef create_InsertStmt(structs.InsertStmt* data, offset_to_index):
     cdef tuple v_cols = _pg_list_to_tuple(data.cols, offset_to_index)
     cdef object v_selectStmt = create(data.selectStmt, offset_to_index) if data.selectStmt is not NULL else None
     cdef object v_onConflictClause = create(data.onConflictClause, offset_to_index) if data.onConflictClause is not NULL else None
-    cdef tuple v_returningList = _pg_list_to_tuple(data.returningList, offset_to_index)
+    cdef object v_returningClause = create(data.returningClause, offset_to_index) if data.returningClause is not NULL else None
     cdef object v_withClause = create(data.withClause, offset_to_index) if data.withClause is not NULL else None
     cdef object v_override = getattr(enums, 'OverridingKind')(data.override)
-    return ast.InsertStmt(v_relation, v_cols, v_selectStmt, v_onConflictClause, v_returningList, v_withClause, v_override)
+    return ast.InsertStmt(v_relation, v_cols, v_selectStmt, v_onConflictClause, v_returningClause, v_withClause, v_override)
 
 
 cdef create_DeleteStmt(structs.DeleteStmt* data, offset_to_index):
     cdef object v_relation = create(data.relation, offset_to_index) if data.relation is not NULL else None
     cdef tuple v_usingClause = _pg_list_to_tuple(data.usingClause, offset_to_index)
     cdef object v_whereClause = create(data.whereClause, offset_to_index) if data.whereClause is not NULL else None
-    cdef tuple v_returningList = _pg_list_to_tuple(data.returningList, offset_to_index)
+    cdef object v_returningClause = create(data.returningClause, offset_to_index) if data.returningClause is not NULL else None
     cdef object v_withClause = create(data.withClause, offset_to_index) if data.withClause is not NULL else None
-    return ast.DeleteStmt(v_relation, v_usingClause, v_whereClause, v_returningList, v_withClause)
+    return ast.DeleteStmt(v_relation, v_usingClause, v_whereClause, v_returningClause, v_withClause)
 
 
 cdef create_UpdateStmt(structs.UpdateStmt* data, offset_to_index):
@@ -730,9 +748,9 @@ cdef create_UpdateStmt(structs.UpdateStmt* data, offset_to_index):
     cdef tuple v_targetList = _pg_list_to_tuple(data.targetList, offset_to_index)
     cdef object v_whereClause = create(data.whereClause, offset_to_index) if data.whereClause is not NULL else None
     cdef tuple v_fromClause = _pg_list_to_tuple(data.fromClause, offset_to_index)
-    cdef tuple v_returningList = _pg_list_to_tuple(data.returningList, offset_to_index)
+    cdef object v_returningClause = create(data.returningClause, offset_to_index) if data.returningClause is not NULL else None
     cdef object v_withClause = create(data.withClause, offset_to_index) if data.withClause is not NULL else None
-    return ast.UpdateStmt(v_relation, v_targetList, v_whereClause, v_fromClause, v_returningList, v_withClause)
+    return ast.UpdateStmt(v_relation, v_targetList, v_whereClause, v_fromClause, v_returningClause, v_withClause)
 
 
 cdef create_MergeStmt(structs.MergeStmt* data, offset_to_index):
@@ -740,9 +758,9 @@ cdef create_MergeStmt(structs.MergeStmt* data, offset_to_index):
     cdef object v_sourceRelation = create(data.sourceRelation, offset_to_index) if data.sourceRelation is not NULL else None
     cdef object v_joinCondition = create(data.joinCondition, offset_to_index) if data.joinCondition is not NULL else None
     cdef tuple v_mergeWhenClauses = _pg_list_to_tuple(data.mergeWhenClauses, offset_to_index)
-    cdef tuple v_returningList = _pg_list_to_tuple(data.returningList, offset_to_index)
+    cdef object v_returningClause = create(data.returningClause, offset_to_index) if data.returningClause is not NULL else None
     cdef object v_withClause = create(data.withClause, offset_to_index) if data.withClause is not NULL else None
-    return ast.MergeStmt(v_relation, v_sourceRelation, v_joinCondition, v_mergeWhenClauses, v_returningList, v_withClause)
+    return ast.MergeStmt(v_relation, v_sourceRelation, v_joinCondition, v_mergeWhenClauses, v_returningClause, v_withClause)
 
 
 cdef create_SelectStmt(structs.SelectStmt* data, offset_to_index):
@@ -811,12 +829,6 @@ cdef create_AlterTableStmt(structs.AlterTableStmt* data, offset_to_index):
     return ast.AlterTableStmt(v_relation, v_cmds, v_objtype, v_missing_ok)
 
 
-cdef create_ReplicaIdentityStmt(structs.ReplicaIdentityStmt* data, offset_to_index):
-    cdef object v_identity_type = chr(data.identity_type)
-    cdef object v_name = data.name.decode("utf-8") if data.name is not NULL else None
-    return ast.ReplicaIdentityStmt(v_identity_type, v_name)
-
-
 cdef create_AlterTableCmd(structs.AlterTableCmd* data, offset_to_index):
     cdef object v_subtype = getattr(enums, 'AlterTableType')(data.subtype)
     cdef object v_name = data.name.decode("utf-8") if data.name is not NULL else None
@@ -827,6 +839,24 @@ cdef create_AlterTableCmd(structs.AlterTableCmd* data, offset_to_index):
     cdef object v_missing_ok = bool(data.missing_ok)
     cdef object v_recurse = bool(data.recurse)
     return ast.AlterTableCmd(v_subtype, v_name, v_num, v_newowner, v_def_, v_behavior, v_missing_ok, v_recurse)
+
+
+cdef create_ATAlterConstraint(structs.ATAlterConstraint* data, offset_to_index):
+    cdef object v_conname = data.conname.decode("utf-8") if data.conname is not NULL else None
+    cdef object v_alterEnforceability = bool(data.alterEnforceability)
+    cdef object v_is_enforced = bool(data.is_enforced)
+    cdef object v_alterDeferrability = bool(data.alterDeferrability)
+    cdef object v_deferrable = bool(data.deferrable)
+    cdef object v_initdeferred = bool(data.initdeferred)
+    cdef object v_alterInheritability = bool(data.alterInheritability)
+    cdef object v_noinherit = bool(data.noinherit)
+    return ast.ATAlterConstraint(v_conname, v_alterEnforceability, v_is_enforced, v_alterDeferrability, v_deferrable, v_initdeferred, v_alterInheritability, v_noinherit)
+
+
+cdef create_ReplicaIdentityStmt(structs.ReplicaIdentityStmt* data, offset_to_index):
+    cdef object v_identity_type = chr(data.identity_type)
+    cdef object v_name = data.name.decode("utf-8") if data.name is not NULL else None
+    return ast.ReplicaIdentityStmt(v_identity_type, v_name)
 
 
 cdef create_AlterCollationStmt(structs.AlterCollationStmt* data, offset_to_index):
@@ -903,8 +933,10 @@ cdef create_VariableSetStmt(structs.VariableSetStmt* data, offset_to_index):
     cdef object v_kind = getattr(enums, 'VariableSetKind')(data.kind)
     cdef object v_name = data.name.decode("utf-8") if data.name is not NULL else None
     cdef tuple v_args = _pg_list_to_tuple(data.args, offset_to_index)
+    cdef object v_jumble_args = bool(data.jumble_args)
     cdef object v_is_local = bool(data.is_local)
-    return ast.VariableSetStmt(v_kind, v_name, v_args, v_is_local)
+    cdef object v_location = offset_to_index(data.location)
+    return ast.VariableSetStmt(v_kind, v_name, v_args, v_jumble_args, v_is_local, v_location)
 
 
 cdef create_VariableShowStmt(structs.VariableShowStmt* data, offset_to_index):
@@ -920,12 +952,13 @@ cdef create_CreateStmt(structs.CreateStmt* data, offset_to_index):
     cdef object v_partspec = create(data.partspec, offset_to_index) if data.partspec is not NULL else None
     cdef object v_ofTypename = create(data.ofTypename, offset_to_index) if data.ofTypename is not NULL else None
     cdef tuple v_constraints = _pg_list_to_tuple(data.constraints, offset_to_index)
+    cdef tuple v_nnconstraints = _pg_list_to_tuple(data.nnconstraints, offset_to_index)
     cdef tuple v_options = _pg_list_to_tuple(data.options, offset_to_index)
     cdef object v_oncommit = getattr(enums, 'OnCommitAction')(data.oncommit)
     cdef object v_tablespacename = data.tablespacename.decode("utf-8") if data.tablespacename is not NULL else None
     cdef object v_accessMethod = data.accessMethod.decode("utf-8") if data.accessMethod is not NULL else None
     cdef object v_if_not_exists = bool(data.if_not_exists)
-    return ast.CreateStmt(v_relation, v_tableElts, v_inhRelations, v_partbound, v_partspec, v_ofTypename, v_constraints, v_options, v_oncommit, v_tablespacename, v_accessMethod, v_if_not_exists)
+    return ast.CreateStmt(v_relation, v_tableElts, v_inhRelations, v_partbound, v_partspec, v_ofTypename, v_constraints, v_nnconstraints, v_options, v_oncommit, v_tablespacename, v_accessMethod, v_if_not_exists)
 
 
 cdef create_Constraint(structs.Constraint* data, offset_to_index):
@@ -933,15 +966,17 @@ cdef create_Constraint(structs.Constraint* data, offset_to_index):
     cdef object v_conname = data.conname.decode("utf-8") if data.conname is not NULL else None
     cdef object v_deferrable = bool(data.deferrable)
     cdef object v_initdeferred = bool(data.initdeferred)
+    cdef object v_is_enforced = bool(data.is_enforced)
     cdef object v_skip_validation = bool(data.skip_validation)
     cdef object v_initially_valid = bool(data.initially_valid)
     cdef object v_is_no_inherit = bool(data.is_no_inherit)
     cdef object v_raw_expr = create(data.raw_expr, offset_to_index) if data.raw_expr is not NULL else None
     cdef object v_cooked_expr = data.cooked_expr.decode("utf-8") if data.cooked_expr is not NULL else None
     cdef object v_generated_when = chr(data.generated_when)
-    cdef object v_inhcount = data.inhcount
+    cdef object v_generated_kind = chr(data.generated_kind)
     cdef object v_nulls_not_distinct = bool(data.nulls_not_distinct)
     cdef tuple v_keys = _pg_list_to_tuple(data.keys, offset_to_index)
+    cdef object v_without_overlaps = bool(data.without_overlaps)
     cdef tuple v_including = _pg_list_to_tuple(data.including, offset_to_index)
     cdef tuple v_exclusions = _pg_list_to_tuple(data.exclusions, offset_to_index)
     cdef tuple v_options = _pg_list_to_tuple(data.options, offset_to_index)
@@ -953,13 +988,15 @@ cdef create_Constraint(structs.Constraint* data, offset_to_index):
     cdef object v_pktable = create(data.pktable, offset_to_index) if data.pktable is not NULL else None
     cdef tuple v_fk_attrs = _pg_list_to_tuple(data.fk_attrs, offset_to_index)
     cdef tuple v_pk_attrs = _pg_list_to_tuple(data.pk_attrs, offset_to_index)
+    cdef object v_fk_with_period = bool(data.fk_with_period)
+    cdef object v_pk_with_period = bool(data.pk_with_period)
     cdef object v_fk_matchtype = chr(data.fk_matchtype)
     cdef object v_fk_upd_action = chr(data.fk_upd_action)
     cdef object v_fk_del_action = chr(data.fk_del_action)
     cdef tuple v_fk_del_set_cols = _pg_list_to_tuple(data.fk_del_set_cols, offset_to_index)
     cdef tuple v_old_conpfeqop = _pg_list_to_tuple(data.old_conpfeqop, offset_to_index)
     cdef object v_location = offset_to_index(data.location)
-    return ast.Constraint(v_contype, v_conname, v_deferrable, v_initdeferred, v_skip_validation, v_initially_valid, v_is_no_inherit, v_raw_expr, v_cooked_expr, v_generated_when, v_inhcount, v_nulls_not_distinct, v_keys, v_including, v_exclusions, v_options, v_indexname, v_indexspace, v_reset_default_tblspc, v_access_method, v_where_clause, v_pktable, v_fk_attrs, v_pk_attrs, v_fk_matchtype, v_fk_upd_action, v_fk_del_action, v_fk_del_set_cols, v_old_conpfeqop, v_location)
+    return ast.Constraint(v_contype, v_conname, v_deferrable, v_initdeferred, v_is_enforced, v_skip_validation, v_initially_valid, v_is_no_inherit, v_raw_expr, v_cooked_expr, v_generated_when, v_generated_kind, v_nulls_not_distinct, v_keys, v_without_overlaps, v_including, v_exclusions, v_options, v_indexname, v_indexspace, v_reset_default_tblspc, v_access_method, v_where_clause, v_pktable, v_fk_attrs, v_pk_attrs, v_fk_with_period, v_pk_with_period, v_fk_matchtype, v_fk_upd_action, v_fk_del_action, v_fk_del_set_cols, v_old_conpfeqop, v_location)
 
 
 cdef create_CreateTableSpaceStmt(structs.CreateTableSpaceStmt* data, offset_to_index):
@@ -1320,13 +1357,14 @@ cdef create_IndexStmt(structs.IndexStmt* data, offset_to_index):
     cdef object v_nulls_not_distinct = bool(data.nulls_not_distinct)
     cdef object v_primary = bool(data.primary)
     cdef object v_isconstraint = bool(data.isconstraint)
+    cdef object v_iswithoutoverlaps = bool(data.iswithoutoverlaps)
     cdef object v_deferrable = bool(data.deferrable)
     cdef object v_initdeferred = bool(data.initdeferred)
     cdef object v_transformed = bool(data.transformed)
     cdef object v_concurrent = bool(data.concurrent)
     cdef object v_if_not_exists = bool(data.if_not_exists)
     cdef object v_reset_default_tblspc = bool(data.reset_default_tblspc)
-    return ast.IndexStmt(v_idxname, v_relation, v_accessMethod, v_tableSpace, v_indexParams, v_indexIncludingParams, v_options, v_whereClause, v_excludeOpNames, v_idxcomment, v_oldNumber, v_oldCreateSubid, v_oldFirstRelfilelocatorSubid, v_unique, v_nulls_not_distinct, v_primary, v_isconstraint, v_deferrable, v_initdeferred, v_transformed, v_concurrent, v_if_not_exists, v_reset_default_tblspc)
+    return ast.IndexStmt(v_idxname, v_relation, v_accessMethod, v_tableSpace, v_indexParams, v_indexIncludingParams, v_options, v_whereClause, v_excludeOpNames, v_idxcomment, v_oldNumber, v_oldCreateSubid, v_oldFirstRelfilelocatorSubid, v_unique, v_nulls_not_distinct, v_primary, v_isconstraint, v_iswithoutoverlaps, v_deferrable, v_initdeferred, v_transformed, v_concurrent, v_if_not_exists, v_reset_default_tblspc)
 
 
 cdef create_CreateStatsStmt(structs.CreateStatsStmt* data, offset_to_index):
@@ -1369,7 +1407,8 @@ cdef create_FunctionParameter(structs.FunctionParameter* data, offset_to_index):
     cdef object v_argType = create(data.argType, offset_to_index) if data.argType is not NULL else None
     cdef object v_mode = getattr(enums, 'FunctionParameterMode')(chr(data.mode))
     cdef object v_defexpr = create(data.defexpr, offset_to_index) if data.defexpr is not NULL else None
-    return ast.FunctionParameter(v_name, v_argType, v_mode, v_defexpr)
+    cdef object v_location = offset_to_index(data.location)
+    return ast.FunctionParameter(v_name, v_argType, v_mode, v_defexpr, v_location)
 
 
 cdef create_AlterFunctionStmt(structs.AlterFunctionStmt* data, offset_to_index):
@@ -1828,8 +1867,9 @@ cdef create_Var(structs.Var* data, offset_to_index):
     cdef object v_vartypmod = data.vartypmod
     cdef set v_varnullingrels = _pg_bitmapset_to_set(data.varnullingrels)
     cdef object v_varlevelsup = data.varlevelsup
+    cdef object v_varreturningtype = getattr(enums, 'VarReturningType')(data.varreturningtype)
     cdef object v_location = offset_to_index(data.location)
-    return ast.Var(v_varno, v_varattno, v_vartypmod, v_varnullingrels, v_varlevelsup, v_location)
+    return ast.Var(v_varno, v_varattno, v_vartypmod, v_varnullingrels, v_varlevelsup, v_varreturningtype, v_location)
 
 
 cdef create_Param(structs.Param* data, offset_to_index):
@@ -2042,8 +2082,10 @@ cdef create_CaseTestExpr(structs.CaseTestExpr* data, offset_to_index):
 cdef create_ArrayExpr(structs.ArrayExpr* data, offset_to_index):
     cdef tuple v_elements = _pg_list_to_tuple(data.elements, offset_to_index)
     cdef object v_multidims = bool(data.multidims)
+    cdef object v_list_start = offset_to_index(data.list_start)
+    cdef object v_list_end = offset_to_index(data.list_end)
     cdef object v_location = offset_to_index(data.location)
-    return ast.ArrayExpr(v_elements, v_multidims, v_location)
+    return ast.ArrayExpr(v_elements, v_multidims, v_list_start, v_list_end, v_location)
 
 
 cdef create_RowExpr(structs.RowExpr* data, offset_to_index):
@@ -2055,13 +2097,13 @@ cdef create_RowExpr(structs.RowExpr* data, offset_to_index):
 
 
 cdef create_RowCompareExpr(structs.RowCompareExpr* data, offset_to_index):
-    cdef object v_rctype = getattr(enums, 'RowCompareType')(data.rctype)
+    cdef object v_cmptype = getattr(enums, 'CompareType')(data.cmptype)
     cdef tuple v_opnos = _pg_list_to_tuple(data.opnos, offset_to_index)
     cdef tuple v_opfamilies = _pg_list_to_tuple(data.opfamilies, offset_to_index)
     cdef tuple v_inputcollids = _pg_list_to_tuple(data.inputcollids, offset_to_index)
     cdef tuple v_largs = _pg_list_to_tuple(data.largs, offset_to_index)
     cdef tuple v_rargs = _pg_list_to_tuple(data.rargs, offset_to_index)
-    return ast.RowCompareExpr(v_rctype, v_opnos, v_opfamilies, v_inputcollids, v_largs, v_rargs)
+    return ast.RowCompareExpr(v_cmptype, v_opnos, v_opfamilies, v_inputcollids, v_largs, v_rargs)
 
 
 cdef create_CoalesceExpr(structs.CoalesceExpr* data, offset_to_index):
@@ -2220,6 +2262,13 @@ cdef create_CurrentOfExpr(structs.CurrentOfExpr* data, offset_to_index):
 cdef create_InferenceElem(structs.InferenceElem* data, offset_to_index):
     cdef object v_expr = create(data.expr, offset_to_index) if data.expr is not NULL else None
     return ast.InferenceElem(v_expr)
+
+
+cdef create_ReturningExpr(structs.ReturningExpr* data, offset_to_index):
+    cdef object v_retlevelsup = data.retlevelsup
+    cdef object v_retold = bool(data.retold)
+    cdef object v_retexpr = create(data.retexpr, offset_to_index) if data.retexpr is not NULL else None
+    return ast.ReturningExpr(v_retlevelsup, v_retold, v_retexpr)
 
 
 cdef create_TargetEntry(structs.TargetEntry* data, offset_to_index):
@@ -2427,6 +2476,8 @@ cdef create(void* data, offset_to_index):
         return create_CurrentOfExpr(<structs.CurrentOfExpr*> data, offset_to_index)
     elif tag == structs.T_InferenceElem:
         return create_InferenceElem(<structs.InferenceElem*> data, offset_to_index)
+    elif tag == structs.T_ReturningExpr:
+        return create_ReturningExpr(<structs.ReturningExpr*> data, offset_to_index)
     elif tag == structs.T_TargetEntry:
         return create_TargetEntry(<structs.TargetEntry*> data, offset_to_index)
     elif tag == structs.T_RangeTblRef:
@@ -2503,8 +2554,6 @@ cdef create(void* data, offset_to_index):
         return create_PartitionBoundSpec(<structs.PartitionBoundSpec*> data, offset_to_index)
     elif tag == structs.T_PartitionRangeDatum:
         return create_PartitionRangeDatum(<structs.PartitionRangeDatum*> data, offset_to_index)
-    elif tag == structs.T_SinglePartitionSpec:
-        return create_SinglePartitionSpec(<structs.SinglePartitionSpec*> data, offset_to_index)
     elif tag == structs.T_PartitionCmd:
         return create_PartitionCmd(<structs.PartitionCmd*> data, offset_to_index)
     elif tag == structs.T_RangeTblEntry:
@@ -2539,6 +2588,10 @@ cdef create(void* data, offset_to_index):
         return create_CommonTableExpr(<structs.CommonTableExpr*> data, offset_to_index)
     elif tag == structs.T_MergeWhenClause:
         return create_MergeWhenClause(<structs.MergeWhenClause*> data, offset_to_index)
+    elif tag == structs.T_ReturningOption:
+        return create_ReturningOption(<structs.ReturningOption*> data, offset_to_index)
+    elif tag == structs.T_ReturningClause:
+        return create_ReturningClause(<structs.ReturningClause*> data, offset_to_index)
     elif tag == structs.T_TriggerTransition:
         return create_TriggerTransition(<structs.TriggerTransition*> data, offset_to_index)
     elif tag == structs.T_JsonOutput:
@@ -2595,10 +2648,12 @@ cdef create(void* data, offset_to_index):
         return create_CreateSchemaStmt(<structs.CreateSchemaStmt*> data, offset_to_index)
     elif tag == structs.T_AlterTableStmt:
         return create_AlterTableStmt(<structs.AlterTableStmt*> data, offset_to_index)
-    elif tag == structs.T_ReplicaIdentityStmt:
-        return create_ReplicaIdentityStmt(<structs.ReplicaIdentityStmt*> data, offset_to_index)
     elif tag == structs.T_AlterTableCmd:
         return create_AlterTableCmd(<structs.AlterTableCmd*> data, offset_to_index)
+    elif tag == structs.T_ATAlterConstraint:
+        return create_ATAlterConstraint(<structs.ATAlterConstraint*> data, offset_to_index)
+    elif tag == structs.T_ReplicaIdentityStmt:
+        return create_ReplicaIdentityStmt(<structs.ReplicaIdentityStmt*> data, offset_to_index)
     elif tag == structs.T_AlterCollationStmt:
         return create_AlterCollationStmt(<structs.AlterCollationStmt*> data, offset_to_index)
     elif tag == structs.T_AlterDomainStmt:

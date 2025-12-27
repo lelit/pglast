@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast — DO NOT EDIT: automatically extracted from parsenodes.h @ 17-6.2.0-0-ga192b38
+# :Project:   pglast — DO NOT EDIT: automatically extracted from parsenodes.h @ 18-latest-dev-0-g8e5b04b
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2017-2025 Lele Gaifax
@@ -66,7 +66,6 @@ class AlterTableType(IntEnum):
     AT_SetNotNull = auto()
     AT_SetExpression = auto()
     AT_DropExpression = auto()
-    AT_CheckNotNull = auto()
     AT_SetStatistics = auto()
     AT_SetOptions = auto()
     AT_ResetOptions = auto()
@@ -148,6 +147,8 @@ class ConstrType(IntEnum):
     CONSTR_ATTR_NOT_DEFERRABLE = auto()
     CONSTR_ATTR_DEFERRED = auto()
     CONSTR_ATTR_IMMEDIATE = auto()
+    CONSTR_ATTR_ENFORCED = auto()
+    CONSTR_ATTR_NOT_ENFORCED = auto()
 
 
 class DefElemAction(IntEnum):
@@ -311,6 +312,7 @@ class RTEKind(IntEnum):
     RTE_CTE = auto()
     RTE_NAMEDTUPLESTORE = auto()
     RTE_RESULT = auto()
+    RTE_GROUP = auto()
 
 
 class ReindexObjectType(IntEnum):
@@ -319,6 +321,11 @@ class ReindexObjectType(IntEnum):
     REINDEX_OBJECT_SCHEMA = auto()
     REINDEX_OBJECT_SYSTEM = auto()
     REINDEX_OBJECT_DATABASE = auto()
+
+
+class ReturningOptionKind(IntEnum):
+    RETURNING_OPTION_OLD = 0
+    RETURNING_OPTION_NEW = auto()
 
 
 class RoleSpecType(IntEnum):
@@ -371,7 +378,7 @@ class TableLikeOption(IntFlag):
     CREATE_TABLE_LIKE_INDEXES = 1 << 6
     CREATE_TABLE_LIKE_STATISTICS = 1 << 7
     CREATE_TABLE_LIKE_STORAGE = 1 << 8
-    CREATE_TABLE_LIKE_ALL = 0x7FFFFFFF
+    CREATE_TABLE_LIKE_ALL = 2147483647
 
 
 class TransactionStmtKind(IntEnum):

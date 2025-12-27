@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:52:45 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
 #
 
 export TOPDIR := $(CURDIR)
@@ -126,6 +126,9 @@ pglast/enums/pg_trigger.py: $(PG_INCLUDE_DIR)/catalog/pg_trigger.h
 	$(extract_enums)
 
 pglast/enums/xml.py: $(PG_INCLUDE_DIR)/utils/xml.h
+	$(extract_enums)
+
+pglast/enums/cmptype.py: $(PG_INCLUDE_DIR)/access/cmptype.h
 	$(extract_enums)
 
 help::

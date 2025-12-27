@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 12:44:33 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019, 2021, 2024 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2021, 2024, 2025 Lele Gaifax
 ..
 
 ================================================
@@ -15,6 +15,14 @@
 
 This module contains all the constants that are used to give a meaning to some *scalar* values
 of the various kinds of nodes, extracted automatically from the PostgreSQL headers.
+
+
+From ``include/access``
+=======================
+
+.. toctree::
+
+   cmptype
 
 
 From ``include/catalog``
