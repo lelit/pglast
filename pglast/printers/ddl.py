@@ -2466,9 +2466,9 @@ def define_stmt(node, output):
         with output.expression(True):
             if count == -1:
                 # Special case: if it's an aggregate, and the scalar is equal to
-                # None (not is, since it's a Scalar), write a star
+                # None (not "is", since it's a Scalar), write a star
                 if ((node.kind == enums.ObjectType.OBJECT_AGGREGATE
-                     and args == None)):
+                     and args == None)):  # noqa
                     output.write('*')
                     actual_args = []
                     orderby_args = []
