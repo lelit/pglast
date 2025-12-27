@@ -3,7 +3,7 @@
 # :Created:   sab 27 feb 2021, 19:47:11
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022, 2023, 2024 Lele Gaifax
+# :Copyright: © 2021, 2022, 2023, 2024, 2025 Lele Gaifax
 #
 
 from datetime import date
@@ -75,7 +75,7 @@ def _serialize_value(v, depth, ellipsis, skip_none):
     return v
 
 
-class Omissis:
+class __Omissis:
     def __eq__(self, other):
         if other is ... or other is self:
             return True
@@ -85,7 +85,7 @@ class Omissis:
         return '…'
 
 
-Omissis = Omissis()
+Omissis = __Omissis()
 "Marker value used as default for the ellipsis argument"
 
 
