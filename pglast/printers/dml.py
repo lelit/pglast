@@ -540,10 +540,12 @@ def copy_stmt_def_elem(node, output):
         else:
             output.write('*')
     elif option == 'convert_selectively':
-        output.write(option.upper())
-        output.write(' ')
+        output.write('CONVERT_SELECTIVELY ')
         with output.expression(True):
             output.print_name(argv)
+    elif option == 'reject_limit':
+        output.write('REJECT_LIMIT ')
+        output.swrite(str(argv.ival))
     else:
         raise NotImplementedError(option)
 
@@ -591,10 +593,10 @@ def delete_stmt(node, output):
             output.newline()
             output.write('WHERE ')
             output.print_node(node.whereClause)
-        if node.returningList:
+        if node.returningClause:
             output.newline()
             output.write('RETURNING ')
-            output.print_list(node.returningList)
+            output.print_node(node.returningClause)
 
         if node.withClause:
             output.dedent()
@@ -832,10 +834,10 @@ def insert_stmt(node, output):
             output.newline()
             output.write('ON CONFLICT ')
             output.print_node(node.onConflictClause)
-        if node.returningList:
+        if node.returningClause:
             output.newline()
             output.write('RETURNING ')
-            output.print_name(node.returningList, ',')
+            output.print_node(node.returningClause)
 
         if node.withClause:
             output.dedent()
@@ -1413,19 +1415,10 @@ def merge_stmt(node, output):
                 output.newline()
             output.print_node(when)
 
-        if node.returningList:
+        if node.returningClause:
             output.newline()
             output.write('RETURNING ')
-            first = True
-            for elem in node.returningList:
-                if first:
-                    first = False
-                else:
-                    output.write(', ')
-                output.print_node(elem.val)
-                if elem.name:
-                    output.write(' AS ')
-                    output.print_name(elem.name)
+            output.print_node(node.returningClause)
 
         if node.withClause is not None:
             output.dedent()
@@ -1671,6 +1664,25 @@ def range_table_sample(node, output):
 def raw_stmt(node, output):
     if node.stmt is not None:
         output.print_node(node.stmt)
+
+
+@node_printer(ast.ReturningClause)
+def returning_clause(node, output):
+    if node.options:
+        output.swrite('WITH ')
+        with output.expression(True):
+            output.print_list(node.options)
+        output.write(' ')
+    output.print_list(node.exprs)
+
+
+@node_printer(ast.ReturningOption)
+def returning_option(node, output):
+    if node.option == enums.ReturningOptionKind.RETURNING_OPTION_NEW:
+        output.write('NEW AS ')
+    elif node.option == enums.ReturningOptionKind.RETURNING_OPTION_OLD:
+        output.write('OLD AS ')
+    output.print_name(node.value)
 
 
 @node_printer(ast.ResTarget)
@@ -2166,19 +2178,11 @@ def update_stmt(node, output):
             output.newline()
             output.write('WHERE ')
             output.print_node(node.whereClause)
-        if node.returningList:
+        if node.returningClause:
             output.newline()
             output.write('RETURNING ')
-            first = True
-            for elem in node.returningList:
-                if first:
-                    first = False
-                else:
-                    output.write(', ')
-                output.print_node(elem.val)
-                if elem.name:
-                    output.write(' AS ')
-                    output.print_name(elem.name)
+            output.print_node(node.returningClause)
+
         if node.withClause:
             output.dedent()
 

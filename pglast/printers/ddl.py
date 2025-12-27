@@ -482,6 +482,11 @@ class AlterTableTypePrinter(IntEnumPrinter):
         output.write('DETACH PARTITION ')
         output.print_name(node.def_)
 
+    def AT_DetachPartitionFinalize(self, node, output):
+        output.write('DETACH PARTITION ')
+        output.print_name(node.def_)
+        output.write(' FINALIZE')
+
     def AT_DisableRowSecurity(self, node, output):
         output.write(' DISABLE ROW LEVEL SECURITY ')
 
@@ -1110,6 +1115,28 @@ def alter_type_stmt(node, output):
         output.print_list(node.options, ',')
 
 
+@node_printer(ast.ATAlterConstraint)
+def at_alter_constraint(node, output):
+    output.write('CONSTRAINT ')
+    output.print_name(node.conname)
+    if node.alterEnforceability:
+        if not node.is_enforced:
+            output.write(' NOT')
+        output.write(' ENFORCED')
+    if node.alterDeferrability:
+        if not node.deferrable:
+            output.write(' NOT')
+        output.write(' DEFERRABLE INITIALLY')
+        if node.initdeferred:
+            output.write(' DEFERRED')
+        else:
+            output.write(' IMMEDIATE')
+    if node.alterInheritability:
+        if node.noinherit:
+            output.write(' NO')
+        output.write(' INHERIT')
+
+
 @node_printer(ast.CheckPointStmt)
 def check_point_stmt(node, output):
     output.write('CHECKPOINT')
@@ -1236,11 +1263,56 @@ def composite_type_stmt_range_var(node, output):
 class ConstrTypePrinter(IntEnumPrinter):
     enum = enums.ConstrType
 
-    def CONSTR_ATTR_DEFERRABLE(self, node, output):
-        output.swrite('DEFERRABLE')
+    def CONSTR_NULL(self, node, output):
+        output.swrite('NULL')
+        if node.keys and (len(node.keys) > 1 or node.keys[0].sval != 'value'):
+            output.write(' ')
+            output.print_name(node.keys, ',')
+        if node.is_no_inherit:
+            output.swrite('NO INHERIT')
 
-    def CONSTR_ATTR_DEFERRED(self, node, output):
-        output.swrite('INITIALLY DEFERRED')
+    def CONSTR_NOTNULL(self, node, output):
+        output.swrite('NOT NULL')
+        if node.keys and (len(node.keys) > 1 or node.keys[0].sval != 'value'):
+            output.write(' ')
+            output.print_name(node.keys, ',')
+        if node.is_no_inherit:
+            output.swrite('NO INHERIT')
+
+    def CONSTR_DEFAULT(self, node, output):
+        output.swrite('DEFAULT ')
+        assert not (node.raw_expr is not None and node.cooked_expr is not None)
+        # Handle DEFAULT (1 IN (1,2))
+        expr = node.cooked_expr if node.raw_expr is None else node.raw_expr
+        need_parens = isinstance(expr, ast.A_Expr) and expr.kind == enums.A_Expr_Kind.AEXPR_IN
+        with output.expression(need_parens):
+            output.print_node(expr)
+
+    def CONSTR_IDENTITY(self, node, output):
+        output.swrite('GENERATED ')
+        if node.generated_when == enums.ATTRIBUTE_IDENTITY_ALWAYS:
+            output.write('ALWAYS ')
+        elif node.generated_when == enums.ATTRIBUTE_IDENTITY_BY_DEFAULT:
+            output.write('BY DEFAULT ')
+        output.write('AS IDENTITY')
+        if node.options:
+            output.space()
+            with output.expression(True):
+                output.print_list(node.options, '')
+
+    def CONSTR_GENERATED(self, node, output):
+        output.swrite('GENERATED ')
+        if node.generated_when == 'a':
+            output.write('ALWAYS ')
+        else:
+            output.write('BY DEFAULT ')
+        output.write('AS ')
+        with output.expression(True):
+            output.print_node(node.raw_expr)
+        if node.generated_kind == 's':
+            output.write(' STORED')
+        else:
+            output.write(' VIRTUAL')
 
     def CONSTR_CHECK(self, node, output):
         output.swrite('CHECK ')
@@ -1256,15 +1328,16 @@ class ConstrTypePrinter(IntEnumPrinter):
             output.print_node(node.cooked_expr if node.raw_expr is None else node.raw_expr)
         if node.is_no_inherit:
             output.swrite('NO INHERIT')
+        if not node.is_enforced:
+            output.swrite('NOT ENFORCED')
 
-    def CONSTR_DEFAULT(self, node, output):
-        output.swrite('DEFAULT ')
-        assert not (node.raw_expr is not None and node.cooked_expr is not None)
-        # Handle DEFAULT (1 IN (1,2))
-        expr = node.cooked_expr if node.raw_expr is None else node.raw_expr
-        need_parens = isinstance(expr, ast.A_Expr) and expr.kind == enums.A_Expr_Kind.AEXPR_IN
-        with output.expression(need_parens):
-            output.print_node(expr)
+    def CONSTR_PRIMARY(self, node, output):
+        output.swrite('PRIMARY KEY')
+
+    def CONSTR_UNIQUE(self, node, output):
+        output.swrite('UNIQUE')
+        if node.nulls_not_distinct:
+            output.write(' NULLS NOT DISTINCT')
 
     def CONSTR_EXCLUSION(self, node, output):
         output.swrite('EXCLUDE USING ')
@@ -1291,14 +1364,28 @@ class ConstrTypePrinter(IntEnumPrinter):
         if node.fk_attrs:
             output.swrite('FOREIGN KEY ')
             with output.expression(True):
-                output.print_name(node.fk_attrs, ',')
+                if node.fk_with_period:
+                    attrs = node.fk_attrs[:-1]
+                else:
+                    attrs = node.fk_attrs
+                output.print_name(attrs, ',')
+                if node.fk_with_period:
+                    output.write(', PERIOD ')
+                    output.print_name(node.fk_attrs[-1])
         if node.pktable:
             output.swrite('REFERENCES ')
             output.print_name(node.pktable)
         if node.pk_attrs:
             output.write(' ')
             with output.expression(True):
-                output.print_name(node.pk_attrs, ',')
+                if node.pk_with_period:
+                    attrs = node.pk_attrs[:-1]
+                else:
+                    attrs = node.pk_attrs
+                output.print_name(attrs, ',')
+                if node.pk_with_period:
+                    output.write(', PERIOD ')
+                    output.print_name(node.pk_attrs[-1])
         if node.fk_matchtype != '\0' and node.fk_matchtype != enums.FKCONSTR_MATCH_SIMPLE:
             output.write(' MATCH ')
             if node.fk_matchtype == enums.FKCONSTR_MATCH_FULL:
@@ -1331,40 +1418,23 @@ class ConstrTypePrinter(IntEnumPrinter):
             elif node.fk_upd_action == enums.FKCONSTR_ACTION_SETDEFAULT:
                 output.write('SET DEFAULT')
 
-    def CONSTR_GENERATED(self, node, output):
-        output.swrite('GENERATED ALWAYS AS ')
-        with output.expression(True):
-            output.print_node(node.raw_expr)
-        output.write(' STORED')
+    def CONSTR_ATTR_DEFERRABLE(self, node, output):
+        output.swrite('DEFERRABLE')
 
-    def CONSTR_IDENTITY(self, node, output):
-        output.swrite('GENERATED ')
-        if node.generated_when == enums.ATTRIBUTE_IDENTITY_ALWAYS:
-            output.write('ALWAYS ')
-        elif node.generated_when == enums.ATTRIBUTE_IDENTITY_BY_DEFAULT:
-            output.write('BY DEFAULT ')
-        output.write('AS IDENTITY')
-        if node.options:
-            output.space()
-            with output.expression(True):
-                output.print_list(node.options, '')
+    def CONSTR_ATTR_NOT_DEFERRABLE(self, node, output):
+        output.swrite('NOT DEFERRABLE')
 
-    def CONSTR_NOTNULL(self, node, output):
-        output.swrite('NOT NULL')
-
-    def CONSTR_NULL(self, node, output):
-        output.swrite('NULL')
-
-    def CONSTR_PRIMARY(self, node, output):
-        output.swrite('PRIMARY KEY')
-
-    def CONSTR_UNIQUE(self, node, output):
-        output.swrite('UNIQUE')
-        if node.nulls_not_distinct:
-            output.write(' NULLS NOT DISTINCT')
+    def CONSTR_ATTR_DEFERRED(self, node, output):
+        output.swrite('INITIALLY DEFERRED')
 
     def CONSTR_ATTR_IMMEDIATE(self, node, output):
         output.swrite('INITIALLY IMMEDIATE')
+
+    def CONSTR_ATTR_ENFORCED(self, node, output):
+        output.swrite('ENFORCED')
+
+    def CONSTR_ATTR_NOT_ENFORCED(self, node, output):
+        output.swrite('NOT ENFORCED')
 
 
 constr_type_printer = ConstrTypePrinter()
@@ -1381,12 +1451,14 @@ def constraint(node, output):
     if node.indexname:
         output.write(' USING INDEX ')
         output.print_name(node.indexname)
-    # Common to UNIQUE & PRIMARY_KEY
+
     if node.keys and node.contype in (enums.ConstrType.CONSTR_UNIQUE,
                                       enums.ConstrType.CONSTR_PRIMARY):
         output.write(' ')
         with output.expression(True):
             output.print_name(node.keys, ',')
+            if node.without_overlaps:
+                output.write(' WITHOUT OVERLAPS')
     if node.including:
         output.write(' INCLUDE ')
         with output.expression(True):
@@ -1419,6 +1491,8 @@ def constraint(node, output):
             output.print_name(node.indexspace)
         if node.skip_validation:
             output.write(' NOT VALID')
+        if node.contype == enums.ConstrType.CONSTR_FOREIGN and not node.is_enforced:
+            output.write(' NOT ENFORCED')
 
 
 @node_printer(ast.CreateAmStmt)
@@ -3352,17 +3426,24 @@ class VariableSetKindPrinter(IntEnumPrinter):
 
     def VAR_SET_VALUE(self, node, output):
         self._set_prologue(node, output)
-        if node.name == 'timezone':
+        if node.name == 'timezone' and node.jumble_args:
             output.write('TIME ZONE ')
+            output.print_list(node.args)
+        elif node.name == 'xmloption' and node.jumble_args:
+            output.write('XML OPTION ')
+            output.print_symbol(node.args[0].val)
         else:
             output.print_name(node.name.split('.'))
             output.write(' TO ')
-        output.print_list(node.args)
+            output.print_list(node.args)
 
     def VAR_SET_DEFAULT(self, node, output):
         self._set_prologue(node, output)
-        output.print_name(node.name.split('.'))
-        output.write(' TO DEFAULT')
+        if node.name == 'timezone' and node.jumble_args:
+            output.write('TIME ZONE LOCAL')
+        else:
+            output.print_name(node.name.split('.'))
+            output.write(' TO DEFAULT')
 
     def VAR_SET_CURRENT(self, node, output):
         self._set_prologue(node, output)
