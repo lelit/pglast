@@ -444,6 +444,22 @@ footer
 :
 {'preserve_comments': True}
 
+-- First comment
+SELECT * FROM first_table;
+-- Second comment
+SELECT * FROM second_table;
+=
+-- First comment
+SELECT *
+FROM first_table;
+\n\
+\n\
+-- Second comment
+SELECT *
+FROM second_table
+:
+{'preserve_comments': True}
+
 -- header 1
 -- header 2
 select /*one*/ 1
