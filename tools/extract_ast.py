@@ -566,9 +566,29 @@ def emit_stmt_len_attr(name, ctype, output):
 ''')
 
 
-def emitter_for(fname, ctype, enums):
-    from pglast import enums as eimpl
+def import_pglast_enums():
+    # We need the pglast.enums subpackage, but at bootstrap (that is, when we really need
+    # to generate the AST module, say when the version of libpg_query changes) we usually
+    # cannot import the top-level module, because the parser has not been compiled yet...
 
+    try:
+        from pglast import enums
+    except ModuleNotFoundError:
+        from importlib.util import module_from_spec
+        from importlib.util import spec_from_file_location
+        from pathlib import Path
+        import sys
+
+        srcdir = Path(__file__).parent.parent / 'pglast'
+        spec = spec_from_file_location('pglast.enums', srcdir / 'enums' / '__init__.py')
+        enums = module_from_spec(spec)
+        sys.modules['pglast.enums'] = enums
+        spec.loader.exec_module(enums)
+
+    return enums
+
+
+def emitter_for(fname, ctype, enums):
     if ctype == 'ParseLoc':
         emitter = emit_location_attr
     elif fname == 'stmt_len':
@@ -594,7 +614,9 @@ def emitter_for(fname, ctype, enums):
     elif ctype.endswith('*'):
         emitter = emit_nodeptr_attr
     elif ctype in enums:
-        if issubclass(getattr(eimpl, ctype), eimpl.IntEnum):
+        pglast_enums = import_pglast_enums()
+
+        if issubclass(getattr(pglast_enums, ctype), pglast_enums.IntEnum):
             emitter = emit_int_enum_attr
         else:
             emitter = emit_str_enum_attr
@@ -724,7 +746,7 @@ class {name}({superclass}):
 
 
 def emit_node_create_function(nodes, enums, output):
-    from pglast import enums as eimpl
+    pglast_enums = import_pglast_enums()
 
     nnames = set(n[0] for n in nodes)
 
@@ -775,7 +797,7 @@ cdef create(void* data, offset_to_index):
 ''')
 
     first = True
-    for tag in eimpl.NodeTag:
+    for tag in pglast_enums.NodeTag:
         name = tag.name[2:]
         if name in nnames:
             output.write('    ')
