@@ -18,6 +18,8 @@ Version 7
 - Expose ``pg_query_deparse_protobuf_opts()`` instead of its ``pg_query_deparse_protobuf()``
   wrapper
 
+- Expose ``pg_query_deparse_comments_for_query()``
+
 
 7.11 (2025-12-15)
 ~~~~~~~~~~~~~~~~~
