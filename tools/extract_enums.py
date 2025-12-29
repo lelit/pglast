@@ -32,6 +32,7 @@ try:
 except ImportError:  # pragma: no cover
     # Python < 3.11
     class StrEnum(str, Enum):
+        pass
 """
 
 
