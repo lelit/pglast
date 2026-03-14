@@ -32,3 +32,10 @@ RETURNS TABLE(c1 int, c2 text)
 AS $$
 SELECT 1, 'Label 1'
 $$ language sql SET search_path FROM CURRENT
+
+CREATE FUNCTION funcb(somearg text)
+RETURNS TABLE(c1 int, c2 text)
+BEGIN ATOMIC
+SELECT 1, 'Label 1';
+SELECT 2, 'Label 2';
+END
