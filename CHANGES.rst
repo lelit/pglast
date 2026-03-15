@@ -11,6 +11,18 @@ Version 7
 7.12 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
+- Use `Cython 3.2.4`__
+
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#324-2026-01-04
+
+- Upgrade libpg_query to `17-6.2.2`__
+
+  __ https://github.com/pganalyze/libpg_query/releases/tag/17-6.2.2
+
+- Properly recognize ``ATOMIC`` SQL functions (issue `#182`__)
+
+  __ https://github.com/lelit/pglast/issues/182
+
 - Add basic type hints (`PR #178`__), thanks to Pierce Freeman
 
   __ https://github.com/lelit/pglast/pull/178
