@@ -3,7 +3,7 @@
 # :Created:   gio 09 nov 2017 10:50:30 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Lele Gaifax
 #
 
 import re
@@ -1700,8 +1700,10 @@ def create_function_stmt(node, output):
         for option in node.options:
             output.print_node(option)
     if node.sql_body:
-        if node.is_procedure:
-            output.newline()
+        output.newline()
+        if isinstance(node.sql_body, ast.ReturnStmt):
+            output.print_node(node.sql_body)
+        else:
             output.write('BEGIN ATOMIC')
             output.newline()
             if node.sql_body != (None,):
@@ -1712,8 +1714,6 @@ def create_function_stmt(node, output):
                         output.write(';')
                         output.newline()
             output.write('END')
-        else:
-            output.print_node(node.sql_body)
 
 
 @node_printer((ast.AlterFunctionStmt, ast.CreateFunctionStmt, ast.DoStmt), ast.DefElem)
