@@ -2,7 +2,7 @@
 # :Project:   pglast — DO NOT EDIT: automatically extracted from kwlist.h @ 17.7
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017-2025 Lele Gaifax
+# :Copyright: © 2017-2026 Lele Gaifax
 #
 
 COL_NAME_KEYWORDS = {'between', 'bigint', 'bit', 'boolean', 'char', 'character', 'coalesce',
