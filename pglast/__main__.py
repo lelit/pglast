@@ -3,7 +3,7 @@
 # :Created:   dom 06 ago 2017 23:09:23 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2024, 2026 Lele Gaifax
 #
 
 import argparse
@@ -22,6 +22,9 @@ def workhorse(args):
         input = args.infile or sys.stdin
         with input:
             statement = input.read()
+
+    if not statement.strip():
+        return
 
     if args.parse_tree or args.plpgsql:
         tree = parse_plpgsql(statement) if args.plpgsql else parse_sql(statement)
