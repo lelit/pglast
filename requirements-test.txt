@@ -3,11 +3,11 @@
 # :Created:   lun 07 ago 2017 00:43:41 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Lele Gaifax
 #
 
-coverage==7.13.0
-mypy==1.17.1
+coverage==7.13.4
+mypy==1.19.1
 pytest-cov==7.0.0
 pytest==9.0.2
-ty==0.0.7
+ty==0.0.23
