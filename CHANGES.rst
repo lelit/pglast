@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.12 (unreleased)
+7.12 (2026-03-16)
 ~~~~~~~~~~~~~~~~~
 
 - Use `Cython 3.2.4`__
