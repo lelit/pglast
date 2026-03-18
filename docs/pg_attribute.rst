@@ -2,14 +2,14 @@
 .. :Project:   pglast — DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2025 Lele Gaifax
+.. :Copyright: © 2017-2026 Lele Gaifax
 ..
 
 ==================================================================================
  :mod:`pglast.enums.pg_attribute` --- Constants extracted from `pg_attribute.h`__
 ==================================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_attribute.h
+__ https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_attribute.h
 
 .. module:: pglast.enums.pg_attribute
    :synopsis: Constants extracted from pg_attribute.h
@@ -17,16 +17,16 @@ __ https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/ca
 
 .. data:: ATTRIBUTE_IDENTITY_ALWAYS
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_attribute.h#L226>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_attribute.h#L226>`__.
 
 .. data:: ATTRIBUTE_IDENTITY_BY_DEFAULT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_attribute.h#L227>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_attribute.h#L227>`__.
 
 .. data:: ATTRIBUTE_GENERATED_STORED
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_attribute.h#L229>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_attribute.h#L229>`__.
 
 .. data:: ATTRIBUTE_GENERATED_VIRTUAL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_attribute.h#L230>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_attribute.h#L230>`__.

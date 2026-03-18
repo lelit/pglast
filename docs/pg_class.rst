@@ -2,14 +2,14 @@
 .. :Project:   pglast — DO NOT EDIT: generated automatically
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017-2025 Lele Gaifax
+.. :Copyright: © 2017-2026 Lele Gaifax
 ..
 
 ==========================================================================
  :mod:`pglast.enums.pg_class` --- Constants extracted from `pg_class.h`__
 ==========================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h
+__ https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h
 
 .. module:: pglast.enums.pg_class
    :synopsis: Constants extracted from pg_class.h
@@ -17,68 +17,68 @@ __ https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/ca
 
 .. data:: RELKIND_RELATION
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L167>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L167>`__.
 
 .. data:: RELKIND_INDEX
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L168>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L168>`__.
 
 .. data:: RELKIND_SEQUENCE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L169>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L169>`__.
 
 .. data:: RELKIND_TOASTVALUE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L170>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L170>`__.
 
 .. data:: RELKIND_VIEW
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L171>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L171>`__.
 
 .. data:: RELKIND_MATVIEW
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L172>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L172>`__.
 
 .. data:: RELKIND_COMPOSITE_TYPE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L173>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L173>`__.
 
 .. data:: RELKIND_FOREIGN_TABLE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L174>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L174>`__.
 
 .. data:: RELKIND_PARTITIONED_TABLE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L175>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L175>`__.
 
 .. data:: RELKIND_PARTITIONED_INDEX
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L176>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L176>`__.
 
 .. data:: RELPERSISTENCE_PERMANENT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L178>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L178>`__.
 
 .. data:: RELPERSISTENCE_UNLOGGED
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L179>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L179>`__.
 
 .. data:: RELPERSISTENCE_TEMP
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L180>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L180>`__.
 
 .. data:: REPLICA_IDENTITY_DEFAULT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L183>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L183>`__.
 
 .. data:: REPLICA_IDENTITY_NOTHING
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L185>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L185>`__.
 
 .. data:: REPLICA_IDENTITY_FULL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L187>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L187>`__.
 
 .. data:: REPLICA_IDENTITY_INDEX
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/b3b9523/src/postgres/include/catalog/pg_class.h#L193>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/9a472c1/src/postgres/include/catalog/pg_class.h#L193>`__.

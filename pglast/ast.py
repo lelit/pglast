@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 18-latest-dev-0-gb3b9523
+# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 18-latest-dev-0-g9a472c1
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021-2025 Lele Gaifax
+# :Copyright: © 2021-2026 Lele Gaifax
 #
 
 from collections import namedtuple
