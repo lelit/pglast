@@ -44,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pglast'
-copyright = '2017-2025 Lele Gaifax'
+copyright = '2017-2026 Lele Gaifax'
 author = 'Lele Gaifax'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -52,7 +52,7 @@ author = 'Lele Gaifax'
 # built documents.
 #
 # The short X.Y version.
-version = '7.0'
+version = '8.0'
 # The full version, including alpha/beta/rc tags: this is injected automatically
 # at release time.
 release = 'v8.0.dev0'
