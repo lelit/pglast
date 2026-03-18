@@ -3,7 +3,7 @@
 # :Created:   lun 07 ago 2017 12:50:37 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024, 2026 Lele Gaifax
 #
 
 from contextlib import _RedirectStream, redirect_stdout
@@ -222,3 +222,9 @@ SELECT substring('123', 2, 3)
             with redirect_stdin(input), redirect_stdout(output):
                 main(['--remove-pg_catalog-from-functions'])
             assert output.getvalue() == "SELECT NULLIF(1, 0)\n"
+
+    with StringIO('') as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main([])
+            assert output.getvalue() == ""
