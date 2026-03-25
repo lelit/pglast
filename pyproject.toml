@@ -3,7 +3,7 @@
 # :Created:   mer 29 ott 2025, 08:42:11
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2025 Lele Gaifax
+# :Copyright: © 2025, 2026 Lele Gaifax
 #
 
 [build-system]
@@ -54,7 +54,7 @@ pgpp = "pglast.__main__:main"
 [project.optional-dependencies]
 dev = [
     "bump-my-version==1.2.5",
-    "cython==3.2.3",
+    "cython==3.2.4",
     "pycparser==2.23",
     "readme-renderer==44.0",
     "setuptools==80.9.0",
