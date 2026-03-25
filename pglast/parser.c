@@ -3154,7 +3154,7 @@ static PyObject *__pyx_pf_6pglast_6parser_8parse_plpgsql_json(CYTHON_UNUSED PyOb
 static PyObject *__pyx_pf_6pglast_6parser_10fingerprint(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
 static PyObject *__pyx_pf_6pglast_6parser_12split(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_stmts, int __pyx_v_with_parser, int __pyx_v_only_slices); /* proto */
 static PyObject *__pyx_pf_6pglast_6parser_14comments(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
-static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_protobuf, PyObject *__pyx_v_pretty_print, int __pyx_v_indent_size, int __pyx_v_max_line_length, PyObject *__pyx_v_trailing_newline, PyObject *__pyx_v_commas_start_of_line); /* proto */
+static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_protobuf, int __pyx_v_pretty_print, int __pyx_v_indent_size, int __pyx_v_max_line_length, int __pyx_v_trailing_newline, int __pyx_v_commas_start_of_line); /* proto */
 static PyObject *__pyx_pf_6pglast_6parser_18scan(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_query); /* proto */
 static PyObject *__pyx_pf_6pglast_6parser_20__pyx_unpickle_Displacements(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_6pglast_6parser_Displacements(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -64085,7 +64085,7 @@ static PyObject *__pyx_pf_6pglast_6parser_14comments(CYTHON_UNUSED PyObject *__p
  * 
  * 
  * def deparse_protobuf(bytes protobuf,             # <<<<<<<<<<<<<<
- *                      bool pretty_print=False,
+ *                      bint pretty_print=False,
  *                      int indent_size=4,
 */
 
@@ -64107,11 +64107,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ) {
   PyObject *__pyx_v_protobuf = 0;
-  PyObject *__pyx_v_pretty_print = 0;
+  int __pyx_v_pretty_print;
   int __pyx_v_indent_size;
   int __pyx_v_max_line_length;
-  PyObject *__pyx_v_trailing_newline = 0;
-  PyObject *__pyx_v_commas_start_of_line = 0;
+  int __pyx_v_trailing_newline;
+  int __pyx_v_commas_start_of_line;
   #if !CYTHON_METH_FASTCALL
   CYTHON_UNUSED Py_ssize_t __pyx_nargs;
   #endif
@@ -64166,33 +64166,6 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
       if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "deparse_protobuf", 0) < (0)) __PYX_ERR(0, 498, __pyx_L3_error)
-
-      /* "pglast/parser.pyx":499
- * 
- * def deparse_protobuf(bytes protobuf,
- *                      bool pretty_print=False,             # <<<<<<<<<<<<<<
- *                      int indent_size=4,
- *                      int max_line_length=80,
-*/
-      if (!values[1]) values[1] = __Pyx_NewRef(((PyObject*)((PyObject*)Py_False)));
-
-      /* "pglast/parser.pyx":502
- *                      int indent_size=4,
- *                      int max_line_length=80,
- *                      bool trailing_newline=False,             # <<<<<<<<<<<<<<
- *                      bool commas_start_of_line=False):
- *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
-*/
-      if (!values[4]) values[4] = __Pyx_NewRef(((PyObject*)((PyObject*)Py_False)));
-
-      /* "pglast/parser.pyx":503
- *                      int max_line_length=80,
- *                      bool trailing_newline=False,
- *                      bool commas_start_of_line=False):             # <<<<<<<<<<<<<<
- *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
- * 
-*/
-      if (!values[5]) values[5] = __Pyx_NewRef(((PyObject*)((PyObject*)Py_False)));
       for (Py_ssize_t i = __pyx_nargs; i < 1; i++) {
         if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("deparse_protobuf", 0, 1, 6, i); __PYX_ERR(0, 498, __pyx_L3_error) }
       }
@@ -64224,12 +64197,21 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
         break;
         default: goto __pyx_L5_argtuple_error;
       }
-      if (!values[1]) values[1] = __Pyx_NewRef(((PyObject*)((PyObject*)Py_False)));
-      if (!values[4]) values[4] = __Pyx_NewRef(((PyObject*)((PyObject*)Py_False)));
-      if (!values[5]) values[5] = __Pyx_NewRef(((PyObject*)((PyObject*)Py_False)));
     }
     __pyx_v_protobuf = ((PyObject*)values[0]);
-    __pyx_v_pretty_print = ((PyObject*)values[1]);
+    if (values[1]) {
+      __pyx_v_pretty_print = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_pretty_print == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 499, __pyx_L3_error)
+    } else {
+
+      /* "pglast/parser.pyx":499
+ * 
+ * def deparse_protobuf(bytes protobuf,
+ *                      bint pretty_print=False,             # <<<<<<<<<<<<<<
+ *                      int indent_size=4,
+ *                      int max_line_length=80,
+*/
+      __pyx_v_pretty_print = ((int)((int)0));
+    }
     if (values[2]) {
       __pyx_v_indent_size = __Pyx_PyLong_As_int(values[2]); if (unlikely((__pyx_v_indent_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 500, __pyx_L3_error)
     } else {
@@ -64240,8 +64222,32 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     } else {
       __pyx_v_max_line_length = ((int)((int)80));
     }
-    __pyx_v_trailing_newline = ((PyObject*)values[4]);
-    __pyx_v_commas_start_of_line = ((PyObject*)values[5]);
+    if (values[4]) {
+      __pyx_v_trailing_newline = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_trailing_newline == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 502, __pyx_L3_error)
+    } else {
+
+      /* "pglast/parser.pyx":502
+ *                      int indent_size=4,
+ *                      int max_line_length=80,
+ *                      bint trailing_newline=False,             # <<<<<<<<<<<<<<
+ *                      bint commas_start_of_line=False):
+ *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
+*/
+      __pyx_v_trailing_newline = ((int)((int)0));
+    }
+    if (values[5]) {
+      __pyx_v_commas_start_of_line = __Pyx_PyObject_IsTrue(values[5]); if (unlikely((__pyx_v_commas_start_of_line == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 503, __pyx_L3_error)
+    } else {
+
+      /* "pglast/parser.pyx":503
+ *                      int max_line_length=80,
+ *                      bint trailing_newline=False,
+ *                      bint commas_start_of_line=False):             # <<<<<<<<<<<<<<
+ *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
+ * 
+*/
+      __pyx_v_commas_start_of_line = ((int)((int)0));
+    }
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
@@ -64257,16 +64263,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_protobuf), (&PyBytes_Type), 1, "protobuf", 1))) __PYX_ERR(0, 498, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pretty_print), (&PyBool_Type), 1, "pretty_print", 1))) __PYX_ERR(0, 499, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_trailing_newline), (&PyBool_Type), 1, "trailing_newline", 1))) __PYX_ERR(0, 502, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_commas_start_of_line), (&PyBool_Type), 1, "commas_start_of_line", 1))) __PYX_ERR(0, 503, __pyx_L1_error)
   __pyx_r = __pyx_pf_6pglast_6parser_16deparse_protobuf(__pyx_self, __pyx_v_protobuf, __pyx_v_pretty_print, __pyx_v_indent_size, __pyx_v_max_line_length, __pyx_v_trailing_newline, __pyx_v_commas_start_of_line);
 
   /* "pglast/parser.pyx":498
  * 
  * 
  * def deparse_protobuf(bytes protobuf,             # <<<<<<<<<<<<<<
- *                      bool pretty_print=False,
+ *                      bint pretty_print=False,
  *                      int indent_size=4,
 */
 
@@ -64287,7 +64290,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_protobuf, PyObject *__pyx_v_pretty_print, int __pyx_v_indent_size, int __pyx_v_max_line_length, PyObject *__pyx_v_trailing_newline, PyObject *__pyx_v_commas_start_of_line) {
+static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_protobuf, int __pyx_v_pretty_print, int __pyx_v_indent_size, int __pyx_v_max_line_length, int __pyx_v_trailing_newline, int __pyx_v_commas_start_of_line) {
   PgQueryProtobuf __pyx_v_tree;
   PgQueryDeparseResult __pyx_v_deparsed;
   PostgresDeparseOpts __pyx_v_opts;
@@ -64334,8 +64337,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObj
  *                                                         indent_size=indent_size,
  *                                                         max_line_length=max_line_length,
 */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_pretty_print); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 511, __pyx_L1_error)
-  __pyx_t_1.pretty_print = __pyx_t_2;
+  __pyx_t_1.pretty_print = __pyx_v_pretty_print;
 
   /* "pglast/parser.pyx":512
  *                                                         comment_count=0,
@@ -64362,8 +64364,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObj
  *                                                         commas_start_of_line=commas_start_of_line)
  * 
 */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_trailing_newline); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 514, __pyx_L1_error)
-  __pyx_t_1.trailing_newline = __pyx_t_2;
+  __pyx_t_1.trailing_newline = __pyx_v_trailing_newline;
 
   /* "pglast/parser.pyx":515
  *                                                         max_line_length=max_line_length,
@@ -64372,8 +64373,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObj
  * 
  *     PyBytes_AsStringAndSize(protobuf, &tree.data, <Py_ssize_t *>&tree.len)
 */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_commas_start_of_line); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 515, __pyx_L1_error)
-  __pyx_t_1.commas_start_of_line = __pyx_t_2;
+  __pyx_t_1.commas_start_of_line = __pyx_v_commas_start_of_line;
   __pyx_v_opts = __pyx_t_1;
 
   /* "pglast/parser.pyx":517
@@ -64383,7 +64383,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObj
  *     with nogil:
  *         deparsed = pg_query_deparse_protobuf_opts(tree, opts)
 */
-  __pyx_t_3 = PyBytes_AsStringAndSize(__pyx_v_protobuf, (&__pyx_v_tree.data), ((Py_ssize_t *)(&__pyx_v_tree.len))); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_t_2 = PyBytes_AsStringAndSize(__pyx_v_protobuf, (&__pyx_v_tree.data), ((Py_ssize_t *)(&__pyx_v_tree.len))); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 517, __pyx_L1_error)
 
   /* "pglast/parser.pyx":518
  * 
@@ -64441,8 +64441,8 @@ static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObj
  *             message = deparsed.error.message.decode('utf-8')
  *             raise DeparseError(message, deparsed.error.cursorpos)
 */
-    __pyx_t_2 = (__pyx_v_deparsed.error != 0);
-    if (unlikely(__pyx_t_2)) {
+    __pyx_t_3 = (__pyx_v_deparsed.error != 0);
+    if (unlikely(__pyx_t_3)) {
 
       /* "pglast/parser.pyx":523
  *     try:
@@ -64548,7 +64548,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObj
       __Pyx_XGOTREF(__pyx_t_16);
       __Pyx_XGOTREF(__pyx_t_17);
       __Pyx_XGOTREF(__pyx_t_18);
-      __pyx_t_3 = __pyx_lineno; __pyx_t_11 = __pyx_clineno; __pyx_t_12 = __pyx_filename;
+      __pyx_t_2 = __pyx_lineno; __pyx_t_11 = __pyx_clineno; __pyx_t_12 = __pyx_filename;
       {
         {
             PyThreadState * _save;
@@ -64592,7 +64592,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObj
       __Pyx_XGIVEREF(__pyx_t_15);
       __Pyx_ErrRestore(__pyx_t_13, __pyx_t_14, __pyx_t_15);
       __pyx_t_13 = 0; __pyx_t_14 = 0; __pyx_t_15 = 0; __pyx_t_16 = 0; __pyx_t_17 = 0; __pyx_t_18 = 0;
-      __pyx_lineno = __pyx_t_3; __pyx_clineno = __pyx_t_11; __pyx_filename = __pyx_t_12;
+      __pyx_lineno = __pyx_t_2; __pyx_clineno = __pyx_t_11; __pyx_filename = __pyx_t_12;
       goto __pyx_L1_error;
     }
     __pyx_L6_return: {
@@ -64640,7 +64640,7 @@ static PyObject *__pyx_pf_6pglast_6parser_16deparse_protobuf(CYTHON_UNUSED PyObj
  * 
  * 
  * def deparse_protobuf(bytes protobuf,             # <<<<<<<<<<<<<<
- *                      bool pretty_print=False,
+ *                      bint pretty_print=False,
  *                      int indent_size=4,
 */
 
@@ -66191,6 +66191,8 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_parser(PyObject *__pyx_pyinit_modu
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -66653,46 +66655,79 @@ __Pyx_RefNannySetupContext("PyInit_parser", 0);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_comments, __pyx_t_4) < (0)) __PYX_ERR(0, 464, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pglast/parser.pyx":500
+  /* "pglast/parser.pyx":499
+ * 
  * def deparse_protobuf(bytes protobuf,
- *                      bool pretty_print=False,
- *                      int indent_size=4,             # <<<<<<<<<<<<<<
+ *                      bint pretty_print=False,             # <<<<<<<<<<<<<<
+ *                      int indent_size=4,
  *                      int max_line_length=80,
- *                      bool trailing_newline=False,
 */
-  __pyx_t_4 = __Pyx_PyLong_From_int(((int)4)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 500, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyBool_FromLong(((int)0)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 499, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
+  /* "pglast/parser.pyx":500
+ * def deparse_protobuf(bytes protobuf,
+ *                      bint pretty_print=False,
+ *                      int indent_size=4,             # <<<<<<<<<<<<<<
+ *                      int max_line_length=80,
+ *                      bint trailing_newline=False,
+*/
+  __pyx_t_6 = __Pyx_PyLong_From_int(((int)4)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 500, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+
   /* "pglast/parser.pyx":501
- *                      bool pretty_print=False,
+ *                      bint pretty_print=False,
  *                      int indent_size=4,
  *                      int max_line_length=80,             # <<<<<<<<<<<<<<
- *                      bool trailing_newline=False,
- *                      bool commas_start_of_line=False):
+ *                      bint trailing_newline=False,
+ *                      bint commas_start_of_line=False):
 */
-  __pyx_t_6 = __Pyx_PyLong_From_int(((int)80)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 501, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_2 = __Pyx_PyLong_From_int(((int)80)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 501, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+
+  /* "pglast/parser.pyx":502
+ *                      int indent_size=4,
+ *                      int max_line_length=80,
+ *                      bint trailing_newline=False,             # <<<<<<<<<<<<<<
+ *                      bint commas_start_of_line=False):
+ *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
+*/
+  __pyx_t_5 = __Pyx_PyBool_FromLong(((int)0)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 502, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+
+  /* "pglast/parser.pyx":503
+ *                      int max_line_length=80,
+ *                      bint trailing_newline=False,
+ *                      bint commas_start_of_line=False):             # <<<<<<<<<<<<<<
+ *     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
+ * 
+*/
+  __pyx_t_7 = __Pyx_PyBool_FromLong(((int)0)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 503, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
 
   /* "pglast/parser.pyx":498
  * 
  * 
  * def deparse_protobuf(bytes protobuf,             # <<<<<<<<<<<<<<
- *                      bool pretty_print=False,
+ *                      bint pretty_print=False,
  *                      int indent_size=4,
 */
-  __pyx_t_2 = PyTuple_Pack(5, ((PyObject*)Py_False), __pyx_t_4, __pyx_t_6, ((PyObject*)Py_False), ((PyObject*)Py_False)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 498, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_8 = PyTuple_Pack(5, __pyx_t_4, __pyx_t_6, __pyx_t_2, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 498, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_17deparse_protobuf, 0, __pyx_mstate_global->__pyx_n_u_deparse_protobuf, NULL, __pyx_mstate_global->__pyx_n_u_pglast_parser, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[12])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 498, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
-  PyUnstable_Object_EnableDeferredRefcount(__pyx_t_6);
-  #endif
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_deparse_protobuf, __pyx_t_6) < (0)) __PYX_ERR(0, 498, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_17deparse_protobuf, 0, __pyx_mstate_global->__pyx_n_u_deparse_protobuf, NULL, __pyx_mstate_global->__pyx_n_u_pglast_parser, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[12])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 498, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
+  PyUnstable_Object_EnableDeferredRefcount(__pyx_t_7);
+  #endif
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_7, __pyx_t_8);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_deparse_protobuf, __pyx_t_7) < (0)) __PYX_ERR(0, 498, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "pglast/parser.pyx":532
  * 
@@ -66701,13 +66736,13 @@ __Pyx_RefNannySetupContext("PyInit_parser", 0);
  * 
  * 
 */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_namedtuple); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 532, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_mstate_global->__pyx_tuple[3], NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 532, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_Token, __pyx_t_2) < (0)) __PYX_ERR(0, 532, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_namedtuple); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 532, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_mstate_global->__pyx_tuple[3], NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 532, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_Token, __pyx_t_8) < (0)) __PYX_ERR(0, 532, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pglast/parser.pyx":535
  * 
@@ -66716,13 +66751,13 @@ __Pyx_RefNannySetupContext("PyInit_parser", 0);
  *     "Lexify the given ``SQL`` `query` and return a list of its lexical tokens."
  * 
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_19scan, 0, __pyx_mstate_global->__pyx_n_u_scan, NULL, __pyx_mstate_global->__pyx_n_u_pglast_parser, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[13])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 535, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_8 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_19scan, 0, __pyx_mstate_global->__pyx_n_u_scan, NULL, __pyx_mstate_global->__pyx_n_u_pglast_parser, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[13])); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 535, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
-  PyUnstable_Object_EnableDeferredRefcount(__pyx_t_2);
+  PyUnstable_Object_EnableDeferredRefcount(__pyx_t_8);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_scan, __pyx_t_2) < (0)) __PYX_ERR(0, 535, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_scan, __pyx_t_8) < (0)) __PYX_ERR(0, 535, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "(tree fragment)":4
  *     int __Pyx_CheckUnpickleChecksum(long, long, long, long, const char*) except -1
@@ -66731,23 +66766,23 @@ __Pyx_RefNannySetupContext("PyInit_parser", 0);
  *     cdef object __pyx_result
  *     __Pyx_CheckUnpickleChecksum(__pyx_checksum, 0x236a782, 0x2e307f9, 0x7645d40, b'displacements, max_offset')
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_21__pyx_unpickle_Displacements, 0, __pyx_mstate_global->__pyx_n_u_pyx_unpickle_Displacements, NULL, __pyx_mstate_global->__pyx_n_u_pglast_parser, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[14])); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_8 = __Pyx_CyFunction_New(&__pyx_mdef_6pglast_6parser_21__pyx_unpickle_Displacements, 0, __pyx_mstate_global->__pyx_n_u_pyx_unpickle_Displacements, NULL, __pyx_mstate_global->__pyx_n_u_pglast_parser, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[14])); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
-  PyUnstable_Object_EnableDeferredRefcount(__pyx_t_2);
+  PyUnstable_Object_EnableDeferredRefcount(__pyx_t_8);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_pyx_unpickle_Displacements, __pyx_t_2) < (0)) __PYX_ERR(2, 4, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_pyx_unpickle_Displacements, __pyx_t_8) < (0)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "pglast/parser.pyx":1
  * # -*- coding: utf-8 -*-             # <<<<<<<<<<<<<<
  * # :Project:   pglast  Cython interface with libpg_query
  * # :Created:   mer 02 ago 2017 15:12:49 CEST
 */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_test, __pyx_t_2) < (0)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_8 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_test, __pyx_t_8) < (0)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /*--- Wrapped vars code ---*/
 
@@ -66757,6 +66792,8 @@ __Pyx_RefNannySetupContext("PyInit_parser", 0);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
   if (__pyx_m) {
     if (__pyx_mstate->__pyx_d && stringtab_initialized) {
       __Pyx_AddTraceback("init pglast.parser", __pyx_clineno, __pyx_lineno, __pyx_filename);
