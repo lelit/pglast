@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:12:49 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025, 2026 Lele Gaifax
 #
 
 #cython: language_level=3
@@ -496,11 +496,11 @@ def comments(str query):
 
 
 def deparse_protobuf(bytes protobuf,
-                     bool pretty_print=False,
+                     bint pretty_print=False,
                      int indent_size=4,
                      int max_line_length=80,
-                     bool trailing_newline=False,
-                     bool commas_start_of_line=False):
+                     bint trailing_newline=False,
+                     bint commas_start_of_line=False):
     "Convert the ``protobuf`` serialized parse tree into an equivalent ``SQL`` statement."
 
     cdef PgQueryProtobuf tree

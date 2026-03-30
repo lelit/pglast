@@ -8,6 +8,14 @@ Changes
 Version 7
 #########
 
+7.13 (2026-03-25)
+~~~~~~~~~~~~~~~~~
+
+- Fix compatibility with Cython 3.1.x (issue `#183`__), thanks to Christoph Berg for the patch
+
+  __ https://github.com/lelit/pglast/issues/183
+
+
 7.12 (2026-03-16)
 ~~~~~~~~~~~~~~~~~
 
