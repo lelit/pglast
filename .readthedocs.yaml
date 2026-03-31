@@ -20,7 +20,6 @@ build:
 
 python:
   install:
-    - requirements: requirements.txt
     - method: pip
       path: .
 
