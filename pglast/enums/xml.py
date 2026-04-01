@@ -5,7 +5,7 @@
 # :Copyright: © 2017-2026 Lele Gaifax
 #
 
-from enum import Enum, IntEnum, IntFlag, auto
+from enum import Enum, IntEnum, auto
 
 try:
     from enum import StrEnum
