@@ -432,7 +432,6 @@ def common_table_expr(node, output):
         if node.cycle_clause:
             output.newline()
             output.print_node(node.cycle_clause)
-    output.newline()
 
 
 @node_printer(ast.ConstraintsSetStmt)

@@ -490,7 +490,6 @@ WITH RECURSIVE
        FROM t
        WHERE n < 100
      )
-\n\
   SELECT sum(n)
   FROM t
 
@@ -500,12 +499,10 @@ select * from cte_2
 WITH cte_1 AS (
        SELECT 1
      )
-\n\
    , cte_2 AS (
        SELECT *
        FROM cte_1
      )
-\n\
   SELECT *
   FROM cte_2
 
@@ -641,7 +638,6 @@ WITH RECURSIVE
      CYCLE target_version_id
      SET is_cycle TO TRUE DEFAULT FALSE
      USING cycle_path
-\n\
   SELECT *
   FROM va
   WHERE is_cycle IS TRUE
