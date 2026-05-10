@@ -387,11 +387,11 @@ class Visitor:
             if pending_update.member is None:
                 self.root = pending_update.node
 
-    visit = None
-    """
-    The default *visit* method for any node without a specific one.
-    When ``None``, nothing happens.
-    """
+    def visit(self, ancestors, node):
+        """
+        The default *visit* method for any node without a specific one.
+        When ``None``, nothing happens.
+        """
 
 
 class ReferencedRelations(Visitor):
