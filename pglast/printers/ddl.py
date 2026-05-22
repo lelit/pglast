@@ -1229,7 +1229,7 @@ def comment_stmt(node, output):
     output.newline()
     output.space(2)
     output.write('IS ')
-    if node.comment:
+    if node.comment is not None:
         with output.push_indent():
             output.write_quoted_string(node.comment)
     else:
