@@ -3,7 +3,7 @@
 # :Created:   ven 04 ago 2017 08:37:10 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2023, 2024, 2025 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2023, 2024, 2025, 2026 Lele Gaifax
 #
 
 import json
@@ -88,8 +88,8 @@ LANGUAGE plpgsql""")
 
 
 def test_fingerprint():
-    sql1 = "SELECT a as b, c as d FROM atable AS btable WHERE a = 1 AND b in (1, 2)"
-    sql2 = "SELECT a, c FROM atable WHERE a = 2 AND b IN (2, 3, 4) "
+    sql1 = "SELECT * FROM x WHERE y = $1"
+    sql2 = "SELECT * FROM x WHERE y IN ( $1::uuid )"
     assert fingerprint(sql1) == fingerprint(sql2)
 
 
