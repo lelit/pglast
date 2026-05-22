@@ -3,10 +3,11 @@
 # :Created:   sab 05 ago 2017 16:34:08 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Lele Gaifax
 #
 
 from .. import ast, enums
+from ..keywords import COL_NAME_KEYWORDS
 from ..parser import LONG_MAX
 from . import IntEnumPrinter, get_string_value, node_printer
 
@@ -432,7 +433,6 @@ def common_table_expr(node, output):
         if node.cycle_clause:
             output.newline()
             output.print_node(node.cycle_clause)
-    output.newline()
 
 
 @node_printer(ast.ConstraintsSetStmt)
@@ -683,7 +683,11 @@ def func_call(node, output):
         special_printer(node, output)
         return
 
-    output.print_name(node.funcname)
+    if output.special_functions and name in COL_NAME_KEYWORDS:
+        output.write(f'"{name}"')
+    else:
+        output.print_name(node.funcname)
+
     with output.expression(True):
         if node.agg_distinct:
             output.writes('DISTINCT')

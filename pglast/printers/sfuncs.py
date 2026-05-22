@@ -3,7 +3,7 @@
 # :Created:   mer 22 nov 2017 08:34:34 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2021, 2022, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2021, 2022, 2024, 2026 Lele Gaifax
 #
 
 from .. import ast, enums
@@ -51,7 +51,10 @@ def extract(node, output):
     """
     output.write('EXTRACT')
     with output.expression(True):
-        output.write(node.args[0].val.sval.upper())
+        if isinstance(node.args[0], ast.A_Const):
+            output.write(node.args[0].val.sval.upper())
+        else:
+            output.print_node(node.args[0])
         output.write(' FROM ')
         output.print_node(node.args[1])
 
