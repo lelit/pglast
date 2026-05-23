@@ -58,6 +58,7 @@ test = [
     "mypy==2.1.0",
     "pytest-cov==7.1.0",
     "pytest==9.0.3",
+    "sphinx==9.0.4",
     "ty==0.0.38",
 ]
 
