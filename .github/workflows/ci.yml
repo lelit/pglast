@@ -3,6 +3,20 @@ name: Build, test and upload to PyPI
 # Build on every branch push, tag push, and pull request change:
 on: [push, pull_request]
 
+# Global environment, common to all tasks
+env:
+  # Tell Python to not prepend the working directory to its sys.path: this is to avoid it
+  # importing the "pglast" package from the source directory, that's not going to work because
+  # the "pip install ." below stores the compiled parser.pyx module only in the destination
+  # directory, and thus importing pglast from source directory does not work, and produce the
+  # following error on GHA:
+  #
+  #   from pglast import ast, enums, parse_sql
+  #   ImportError: cannot import name 'parse_sql' from 'pglast'
+  #                (/home/runner/work/pglast/pglast/pglast/__init__.py).
+  #                Did you mean: 'parse_plpgsql'?
+  PYTHONSAFEPATH: true
+
 jobs:
   doctest:
     name: All tests, on latest Python
