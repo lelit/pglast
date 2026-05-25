@@ -702,7 +702,7 @@ class IndentedStream(RawStream):
                     chunk = s[:sslt]
                     s = s[sslt:]
                     # Avoid splitting on backslash
-                    while chunk.endswith("\\"):
+                    while s and chunk.endswith("\\"):
                         chunk += s[0]
                         s = s[1:]
                     chunk = chunk.replace("'", "''")

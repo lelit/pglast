@@ -86,6 +86,18 @@ def test_indented_stream_with_sql():
             NODE_PRINTERS.pop(ast.RawStmt, None)
 
 
+@pytest.mark.parametrize('sql,threshold,expected', (
+    ("SELECT 'abc\\'", 4, "SELECT 'abc\\'"),
+    ("SELECT 'abc\\'", 3, "SELECT 'abc'\n       '\\'"),
+    (r"SELECT 'abc\\'", 3, "SELECT 'abc'\n       '\\\\'"),
+    ("SELECT 'abc\n\\'", 3, "SELECT E'abc'\n        '\\n\\\\'"),
+))
+def test_split_string_literals_ending_in_backslash(sql, threshold, expected):
+    result = IndentedStream(split_string_literals_threshold=threshold)(parse_sql(sql))
+
+    assert result == expected
+
+
 def test_separate_statements():
     """Separate statements by ``separate_statements`` (int) newlines."""
     raw_stmt_printer = NODE_PRINTERS.pop(ast.RawStmt, None)
