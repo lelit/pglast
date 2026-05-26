@@ -9,7 +9,7 @@
  :mod:`pglast.enums.cmptype` --- Constants extracted from `cmptype.h`__
 ========================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/access/cmptype.h
+__ https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/access/cmptype.h
 
 .. module:: pglast.enums.cmptype
    :synopsis: Constants extracted from cmptype.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/ac
 
 .. class:: pglast.enums.cmptype.CompareType
 
-   Corresponds to the `CompareType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/access/cmptype.h#L31>`__.
+   Corresponds to the `CompareType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/access/cmptype.h#L31>`__.
 
    .. data:: COMPARE_INVALID
 

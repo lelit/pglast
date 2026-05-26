@@ -9,7 +9,7 @@
  :mod:`pglast.enums.parsenodes` --- Constants extracted from `parsenodes.h`__
 ==============================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h
+__ https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h
 
 .. module:: pglast.enums.parsenodes
    :synopsis: Constants extracted from parsenodes.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.A_Expr_Kind
 
-   Corresponds to the `A_Expr_Kind enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L327>`__.
+   Corresponds to the `A_Expr_Kind enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L327>`__.
 
    .. data:: AEXPR_OP
 
@@ -50,7 +50,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.AlterPublicationAction
 
-   Corresponds to the `AlterPublicationAction enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L4270>`__.
+   Corresponds to the `AlterPublicationAction enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L4270>`__.
 
    .. data:: AP_AddObjects
 
@@ -61,7 +61,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.AlterSubscriptionType
 
-   Corresponds to the `AlterSubscriptionType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L4304>`__.
+   Corresponds to the `AlterSubscriptionType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L4304>`__.
 
    .. data:: ALTER_SUBSCRIPTION_OPTIONS
 
@@ -82,7 +82,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.AlterTSConfigType
 
-   Corresponds to the `AlterTSConfigType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L4206>`__.
+   Corresponds to the `AlterTSConfigType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L4206>`__.
 
    .. data:: ALTER_TSCONFIG_ADD_MAPPING
 
@@ -97,7 +97,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.AlterTableType
 
-   Corresponds to the `AlterTableType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2412>`__.
+   Corresponds to the `AlterTableType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2412>`__.
 
    .. data:: AT_AddColumn
 
@@ -234,7 +234,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.CTEMaterialize
 
-   Corresponds to the `CTEMaterialize enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L1665>`__.
+   Corresponds to the `CTEMaterialize enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L1665>`__.
 
    .. data:: CTEMaterializeDefault
 
@@ -245,7 +245,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.ConstrType
 
-   Corresponds to the `ConstrType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2791>`__.
+   Corresponds to the `ConstrType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2791>`__.
 
    .. data:: CONSTR_NULL
 
@@ -282,7 +282,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.DefElemAction
 
-   Corresponds to the `DefElemAction enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L829>`__.
+   Corresponds to the `DefElemAction enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L829>`__.
 
    .. data:: DEFELEM_UNSPEC
 
@@ -295,7 +295,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.DiscardMode
 
-   Corresponds to the `DiscardMode enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L4025>`__.
+   Corresponds to the `DiscardMode enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L4025>`__.
 
    .. data:: DISCARD_ALL
 
@@ -308,7 +308,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.DropBehavior
 
-   Corresponds to the `DropBehavior enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2393>`__.
+   Corresponds to the `DropBehavior enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2393>`__.
 
    .. data:: DROP_RESTRICT
 
@@ -317,7 +317,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.FetchDirection
 
-   Corresponds to the `FetchDirection enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3415>`__.
+   Corresponds to the `FetchDirection enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3415>`__.
 
    .. data:: FETCH_FORWARD
 
@@ -330,7 +330,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.FunctionParameterMode
 
-   Corresponds to the `FunctionParameterMode enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3539>`__.
+   Corresponds to the `FunctionParameterMode enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3539>`__.
 
    .. data:: FUNC_PARAM_IN
 
@@ -347,7 +347,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.GrantTargetType
 
-   Corresponds to the `GrantTargetType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2562>`__.
+   Corresponds to the `GrantTargetType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2562>`__.
 
    .. data:: ACL_TARGET_OBJECT
 
@@ -358,7 +358,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.GroupingSetKind
 
-   Corresponds to the `GroupingSetKind enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L1526>`__.
+   Corresponds to the `GroupingSetKind enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L1526>`__.
 
    .. data:: GROUPING_SET_EMPTY
 
@@ -373,7 +373,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.ImportForeignSchemaType
 
-   Corresponds to the `ImportForeignSchemaType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3036>`__.
+   Corresponds to the `ImportForeignSchemaType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3036>`__.
 
    .. data:: FDW_IMPORT_SCHEMA_ALL
 
@@ -384,7 +384,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.JsonQuotes
 
-   Corresponds to the `JsonQuotes enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L1837>`__.
+   Corresponds to the `JsonQuotes enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L1837>`__.
 
    .. data:: JS_QUOTES_UNSPEC
 
@@ -395,7 +395,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.JsonTableColumnType
 
-   Corresponds to the `JsonTableColumnType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L1902>`__.
+   Corresponds to the `JsonTableColumnType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L1902>`__.
 
    .. data:: JTC_FOR_ORDINALITY
 
@@ -410,7 +410,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.ObjectType
 
-   Corresponds to the `ObjectType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2320>`__.
+   Corresponds to the `ObjectType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2320>`__.
 
    .. data:: OBJECT_ACCESS_METHOD
 
@@ -519,7 +519,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.PartitionRangeDatumKind
 
-   Corresponds to the `PartitionRangeDatumKind enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L948>`__.
+   Corresponds to the `PartitionRangeDatumKind enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L948>`__.
 
    .. data:: PARTITION_RANGE_DATUM_MINVALUE
 
@@ -530,7 +530,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.PartitionStrategy
 
-   Corresponds to the `PartitionStrategy enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L896>`__.
+   Corresponds to the `PartitionStrategy enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L896>`__.
 
    .. data:: PARTITION_STRATEGY_LIST
 
@@ -541,7 +541,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.PublicationObjSpecType
 
-   Corresponds to the `PublicationObjSpecType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L4243>`__.
+   Corresponds to the `PublicationObjSpecType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L4243>`__.
 
    .. data:: PUBLICATIONOBJ_TABLE
 
@@ -554,7 +554,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.QuerySource
 
-   Corresponds to the `QuerySource enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L34>`__.
+   Corresponds to the `QuerySource enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L34>`__.
 
    .. data:: QSRC_ORIGINAL
 
@@ -569,7 +569,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.RTEKind
 
-   Corresponds to the `RTEKind enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L1039>`__.
+   Corresponds to the `RTEKind enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L1039>`__.
 
    .. data:: RTE_RELATION
 
@@ -594,7 +594,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.ReindexObjectType
 
-   Corresponds to the `ReindexObjectType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L4066>`__.
+   Corresponds to the `ReindexObjectType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L4066>`__.
 
    .. data:: REINDEX_OBJECT_INDEX
 
@@ -609,7 +609,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.ReturningOptionKind
 
-   Corresponds to the `ReturningOptionKind enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L1764>`__.
+   Corresponds to the `ReturningOptionKind enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L1764>`__.
 
    .. data:: RETURNING_OPTION_OLD
 
@@ -618,7 +618,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.RoleSpecType
 
-   Corresponds to the `RoleSpecType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L416>`__.
+   Corresponds to the `RoleSpecType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L416>`__.
 
    .. data:: ROLESPEC_CSTRING
 
@@ -633,7 +633,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.RoleStmtType
 
-   Corresponds to the `RoleStmtType enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3173>`__.
+   Corresponds to the `RoleStmtType enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3173>`__.
 
    .. data:: ROLESTMT_ROLE
 
@@ -644,7 +644,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.SetOperation
 
-   Corresponds to the `SetOperation enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2172>`__.
+   Corresponds to the `SetOperation enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2172>`__.
 
    .. data:: SETOP_NONE
 
@@ -657,7 +657,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.SetQuantifier
 
-   Corresponds to the `SetQuantifier enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L60>`__.
+   Corresponds to the `SetQuantifier enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L60>`__.
 
    .. data:: SET_QUANTIFIER_DEFAULT
 
@@ -668,7 +668,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.SortByDir
 
-   Corresponds to the `SortByDir enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L44>`__.
+   Corresponds to the `SortByDir enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L44>`__.
 
    .. data:: SORTBY_DEFAULT
 
@@ -681,7 +681,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.SortByNulls
 
-   Corresponds to the `SortByNulls enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L52>`__.
+   Corresponds to the `SortByNulls enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L52>`__.
 
    .. data:: SORTBY_NULLS_DEFAULT
 
@@ -692,7 +692,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.TableLikeOption
 
-   Corresponds to the `TableLikeOption enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L785>`__.
+   Corresponds to the `TableLikeOption enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L785>`__.
 
    .. data:: CREATE_TABLE_LIKE_COMMENTS
 
@@ -717,7 +717,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.TransactionStmtKind
 
-   Corresponds to the `TransactionStmtKind enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3754>`__.
+   Corresponds to the `TransactionStmtKind enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3754>`__.
 
    .. data:: TRANS_STMT_BEGIN
 
@@ -742,7 +742,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.VariableSetKind
 
-   Corresponds to the `VariableSetKind enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2686>`__.
+   Corresponds to the `VariableSetKind enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2686>`__.
 
    .. data:: VAR_SET_VALUE
 
@@ -759,7 +759,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.ViewCheckOption
 
-   Corresponds to the `ViewCheckOption enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3834>`__.
+   Corresponds to the `ViewCheckOption enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3834>`__.
 
    .. data:: NO_CHECK_OPTION
 
@@ -770,7 +770,7 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. class:: pglast.enums.parsenodes.WCOKind
 
-   Corresponds to the `WCOKind enum <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L1386>`__.
+   Corresponds to the `WCOKind enum <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L1386>`__.
 
    .. data:: WCO_VIEW_CHECK
 
@@ -787,224 +787,224 @@ __ https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/no
 
 .. data:: ACL_INSERT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L76>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L76>`__.
 
 .. data:: ACL_SELECT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L77>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L77>`__.
 
 .. data:: ACL_UPDATE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L78>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L78>`__.
 
 .. data:: ACL_DELETE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L79>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L79>`__.
 
 .. data:: ACL_TRUNCATE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L80>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L80>`__.
 
 .. data:: ACL_REFERENCES
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L81>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L81>`__.
 
 .. data:: ACL_TRIGGER
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L82>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L82>`__.
 
 .. data:: ACL_EXECUTE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L83>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L83>`__.
 
 .. data:: ACL_USAGE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L84>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L84>`__.
 
 .. data:: ACL_CREATE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L85>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L85>`__.
 
 .. data:: ACL_CREATE_TEMP
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L86>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L86>`__.
 
 .. data:: ACL_CONNECT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L87>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L87>`__.
 
 .. data:: ACL_SET
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L88>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L88>`__.
 
 .. data:: ACL_ALTER_SYSTEM
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L89>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L89>`__.
 
 .. data:: ACL_MAINTAIN
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L90>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L90>`__.
 
 .. data:: N_ACL_RIGHTS
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L91>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L91>`__.
 
 .. data:: ACL_NO_RIGHTS
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L92>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L92>`__.
 
 .. data:: FRAMEOPTION_NONDEFAULT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L607>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L607>`__.
 
 .. data:: FRAMEOPTION_RANGE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L608>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L608>`__.
 
 .. data:: FRAMEOPTION_ROWS
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L609>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L609>`__.
 
 .. data:: FRAMEOPTION_GROUPS
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L610>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L610>`__.
 
 .. data:: FRAMEOPTION_BETWEEN
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L611>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L611>`__.
 
 .. data:: FRAMEOPTION_START_UNBOUNDED_PRECEDING
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L612>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L612>`__.
 
 .. data:: FRAMEOPTION_END_UNBOUNDED_PRECEDING
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L613>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L613>`__.
 
 .. data:: FRAMEOPTION_START_UNBOUNDED_FOLLOWING
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L614>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L614>`__.
 
 .. data:: FRAMEOPTION_END_UNBOUNDED_FOLLOWING
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L615>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L615>`__.
 
 .. data:: FRAMEOPTION_START_CURRENT_ROW
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L616>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L616>`__.
 
 .. data:: FRAMEOPTION_END_CURRENT_ROW
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L617>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L617>`__.
 
 .. data:: FRAMEOPTION_START_OFFSET_PRECEDING
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L618>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L618>`__.
 
 .. data:: FRAMEOPTION_END_OFFSET_PRECEDING
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L619>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L619>`__.
 
 .. data:: FRAMEOPTION_START_OFFSET_FOLLOWING
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L620>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L620>`__.
 
 .. data:: FRAMEOPTION_END_OFFSET_FOLLOWING
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L621>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L621>`__.
 
 .. data:: FRAMEOPTION_EXCLUDE_CURRENT_ROW
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L622>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L622>`__.
 
 .. data:: FRAMEOPTION_EXCLUDE_GROUP
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L623>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L623>`__.
 
 .. data:: FRAMEOPTION_EXCLUDE_TIES
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L624>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L624>`__.
 
 .. data:: FKCONSTR_ACTION_NOACTION
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2813>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2813>`__.
 
 .. data:: FKCONSTR_ACTION_RESTRICT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2814>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2814>`__.
 
 .. data:: FKCONSTR_ACTION_CASCADE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2815>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2815>`__.
 
 .. data:: FKCONSTR_ACTION_SETNULL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2816>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2816>`__.
 
 .. data:: FKCONSTR_ACTION_SETDEFAULT
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2817>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2817>`__.
 
 .. data:: FKCONSTR_MATCH_FULL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2820>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2820>`__.
 
 .. data:: FKCONSTR_MATCH_PARTIAL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2821>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2821>`__.
 
 .. data:: FKCONSTR_MATCH_SIMPLE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L2822>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L2822>`__.
 
 .. data:: OPCLASS_ITEM_OPERATOR
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3279>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3279>`__.
 
 .. data:: OPCLASS_ITEM_FUNCTION
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3280>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3280>`__.
 
 .. data:: OPCLASS_ITEM_STORAGETYPE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3281>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3281>`__.
 
 .. data:: CURSOR_OPT_BINARY
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3380>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3380>`__.
 
 .. data:: CURSOR_OPT_SCROLL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3381>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3381>`__.
 
 .. data:: CURSOR_OPT_NO_SCROLL
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3382>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3382>`__.
 
 .. data:: CURSOR_OPT_INSENSITIVE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3383>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3383>`__.
 
 .. data:: CURSOR_OPT_ASENSITIVE
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3384>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3384>`__.
 
 .. data:: CURSOR_OPT_HOLD
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3385>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3385>`__.
 
 .. data:: CURSOR_OPT_FAST_PLAN
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3387>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3387>`__.
 
 .. data:: CURSOR_OPT_GENERIC_PLAN
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3388>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3388>`__.
 
 .. data:: CURSOR_OPT_CUSTOM_PLAN
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3389>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3389>`__.
 
 .. data:: CURSOR_OPT_PARALLEL_OK
 
-   See `here for details <https://github.com/pganalyze/libpg_query/blob/204fbdb/src/postgres/include/nodes/parsenodes.h#L3390>`__.
+   See `here for details <https://github.com/pganalyze/libpg_query/blob/2595795/src/postgres/include/nodes/parsenodes.h#L3390>`__.
