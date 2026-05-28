@@ -416,9 +416,13 @@ def split(str stmts, bint with_parser=True, bint only_slices=False):
     cdef PgQuerySplitResult splitted
     cdef const char *cstring
     cdef int i = 0
-    cdef int prev_offset = 0
     cdef int start
     cdef int end
+    cdef Displacements offset_to_index = None
+    cdef str stmt
+    cdef Py_ssize_t start_index
+    cdef Py_ssize_t leading_whitespace
+    cdef Py_ssize_t end_index
 
     utf8 = stmts.encode('utf-8')
     cstring = utf8
@@ -436,17 +440,19 @@ def split(str stmts, bint with_parser=True, bint only_slices=False):
             raise ParseError(message, offset_to_index(splitted.error.cursorpos-1))
 
         result = []
+        if only_slices:
+            offset_to_index = Displacements(stmts)
         while i < splitted.n_stmts:
             start = splitted.stmts[i].stmt_location
             end = splitted.stmts[i].stmt_location + splitted.stmts[i].stmt_len
-            stmt = utf8[start:end].decode('utf-8').strip()
+            stmt = utf8[start:end].decode('utf-8')
             if only_slices:
-                # Adjust offsets, we remove leading/trailing whitespace above
-                cur_offset = stmts.index(stmt, prev_offset)
-                result.append(slice(cur_offset, cur_offset + len(stmt)))
-                prev_offset = cur_offset + 1
+                start_index = offset_to_index(start)
+                leading_whitespace = len(stmt) - len(stmt.lstrip())
+                end_index = start_index + len(stmt.rstrip())
+                result.append(slice(start_index + leading_whitespace, end_index))
             else:
-                result.append(stmt)
+                result.append(stmt.strip())
             i += 1
         return tuple(result)
     finally:
