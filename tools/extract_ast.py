@@ -569,10 +569,10 @@ def emit_stmt_len_attr(name, ctype, output):
 def emitter_for(fname, ctype, enums):
     from pglast import enums as eimpl
 
-    if ctype == 'ParseLoc':
-        emitter = emit_location_attr
-    elif fname == 'stmt_len':
+    if fname == 'stmt_len':
         emitter = emit_stmt_len_attr
+    elif ctype == 'ParseLoc':
+        emitter = emit_location_attr
     elif ctype == 'List*':
         emitter = emit_list_attr
     elif ctype == 'CreateStmt':
