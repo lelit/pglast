@@ -4112,6 +4112,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Query(Query *__pyx_v_data, PyObj
   PyObject *__pyx_t_4 = NULL;
   size_t __pyx_t_5;
   int __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4775,7 +4776,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Query(Query *__pyx_v_data, PyObj
  *     cdef tuple v_constraintDeps = _pg_list_to_tuple(data.constraintDeps, offset_to_index)
  *     cdef tuple v_withCheckOptions = _pg_list_to_tuple(data.withCheckOptions, offset_to_index)             # <<<<<<<<<<<<<<
  *     cdef object v_stmt_location = offset_to_index(data.stmt_location)
- *     cdef object v_stmt_len = offset_to_index(data.stmt_len)
+ *     cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)
 */
   __pyx_t_1 = __pyx_f_6pglast_6parser__pg_list_to_tuple(__pyx_v_data->withCheckOptions, __pyx_v_offset_to_index); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -4787,7 +4788,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Query(Query *__pyx_v_data, PyObj
  *     cdef tuple v_constraintDeps = _pg_list_to_tuple(data.constraintDeps, offset_to_index)
  *     cdef tuple v_withCheckOptions = _pg_list_to_tuple(data.withCheckOptions, offset_to_index)
  *     cdef object v_stmt_location = offset_to_index(data.stmt_location)             # <<<<<<<<<<<<<<
- *     cdef object v_stmt_len = offset_to_index(data.stmt_len)
+ *     cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)
  *     return ast.Query(v_commandType, v_querySource, v_canSetTag, v_utilityStmt, v_resultRelation, v_hasAggs, v_hasWindowFuncs, v_hasTargetSRFs, v_hasSubLinks, v_hasDistinctOn, v_hasRecursive, v_hasModifyingCTE, v_hasForUpdate, v_hasRowSecurity, v_isReturn, v_cteList, v_rtable, v_rteperminfos, v_jointree, v_mergeActionList, v_mergeTargetRelation, v_mergeJoinCondition, v_targetList, v_override, v_onConflict, v_returningList, v_groupClause, v_groupDistinct, v_groupingSets, v_havingQual, v_windowClause, v_distinctClause, v_sortClause, v_limitOffset, v_limitCount, v_limitOption, v_rowMarks, v_setOperations, v_constraintDeps, v_withCheckOptions, v_stmt_location, v_stmt_len)
 */
   __pyx_t_2 = NULL;
@@ -4822,14 +4823,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_Query(Query *__pyx_v_data, PyObj
   /* "pglast/ast.pyx":87
  *     cdef tuple v_withCheckOptions = _pg_list_to_tuple(data.withCheckOptions, offset_to_index)
  *     cdef object v_stmt_location = offset_to_index(data.stmt_location)
- *     cdef object v_stmt_len = offset_to_index(data.stmt_len)             # <<<<<<<<<<<<<<
+ *     cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)             # <<<<<<<<<<<<<<
  *     return ast.Query(v_commandType, v_querySource, v_canSetTag, v_utilityStmt, v_resultRelation, v_hasAggs, v_hasWindowFuncs, v_hasTargetSRFs, v_hasSubLinks, v_hasDistinctOn, v_hasRecursive, v_hasModifyingCTE, v_hasForUpdate, v_hasRowSecurity, v_isReturn, v_cteList, v_rtable, v_rteperminfos, v_jointree, v_mergeActionList, v_mergeTargetRelation, v_mergeJoinCondition, v_targetList, v_override, v_onConflict, v_returningList, v_groupClause, v_groupDistinct, v_groupingSets, v_havingQual, v_windowClause, v_distinctClause, v_sortClause, v_limitOffset, v_limitCount, v_limitOption, v_rowMarks, v_setOperations, v_constraintDeps, v_withCheckOptions, v_stmt_location, v_stmt_len)
  * 
 */
   __pyx_t_3 = NULL;
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_4 = __pyx_v_offset_to_index; 
-  __pyx_t_2 = __Pyx_PyLong_From_ParseLoc(__pyx_v_data->stmt_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 87, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyLong_From_ParseLoc((__pyx_v_data->stmt_location + __pyx_v_data->stmt_len)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = 1;
   #if CYTHON_UNPACK_METHODS
@@ -4852,45 +4853,75 @@ static PyObject *__pyx_f_6pglast_6parser_create_Query(Query *__pyx_v_data, PyObj
     if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
-  __pyx_v_v_stmt_len = __pyx_t_1;
-  __pyx_t_1 = 0;
-
-  /* "pglast/ast.pyx":88
- *     cdef object v_stmt_location = offset_to_index(data.stmt_location)
- *     cdef object v_stmt_len = offset_to_index(data.stmt_len)
- *     return ast.Query(v_commandType, v_querySource, v_canSetTag, v_utilityStmt, v_resultRelation, v_hasAggs, v_hasWindowFuncs, v_hasTargetSRFs, v_hasSubLinks, v_hasDistinctOn, v_hasRecursive, v_hasModifyingCTE, v_hasForUpdate, v_hasRowSecurity, v_isReturn, v_cteList, v_rtable, v_rteperminfos, v_jointree, v_mergeActionList, v_mergeTargetRelation, v_mergeJoinCondition, v_targetList, v_override, v_onConflict, v_returningList, v_groupClause, v_groupDistinct, v_groupingSets, v_havingQual, v_windowClause, v_distinctClause, v_sortClause, v_limitOffset, v_limitCount, v_limitOption, v_rowMarks, v_setOperations, v_constraintDeps, v_withCheckOptions, v_stmt_location, v_stmt_len)             # <<<<<<<<<<<<<<
- * 
- * 
-*/
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_ast); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 88, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_Query); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 88, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  __Pyx_INCREF(__pyx_v_offset_to_index);
+  __pyx_t_3 = __pyx_v_offset_to_index;
+  __pyx_t_7 = __Pyx_PyLong_From_ParseLoc(__pyx_v_data->stmt_location); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_5 = 1;
   #if CYTHON_UNPACK_METHODS
   if (unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-    assert(__pyx_t_4);
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    assert(__pyx_t_2);
     PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_3);
-    __Pyx_INCREF(__pyx_t_4);
+    __Pyx_INCREF(__pyx_t_2);
     __Pyx_INCREF(__pyx__function);
     __Pyx_DECREF_SET(__pyx_t_3, __pyx__function);
     __pyx_t_5 = 0;
   }
   #endif
   {
-    PyObject *__pyx_callargs[43] = {__pyx_t_4, __pyx_v_v_commandType, __pyx_v_v_querySource, __pyx_v_v_canSetTag, __pyx_v_v_utilityStmt, __pyx_v_v_resultRelation, __pyx_v_v_hasAggs, __pyx_v_v_hasWindowFuncs, __pyx_v_v_hasTargetSRFs, __pyx_v_v_hasSubLinks, __pyx_v_v_hasDistinctOn, __pyx_v_v_hasRecursive, __pyx_v_v_hasModifyingCTE, __pyx_v_v_hasForUpdate, __pyx_v_v_hasRowSecurity, __pyx_v_v_isReturn, __pyx_v_v_cteList, __pyx_v_v_rtable, __pyx_v_v_rteperminfos, __pyx_v_v_jointree, __pyx_v_v_mergeActionList, __pyx_v_v_mergeTargetRelation, __pyx_v_v_mergeJoinCondition, __pyx_v_v_targetList, __pyx_v_v_override, __pyx_v_v_onConflict, __pyx_v_v_returningList, __pyx_v_v_groupClause, __pyx_v_v_groupDistinct, __pyx_v_v_groupingSets, __pyx_v_v_havingQual, __pyx_v_v_windowClause, __pyx_v_v_distinctClause, __pyx_v_v_sortClause, __pyx_v_v_limitOffset, __pyx_v_v_limitCount, __pyx_v_v_limitOption, __pyx_v_v_rowMarks, __pyx_v_v_setOperations, __pyx_v_v_constraintDeps, __pyx_v_v_withCheckOptions, __pyx_v_v_stmt_location, __pyx_v_v_stmt_len};
-    __pyx_t_1 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_3, __pyx_callargs+__pyx_t_5, (43-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_t_7};
+    __pyx_t_4 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_3, __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 88, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 87, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
   }
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_t_3 = PyNumber_Subtract(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_v_v_stmt_len = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "pglast/ast.pyx":88
+ *     cdef object v_stmt_location = offset_to_index(data.stmt_location)
+ *     cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)
+ *     return ast.Query(v_commandType, v_querySource, v_canSetTag, v_utilityStmt, v_resultRelation, v_hasAggs, v_hasWindowFuncs, v_hasTargetSRFs, v_hasSubLinks, v_hasDistinctOn, v_hasRecursive, v_hasModifyingCTE, v_hasForUpdate, v_hasRowSecurity, v_isReturn, v_cteList, v_rtable, v_rteperminfos, v_jointree, v_mergeActionList, v_mergeTargetRelation, v_mergeJoinCondition, v_targetList, v_override, v_onConflict, v_returningList, v_groupClause, v_groupDistinct, v_groupingSets, v_havingQual, v_windowClause, v_distinctClause, v_sortClause, v_limitOffset, v_limitCount, v_limitOption, v_rowMarks, v_setOperations, v_constraintDeps, v_withCheckOptions, v_stmt_location, v_stmt_len)             # <<<<<<<<<<<<<<
+ * 
+ * 
+*/
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_4 = NULL;
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_mstate_global->__pyx_n_u_ast); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_mstate_global->__pyx_n_u_Query); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_5 = 1;
+  #if CYTHON_UNPACK_METHODS
+  if (unlikely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_7);
+    assert(__pyx_t_4);
+    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_7);
+    __Pyx_INCREF(__pyx_t_4);
+    __Pyx_INCREF(__pyx__function);
+    __Pyx_DECREF_SET(__pyx_t_7, __pyx__function);
+    __pyx_t_5 = 0;
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[43] = {__pyx_t_4, __pyx_v_v_commandType, __pyx_v_v_querySource, __pyx_v_v_canSetTag, __pyx_v_v_utilityStmt, __pyx_v_v_resultRelation, __pyx_v_v_hasAggs, __pyx_v_v_hasWindowFuncs, __pyx_v_v_hasTargetSRFs, __pyx_v_v_hasSubLinks, __pyx_v_v_hasDistinctOn, __pyx_v_v_hasRecursive, __pyx_v_v_hasModifyingCTE, __pyx_v_v_hasForUpdate, __pyx_v_v_hasRowSecurity, __pyx_v_v_isReturn, __pyx_v_v_cteList, __pyx_v_v_rtable, __pyx_v_v_rteperminfos, __pyx_v_v_jointree, __pyx_v_v_mergeActionList, __pyx_v_v_mergeTargetRelation, __pyx_v_v_mergeJoinCondition, __pyx_v_v_targetList, __pyx_v_v_override, __pyx_v_v_onConflict, __pyx_v_v_returningList, __pyx_v_v_groupClause, __pyx_v_v_groupDistinct, __pyx_v_v_groupingSets, __pyx_v_v_havingQual, __pyx_v_v_windowClause, __pyx_v_v_distinctClause, __pyx_v_v_sortClause, __pyx_v_v_limitOffset, __pyx_v_v_limitCount, __pyx_v_v_limitOption, __pyx_v_v_rowMarks, __pyx_v_v_setOperations, __pyx_v_v_constraintDeps, __pyx_v_v_withCheckOptions, __pyx_v_v_stmt_location, __pyx_v_v_stmt_len};
+    __pyx_t_3 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_7, __pyx_callargs+__pyx_t_5, (43-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 88, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+  }
+  __pyx_r = __pyx_t_3;
+  __pyx_t_3 = 0;
   goto __pyx_L0;
 
   /* "pglast/ast.pyx":45
@@ -4907,6 +4938,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_Query(Query *__pyx_v_data, PyObj
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("pglast.parser.create_Query", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
@@ -18238,6 +18270,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RawStmt(RawStmt *__pyx_v_data, P
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   size_t __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -18248,7 +18281,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RawStmt(RawStmt *__pyx_v_data, P
  * cdef create_RawStmt(structs.RawStmt* data, offset_to_index):
  *     cdef object v_stmt = create(data.stmt, offset_to_index) if data.stmt is not NULL else None             # <<<<<<<<<<<<<<
  *     cdef object v_stmt_location = offset_to_index(data.stmt_location)
- *     cdef object v_stmt_len = offset_to_index(data.stmt_len)
+ *     cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)
 */
   __pyx_t_2 = (__pyx_v_data->stmt != NULL);
   if (__pyx_t_2) {
@@ -18267,7 +18300,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RawStmt(RawStmt *__pyx_v_data, P
  * cdef create_RawStmt(structs.RawStmt* data, offset_to_index):
  *     cdef object v_stmt = create(data.stmt, offset_to_index) if data.stmt is not NULL else None
  *     cdef object v_stmt_location = offset_to_index(data.stmt_location)             # <<<<<<<<<<<<<<
- *     cdef object v_stmt_len = offset_to_index(data.stmt_len)
+ *     cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)
  *     return ast.RawStmt(v_stmt, v_stmt_location, v_stmt_len)
 */
   __pyx_t_3 = NULL;
@@ -18302,14 +18335,14 @@ static PyObject *__pyx_f_6pglast_6parser_create_RawStmt(RawStmt *__pyx_v_data, P
   /* "pglast/ast.pyx":704
  *     cdef object v_stmt = create(data.stmt, offset_to_index) if data.stmt is not NULL else None
  *     cdef object v_stmt_location = offset_to_index(data.stmt_location)
- *     cdef object v_stmt_len = offset_to_index(data.stmt_len)             # <<<<<<<<<<<<<<
+ *     cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)             # <<<<<<<<<<<<<<
  *     return ast.RawStmt(v_stmt, v_stmt_location, v_stmt_len)
  * 
 */
   __pyx_t_4 = NULL;
   __Pyx_INCREF(__pyx_v_offset_to_index);
   __pyx_t_5 = __pyx_v_offset_to_index; 
-  __pyx_t_3 = __Pyx_PyLong_From_ParseLoc(__pyx_v_data->stmt_len); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 704, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyLong_From_ParseLoc((__pyx_v_data->stmt_location + __pyx_v_data->stmt_len)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 704, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = 1;
   #if CYTHON_UNPACK_METHODS
@@ -18332,45 +18365,75 @@ static PyObject *__pyx_f_6pglast_6parser_create_RawStmt(RawStmt *__pyx_v_data, P
     if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 704, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
-  __pyx_v_v_stmt_len = __pyx_t_1;
-  __pyx_t_1 = 0;
-
-  /* "pglast/ast.pyx":705
- *     cdef object v_stmt_location = offset_to_index(data.stmt_location)
- *     cdef object v_stmt_len = offset_to_index(data.stmt_len)
- *     return ast.RawStmt(v_stmt, v_stmt_location, v_stmt_len)             # <<<<<<<<<<<<<<
- * 
- * 
-*/
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_ast); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 705, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_RawStmt); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 705, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  __Pyx_INCREF(__pyx_v_offset_to_index);
+  __pyx_t_4 = __pyx_v_offset_to_index;
+  __pyx_t_7 = __Pyx_PyLong_From_ParseLoc(__pyx_v_data->stmt_location); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 704, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = 1;
   #if CYTHON_UNPACK_METHODS
   if (unlikely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-    assert(__pyx_t_5);
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
+    assert(__pyx_t_3);
     PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_4);
-    __Pyx_INCREF(__pyx_t_5);
+    __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx__function);
     __Pyx_DECREF_SET(__pyx_t_4, __pyx__function);
     __pyx_t_6 = 0;
   }
   #endif
   {
-    PyObject *__pyx_callargs[4] = {__pyx_t_5, __pyx_v_v_stmt, __pyx_v_v_stmt_location, __pyx_v_v_stmt_len};
-    __pyx_t_1 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_4, __pyx_callargs+__pyx_t_6, (4-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_t_7};
+    __pyx_t_5 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_4, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 705, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 704, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
   }
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_t_4 = PyNumber_Subtract(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 704, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_v_stmt_len = __pyx_t_4;
+  __pyx_t_4 = 0;
+
+  /* "pglast/ast.pyx":705
+ *     cdef object v_stmt_location = offset_to_index(data.stmt_location)
+ *     cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)
+ *     return ast.RawStmt(v_stmt, v_stmt_location, v_stmt_len)             # <<<<<<<<<<<<<<
+ * 
+ * 
+*/
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_5 = NULL;
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_mstate_global->__pyx_n_u_ast); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 705, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_mstate_global->__pyx_n_u_RawStmt); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 705, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_6 = 1;
+  #if CYTHON_UNPACK_METHODS
+  if (unlikely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_7);
+    assert(__pyx_t_5);
+    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_7);
+    __Pyx_INCREF(__pyx_t_5);
+    __Pyx_INCREF(__pyx__function);
+    __Pyx_DECREF_SET(__pyx_t_7, __pyx__function);
+    __pyx_t_6 = 0;
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[4] = {__pyx_t_5, __pyx_v_v_stmt, __pyx_v_v_stmt_location, __pyx_v_v_stmt_len};
+    __pyx_t_4 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_7, __pyx_callargs+__pyx_t_6, (4-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 705, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+  }
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
   goto __pyx_L0;
 
   /* "pglast/ast.pyx":701
@@ -18387,6 +18450,7 @@ static PyObject *__pyx_f_6pglast_6parser_create_RawStmt(RawStmt *__pyx_v_data, P
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("pglast.parser.create_RawStmt", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
