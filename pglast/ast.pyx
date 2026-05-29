@@ -84,7 +84,7 @@ cdef create_Query(structs.Query* data, offset_to_index):
     cdef tuple v_constraintDeps = _pg_list_to_tuple(data.constraintDeps, offset_to_index)
     cdef tuple v_withCheckOptions = _pg_list_to_tuple(data.withCheckOptions, offset_to_index)
     cdef object v_stmt_location = offset_to_index(data.stmt_location)
-    cdef object v_stmt_len = offset_to_index(data.stmt_len)
+    cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)
     return ast.Query(v_commandType, v_querySource, v_canSetTag, v_utilityStmt, v_resultRelation, v_hasAggs, v_hasWindowFuncs, v_hasTargetSRFs, v_hasSubLinks, v_hasDistinctOn, v_hasRecursive, v_hasModifyingCTE, v_hasForUpdate, v_hasRowSecurity, v_isReturn, v_cteList, v_rtable, v_rteperminfos, v_jointree, v_mergeActionList, v_mergeTargetRelation, v_mergeJoinCondition, v_targetList, v_override, v_onConflict, v_returningList, v_groupClause, v_groupDistinct, v_groupingSets, v_havingQual, v_windowClause, v_distinctClause, v_sortClause, v_limitOffset, v_limitCount, v_limitOption, v_rowMarks, v_setOperations, v_constraintDeps, v_withCheckOptions, v_stmt_location, v_stmt_len)
 
 
@@ -701,7 +701,7 @@ cdef create_JsonArrayAgg(structs.JsonArrayAgg* data, offset_to_index):
 cdef create_RawStmt(structs.RawStmt* data, offset_to_index):
     cdef object v_stmt = create(data.stmt, offset_to_index) if data.stmt is not NULL else None
     cdef object v_stmt_location = offset_to_index(data.stmt_location)
-    cdef object v_stmt_len = offset_to_index(data.stmt_len)
+    cdef object v_stmt_len = offset_to_index(data.stmt_location + data.stmt_len) - offset_to_index(data.stmt_location)
     return ast.RawStmt(v_stmt, v_stmt_location, v_stmt_len)
 
 

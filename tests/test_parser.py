@@ -159,6 +159,25 @@ def test_locations_fixup():
     assert sql3[fromc.location:].startswith('somewhere')
 
 
+@pytest.mark.parametrize('sql,expected', (
+    (
+        "select '€';select 1234567890;select 3;",
+        ("select '€'", "select 1234567890", "select 3"),
+    ),
+    (
+        "select 1;select '€';select 1234567890;",
+        ("select 1", "select '€'", "select 1234567890"),
+    ),
+))
+def test_raw_stmt_len_with_unicode(sql, expected):
+    ptree = parse_sql(sql)
+
+    assert len(ptree) == len(expected)
+    for raw, statement in zip(ptree, expected):
+        assert raw.stmt_len == len(statement)
+        assert sql[raw.stmt_location:raw.stmt_location + raw.stmt_len] == statement
+
+
 def test_pg_version():
     pg_version = get_postgresql_version()
     assert isinstance(pg_version, tuple)
