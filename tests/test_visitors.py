@@ -279,6 +279,81 @@ def test_delete_action():
     assert RawStream()(raw) == ''
 
 
+def test_add_action():
+    class AddMissingSelectTargets(visitors.Visitor):
+        def visit_ResTarget(self, ancestors, node):
+            if isinstance(node.val, ast.A_Const) and node.val.val.ival == 1:
+                return (
+                    visitors.Add,
+                    ast.ResTarget(val=ast.A_Const(val=ast.Integer(2))),
+                    ast.ResTarget(val=ast.A_Const(val=ast.Integer(3))),
+                )
+
+    raw = parse_sql('select 1')
+    AddMissingSelectTargets()(raw)
+    assert RawStream()(raw) == 'SELECT 1, 2, 3'
+
+    class AddEvenValueAfterOdd(visitors.Visitor):
+        def visit_A_Const(self, ancestors, node):
+            if isinstance(node.val, ast.Integer) and node.val.ival == 1:
+                return visitors.Add, ast.A_Const(val=ast.Integer(2))
+
+    raw = parse_sql('INSERT INTO foo VALUES (1, 3)')
+    AddEvenValueAfterOdd()(raw)
+    assert RawStream()(raw) == 'INSERT INTO foo VALUES (1, 2, 3)'
+
+    class AddMultipleValues(visitors.Visitor):
+        def visit_A_Const(self, ancestors, node):
+            if isinstance(node.val, ast.Integer):
+                return visitors.Add, ast.A_Const(val=ast.Integer(node.val.ival * 10))
+
+    raw = parse_sql('INSERT INTO foo VALUES (1, 2, 3)')
+    AddMultipleValues()(raw)
+    assert RawStream()(raw) == 'INSERT INTO foo VALUES (1, 10, 2, 20, 3, 30)'
+
+    class AddAndDeleteValues(visitors.Visitor):
+        def visit_A_Const(self, ancestors, node):
+            if isinstance(node.val, ast.Integer):
+                if node.val.ival == 1:
+                    return visitors.Add, ast.A_Const(val=ast.Integer(10))
+                if node.val.ival == 2:
+                    return visitors.Delete
+
+    raw = parse_sql('INSERT INTO foo VALUES (1, 2, 3)')
+    AddAndDeleteValues()(raw)
+    assert RawStream()(raw) == 'INSERT INTO foo VALUES (1, 10, 3)'
+
+    class AddSecondStatement(visitors.Visitor):
+        def visit_RawStmt(self, ancestors, node):
+            if isinstance(node.stmt, ast.SelectStmt):
+                return visitors.Add, parse_sql('select 2')[0]
+
+    raw = parse_sql('select 1')
+    new_raw = AddSecondStatement()(raw)
+    assert RawStream()(new_raw) == 'SELECT 1; SELECT 2'
+
+    class BareAdd(visitors.Visitor):
+        def visit_A_Const(self, ancestors, node):
+            return visitors.Add
+
+    with pytest.raises(ValueError, match='requires one or more nodes'):
+        BareAdd()(parse_sql('select 1'))
+
+    class EmptyAdd(visitors.Visitor):
+        def visit_A_Const(self, ancestors, node):
+            return (visitors.Add,)
+
+    with pytest.raises(ValueError, match='requires one or more nodes'):
+        EmptyAdd()(parse_sql('select 1'))
+
+    class AddInsideAttribute(visitors.Visitor):
+        def visit_A_Const(self, ancestors, node):
+            return visitors.Add, ast.A_Const(val=ast.Integer(2))
+
+    with pytest.raises(ValueError, match='can only be used with nodes in a sequence'):
+        AddInsideAttribute()(parse_sql('select 1'))
+
+
 def test_alter_node():
     class AddNullConstraint(visitors.Visitor):
         def visit_ColumnDef(self, ancestors, node):

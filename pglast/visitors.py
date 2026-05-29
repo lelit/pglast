@@ -28,7 +28,12 @@ class Action(metaclass=ActionMeta):
 
 
 class Add(Action):
-    "Marker used to tell the iterator to insert nodes in the current sequence."
+    """
+    Marker used to tell the iterator to insert nodes in the current sequence.
+
+    Return ``(Add, node, ...)`` from a visitor to insert one or more nodes after
+    the current one.
+    """
 
 
 class Continue(Action):
@@ -229,6 +234,7 @@ class Ancestor:
     def update(self, new_value):
         "Set `new_value` as a pending change to the tracked node."
 
+        is_add = isinstance(new_value, (tuple, list)) and new_value and new_value[0] is Add
         if isinstance(self.member, int):
             # We are pointing to one particular item in a tuple, so we need to build a new one,
             # replacing it with the new value and then update the parent node accordingly:
@@ -237,9 +243,16 @@ class Ancestor:
             # lists" cases, that are handled at apply time.
             if self.parent.pending_update is None:
                 self.parent.pending_update = list(self.node)
+            if is_add:
+                new_value = (
+                    Add,
+                    self.parent.pending_update[self.member],
+                ) + tuple(new_value[1:])
             self.parent.pending_update[self.member] = new_value
             return self.parent
         else:
+            if is_add:
+                raise ValueError('Add action can only be used with nodes in a sequence')
             self.pending_update = new_value
             return self
 
@@ -248,7 +261,15 @@ class Ancestor:
 
         if self.pending_update is not None:
             if isinstance(self.pending_update, list):
-                value = tuple(filter(lambda item: item is not Delete, self.pending_update))
+                new_value = []
+                for item in self.pending_update:
+                    if item is Delete:
+                        continue
+                    if isinstance(item, tuple) and item and item[0] is Add:
+                        new_value.extend(item[1:])
+                    else:
+                        new_value.append(item)
+                value = tuple(new_value)
             else:
                 value = self.pending_update
             if isinstance(self.member, int):
@@ -373,6 +394,14 @@ class Visitor:
                                 todo.append((sub_ancestors / (sub_node, member), value))
                     elif action is Skip:
                         pass
+                    elif (isinstance(action, (tuple, list))
+                          and action
+                          and action[0] is Add):
+                        if len(action) < 2:
+                            raise ValueError('Add action requires one or more nodes to insert')
+                        pending_updates.append(sub_ancestors.update(action))
+                    elif action is Add:
+                        raise ValueError('Add action requires one or more nodes to insert')
                     else:
                         pending_updates.append(sub_ancestors.update(action))
                 elif isinstance(sub_node, tuple):
