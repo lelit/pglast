@@ -183,6 +183,27 @@ def test_split():
     assert tuple(sql[s] for s in split(sql, only_slices=True)) == expected
 
 
+def test_split_only_slices_with_statement_text_in_comments():
+    cases = (
+        ('select 1 /* mentions select 2 before the actual statement */; select 2',
+         ('select 1 /* mentions select 2 before the actual statement */', 'select 2')),
+        ('select 1 -- mentions select 2 before the semicolon\n; select 2',
+         ('select 1 -- mentions select 2 before the semicolon', 'select 2')),
+        ('select "€" /* mentions select 2 before the actual statement */; select 2',
+         ('select "€" /* mentions select 2 before the actual statement */', 'select 2')),
+        ('select 1; select 2 /* mentions select 3 before the actual statement */; select 3',
+         ('select 1', 'select 2 /* mentions select 3 before the actual statement */',
+          'select 3')),
+    )
+
+    for sql, expected in cases:
+        slices = split(sql, only_slices=True)
+
+        assert split(sql) == expected
+        assert tuple(sql[s] for s in slices) == expected
+        assert slices[-1].start == sql.rindex(expected[-1])
+
+
 def test_scan():
     sql = 'select /* something here */ 1'
     result = scan(sql)
