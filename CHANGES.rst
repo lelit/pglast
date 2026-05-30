@@ -27,6 +27,11 @@ Version 7
 
   __ https://github.com/lelit/pglast/pull/195
 
+- Define default visit method for visitor fixing typing inconsistency (`PR #188`__), thanks to
+  Bolaji Wahab
+
+  __ https://github.com/lelit/pglast/pull/188
+
 
 7.13 (2026-03-25)
 ~~~~~~~~~~~~~~~~~
