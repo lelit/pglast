@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.14 (unreleased)
+7.14 (2026-05-30)
 ~~~~~~~~~~~~~~~~~
 
 - Fix split comment slices (`PR #192`__), thanks to Alexander Macdonald
