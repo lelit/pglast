@@ -300,8 +300,7 @@ class Visitor:
     instance or a sequence of instances, typically the result of :func:`parse_sql
     <pglast.parser.parse_sql>`. The argument will be *traversed* in a `breadth first`__ order
     and each :class:`Node <.ast.Node>` instance will be passed to the corresponding
-    ``visit_XYZ`` method if it is implemented, falling back to the default ``visit`` method. If
-    none of them are defined, the node will be ignored.
+    ``visit_XYZ`` method if it is implemented, falling back to the default ``visit`` method.
 
     The ``visit_XYZ`` methods receive two arguments: the *ancestry chain* of the node, an
     instance of :class:`Ancestor` and the :class:`Node <.ast.Node>` instance itself. The
@@ -416,11 +415,10 @@ class Visitor:
             if pending_update.member is None:
                 self.root = pending_update.node
 
-    visit = None
-    """
-    The default *visit* method for any node without a specific one.
-    When ``None``, nothing happens.
-    """
+    def visit(self, ancestors, node):
+        """
+        The default *visit* method for any node without a specific one.
+        """
 
 
 class ReferencedRelations(Visitor):
