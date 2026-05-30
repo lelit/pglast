@@ -3,7 +3,7 @@
 # :Created:   dom 9 mag 2021, 16:15:05
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022, 2024, 2025 Lele Gaifax
+# :Copyright: © 2021, 2022, 2024, 2025, 2026 Lele Gaifax
 #
 
 from collections import deque
@@ -288,7 +288,8 @@ class Ancestor:
 
 
 class Visitor:
-    """Base class implementing the `visitor pattern`__.
+    """
+    Base class implementing the `visitor pattern`__.
 
     __ https://en.wikipedia.org/wiki/Visitor_pattern
 
@@ -296,11 +297,12 @@ class Visitor:
     specifically ``visit_XYZ`` where ``XYZ`` is the name of a class name defined in the
     :mod:`pglast.ast` module.
 
-    Instances of this class are *callables* and accept either a :class:`.ast.Node`
-    instance or a sequence of instances, typically the result of :func:`parse_sql
+    Instances of this class are *callables* and accept either a :class:`.ast.Node` instance or
+    a sequence of instances, typically the result of :func:`parse_sql()
     <pglast.parser.parse_sql>`. The argument will be *traversed* in a `breadth first`__ order
     and each :class:`Node <.ast.Node>` instance will be passed to the corresponding
-    ``visit_XYZ`` method if it is implemented, falling back to the default ``visit`` method.
+    ``visit_XYZ`` method if it is implemented, falling back to the default :meth:`visit`
+    method.
 
     The ``visit_XYZ`` methods receive two arguments: the *ancestry chain* of the node, an
     instance of :class:`Ancestor` and the :class:`Node <.ast.Node>` instance itself. The
@@ -418,6 +420,8 @@ class Visitor:
     def visit(self, ancestors, node):
         """
         The default *visit* method for any node without a specific one.
+
+        This implementation is a *no-op*.
         """
 
 
