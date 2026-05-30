@@ -8,6 +8,26 @@ Changes
 Version 7
 #########
 
+7.14 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix split comment slices (`PR #192`__), thanks to Alexander Macdonald
+
+  __ https://github.com/lelit/pglast/pull/192
+
+- Implement visitor ``Add`` action as documented (`PR #193`__), thanks to Alexander Macdonald
+
+  __ https://github.com/lelit/pglast/pull/193
+
+- Fix ``RawStmt`` ``stmt_len`` with Unicode statements (`PR #194`__), thanks to Alexander Macdonald
+
+  __ https://github.com/lelit/pglast/pull/194
+
+- Fix string literal splitting on trailing backslash (`PR #195`__), thanks to Alexander Macdonald
+
+  __ https://github.com/lelit/pglast/pull/195
+
+
 7.13 (2026-03-25)
 ~~~~~~~~~~~~~~~~~
 
@@ -319,14 +339,14 @@ Version 6
 6.2 (2024-02-01)
 ~~~~~~~~~~~~~~~~
 
-- Almost no-op release to fix issue `144`__, producing correct wheels for macOS arm64
+- Almost no-op release to fix issue `#144`__, producing correct wheels for macOS arm64
 
   __ https://github.com/lelit/pglast/issues/144
 
 6.1 (2024-01-22)
 ~~~~~~~~~~~~~~~~
 
-- Inherit fix for issue `143`__ from `version 5`_
+- Inherit fix for issue `#143`__ from `version 5`_
 
   __ https://github.com/lelit/pglast/issues/143
 
@@ -382,7 +402,7 @@ Version 5
 5.9 (2024-01-22)
 ~~~~~~~~~~~~~~~~
 
-- Fix issue `143`__, affecting ``AlterOwnerStmt`` and ``RenameStmt`` printers
+- Fix issue `#143`__, affecting ``AlterOwnerStmt`` and ``RenameStmt`` printers
 
   __ https://github.com/lelit/pglast/issues/143
 
