@@ -32,6 +32,14 @@ Version 7
 
   __ https://github.com/lelit/pglast/pull/188
 
+- Remove extra empty line separating ``CTE`` queries (issue `#187`__)
+
+  __ https://github.com/lelit/pglast/issues/187
+
+- Double quote the name of function when it is a *column-reserverd* keyword (issue `#189`__)
+
+  __ https://github.com/lelit/pglast/issues/189
+
 
 7.13 (2026-03-25)
 ~~~~~~~~~~~~~~~~~
