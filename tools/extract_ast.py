@@ -3,7 +3,7 @@
 # :Created:   sab 27 feb 2021, 19:47:11
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2021, 2022, 2023, 2024, 2025 Lele Gaifax
+# :Copyright: © 2021, 2022, 2023, 2024, 2025, 2026 Lele Gaifax
 #
 
 from datetime import date
@@ -589,10 +589,10 @@ def import_pglast_enums():
 
 
 def emitter_for(fname, ctype, enums):
-    if ctype == 'ParseLoc':
-        emitter = emit_location_attr
-    elif fname == 'stmt_len':
+    if fname == 'stmt_len':
         emitter = emit_stmt_len_attr
+    elif ctype == 'ParseLoc':
+        emitter = emit_location_attr
     elif ctype == 'List*':
         emitter = emit_list_attr
     elif ctype == 'CreateStmt':
