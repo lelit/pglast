@@ -7,8 +7,10 @@
 #
 
 from datetime import date
+from os import environ
 from os.path import basename, splitext
 from re import match
+from shutil import which
 import subprocess
 
 from pycparser import c_ast, c_parser
@@ -33,6 +35,16 @@ except ImportError:  # pragma: no cover
     # Python < 3.11
     class StrEnum(str, Enum):
         pass
+"""
+
+
+PYI_HEADER = f"""\
+# -*- coding: utf-8 -*-
+# :Project:   pglast — DO NOT EDIT: type stubs automatically extracted from %s @ %s
+# :Author:    Lele Gaifax <lele@metapensiero.it>
+# :License:   GNU General Public License version 3 or later
+# :Copyright: © {CYEARS} Lele Gaifax
+#
 """
 
 
@@ -68,10 +80,13 @@ def get_libpg_query_info():
     return version, baseurl
 
 
-def preprocess(fname, cpp_args=[]):
+def preprocess(fname, cpp_args=()):
     "Preprocess the given header and return the result."
 
-    result = subprocess.check_output(['cpp', '-E', '-include', 'c.h', *cpp_args, fname])
+    # macOS /usr/bin/cpp may expose SDK typedef enums that pycparser cannot
+    # parse. Prefer clang unless the caller selected a preprocessor explicitly.
+    cpp = environ.get('CPP') or which('clang') or 'cpp'
+    result = subprocess.check_output([cpp, '-E', '-include', 'c.h', *cpp_args, fname])
 
     return result.decode('utf-8')
 
@@ -127,9 +142,13 @@ def extract_enums(toc, source):
 
     parser = c_parser.CParser()
     for typedef in typedefs:
-        td = parser.parse(''.join(typedef))
-        if td.ext[0].name in toc:
-            yield td
+        source = ''.join(typedef)
+        m = match(r'typedef enum\s+([\w_]+)', source)
+        if m is None:
+            m = match(r'.*}\s+([\w_]+)\s*;', source)
+        if m is None or m.group(1) not in toc:
+            continue
+        yield parser.parse(source)
 
 
 def extract_defines(source):
@@ -206,6 +225,16 @@ def write_enum(name, enum, output):
         output.write('    %s = %s\n' % (item.name, value_factory(index, item)))
 
 
+def write_enum_stub(name, enum, output):
+    enum_type, __ = determine_enum_type_and_value(enum)
+    if enum_type == 'StrEnum':
+        enum_type = 'str, Enum'
+    output.write('\n\n')
+    output.write('class %s(%s):\n' % (name, enum_type))
+    for item in enum.values.enumerators:
+        output.write('    %s = ...\n' % item.name)
+
+
 def write_enum_doc(name, enum, output, toc, url, mod_name):
     output.write('\n\n.. class:: pglast.enums.%s.%s\n' % (mod_name, name))
     if name in toc:
@@ -215,25 +244,39 @@ def write_enum_doc(name, enum, output, toc, url, mod_name):
         output.write('\n   .. data:: %s\n' % item.name)
 
 
+def define_stub_type(value):
+    return 'str' if value.startswith("'") else 'int'
+
+
 def workhorse(args):
     libpg_query_version, libpg_query_baseurl = get_libpg_query_info()
     header_url = libpg_query_baseurl + args.header[12:]
     toc = extract_toc(args.header)
     preprocessed = preprocess(args.header, ['-I%s' % idir for idir in args.include_directory])
+    enum_nodes = sorted(extract_enums(toc, preprocessed), key=lambda x: x.ext[0].name)
     with open(args.output, 'w', encoding='utf-8') as output, \
+         open(args.output + 'i', 'w', encoding='utf-8') as stub_output, \
          open(args.rstdoc, 'w', encoding='utf-8') as rstdoc:
         header_fname = basename(args.header)
         mod_name = splitext(header_fname)[0]
         output.write(PY_HEADER % (header_fname, libpg_query_version))
+        stub_output.write(PYI_HEADER % (header_fname, libpg_query_version))
+        stub_enum_types = set()
+        for node in enum_nodes:
+            enum_type, __ = determine_enum_type_and_value(node.ext[0].type.type)
+            stub_enum_types.add('Enum' if enum_type == 'StrEnum' else enum_type)
+        if stub_enum_types:
+            stub_output.write('\nfrom enum import %s\n' %
+                              ', '.join(sorted(stub_enum_types)))
         rstdoc.write(RST_HEADER % dict(
             mod_name=mod_name, header_fname=header_fname,
             extra_decoration='='*(len(mod_name) + len(header_fname)),
             header_url=header_url))
 
-        for node in sorted(extract_enums(toc, preprocessed),
-                           key=lambda x: x.ext[0].name):
+        for node in enum_nodes:
             enum = node.ext[0].type.type
             write_enum(enum.name or node.ext[0].name, enum, output)
+            write_enum_stub(enum.name or node.ext[0].name, enum, stub_output)
             write_enum_doc(enum.name or node.ext[0].name, enum, rstdoc, toc, header_url,
                            mod_name)
 
@@ -246,6 +289,7 @@ def workhorse(args):
                     rstdoc.write('\n')
                     separator_emitted = True
                 output.write('\n%s = %s\n' % (constant, value))
+                stub_output.write('\n%s: %s\n' % (constant, define_stub_type(value)))
                 rstdoc.write('\n.. data:: %s\n' % constant)
                 if constant in toc:
                     rstdoc.write('\n   See `here for details <%s#L%d>`__.\n'

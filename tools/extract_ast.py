@@ -233,6 +233,65 @@ class Expr(Node):
 """
 
 
+AST_PYI_HEADER = f"""\
+# -*- coding: utf-8 -*-
+# :Project:   pglast — DO NOT EDIT: type stubs automatically extracted from struct_defs.json @ %s
+# :Author:    Lele Gaifax <lele@metapensiero.it>
+# :License:   GNU General Public License version 3 or later
+# :Copyright: © {CYEARS} Lele Gaifax
+#
+
+from collections.abc import Callable, Iterator
+from decimal import Decimal
+
+from typing import Any, NamedTuple, overload
+
+from . import enums
+
+
+class SlotTypeInfo(NamedTuple):
+    c_type: str
+    py_type: Any
+    adaptor: Callable[[Any], Any] | None
+
+
+class __Omissis:
+    def __eq__(self, other: object) -> bool: ...
+    def __repr__(self) -> str: ...
+
+
+Omissis: __Omissis
+
+
+class Node:
+    ancestors: Any
+    _ATTRS_TO_IGNORE_IN_COMPARISON: set[str]
+
+    def __init__(self, data: dict[str, Any]) -> None: ...
+    def __iter__(self) -> Iterator[str]: ...
+    def __repr__(self) -> str: ...
+    def __eq__(self, other: object) -> bool: ...
+    def __call__(
+        self,
+        depth: int | None = None,
+        ellipsis: Any = ...,
+        skip_none: bool = False,
+    ) -> dict[str, Any]: ...
+    def __setattr__(self, name: str, value: Any) -> None: ...
+
+
+class Expr(Node):
+    pass
+
+
+_NodePayload = dict[str, Any]
+_ListInput = list[Any] | tuple[Any, ...]
+_BitmapsetInput = set[int] | list[int] | tuple[int, ...]
+_CharInput = str | int
+_FloatStringInput = str | int | float | Decimal
+"""
+
+
 AST_PYX_HEADER = f"""\
 # -*- coding: utf-8 -*-
 # :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ %s
@@ -571,19 +630,25 @@ def import_pglast_enums():
     # to generate the AST module, say when the version of libpg_query changes) we usually
     # cannot import the top-level module, because the parser has not been compiled yet...
 
-    try:
-        from pglast import enums
-    except ModuleNotFoundError:
-        from importlib.util import module_from_spec
-        from importlib.util import spec_from_file_location
-        from pathlib import Path
-        import sys
+    from importlib.util import module_from_spec
+    from importlib.util import spec_from_file_location
+    from types import ModuleType
+    import sys
 
-        srcdir = Path(__file__).parent.parent / 'pglast'
-        spec = spec_from_file_location('pglast.enums', srcdir / 'enums' / '__init__.py')
-        enums = module_from_spec(spec)
-        sys.modules['pglast.enums'] = enums
-        spec.loader.exec_module(enums)
+    srcdir = Path(__file__).parent.parent / 'pglast'
+    package = ModuleType('pglast')
+    package.__path__ = [str(srcdir)]
+    sys.modules['pglast'] = package
+
+    spec = spec_from_file_location(
+        'pglast.enums',
+        srcdir / 'enums' / '__init__.py',
+        submodule_search_locations=[str(srcdir / 'enums')],
+    )
+    assert spec is not None and spec.loader is not None
+    enums = module_from_spec(spec)
+    sys.modules['pglast.enums'] = enums
+    spec.loader.exec_module(enums)
 
     return enums
 
@@ -745,6 +810,141 @@ class {name}({superclass}):
             doc.write(f'      {comment}\n\n')
 
 
+INT_CTYPES = {
+    'AclMode',
+    'AttrNumber',
+    'Index',
+    'RelFileNumber',
+    'SubTransactionId',
+    'bits32',
+    'int',
+    'int16',
+    'int32',
+    'long',
+    'uint32',
+    'uint64',
+}
+
+FLOAT_CTYPES = {'Cardinality', 'Cost'}
+
+
+def stub_read_type_for_attr(cls_name, attr, ctype, enums):
+    if cls_name == 'RawStmt' and attr == 'stmt':
+        return 'Node'
+    if ctype == 'List*':
+        return 'tuple[Any, ...] | None'
+    if ctype == 'ParseLoc':
+        return 'int | None'
+    if ctype == 'bool':
+        return 'bool | None'
+    if ctype in ('char', 'char*'):
+        return 'str | None'
+    if ctype in INT_CTYPES:
+        return 'int | None'
+    if ctype in FLOAT_CTYPES:
+        return 'float | None'
+    if ctype == 'CreateStmt':
+        return 'CreateStmt | None'
+    if ctype == 'Bitmapset*':
+        return 'set[int] | None'
+    if ctype == 'Expr*':
+        return 'Expr | None'
+    if ctype == 'Node*':
+        return 'Node | None'
+    if ctype in ('JsonTablePlan', 'ValUnion'):
+        return 'Node | None'
+    if ctype in enums:
+        return f'enums.{ctype} | None'
+    if ctype.endswith('*'):
+        return f'{ctype[:-1]} | None'
+    return 'Any'
+
+
+def stub_input_type_for_attr(cls_name, attr, ctype, enums):
+    if cls_name == 'RawStmt' and attr == 'stmt':
+        return 'Node | _NodePayload'
+    if ctype == 'List*':
+        return '_ListInput'
+    if ctype == 'ParseLoc':
+        return 'int'
+    if ctype == 'bool':
+        return 'bool | int'
+    if ctype == 'char':
+        return '_CharInput'
+    if cls_name == 'Float' and ctype == 'char*':
+        return '_FloatStringInput'
+    if ctype == 'char*':
+        return 'str'
+    if ctype in INT_CTYPES:
+        return 'int'
+    if ctype in FLOAT_CTYPES:
+        return 'float'
+    if ctype == 'CreateStmt':
+        return 'CreateStmt | _NodePayload'
+    if ctype == 'Bitmapset*':
+        return '_BitmapsetInput'
+    if ctype == 'Expr*':
+        return 'Expr | _NodePayload'
+    if ctype == 'Node*':
+        return 'Node | _NodePayload'
+    if ctype in ('JsonTablePlan', 'ValUnion'):
+        return 'Node'
+    if ctype in enums:
+        return f'enums.{ctype} | int | str | dict[str, Any]'
+    if ctype.endswith('*'):
+        return f'{ctype[:-1]} | _NodePayload'
+    return 'Any'
+
+
+def optional_constructor_type(type):
+    if type == 'Any':
+        return 'Any'
+    return f'{type} | None'
+
+
+def emit_node_stub_def(name, fields, enums, output):
+    attrs = []
+    superclass = 'Node'
+
+    for field in fields:
+        if 'name' not in field or 'c_type' not in field:
+            continue
+
+        ctype = field['c_type']
+        if ctype == 'Expr':
+            superclass = 'Expr'
+            continue
+        if ctype in ('NodeTag', 'Oid'):
+            continue
+
+        fname = field['name']
+        if iskeyword(fname):
+            fname = f'{fname}_'
+
+        attrs.append(
+            (
+                fname,
+                stub_read_type_for_attr(name, fname, ctype, enums),
+                stub_input_type_for_attr(name, fname, ctype, enums),
+            )
+        )
+
+    output.write(f'\n\nclass {name}({superclass}):\n')
+    if attrs:
+        for attr, read_type, __ in attrs:
+            output.write(f'    {attr}: {read_type}\n')
+        output.write('    @overload\n')
+        output.write('    def __init__(self, data: _NodePayload, /) -> None: ...\n')
+        output.write('    @overload\n')
+        args = ', '.join(
+            f'{attr}: {optional_constructor_type(input_type)} = None'
+            for attr, __, input_type in attrs
+        )
+        output.write(f'    def __init__(self, {args}) -> None: ...  # noqa: E501\n')
+    else:
+        output.write('    def __init__(self) -> None: ...\n')
+
+
 def emit_node_create_function(nodes, enums, output):
     pglast_enums = import_pglast_enums()
 
@@ -836,6 +1036,19 @@ class ValUnion(Node):
            super().__init__(value)
        else:
            self.val = value
+""")
+
+
+def emit_valunion_stub_def(output):
+    output.write("""
+
+
+class ValUnion(Node):
+    val: Node | None
+    @overload
+    def __init__(self, data: _NodePayload, /) -> None: ...
+    @overload
+    def __init__(self, value: Node | None = None) -> None: ...
 """)
 
 
@@ -1026,6 +1239,15 @@ def _fixup_attribute_types_in_slots():
 _fixup_attribute_types_in_slots()
 del _fixup_attribute_types_in_slots
 ''')
+
+    ast_pyi = args.output_dir / 'ast.pyi'
+    with ast_pyi.open('w', encoding='utf-8') as output:
+        output.write(AST_PYI_HEADER % libpg_query_version)
+
+        for name, fields in sorted(nodes):
+            if name == 'A_Const':
+                emit_valunion_stub_def(output)
+            emit_node_stub_def(name, fields, enums, output)
 
     ast_pyx = args.output_dir / 'ast.pyx'
     with ast_pyx.open('w', encoding='utf-8') as output:

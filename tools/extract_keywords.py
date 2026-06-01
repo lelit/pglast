@@ -26,6 +26,16 @@ HEADER = f"""\
 """
 
 
+PYI_HEADER = f"""\
+# -*- coding: utf-8 -*-
+# :Project:   pglast — DO NOT EDIT: type stubs automatically extracted from %s @ %s
+# :Author:    Lele Gaifax <lele@metapensiero.it>
+# :License:   GNU General Public License version 3 or later
+# :Copyright: © {CYEARS} Lele Gaifax
+#
+"""
+
+
 def get_target_pg_version():
     "Return the target PG version"
 
@@ -66,6 +76,12 @@ def workhorse(args):
             keywords = pformat(bytype[type], compact=True, indent=len(type)+5, width=95)
             output.write(keywords[1:].lstrip())
             output.write('\n')
+
+    with open(args.output + 'i', 'w', encoding='utf-8') as output:
+        output.write(PYI_HEADER % (basename(args.header), get_target_pg_version()))
+        for type in sorted(bytype):
+            output.write('\n')
+            output.write(type + 'S: set[str]\n')
 
 
 def main():
