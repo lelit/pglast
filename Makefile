@@ -217,7 +217,7 @@ COVERAGE = $(VENVDIR)/bin/coverage
 
 .PHONY: check
 check: build
-	$(PYTEST) tests/
+	$(COVERAGE) run -m pytest tests/
 	$(MAKE) -C docs SPHINXBUILD=$(SPHINXBUILD) doctest
 	$(COVERAGE) json -o $(TOPDIR)/coverage.json
 
