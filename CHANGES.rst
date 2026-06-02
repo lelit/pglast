@@ -5,6 +5,30 @@
 Changes
 -------
 
+Version 8
+#########
+
+8.0.dev0 (unreleased)
+~~~~~~~~~~~~~~~~~~~~~
+
+- No visible changes with respect to v7, apart from the support for new/revised syntaxes of
+  `PostgreSQL 18`__
+
+  __ https://www.postgresql.org/docs/18/release-18.html
+
+- Improve type hints (`PR #191`__), thanks to Alexander Macdonald
+
+  __ https://github.com/lelit/pglast/pull/192
+
+~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
+~~~~~~~~~~~~~~~~~~~~
+
+- Target PostgreSQL 18, thanks to libpg_query `18-latest`__
+
+  __ https://github.com/pganalyze/libpg_query/tree/18-latest
+
+
 Version 7
 #########
 
