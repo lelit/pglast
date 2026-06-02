@@ -3,7 +3,7 @@
 # :Created:   gio 03 ago 2017 14:52:45 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025, 2026 Lele Gaifax
 #
 
 export TOPDIR := $(CURDIR)
@@ -164,8 +164,11 @@ PRINTER_STUBS := pglast/printers/ddl.pyi pglast/printers/dml.pyi pglast/printers
 .PHONY: type-stubs
 type-stubs: enums
 type-stubs: keywords
-type-stubs:
-	$(MAKE) pglast/ast.pyi $(PY_ENUM_STUBS) pglast/enums/__init__.pyi $(PY_KEYWORD_STUBS) $(PRINTER_STUBS)
+type-stubs: pglast/ast.pyi
+type-stubs: $(PY_ENUM_STUBS)
+type-stubs: pglast/enums/__init__.pyi
+type-stubs: $(PY_KEYWORD_STUBS)
+type-stubs: $(PRINTER_STUBS)
 
 pglast/printers/%.pyi: pglast/printers/%.py tools/extract_printer_stubs.py
 	$(PYTHON) tools/extract_printer_stubs.py $< $@
