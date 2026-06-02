@@ -32,6 +32,7 @@ def stub_parse_sql_basic() -> None:
     # These should work fine
     first_stmt: Node = result[0]
     stmt_count: int = len(result)
+    assert isinstance(first_stmt, Node), f'Expected Node, got {type(first_stmt)}'
     assert isinstance(stmt_count, int), f'Expected int, got {type(stmt_count)}'
 
 
@@ -129,6 +130,112 @@ def stub_parse_plpgsql_function() -> None:
     assert isinstance(first_item, dict), f'Expected dict, got {type(first_item)}'
 
 
+def stub_ast_fields() -> None:
+    """Stub function to test generated AST field type hints."""
+    from pglast import ast, parse_sql
+
+    stmt = parse_sql('SELECT 1')[0]
+    raw: ast.RawStmt = stmt
+    node: ast.Node = stmt.stmt
+    location: int | None = stmt.stmt_location
+    length: int | None = stmt.stmt_len
+
+    assert isinstance(raw, ast.RawStmt)
+    assert isinstance(node, ast.Node)
+    assert isinstance(location, int)
+    assert isinstance(length, int)
+
+    if isinstance(node, ast.SelectStmt):
+        targets: tuple[object, ...] | None = node.targetList
+        where_clause: ast.Node | None = node.whereClause
+        select_all: bool | None = node.all
+
+        assert targets is not None
+        assert where_clause is None
+        assert isinstance(select_all, bool)
+
+
+def stub_ast_constructors() -> None:
+    """Stub function to test permissive generated AST constructors."""
+    from pglast import ast
+
+    relation = ast.RangeVar(relname='users', inh=True, relpersistence='p')
+    relname: str | None = relation.relname
+    alias: ast.Alias | None = relation.alias
+
+    const = ast.A_Const(isnull=False, val=ast.Integer(ival=1))
+    value: ast.Node | None = const.val
+
+    assert relname == 'users'
+    assert alias is None
+    assert isinstance(value, ast.Integer)
+
+
+def stub_enums_and_streams() -> None:
+    """Stub function to test generated enum and stream type hints."""
+    from pglast import enums, parse_sql
+    from pglast.stream import IndentedStream, RawStream
+
+    tag: enums.NodeTag = enums.NodeTag.T_RawStmt
+    kind: enums.A_Expr_Kind = enums.A_Expr_Kind.AEXPR_OP
+    lock_mode: int = enums.AccessShareLock
+
+    raw_sql: str = RawStream()(parse_sql('SELECT 1'))
+    pretty_sql: str = IndentedStream(compact_lists_margin=80)('SELECT 1')
+
+    assert tag is enums.NodeTag.T_RawStmt
+    assert kind is enums.A_Expr_Kind.AEXPR_OP
+    assert isinstance(lock_mode, int)
+    assert raw_sql == 'SELECT 1'
+    assert pretty_sql == 'SELECT 1'
+
+
+def stub_public_module_types() -> None:
+    """Stub function to test handwritten public module type hints."""
+    from pglast.parser import Comment, comments, split
+    from pglast.visitors import referenced_relations
+
+    statements: tuple[str, ...] = split('SELECT 1; SELECT 2')
+    slices: tuple[slice, ...] = split('SELECT 1; SELECT 2', only_slices=True)
+    parsed_comments: tuple[Comment, ...] = comments('SELECT 1 -- comment')
+    relations: set[str] = referenced_relations('SELECT * FROM users')
+
+    assert statements == ('SELECT 1', 'SELECT 2')
+    assert slices == (slice(0, 8), slice(10, 18))
+    assert parsed_comments[0].str == '-- comment'
+    assert relations == {'users'}
+
+
+def stub_remaining_importable_modules() -> None:
+    """Stub function to test every remaining importable module has useful stubs."""
+    from argparse import Namespace
+    from typing import Any, Callable, Sequence
+
+    from pglast import ast, enums, keywords
+    from pglast.__main__ import main, workhorse
+    from pglast.printers import ddl, dml, sfuncs
+
+    reserved: set[str] = keywords.RESERVED_KEYWORDS
+    unreserved: set[str] = keywords.UNRESERVED_KEYWORDS
+    main_fn: Callable[[Sequence[str] | None], None] = main
+    workhorse_fn: Callable[[Namespace], None] = workhorse
+    select_printer: Callable[[ast.SelectStmt, Any], None] = dml.select_stmt
+    access_printer: Callable[[ast.AccessPriv, Any], None] = ddl.access_priv
+    special_printer: Callable[[ast.FuncCall, Any], None] = sfuncs.btrim
+    alter_enum: type[enums.AlterTableType] = ddl.AlterTableTypePrinter.enum
+    expr_enum: type[enums.A_Expr_Kind] = dml.AExprKindPrinter.enum
+
+    assert 'select' in reserved
+    assert 'abort' in unreserved
+    assert main_fn is main
+    assert workhorse_fn is workhorse
+    assert select_printer is dml.select_stmt
+    assert access_printer is ddl.access_priv
+    assert special_printer is sfuncs.btrim
+    assert alter_enum is enums.AlterTableType
+    assert expr_enum is enums.A_Expr_Kind
+
+
 def stub_type_errors() -> None:
     """
     Stub function that should cause type checker errors.
@@ -137,7 +244,38 @@ def stub_type_errors() -> None:
 
     query: str = 'SELECT 1'
     # Intentional error, to assert that the type checker is not cheating
-    wrong_type: int = parse_sql(query)
+    _wrong_type: int = parse_sql(query)
+
+
+def stub_ast_field_type_errors() -> None:
+    """
+    Stub function that should cause type checker errors on AST field access.
+    """
+    from pglast.parser import parse_sql
+
+    _wrong_type: int = parse_sql('SELECT 1')[0].stmt
+
+
+def stub_ast_constructor_type_errors() -> None:
+    """
+    Stub function that should cause type checker errors for invalid AST construction.
+    """
+    from pglast import ast
+
+    ast.A_Const(isnull=False, val=1)
+    ast.RangeVar(alias=1)
+    ast.SelectStmt(all='yes')
+
+
+def stub_stream_type_errors() -> None:
+    """
+    Stub function that should cause type checker errors for stream list inputs.
+    """
+    from pglast import ast
+    from pglast.stream import RawStream
+
+    nodes = (ast.String(sval='a'), ast.String(sval='b'))
+    RawStream().print_list((node for node in nodes), sep='.')
 
 
 def run_type_checker_on_stub(
@@ -245,7 +383,15 @@ ty_checker: tuple[str, ...] = (
         (stub_parser_functions, True),
         (stub_prettify_function, True),
         (stub_parse_plpgsql_function, True),
+        (stub_ast_fields, True),
+        (stub_ast_constructors, True),
+        (stub_enums_and_streams, True),
+        (stub_public_module_types, True),
+        (stub_remaining_importable_modules, True),
         (stub_type_errors, False),
+        (stub_ast_field_type_errors, False),
+        (stub_ast_constructor_type_errors, False),
+        (stub_stream_type_errors, False),
     )
 )
 def test_type_check(checker, stub_function, expected_to_pass) -> None:

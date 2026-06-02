@@ -5,10 +5,12 @@
 # :License:   GNU General Public License version 3 or later
 #
 
-from typing import NamedTuple
+from typing import Literal, NamedTuple, overload
 
 from .ast import RawStmt
 from .error import Error
+
+LONG_MAX: int
 
 
 class ParseError(Error):
@@ -43,19 +45,50 @@ def parse_plpgsql_json(query: str) -> str: ...
 
 def fingerprint(query: str) -> str: ...
 
+@overload
 def split(
     stmts: str,
     with_parser: bool = True,
+    only_slices: Literal[False] = False,
+) -> tuple[str, ...]: ...
+
+@overload
+def split(
+    stmts: str,
+    with_parser: bool = True,
+    *,
+    only_slices: Literal[True],
+) -> tuple[slice, ...]: ...
+
+@overload
+def split(
+    stmts: str,
+    with_parser: bool,
+    only_slices: Literal[True],
+) -> tuple[slice, ...]: ...
+
+@overload
+def split(
+    stmts: str,
+    with_parser: bool = True,
+    *,
+    only_slices: bool,
+) -> tuple[str | slice, ...]: ...
+
+@overload
+def split(
+    stmts: str,
+    with_parser: bool,
     only_slices: bool = False,
 ) -> tuple[str | slice, ...]: ...
 
 def deparse_protobuf(
     protobuf: bytes,
     pretty_print: bool = False,
-    indent_size: int = 2,
-    max_line_length: int = 150,
-    trailing_newline: bool = True,
-    commas_start_of_line: bool = True,
+    indent_size: int = 4,
+    max_line_length: int = 80,
+    trailing_newline: bool = False,
+    commas_start_of_line: bool = False,
 ) -> str: ...
 
 def scan(query: str) -> list[Token]: ...
@@ -66,4 +99,4 @@ class Comment(NamedTuple):
     newlines_after_comment: int
     str: str
 
-def comments(query: str) -> tuple[Comment]: ...
+def comments(query: str) -> tuple[Comment, ...]: ...

@@ -38,6 +38,7 @@ build: $(VENVDIR)/libpg_query.hash
 build: $(VENVDIR)/extension.timestamp
 build: enums
 build: keywords
+build: type-stubs
 build: printers-doc
 
 FORCE:
@@ -93,61 +94,92 @@ distclean:: clean
 help::
 	@printf "enums\n\textract Python enums from PG sources\n"
 
-PY_ENUMS := $(shell ls pglast/enums/*.py)
+PY_ENUMS := $(filter-out pglast/enums/__init__.py,$(shell ls pglast/enums/*.py))
+PY_ENUM_STUBS := $(PY_ENUMS:.py=.pyi)
 PG_INCLUDE_DIR := libpg_query/src/postgres/include
 
 .PHONY: enums
 enums: $(PY_ENUMS)
 
-$(PY_ENUMS): tools/extract_enums.py
-$(PY_ENUMS): libpg_query/libpg_query.a
-$(PY_ENUMS): $(VENVDIR)/libpg_query.hash
+$(PY_ENUMS) $(PY_ENUM_STUBS): tools/extract_enums.py
+$(PY_ENUMS) $(PY_ENUM_STUBS): libpg_query/libpg_query.a
+$(PY_ENUMS) $(PY_ENUM_STUBS): $(VENVDIR)/libpg_query.hash
 
-define extract_enums =
-$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $@ docs/$(basename $(notdir $@)).rst
+define extract_enums
+$(PYTHON) tools/extract_enums.py -I $(PG_INCLUDE_DIR) $< $(basename $@).py docs/$(basename $(notdir $@)).rst
 endef
 
-pglast/enums/%.py: $(PG_INCLUDE_DIR)/nodes/%.h
+pglast/enums/%.py pglast/enums/%.pyi: $(PG_INCLUDE_DIR)/nodes/%.h
 	$(extract_enums)
 
-pglast/enums/lockdefs.py: $(PG_INCLUDE_DIR)/storage/lockdefs.h
+pglast/enums/lockdefs.py pglast/enums/lockdefs.pyi: $(PG_INCLUDE_DIR)/storage/lockdefs.h
 	$(extract_enums)
 
-pglast/enums/pg_am.py: $(PG_INCLUDE_DIR)/catalog/pg_am.h
+pglast/enums/pg_am.py pglast/enums/pg_am.pyi: $(PG_INCLUDE_DIR)/catalog/pg_am.h
 	$(extract_enums)
 
-pglast/enums/pg_attribute.py: $(PG_INCLUDE_DIR)/catalog/pg_attribute.h
+pglast/enums/pg_attribute.py pglast/enums/pg_attribute.pyi: $(PG_INCLUDE_DIR)/catalog/pg_attribute.h
 	$(extract_enums)
 
-pglast/enums/pg_class.py: $(PG_INCLUDE_DIR)/catalog/pg_class.h
+pglast/enums/pg_class.py pglast/enums/pg_class.pyi: $(PG_INCLUDE_DIR)/catalog/pg_class.h
 	$(extract_enums)
 
-pglast/enums/pg_trigger.py: $(PG_INCLUDE_DIR)/catalog/pg_trigger.h
+pglast/enums/pg_trigger.py pglast/enums/pg_trigger.pyi: $(PG_INCLUDE_DIR)/catalog/pg_trigger.h
 	$(extract_enums)
 
-pglast/enums/xml.py: $(PG_INCLUDE_DIR)/utils/xml.h
+pglast/enums/xml.py pglast/enums/xml.pyi: $(PG_INCLUDE_DIR)/utils/xml.h
 	$(extract_enums)
 
-pglast/enums/cmptype.py: $(PG_INCLUDE_DIR)/access/cmptype.h
+pglast/enums/cmptype.py pglast/enums/cmptype.pyi: $(PG_INCLUDE_DIR)/access/cmptype.h
 	$(extract_enums)
 
 help::
 	@printf "keywords\n\textract Python keyword sets from PG sources\n"
 
 PY_KEYWORDS := pglast/keywords.py
+PY_KEYWORD_STUBS := pglast/keywords.pyi
 
 .PHONY: keywords
 keywords: $(PY_KEYWORDS)
 
-$(PY_KEYWORDS): tools/extract_keywords.py
-$(PY_KEYWORDS): libpg_query/libpg_query.a
-$(PY_KEYWORDS): $(VENVDIR)/libpg_query.hash
-$(PY_KEYWORDS): $(PG_INCLUDE_DIR)/parser/kwlist.h
-	$(PYTHON) tools/extract_keywords.py $(PG_INCLUDE_DIR)/parser/kwlist.h $@
+$(PY_KEYWORDS) $(PY_KEYWORD_STUBS): tools/extract_keywords.py
+$(PY_KEYWORDS) $(PY_KEYWORD_STUBS): libpg_query/libpg_query.a
+$(PY_KEYWORDS) $(PY_KEYWORD_STUBS): $(VENVDIR)/libpg_query.hash
+$(PY_KEYWORDS) $(PY_KEYWORD_STUBS): $(PG_INCLUDE_DIR)/parser/kwlist.h
+	$(PYTHON) tools/extract_keywords.py $(PG_INCLUDE_DIR)/parser/kwlist.h $(PY_KEYWORDS)
 
 pglast/ast.pyx: tools/extract_ast.py libpg_query/srcdata/struct_defs.json
 pglast/ast.pyx: $(PY_ENUMS)
 	$(PYTHON) tools/extract_ast.py pglast/ docs/ast.rst
+
+pglast/ast.pyi: tools/extract_ast.py libpg_query/srcdata/struct_defs.json
+pglast/ast.pyi: $(PY_ENUMS)
+	$(PYTHON) tools/extract_ast.py pglast/ docs/ast.rst
+
+help::
+	@printf "type-stubs\n\tgenerate Python type stubs for generated modules\n"
+
+PRINTER_STUBS := pglast/printers/ddl.pyi pglast/printers/dml.pyi pglast/printers/sfuncs.pyi
+
+.PHONY: type-stubs
+type-stubs: enums
+type-stubs: keywords
+type-stubs:
+	$(MAKE) pglast/ast.pyi $(PY_ENUM_STUBS) pglast/enums/__init__.pyi $(PY_KEYWORD_STUBS) $(PRINTER_STUBS)
+
+pglast/printers/%.pyi: pglast/printers/%.py tools/extract_printer_stubs.py
+	$(PYTHON) tools/extract_printer_stubs.py $< $@
+
+pglast/enums/__init__.pyi: pglast/enums/__init__.py Makefile
+	{ \
+	  printf "%s\n" "# -*- coding: utf-8 -*-"; \
+	  printf "%s\n" "# :Project:   pglast — DO NOT EDIT: type stubs automatically extracted from __init__.py"; \
+	  printf "%s\n" "# :Author:    Lele Gaifax <lele@metapensiero.it>"; \
+	  printf "%s\n" "# :License:   GNU General Public License version 3 or later"; \
+	  printf "%s\n" "#"; \
+	  printf "\n"; \
+	  sed -n '/^from \./p' $<; \
+	} > $@
 
 help::
 	@printf "printers-doc\n\tupdate printers documentation\n"
