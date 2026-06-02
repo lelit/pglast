@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 # :Project:   pglast — Extract type stubs from printer modules
+# :Created:   dom 24 mag 2026, 22:48
+# :Author:    Alexander Macdonald <alex@alexmac.cc>
 # :License:   GNU General Public License version 3 or later
+# :Copyright: © 2026 Alexander Macdonald
 #
 
 import ast as pyast
