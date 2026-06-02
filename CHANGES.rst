@@ -8,7 +8,7 @@ Changes
 Version 8
 #########
 
-8.0.dev0 (unreleased)
+8.0.dev0 (2026-06-02)
 ~~~~~~~~~~~~~~~~~~~~~
 
 - No visible changes with respect to v7, apart from the support for new/revised syntaxes of
