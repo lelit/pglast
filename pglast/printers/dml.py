@@ -676,7 +676,7 @@ def float(node, output):
 @node_printer(ast.FuncCall)
 def func_call(node, output):
     name = '.'.join(n.sval for n in node.funcname)
-    special_printer = output.get_printer_for_function(name)
+    special_printer = output.get_printer_for_function(name, node)
     if special_printer is not None:
         special_printer(node, output)
         return

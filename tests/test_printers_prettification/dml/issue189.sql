@@ -1,7 +1,6 @@
 select extract(epoch from now())
 =
-SELECT pg_catalog.extract('epoch'
-                        , now())
+SELECT EXTRACT(EPOCH FROM now())
 
 select extract(epoch from now())
 =

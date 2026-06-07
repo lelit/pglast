@@ -202,7 +202,7 @@ SELECT substring('123', 2, 3)
      , regexp_split_to_array('x,x,x', ',')
      , btrim('xxx')
      , pg_catalog.btrim('xxx')
-     , pg_catalog.position(pg_catalog.btrim(substring('xyz hour ', 1, 6)), 'hour')
+     , position('hour' IN pg_catalog.btrim(substring('xyz hour ', 1, 6)))
 """
 
     with StringIO(in_stmt) as input:
@@ -214,7 +214,7 @@ SELECT substring('123', 2, 3)
      , regexp_split_to_array('x,x,x', ',')
      , btrim('xxx')
      , btrim('xxx')
-     , pg_catalog.position(btrim(substring('xyz hour ', 1, 6)), 'hour')
+     , position('hour' IN btrim(substring('xyz hour ', 1, 6)))
 """
 
     with StringIO('SELECT NULLIF(1, 0)') as input:
