@@ -12,7 +12,7 @@ import sys
 
 import pytest
 
-from pglast import parse_sql, split
+from pglast import enums, parse_sql, split
 from pglast.parser import ParseError
 from pglast.stream import RawStream, IndentedStream
 import pglast.printers  # noqa
@@ -69,6 +69,45 @@ def test_printers_roundtrip(src, lineno, statement):
     # Run ``pytest -s tests/`` to see the following output
     print()
     print(indented)
+
+
+@pytest.mark.parametrize('statement,explicit_statement,bare_comma_call', (
+    (
+        "SELECT position('a' IN 'abc')",
+        "SELECT pg_catalog.position('abc', 'a')",
+        "SELECT position('abc', 'a')",
+    ),
+    (
+        "SELECT extract(year FROM now())",
+        "SELECT pg_catalog.extract('year', now())",
+        "SELECT extract('year', now())",
+    ),
+))
+@pytest.mark.parametrize('stream_class', (RawStream, IndentedStream))
+def test_special_function_sql_syntax_roundtrip_preserves_funcformat(
+        stream_class, statement, explicit_statement, bare_comma_call):
+    explicit_call = parse_sql(explicit_statement)
+    sql_syntax = parse_sql(statement)
+
+    assert explicit_call[0].stmt.targetList[0].val.funcformat == enums.CoercionForm.COERCE_EXPLICIT_CALL
+    assert sql_syntax[0].stmt.targetList[0].val.funcformat == enums.CoercionForm.COERCE_SQL_SYNTAX
+    with pytest.raises(ParseError):
+        parse_sql(bare_comma_call)
+
+    serialized = stream_class()(sql_syntax)
+    serialized_syntax = parse_sql(serialized)
+
+    assert serialized_syntax[0].stmt.targetList[0].val.funcformat == enums.CoercionForm.COERCE_SQL_SYNTAX, serialized
+
+
+@pytest.mark.parametrize('statement', (
+    "SELECT pg_catalog.extract('year', now())",
+    "SELECT pg_catalog.position('abc', 'a')",
+))
+def test_remove_pg_catalog_keeps_required_function_schema(statement):
+    serialized = RawStream(remove_pg_catalog_from_functions=True)(parse_sql(statement))
+
+    assert serialized == statement
 
 
 @pytest.mark.parametrize('src,lineno,statement',

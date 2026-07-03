@@ -11,13 +11,16 @@ from io import StringIO
 from re import compile
 from sys import stderr
 
-from . import ast, parse_plpgsql, parse_sql
+from . import ast, enums, parse_plpgsql, parse_sql
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
 from .printers import get_printer_for_node, get_special_function
 
 
 is_simple_name = compile(r'[a-z_][a-z0-9_]*$').match
 "Determine whether a name is simple enough to not require being double quoted."
+
+
+SQL_SYNTAX_SPECIAL_FUNCTIONS = frozenset(('pg_catalog.extract', 'pg_catalog.position'))
 
 
 def maybe_double_quote_name(name):
@@ -214,17 +217,21 @@ class RawStream(OutputStream):
     def dedent(self):
         "Do nothing, shall be overridden by the prettifier subclass."
 
-    def get_printer_for_function(self, name):
+    def get_printer_for_function(self, name, node=None):
         """Look for a specific printer for function `name` in :data:`SPECIAL_FUNCTIONS`.
 
         :param str name: the qualified name of the function
         :returns: either ``None`` or a callable
 
         When the option `special_functions` is ``True``, return the printer function associated
-        with `name`, if present. In all other cases return ``None``.
+        with `name`, if present. For functions whose comma-call form is distinct from their
+        SQL syntax form, also return the printer when the parsed node used SQL syntax.
         """
 
-        if self.special_functions:
+        if (self.special_functions
+                or (node is not None
+                    and name in SQL_SYNTAX_SPECIAL_FUNCTIONS
+                    and node.funcformat == enums.CoercionForm.COERCE_SQL_SYNTAX)):
             return get_special_function(name)
 
     def indent(self, amount=0, relative=True):
@@ -416,7 +423,7 @@ class RawStream(OutputStream):
             # The list contains all functions that cannot be found without an
             # explicit pg_catalog schema. ie:
             # position(a,b) is invalid but pg_catalog.position(a,b) is fine
-            and items[1].sval not in ('position', 'xmlexists')
+            and items[1].sval not in ('extract', 'position', 'xmlexists')
         )
 
     def _print_items(self, items, sep, newline, are_names=False, is_symbol=False,
