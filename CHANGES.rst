@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.15 (unreleased)
+7.15 (2026-07-03)
 ~~~~~~~~~~~~~~~~~
 
 - Preserve SQL-syntax function roundtrips (`PR #198`__), thanks to Alexander Macdonald
