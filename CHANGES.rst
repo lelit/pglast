@@ -32,6 +32,14 @@ Version 8
 Version 7
 #########
 
+7.15 (2026-07-03)
+~~~~~~~~~~~~~~~~~
+
+- Preserve SQL-syntax function roundtrips (`PR #198`__), thanks to Alexander Macdonald
+
+  __ https://github.com/lelit/pglast/pull/198
+
+
 7.14 (2026-05-30)
 ~~~~~~~~~~~~~~~~~
 
