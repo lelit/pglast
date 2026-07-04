@@ -9,7 +9,7 @@
  :mod:`pglast.enums.primnodes` --- Constants extracted from `primnodes.h`__
 ============================================================================
 
-__ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h
+__ https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h
 
 .. module:: pglast.enums.primnodes
    :synopsis: Constants extracted from primnodes.h
@@ -17,7 +17,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.BoolExprType
 
-   Corresponds to the `BoolExprType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L948>`__.
+   Corresponds to the `BoolExprType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L948>`__.
 
    .. data:: AND_EXPR
 
@@ -28,7 +28,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.BoolTestType
 
-   Corresponds to the `BoolTestType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1985>`__.
+   Corresponds to the `BoolTestType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1985>`__.
 
    .. data:: IS_TRUE
 
@@ -45,7 +45,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.CoercionContext
 
-   Corresponds to the `CoercionContext enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L731>`__.
+   Corresponds to the `CoercionContext enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L731>`__.
 
    .. data:: COERCION_IMPLICIT
 
@@ -58,7 +58,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.CoercionForm
 
-   Corresponds to the `CoercionForm enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L751>`__.
+   Corresponds to the `CoercionForm enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L751>`__.
 
    .. data:: COERCE_EXPLICIT_CALL
 
@@ -71,7 +71,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.JsonBehaviorType
 
-   Corresponds to the `JsonBehaviorType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1774>`__.
+   Corresponds to the `JsonBehaviorType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1774>`__.
 
    .. data:: JSON_BEHAVIOR_NULL
 
@@ -94,7 +94,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.JsonConstructorType
 
-   Corresponds to the `JsonConstructorType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1699>`__.
+   Corresponds to the `JsonConstructorType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1699>`__.
 
    .. data:: JSCTOR_JSON_OBJECT
 
@@ -113,7 +113,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.JsonEncoding
 
-   Corresponds to the `JsonEncoding enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1635>`__.
+   Corresponds to the `JsonEncoding enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1635>`__.
 
    .. data:: JS_ENC_DEFAULT
 
@@ -126,7 +126,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.JsonExprOp
 
-   Corresponds to the `JsonExprOp enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1811>`__.
+   Corresponds to the `JsonExprOp enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1811>`__.
 
    .. data:: JSON_EXISTS_OP
 
@@ -139,7 +139,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.JsonFormatType
 
-   Corresponds to the `JsonFormatType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1647>`__.
+   Corresponds to the `JsonFormatType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1647>`__.
 
    .. data:: JS_FORMAT_DEFAULT
 
@@ -150,7 +150,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.JsonValueType
 
-   Corresponds to the `JsonValueType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1731>`__.
+   Corresponds to the `JsonValueType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1731>`__.
 
    .. data:: JS_TYPE_ANY
 
@@ -163,7 +163,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.JsonWrapper
 
-   Corresponds to the `JsonWrapper enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1759>`__.
+   Corresponds to the `JsonWrapper enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1759>`__.
 
    .. data:: JSW_UNSPEC
 
@@ -176,7 +176,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.MergeMatchKind
 
-   Corresponds to the `MergeMatchKind enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L2005>`__.
+   Corresponds to the `MergeMatchKind enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L2005>`__.
 
    .. data:: MERGE_WHEN_MATCHED
 
@@ -187,7 +187,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.MinMaxOp
 
-   Corresponds to the `MinMaxOp enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1511>`__.
+   Corresponds to the `MinMaxOp enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1511>`__.
 
    .. data:: IS_GREATEST
 
@@ -196,7 +196,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.NullTestType
 
-   Corresponds to the `NullTestType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1961>`__.
+   Corresponds to the `NullTestType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1961>`__.
 
    .. data:: IS_NULL
 
@@ -205,7 +205,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.OnCommitAction
 
-   Corresponds to the `OnCommitAction enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L56>`__.
+   Corresponds to the `OnCommitAction enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L56>`__.
 
    .. data:: ONCOMMIT_NOOP
 
@@ -218,7 +218,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.OverridingKind
 
-   Corresponds to the `OverridingKind enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L26>`__.
+   Corresponds to the `OverridingKind enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L26>`__.
 
    .. data:: OVERRIDING_NOT_SET
 
@@ -229,7 +229,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.ParamKind
 
-   Corresponds to the `ParamKind enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L382>`__.
+   Corresponds to the `ParamKind enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L382>`__.
 
    .. data:: PARAM_EXTERN
 
@@ -242,7 +242,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.SQLValueFunctionOp
 
-   Corresponds to the `SQLValueFunctionOp enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1545>`__.
+   Corresponds to the `SQLValueFunctionOp enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1545>`__.
 
    .. data:: SVFOP_CURRENT_DATE
 
@@ -277,7 +277,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.SubLinkType
 
-   Corresponds to the `SubLinkType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1014>`__.
+   Corresponds to the `SubLinkType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1014>`__.
 
    .. data:: EXISTS_SUBLINK
 
@@ -298,7 +298,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.TableFuncType
 
-   Corresponds to the `TableFuncType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L98>`__.
+   Corresponds to the `TableFuncType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L98>`__.
 
    .. data:: TFT_XMLTABLE
 
@@ -307,7 +307,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.VarReturningType
 
-   Corresponds to the `VarReturningType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L254>`__.
+   Corresponds to the `VarReturningType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L254>`__.
 
    .. data:: VAR_RETURNING_DEFAULT
 
@@ -318,7 +318,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.XmlExprOp
 
-   Corresponds to the `XmlExprOp enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1589>`__.
+   Corresponds to the `XmlExprOp enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1589>`__.
 
    .. data:: IS_XMLCONCAT
 
@@ -339,7 +339,7 @@ __ https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/no
 
 .. class:: pglast.enums.primnodes.XmlOptionType
 
-   Corresponds to the `XmlOptionType enum <https://github.com/pganalyze/libpg_query/blob/9ab9951/src/postgres/include/nodes/primnodes.h#L1601>`__.
+   Corresponds to the `XmlOptionType enum <https://github.com/pganalyze/libpg_query/blob/6ced8d4/src/postgres/include/nodes/primnodes.h#L1601>`__.
 
    .. data:: XMLOPTION_DOCUMENT
 
