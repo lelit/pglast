@@ -136,24 +136,17 @@ pglast/enums/cmptype.py pglast/enums/cmptype.pyi: $(PG_INCLUDE_DIR)/access/cmpty
 help::
 	@printf "keywords\n\textract Python keyword sets from PG sources\n"
 
-PY_KEYWORDS := pglast/keywords.py
-PY_KEYWORD_STUBS := pglast/keywords.pyi
-
 .PHONY: keywords
-keywords: $(PY_KEYWORDS)
+keywords: pglast/keywords.py
 
-$(PY_KEYWORDS) $(PY_KEYWORD_STUBS): tools/extract_keywords.py
-$(PY_KEYWORDS) $(PY_KEYWORD_STUBS): libpg_query/libpg_query.a
-$(PY_KEYWORDS) $(PY_KEYWORD_STUBS): $(VENVDIR)/libpg_query.hash
-$(PY_KEYWORDS) $(PY_KEYWORD_STUBS): $(PG_INCLUDE_DIR)/parser/kwlist.h
-	$(PYTHON) tools/extract_keywords.py $(PG_INCLUDE_DIR)/parser/kwlist.h $(PY_KEYWORDS)
+pglast/keywords.py pglast/keywords.pyi: tools/extract_keywords.py
+pglast/keywords.py pglast/keywords.pyi: libpg_query/libpg_query.a
+pglast/keywords.py pglast/keywords.pyi: $(VENVDIR)/libpg_query.hash
+pglast/keywords.py pglast/keywords.pyi: $(PG_INCLUDE_DIR)/parser/kwlist.h
+	$(PYTHON) tools/extract_keywords.py $(PG_INCLUDE_DIR)/parser/kwlist.h pglast/keywords.py
 
-pglast/ast.pyx: tools/extract_ast.py libpg_query/srcdata/struct_defs.json
-pglast/ast.pyx: $(PY_ENUMS)
-	$(PYTHON) tools/extract_ast.py pglast/ docs/ast.rst
-
-pglast/ast.pyi: tools/extract_ast.py libpg_query/srcdata/struct_defs.json
-pglast/ast.pyi: $(PY_ENUMS)
+pglast/ast.pyx pglast/ast.pyi: tools/extract_ast.py libpg_query/srcdata/struct_defs.json
+pglast/ast.pyx pglast/ast.pyi: $(PY_ENUMS)
 	$(PYTHON) tools/extract_ast.py pglast/ docs/ast.rst
 
 help::
@@ -167,7 +160,7 @@ type-stubs: keywords
 type-stubs: pglast/ast.pyi
 type-stubs: $(PY_ENUM_STUBS)
 type-stubs: pglast/enums/__init__.pyi
-type-stubs: $(PY_KEYWORD_STUBS)
+type-stubs: pglast/keywords.pyi
 type-stubs: $(PRINTER_STUBS)
 
 pglast/printers/%.pyi: pglast/printers/%.py tools/extract_printer_stubs.py
