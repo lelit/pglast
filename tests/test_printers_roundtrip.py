@@ -134,8 +134,9 @@ pg_regressions_dir = this_dir / '..' / 'libpg_query' / 'test' / 'sql' / 'postgre
 # Following scripts contain intentional errors which are difficult to isolate, or
 # are systems specific
 skip_for_good_reasons = {
+    'collate.icu.utf8.sql',
+    'collate.windows.win1252.sql',
     'unicode.sql',
-    'collate.icu.utf8.sql' if sys.platform == 'win32' else 'collate.windows.win1252.sql'
 }
 
 
