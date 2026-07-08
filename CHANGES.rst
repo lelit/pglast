@@ -8,6 +8,14 @@ Changes
 Version 7
 #########
 
+7.16 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Generate Python 3.15 wheels, thanks to cibuildwheel `4.1.0`__
+
+  __ https://cibuildwheel.pypa.io/en/stable/changelog/#v410
+
+
 7.15 (2026-07-03)
 ~~~~~~~~~~~~~~~~~
 
