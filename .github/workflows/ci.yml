@@ -45,7 +45,7 @@ jobs:
           make -C docs doctest
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
 
   build_wheels:
     name: Build wheels on ${{ matrix.arch }} for ${{ matrix.os }}
