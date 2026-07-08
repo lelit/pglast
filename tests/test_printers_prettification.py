@@ -3,7 +3,7 @@
 # :Created:   dom 17 mar 2019 10:46:03 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2019, 2020, 2021, 2024, 2025 Lele Gaifax
+# :Copyright: © 2019, 2020, 2021, 2024, 2025, 2026 Lele Gaifax
 #
 
 from ast import literal_eval
@@ -73,9 +73,9 @@ def make_id(arg):
 # When it ends with a "\", it is replaced with a final newline.
 
 @pytest.mark.parametrize('src,lineno,case',
-                         ((src, lineno, case)
+                         [(src, lineno, case)
                           for src in sorted(tests_dir.glob('**/*.sql'))
-                          for (lineno, case) in cases(src)),
+                          for (lineno, case) in cases(src)],
                          ids=make_id)
 def test_prettification(src, lineno, case):
     parts = case.split('\n=\n')
