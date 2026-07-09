@@ -3,7 +3,7 @@
 # :Created:   dom 17 mar 2019 09:24:11 CET
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2019, 2021, 2022, 2023, 2024 Lele Gaifax
+# :Copyright: © 2019, 2021, 2022, 2023, 2024, 2026 Lele Gaifax
 #
 
 from pathlib import Path
@@ -38,9 +38,9 @@ def make_id(arg):
 
 
 @pytest.mark.parametrize('src,lineno,statement',
-                         ((src, lineno, statement)
+                         [(src, lineno, statement)
                           for src in sorted(tests_dir.glob('**/*.sql'))
-                          for (lineno, statement) in statements(src)),
+                          for (lineno, statement) in statements(src)],
                          ids=make_id)
 def test_printers_roundtrip(src, lineno, statement):
     try:
@@ -111,9 +111,9 @@ def test_remove_pg_catalog_keeps_required_function_schema(statement):
 
 
 @pytest.mark.parametrize('src,lineno,statement',
-                         ((src, lineno, statement)
+                         [(src, lineno, statement)
                           for src in sorted(tests_dir.glob('**/*.sql'))
-                          for (lineno, statement) in statements(src)),
+                          for (lineno, statement) in statements(src)],
                          ids=make_id)
 def test_stream_call_with_single_node(src, lineno, statement):
     # See https://github.com/lelit/pglast/pull/10 and https://github.com/lelit/pglast/issues/79
@@ -134,14 +134,15 @@ pg_regressions_dir = this_dir / '..' / 'libpg_query' / 'test' / 'sql' / 'postgre
 # Following scripts contain intentional errors which are difficult to isolate, or
 # are systems specific
 skip_for_good_reasons = {
+    'collate.icu.utf8.sql',
+    'collate.windows.win1252.sql',
     'unicode.sql',
-    'collate.icu.utf8.sql' if sys.platform == 'win32' else 'collate.windows.win1252.sql'
 }
 
 
 @pytest.mark.parametrize('filename',
-                         (src.name for src in sorted(pg_regressions_dir.glob('*.sql'))
-                          if src.name not in skip_for_good_reasons),
+                         [src.name for src in sorted(pg_regressions_dir.glob('*.sql'))
+                          if src.name not in skip_for_good_reasons],
                          ids=make_id)
 def test_pg_regress_corpus(filename):
     # we do this dance to minimize the length of the test name
@@ -194,9 +195,9 @@ def test_pg_regress_corpus(filename):
 
 
 @pytest.mark.parametrize('src,lineno,statement',
-                         ((src, lineno, statement)
+                         [(src, lineno, statement)
                           for src in sorted(tests_dir.glob('**/*.sql'))
-                          for (lineno, statement) in statements(src)),
+                          for (lineno, statement) in statements(src)],
                          ids=make_id)
 def test_ast_serialization_roundtrip(src, lineno, statement):
     try:
