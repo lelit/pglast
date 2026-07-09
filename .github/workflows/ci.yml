@@ -91,7 +91,7 @@ jobs:
           CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
           CIBW_BUILD: "cp*"
-          CIBW_SKIP: "cp39*
+          CIBW_SKIP: "cp39*"
           CIBW_ARCHS: ${{ matrix.arch }}
           CIBW_ENABLE: cpython-prerelease
           # Skip tests on emulated hardware, take too long or not supported
