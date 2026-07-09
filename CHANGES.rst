@@ -8,6 +8,13 @@ Changes
 Version 8
 #########
 
+8.0 (2026-07-09)
+~~~~~~~~~~~~~~~~
+
+I really wanted to add support for ``PLPgSQL``, but I cannot delay releasing a final version
+anymore.
+
+
 8.0.dev0 (2026-06-02)
 ~~~~~~~~~~~~~~~~~~~~~
 
