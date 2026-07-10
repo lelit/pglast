@@ -8,7 +8,7 @@ Changes
 Version 8
 #########
 
-8.1 (unreleased)
+8.1 (2026-07-10)
 ~~~~~~~~~~~~~~~~
 
 - Fix CI configuration defect that impeded proper wheels build
