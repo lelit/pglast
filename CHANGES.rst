@@ -8,7 +8,7 @@ Changes
 Version 8
 #########
 
-8.2 (unreleased)
+8.2 (2026-07-10)
 ~~~~~~~~~~~~~~~~
 
 No visible changes, merge with v7 to fix missing ``postgres_deparse.h`` in the sdist archive.
