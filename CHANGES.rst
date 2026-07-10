@@ -45,6 +45,14 @@ anymore.
 Version 7
 #########
 
+7.17 (2026-07-10)
+~~~~~~~~~~~~~~~~~
+
+- Include libpg_query's ``postgres_deparse.h`` header in the sdist archive (issue `#199`__)
+
+  __ https://github.com/lelit/pglast/issues/199
+
+
 7.16 (2026-07-09)
 ~~~~~~~~~~~~~~~~~
 
