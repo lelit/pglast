@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.18 (unreleased)
+7.18 (2026-07-22)
 ~~~~~~~~~~~~~~~~~
 
 - Fix ``WindowDef`` printer, properly emitting ``EXCLUDE`` clauses (`PR #201`__), thanks to Andrew Chen
