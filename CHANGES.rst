@@ -8,6 +8,14 @@ Changes
 Version 7
 #########
 
+7.18 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``WindowDef`` printer, properly emitting ``EXCLUDE`` clauses (`PR #201`__), thanks to Andrew Chen
+
+  __ https://github.com/lelit/pglast/pull/201
+
+
 7.17 (2026-07-10)
 ~~~~~~~~~~~~~~~~~
 
