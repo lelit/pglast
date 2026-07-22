@@ -8,7 +8,7 @@ Changes
 Version 8
 #########
 
-8.4 (unreleased)
+8.4 (2026-07-22)
 ~~~~~~~~~~~~~~~~
 
 - Fix dependency issue that broke CI on Github.
