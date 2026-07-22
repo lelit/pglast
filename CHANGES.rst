@@ -8,6 +8,14 @@ Changes
 Version 8
 #########
 
+8.4 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix dependency issue that broke CI on Github.
+
+- Fix ``setuptools`` vulnerability noticed by GH dependabot.
+
+
 8.3 (2026-07-22)
 ~~~~~~~~~~~~~~~~
 
