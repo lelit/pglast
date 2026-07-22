@@ -48,7 +48,7 @@ dev = [
     "bump-my-version==1.4.1",
     "cython==3.2.8",
     "pycparser==3.0",
-    "readme-renderer==44.0",
+    "readme-renderer==45.0",
     "setuptools==82.0.1",
     "sphinx==9.0.4",
     "twine==6.2.0",
