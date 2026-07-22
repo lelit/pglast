@@ -173,6 +173,30 @@ SELECT "CustomerID",
                           RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
 FROM SalesOrderHeader
 
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          ROWS 5 PRECEDING EXCLUDE CURRENT ROW)
+FROM SalesOrderHeader
+
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          RANGE UNBOUNDED PRECEDING EXCLUDE GROUP)
+FROM SalesOrderHeader
+
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          GROUPS 2 PRECEDING EXCLUDE TIES)
+FROM SalesOrderHeader
+
+SELECT CustomerID,
+       SUM(TotalDue) OVER(PARTITION BY CustomerID
+                          ORDER BY OrderDate
+                          ROWS BETWEEN 5 PRECEDING AND CURRENT ROW EXCLUDE CURRENT ROW)
+FROM SalesOrderHeader
+
 select a.id, b.value
 from sometable a join othertable b on b.id = a.id
 
