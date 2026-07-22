@@ -339,8 +339,6 @@ class Visitor:
             method = by_ast_class.get(node.__class__, default_method)
             if method is not None:
                 result = method(ancestors, node)
-            else:
-                result = None
             try:
                 ancestors, node = generator.send(Continue if result is None else result)
             except StopIteration:
