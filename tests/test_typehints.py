@@ -92,6 +92,13 @@ def stub_parser_functions() -> None:
     assert isinstance(first_stmt, str), f'Expected str, got {type(first_stmt)}'
 
 
+def stub_parser_variables() -> None:
+    """Stub function to test parser's exported variables."""
+    from pglast.parser import LONG_MAX
+
+    lm: int = LONG_MAX
+
+
 def stub_prettify_function() -> None:
     """Stub function to test prettify type hints."""
     from pglast import prettify
@@ -381,6 +388,7 @@ ty_checker: tuple[str, ...] = (
         (stub_parse_sql_basic, True),
         (stub_parse_sql_empty, True),
         (stub_parser_functions, True),
+        (stub_parser_variables, True),
         (stub_prettify_function, True),
         (stub_parse_plpgsql_function, True),
         (stub_ast_fields, True),

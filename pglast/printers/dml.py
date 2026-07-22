@@ -2269,12 +2269,12 @@ def window_def(node, output):
                     elif fo & enums.FRAMEOPTION_END_OFFSET_FOLLOWING:
                         output.print_node(node.endOffset)
                         output.swrites('FOLLOWING')
-                    if fo & enums.FRAMEOPTION_EXCLUDE_CURRENT_ROW:
-                        output.swrite('EXCLUDE CURRENT ROW')
-                    elif fo & enums.FRAMEOPTION_EXCLUDE_GROUP:
-                        output.swrite('EXCLUDE GROUP')
-                    elif fo & enums.FRAMEOPTION_EXCLUDE_TIES:
-                        output.swrite('EXCLUDE TIES')
+                if fo & enums.FRAMEOPTION_EXCLUDE_CURRENT_ROW:
+                    output.swrite('EXCLUDE CURRENT ROW')
+                elif fo & enums.FRAMEOPTION_EXCLUDE_GROUP:
+                    output.swrite('EXCLUDE GROUP')
+                elif fo & enums.FRAMEOPTION_EXCLUDE_TIES:
+                    output.swrite('EXCLUDE TIES')
 
 
 def print_indirection(node, output):
