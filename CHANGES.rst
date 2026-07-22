@@ -8,7 +8,7 @@ Changes
 Version 8
 #########
 
-8.3 (unreleased)
+8.3 (2026-07-22)
 ~~~~~~~~~~~~~~~~
 
 No visible changes, merge with v7 to fix ``WindowDef`` printer.

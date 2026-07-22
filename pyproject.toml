@@ -8,7 +8,7 @@
 
 [project]
 name = "pglast"
-version = "8.2"
+version = "8.3"
 description="PostgreSQL Languages AST and statements prettifier"
 readme = "README.rst"
 authors = [{name = "Lele Gaifax", email = "lele@metapensiero.it"}]
@@ -98,7 +98,7 @@ pglast = ["py.typed", "*.pyi"]
 "pglast.printers" = ["*.pyi"]
 
 [tool.bumpversion]
-current_version = "8.2"
+current_version = "8.3"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)(?:\\.(?P<pre_label>[a-zA-Z-]+)(?P<pre_number>\\d*))?"
 serialize = [
 #  "{major}.{minor}.{pre_label}{pre_number}",
