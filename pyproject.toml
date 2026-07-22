@@ -49,7 +49,7 @@ dev = [
     "cython==3.2.8",
     "pycparser==3.0",
     "readme-renderer==45.0",
-    "setuptools==82.0.1",
+    "setuptools==83.0.0",
     "sphinx==9.0.4",
     "twine==6.2.0",
 ]
@@ -64,7 +64,7 @@ test = [
 [build-system]
 requires = [
     "cython==3.2.5",
-    "setuptools==82.0.1",
+    "setuptools==83.0.0",
 ]
 build-backend = "setuptools.build_meta"
 
