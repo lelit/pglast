@@ -46,7 +46,7 @@ pgpp = "pglast.__main__:main"
 [project.optional-dependencies]
 dev = [
     "bump-my-version==1.5.1",
-    "cython==3.2.8",
+    "cython==3.2.9",
     "pycparser==3.0",
     "readme-renderer==45.0",
     "setuptools==83.0.0",
@@ -64,7 +64,7 @@ test = [
 
 [build-system]
 requires = [
-    "cython==3.2.8",
+    "cython==3.2.9",
     "setuptools==83.0.0",
 ]
 build-backend = "setuptools.build_meta"
