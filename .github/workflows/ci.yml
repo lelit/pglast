@@ -18,7 +18,7 @@ jobs:
           submodules: true
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -70,9 +70,9 @@ jobs:
           submodules: true
 
       - name: Install Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
-          python-version: '3.11'
+          python-version: '3.13'
 
       - name: Set up MSVC CLI tools
         if: ${{ matrix.os == 'windows-2022' }}
