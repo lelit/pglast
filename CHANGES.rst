@@ -8,6 +8,15 @@ Changes
 Version 8
 #########
 
+8.5 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix handling of ``NOT ENFORCED`` constraints (`PR #208`__), thanks to
+  Bolaji Wahab
+
+  __ https://github.com/lelit/pglast/pull/208
+
+
 8.4 (2026-07-22)
 ~~~~~~~~~~~~~~~~
 
