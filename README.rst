@@ -3,7 +3,7 @@
 .. :Created:   mer 02 ago 2017 14:49:24 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2026 Lele Gaifax
 ..
 
 ========
@@ -17,15 +17,15 @@ PostgreSQL Languages AST and statements prettifier
 :Contact: lele@metapensiero.it
 :License: `GNU General Public License version 3 or later`__
 :Status: |build| |doc| |codecov|
-:Version: `7`__
+:Version: `8`__
 
 __ https://www.gnu.org/licenses/gpl.html
-__ https://pglast.readthedocs.io/en/v7/development.html#history
+__ https://pglast.readthedocs.io/en/v8/development.html#history
 
-.. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v7
+.. |build| image:: https://github.com/lelit/pglast/actions/workflows/ci.yml/badge.svg?branch=v8
    :target: https://github.com/lelit/pglast/actions/workflows/ci.yml
    :alt: Build status
-.. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=v7
+.. |doc| image:: https://readthedocs.org/projects/pglast/badge/?version=v8
    :target: https://readthedocs.org/projects/pglast/builds/
    :alt: Documentation status
 .. |codecov| image:: https://codecov.io/gh/lelit/pglast/branch/v3/graph/badge.svg?token=A90D8tWnft
@@ -41,7 +41,7 @@ __ https://github.com/pganalyze/libpg_query
 
 See a `more detailed introduction`__ in the documentation_.
 
-__ https://pglast.readthedocs.io/en/v7/introduction.html
+__ https://pglast.readthedocs.io/en/v8/introduction.html
 
 
 Installation
@@ -68,12 +68,12 @@ show a brief table of contents. A comprehensive test suite, based on pytest__, c
 99% of the source lines.
 
 __ https://docs.pytest.org/en/latest/
-__ https://codecov.io/gh/lelit/pglast/branch/v7/
+__ https://codecov.io/gh/lelit/pglast/branch/v8/
 
 
 Documentation
 -------------
 
-Latest documentation is hosted by `Read the Docs`__ at https://pglast.readthedocs.io/en/v7
+Latest documentation is hosted by `Read the Docs`__ at https://pglast.readthedocs.io/en/v8
 
 __ https://readthedocs.org/
