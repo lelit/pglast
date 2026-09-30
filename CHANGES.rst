@@ -16,6 +16,10 @@ Version 8
 
   __ https://github.com/lelit/pglast/pull/208
 
+- Build wheels for Windows ARM64 (`PR #210`__), thanks to Nikhil Dabas
+
+  __ https://github.com/lelit/pglast/pull/210
+
 
 8.4 (2026-07-22)
 ~~~~~~~~~~~~~~~~
