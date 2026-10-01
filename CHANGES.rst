@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.19 (unreleased)
+7.19 (2026-10-01)
 ~~~~~~~~~~~~~~~~~
 
 - Build wheels for Windows ARM64 (backport of `PR #210`__), thanks to Nikhil Dabas
