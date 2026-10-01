@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:11:02 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024, 2025 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024, 2025, 2026 Lele Gaifax
 #
 
 from collections import namedtuple
@@ -92,6 +92,7 @@ def parse_plpgsql(statement: str) -> list[dict[str, Any]]:
                     'options': ({'@': 'DefElem',
                                  'arg': ({'@': 'String',
                                           'sval': '\\nBEGIN\\n  RETURN a + b;\\nEND;\\n'},),
+                                 'arg_location': ...,
                                  'defaction': {'#': 'DefElemAction',
                                                'name': 'DEFELEM_UNSPEC',
                                                'value': 0},
