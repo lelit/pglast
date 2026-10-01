@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 17-6.2.2-0-g7be1aed
+# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 17-6.2.5-0-gc2c27b1
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2026 Lele Gaifax
@@ -739,11 +739,13 @@ class AlterStatsStmt(Node):
 
 
 class AlterSubscriptionStmt(Node):
-    __slots__ = {'kind': 'AlterSubscriptionType', 'subname': 'char*', 'conninfo': 'char*', 'publication': 'List*', 'options': 'List*'}  # noqa: E501
+    __slots__ = {'kind': 'AlterSubscriptionType', 'subname': 'char*', 'conninfo': 'char*', 'publication': 'List*', 'options': 'List*', 'conninfo_location': 'ParseLoc'}  # noqa: E501
 
-    def __init__(self, kind=None, subname=None, conninfo=None, publication=None, options=None):  # pragma: no cover  # noqa: E501
+    _ATTRS_TO_IGNORE_IN_COMPARISON = Node._ATTRS_TO_IGNORE_IN_COMPARISON | {'conninfo_location'}
+
+    def __init__(self, kind=None, subname=None, conninfo=None, publication=None, options=None, conninfo_location=None):  # pragma: no cover  # noqa: E501
         if ((kind is not None
-             and subname is conninfo is publication is options is None  # noqa: E501
+             and subname is conninfo is publication is options is conninfo_location is None  # noqa: E501
              and isinstance(kind, dict)
              and '@' in kind)):
             super().__init__(kind)
@@ -753,6 +755,7 @@ class AlterSubscriptionStmt(Node):
             self.conninfo = conninfo
             self.publication = publication
             self.options = options
+            self.conninfo_location = conninfo_location
 
 
 class AlterSystemStmt(Node):
@@ -1834,11 +1837,13 @@ class CreateStmt(Node):
 
 
 class CreateSubscriptionStmt(Node):
-    __slots__ = {'subname': 'char*', 'conninfo': 'char*', 'publication': 'List*', 'options': 'List*'}  # noqa: E501
+    __slots__ = {'subname': 'char*', 'conninfo': 'char*', 'publication': 'List*', 'options': 'List*', 'conninfo_location': 'ParseLoc'}  # noqa: E501
 
-    def __init__(self, subname=None, conninfo=None, publication=None, options=None):  # pragma: no cover  # noqa: E501
+    _ATTRS_TO_IGNORE_IN_COMPARISON = Node._ATTRS_TO_IGNORE_IN_COMPARISON | {'conninfo_location'}
+
+    def __init__(self, subname=None, conninfo=None, publication=None, options=None, conninfo_location=None):  # pragma: no cover  # noqa: E501
         if ((subname is not None
-             and conninfo is publication is options is None  # noqa: E501
+             and conninfo is publication is options is conninfo_location is None  # noqa: E501
              and isinstance(subname, dict)
              and '@' in subname)):
             super().__init__(subname)
@@ -1847,6 +1852,7 @@ class CreateSubscriptionStmt(Node):
             self.conninfo = conninfo
             self.publication = publication
             self.options = options
+            self.conninfo_location = conninfo_location
 
 
 class CreateTableAsStmt(Node):
@@ -2004,13 +2010,13 @@ class DeclareCursorStmt(Node):
 
 
 class DefElem(Node):
-    __slots__ = {'defnamespace': 'char*', 'defname': 'char*', 'arg': 'Node*', 'defaction': 'DefElemAction', 'location': 'ParseLoc'}  # noqa: E501
+    __slots__ = {'defnamespace': 'char*', 'defname': 'char*', 'arg': 'Node*', 'defaction': 'DefElemAction', 'location': 'ParseLoc', 'arg_location': 'ParseLoc'}  # noqa: E501
 
-    _ATTRS_TO_IGNORE_IN_COMPARISON = Node._ATTRS_TO_IGNORE_IN_COMPARISON | {'location'}
+    _ATTRS_TO_IGNORE_IN_COMPARISON = Node._ATTRS_TO_IGNORE_IN_COMPARISON | {'arg_location', 'location'}
 
-    def __init__(self, defnamespace=None, defname=None, arg=None, defaction=None, location=None):  # pragma: no cover  # noqa: E501
+    def __init__(self, defnamespace=None, defname=None, arg=None, defaction=None, location=None, arg_location=None):  # pragma: no cover  # noqa: E501
         if ((defnamespace is not None
-             and defname is arg is defaction is location is None  # noqa: E501
+             and defname is arg is defaction is location is arg_location is None  # noqa: E501
              and isinstance(defnamespace, dict)
              and '@' in defnamespace)):
             super().__init__(defnamespace)
@@ -2020,6 +2026,7 @@ class DefElem(Node):
             self.arg = arg
             self.defaction = defaction
             self.location = location
+            self.arg_location = arg_location
 
 
 class DefineStmt(Node):
@@ -3207,17 +3214,20 @@ class NamedArgExpr(Expr):
 
 
 class NotifyStmt(Node):
-    __slots__ = {'conditionname': 'char*', 'payload': 'char*'}  # noqa: E501
+    __slots__ = {'conditionname': 'char*', 'payload': 'char*', 'payload_location': 'ParseLoc'}  # noqa: E501
 
-    def __init__(self, conditionname=None, payload=None):  # pragma: no cover  # noqa: E501
+    _ATTRS_TO_IGNORE_IN_COMPARISON = Node._ATTRS_TO_IGNORE_IN_COMPARISON | {'payload_location'}
+
+    def __init__(self, conditionname=None, payload=None, payload_location=None):  # pragma: no cover  # noqa: E501
         if ((conditionname is not None
-             and payload is None  # noqa: E501
+             and payload is payload_location is None  # noqa: E501
              and isinstance(conditionname, dict)
              and '@' in conditionname)):
             super().__init__(conditionname)
         else:
             self.conditionname = conditionname
             self.payload = payload
+            self.payload_location = payload_location
 
 
 class NullTest(Expr):

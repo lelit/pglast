@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 17-6.2.2-0-g7be1aed
+# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 17-6.2.5-0-gc2c27b1
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2026 Lele Gaifax
@@ -309,7 +309,8 @@ cdef create_DefElem(structs.DefElem* data, offset_to_index):
     cdef object v_arg = create(data.arg, offset_to_index) if data.arg is not NULL else None
     cdef object v_defaction = getattr(enums, 'DefElemAction')(data.defaction)
     cdef object v_location = offset_to_index(data.location)
-    return ast.DefElem(v_defnamespace, v_defname, v_arg, v_defaction, v_location)
+    cdef object v_arg_location = offset_to_index(data.arg_location)
+    return ast.DefElem(v_defnamespace, v_defname, v_arg, v_defaction, v_location, v_arg_location)
 
 
 cdef create_LockingClause(structs.LockingClause* data, offset_to_index):
@@ -1467,7 +1468,8 @@ cdef create_RuleStmt(structs.RuleStmt* data, offset_to_index):
 cdef create_NotifyStmt(structs.NotifyStmt* data, offset_to_index):
     cdef object v_conditionname = data.conditionname.decode("utf-8") if data.conditionname is not NULL else None
     cdef object v_payload = data.payload.decode("utf-8") if data.payload is not NULL else None
-    return ast.NotifyStmt(v_conditionname, v_payload)
+    cdef object v_payload_location = offset_to_index(data.payload_location)
+    return ast.NotifyStmt(v_conditionname, v_payload, v_payload_location)
 
 
 cdef create_ListenStmt(structs.ListenStmt* data, offset_to_index):
@@ -1753,7 +1755,8 @@ cdef create_CreateSubscriptionStmt(structs.CreateSubscriptionStmt* data, offset_
     cdef object v_conninfo = data.conninfo.decode("utf-8") if data.conninfo is not NULL else None
     cdef tuple v_publication = _pg_list_to_tuple(data.publication, offset_to_index)
     cdef tuple v_options = _pg_list_to_tuple(data.options, offset_to_index)
-    return ast.CreateSubscriptionStmt(v_subname, v_conninfo, v_publication, v_options)
+    cdef object v_conninfo_location = offset_to_index(data.conninfo_location)
+    return ast.CreateSubscriptionStmt(v_subname, v_conninfo, v_publication, v_options, v_conninfo_location)
 
 
 cdef create_AlterSubscriptionStmt(structs.AlterSubscriptionStmt* data, offset_to_index):
@@ -1762,7 +1765,8 @@ cdef create_AlterSubscriptionStmt(structs.AlterSubscriptionStmt* data, offset_to
     cdef object v_conninfo = data.conninfo.decode("utf-8") if data.conninfo is not NULL else None
     cdef tuple v_publication = _pg_list_to_tuple(data.publication, offset_to_index)
     cdef tuple v_options = _pg_list_to_tuple(data.options, offset_to_index)
-    return ast.AlterSubscriptionStmt(v_kind, v_subname, v_conninfo, v_publication, v_options)
+    cdef object v_conninfo_location = offset_to_index(data.conninfo_location)
+    return ast.AlterSubscriptionStmt(v_kind, v_subname, v_conninfo, v_publication, v_options, v_conninfo_location)
 
 
 cdef create_DropSubscriptionStmt(structs.DropSubscriptionStmt* data, offset_to_index):
