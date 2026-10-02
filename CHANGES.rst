@@ -8,6 +8,14 @@ Changes
 Version 7
 #########
 
+7.20 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Replace usage of deprecated ``argparse.FileType``
+
+- Fix disalignment between pyproject.toml and requirements.txt
+
+
 7.19 (2026-10-01)
 ~~~~~~~~~~~~~~~~~
 
