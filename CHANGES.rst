@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.20 (unreleased)
+7.20 (2026-10-02)
 ~~~~~~~~~~~~~~~~~
 
 - Replace usage of deprecated ``argparse.FileType``
