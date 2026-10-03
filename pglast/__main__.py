@@ -19,7 +19,10 @@ def workhorse(args):
     if args.statement:
         statement = args.statement
     else:
-        input = args.infile or sys.stdin
+        if args.infile and args.infile != '-':
+            input = open(args.infile)
+        else:
+            input = sys.stdin
         with input:
             statement = input.read()
 
@@ -36,7 +39,10 @@ def workhorse(args):
                 pprint.pprint([stmt(skip_none=True) for stmt in tree], output)
             output.write('\n')
     elif args.normalize:
-        output = args.outfile or sys.stdout
+        if args.outfile and args.outfile != '-':
+            output = open(args.outfile, 'w')
+        else:
+            output = sys.stdout
         reprinter = RawStream(
             special_functions=args.special_functions,
             remove_pg_catalog_from_functions=args.remove_pg_catalog_from_functions,
@@ -59,7 +65,10 @@ def workhorse(args):
             print()
             raise SystemExit(e)
 
-        output = args.outfile or sys.stdout
+        if args.outfile and args.outfile != '-':
+            output = open(args.outfile, 'w')
+        else:
+            output = sys.stdout
         with output:
             output.write(prettified)
             output.write('\n')
@@ -103,10 +112,10 @@ def main(options=None):
                         default=False, help="preserve comments in the statement")
     parser.add_argument('-S', '--statement',
                         help='the SQL statement')
-    parser.add_argument('infile', nargs='?', type=argparse.FileType(),
+    parser.add_argument('infile', nargs='?',
                         help='a file containing the SQL statement to be pretty-printed,'
                         ' by default stdin, when not specified with --statement option')
-    parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'),
+    parser.add_argument('outfile', nargs='?',
                         help='where the result will be written, by default stdout')
 
     args = parser.parse_args(options if options is not None else sys.argv[1:])

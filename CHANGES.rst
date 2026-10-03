@@ -78,6 +78,26 @@ anymore.
 Version 7
 #########
 
+7.20 (2026-10-02)
+~~~~~~~~~~~~~~~~~
+
+- Replace usage of deprecated ``argparse.FileType``
+
+- Fix disalignment between pyproject.toml and requirements.txt
+
+
+7.19 (2026-10-01)
+~~~~~~~~~~~~~~~~~
+
+- Build wheels for Windows ARM64 (backport of `PR #210`__), thanks to Nikhil Dabas
+
+  __ https://github.com/lelit/pglast/pull/210
+
+- Upgrade libpg_query to `17-6.2.5`__
+
+  __ https://github.com/pganalyze/libpg_query/releases#release-17-6.2.5
+
+
 7.18 (2026-07-22)
 ~~~~~~~~~~~~~~~~~
 
