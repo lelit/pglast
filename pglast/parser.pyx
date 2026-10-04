@@ -110,8 +110,21 @@ cdef extern from "pg_query.h" nogil:
         bint trailing_newline
         bint commas_start_of_line
 
-    ctypedef struct PgQueryScanResult:
-        PgQueryProtobuf pbuf
+    ctypedef enum PgQueryToken:
+        pass
+
+    ctypedef enum PgQueryKeywordKind:
+        pass
+
+    ctypedef struct PgQueryScanToken:
+        int start
+        int end
+        PgQueryToken token
+        PgQueryKeywordKind keyword_kind
+
+    ctypedef struct PgQueryScanTokensResult:
+        PgQueryScanToken* tokens
+        int n_tokens
         PgQueryError *error
 
     PgQueryParseResult pg_query_parse(const char* input)
@@ -137,8 +150,10 @@ cdef extern from "pg_query.h" nogil:
     PgQuerySplitResult pg_query_split_with_parser(const char* input)
     void pg_query_free_split_result(PgQuerySplitResult result)
 
-    PgQueryScanResult pg_query_scan(const char* input)
-    void pg_query_free_scan_result(PgQueryScanResult result)
+    PgQueryScanTokensResult pg_query_scan_tokens(const char* input)
+    void pg_query_free_scan_tokens_result(PgQueryScanTokensResult result)
+    const char* pg_query_token_name(PgQueryToken token)
+    const char* pg_query_keyword_kind_name(PgQueryKeywordKind keyword_kind)
 
     int PG_QUERY_PARSE_DEFAULT
 
@@ -155,44 +170,6 @@ cdef extern from "src/pg_query_internal.h" nogil:
     void pg_query_exit_memory_context(MemoryContext ctx)
 
     PgQueryInternalParsetreeAndError pg_query_raw_parse(const char* input, int parser_options)
-
-
-cdef extern from "protobuf-c/protobuf-c.h":
-    ctypedef struct ProtobufCEnumDescriptor:
-        pass
-
-    ctypedef struct ProtobufCEnumValue:
-        const char* name
-        const char* c_name
-        int value
-
-    ProtobufCEnumValue* protobuf_c_enum_descriptor_get_value(const ProtobufCEnumDescriptor* d,
-                                                             int value)
-
-
-cdef extern from "protobuf/pg_query.pb-c.h" nogil:
-    ctypedef enum PgQuery__Token:
-        pass
-
-    ctypedef enum PgQuery__KeywordKind:
-        pass
-
-    ctypedef struct PgQuery__ScanToken:
-        int32_t start
-        int32_t end
-        PgQuery__Token token
-        PgQuery__KeywordKind keyword_kind
-
-    ctypedef struct PgQuery__ScanResult:
-        size_t n_tokens
-        PgQuery__ScanToken **tokens
-
-    ProtobufCEnumDescriptor pg_query__token__descriptor
-    ProtobufCEnumDescriptor pg_query__keyword_kind__descriptor
-
-    PgQuery__ScanResult* pg_query__scan_result__unpack(void* allocator, size_t len,
-                                                       const uint8_t* data)
-    void pg_query__scan_result__free_unpacked(PgQuery__ScanResult* message, void* allocator)
 
 
 LONG_MAX = limits.LONG_MAX
@@ -541,49 +518,36 @@ Token = namedtuple('Token', ('start', 'end', 'name', 'kind'))
 def scan(str query):
     "Lexify the given ``SQL`` `query` and return a list of its lexical tokens."
 
-    cdef PgQueryScanResult scanned
-    cdef PgQuery__ScanResult* scan_result
-    cdef PgQuery__ScanToken* scan_token
-    cdef const ProtobufCEnumValue* tkind
-    cdef const ProtobufCEnumValue* kwkind
+    cdef PgQueryScanTokensResult scan
     cdef const char* cstring
-    cdef size_t i
+    cdef int i
 
     utf8 = query.encode('utf-8')
     offset_to_index = Displacements(query)
     cstring = utf8
 
     with nogil:
-        scanned = pg_query_scan(cstring)
+        scan = pg_query_scan_tokens(cstring)
 
     try:
-        if scanned.error:
-            message = scanned.error.message.decode('utf-8')
-            raise ParseError(message, offset_to_index(scanned.error.cursorpos-1))
+        if scan.error:
+            message = scan.error.message.decode('utf-8')
+            raise ParseError(message, offset_to_index(scan.error.cursorpos-1))
 
-        with nogil:
-            scan_result = pg_query__scan_result__unpack(NULL, scanned.pbuf.len,
-                                                        <uint8_t*> scanned.pbuf.data)
+        result = PyList_New(scan.n_tokens)
 
-        result = PyList_New(scan_result.n_tokens)
-
-        for i in range(scan_result.n_tokens):
-            scan_token = scan_result.tokens[i]
-            tkind = protobuf_c_enum_descriptor_get_value(&pg_query__token__descriptor,
-                                                         scan_token.token)
-            kwkind = protobuf_c_enum_descriptor_get_value(&pg_query__keyword_kind__descriptor,
-                                                          scan_token.keyword_kind)
+        for i in range(scan.n_tokens):
+            scan_token = scan.tokens[i]
+            tname = pg_query_token_name(scan_token.token)
+            kwname = pg_query_keyword_kind_name(scan_token.keyword_kind)
 
             token = Token(offset_to_index(scan_token.start), offset_to_index(scan_token.end-1),
-                          tkind.name.decode('ascii') if tkind != NULL else "UNKNOWN",
-                          kwkind.name.decode('ascii'))
+                          tname.decode('ascii') if tname != NULL else "UNKNOWN",
+                          kwname.decode('ascii'))
             Py_INCREF(token)
             PyList_SET_ITEM(result, i, token)
-
-        with nogil:
-            pg_query__scan_result__free_unpacked(scan_result, NULL)
     finally:
         with nogil:
-            pg_query_free_scan_result(scanned)
+            pg_query_free_scan_tokens_result(scan)
 
     return result
