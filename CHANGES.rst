@@ -8,6 +8,14 @@ Changes
 Version 7
 #########
 
+7.21 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Avoid exception when dealing with empty statements (issue `#212`__)
+
+  __ https://github.com/lelit/pglast/issues/212
+
+
 7.20 (2026-10-02)
 ~~~~~~~~~~~~~~~~~
 
