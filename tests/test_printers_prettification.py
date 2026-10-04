@@ -96,3 +96,8 @@ def test_prettification(src, lineno, case):
     raw = options.pop('raw_stream', False)
     prettified = (RawStream if raw else IndentedStream)(**options)(original)
     assert expected == prettified, "%s:%d:%r != %r" % (src, lineno, expected, prettified)
+
+
+def test_prettification_null_comment():
+    prettified = IndentedStream({})("--comment")
+    assert prettified == ""

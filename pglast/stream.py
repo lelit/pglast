@@ -181,6 +181,8 @@ class RawStream(OutputStream):
             sql = parse_plpgsql(sql) if plpgsql else parse_sql(sql)
         elif isinstance(sql, ast.Node):
             sql = (sql,)
+        elif isinstance(sql, tuple) and len(sql) == 0:
+            pass
         elif not (isinstance(sql, tuple) and sql and isinstance(sql[0], ast.Node)):
             raise ValueError("Unexpected value for 'sql', must be either a string,"
                              " an ast.Node or tuple of them, got %r" % type(sql))
