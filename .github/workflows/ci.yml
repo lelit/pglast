@@ -46,7 +46,8 @@ jobs:
 
       - name: Execute the test suite
         run: |
-          make check
+          coverage run --debug=trace -m pytest tests/
+          make -C docs doctest
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v7
