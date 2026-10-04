@@ -8,7 +8,7 @@ Changes
 Version 8
 #########
 
-8.5 (unreleased)
+8.5 (2026-10-04)
 ~~~~~~~~~~~~~~~~
 
 - Fix handling of ``NOT ENFORCED`` constraints (`PR #208`__), thanks to
