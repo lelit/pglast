@@ -3,7 +3,7 @@
 # :Created:   mer 02 ago 2017 15:46:11 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Lele Gaifax
 #
 
 from contextlib import contextmanager
@@ -181,7 +181,10 @@ class RawStream(OutputStream):
             sql = parse_plpgsql(sql) if plpgsql else parse_sql(sql)
         elif isinstance(sql, ast.Node):
             sql = (sql,)
-        elif not (isinstance(sql, tuple) and sql and isinstance(sql[0], ast.Node)):
+        elif isinstance(sql, tuple) and not sql:
+            # The statement is empty, nothing to do
+            return ''
+        elif not isinstance(sql, tuple) or not isinstance(sql[0], ast.Node):
             raise ValueError("Unexpected value for 'sql', must be either a string,"
                              " an ast.Node or tuple of them, got %r" % type(sql))
 

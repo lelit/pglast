@@ -3,7 +3,7 @@
 # :Created:   sab 05 ago 2017 10:31:23 CEST
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
-# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024 Lele Gaifax
+# :Copyright: © 2017, 2018, 2019, 2021, 2022, 2024, 2026 Lele Gaifax
 #
 
 import pytest
@@ -42,6 +42,16 @@ def test_raw_stream_with_sql():
             NODE_PRINTERS.pop(ast.RawStmt, None)
 
 
+def test_raw_stream_with_empty_sql():
+    output = RawStream()
+    result = output('')
+    assert result == ''
+    result = output(' ')
+    assert result == ''
+    result = output(())
+    assert result == ''
+
+
 def test_raw_stream():
     raw_stmt_printer = NODE_PRINTERS.pop(ast.RawStmt, None)
     try:
@@ -63,6 +73,8 @@ def test_raw_stream():
 def test_raw_stream_invalid_call():
     with pytest.raises(ValueError):
         RawStream()(1)
+    with pytest.raises(ValueError):
+        RawStream()((1,))
 
 
 def test_indented_stream_with_sql():
