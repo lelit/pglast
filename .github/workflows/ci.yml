@@ -46,11 +46,8 @@ jobs:
 
       - name: Execute the test suite
         run: |
-          coverage run --debug=trace -m pytest tests/
+          pytest tests/
           make -C docs doctest
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v7
 
   build_wheels:
     name: Build wheels on ${{ matrix.arch }} for ${{ matrix.os }}
