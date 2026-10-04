@@ -46,8 +46,7 @@ jobs:
 
       - name: Execute the test suite
         run: |
-          python -m pytest --cov-report=xml tests/
-          make -C docs doctest
+          make check
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v7
