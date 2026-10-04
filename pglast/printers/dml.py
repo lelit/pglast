@@ -83,9 +83,13 @@ class AExprKindPrinter(IntEnumPrinter):
         output.print_list(node.rexpr, 'AND', relative_indent=-4)
 
     def AEXPR_NOT_DISTINCT(self, node, output):
-        output.print_node(node.lexpr)
+        with output.expression(isinstance(node.lexpr,
+                                          (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
+            output.print_node(node.lexpr)
         output.swrite('IS NOT DISTINCT FROM ')
-        output.print_node(node.rexpr)
+        with output.expression(isinstance(node.rexpr,
+                                          (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
+            output.print_node(node.rexpr)
 
     def AEXPR_NULLIF(self, node, output):
         output.write('NULLIF')
@@ -286,10 +290,17 @@ class BooleanTestPrinter(IntEnumPrinter):
 boolean_test_printer = BooleanTestPrinter()
 
 
+def _test_arg_needs_parens(node):
+    aek = enums.A_Expr_Kind
+    return (isinstance(node, ast.BoolExpr)
+            or (isinstance(node, ast.A_Expr)
+                and node.kind in (aek.AEXPR_DISTINCT, aek.AEXPR_NOT_DISTINCT)))
+
+
 @node_printer(ast.BooleanTest)
 def boolean_test(node, output):
     with output.expression(isinstance(node.ancestors[0], ast.A_Expr)):
-        with output.expression(isinstance(node.arg, ast.BoolExpr)):
+        with output.expression(_test_arg_needs_parens(node.arg)):
             output.print_node(node.arg)
         output.write(' IS ')
         boolean_test_printer(node.booltesttype, node, output)
@@ -1133,7 +1144,8 @@ def json_func_expr(node, output):
 
 @node_printer(ast.JsonIsPredicate)
 def json_is_predicate(node, output):
-    output.print_node(node.expr)
+    with output.expression(_test_arg_needs_parens(node.expr)):
+        output.print_node(node.expr)
     output.print_node(node.format)
     output.write(' IS ')
     json_value_type_printer(node.item_type, node, output)
@@ -1488,7 +1500,8 @@ def named_arg_expr(node, output):
 
 @node_printer(ast.NullTest)
 def null_test(node, output):
-    output.print_node(node.arg)
+    with output.expression(_test_arg_needs_parens(node.arg)):
+        output.print_node(node.arg)
     output.write(' IS')
     if node.nulltesttype == enums.NullTestType.IS_NOT_NULL:
         output.write(' NOT')
@@ -2404,7 +2417,8 @@ class XmlExprOpPrinter(IntEnumPrinter):
         raise NotImplementedError('IS_XMLSERIALIZE??')
 
     def IS_DOCUMENT(self, node, output):  # xmlval IS DOCUMENT
-        output.print_node(node.args[0])
+        with output.expression(_test_arg_needs_parens(node.args[0])):
+            output.print_node(node.args[0])
         output.write(' IS DOCUMENT')
 
 
