@@ -92,6 +92,7 @@ def parse_plpgsql(statement: str) -> list[dict[str, Any]]:
                     'options': ({'@': 'DefElem',
                                  'arg': ({'@': 'String',
                                           'sval': '\\nBEGIN\\n  RETURN a + b;\\nEND;\\n'},),
+                                 'arg_location': ...,
                                  'defaction': {'#': 'DefElemAction',
                                                'name': 'DEFELEM_UNSPEC',
                                                'value': 0},
