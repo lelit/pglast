@@ -1861,6 +1861,19 @@ def create_function_option(node, output):
         output.print_node(node.arg)
         return
 
+    if option == 'transform':
+        output.newline()
+        output.write('TRANSFORM ')
+        first = True
+        for typ in node.arg:
+            if first:
+                first = False
+            else:
+                output.write(', ')
+            output.write('FOR TYPE ')
+            output.print_name(typ)
+        return
+
     if option == 'window':
         output.write('WINDOW')
         return
