@@ -20,6 +20,12 @@ Version 8
 
   __ https://github.com/lelit/pglast/pull/210
 
+- Upgrade libpg_query to the tip of its ``18-latest`` branch, basically `one commit`__ after
+  `18.1.0`__, that targets PostgreSQL 18.6
+
+  __ https://github.com/pganalyze/libpg_query/commit/f3a04061ebefb2f461f4529d0591c44e19faa3c5
+  __ https://github.com/pganalyze/libpg_query/releases/tag/18.1.0
+
 
 8.4 (2026-07-22)
 ~~~~~~~~~~~~~~~~
