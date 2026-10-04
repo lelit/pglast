@@ -205,12 +205,11 @@ doc:
 help::
 	@printf "check\n\trun the test suite\n"
 
-PYTEST = $(VENVDIR)/bin/pytest $(PYTEST_OPTIONS)
 COVERAGE = $(VENVDIR)/bin/coverage
 
 .PHONY: check
 check: build
-	$(COVERAGE) run -m pytest tests/
+	$(COVERAGE) run -m pytest $(PYTEST_OPTIONS) tests/
 	$(MAKE) -C docs SPHINXBUILD=$(SPHINXBUILD) doctest
 	$(COVERAGE) json -o $(TOPDIR)/coverage.json
 
