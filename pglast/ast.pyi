@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast — DO NOT EDIT: type stubs automatically extracted from struct_defs.json @ 18-latest-0-g6ced8d4
+# :Project:   pglast — DO NOT EDIT: type stubs automatically extracted from struct_defs.json @ 18-latest-0-g776c2ac
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2026 Lele Gaifax
@@ -430,10 +430,11 @@ class AlterSubscriptionStmt(Node):
     conninfo: str | None
     publication: tuple[Any, ...] | None
     options: tuple[Any, ...] | None
+    conninfo_location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, kind: enums.AlterSubscriptionType | int | str | dict[str, Any] | None = None, subname: str | None = None, conninfo: str | None = None, publication: _ListInput | None = None, options: _ListInput | None = None) -> None: ...  # noqa: E501
+    def __init__(self, kind: enums.AlterSubscriptionType | int | str | dict[str, Any] | None = None, subname: str | None = None, conninfo: str | None = None, publication: _ListInput | None = None, options: _ListInput | None = None, conninfo_location: int | None = None) -> None: ...  # noqa: E501
 
 
 class AlterSystemStmt(Node):
@@ -1177,10 +1178,11 @@ class CreateSubscriptionStmt(Node):
     conninfo: str | None
     publication: tuple[Any, ...] | None
     options: tuple[Any, ...] | None
+    conninfo_location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, subname: str | None = None, conninfo: str | None = None, publication: _ListInput | None = None, options: _ListInput | None = None) -> None: ...  # noqa: E501
+    def __init__(self, subname: str | None = None, conninfo: str | None = None, publication: _ListInput | None = None, options: _ListInput | None = None, conninfo_location: int | None = None) -> None: ...  # noqa: E501
 
 
 class CreateTableAsStmt(Node):
@@ -1296,10 +1298,11 @@ class DefElem(Node):
     arg: Node | None
     defaction: enums.DefElemAction | None
     location: int | None
+    arg_location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, defnamespace: str | None = None, defname: str | None = None, arg: Node | _NodePayload | None = None, defaction: enums.DefElemAction | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, defnamespace: str | None = None, defname: str | None = None, arg: Node | _NodePayload | None = None, defaction: enums.DefElemAction | int | str | dict[str, Any] | None = None, location: int | None = None, arg_location: int | None = None) -> None: ...  # noqa: E501
 
 
 class DefineStmt(Node):
@@ -2106,10 +2109,11 @@ class NamedArgExpr(Expr):
 class NotifyStmt(Node):
     conditionname: str | None
     payload: str | None
+    payload_location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, conditionname: str | None = None, payload: str | None = None) -> None: ...  # noqa: E501
+    def __init__(self, conditionname: str | None = None, payload: str | None = None, payload_location: int | None = None) -> None: ...  # noqa: E501
 
 
 class NullTest(Expr):

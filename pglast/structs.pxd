@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 18-latest-0-g6ced8d4
+# :Project:   pglast — DO NOT EDIT: automatically extracted from struct_defs.json @ 18-latest-0-g776c2ac
 # :Author:    Lele Gaifax <lele@metapensiero.it>
 # :License:   GNU General Public License version 3 or later
 # :Copyright: © 2021-2026 Lele Gaifax
@@ -1038,6 +1038,7 @@ cdef extern from "nodes/parsenodes.h":
         const Node* arg
         DefElemAction defaction
         ParseLoc location
+        ParseLoc arg_location
 
     ctypedef struct LockingClause:
         NodeTag type
@@ -2097,6 +2098,7 @@ cdef extern from "nodes/parsenodes.h":
         NodeTag type
         const char* conditionname
         const char* payload
+        ParseLoc payload_location
 
     ctypedef struct ListenStmt:
         NodeTag type
@@ -2342,6 +2344,7 @@ cdef extern from "nodes/parsenodes.h":
         const char* conninfo
         const List* publication
         const List* options
+        ParseLoc conninfo_location
 
     ctypedef struct AlterSubscriptionStmt:
         NodeTag type
@@ -2350,6 +2353,7 @@ cdef extern from "nodes/parsenodes.h":
         const char* conninfo
         const List* publication
         const List* options
+        ParseLoc conninfo_location
 
     ctypedef struct DropSubscriptionStmt:
         NodeTag type
