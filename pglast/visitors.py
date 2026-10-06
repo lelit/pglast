@@ -494,6 +494,29 @@ class ReferencedRelations(Visitor):
             self.r_names.add(tname)
 
 
+def populate_ancestors(tree):
+    """Populate the `ancestors` slot of all the nodes in `tree`.
+
+    :param tree: either an :class:`.ast.Node` instance or a tuple of those, for example
+                 the result of :func:`pglast.parse_sql`
+
+    Each node in `tree` is set the :class:`Ancestor` instance representing its position in
+    the hierarchy, so that the printers may inspect it, possibly with the ``abs()`` function
+    to get the nearest ancestor *node*: when `tree` is a bare, standalone node, its *root*
+    ancestor has ``None`` as its ``node``, the same as the top level tuple of statements in
+    the usual case.
+
+    This is called by :meth:`pglast.stream.RawStream.__call__`, the entry point to print a
+    syntax tree.
+    """
+
+    class PopulateAncestors(Visitor):
+        def visit(self, ancestors, node):
+            node.ancestors = ancestors
+
+    PopulateAncestors()(tree)
+
+
 def referenced_relations(stmt):
     """Return the set of relation names referenced in the given `stmt`.
 

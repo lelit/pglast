@@ -173,9 +173,11 @@ class RawStream(OutputStream):
 
         The `sql` statement may be either a ``str`` containing the ``SQL`` in textual form, or
         a concrete :class:`.ast.Node` instance or a tuple of them.
-        """
 
-        from .visitors import Visitor
+        This is the entry point to print a syntax tree: it first populates the *ancestors*
+        slot of all the nodes in the tree (see :func:`.visitors.populate_ancestors`), which
+        the node printers rely upon.
+        """
 
         if isinstance(sql, str):
             sql = parse_plpgsql(sql) if plpgsql else parse_sql(sql)
@@ -188,11 +190,9 @@ class RawStream(OutputStream):
             raise ValueError("Unexpected value for 'sql', must be either a string,"
                              " an ast.Node or tuple of them, got %r" % type(sql))
 
-        class UpdateAncestors(Visitor):
-            def visit(self, ancestors, node):
-                node.ancestors = ancestors
+        from .visitors import populate_ancestors
 
-        UpdateAncestors()(sql)
+        populate_ancestors(sql)
 
         first = True
         for statement in sql:
@@ -387,6 +387,13 @@ class RawStream(OutputStream):
                whether this is a *name* of something, that may need to be double quoted
         :param bool is_symbol:
                whether this is the name of an *operator*, should not be double quoted
+
+        .. note::
+
+           This method is meant to be called while printing a syntax tree, hence the
+           *ancestors* slot of `node` is expected to have been populated for the whole tree
+           by :meth:`__call__` (via :func:`.visitors.populate_ancestors`): a node printed on
+           its own, out of a tree, has no *ancestors* and may raise ``AttributeError``.
         """
 
         if self.comments:
