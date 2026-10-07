@@ -143,7 +143,7 @@ def stub_ast_fields() -> None:
 
     stmt = parse_sql('SELECT 1')[0]
     raw: ast.RawStmt = stmt
-    node: ast.Node = stmt.stmt
+    node: ast.Node | None = stmt.stmt
     location: int | None = stmt.stmt_location
     length: int | None = stmt.stmt_len
 
@@ -176,6 +176,28 @@ def stub_ast_constructors() -> None:
     assert relname == 'users'
     assert alias is None
     assert isinstance(value, ast.Integer)
+
+
+def stub_empty_raw_statement() -> None:
+    """Manually constructed RawStmt nodes can have no statement."""
+    from pglast import ast
+
+    empty = ast.RawStmt()
+    node: ast.Node | None = empty.stmt
+    assert node is None
+    assert ast.RawStmt(stmt=None).stmt is None
+    assert ast.RawStmt({'@': 'RawStmt', 'stmt': None}).stmt is None
+    empty.stmt = ast.SelectStmt()
+    assert isinstance(empty.stmt, ast.SelectStmt)
+    empty.stmt = None
+    assert empty.stmt is None
+
+
+def stub_unchecked_raw_statement_type_errors() -> None:
+    from pglast import ast
+
+    # The optional child must be narrowed before calling its serializer.
+    ast.RawStmt().stmt()
 
 
 def stub_enums_and_streams() -> None:
@@ -393,6 +415,8 @@ ty_checker: tuple[str, ...] = (
         (stub_parse_plpgsql_function, True),
         (stub_ast_fields, True),
         (stub_ast_constructors, True),
+        (stub_empty_raw_statement, True),
+        (stub_unchecked_raw_statement_type_errors, False),
         (stub_enums_and_streams, True),
         (stub_public_module_types, True),
         (stub_remaining_importable_modules, True),

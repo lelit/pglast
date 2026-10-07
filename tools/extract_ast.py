@@ -829,8 +829,6 @@ FLOAT_CTYPES = {'Cardinality', 'Cost'}
 
 
 def stub_read_type_for_attr(cls_name, attr, ctype, enums):
-    if cls_name == 'RawStmt' and attr == 'stmt':
-        return 'Node'
     if ctype == 'List*':
         return 'tuple[Any, ...] | None'
     if ctype == 'ParseLoc':
@@ -861,8 +859,6 @@ def stub_read_type_for_attr(cls_name, attr, ctype, enums):
 
 
 def stub_input_type_for_attr(cls_name, attr, ctype, enums):
-    if cls_name == 'RawStmt' and attr == 'stmt':
-        return 'Node | _NodePayload'
     if ctype == 'List*':
         return '_ListInput'
     if ctype == 'ParseLoc':
