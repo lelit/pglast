@@ -213,6 +213,46 @@ def stub_public_module_types() -> None:
     assert relations == {'users'}
 
 
+def stub_precedence_types() -> None:
+    """Stub function to test the public type hints of the precedence module."""
+    from pglast import ast, parse_sql
+    from pglast.precedence import (
+        ExprContext,
+        ExprPrec,
+        Side,
+        expr_precedence,
+        is_b_expr_rule,
+        is_subquery_comparison_form,
+        needs_parens_as_c_expr,
+        needs_parens_for_precedence,
+        operator_precedence,
+        subquery_operator_precedence,
+    )
+    from pglast.stream import RawStream
+
+    stream: RawStream = RawStream()
+    node: ast.Node = parse_sql('SELECT 1 + 2 * 3')[0].stmt
+
+    prec: ExprPrec = expr_precedence(node, stream)
+    op_prec: ExprPrec = operator_precedence([ast.String(sval='+')])
+    sub_prec: ExprPrec = subquery_operator_precedence(None)
+    needs: bool = needs_parens_for_precedence(node, ExprPrec.ADD, Side.LEFT, stream)
+    is_b: bool = is_b_expr_rule(node, stream)
+    as_c: bool = needs_parens_as_c_expr(node, stream)
+    sub_cmp: bool = is_subquery_comparison_form(node)
+
+    ctx: ExprContext = ExprContext.A_EXPR
+    assert ctx is ExprContext.A_EXPR
+    assert Side.LEFT.value != Side.RIGHT.value
+    assert isinstance(prec, ExprPrec)
+    assert isinstance(op_prec, ExprPrec)
+    assert isinstance(sub_prec, ExprPrec)
+    assert needs or not needs
+    assert is_b or not is_b
+    assert as_c or not as_c
+    assert not sub_cmp
+
+
 def stub_remaining_importable_modules() -> None:
     """Stub function to test every remaining importable module has useful stubs."""
     from argparse import Namespace
@@ -401,6 +441,7 @@ ty_checker: tuple[str, ...] = (
         (stub_ast_constructors, True),
         (stub_enums_and_streams, True),
         (stub_public_module_types, True),
+        (stub_precedence_types, True),
         (stub_remaining_importable_modules, True),
         (stub_type_errors, False),
         (stub_ast_field_type_errors, False),
