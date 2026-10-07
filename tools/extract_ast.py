@@ -827,10 +827,21 @@ INT_CTYPES = {
 
 FLOAT_CTYPES = {'Cardinality', 'Cost'}
 
+# PostgreSQL stores lists behind these Node* fields in raw parse trees.
+LIST_NODE_FIELDS = {
+    ('A_Expr', 'rexpr'),
+    ('AlterTableCmd', 'def_'),
+    ('CreateFunctionStmt', 'sql_body'),
+    ('DefElem', 'arg'),
+    ('SecLabelStmt', 'object'),
+}
+
 
 def stub_read_type_for_attr(cls_name, attr, ctype, enums):
     if cls_name == 'RawStmt' and attr == 'stmt':
         return 'Node'
+    if (cls_name, attr) in LIST_NODE_FIELDS:
+        return 'Node | tuple[Any, ...] | None'
     if ctype == 'List*':
         return 'tuple[Any, ...] | None'
     if ctype == 'ParseLoc':
@@ -847,9 +858,8 @@ def stub_read_type_for_attr(cls_name, attr, ctype, enums):
         return 'CreateStmt | None'
     if ctype == 'Bitmapset*':
         return 'set[int] | None'
-    if ctype == 'Expr*':
-        return 'Expr | None'
-    if ctype == 'Node*':
+    # Expr* fields can contain raw parser nodes, which do not inherit from Expr.
+    if ctype in ('Expr*', 'Node*'):
         return 'Node | None'
     if ctype in ('JsonTablePlan', 'ValUnion'):
         return 'Node | None'
@@ -863,6 +873,8 @@ def stub_read_type_for_attr(cls_name, attr, ctype, enums):
 def stub_input_type_for_attr(cls_name, attr, ctype, enums):
     if cls_name == 'RawStmt' and attr == 'stmt':
         return 'Node | _NodePayload'
+    if (cls_name, attr) in LIST_NODE_FIELDS:
+        return 'Node | _NodePayload | _ListInput'
     if ctype == 'List*':
         return '_ListInput'
     if ctype == 'ParseLoc':
@@ -883,9 +895,7 @@ def stub_input_type_for_attr(cls_name, attr, ctype, enums):
         return 'CreateStmt | _NodePayload'
     if ctype == 'Bitmapset*':
         return '_BitmapsetInput'
-    if ctype == 'Expr*':
-        return 'Expr | _NodePayload'
-    if ctype == 'Node*':
+    if ctype in ('Expr*', 'Node*'):
         return 'Node | _NodePayload'
     if ctype in ('JsonTablePlan', 'ValUnion'):
         return 'Node'
