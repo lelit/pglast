@@ -931,8 +931,16 @@ def emit_node_stub_def(name, fields, enums, output):
 
     output.write(f'\n\nclass {name}({superclass}):\n')
     if attrs:
-        for attr, read_type, __ in attrs:
-            output.write(f'    {attr}: {read_type}\n')
+        for attr, read_type, input_type in attrs:
+            write_type = optional_constructor_type(input_type)
+            if read_type == write_type:
+                output.write(f'    {attr}: {read_type}\n')
+            else:
+                # Runtime assignment uses the same adapters as construction.
+                output.write('    @property\n')
+                output.write(f'    def {attr}(self) -> {read_type}: ...\n')
+                output.write(f'    @{attr}.setter\n')
+                output.write(f'    def {attr}(self, value: {write_type}) -> None: ...\n')
         output.write('    @overload\n')
         output.write('    def __init__(self, data: _NodePayload, /) -> None: ...\n')
         output.write('    @overload\n')

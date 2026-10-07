@@ -178,6 +178,65 @@ def stub_ast_constructors() -> None:
     assert isinstance(value, ast.Integer)
 
 
+
+def stub_adapted_attribute_assignments() -> None:
+    """Assignments accept constructor inputs and expose adapted values on reads."""
+    from decimal import Decimal
+    from typing import Any
+
+    from pglast import ast, enums
+
+    column = ast.ColumnRef()
+    column.fields = [ast.String(sval='x')]
+    fields: tuple[Any, ...] | None = column.fields
+    assert isinstance(fields, tuple) and isinstance(fields[0], ast.String)
+    expression = ast.A_Expr()
+    expression.kind = 'AEXPR_IN'
+    kind: enums.A_Expr_Kind | None = expression.kind
+    assert kind is enums.A_Expr_Kind.AEXPR_IN
+    expression.lexpr = {'@': 'ColumnRef', 'fields': ({'@': 'String', 'sval': 'x'},)}
+    left: ast.Node | None = expression.lexpr
+    assert isinstance(left, ast.ColumnRef)
+    relation = ast.RangeVar()
+    relation.alias = {'@': 'Alias', 'aliasname': 't'}
+    alias: ast.Alias | None = relation.alias
+    assert isinstance(alias, ast.Alias) and alias.aliasname == 't'
+    relation.relpersistence = ord('p')
+    persistence: str | None = relation.relpersistence
+    assert persistence == 'p'
+    relation.inh = 1
+    inherited: bool | None = relation.inh
+    assert inherited is True
+    number = ast.Float()
+    number.fval = Decimal('1.5')
+    value: str | None = number.fval
+    assert value == '1.5'
+    foreign = ast.CreateForeignTableStmt()
+    foreign.base = {'@': 'CreateStmt'}
+    base: ast.CreateStmt | None = foreign.base
+    assert isinstance(base, ast.CreateStmt)
+    grouping = ast.Var()
+    grouping.varnullingrels = [1, 2]
+    cols: set[int] | None = grouping.varnullingrels
+    assert cols == {1, 2}
+    column.fields = None
+    assert column.fields is None
+
+
+def stub_invalid_attribute_assignment() -> None:
+    from pglast import ast
+
+    ast.ColumnRef().fields = 123
+
+
+def stub_adapted_attribute_read_type_errors() -> None:
+    from pglast import ast
+
+    column = ast.ColumnRef()
+    column.fields = [ast.String(sval='x')]
+    _wrong: list[ast.Node] = column.fields
+
+
 def stub_enums_and_streams() -> None:
     """Stub function to test generated enum and stream type hints."""
     from pglast import enums, parse_sql
@@ -393,6 +452,9 @@ ty_checker: tuple[str, ...] = (
         (stub_parse_plpgsql_function, True),
         (stub_ast_fields, True),
         (stub_ast_constructors, True),
+        (stub_adapted_attribute_assignments, True),
+        (stub_invalid_attribute_assignment, False),
+        (stub_adapted_attribute_read_type_errors, False),
         (stub_enums_and_streams, True),
         (stub_public_module_types, True),
         (stub_remaining_importable_modules, True),
