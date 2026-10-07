@@ -146,3 +146,28 @@ def test_issue_153b():
         'ordinality': False}
     rf = ast.RangeFunction(serialized)
     assert isinstance(rf.functions[0][0], ast.FuncCall)
+
+
+@pytest.mark.parametrize('cls, attr, child', (
+    (ast.NullTest, 'arg', ast.ColumnRef(fields=(ast.String(sval='x'),))),
+    (ast.BooleanTest, 'arg', ast.ColumnRef()),
+    (ast.CaseExpr, 'arg', ast.ColumnRef()),
+    (ast.CaseWhen, 'expr', ast.A_Const(val=ast.Integer(ival=1))),
+    (ast.RawStmt, 'stmt', ast.SelectStmt()),
+    (ast.CallStmt, 'funccall', ast.FuncCall()),
+    (ast.CreateForeignTableStmt, 'base', ast.CreateStmt()),
+))
+def test_first_field_child_payload(cls, attr, child):
+    # A serialized child should behave like the equivalent node instance.
+    expected = cls(**{attr: child})
+    assert cls(**{attr: child()}) == expected
+    assert cls(child()) == expected
+    # The established whole-node serialization overload must still work.
+    assert cls(expected()) == expected
+
+
+def test_first_field_payload_validation():
+    with pytest.raises(ValueError):
+        ast.CallStmt(funccall={'@': 'ColumnRef'})
+    with pytest.raises(ValueError):
+        ast.NullTest(arg={'@': 'ColumnRef', 'fields': 123})
