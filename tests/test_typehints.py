@@ -292,6 +292,43 @@ def stub_expression_list_type_errors() -> None:
 
     ast.A_Expr(rexpr=123)
 
+
+def stub_list_valued_node_fields() -> None:
+    """Node* fields can hold lists in ordinary raw parser output."""
+    from pglast import ast, parse_sql
+
+    name = ast.String(sval='mytable')
+    option = ast.DefElem(defname='fillfactor', arg=ast.Integer(ival=40))
+    statement = ast.SelectStmt()
+    for values in ((name,), [name]):
+        assert ast.SecLabelStmt(object=values).object == (name,)
+        assert ast.DefElem(arg=values).arg == (name,)
+    for options in ((option,), [option]):
+        assert ast.AlterTableCmd(def_=options).def_ == (option,)
+    for body in (((statement,),), [(statement,)]):
+        assert ast.CreateFunctionStmt(sql_body=body).sql_body == ((statement,),)
+
+    label = parse_sql('SECURITY LABEL FOR selinux ON TABLE mytable IS NULL')[0].stmt
+    assert isinstance(label, ast.SecLabelStmt)
+    assert isinstance(label.object, tuple) and isinstance(label.object[0], ast.String)
+    alter = parse_sql('ALTER INDEX idx SET (fillfactor = 40)')[0].stmt
+    assert isinstance(alter, ast.AlterTableStmt) and alter.cmds
+    command = alter.cmds[0]
+    assert isinstance(command, ast.AlterTableCmd)
+    assert isinstance(command.def_, tuple) and isinstance(command.def_[0], ast.DefElem)
+    function = parse_sql("CREATE FUNCTION f() RETURNS int LANGUAGE SQL AS 'SELECT 1'")[0].stmt
+    assert isinstance(function, ast.CreateFunctionStmt) and function.options
+    definition = function.options[1]
+    assert isinstance(definition, ast.DefElem)
+    assert isinstance(definition.arg, tuple) and isinstance(definition.arg[0], ast.String)
+    atomic = parse_sql(
+        'CREATE FUNCTION f() RETURNS int LANGUAGE SQL BEGIN ATOMIC SELECT 1; END'
+    )[0].stmt
+    assert isinstance(atomic, ast.CreateFunctionStmt)
+    assert isinstance(atomic.sql_body, tuple) and isinstance(atomic.sql_body[0], tuple)
+    assert isinstance(atomic.sql_body[0][0], ast.SelectStmt)
+
+
 def stub_enums_and_streams() -> None:
     """Stub function to test generated enum and stream type hints."""
     from pglast import enums, parse_sql
@@ -509,6 +546,7 @@ ty_checker: tuple[str, ...] = (
         (stub_ast_constructors, True),
         (stub_raw_expression_nodes, True),
         (stub_expression_lists, True),
+        (stub_list_valued_node_fields, True),
         (stub_parsed_raw_expressions, True),
         (stub_raw_expression_type_errors, False),
         (stub_expression_list_type_errors, False),

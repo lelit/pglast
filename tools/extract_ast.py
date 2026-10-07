@@ -827,12 +827,20 @@ INT_CTYPES = {
 
 FLOAT_CTYPES = {'Cardinality', 'Cost'}
 
+# PostgreSQL stores lists behind these Node* fields in raw parse trees.
+LIST_NODE_FIELDS = {
+    ('A_Expr', 'rexpr'),
+    ('AlterTableCmd', 'def_'),
+    ('CreateFunctionStmt', 'sql_body'),
+    ('DefElem', 'arg'),
+    ('SecLabelStmt', 'object'),
+}
+
 
 def stub_read_type_for_attr(cls_name, attr, ctype, enums):
     if cls_name == 'RawStmt' and attr == 'stmt':
         return 'Node'
-    if cls_name == 'A_Expr' and attr == 'rexpr':
-        # IN and BETWEEN store expression lists behind a Node* in PostgreSQL.
+    if (cls_name, attr) in LIST_NODE_FIELDS:
         return 'Node | tuple[Any, ...] | None'
     if ctype == 'List*':
         return 'tuple[Any, ...] | None'
@@ -865,7 +873,7 @@ def stub_read_type_for_attr(cls_name, attr, ctype, enums):
 def stub_input_type_for_attr(cls_name, attr, ctype, enums):
     if cls_name == 'RawStmt' and attr == 'stmt':
         return 'Node | _NodePayload'
-    if cls_name == 'A_Expr' and attr == 'rexpr':
+    if (cls_name, attr) in LIST_NODE_FIELDS:
         return 'Node | _NodePayload | _ListInput'
     if ctype == 'List*':
         return '_ListInput'

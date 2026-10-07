@@ -473,14 +473,14 @@ class AlterTableCmd(Node):
     name: str | None
     num: int | None
     newowner: RoleSpec | None
-    def_: Node | None
+    def_: Node | tuple[Any, ...] | None
     behavior: enums.DropBehavior | None
     missing_ok: bool | None
     recurse: bool | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, subtype: enums.AlterTableType | int | str | dict[str, Any] | None = None, name: str | None = None, num: int | None = None, newowner: RoleSpec | _NodePayload | None = None, def_: Node | _NodePayload | None = None, behavior: enums.DropBehavior | int | str | dict[str, Any] | None = None, missing_ok: bool | int | None = None, recurse: bool | int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, subtype: enums.AlterTableType | int | str | dict[str, Any] | None = None, name: str | None = None, num: int | None = None, newowner: RoleSpec | _NodePayload | None = None, def_: Node | _NodePayload | _ListInput | None = None, behavior: enums.DropBehavior | int | str | dict[str, Any] | None = None, missing_ok: bool | int | None = None, recurse: bool | int | None = None) -> None: ...  # noqa: E501
 
 
 class AlterTableMoveAllStmt(Node):
@@ -1018,11 +1018,11 @@ class CreateFunctionStmt(Node):
     parameters: tuple[Any, ...] | None
     returnType: TypeName | None
     options: tuple[Any, ...] | None
-    sql_body: Node | None
+    sql_body: Node | tuple[Any, ...] | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, is_procedure: bool | int | None = None, replace: bool | int | None = None, funcname: _ListInput | None = None, parameters: _ListInput | None = None, returnType: TypeName | _NodePayload | None = None, options: _ListInput | None = None, sql_body: Node | _NodePayload | None = None) -> None: ...  # noqa: E501
+    def __init__(self, is_procedure: bool | int | None = None, replace: bool | int | None = None, funcname: _ListInput | None = None, parameters: _ListInput | None = None, returnType: TypeName | _NodePayload | None = None, options: _ListInput | None = None, sql_body: Node | _NodePayload | _ListInput | None = None) -> None: ...  # noqa: E501
 
 
 class CreateOpClassItem(Node):
@@ -1295,14 +1295,14 @@ class DeclareCursorStmt(Node):
 class DefElem(Node):
     defnamespace: str | None
     defname: str | None
-    arg: Node | None
+    arg: Node | tuple[Any, ...] | None
     defaction: enums.DefElemAction | None
     location: int | None
     arg_location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, defnamespace: str | None = None, defname: str | None = None, arg: Node | _NodePayload | None = None, defaction: enums.DefElemAction | int | str | dict[str, Any] | None = None, location: int | None = None, arg_location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, defnamespace: str | None = None, defname: str | None = None, arg: Node | _NodePayload | _ListInput | None = None, defaction: enums.DefElemAction | int | str | dict[str, Any] | None = None, location: int | None = None, arg_location: int | None = None) -> None: ...  # noqa: E501
 
 
 class DefineStmt(Node):
@@ -2700,13 +2700,13 @@ class ScalarArrayOpExpr(Expr):
 
 class SecLabelStmt(Node):
     objtype: enums.ObjectType | None
-    object: Node | None
+    object: Node | tuple[Any, ...] | None
     provider: str | None
     label: str | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, objtype: enums.ObjectType | int | str | dict[str, Any] | None = None, object: Node | _NodePayload | None = None, provider: str | None = None, label: str | None = None) -> None: ...  # noqa: E501
+    def __init__(self, objtype: enums.ObjectType | int | str | dict[str, Any] | None = None, object: Node | _NodePayload | _ListInput | None = None, provider: str | None = None, label: str | None = None) -> None: ...  # noqa: E501
 
 
 class SelectStmt(Node):
