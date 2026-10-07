@@ -325,7 +325,7 @@ class A_Indirection(Node):
         if ((arg is not None
              and indirection is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'A_Indirection')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -644,7 +644,7 @@ class AlterOperatorStmt(Node):
         if ((opername is not None
              and options is None  # noqa: E501
              and isinstance(opername, dict)
-             and '@' in opername)):
+             and opername.get('@') == 'AlterOperatorStmt')):
             super().__init__(opername)
         else:
             self.opername = opername
@@ -708,7 +708,7 @@ class AlterRoleSetStmt(Node):
         if ((role is not None
              and database is setstmt is None  # noqa: E501
              and isinstance(role, dict)
-             and '@' in role)):
+             and role.get('@') == 'AlterRoleSetStmt')):
             super().__init__(role)
         else:
             self.role = role
@@ -723,7 +723,7 @@ class AlterRoleStmt(Node):
         if ((role is not None
              and options is action is None  # noqa: E501
              and isinstance(role, dict)
-             and '@' in role)):
+             and role.get('@') == 'AlterRoleStmt')):
             super().__init__(role)
         else:
             self.role = role
@@ -738,7 +738,7 @@ class AlterSeqStmt(Node):
         if ((sequence is not None
              and options is for_identity is missing_ok is None  # noqa: E501
              and isinstance(sequence, dict)
-             and '@' in sequence)):
+             and sequence.get('@') == 'AlterSeqStmt')):
             super().__init__(sequence)
         else:
             self.sequence = sequence
@@ -788,7 +788,7 @@ class AlterSystemStmt(Node):
     def __init__(self, setstmt=None):  # pragma: no cover  # noqa: E501
         if ((setstmt is not None
              and isinstance(setstmt, dict)
-             and '@' in setstmt)):
+             and setstmt.get('@') == 'AlterSystemStmt')):
             super().__init__(setstmt)
         else:
             self.setstmt = setstmt
@@ -886,7 +886,7 @@ class AlterTableStmt(Node):
         if ((relation is not None
              and cmds is objtype is missing_ok is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'AlterTableStmt')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -916,7 +916,7 @@ class AlterUserMappingStmt(Node):
         if ((user is not None
              and servername is options is None  # noqa: E501
              and isinstance(user, dict)
-             and '@' in user)):
+             and user.get('@') == 'AlterUserMappingStmt')):
             super().__init__(user)
         else:
             self.user = user
@@ -945,7 +945,7 @@ class ArrayCoerceExpr(Expr):
         if ((arg is not None
              and elemexpr is resulttypmod is coerceformat is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'ArrayCoerceExpr')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -1024,7 +1024,7 @@ class BooleanTest(Expr):
         if ((arg is not None
              and booltesttype is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'BooleanTest')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -1090,7 +1090,7 @@ class CallStmt(Node):
         if ((funccall is not None
              and funcexpr is outargs is None  # noqa: E501
              and isinstance(funccall, dict)
-             and '@' in funccall)):
+             and funccall.get('@') == 'CallStmt')):
             super().__init__(funccall)
         else:
             self.funccall = funccall
@@ -1107,7 +1107,7 @@ class CaseExpr(Expr):
         if ((arg is not None
              and args is defresult is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'CaseExpr')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -1137,7 +1137,7 @@ class CaseWhen(Expr):
         if ((expr is not None
              and result is location is None  # noqa: E501
              and isinstance(expr, dict)
-             and '@' in expr)):
+             and expr.get('@') == 'CaseWhen')):
             super().__init__(expr)
         else:
             self.expr = expr
@@ -1171,7 +1171,7 @@ class ClusterStmt(Node):
         if ((relation is not None
              and indexname is params is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'ClusterStmt')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -1204,7 +1204,7 @@ class CoerceToDomain(Expr):
         if ((arg is not None
              and resulttypmod is coercionformat is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'CoerceToDomain')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -1238,7 +1238,7 @@ class CoerceViaIO(Expr):
         if ((arg is not None
              and coerceformat is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'CoerceViaIO')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -1255,7 +1255,7 @@ class CollateClause(Node):
         if ((arg is not None
              and collname is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'CollateClause')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -1272,7 +1272,7 @@ class CollateExpr(Expr):
         if ((arg is not None
              and location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'CollateExpr')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -1376,7 +1376,7 @@ class CompositeTypeStmt(Node):
         if ((typevar is not None
              and coldeflist is None  # noqa: E501
              and isinstance(typevar, dict)
-             and '@' in typevar)):
+             and typevar.get('@') == 'CompositeTypeStmt')):
             super().__init__(typevar)
         else:
             self.typevar = typevar
@@ -1454,7 +1454,7 @@ class ConvertRowtypeExpr(Expr):
         if ((arg is not None
              and convertformat is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'ConvertRowtypeExpr')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -1469,7 +1469,7 @@ class CopyStmt(Node):
         if ((relation is not None
              and query is attlist is is_from is is_program is filename is options is whereClause is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'CopyStmt')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -1504,7 +1504,7 @@ class CreateCastStmt(Node):
         if ((sourcetype is not None
              and targettype is func is context is inout is None  # noqa: E501
              and isinstance(sourcetype, dict)
-             and '@' in sourcetype)):
+             and sourcetype.get('@') == 'CreateCastStmt')):
             super().__init__(sourcetype)
         else:
             self.sourcetype = sourcetype
@@ -1632,7 +1632,7 @@ class CreateForeignTableStmt(Node):
         if ((base is not None
              and servername is options is None  # noqa: E501
              and isinstance(base, dict)
-             and '@' in base)):
+             and base.get('@') == 'CreateForeignTableStmt')):
             super().__init__(base)
         else:
             self.base = base
@@ -1814,7 +1814,7 @@ class CreateSeqStmt(Node):
         if ((sequence is not None
              and options is for_identity is if_not_exists is None  # noqa: E501
              and isinstance(sequence, dict)
-             and '@' in sequence)):
+             and sequence.get('@') == 'CreateSeqStmt')):
             super().__init__(sequence)
         else:
             self.sequence = sequence
@@ -1849,7 +1849,7 @@ class CreateStmt(Node):
         if ((relation is not None
              and tableElts is inhRelations is partbound is partspec is ofTypename is constraints is nnconstraints is options is oncommit is tablespacename is accessMethod is if_not_exists is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'CreateStmt')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -1893,7 +1893,7 @@ class CreateTableAsStmt(Node):
         if ((query is not None
              and into is objtype is is_select_into is if_not_exists is None  # noqa: E501
              and isinstance(query, dict)
-             and '@' in query)):
+             and query.get('@') == 'CreateTableAsStmt')):
             super().__init__(query)
         else:
             self.query = query
@@ -1970,7 +1970,7 @@ class CreateUserMappingStmt(Node):
         if ((user is not None
              and servername is if_not_exists is options is None  # noqa: E501
              and isinstance(user, dict)
-             and '@' in user)):
+             and user.get('@') == 'CreateUserMappingStmt')):
             super().__init__(user)
         else:
             self.user = user
@@ -2086,7 +2086,7 @@ class DeleteStmt(Node):
         if ((relation is not None
              and usingClause is whereClause is returningClause is withClause is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'DeleteStmt')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -2201,7 +2201,7 @@ class DropUserMappingStmt(Node):
         if ((user is not None
              and servername is missing_ok is None  # noqa: E501
              and isinstance(user, dict)
-             and '@' in user)):
+             and user.get('@') == 'DropUserMappingStmt')):
             super().__init__(user)
         else:
             self.user = user
@@ -2245,7 +2245,7 @@ class ExplainStmt(Node):
         if ((query is not None
              and options is None  # noqa: E501
              and isinstance(query, dict)
-             and '@' in query)):
+             and query.get('@') == 'ExplainStmt')):
             super().__init__(query)
         else:
             self.query = query
@@ -2275,7 +2275,7 @@ class FieldSelect(Expr):
         if ((arg is not None
              and fieldnum is resulttypmod is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'FieldSelect')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -2290,7 +2290,7 @@ class FieldStore(Expr):
         if ((arg is not None
              and newvals is fieldnums is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'FieldStore')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -2559,7 +2559,7 @@ class InferenceElem(Expr):
     def __init__(self, expr=None):  # pragma: no cover  # noqa: E501
         if ((expr is not None
              and isinstance(expr, dict)
-             and '@' in expr)):
+             and expr.get('@') == 'InferenceElem')):
             super().__init__(expr)
         else:
             self.expr = expr
@@ -2587,7 +2587,7 @@ class InsertStmt(Node):
         if ((relation is not None
              and cols is selectStmt is onConflictClause is returningClause is withClause is override is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'InsertStmt')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -2618,7 +2618,7 @@ class IntoClause(Node):
         if ((rel is not None
              and colNames is accessMethod is options is onCommit is tableSpaceName is viewQuery is skipData is None  # noqa: E501
              and isinstance(rel, dict)
-             and '@' in rel)):
+             and rel.get('@') == 'IntoClause')):
             super().__init__(rel)
         else:
             self.rel = rel
@@ -2661,7 +2661,7 @@ class JsonAggConstructor(Node):
         if ((output is not None
              and agg_filter is agg_order is over is location is None  # noqa: E501
              and isinstance(output, dict)
-             and '@' in output)):
+             and output.get('@') == 'JsonAggConstructor')):
             super().__init__(output)
         else:
             self.output = output
@@ -2678,7 +2678,7 @@ class JsonArgument(Node):
         if ((val is not None
              and name is None  # noqa: E501
              and isinstance(val, dict)
-             and '@' in val)):
+             and val.get('@') == 'JsonArgument')):
             super().__init__(val)
         else:
             self.val = val
@@ -2692,7 +2692,7 @@ class JsonArrayAgg(Node):
         if ((constructor is not None
              and arg is absent_on_null is None  # noqa: E501
              and isinstance(constructor, dict)
-             and '@' in constructor)):
+             and constructor.get('@') == 'JsonArrayAgg')):
             super().__init__(constructor)
         else:
             self.constructor = constructor
@@ -2727,7 +2727,7 @@ class JsonArrayQueryConstructor(Node):
         if ((query is not None
              and output is format is absent_on_null is location is None  # noqa: E501
              and isinstance(query, dict)
-             and '@' in query)):
+             and query.get('@') == 'JsonArrayQueryConstructor')):
             super().__init__(query)
         else:
             self.query = query
@@ -2857,7 +2857,7 @@ class JsonIsPredicate(Node):
         if ((expr is not None
              and format is item_type is unique_keys is location is None  # noqa: E501
              and isinstance(expr, dict)
-             and '@' in expr)):
+             and expr.get('@') == 'JsonIsPredicate')):
             super().__init__(expr)
         else:
             self.expr = expr
@@ -2874,7 +2874,7 @@ class JsonKeyValue(Node):
         if ((key is not None
              and value is None  # noqa: E501
              and isinstance(key, dict)
-             and '@' in key)):
+             and key.get('@') == 'JsonKeyValue')):
             super().__init__(key)
         else:
             self.key = key
@@ -2888,7 +2888,7 @@ class JsonObjectAgg(Node):
         if ((constructor is not None
              and arg is absent_on_null is unique is None  # noqa: E501
              and isinstance(constructor, dict)
-             and '@' in constructor)):
+             and constructor.get('@') == 'JsonObjectAgg')):
             super().__init__(constructor)
         else:
             self.constructor = constructor
@@ -2923,7 +2923,7 @@ class JsonOutput(Node):
         if ((typeName is not None
              and returning is None  # noqa: E501
              and isinstance(typeName, dict)
-             and '@' in typeName)):
+             and typeName.get('@') == 'JsonOutput')):
             super().__init__(typeName)
         else:
             self.typeName = typeName
@@ -2939,7 +2939,7 @@ class JsonParseExpr(Node):
         if ((expr is not None
              and output is unique_keys is location is None  # noqa: E501
              and isinstance(expr, dict)
-             and '@' in expr)):
+             and expr.get('@') == 'JsonParseExpr')):
             super().__init__(expr)
         else:
             self.expr = expr
@@ -2955,7 +2955,7 @@ class JsonReturning(Node):
         if ((format is not None
              and typmod is None  # noqa: E501
              and isinstance(format, dict)
-             and '@' in format)):
+             and format.get('@') == 'JsonReturning')):
             super().__init__(format)
         else:
             self.format = format
@@ -2971,7 +2971,7 @@ class JsonScalarExpr(Node):
         if ((expr is not None
              and output is location is None  # noqa: E501
              and isinstance(expr, dict)
-             and '@' in expr)):
+             and expr.get('@') == 'JsonScalarExpr')):
             super().__init__(expr)
         else:
             self.expr = expr
@@ -2988,7 +2988,7 @@ class JsonSerializeExpr(Node):
         if ((expr is not None
              and output is location is None  # noqa: E501
              and isinstance(expr, dict)
-             and '@' in expr)):
+             and expr.get('@') == 'JsonSerializeExpr')):
             super().__init__(expr)
         else:
             self.expr = expr
@@ -3005,7 +3005,7 @@ class JsonTable(Node):
         if ((context_item is not None
              and pathspec is passing is columns is on_error is alias is lateral is location is None  # noqa: E501
              and isinstance(context_item, dict)
-             and '@' in context_item)):
+             and context_item.get('@') == 'JsonTable')):
             super().__init__(context_item)
         else:
             self.context_item = context_item
@@ -3052,7 +3052,7 @@ class JsonTablePathSpec(Node):
         if ((string is not None
              and name is name_location is location is None  # noqa: E501
              and isinstance(string, dict)
-             and '@' in string)):
+             and string.get('@') == 'JsonTablePathSpec')):
             super().__init__(string)
         else:
             self.string = string
@@ -3068,7 +3068,7 @@ class JsonValueExpr(Node):
         if ((raw_expr is not None
              and formatted_expr is format is None  # noqa: E501
              and isinstance(raw_expr, dict)
-             and '@' in raw_expr)):
+             and raw_expr.get('@') == 'JsonValueExpr')):
             super().__init__(raw_expr)
         else:
             self.raw_expr = raw_expr
@@ -3155,7 +3155,7 @@ class MergeStmt(Node):
         if ((relation is not None
              and sourceRelation is joinCondition is mergeWhenClauses is returningClause is withClause is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'MergeStmt')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -3222,7 +3222,7 @@ class MultiAssignRef(Node):
         if ((source is not None
              and colno is ncolumns is None  # noqa: E501
              and isinstance(source, dict)
-             and '@' in source)):
+             and source.get('@') == 'MultiAssignRef')):
             super().__init__(source)
         else:
             self.source = source
@@ -3239,7 +3239,7 @@ class NamedArgExpr(Expr):
         if ((arg is not None
              and name is argnumber is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'NamedArgExpr')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -3274,7 +3274,7 @@ class NullTest(Expr):
         if ((arg is not None
              and nulltesttype is argisrow is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'NullTest')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -3436,7 +3436,7 @@ class PartitionCmd(Node):
         if ((name is not None
              and bound is concurrent is None  # noqa: E501
              and isinstance(name, dict)
-             and '@' in name)):
+             and name.get('@') == 'PartitionCmd')):
             super().__init__(name)
         else:
             self.name = name
@@ -3537,7 +3537,7 @@ class PublicationTable(Node):
         if ((relation is not None
              and whereClause is columns is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'PublicationTable')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -3705,7 +3705,7 @@ class RangeTableSample(Node):
         if ((relation is not None
              and method is args is repeatable is location is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'RangeTableSample')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -3722,7 +3722,7 @@ class RangeTblEntry(Node):
         if ((alias is not None
              and eref is rtekind is inh is relkind is rellockmode is perminfoindex is tablesample is subquery is security_barrier is jointype is joinmergedcols is joinaliasvars is joinleftcols is joinrightcols is join_using_alias is functions is funcordinality is tablefunc is values_lists is ctename is ctelevelsup is self_reference is coltypes is coltypmods is colcollations is enrname is enrtuples is groupexprs is lateral is inFromCl is securityQuals is None  # noqa: E501
              and isinstance(alias, dict)
-             and '@' in alias)):
+             and alias.get('@') == 'RangeTblEntry')):
             super().__init__(alias)
         else:
             self.alias = alias
@@ -3766,7 +3766,7 @@ class RangeTblFunction(Node):
         if ((funcexpr is not None
              and funccolcount is funccolnames is funccoltypes is funccoltypmods is funccolcollations is funcparams is None  # noqa: E501
              and isinstance(funcexpr, dict)
-             and '@' in funcexpr)):
+             and funcexpr.get('@') == 'RangeTblFunction')):
             super().__init__(funcexpr)
         else:
             self.funcexpr = funcexpr
@@ -3820,7 +3820,7 @@ class RawStmt(Node):
         if ((stmt is not None
              and stmt_location is stmt_len is None  # noqa: E501
              and isinstance(stmt, dict)
-             and '@' in stmt)):
+             and stmt.get('@') == 'RawStmt')):
             super().__init__(stmt)
         else:
             self.stmt = stmt
@@ -3882,7 +3882,7 @@ class RelabelType(Expr):
         if ((arg is not None
              and resulttypmod is relabelformat is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'RelabelType')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -3949,7 +3949,7 @@ class ReturnStmt(Node):
     def __init__(self, returnval=None):  # pragma: no cover  # noqa: E501
         if ((returnval is not None
              and isinstance(returnval, dict)
-             and '@' in returnval)):
+             and returnval.get('@') == 'ReturnStmt')):
             super().__init__(returnval)
         else:
             self.returnval = returnval
@@ -4077,7 +4077,7 @@ class RuleStmt(Node):
         if ((relation is not None
              and rulename is whereClause is event is instead is actions is replace is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'RuleStmt')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -4216,7 +4216,7 @@ class SortBy(Node):
         if ((node is not None
              and sortby_dir is sortby_nulls is useOp is location is None  # noqa: E501
              and isinstance(node, dict)
-             and '@' in node)):
+             and node.get('@') == 'SortBy')):
             super().__init__(node)
         else:
             self.node = node
@@ -4369,7 +4369,7 @@ class TableLikeClause(Node):
         if ((relation is not None
              and options is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'TableLikeClause')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -4397,7 +4397,7 @@ class TargetEntry(Expr):
         if ((expr is not None
              and resno is resname is ressortgroupref is resorigcol is resjunk is None  # noqa: E501
              and isinstance(expr, dict)
-             and '@' in expr)):
+             and expr.get('@') == 'TargetEntry')):
             super().__init__(expr)
         else:
             self.expr = expr
@@ -4467,7 +4467,7 @@ class TypeCast(Node):
         if ((arg is not None
              and typeName is location is None  # noqa: E501
              and isinstance(arg, dict)
-             and '@' in arg)):
+             and arg.get('@') == 'TypeCast')):
             super().__init__(arg)
         else:
             self.arg = arg
@@ -4515,7 +4515,7 @@ class UpdateStmt(Node):
         if ((relation is not None
              and targetList is whereClause is fromClause is returningClause is withClause is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'UpdateStmt')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -4533,7 +4533,7 @@ class VacuumRelation(Node):
         if ((relation is not None
              and va_cols is None  # noqa: E501
              and isinstance(relation, dict)
-             and '@' in relation)):
+             and relation.get('@') == 'VacuumRelation')):
             super().__init__(relation)
         else:
             self.relation = relation
@@ -4615,7 +4615,7 @@ class ViewStmt(Node):
         if ((view is not None
              and aliases is query is replace is options is withCheckOption is None  # noqa: E501
              and isinstance(view, dict)
-             and '@' in view)):
+             and view.get('@') == 'ViewStmt')):
             super().__init__(view)
         else:
             self.view = view

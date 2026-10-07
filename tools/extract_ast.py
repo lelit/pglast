@@ -760,12 +760,20 @@ class {name}({superclass}):
     def __init__(self, {', '.join(f'{attr}=None' for attr, __ in real_attrs)}):  # pragma: no cover  # noqa: E501
 ''')
 
+        first_attr, first_type = real_attrs[0]
+        whole_node_check = f"'@' in {first_attr}"
+        if (first_type == 'CreateStmt'
+                or (first_type.endswith('*')
+                    and first_type not in ('char*', 'List*', 'Bitmapset*'))):
+            # A different node tag here describes the child, not this node.
+            whole_node_check = f"{first_attr}.get('@') == {name!r}"
+
         if len(real_attrs) > 1:
             output.write(f'''\
         if (({real_attrs[0][0]} is not None
              and {' is '.join(attr for attr, __ in real_attrs[1:])} is None  # noqa: E501
              and isinstance({real_attrs[0][0]}, dict)
-             and '@' in {real_attrs[0][0]})):
+             and {whole_node_check})):
             super().__init__({real_attrs[0][0]})
         else:
 ''')
@@ -773,7 +781,7 @@ class {name}({superclass}):
             output.write(f'''\
         if (({real_attrs[0][0]} is not None
              and isinstance({real_attrs[0][0]}, dict)
-             and '@' in {real_attrs[0][0]})):
+             and {whole_node_check})):
             super().__init__({real_attrs[0][0]})
         else:
 ''')
