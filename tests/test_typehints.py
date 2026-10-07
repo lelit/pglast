@@ -313,6 +313,12 @@ if __name__ == '__main__':
     {stub_function_name}()
 """
 
+    # Neither type checker can follow the import hook that the editable install of the package
+    # uses (`pglast` is then served by a meta path finder, not by a real directory in
+    # site-packages); moreover `ty` does not honor PYTHONPATH. Running them from the project
+    # directory makes the package resolvable as first-party code, which works in every mode.
+    project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
     # Create a temporary directory to isolate the test
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_file = os.path.join(temp_dir, f'{stub_function_name}.py')
@@ -325,7 +331,7 @@ if __name__ == '__main__':
                 checker + (temp_file,),
                 capture_output=True,
                 text=True,
-                cwd=temp_dir,
+                cwd=project_dir,
             )
         except FileNotFoundError:
             pytest.skip(f'Could not execute type checker: {checker!r}')
