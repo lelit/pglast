@@ -188,6 +188,7 @@ def test_clone():
     from pglast import ast
     stmts = parse_sql('SELECT 1')
     stmt = stmts[0].stmt
+    assert stmt is not None
     clone = ast.SelectStmt(stmt())
     assert clone is not stmt
     assert clone == stmt

@@ -2497,7 +2497,7 @@ class RangeVar(Node):
 
 
 class RawStmt(Node):
-    stmt: Node
+    stmt: Node | None
     stmt_location: int | None
     stmt_len: int | None
     @overload

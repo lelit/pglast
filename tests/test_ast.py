@@ -80,6 +80,7 @@ def test_setattr():
         raw.stmt = {'@': 'SelectStmt', 'limitOption': {'#': 'LimitOption',
                                                        'value': -1}}
     raw.stmt = {'@': 'FunctionParameter'}
+    assert raw.stmt is not None
     raw.stmt.argType = {'@': 'TypeName'}
     raw.stmt = ast.CreateForeignTableStmt()
     raw.stmt.base = {'@': 'CreateStmt'}
@@ -108,6 +109,7 @@ def test_issue_138():
 
 def test_issue_153():
     selstmt = parse_sql('select t.y from f(5) as t')[0].stmt
+    assert selstmt is not None
     serialized = selstmt()
     assert serialized['@'] == 'SelectStmt'
     clone = ast.SelectStmt(serialized)
