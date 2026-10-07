@@ -13,9 +13,6 @@ from .error import Error
 LONG_MAX: int
 
 
-LONG_MAX: int
-
-
 class ParseError(Error):
     def __init__(self, message: str, location: int | None = None) -> None: ...
 
