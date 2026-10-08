@@ -283,7 +283,7 @@ class RawStream(OutputStream):
 
         """Concatenate given `nodes`, using `sep` as the separator.
 
-        :param scalars: a sequence of nodes
+        :param nodes: a sequence of nodes
         :param str sep: the separator between them
         :param bool are_names:
                whether the nodes are actually *names*, which possibly require to be enclosed
