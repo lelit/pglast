@@ -215,7 +215,7 @@ def stub_public_module_types() -> None:
 
 def stub_precedence_types() -> None:
     """Stub function to test the public type hints of the precedence module."""
-    from pglast import ast, parse_sql
+    from pglast import ast, parse_sql, visitors
     from pglast.precedence import (
         ExprContext,
         ExprPrec,
@@ -228,10 +228,12 @@ def stub_precedence_types() -> None:
         operator_precedence,
         subquery_operator_precedence,
     )
-    from pglast.stream import RawStream
+    from pglast.stream import IndentedStream, RawStream
 
     stream: RawStream = RawStream()
-    node: ast.Node = parse_sql('SELECT 1 + 2 * 3')[0].stmt
+    tree = parse_sql('SELECT 1 + 2 * 3')
+    visitors.populate_ancestors(tree)
+    node: ast.Node = tree[0].stmt
 
     prec: ExprPrec = expr_precedence(node, stream)
     op_prec: ExprPrec = operator_precedence([ast.String(sval='+')])
@@ -251,6 +253,29 @@ def stub_precedence_types() -> None:
     assert is_b or not is_b
     assert as_c or not as_c
     assert not sub_cmp
+
+
+def stub_stream_expr_context() -> None:
+    """Stub function to test the expression context API of the streams."""
+    from pglast import ast, parse_sql, visitors
+    from pglast.precedence import ExprContext, ExprPrec, Side
+    from pglast.stream import IndentedStream, RawStream
+
+    tree = parse_sql('SELECT a + b * c')
+    visitors.populate_ancestors(tree)
+    node: ast.Node = tree[0].stmt
+
+    for stream in (RawStream(), IndentedStream()):
+        ctx: ExprContext = stream.expr_context
+        assert ctx is ExprContext.A_EXPR
+
+        with stream.push_expr_context(ExprContext.B_EXPR):
+            stream.print_operand(node, ExprPrec.MUL, Side.LEFT)
+
+        stream.print_operand(node, ExprPrec.MUL, Side.RIGHT, ExprContext.A_EXPR)
+        stream.b_expr(node)
+
+    assert RawStream().getvalue() == ''
 
 
 def stub_remaining_importable_modules() -> None:
@@ -442,6 +467,7 @@ ty_checker: tuple[str, ...] = (
         (stub_enums_and_streams, True),
         (stub_public_module_types, True),
         (stub_precedence_types, True),
+        (stub_stream_expr_context, True),
         (stub_remaining_importable_modules, True),
         (stub_type_errors, False),
         (stub_ast_field_type_errors, False),
