@@ -9,7 +9,34 @@
 from .. import ast, enums
 from ..keywords import COL_NAME_KEYWORDS
 from ..parser import LONG_MAX
+from ..precedence import (ExprContext, ExprPrec, Side, expr_precedence,
+                          subquery_operator_precedence)
 from . import IntEnumPrinter, get_string_value, node_printer
+
+
+def _print_subquery_op(name, output):
+    """Print the subquery comparison operator `name`, in the ``ANY``/``ALL`` form.
+
+    A ``LIKE``/``ILIKE`` operator is printed with its keyword name, and a
+    ``OPERATOR(schema.op)`` one with the qualification, since the plain ``~~``/``~~*`` symbols
+    are not valid operators in that position.
+    """
+
+    operator = get_string_value(name) if isinstance(name, tuple) and len(name) == 1 else None
+    if operator == '~~':
+        output.write('LIKE')
+    elif operator == '!~~':
+        output.write('NOT LIKE')
+    elif operator == '~~*':
+        output.write('ILIKE')
+    elif operator == '!~~*':
+        output.write('NOT ILIKE')
+    elif operator is not None:
+        output.write(operator)
+    else:
+        output.write('OPERATOR')
+        with output.expression(True):
+            output.print_symbol(name)
 
 
 @node_printer(ast.A_ArrayExpr)
@@ -31,61 +58,74 @@ def a_const(node, output):
 class AExprKindPrinter(IntEnumPrinter):
     enum = enums.A_Expr_Kind
 
+    def _between_bounds(self, node, output):
+        """Print the lower and upper bounds of a ``BETWEEN`` `node`.
+
+        The lower bound is a *b_expr* in the grammar, while the upper one is a full *a_expr*.
+        """
+
+        prec = expr_precedence(node, output)
+        lower, upper = node.rexpr
+        output.b_expr(lower)
+        output.swrite('AND ')
+        output.print_operand(upper, prec, Side.RIGHT)
+
     def AEXPR_BETWEEN(self, node, output):
         output.print_node(node.lexpr)
         output.swrite('BETWEEN ')
-        output.print_list(node.rexpr, 'AND', relative_indent=-4)
+        self._between_bounds(node, output)
 
     def AEXPR_BETWEEN_SYM(self, node, output):
         output.print_node(node.lexpr)
         output.swrite('BETWEEN SYMMETRIC ')
-        output.print_list(node.rexpr, 'AND', relative_indent=-4)
+        self._between_bounds(node, output)
 
     def AEXPR_DISTINCT(self, node, output):
-        with output.expression(isinstance(node.lexpr,
-                                          (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
-            output.print_node(node.lexpr)
+        # IS / IS NOT DISTINCT FROM are non-associative
+        prec = expr_precedence(node, output)
+        output.print_operand(node.lexpr, prec, Side.LEFT)
         output.swrite('IS DISTINCT FROM ')
-        with output.expression(isinstance(node.rexpr,
-                                          (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
-            output.print_node(node.rexpr)
+        output.print_operand(node.rexpr, prec, Side.RIGHT)
 
     def AEXPR_ILIKE(self, node, output):
-        output.print_node(node.lexpr)
+        prec = expr_precedence(node, output)
+        output.print_operand(node.lexpr, prec, Side.LEFT)
         if get_string_value(node.name) == '!~~*':
             output.swrites('NOT')
         output.swrite('ILIKE ')
-        output.print_node(node.rexpr)
+        output.print_operand(node.rexpr, prec, Side.RIGHT)
 
     def AEXPR_IN(self, node, output):
-        output.print_node(node.lexpr)
-        if get_string_value(node.name) == '<>':
-            output.swrites('NOT')
-        output.swrite('IN ')
+        prec = expr_precedence(node, output)
+        output.print_operand(node.lexpr, prec, Side.LEFT)
+        output.write(' ')
+        output.write('NOT IN ' if get_string_value(node.name) == '<>' else 'IN ')
         with output.expression(True):
             output.print_list(node.rexpr)
 
     def AEXPR_LIKE(self, node, output):
-        output.print_node(node.lexpr)
+        prec = expr_precedence(node, output)
+        output.print_operand(node.lexpr, prec, Side.LEFT)
         if get_string_value(node.name) == '!~~':
             output.swrites('NOT')
         output.swrite('LIKE ')
-        output.print_node(node.rexpr)
+        output.print_operand(node.rexpr, prec, Side.RIGHT)
 
     def AEXPR_NOT_BETWEEN(self, node, output):
         output.print_node(node.lexpr)
-        output.swrite('NOT BETWEEN ')
-        output.print_list(node.rexpr, 'AND', relative_indent=-4)
+        output.swrite(get_string_value(node.name) + ' ')
+        self._between_bounds(node, output)
 
     def AEXPR_NOT_BETWEEN_SYM(self, node, output):
         output.print_node(node.lexpr)
-        output.swrite('NOT BETWEEN SYMMETRIC ')
-        output.print_list(node.rexpr, 'AND', relative_indent=-4)
+        output.swrite(get_string_value(node.name) + ' ')
+        self._between_bounds(node, output)
 
     def AEXPR_NOT_DISTINCT(self, node, output):
-        output.print_node(node.lexpr)
+        prec = expr_precedence(node, output)
+        output.print_operand(node.lexpr, prec, Side.LEFT)
         output.swrite('IS NOT DISTINCT FROM ')
-        output.print_node(node.rexpr)
+        output.print_operand(node.rexpr, prec, Side.RIGHT)
 
     def AEXPR_NULLIF(self, node, output):
         output.write('NULLIF')
@@ -93,22 +133,10 @@ class AExprKindPrinter(IntEnumPrinter):
             output.print_list((node.lexpr, node.rexpr))
 
     def AEXPR_OP(self, node, output):
+        prec = expr_precedence(node, output)
         # lexpr is optional because these are valid: -(1+1), +(1+1), ~(1+1)
         if node.lexpr is not None:
-            needs_parens = isinstance(node.lexpr,
-                                      (ast.BoolExpr, ast.NullTest, ast.A_Expr))
-            if needs_parens and isinstance(node.lexpr, ast.A_Expr):
-                # Do not wrap lexpr in parenthesis when it has the same operator
-                # as the current node and the operator is...
-                # This is to avoid common cases such as
-                #   1 + 2 + 3 + 4
-                # to result in
-                #   ((1 + 2) + 3) + 4
-                if node.lexpr.name == node.name:
-                    if get_string_value(node.name) in {'*', '/', '+', '-', '||'}:
-                        needs_parens = False
-            with output.expression(needs_parens):
-                output.print_node(node.lexpr)
+            output.print_operand(node.lexpr, prec, Side.LEFT)
             output.write(' ')
         if isinstance(node.name, tuple) and len(node.name) > 1:
             output.write('OPERATOR')
@@ -118,28 +146,31 @@ class AExprKindPrinter(IntEnumPrinter):
             output.print_symbol(node.name)
         output.write(' ')
         if node.rexpr is not None:
-            with output.expression(isinstance(node.rexpr,
-                                              (ast.BoolExpr, ast.NullTest, ast.A_Expr))):
-                output.print_node(node.rexpr)
+            output.print_operand(node.rexpr, prec, Side.RIGHT)
 
     def AEXPR_OP_ALL(self, node, output):
-        output.print_node(node.lexpr)
+        # The left operand is compared against the operator token, not the precedence of the
+        # whole rule
+        output.print_operand(node.lexpr, subquery_operator_precedence(node.name), Side.LEFT)
         output.write(' ')
-        output.write(get_string_value(node.name))
-        output.write(' ALL')
-        with output.expression(True):
+        _print_subquery_op(node.name, output)
+        output.write(' ALL(')
+        with output.push_expr_context(ExprContext.A_EXPR):
             output.print_node(node.rexpr)
+        output.write(')')
 
     def AEXPR_OP_ANY(self, node, output):
-        output.print_node(node.lexpr)
+        output.print_operand(node.lexpr, subquery_operator_precedence(node.name), Side.LEFT)
         output.write(' ')
-        output.write(get_string_value(node.name))
-        output.write(' ANY')
-        with output.expression(True):
+        _print_subquery_op(node.name, output)
+        output.write(' ANY(')
+        with output.push_expr_context(ExprContext.A_EXPR):
             output.print_node(node.rexpr)
+        output.write(')')
 
     def AEXPR_SIMILAR(self, node, output):
-        output.print_node(node.lexpr)
+        prec = expr_precedence(node, output)
+        output.print_operand(node.lexpr, prec, Side.LEFT)
         if get_string_value(node.name) == '!~':
             output.swrites('NOT')
         output.swrite('SIMILAR TO ')
@@ -148,10 +179,10 @@ class AExprKindPrinter(IntEnumPrinter):
             raise RuntimeError('Expected a FuncCall to "similar_to_escape", got %r',
                                node.rexpr)
         pattern = node.rexpr.args[0]
-        output.print_node(pattern)
+        output.print_operand(pattern, prec, Side.RIGHT)
         if len(node.rexpr.args) > 1:
             output.swrite('ESCAPE ')
-            output.print_node(node.rexpr.args[1])
+            output.print_operand(node.rexpr.args[1], prec, Side.RIGHT)
 
 
 a_expr_kind_printer = AExprKindPrinter()
@@ -1939,17 +1970,20 @@ def sub_link(node, output):
     if node.subLinkType == slt.EXISTS_SUBLINK:
         output.write('EXISTS ')
     elif node.subLinkType == slt.ALL_SUBLINK:
-        output.print_node(node.testexpr)
+        output.print_operand(node.testexpr, subquery_operator_precedence(node.operName),
+                             Side.LEFT, ExprContext.A_EXPR)
         output.write(' ')
-        output.write(get_string_value(node.operName))
+        _print_subquery_op(node.operName, output)
         output.write(' ALL ')
     elif node.subLinkType == slt.ANY_SUBLINK:
-        output.print_node(node.testexpr)
         if node.operName:
+            output.print_operand(node.testexpr, subquery_operator_precedence(node.operName),
+                                 Side.LEFT, ExprContext.A_EXPR)
             output.write(' ')
-            output.write(get_string_value(node.operName))
+            _print_subquery_op(node.operName, output)
             output.write(' ANY ')
         else:
+            output.print_operand(node.testexpr, ExprPrec.BETWEEN, Side.LEFT, ExprContext.A_EXPR)
             output.write(' IN ')
     elif node.subLinkType == slt.EXPR_SUBLINK:
         pass
