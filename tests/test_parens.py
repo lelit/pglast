@@ -58,6 +58,17 @@ CASES = [
     # LIKE binds looser than ||: the concatenation needs no parens
     ('SELECT * FROM t WHERE (a || b) LIKE c',
      'SELECT * FROM t WHERE a || b LIKE c'),
+    # Indirection: only PARAM, ColumnRef+subscript and (SELECT ...) take it without parens
+    ('SELECT (a IS NULL)[1]',
+     'SELECT (a IS NULL)[1]'),
+    ('SELECT (NOT a)[1]',
+     'SELECT (NOT a)[1]'),
+    ('SELECT (a OR b)[1]',
+     'SELECT (a OR b)[1]'),
+    ('SELECT (a.b)[1]',
+     'SELECT (a.b)[1]'),
+    ('SELECT (a COLLATE "C")[1]',
+     'SELECT (a COLLATE "C")[1]'),
 ]
 
 

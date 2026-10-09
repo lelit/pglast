@@ -209,12 +209,16 @@ def a_indices(node, output):
 
 @node_printer(ast.A_Indirection)
 def a_indirection(node, output):
-    with output.expression(isinstance(node.arg,
-                                      (ast.A_ArrayExpr, ast.A_Expr, ast.FuncCall,
-                                       ast.A_Indirection, ast.JsonFuncExpr, ast.RowExpr,
-                                       ast.TypeCast))
-                           or (isinstance(node.arg, ast.ColumnRef)
-                               and not isinstance(node.indirection[0], ast.A_Indices))):
+    # Only a few "c_expr" rules accept indirection without parens: "PARAM opt_indirection",
+    # "columnref" (whose field names are part of the ColumnRef itself, so only subscripts can
+    # follow directly) and "select_with_parens indirection". Everything else is printed as
+    # "'(' a_expr ')' opt_indirection".
+    need_parens = not (isinstance(node.arg, ast.ParamRef)
+                       or (isinstance(node.arg, ast.ColumnRef)
+                           and isinstance(node.indirection[0], ast.A_Indices))
+                       or (isinstance(node.arg, ast.SubLink)
+                           and node.arg.subLinkType == enums.SubLinkType.EXPR_SUBLINK))
+    with output.expression(need_parens):
         output.print_node(node.arg)
     output.print_list(node.indirection, '', standalone_items=False)
 
