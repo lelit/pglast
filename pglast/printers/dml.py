@@ -323,11 +323,9 @@ boolean_test_printer = BooleanTestPrinter()
 
 @node_printer(ast.BooleanTest)
 def boolean_test(node, output):
-    with output.expression(isinstance(node.ancestors[0], ast.A_Expr)):
-        with output.expression(isinstance(node.arg, ast.BoolExpr)):
-            output.print_node(node.arg)
-        output.write(' IS ')
-        boolean_test_printer(node.booltesttype, node, output)
+    output.print_operand(node.arg, ExprPrec.IS, Side.LEFT, ExprContext.A_EXPR)
+    output.write(' IS ')
+    boolean_test_printer(node.booltesttype, node, output)
 
 
 @node_printer(ast.CallStmt)
@@ -374,9 +372,9 @@ def coalesce_expr(node, output):
 @node_printer(ast.CollateClause)
 def collate_clause(node, output):
     if node.arg:
-        with output.expression(isinstance(node.arg, ast.A_Expr)):
-            output.print_node(node.arg)
-    output.swrite('COLLATE ')
+        output.print_operand(node.arg, ExprPrec.COLLATE, Side.LEFT, ExprContext.A_EXPR)
+        output.write(' ')
+    output.write('COLLATE ')
     output.print_name(node.collname, '.')
 
 
@@ -1523,7 +1521,7 @@ def named_arg_expr(node, output):
 
 @node_printer(ast.NullTest)
 def null_test(node, output):
-    output.print_node(node.arg)
+    output.print_operand(node.arg, ExprPrec.IS, Side.LEFT, ExprContext.A_EXPR)
     output.write(' IS')
     if node.nulltesttype == enums.NullTestType.IS_NOT_NULL:
         output.write(' NOT')

@@ -58,6 +58,26 @@ CASES = [
     # LIKE binds looser than ||: the concatenation needs no parens
     ('SELECT * FROM t WHERE (a || b) LIKE c',
      'SELECT * FROM t WHERE a || b LIKE c'),
+    # IS is non-associative: a BoolExpr operand keeps its parens, a tighter one drops them
+    ('SELECT (a AND b) IS NULL',
+     'SELECT (a AND b) IS NULL'),
+    ('SELECT (NOT a) IS NULL',
+     'SELECT (NOT a) IS NULL'),
+    ('SELECT (a = b) IS NULL',
+     'SELECT a = b IS NULL'),
+    ('SELECT (a || b) IS NULL',
+     'SELECT a || b IS NULL'),
+    ('SELECT (a OR b) IS TRUE',
+     'SELECT (a OR b) IS TRUE'),
+    ('SELECT (a = b) IS TRUE',
+     'SELECT a = b IS TRUE'),
+    # COLLATE binds tighter than IS but looser than a comparison
+    ('SELECT (a IS NULL) COLLATE "C"',
+     'SELECT (a IS NULL) COLLATE "C"'),
+    ('SELECT (a || b) COLLATE "C"',
+     'SELECT (a || b) COLLATE "C"'),
+    ('SELECT a COLLATE "C"',
+     'SELECT a COLLATE "C"'),
     # Indirection: only PARAM, ColumnRef+subscript and (SELECT ...) take it without parens
     ('SELECT (a IS NULL)[1]',
      'SELECT (a IS NULL)[1]'),
