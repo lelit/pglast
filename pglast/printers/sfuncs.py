@@ -116,9 +116,9 @@ def position(node, output):
     output.write('position')
     with output.expression(True):
         # Both operands of POSITION are b_expr in gram.y
-        output.b_expr(node.args[1])
+        output.print_b_expr(node.args[1])
         output.write(' IN ')
-        output.b_expr(node.args[0])
+        output.print_b_expr(node.args[0])
 
 
 @special_function('pg_catalog.rtrim')
@@ -167,6 +167,6 @@ def xmlexists(node, output):
     output.write('xmlexists')
     with output.expression(True):
         # Both operands of XMLEXISTS are c_expr in gram.y
-        output.c_expr(node.args[0])
+        output.print_c_expr(node.args[0])
         output.write(' PASSING BY REF ')
-        output.c_expr(node.args[1])
+        output.print_c_expr(node.args[1])

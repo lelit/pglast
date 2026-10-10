@@ -277,7 +277,7 @@ def test_b_expr_wraps_non_b_expr():
     "A value that is not a b_expr is parenthesized, and printed in a_expr context."
 
     output = RawStream()
-    output.b_expr(first_expr(walked('SELECT a IS NULL')))
+    output.print_b_expr(first_expr(walked('SELECT a IS NULL')))
 
     assert output.getvalue() == '(a IS NULL)'
     assert output.expr_context is ExprContext.A_EXPR
@@ -290,7 +290,7 @@ def test_b_expr_plain():
     plus = first_expr(tree).lexpr
     output = RawStream()
 
-    output.b_expr(plus)
+    output.print_b_expr(plus)
     assert output.expr_context is ExprContext.A_EXPR
 
     assert output.getvalue() == 'a + b'

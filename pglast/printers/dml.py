@@ -66,7 +66,7 @@ class AExprKindPrinter(IntEnumPrinter):
 
         prec = expr_precedence(node, output)
         lower, upper = node.rexpr
-        output.b_expr(lower)
+        output.print_b_expr(lower)
         output.swrite('AND ')
         output.print_operand(upper, prec, Side.RIGHT)
 
@@ -1629,7 +1629,7 @@ def range_table_func(node, output):
                 output.print_node(node.rowexpr)
             output.newline()
             output.write('PASSING ')
-            output.c_expr(node.docexpr)
+            output.print_c_expr(node.docexpr)
             output.newline()
             output.write('COLUMNS ')
             output.print_list(node.columns)
@@ -1659,10 +1659,10 @@ def range_table_func_col(node, output):
         output.print_node(node.typeName)
         if node.colexpr:
             output.swrite('PATH ')
-            output.b_expr(node.colexpr)
+            output.print_b_expr(node.colexpr)
         if node.coldefexpr:
             output.swrite('DEFAULT ')
-            output.b_expr(node.coldefexpr)
+            output.print_b_expr(node.coldefexpr)
         if node.is_not_null:
             output.swrite('NOT NULL')
 

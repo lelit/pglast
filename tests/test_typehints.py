@@ -273,7 +273,7 @@ def stub_stream_expr_context() -> None:
             stream.print_operand(node, ExprPrec.MUL, Side.LEFT)
 
         stream.print_operand(node, ExprPrec.MUL, Side.RIGHT, ExprContext.A_EXPR)
-        stream.b_expr(node)
+        stream.print_b_expr(node)
 
     assert RawStream().getvalue() == ''
 

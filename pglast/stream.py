@@ -300,7 +300,7 @@ class RawStream(OutputStream):
         if need_parens:
             self.write(')')
 
-    def b_expr(self, node):
+    def print_b_expr(self, node):
         """Render `node` as a value that must be a valid *b_expr*.
 
         :param node: an instance of :class:`~.ast.Node`
@@ -317,7 +317,7 @@ class RawStream(OutputStream):
             with self.push_expr_context(ExprContext.B_EXPR):
                 self.print_node(node)
 
-    def c_expr(self, node):
+    def print_c_expr(self, node):
         """Render `node` as a value that must be a valid *c_expr*.
 
         :param node: an instance of :class:`~.ast.Node`

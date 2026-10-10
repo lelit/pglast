@@ -1287,7 +1287,7 @@ class ConstrTypePrinter(IntEnumPrinter):
             output.print_node(node.cooked_expr)
         else:
             # A DEFAULT value is a b_expr in gram.y, e.g. DEFAULT (1 IN (1,2))
-            output.b_expr(node.raw_expr)
+            output.print_b_expr(node.raw_expr)
 
     def CONSTR_IDENTITY(self, node, output):
         output.swrite('GENERATED ')
