@@ -13,7 +13,8 @@ from sys import stderr
 
 from . import ast, enums, parse_plpgsql, parse_sql
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
-from .precedence import ExprContext, is_b_expr_rule, needs_parens_for_precedence
+from .precedence import (ExprContext, is_b_expr_rule, needs_parens_as_c_expr,
+                         needs_parens_for_precedence)
 from .printers import get_printer_for_node, get_special_function
 
 
@@ -314,6 +315,23 @@ class RawStream(OutputStream):
                 self.print_node(node)
         else:
             with self.push_expr_context(ExprContext.B_EXPR):
+                self.print_node(node)
+
+    def c_expr(self, node):
+        """Render `node` as a value that must be a valid *c_expr*.
+
+        :param node: an instance of :class:`~.ast.Node`
+
+        A *c_expr* is the most restricted form of expression: only *atomic* nodes handled by a
+        ``b_expr`` rule may appear in that position without parentheses, so when `node` is not one
+        of those it must be enclosed in parentheses and printed in an ``a_expr`` context.
+        """
+
+        if needs_parens_as_c_expr(node, self):
+            with self.expression(True), self.push_expr_context(ExprContext.A_EXPR):
+                self.print_node(node)
+        else:
+            with self.push_expr_context(ExprContext.C_EXPR):
                 self.print_node(node)
 
     def print_operand(self, node, parent_prec, side, ctx=None):

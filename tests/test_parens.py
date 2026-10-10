@@ -89,6 +89,26 @@ CASES = [
      'SELECT (a.b)[1]'),
     ('SELECT (a COLLATE "C")[1]',
      'SELECT (a COLLATE "C")[1]'),
+    # POSITION's operands are b_expr in gram.y: a BoolExpr must be parenthesized
+    ('SELECT POSITION((a AND b) IN c)',
+     'SELECT position((a AND b) IN c)'),
+    ('SELECT POSITION(a || b IN c)',
+     'SELECT position(a || b IN c)'),
+    # A DEFAULT value is a b_expr: an IN, a NOT, an ANY-comparison, a COLLATE and an IS all
+    # need their parens
+    ('CREATE TABLE t (a int DEFAULT (1 IN (1,2)))',
+     'CREATE TABLE t (a integer DEFAULT (1 IN (1, 2)))'),
+    ('CREATE TABLE t (a int DEFAULT (x COLLATE "C") + 1)',
+     'CREATE TABLE t (a integer DEFAULT (x COLLATE "C") + 1)'),
+    ('CREATE TABLE t (a bool DEFAULT (NOT true))',
+     'CREATE TABLE t (a bool DEFAULT (NOT TRUE))'),
+    ('CREATE TABLE t (a bool DEFAULT (a IS NULL))',
+     'CREATE TABLE t (a bool DEFAULT (a IS NULL))'),
+    ('CREATE TABLE t (a bool DEFAULT (1 = ANY (SELECT 1)))',
+     'CREATE TABLE t (a bool DEFAULT (1 = ANY (SELECT 1)))'),
+    # In xmltable the PASSING value is a c_expr, while PATH/DEFAULT are b_expr
+    ("SELECT * FROM xmltable(('/r') PASSING (a || b) COLUMNS c int PATH 'x' || y DEFAULT 1 + 2)",
+     "SELECT * FROM xmltable(('/r') PASSING (a || b) COLUMNS c integer PATH 'x' || y DEFAULT 1 + 2)"),
     # IS DOCUMENT / IS JSON behave like IS: a NOT operand keeps its parens, a tighter one drops them
     ('SELECT (NOT a) IS DOCUMENT',
      'SELECT (NOT a) IS DOCUMENT'),
@@ -98,6 +118,18 @@ CASES = [
      'SELECT a || b IS DOCUMENT'),
     ('SELECT (a || b) IS JSON',
      'SELECT a || b IS JSON'),
+]
+
+# Cases that only exercise the machinery when the special functions are enabled
+SPECIAL_CASES = [
+    # XMLEXISTS operands are c_expr in gram.y: a concatenation must be parenthesized
+    ("SELECT xmlexists ('//x' PASSING (a || b))",
+     "SELECT xmlexists('//x' PASSING BY REF (a || b))"),
+    # AT TIME ZONE is not a b_expr, so a DEFAULT value keeps its parens
+    ('CREATE TABLE t (a timestamptz DEFAULT (now() AT LOCAL))',
+     'CREATE TABLE t (a timestamptz DEFAULT (now() AT LOCAL))'),
+    ("CREATE TABLE t (a timestamptz DEFAULT (current_timestamp AT TIME ZONE 'UTC'))",
+     "CREATE TABLE t (a timestamptz DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'UTC'))"),
 ]
 
 
@@ -111,3 +143,14 @@ def test_roundtrip_invariant(sql, _expected):
     # The whole point of the exercise: what pglast prints must re-parse to the same tree
     assert parse_sql(RawStream()(sql)) == parse_sql(sql)
     assert parse_sql(IndentedStream()(sql)) == parse_sql(sql)
+
+
+@mark.parametrize('sql, expected', SPECIAL_CASES)
+def test_raw_rendering_special_functions(sql, expected):
+    assert RawStream(special_functions=True)(sql) == expected
+
+
+@mark.parametrize('sql, _expected', SPECIAL_CASES)
+def test_roundtrip_invariant_special_functions(sql, _expected):
+    assert parse_sql(RawStream(special_functions=True)(sql)) == parse_sql(sql)
+    assert parse_sql(IndentedStream(special_functions=True)(sql)) == parse_sql(sql)

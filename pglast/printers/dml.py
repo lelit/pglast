@@ -1629,7 +1629,7 @@ def range_table_func(node, output):
                 output.print_node(node.rowexpr)
             output.newline()
             output.write('PASSING ')
-            output.print_node(node.docexpr)
+            output.c_expr(node.docexpr)
             output.newline()
             output.write('COLUMNS ')
             output.print_list(node.columns)
@@ -1659,10 +1659,10 @@ def range_table_func_col(node, output):
         output.print_node(node.typeName)
         if node.colexpr:
             output.swrite('PATH ')
-            output.print_node(node.colexpr)
+            output.b_expr(node.colexpr)
         if node.coldefexpr:
             output.swrite('DEFAULT ')
-            output.print_node(node.coldefexpr)
+            output.b_expr(node.coldefexpr)
         if node.is_not_null:
             output.swrite('NOT NULL')
 
