@@ -1166,7 +1166,7 @@ def json_func_expr(node, output):
 
 @node_printer(ast.JsonIsPredicate)
 def json_is_predicate(node, output):
-    output.print_node(node.expr)
+    output.print_operand(node.expr, ExprPrec.IS, Side.LEFT, ExprContext.A_EXPR)
     output.print_node(node.format)
     output.write(' IS ')
     json_value_type_printer(node.item_type, node, output)
@@ -2440,7 +2440,7 @@ class XmlExprOpPrinter(IntEnumPrinter):
         raise NotImplementedError('IS_XMLSERIALIZE??')
 
     def IS_DOCUMENT(self, node, output):  # xmlval IS DOCUMENT
-        output.print_node(node.args[0])
+        output.print_operand(node.args[0], ExprPrec.IS, Side.LEFT, ExprContext.A_EXPR)
         output.write(' IS DOCUMENT')
 
 

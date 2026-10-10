@@ -89,6 +89,15 @@ CASES = [
      'SELECT (a.b)[1]'),
     ('SELECT (a COLLATE "C")[1]',
      'SELECT (a COLLATE "C")[1]'),
+    # IS DOCUMENT / IS JSON behave like IS: a NOT operand keeps its parens, a tighter one drops them
+    ('SELECT (NOT a) IS DOCUMENT',
+     'SELECT (NOT a) IS DOCUMENT'),
+    ('SELECT (NOT a) IS JSON',
+     'SELECT (NOT a) IS JSON'),
+    ('SELECT (a || b) IS DOCUMENT',
+     'SELECT a || b IS DOCUMENT'),
+    ('SELECT (a || b) IS JSON',
+     'SELECT a || b IS JSON'),
 ]
 
 
