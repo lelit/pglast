@@ -6,18 +6,6 @@
 # :Copyright: © 2026 Lele Gaifax
 #
 
-"""
-Precedence and position aware parenthesization of expressions.
-
-The functions here answer the question *does this node need to be wrapped in parentheses when it
-is used as an operand of that other expression?*, which cannot be decided by looking at a node
-alone: the same node needs parens in one slot and not in another.
-
-The vocabulary mirrors the PostgreSQL grammar rules: an expression is printed either in an
-``a_expr``, a ``b_expr`` or a ``c_expr`` *context*, and the rule that handles a node determines
-its *precedence*.
-"""
-
 from enum import IntEnum, auto
 
 from . import ast, enums
