@@ -657,3 +657,23 @@ WITH RECURSIVE
   SELECT *
   FROM va
   WHERE is_cycle IS TRUE
+
+SELECT ((summary ->> 'ts')::timestamptz AT TIME ZONE (summary -> 'stop' ->> 'tz'))::date AS d FROM s
+=
+SELECT CAST(pg_catalog.timezone(summary -> 'stop' ->> 'tz'
+                              , CAST(summary ->> 'ts' AS timestamptz)) AS date) AS d
+FROM s
+
+SELECT (x COLLATE "C")::text
+=
+SELECT CAST(x COLLATE "C" AS text)
+
+SELECT ((a, b) OVERLAPS (c, d))::text
+=
+SELECT CAST(pg_catalog."overlaps"(a, b, c, d) AS text)
+
+SELECT 1 WHERE (x > 1 OR y > 1) IS NULL
+=
+SELECT 1
+WHERE (x > 1
+    OR y > 1) IS NULL

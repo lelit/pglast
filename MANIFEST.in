@@ -23,3 +23,4 @@ prune libpg_query/test
 prune libpg_query/testdata
 prune libpg_query/tmp
 include libpg_query/test/sql/postgres_regress/*.sql
+include libpg_query/test/deparse_tests.c
