@@ -139,10 +139,10 @@ def test_raw_rendering(sql, expected):
 
 
 @mark.parametrize('sql, _expected', CASES)
-def test_roundtrip_invariant(sql, _expected):
+@mark.parametrize('stream_class', (RawStream, IndentedStream))
+def test_roundtrip_invariant(sql, _expected, stream_class):
     # The whole point of the exercise: what pglast prints must re-parse to the same tree
-    assert parse_sql(RawStream()(sql)) == parse_sql(sql)
-    assert parse_sql(IndentedStream()(sql)) == parse_sql(sql)
+    assert parse_sql(stream_class()(sql)) == parse_sql(sql)
 
 
 @mark.parametrize('sql, expected', SPECIAL_CASES)
@@ -151,6 +151,6 @@ def test_raw_rendering_special_functions(sql, expected):
 
 
 @mark.parametrize('sql, _expected', SPECIAL_CASES)
-def test_roundtrip_invariant_special_functions(sql, _expected):
-    assert parse_sql(RawStream(special_functions=True)(sql)) == parse_sql(sql)
-    assert parse_sql(IndentedStream(special_functions=True)(sql)) == parse_sql(sql)
+@mark.parametrize('stream_class', (RawStream, IndentedStream))
+def test_roundtrip_invariant_special_functions(sql, _expected, stream_class):
+    assert parse_sql(stream_class(special_functions=True)(sql)) == parse_sql(sql)
