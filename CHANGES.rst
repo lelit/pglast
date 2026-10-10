@@ -8,6 +8,22 @@ Changes
 Version 8
 #########
 
+8.6 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix the parenthesization of expression operands, replacing the previous ad-hoc heuristics with
+  proper precedence and position rules: what ``RawStream`` and ``IndentedStream`` render now
+  always re-parses to the very same tree, losing the spurious parentheses around ``x AT TIME
+  ZONE y`` used as a ``DEFAULT`` expression and gaining the missing ones around the operands of
+  ``POSITION()``, ``XMLEXISTS()``, ``IS DOCUMENT``/``IS JSON`` and ``xmltable`` columns
+  (issue `#211`__)
+
+  __ https://github.com/lelit/pglast/issues/211
+
+- Test the round-trip of the statements of libpg_query's ``test/deparse_tests.c`` corpus, read at
+  test time beside the PostgreSQL regression suite
+
+
 8.5 (2026-10-04)
 ~~~~~~~~~~~~~~~~
 
