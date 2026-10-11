@@ -191,3 +191,30 @@ def test_subclass_payload_roundtrip(cls, attr, child):
     assert getattr(clone, attr) == child
     # A different tag must still go through the child-field adapter.
     assert subclass(**{attr: child()}) == original
+
+
+@pytest.mark.parametrize('cls, attr, child', (
+    (ast.JsonKeyValue, 'value', ast.JsonValueExpr(raw_expr=ast.ColumnRef())),
+    (ast.JsonArrayAgg, 'arg', ast.JsonValueExpr(raw_expr=ast.ColumnRef())),
+    (ast.JsonParseExpr, 'expr', ast.JsonValueExpr(raw_expr=ast.ColumnRef())),
+    (ast.ColumnDef, 'collClause', ast.CollateClause(arg=ast.ColumnRef())),
+))
+def test_typed_child_payload_tag_validation(cls, attr, child):
+    expected = cls(**{attr: child})
+    assert cls(**{attr: child()}) == expected
+    assert cls(expected()) == expected
+    assigned = cls()
+    setattr(assigned, attr, child())
+    assert assigned == expected
+
+    wrong_child = ast.ColumnRef()
+    with pytest.raises(ValueError):
+        cls(**{attr: wrong_child})
+    with pytest.raises(ValueError):
+        cls({'@': cls.__name__, attr: wrong_child()})
+    # A wrong tag must not be reinterpreted as the expected child's first field.
+    with pytest.raises(ValueError, match='wrong "@" value'):
+        cls(**{attr: wrong_child()})
+    with pytest.raises(ValueError, match='wrong "@" value'):
+        setattr(assigned, attr, wrong_child())
+    assert assigned == expected

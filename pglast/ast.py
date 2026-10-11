@@ -201,6 +201,10 @@ class Node:
                             raise NotImplementedError(f'Unhandled {ctype!r} for attribute'
                                                       f' {self.__class__.__name__}.{name}')
                         if isinstance(value, dict) and '@' in value:
+                            # This is a serialized typed child, not constructor shorthand.
+                            if value['@'] != cls.__name__:
+                                raise ValueError(f'Bad argument, wrong "@" value, expected'
+                                                 f' {cls.__name__!r}, got {value["@"]!r}')
                             value = cls(value)
 
         super().__setattr__(name, value)
