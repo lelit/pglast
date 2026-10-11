@@ -8,6 +8,15 @@ Changes
 Version 8
 #########
 
+8.6 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix AST typing and serialized child construction (`PR #220`__), thanks to Alexander
+  Macdonald
+
+  __ https://github.com/lelit/pglast/pull/220
+
+
 8.5 (2026-10-04)
 ~~~~~~~~~~~~~~~~
 
