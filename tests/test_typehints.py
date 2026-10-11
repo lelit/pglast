@@ -178,6 +178,157 @@ def stub_ast_constructors() -> None:
     assert isinstance(value, ast.Integer)
 
 
+def stub_raw_expression_nodes() -> None:
+    """Raw parser nodes are valid in fields declared Expr* by PostgreSQL."""
+    from pglast import ast, enums
+
+    column = ast.ColumnRef(fields=(ast.String(sval='x'),))
+    literal = ast.A_Const(isnull=False, val=ast.Integer(ival=1))
+    operator = ast.A_Expr(kind=enums.A_Expr_Kind.AEXPR_OP,
+                          name=(ast.String(sval='='),), lexpr=column, rexpr=literal)
+    for raw in (column, literal, operator):
+        case = ast.CaseExpr(arg=raw, args=(ast.CaseWhen(expr=raw, result=raw),),
+                            defresult=raw)
+        when = ast.CaseWhen(expr=raw, result=raw)
+        null_test = ast.NullTest(arg=raw, nulltesttype=enums.NullTestType.IS_NULL)
+        boolean_test = ast.BooleanTest(arg=raw, booltesttype=enums.BoolTestType.IS_TRUE)
+        assert case.arg is raw and case.defresult is raw
+        assert when.expr is raw and when.result is raw
+        assert null_test.arg is raw and boolean_test.arg is raw
+        case.arg = raw
+        case.defresult = raw
+        when.expr = raw
+        when.result = raw
+        null_test.arg = raw
+        boolean_test.arg = raw
+        value: ast.Node | None = case.arg
+        assert value is raw
+
+    # Set another field so the first-argument whole-node payload overload is not used.
+    payload = {'@': 'ColumnRef', 'fields': ({'@': 'String', 'sval': 'x'},)}
+    assert ast.CaseExpr(arg=payload, location=0).arg == column
+    assert ast.CaseWhen(expr=payload, result=payload).result == column
+    assert ast.NullTest(arg=payload, location=0).arg == column
+    assert ast.BooleanTest(arg=payload, location=0).arg == column
+    assert ast.CaseExpr(arg=None, defresult=None).arg is None
+    assert ast.CaseWhen(expr=None, result=None).result is None
+    assert ast.NullTest(arg=None).arg is None
+    assert ast.BooleanTest(arg=None).arg is None
+
+
+def stub_expression_lists() -> None:
+    """IN/BETWEEN accept lists and tuples, but expose tuples after adaptation."""
+    from typing import Any
+
+    from pglast import ast, enums
+
+    column = ast.ColumnRef(fields=(ast.String(sval='x'),))
+    literal = ast.A_Const(isnull=False, val=ast.Integer(ival=1))
+    for kind in (enums.A_Expr_Kind.AEXPR_IN, enums.A_Expr_Kind.AEXPR_BETWEEN):
+        for values in ((literal, literal), [literal, literal]):
+            expression = ast.A_Expr(kind=kind, name=(ast.String(sval='='),),
+                                    lexpr=column, rexpr=values)
+            result: ast.Node | tuple[Any, ...] | None = expression.rexpr
+            assert isinstance(result, tuple)
+            assert result == (literal, literal)
+        expression.rexpr = (literal,)
+        assert expression.rexpr == (literal,)
+
+    scalar = ast.A_Expr(kind=enums.A_Expr_Kind.AEXPR_OP, rexpr=literal)
+    assert scalar.rexpr is literal
+    scalar.rexpr = column
+    assert scalar.rexpr is column
+    assert ast.A_Expr(rexpr=None).rexpr is None
+    payload = {'@': 'A_Const', 'isnull': False, 'val': {'@': 'Integer', 'ival': 1}}
+    assert ast.A_Expr(rexpr=payload).rexpr == literal
+    assert ast.A_Expr(rexpr=[payload]).rexpr == (literal,)
+    assert ast.A_Expr(rexpr=(payload,)).rexpr == (literal,)
+
+
+def stub_parsed_raw_expressions() -> None:
+    """Read raw expressions from actual parser output with appropriate narrowing."""
+    from pglast import ast, parse_sql
+
+    simple = parse_sql('SELECT CASE x WHEN 1 THEN 2 ELSE 3 END')[0].stmt
+    searched = parse_sql('SELECT CASE WHEN x = 1 THEN 2 ELSE 3 END')[0].stmt
+    for stmt in (simple, searched):
+        assert isinstance(stmt, ast.SelectStmt) and stmt.targetList
+        case = stmt.targetList[0].val
+        assert isinstance(case, ast.CaseExpr) and case.args
+        assert case.arg is None or isinstance(case.arg, ast.ColumnRef)
+        assert isinstance(case.defresult, ast.A_Const)
+        when = case.args[0]
+        assert isinstance(when, ast.CaseWhen)
+        assert isinstance(when.expr, (ast.A_Const, ast.A_Expr))
+        assert isinstance(when.result, ast.A_Const)
+
+    for sql in ('SELECT x IS NULL', 'SELECT x IS TRUE'):
+        stmt = parse_sql(sql)[0].stmt
+        assert isinstance(stmt, ast.SelectStmt) and stmt.targetList
+        test = stmt.targetList[0].val
+        assert isinstance(test, (ast.NullTest, ast.BooleanTest))
+        assert isinstance(test.arg, ast.ColumnRef)
+
+    for sql in ('SELECT x IN (1, 2)', 'SELECT x BETWEEN 1 AND 2', 'SELECT x = 1'):
+        stmt = parse_sql(sql)[0].stmt
+        assert isinstance(stmt, ast.SelectStmt) and stmt.targetList
+        expression = stmt.targetList[0].val
+        assert isinstance(expression, ast.A_Expr)
+        if isinstance(expression.rexpr, tuple):
+            assert len(expression.rexpr) == 2
+            assert all(isinstance(item, ast.A_Const) for item in expression.rexpr)
+        else:
+            assert isinstance(expression.rexpr, ast.A_Const)
+
+
+def stub_raw_expression_type_errors() -> None:
+    from pglast import ast
+
+    ast.NullTest(arg=123)
+
+
+def stub_expression_list_type_errors() -> None:
+    from pglast import ast
+
+    ast.A_Expr(rexpr=123)
+
+
+def stub_list_valued_node_fields() -> None:
+    """Node* fields can hold lists in ordinary raw parser output."""
+    from pglast import ast, parse_sql
+
+    name = ast.String(sval='mytable')
+    option = ast.DefElem(defname='fillfactor', arg=ast.Integer(ival=40))
+    statement = ast.SelectStmt()
+    for values in ((name,), [name]):
+        assert ast.SecLabelStmt(object=values).object == (name,)
+        assert ast.DefElem(arg=values).arg == (name,)
+    for options in ((option,), [option]):
+        assert ast.AlterTableCmd(def_=options).def_ == (option,)
+    for body in (((statement,),), [(statement,)]):
+        assert ast.CreateFunctionStmt(sql_body=body).sql_body == ((statement,),)
+
+    label = parse_sql('SECURITY LABEL FOR selinux ON TABLE mytable IS NULL')[0].stmt
+    assert isinstance(label, ast.SecLabelStmt)
+    assert isinstance(label.object, tuple) and isinstance(label.object[0], ast.String)
+    alter = parse_sql('ALTER INDEX idx SET (fillfactor = 40)')[0].stmt
+    assert isinstance(alter, ast.AlterTableStmt) and alter.cmds
+    command = alter.cmds[0]
+    assert isinstance(command, ast.AlterTableCmd)
+    assert isinstance(command.def_, tuple) and isinstance(command.def_[0], ast.DefElem)
+    function = parse_sql("CREATE FUNCTION f() RETURNS int LANGUAGE SQL AS 'SELECT 1'")[0].stmt
+    assert isinstance(function, ast.CreateFunctionStmt) and function.options
+    definition = function.options[1]
+    assert isinstance(definition, ast.DefElem)
+    assert isinstance(definition.arg, tuple) and isinstance(definition.arg[0], ast.String)
+    atomic = parse_sql(
+        'CREATE FUNCTION f() RETURNS int LANGUAGE SQL BEGIN ATOMIC SELECT 1; END'
+    )[0].stmt
+    assert isinstance(atomic, ast.CreateFunctionStmt)
+    assert isinstance(atomic.sql_body, tuple) and isinstance(atomic.sql_body[0], tuple)
+    assert isinstance(atomic.sql_body[0][0], ast.SelectStmt)
+
+
 def stub_enums_and_streams() -> None:
     """Stub function to test generated enum and stream type hints."""
     from pglast import enums, parse_sql
@@ -393,6 +544,12 @@ ty_checker: tuple[str, ...] = (
         (stub_parse_plpgsql_function, True),
         (stub_ast_fields, True),
         (stub_ast_constructors, True),
+        (stub_raw_expression_nodes, True),
+        (stub_expression_lists, True),
+        (stub_list_valued_node_fields, True),
+        (stub_parsed_raw_expressions, True),
+        (stub_raw_expression_type_errors, False),
+        (stub_expression_list_type_errors, False),
         (stub_enums_and_streams, True),
         (stub_public_module_types, True),
         (stub_remaining_importable_modules, True),

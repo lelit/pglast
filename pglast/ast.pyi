@@ -103,14 +103,14 @@ class A_Expr(Node):
     kind: enums.A_Expr_Kind | None
     name: tuple[Any, ...] | None
     lexpr: Node | None
-    rexpr: Node | None
+    rexpr: Node | tuple[Any, ...] | None
     rexpr_list_start: int | None
     rexpr_list_end: int | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, kind: enums.A_Expr_Kind | int | str | dict[str, Any] | None = None, name: _ListInput | None = None, lexpr: Node | _NodePayload | None = None, rexpr: Node | _NodePayload | None = None, rexpr_list_start: int | None = None, rexpr_list_end: int | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, kind: enums.A_Expr_Kind | int | str | dict[str, Any] | None = None, name: _ListInput | None = None, lexpr: Node | _NodePayload | None = None, rexpr: Node | _NodePayload | _ListInput | None = None, rexpr_list_start: int | None = None, rexpr_list_end: int | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class A_Indices(Node):
@@ -151,7 +151,7 @@ class Aggref(Expr):
     args: tuple[Any, ...] | None
     aggorder: tuple[Any, ...] | None
     aggdistinct: tuple[Any, ...] | None
-    aggfilter: Expr | None
+    aggfilter: Node | None
     aggstar: bool | None
     aggvariadic: bool | None
     aggkind: str | None
@@ -163,7 +163,7 @@ class Aggref(Expr):
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, aggargtypes: _ListInput | None = None, aggdirectargs: _ListInput | None = None, args: _ListInput | None = None, aggorder: _ListInput | None = None, aggdistinct: _ListInput | None = None, aggfilter: Expr | _NodePayload | None = None, aggstar: bool | int | None = None, aggvariadic: bool | int | None = None, aggkind: _CharInput | None = None, agglevelsup: int | None = None, aggsplit: enums.AggSplit | int | str | dict[str, Any] | None = None, aggno: int | None = None, aggtransno: int | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, aggargtypes: _ListInput | None = None, aggdirectargs: _ListInput | None = None, args: _ListInput | None = None, aggorder: _ListInput | None = None, aggdistinct: _ListInput | None = None, aggfilter: Node | _NodePayload | None = None, aggstar: bool | int | None = None, aggvariadic: bool | int | None = None, aggkind: _CharInput | None = None, agglevelsup: int | None = None, aggsplit: enums.AggSplit | int | str | dict[str, Any] | None = None, aggno: int | None = None, aggtransno: int | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class Alias(Node):
@@ -473,14 +473,14 @@ class AlterTableCmd(Node):
     name: str | None
     num: int | None
     newowner: RoleSpec | None
-    def_: Node | None
+    def_: Node | tuple[Any, ...] | None
     behavior: enums.DropBehavior | None
     missing_ok: bool | None
     recurse: bool | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, subtype: enums.AlterTableType | int | str | dict[str, Any] | None = None, name: str | None = None, num: int | None = None, newowner: RoleSpec | _NodePayload | None = None, def_: Node | _NodePayload | None = None, behavior: enums.DropBehavior | int | str | dict[str, Any] | None = None, missing_ok: bool | int | None = None, recurse: bool | int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, subtype: enums.AlterTableType | int | str | dict[str, Any] | None = None, name: str | None = None, num: int | None = None, newowner: RoleSpec | _NodePayload | None = None, def_: Node | _NodePayload | _ListInput | None = None, behavior: enums.DropBehavior | int | str | dict[str, Any] | None = None, missing_ok: bool | int | None = None, recurse: bool | int | None = None) -> None: ...  # noqa: E501
 
 
 class AlterTableMoveAllStmt(Node):
@@ -544,15 +544,15 @@ class AlternativeSubPlan(Expr):
 
 
 class ArrayCoerceExpr(Expr):
-    arg: Expr | None
-    elemexpr: Expr | None
+    arg: Node | None
+    elemexpr: Node | None
     resulttypmod: int | None
     coerceformat: enums.CoercionForm | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, elemexpr: Expr | _NodePayload | None = None, resulttypmod: int | None = None, coerceformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, elemexpr: Node | _NodePayload | None = None, resulttypmod: int | None = None, coerceformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class ArrayExpr(Expr):
@@ -594,13 +594,13 @@ class Boolean(Node):
 
 
 class BooleanTest(Expr):
-    arg: Expr | None
+    arg: Node | None
     booltesttype: enums.BoolTestType | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, booltesttype: enums.BoolTestType | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, booltesttype: enums.BoolTestType | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class CTECycleClause(Node):
@@ -647,14 +647,14 @@ class CallStmt(Node):
 
 
 class CaseExpr(Expr):
-    arg: Expr | None
+    arg: Node | None
     args: tuple[Any, ...] | None
-    defresult: Expr | None
+    defresult: Node | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, args: _ListInput | None = None, defresult: Expr | _NodePayload | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, args: _ListInput | None = None, defresult: Node | _NodePayload | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class CaseTestExpr(Expr):
@@ -666,13 +666,13 @@ class CaseTestExpr(Expr):
 
 
 class CaseWhen(Expr):
-    expr: Expr | None
-    result: Expr | None
+    expr: Node | None
+    result: Node | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, expr: Expr | _NodePayload | None = None, result: Expr | _NodePayload | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, expr: Node | _NodePayload | None = None, result: Node | _NodePayload | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class CheckPointStmt(Node):
@@ -707,14 +707,14 @@ class CoalesceExpr(Expr):
 
 
 class CoerceToDomain(Expr):
-    arg: Expr | None
+    arg: Node | None
     resulttypmod: int | None
     coercionformat: enums.CoercionForm | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, resulttypmod: int | None = None, coercionformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, resulttypmod: int | None = None, coercionformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class CoerceToDomainValue(Expr):
@@ -727,13 +727,13 @@ class CoerceToDomainValue(Expr):
 
 
 class CoerceViaIO(Expr):
-    arg: Expr | None
+    arg: Node | None
     coerceformat: enums.CoercionForm | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, coerceformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, coerceformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class CollateClause(Node):
@@ -747,12 +747,12 @@ class CollateClause(Node):
 
 
 class CollateExpr(Expr):
-    arg: Expr | None
+    arg: Node | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class ColumnDef(Node):
@@ -879,13 +879,13 @@ class ConstraintsSetStmt(Node):
 
 
 class ConvertRowtypeExpr(Expr):
-    arg: Expr | None
+    arg: Node | None
     convertformat: enums.CoercionForm | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, convertformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, convertformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class CopyStmt(Node):
@@ -1018,11 +1018,11 @@ class CreateFunctionStmt(Node):
     parameters: tuple[Any, ...] | None
     returnType: TypeName | None
     options: tuple[Any, ...] | None
-    sql_body: Node | None
+    sql_body: Node | tuple[Any, ...] | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, is_procedure: bool | int | None = None, replace: bool | int | None = None, funcname: _ListInput | None = None, parameters: _ListInput | None = None, returnType: TypeName | _NodePayload | None = None, options: _ListInput | None = None, sql_body: Node | _NodePayload | None = None) -> None: ...  # noqa: E501
+    def __init__(self, is_procedure: bool | int | None = None, replace: bool | int | None = None, funcname: _ListInput | None = None, parameters: _ListInput | None = None, returnType: TypeName | _NodePayload | None = None, options: _ListInput | None = None, sql_body: Node | _NodePayload | _ListInput | None = None) -> None: ...  # noqa: E501
 
 
 class CreateOpClassItem(Node):
@@ -1295,14 +1295,14 @@ class DeclareCursorStmt(Node):
 class DefElem(Node):
     defnamespace: str | None
     defname: str | None
-    arg: Node | None
+    arg: Node | tuple[Any, ...] | None
     defaction: enums.DefElemAction | None
     location: int | None
     arg_location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, defnamespace: str | None = None, defname: str | None = None, arg: Node | _NodePayload | None = None, defaction: enums.DefElemAction | int | str | dict[str, Any] | None = None, location: int | None = None, arg_location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, defnamespace: str | None = None, defname: str | None = None, arg: Node | _NodePayload | _ListInput | None = None, defaction: enums.DefElemAction | int | str | dict[str, Any] | None = None, location: int | None = None, arg_location: int | None = None) -> None: ...  # noqa: E501
 
 
 class DefineStmt(Node):
@@ -1446,23 +1446,23 @@ class FetchStmt(Node):
 
 
 class FieldSelect(Expr):
-    arg: Expr | None
+    arg: Node | None
     fieldnum: int | None
     resulttypmod: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, fieldnum: int | None = None, resulttypmod: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, fieldnum: int | None = None, resulttypmod: int | None = None) -> None: ...  # noqa: E501
 
 
 class FieldStore(Expr):
-    arg: Expr | None
+    arg: Node | None
     newvals: tuple[Any, ...] | None
     fieldnums: tuple[Any, ...] | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, newvals: _ListInput | None = None, fieldnums: _ListInput | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, newvals: _ListInput | None = None, fieldnums: _ListInput | None = None) -> None: ...  # noqa: E501
 
 
 class Float(Node):
@@ -1783,8 +1783,8 @@ class JsonBehavior(Node):
 class JsonConstructorExpr(Expr):
     type: enums.JsonConstructorType | None
     args: tuple[Any, ...] | None
-    func: Expr | None
-    coercion: Expr | None
+    func: Node | None
+    coercion: Node | None
     returning: JsonReturning | None
     absent_on_null: bool | None
     unique: bool | None
@@ -1792,7 +1792,7 @@ class JsonConstructorExpr(Expr):
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, type: enums.JsonConstructorType | int | str | dict[str, Any] | None = None, args: _ListInput | None = None, func: Expr | _NodePayload | None = None, coercion: Expr | _NodePayload | None = None, returning: JsonReturning | _NodePayload | None = None, absent_on_null: bool | int | None = None, unique: bool | int | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, type: enums.JsonConstructorType | int | str | dict[str, Any] | None = None, args: _ListInput | None = None, func: Node | _NodePayload | None = None, coercion: Node | _NodePayload | None = None, returning: JsonReturning | _NodePayload | None = None, absent_on_null: bool | int | None = None, unique: bool | int | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class JsonExpr(Expr):
@@ -1858,12 +1858,12 @@ class JsonIsPredicate(Node):
 
 
 class JsonKeyValue(Node):
-    key: Expr | None
+    key: Node | None
     value: JsonValueExpr | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, key: Expr | _NodePayload | None = None, value: JsonValueExpr | _NodePayload | None = None) -> None: ...  # noqa: E501
+    def __init__(self, key: Node | _NodePayload | None = None, value: JsonValueExpr | _NodePayload | None = None) -> None: ...  # noqa: E501
 
 
 class JsonObjectAgg(Node):
@@ -1919,13 +1919,13 @@ class JsonReturning(Node):
 
 
 class JsonScalarExpr(Node):
-    expr: Expr | None
+    expr: Node | None
     output: JsonOutput | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, expr: Expr | _NodePayload | None = None, output: JsonOutput | _NodePayload | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, expr: Node | _NodePayload | None = None, output: JsonOutput | _NodePayload | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class JsonSerializeExpr(Node):
@@ -1983,13 +1983,13 @@ class JsonTablePathSpec(Node):
 
 
 class JsonValueExpr(Node):
-    raw_expr: Expr | None
-    formatted_expr: Expr | None
+    raw_expr: Node | None
+    formatted_expr: Node | None
     format: JsonFormat | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, raw_expr: Expr | _NodePayload | None = None, formatted_expr: Expr | _NodePayload | None = None, format: JsonFormat | _NodePayload | None = None) -> None: ...  # noqa: E501
+    def __init__(self, raw_expr: Node | _NodePayload | None = None, formatted_expr: Node | _NodePayload | None = None, format: JsonFormat | _NodePayload | None = None) -> None: ...  # noqa: E501
 
 
 class ListenStmt(Node):
@@ -2096,14 +2096,14 @@ class MultiAssignRef(Node):
 
 
 class NamedArgExpr(Expr):
-    arg: Expr | None
+    arg: Node | None
     name: str | None
     argnumber: int | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, name: str | None = None, argnumber: int | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, name: str | None = None, argnumber: int | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class NotifyStmt(Node):
@@ -2117,14 +2117,14 @@ class NotifyStmt(Node):
 
 
 class NullTest(Expr):
-    arg: Expr | None
+    arg: Node | None
     nulltesttype: enums.NullTestType | None
     argisrow: bool | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, nulltesttype: enums.NullTestType | int | str | dict[str, Any] | None = None, argisrow: bool | int | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, nulltesttype: enums.NullTestType | int | str | dict[str, Any] | None = None, argisrow: bool | int | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class ObjectWithArgs(Node):
@@ -2537,14 +2537,14 @@ class ReindexStmt(Node):
 
 
 class RelabelType(Expr):
-    arg: Expr | None
+    arg: Node | None
     resulttypmod: int | None
     relabelformat: enums.CoercionForm | None
     location: int | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, arg: Expr | _NodePayload | None = None, resulttypmod: int | None = None, relabelformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, arg: Node | _NodePayload | None = None, resulttypmod: int | None = None, relabelformat: enums.CoercionForm | int | str | dict[str, Any] | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class RenameStmt(Node):
@@ -2602,11 +2602,11 @@ class ReturningClause(Node):
 class ReturningExpr(Expr):
     retlevelsup: int | None
     retold: bool | None
-    retexpr: Expr | None
+    retexpr: Node | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, retlevelsup: int | None = None, retold: bool | int | None = None, retexpr: Expr | _NodePayload | None = None) -> None: ...  # noqa: E501
+    def __init__(self, retlevelsup: int | None = None, retold: bool | int | None = None, retexpr: Node | _NodePayload | None = None) -> None: ...  # noqa: E501
 
 
 class ReturningOption(Node):
@@ -2700,13 +2700,13 @@ class ScalarArrayOpExpr(Expr):
 
 class SecLabelStmt(Node):
     objtype: enums.ObjectType | None
-    object: Node | None
+    object: Node | tuple[Any, ...] | None
     provider: str | None
     label: str | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, objtype: enums.ObjectType | int | str | dict[str, Any] | None = None, object: Node | _NodePayload | None = None, provider: str | None = None, label: str | None = None) -> None: ...  # noqa: E501
+    def __init__(self, objtype: enums.ObjectType | int | str | dict[str, Any] | None = None, object: Node | _NodePayload | _ListInput | None = None, provider: str | None = None, label: str | None = None) -> None: ...  # noqa: E501
 
 
 class SelectStmt(Node):
@@ -2838,12 +2838,12 @@ class SubscriptingRef(Expr):
     reftypmod: int | None
     refupperindexpr: tuple[Any, ...] | None
     reflowerindexpr: tuple[Any, ...] | None
-    refexpr: Expr | None
-    refassgnexpr: Expr | None
+    refexpr: Node | None
+    refassgnexpr: Node | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, reftypmod: int | None = None, refupperindexpr: _ListInput | None = None, reflowerindexpr: _ListInput | None = None, refexpr: Expr | _NodePayload | None = None, refassgnexpr: Expr | _NodePayload | None = None) -> None: ...  # noqa: E501
+    def __init__(self, reftypmod: int | None = None, refupperindexpr: _ListInput | None = None, reflowerindexpr: _ListInput | None = None, refexpr: Node | _NodePayload | None = None, refassgnexpr: Node | _NodePayload | None = None) -> None: ...  # noqa: E501
 
 
 class TableFunc(Node):
@@ -2881,15 +2881,15 @@ class TableLikeClause(Node):
 
 class TableSampleClause(Node):
     args: tuple[Any, ...] | None
-    repeatable: Expr | None
+    repeatable: Node | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, args: _ListInput | None = None, repeatable: Expr | _NodePayload | None = None) -> None: ...  # noqa: E501
+    def __init__(self, args: _ListInput | None = None, repeatable: Node | _NodePayload | None = None) -> None: ...  # noqa: E501
 
 
 class TargetEntry(Expr):
-    expr: Expr | None
+    expr: Node | None
     resno: int | None
     resname: str | None
     ressortgroupref: int | None
@@ -2898,7 +2898,7 @@ class TargetEntry(Expr):
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, expr: Expr | _NodePayload | None = None, resno: int | None = None, resname: str | None = None, ressortgroupref: int | None = None, resorigcol: int | None = None, resjunk: bool | int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, expr: Node | _NodePayload | None = None, resno: int | None = None, resname: str | None = None, ressortgroupref: int | None = None, resorigcol: int | None = None, resjunk: bool | int | None = None) -> None: ...  # noqa: E501
 
 
 class TransactionStmt(Node):
@@ -3081,7 +3081,7 @@ class WindowDef(Node):
 
 class WindowFunc(Expr):
     args: tuple[Any, ...] | None
-    aggfilter: Expr | None
+    aggfilter: Node | None
     runCondition: tuple[Any, ...] | None
     winref: int | None
     winstar: bool | None
@@ -3090,16 +3090,16 @@ class WindowFunc(Expr):
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, args: _ListInput | None = None, aggfilter: Expr | _NodePayload | None = None, runCondition: _ListInput | None = None, winref: int | None = None, winstar: bool | int | None = None, winagg: bool | int | None = None, location: int | None = None) -> None: ...  # noqa: E501
+    def __init__(self, args: _ListInput | None = None, aggfilter: Node | _NodePayload | None = None, runCondition: _ListInput | None = None, winref: int | None = None, winstar: bool | int | None = None, winagg: bool | int | None = None, location: int | None = None) -> None: ...  # noqa: E501
 
 
 class WindowFuncRunCondition(Expr):
     wfunc_left: bool | None
-    arg: Expr | None
+    arg: Node | None
     @overload
     def __init__(self, data: _NodePayload, /) -> None: ...
     @overload
-    def __init__(self, wfunc_left: bool | int | None = None, arg: Expr | _NodePayload | None = None) -> None: ...  # noqa: E501
+    def __init__(self, wfunc_left: bool | int | None = None, arg: Node | _NodePayload | None = None) -> None: ...  # noqa: E501
 
 
 class WithCheckOption(Node):
