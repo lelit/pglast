@@ -13,6 +13,8 @@ from sys import stderr
 
 from . import ast, enums, parse_plpgsql, parse_sql
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
+from .precedence import (ExprContext, is_b_expr_rule, needs_parens_as_c_expr,
+                         needs_parens_for_precedence)
 from .printers import get_printer_for_node, get_special_function
 
 
@@ -155,6 +157,7 @@ class RawStream(OutputStream):
         self.semicolon_after_last_statement = semicolon_after_last_statement
         self.comments = comments
         self.remove_pg_catalog_from_functions = remove_pg_catalog_from_functions
+        self.expr_context = ExprContext.A_EXPR
 
     def show(self, where=stderr):  # pragma: no cover
         """Emit also current expression_level and a "pointer" showing current_column."""
@@ -173,9 +176,11 @@ class RawStream(OutputStream):
 
         The `sql` statement may be either a ``str`` containing the ``SQL`` in textual form, or
         a concrete :class:`.ast.Node` instance or a tuple of them.
-        """
 
-        from .visitors import Visitor
+        This is the entry point to print a syntax tree: it first populates the *ancestors*
+        slot of all the nodes in the tree (see :func:`.visitors.populate_ancestors`), which
+        the node printers rely upon.
+        """
 
         if isinstance(sql, str):
             sql = parse_plpgsql(sql) if plpgsql else parse_sql(sql)
@@ -188,11 +193,9 @@ class RawStream(OutputStream):
             raise ValueError("Unexpected value for 'sql', must be either a string,"
                              " an ast.Node or tuple of them, got %r" % type(sql))
 
-        class UpdateAncestors(Visitor):
-            def visit(self, ancestors, node):
-                node.ancestors = ancestors
+        from .visitors import populate_ancestors
 
-        UpdateAncestors()(sql)
+        populate_ancestors(sql)
 
         first = True
         for statement in sql:
@@ -264,13 +267,31 @@ class RawStream(OutputStream):
         yield
 
     @contextmanager
+    def push_expr_context(self, ctx):
+        """Create a context manager setting the current *expression context*.
+
+        :param ExprContext ctx: the context this block of code prints into
+
+        The *expression context* tells which grammar rule the values printed within the block
+        belong to, see :mod:`pglast.precedence`.
+        """
+
+        previous = self.expr_context
+        self.expr_context = ctx
+        try:
+            yield
+        finally:
+            self.expr_context = previous
+
+    @contextmanager
     def expression(self, need_parens):
         """Create a context manager usable to conditionally wrap something within parentheses.
 
         :param bool need_parens: whether to emit opening and closing parentheses
 
-        This method used to be used for *subexpressions*, but now is used to emit almost
-        anything that goes within parentheses.
+        This is just the primitive to emit a literal ``( … )`` container, for example for the
+        items of an ``IN`` list: deciding whether an *expression operand* needs parentheses is
+        the job of :meth:`print_operand`.
         """
 
         if need_parens:
@@ -279,11 +300,66 @@ class RawStream(OutputStream):
         if need_parens:
             self.write(')')
 
-    def _concat_nodes(self, nodes, sep=' ', are_names=False, item_needs_parens=None):
+    def print_b_expr(self, node):
+        """Render `node` as a value that must be a valid *b_expr*.
 
+        :param node: an instance of :class:`~.ast.Node`
+
+        A *b_expr* is a restricted form of expression: when `node` is not one itself, it must be
+        enclosed in parentheses and printed in an ``a_expr`` context, since the parenthesized
+        form follows the wider ``a_expr`` grammar rules.
+        """
+
+        if not is_b_expr_rule(node, self):
+            with self.expression(True), self.push_expr_context(ExprContext.A_EXPR):
+                self.print_node(node)
+        else:
+            with self.push_expr_context(ExprContext.B_EXPR):
+                self.print_node(node)
+
+    def print_c_expr(self, node):
+        """Render `node` as a value that must be a valid *c_expr*.
+
+        :param node: an instance of :class:`~.ast.Node`
+
+        A *c_expr* is the most restricted form of expression: only *atomic* nodes handled by a
+        ``b_expr`` rule may appear in that position without parentheses, so when `node` is not one
+        of those it must be enclosed in parentheses and printed in an ``a_expr`` context.
+        """
+
+        if needs_parens_as_c_expr(node, self):
+            with self.expression(True), self.push_expr_context(ExprContext.A_EXPR):
+                self.print_node(node)
+        else:
+            with self.push_expr_context(ExprContext.C_EXPR):
+                self.print_node(node)
+
+    def print_operand(self, node, parent_prec, side, ctx=None):
+        """Render `node` as an operand of an expression with the given `parent_prec`.
+
+        :param node: an instance of :class:`~.ast.Node`
+        :param ExprPrec parent_prec: the precedence of the enclosing expression
+        :param Side side: either :attr:`Side.LEFT` or :attr:`Side.RIGHT`
+        :param ExprContext ctx:
+               the context of the operand, by default the current *expression context*
+
+        This emits the wrapping parentheses iff the precedence and position rules require them,
+        and then prints `node` in the appropriate context.
+        """
+
+        if ctx is None:
+            ctx = self.expr_context
+        need_parens = (
+            needs_parens_for_precedence(node, parent_prec, side, self)
+            or (ctx is not ExprContext.A_EXPR and not is_b_expr_rule(node, self))
+        )
+        with self.expression(need_parens), self.push_expr_context(ExprContext.A_EXPR if need_parens else ctx):
+            self.print_node(node)
+
+    def _concat_nodes(self, nodes, sep=' ', are_names=False, item_needs_parens=None):
         """Concatenate given `nodes`, using `sep` as the separator.
 
-        :param scalars: a sequence of nodes
+        :param nodes: a sequence of nodes
         :param str sep: the separator between them
         :param bool are_names:
                whether the nodes are actually *names*, which possibly require to be enclosed
@@ -292,7 +368,8 @@ class RawStream(OutputStream):
         :returns: a string
 
         Use a temporary :class:`RawStream` instance to print the list of nodes and return the
-        result.
+        result. Note that the fresh stream starts from a top level *expression context*, so the
+        items are printed as if they were standalone expressions.
         """
 
         rawstream = RawStream(
@@ -387,6 +464,13 @@ class RawStream(OutputStream):
                whether this is a *name* of something, that may need to be double quoted
         :param bool is_symbol:
                whether this is the name of an *operator*, should not be double quoted
+
+        .. note::
+
+           This method is meant to be called while printing a syntax tree, hence the
+           *ancestors* slot of `node` is expected to have been populated for the whole tree
+           by :meth:`__call__` (via :func:`.visitors.populate_ancestors`): a node printed on
+           its own, out of a tree, has no *ancestors* and may raise ``AttributeError``.
         """
 
         if self.comments:

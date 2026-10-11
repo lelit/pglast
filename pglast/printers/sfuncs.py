@@ -6,7 +6,7 @@
 # :Copyright: © 2017, 2018, 2021, 2022, 2024, 2026 Lele Gaifax
 #
 
-from .. import ast, enums
+from .. import ast
 from . import special_function
 
 # reminder for not yet implemented special functions:
@@ -115,9 +115,10 @@ def position(node, output):
     "Emit function ``pg_catalog.position('abcd', 'a')`` as ``position('a' IN 'abcd')``."
     output.write('position')
     with output.expression(True):
-        output.print_node(node.args[1])
+        # Both operands of POSITION are b_expr in gram.y
+        output.print_b_expr(node.args[1])
         output.write(' IN ')
-        output.print_node(node.args[0])
+        output.print_b_expr(node.args[0])
 
 
 @special_function('pg_catalog.rtrim')
@@ -151,20 +152,13 @@ def timezone(node, output):
     """
     Emit function ``pg_catalog.timezone(tz, timestamp)`` as ``timestamp AT TIME ZONE tz``.
     """
-    # It must be wrapped in parens when it is within a DEFAULT constraint
-    nearest_constraint = node.ancestors.find_nearest(ast.Constraint)
-    if nearest_constraint is None:
-        needs_parens = False
+    if len(node.args) == 1:
+        output.print_node(node.args[0])
+        output.write(' AT LOCAL')
     else:
-        needs_parens = nearest_constraint.node.contype == enums.ConstrType.CONSTR_DEFAULT
-    with output.expression(needs_parens):
-        if len(node.args) == 1:
-            output.print_node(node.args[0])
-            output.write(' AT LOCAL')
-        else:
-            output.print_node(node.args[1])
-            output.write(' AT TIME ZONE ')
-            output.print_node(node.args[0])
+        output.print_node(node.args[1])
+        output.write(' AT TIME ZONE ')
+        output.print_node(node.args[0])
 
 
 @special_function('pg_catalog.xmlexists')
@@ -172,6 +166,7 @@ def xmlexists(node, output):
     "Emit function ``pg_catalog.xmlexists(x, y)`` as ``xmlexists(x PASSING BY REF y)``."
     output.write('xmlexists')
     with output.expression(True):
-        output.print_node(node.args[0])
+        # Both operands of XMLEXISTS are c_expr in gram.y
+        output.print_c_expr(node.args[0])
         output.write(' PASSING BY REF ')
-        output.print_node(node.args[1])
+        output.print_c_expr(node.args[1])

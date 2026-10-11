@@ -1282,11 +1282,12 @@ class ConstrTypePrinter(IntEnumPrinter):
     def CONSTR_DEFAULT(self, node, output):
         output.swrite('DEFAULT ')
         assert not (node.raw_expr is not None and node.cooked_expr is not None)
-        # Handle DEFAULT (1 IN (1,2))
-        expr = node.cooked_expr if node.raw_expr is None else node.raw_expr
-        need_parens = isinstance(expr, ast.A_Expr) and expr.kind == enums.A_Expr_Kind.AEXPR_IN
-        with output.expression(need_parens):
-            output.print_node(expr)
+        if node.raw_expr is None:
+            # The parser gave only the cooked SQL text of the default expression
+            output.print_node(node.cooked_expr)
+        else:
+            # A DEFAULT value is a b_expr in gram.y, e.g. DEFAULT (1 IN (1,2))
+            output.print_b_expr(node.raw_expr)
 
     def CONSTR_IDENTITY(self, node, output):
         output.swrite('GENERATED ')

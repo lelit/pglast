@@ -8,7 +8,8 @@
 
 import pytest
 
-from pglast import ast, parse_sql
+from pglast import ast, parse_sql, visitors
+from pglast.precedence import ExprContext, ExprPrec, Side
 from pglast.printers import NODE_PRINTERS, PrinterAlreadyPresentError, SPECIAL_FUNCTIONS
 from pglast.printers import node_printer, special_function
 from pglast.stream import IndentedStream, OutputStream, RawStream
@@ -153,3 +154,168 @@ def test_special_function():
         assert result == 'SELECT x - "Y" FROM sometable'
     finally:
         SPECIAL_FUNCTIONS.pop('foo.test_function')
+
+
+def walked(sql):
+    "Parse `sql` and populate the *ancestors* of the whole tree, then return the tree."
+
+    tree = parse_sql(sql)
+    visitors.populate_ancestors(tree)
+    return tree
+
+
+def first_expr(tree):
+    "Return the first select target expression of a tree."
+
+    return tree[0].stmt.targetList[0].val
+
+
+def test_expr_context_default():
+    assert RawStream().expr_context is ExprContext.A_EXPR
+
+
+def test_push_expr_context():
+    output = RawStream()
+
+    with output.push_expr_context(ExprContext.B_EXPR):
+        assert output.expr_context is ExprContext.B_EXPR
+        with output.push_expr_context(ExprContext.C_EXPR):
+            assert output.expr_context is ExprContext.C_EXPR
+        assert output.expr_context is ExprContext.B_EXPR
+
+    assert output.expr_context is ExprContext.A_EXPR
+
+
+def test_push_expr_context_restores_after_error():
+    output = RawStream()
+
+    with pytest.raises(RuntimeError):
+        with output.push_expr_context(ExprContext.B_EXPR):
+            raise RuntimeError('boom')
+
+    assert output.expr_context is ExprContext.A_EXPR
+
+
+def test_print_operand_wraps_tighter_binding_on_the_left():
+    "``(a + b) * c``: the ADD sub-expression must be parenthesized under MUL."
+
+    tree = walked('SELECT (a + b) * c')
+    star = first_expr(tree)
+    plus = star.lexpr
+
+    output = RawStream()
+    output.print_operand(plus, ExprPrec.MUL, Side.LEFT)
+    output.write(' * ')
+    output.print_operand(star.rexpr, ExprPrec.MUL, Side.RIGHT)
+
+    assert output.getvalue() == '(a + b) * c'
+
+
+def test_print_operand_does_not_wrap_looser_binding():
+    "``a + b * c``: the MUL sub-expression needs no parens under ADD."
+
+    star = first_expr(walked('SELECT a + b * c')).rexpr
+
+    output = RawStream()
+    output.print_operand(star, ExprPrec.ADD, Side.RIGHT)
+
+    assert output.getvalue() == 'b * c'
+
+
+@pytest.mark.parametrize('side', (Side.LEFT, Side.RIGHT))
+def test_print_operand_non_associative(side):
+    "A non-associative operator at the same precedence always gets parens."
+
+    output = RawStream()
+    output.print_operand(first_expr(walked('SELECT a IS NULL')), ExprPrec.IS, side)
+
+    assert output.getvalue() == '(a IS NULL)'
+
+
+def test_print_operand_defaults_to_current_context():
+    "Without an explicit ctx the operand inherits the current expression context."
+
+    node = first_expr(walked('SELECT a IS NULL'))
+    output = RawStream()
+
+    with output.push_expr_context(ExprContext.B_EXPR):
+        # At OR parent precedence the precedence rules alone would not add parens: it is the
+        # b_expr context that forces them, since "IS NULL" is not a b_expr
+        output.print_operand(node, ExprPrec.OR, Side.LEFT)
+
+    assert output.getvalue() == '(a IS NULL)'
+
+
+def test_print_operand_b_expr_context():
+    "A b_expr operand in B_EXPR context is printed unwrapped, and in b_expr context."
+
+    tree = walked('SELECT (a + b) * c')
+    plus = first_expr(tree).lexpr
+    output = RawStream()
+
+    with output.push_expr_context(ExprContext.B_EXPR):
+        output.print_operand(plus, ExprPrec.ADD, Side.LEFT)
+        assert output.expr_context is ExprContext.B_EXPR
+
+    assert output.getvalue() == 'a + b'
+    assert output.expr_context is ExprContext.A_EXPR
+
+
+def test_print_operand_switches_needed_operand_to_a_expr():
+    "When parens are added the operand's context becomes a_expr, and is restored after."
+
+    output = RawStream()
+
+    with output.push_expr_context(ExprContext.B_EXPR):
+        output.print_operand(first_expr(walked('SELECT a IS NULL')), ExprPrec.OR, Side.LEFT)
+        assert output.expr_context is ExprContext.B_EXPR
+
+    assert output.getvalue() == '(a IS NULL)'
+
+
+def test_b_expr_wraps_non_b_expr():
+    "A value that is not a b_expr is parenthesized, and printed in a_expr context."
+
+    output = RawStream()
+    output.print_b_expr(first_expr(walked('SELECT a IS NULL')))
+
+    assert output.getvalue() == '(a IS NULL)'
+    assert output.expr_context is ExprContext.A_EXPR
+
+
+def test_b_expr_plain():
+    "A b_expr value is printed as is, in b_expr context."
+
+    tree = walked('SELECT (a + b) * c')
+    plus = first_expr(tree).lexpr
+    output = RawStream()
+
+    output.print_b_expr(plus)
+    assert output.expr_context is ExprContext.A_EXPR
+
+    assert output.getvalue() == 'a + b'
+
+
+def test_expression_still_emits_bare_container():
+    "expression() remains the primitive for literal containers, independent of precedence."
+
+    output = RawStream()
+
+    with output.expression(True):
+        output.print_node(first_expr(walked('SELECT (a + b) * c')).lexpr)
+
+    assert output.getvalue() == '(a + b)'
+
+
+def test_print_operand_on_indented_stream():
+    "The new method is inherited by the prettifier, with no spurious whitespace."
+
+    tree = walked('SELECT (a + b) * c')
+    star = first_expr(tree)
+
+    output = IndentedStream()
+    output.print_operand(star.lexpr, ExprPrec.MUL, Side.LEFT)
+    output.write(' * ')
+    output.print_operand(star.rexpr, ExprPrec.MUL, Side.RIGHT)
+
+    assert output.getvalue() == '(a + b) * c'

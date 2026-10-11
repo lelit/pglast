@@ -6,10 +6,15 @@
 # :Copyright: © 2019, 2021, 2022, 2023, 2024, 2026 Lele Gaifax
 #
 
+import codecs
+from os import environ
 from pathlib import Path
 from re import sub, subn
+from shutil import which
+from subprocess import check_output
 import sys
 
+from pycparser import c_ast, c_parser
 import pytest
 
 from pglast import enums, parse_sql, split
@@ -21,6 +26,7 @@ import pglast.printers  # noqa
 this = Path(__file__)
 this_dir = this.parent
 tests_dir = this_dir / this.stem
+libpg_query_test_dir = this_dir / '..' / 'libpg_query' / 'test'
 
 
 def statements(src):
@@ -37,11 +43,128 @@ def make_id(arg):
         return str(arg)
 
 
-@pytest.mark.parametrize('src,lineno,statement',
-                         [(src, lineno, statement)
-                          for src in sorted(tests_dir.glob('**/*.sql'))
-                          for (lineno, statement) in statements(src)],
-                         ids=make_id)
+deparse_tests_file = libpg_query_test_dir / 'deparse_tests.c'
+
+# How the deparser corpus below is labelled in test ids, like the corpora are by ``make_id()``.
+deparse_tests_name = 'libpg_query/test/deparse_tests.c'
+
+
+def c_string_literal(token):
+    """Decode a C string literal, as pycparser hands it over, quotes included.
+
+    The escapes are the compiler's, while the raw non-ASCII bytes must be left alone for the final
+    UTF-8 decoding: ``bytes.decode()`` with ``unicode_escape`` would needlessly mangle them.
+    """
+    assert token.startswith('"') and token.endswith('"'), token
+    decoded, _ = codecs.escape_decode(token[1:-1].encode('utf-8'))
+    return decoded.decode('utf-8')
+
+
+def read_deparse_tests():
+    """Return the ``(lineno, statement)`` pairs of libpg_query's ``test/deparse_tests.c``."""
+
+    # Handle the case when we have no checked out libpg_query tree
+    if not deparse_tests_file.exists():
+        return []
+
+    cpp = environ.get('CPP') or which('clang') or 'cpp'
+    tree = c_parser.CParser().parse(check_output([cpp, '-E', '-P', str(deparse_tests_file)],
+                                                text=True))
+    array = next(d for d in tree.ext if isinstance(d, c_ast.Decl) and d.name == 'tests')
+    assert isinstance(array.type, c_ast.ArrayDecl), array.type.type
+
+    return [(item.coord.line, c_string_literal(item.value))
+            for item in array.init.exprs
+            # skip ending NULL
+            if isinstance(item, c_ast.Constant) and item.type == 'string']
+
+
+deparse_tests_statements = read_deparse_tests()
+
+# FIXME: Statements of the corpus above that fail one of the checks below, for already existing
+# pglast deficiencies that I will eventually cure.
+#
+# The value lists the failing checks: ``roundtrip`` (the SQL printed by ``RawStream`` or
+# ``IndentedStream`` does not reparse to the same tree) and ``single-node`` (``RawStream``
+# cannot print the node standing alone). They are marked ``xfail(strict=True)``: when one of
+# them starts working pytest reports it as a failure, and the entry must then be dropped.
+#
+# Two unrelated printer defects are involved: ``ALTER EXTENSION … ADD|DROP <object>`` prints
+# the object's *definition* rather than its name, so the result no longer parses, while ``ALTER
+# … DEPENDS ON EXTENSION``, ``ALTER SYSTEM``, ``AT_EnableTrigUser`` and a few one-offs have no
+# printer at all.
+UNRELATED_DEPARSE_TESTS_FAILURES = {
+    # ALTER EXTENSION … ADD <object>
+    'ALTER EXTENSION x ADD ACCESS METHOD a': ('roundtrip',),
+    'ALTER EXTENSION x ADD CAST (a AS b)': ('roundtrip',),
+    'ALTER EXTENSION x ADD COLLATION a': ('roundtrip',),
+    'ALTER EXTENSION x ADD CONVERSION a': ('roundtrip',),
+    'ALTER EXTENSION x ADD EVENT TRIGGER a': ('roundtrip',),
+    'ALTER EXTENSION x ADD FOREIGN DATA WRAPPER a': ('roundtrip',),
+    'ALTER EXTENSION x ADD FOREIGN TABLE a': ('roundtrip',),
+    'ALTER EXTENSION x ADD LANGUAGE a': ('roundtrip',),
+    'ALTER EXTENSION x ADD MATERIALIZED VIEW a': ('roundtrip',),
+    'ALTER EXTENSION x ADD OPERATOR ~~(a, b)': ('roundtrip',),
+    'ALTER EXTENSION x ADD OPERATOR CLASS a USING b': ('roundtrip',),
+    'ALTER EXTENSION x ADD OPERATOR FAMILY a USING b': ('roundtrip',),
+    'ALTER EXTENSION x ADD SCHEMA a': ('roundtrip',),
+    'ALTER EXTENSION x ADD SEQUENCE a': ('roundtrip',),
+    'ALTER EXTENSION x ADD SERVER a': ('roundtrip',),
+    'ALTER EXTENSION x ADD TABLE a': ('roundtrip',),
+    'ALTER EXTENSION x ADD TEXT SEARCH CONFIGURATION a': ('roundtrip',),
+    'ALTER EXTENSION x ADD TEXT SEARCH DICTIONARY a': ('roundtrip',),
+    'ALTER EXTENSION x ADD TEXT SEARCH PARSER a': ('roundtrip',),
+    'ALTER EXTENSION x ADD TEXT SEARCH TEMPLATE a': ('roundtrip',),
+    'ALTER EXTENSION x ADD TRANSFORM FOR a LANGUAGE b': ('roundtrip',),
+    'ALTER EXTENSION x ADD VIEW a': ('roundtrip',),
+    'ALTER EXTENSION x DROP ACCESS METHOD a': ('roundtrip',),
+    'CREATE DATABASE x LOCATION DEFAULT': ('roundtrip',),
+    'SAVEPOINT "x y"': ('roundtrip',),
+    # Nodes with no printer at all
+    'ALTER EXTENSION x UPDATE': ('roundtrip', 'single-node'),
+    'ALTER FUNCTION x(y) DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
+    'ALTER FUNCTION x(y) NO DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
+    'ALTER INDEX x DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
+    'ALTER MATERIALIZED VIEW x DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
+    'ALTER PROCEDURE x(y) DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
+    'ALTER ROUTINE x(y) DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
+    'ALTER SYSTEM RESET fsync': ('roundtrip', 'single-node'),
+    'ALTER SYSTEM SET fsync TO OFF': ('roundtrip', 'single-node'),
+    'ALTER TABLE a ENABLE TRIGGER USER': ('roundtrip', 'single-node'),
+    'ALTER TRIGGER x ON y DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
+    'COPY t FROM STDIN WITH (convert_selectively, some_str test, some_num 1,'
+    ' some_list (a), some_star *)': ('roundtrip', 'single-node'),
+}
+
+
+def corpus_statements():
+    """
+    Yield the ``(origin, lineno, statement)`` triples of pglast's corpora and the deparser one.
+    """
+    for src in sorted(tests_dir.glob('**/*.sql')):
+        for lineno, statement in statements(src):
+            yield src, lineno, statement
+    for lineno, statement in deparse_tests_statements:
+        yield deparse_tests_name, lineno, statement
+
+
+def corpus_parameters(*checks):
+    """
+    Build the parameters of a corpus ``checks``, over :func:`corpus_statements`.
+
+    The statements recorded in ``UNRELATED_DEPARSE_TESTS_FAILURES`` as failing one of those
+    checks are marked ``xfail(strict=True)``.
+    """
+    parameters = []
+    for origin, lineno, statement in corpus_statements():
+        failed = sorted(set(checks) & set(UNRELATED_DEPARSE_TESTS_FAILURES.get(statement, ())))
+        marks = ([pytest.mark.xfail(strict=True, reason='known unrelated gap: ' + ', '.join(failed))]
+                 if failed else [])
+        parameters.append(pytest.param(origin, lineno, statement, marks=marks))
+    return parameters
+
+
+@pytest.mark.parametrize('src,lineno,statement', corpus_parameters('roundtrip'), ids=make_id)
 def test_printers_roundtrip(src, lineno, statement):
     try:
         orig_ast = parse_sql(statement)
@@ -110,11 +233,7 @@ def test_remove_pg_catalog_keeps_required_function_schema(statement):
     assert serialized == statement
 
 
-@pytest.mark.parametrize('src,lineno,statement',
-                         [(src, lineno, statement)
-                          for src in sorted(tests_dir.glob('**/*.sql'))
-                          for (lineno, statement) in statements(src)],
-                         ids=make_id)
+@pytest.mark.parametrize('src,lineno,statement', corpus_parameters('single-node'), ids=make_id)
 def test_stream_call_with_single_node(src, lineno, statement):
     # See https://github.com/lelit/pglast/pull/10 and https://github.com/lelit/pglast/issues/79
     try:
@@ -130,7 +249,7 @@ def test_stream_call_with_single_node(src, lineno, statement):
             raise AssertionError('Could not serialize single statement %r' % stmt)
 
 
-pg_regressions_dir = this_dir / '..' / 'libpg_query' / 'test' / 'sql' / 'postgres_regress'
+pg_regressions_dir = libpg_query_test_dir / 'sql' / 'postgres_regress'
 
 # Following scripts contain intentional errors which are difficult to isolate, or
 # are systems specific
@@ -195,11 +314,7 @@ def test_pg_regress_corpus(filename):
             trimmed_stmt, rel_src, lineno, serialized)
 
 
-@pytest.mark.parametrize('src,lineno,statement',
-                         [(src, lineno, statement)
-                          for src in sorted(tests_dir.glob('**/*.sql'))
-                          for (lineno, statement) in statements(src)],
-                         ids=make_id)
+@pytest.mark.parametrize('src,lineno,statement', corpus_parameters('serialization'), ids=make_id)
 def test_ast_serialization_roundtrip(src, lineno, statement):
     try:
         orig_ast = parse_sql(statement)
@@ -211,3 +326,13 @@ def test_ast_serialization_roundtrip(src, lineno, statement):
     serialized = stmt()
     clone = stmt.__class__(serialized)
     assert stmt == clone
+
+
+def test_unrelated_failure_table_names_only_corpus_statements():
+    # The table may only name statements of the deparser corpus: pglast's own corpora are held to
+    # the strict standard by the checks above, so listing one of theirs there would silently mask
+    # a regression.
+    if not deparse_tests_statements:
+        pytest.skip('the deparser corpus is not available')
+    assert not set(UNRELATED_DEPARSE_TESTS_FAILURES) - {statement for _lineno, statement
+                                                       in deparse_tests_statements}

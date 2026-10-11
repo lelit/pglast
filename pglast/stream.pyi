@@ -11,6 +11,7 @@ from typing import Any, TextIO
 
 from . import Comment
 from . import ast
+from .precedence import ExprContext, ExprPrec, Side
 
 SQLInput = str | ast.Node | tuple[ast.Node, ...]
 Printer = Callable[..., Any]
@@ -44,6 +45,7 @@ class RawStream(OutputStream):
     semicolon_after_last_statement: bool
     comments: list[Comment] | None
     remove_pg_catalog_from_functions: bool
+    expr_context: ExprContext
 
     def __init__(
         self,
@@ -67,6 +69,16 @@ class RawStream(OutputStream):
         relative: bool = True,
     ) -> AbstractContextManager[None]: ...
     def expression(self, need_parens: bool) -> AbstractContextManager[None]: ...
+    def push_expr_context(self, ctx: ExprContext) -> AbstractContextManager[None]: ...
+    def print_b_expr(self, node: ast.Node) -> None: ...
+    def print_c_expr(self, node: ast.Node) -> None: ...
+    def print_operand(
+        self,
+        node: ast.Node,
+        parent_prec: ExprPrec,
+        side: Side,
+        ctx: ExprContext | None = None,
+    ) -> None: ...
     def write_quoted_string(self, s: str) -> None: ...
     def print_comment(self, comment: Comment) -> None: ...
     def print_name(self, nodes: Any, sep: str = ".") -> None: ...

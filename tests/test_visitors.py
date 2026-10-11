@@ -405,3 +405,38 @@ def test_replace_root_node():
     raw = parse_sql('select 1')
     new_root = AndNowForSomethingCompletelyDifferent()(raw[0])
     assert RawStream()(new_root) == 'SHOW ALL'
+
+
+def test_populate_ancestors():
+    def walk(x):
+        if isinstance(x, ast.Node):
+            yield x
+            for slot in x.__slots__:
+                yield from walk(getattr(x, slot, None))
+        elif isinstance(x, (list, tuple)):
+            for y in x:
+                yield from walk(y)
+
+    raw = parse_sql("SELECT pg_catalog.position(a, b) FROM t")
+
+    # A freshly parsed tree has no knowledge of the ancestry of its nodes
+    for node in walk(raw):
+        assert getattr(node, 'ancestors', None) is None
+
+    visitors.populate_ancestors(raw)
+
+    for node in walk(raw):
+        assert node.ancestors is not None
+
+    # The root statements represent the whole tuple of statements
+    assert raw[0].ancestors.node is raw
+
+    # The *nearest* ancestor node of a nested node is found with abs()
+    funccall = raw[0].stmt.targetList[0].val
+    assert isinstance(abs(funccall.ancestors).node, ast.ResTarget)
+
+    # It also accepts a bare node
+    raw = parse_sql('SELECT 1')[0]
+    visitors.populate_ancestors(raw)
+    assert raw.ancestors is not None
+    assert raw.stmt.ancestors.node is raw

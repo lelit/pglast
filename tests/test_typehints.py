@@ -444,6 +444,71 @@ def stub_public_module_types() -> None:
     assert relations == {'users'}
 
 
+def stub_precedence_types() -> None:
+    """Stub function to test the public type hints of the precedence module."""
+    from pglast import ast, parse_sql, visitors
+    from pglast.precedence import (
+        ExprContext,
+        ExprPrec,
+        Side,
+        expr_precedence,
+        is_b_expr_rule,
+        is_subquery_comparison_form,
+        needs_parens_as_c_expr,
+        needs_parens_for_precedence,
+        operator_precedence,
+        subquery_operator_precedence,
+    )
+    from pglast.stream import IndentedStream, RawStream
+
+    stream: RawStream = RawStream()
+    tree = parse_sql('SELECT 1 + 2 * 3')
+    visitors.populate_ancestors(tree)
+    node: ast.Node = tree[0].stmt
+
+    prec: ExprPrec = expr_precedence(node, stream)
+    op_prec: ExprPrec = operator_precedence([ast.String(sval='+')])
+    sub_prec: ExprPrec = subquery_operator_precedence(None)
+    needs: bool = needs_parens_for_precedence(node, ExprPrec.ADD, Side.LEFT, stream)
+    is_b: bool = is_b_expr_rule(node, stream)
+    as_c: bool = needs_parens_as_c_expr(node, stream)
+    sub_cmp: bool = is_subquery_comparison_form(node)
+
+    ctx: ExprContext = ExprContext.A_EXPR
+    assert ctx is ExprContext.A_EXPR
+    assert Side.LEFT.value != Side.RIGHT.value
+    assert isinstance(prec, ExprPrec)
+    assert isinstance(op_prec, ExprPrec)
+    assert isinstance(sub_prec, ExprPrec)
+    assert needs or not needs
+    assert is_b or not is_b
+    assert as_c or not as_c
+    assert not sub_cmp
+
+
+def stub_stream_expr_context() -> None:
+    """Stub function to test the expression context API of the streams."""
+    from pglast import ast, parse_sql, visitors
+    from pglast.precedence import ExprContext, ExprPrec, Side
+    from pglast.stream import IndentedStream, RawStream
+
+    tree = parse_sql('SELECT a + b * c')
+    visitors.populate_ancestors(tree)
+    node: ast.Node = tree[0].stmt
+
+    for stream in (RawStream(), IndentedStream()):
+        ctx: ExprContext = stream.expr_context
+        assert ctx is ExprContext.A_EXPR
+
+        with stream.push_expr_context(ExprContext.B_EXPR):
+            stream.print_operand(node, ExprPrec.MUL, Side.LEFT)
+
+        stream.print_operand(node, ExprPrec.MUL, Side.RIGHT, ExprContext.A_EXPR)
+        stream.print_b_expr(node)
+
+    assert RawStream().getvalue() == ''
+
+
 def stub_remaining_importable_modules() -> None:
     """Stub function to test every remaining importable module has useful stubs."""
     from argparse import Namespace
@@ -544,6 +609,12 @@ if __name__ == '__main__':
     {stub_function_name}()
 """
 
+    # Neither type checker can follow the import hook that the editable install of the package
+    # uses (`pglast` is then served by a meta path finder, not by a real directory in
+    # site-packages); moreover `ty` does not honor PYTHONPATH. Running them from the project
+    # directory makes the package resolvable as first-party code, which works in every mode.
+    project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
     # Create a temporary directory to isolate the test
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_file = os.path.join(temp_dir, f'{stub_function_name}.py')
@@ -556,7 +627,7 @@ if __name__ == '__main__':
                 checker + (temp_file,),
                 capture_output=True,
                 text=True,
-                cwd=temp_dir,
+                cwd=project_dir,
             )
         except FileNotFoundError:
             pytest.skip(f'Could not execute type checker: {checker!r}')
@@ -637,6 +708,8 @@ ty_checker: tuple[str, ...] = (
         (stub_unchecked_raw_statement_type_errors, False),
         (stub_enums_and_streams, True),
         (stub_public_module_types, True),
+        (stub_precedence_types, True),
+        (stub_stream_expr_context, True),
         (stub_remaining_importable_modules, True),
         (stub_type_errors, False),
         (stub_ast_field_type_errors, False),
