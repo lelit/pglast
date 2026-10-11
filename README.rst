@@ -68,6 +68,35 @@ __ https://docs.pytest.org/en/latest/
 __ https://codecov.io/gh/lelit/pglast/branch/v8/
 
 
+Contributing
+~~~~~~~~~~~~
+
+Many of the sources in this repository are *mechanically derived* from others: the enums, the
+keyword sets, the ``pglast.ast`` module and its type stubs, the printer documentation and the
+``parser.c`` translation are all produced by one of the tools in ``tools/``, driven by the
+``Makefile``. Each of those files carries a ``DO NOT EDIT`` notice in its header, and none of
+them should ever be modified by hand: change the generating tool, its input data or the recipe,
+then rebuild with ``make build``.
+
+Because a tiny change in a generator can produce an avalanche of changes in its output, two
+developers working on unrelated areas of the same generator will rarely conflict on the
+generator itself, but are bound to conflict on the generated sources when their branches are
+merged. A handful of lines edited in one of the tools is enough to rewrite every file it
+produces: skipping a few node definitions in ``tools/extract_ast.py``, for instance, was
+followed by a regeneration touching more than twenty thousand lines, spread over the
+``pglast.ast`` module, the enums, the keyword sets and ``parser.c``. The trigger can also come
+from outside the tools: bumping ``libpg_query`` affects nearly all of the generated files,
+since its revision is embedded in a comment of most of them, and a new release of ``Cython``
+retranslates ``parser.c`` from scratch. In all those cases use "Update generated sources" as
+the subject of the regeneration commit, or "Regenerate with Cython X.Y.Z" when that is what
+triggered it, and do not let it carry any other modification.
+
+.. important:: Please keep the *automatic regeneration* in a commit of its own, with nothing
+               else in it: the ordinary changes of a branch then merge without trouble, and the
+               regeneration commit can be easily resolved by simply re-running the generator on
+               the merged tree.
+
+
 Documentation
 -------------
 
