@@ -766,7 +766,7 @@ class {name}({superclass}):
                 or (first_type.endswith('*')
                     and first_type not in ('char*', 'List*', 'Bitmapset*'))):
             # A different node tag here describes the child, not this node.
-            whole_node_check = f"{first_attr}.get('@') == {name!r}"
+            whole_node_check = f"{first_attr}.get('@') == self.__class__.__name__"
 
         if len(real_attrs) > 1:
             output.write(f'''\

@@ -173,3 +173,21 @@ def test_first_field_payload_validation():
         ast.CallStmt(funccall={'@': 'ColumnRef'})
     with pytest.raises(ValueError):
         ast.NullTest(arg={'@': 'ColumnRef', 'fields': 123})
+
+
+@pytest.mark.parametrize('cls, attr, child', (
+    (ast.NullTest, 'arg', ast.ColumnRef(fields=(ast.String(sval='x'),))),
+    (ast.CallStmt, 'funccall', ast.FuncCall()),
+    (ast.ReturnStmt, 'returnval', ast.ColumnRef()),
+))
+def test_subclass_payload_roundtrip(cls, attr, child):
+    subclass = type('Custom' + cls.__name__, (cls,), {})
+    original = subclass(**{attr: child})
+    payload = original()
+    assert payload['@'] == subclass.__name__
+    clone = subclass(payload)
+    assert type(clone) is subclass
+    assert clone == original
+    assert getattr(clone, attr) == child
+    # A different tag must still go through the child-field adapter.
+    assert subclass(**{attr: child()}) == original
