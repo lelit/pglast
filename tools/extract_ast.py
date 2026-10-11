@@ -221,6 +221,10 @@ class Node:
                             raise NotImplementedError(f'Unhandled {{ctype!r}} for attribute'
                                                       f' {{self.__class__.__name__}}.{{name}}')
                         if isinstance(value, dict) and '@' in value:
+                            # This is a serialized typed child, not constructor shorthand.
+                            if value['@'] != cls.__name__:
+                                raise ValueError(f'Bad argument, wrong "@" value, expected'
+                                                 f' {{cls.__name__!r}}, got {{value["@"]!r}}')
                             value = cls(value)
 
         super().__setattr__(name, value)
@@ -760,12 +764,20 @@ class {name}({superclass}):
     def __init__(self, {', '.join(f'{attr}=None' for attr, __ in real_attrs)}):  # pragma: no cover  # noqa: E501
 ''')
 
+        first_attr, first_type = real_attrs[0]
+        whole_node_check = f"'@' in {first_attr}"
+        if (first_type == 'CreateStmt'
+                or (first_type.endswith('*')
+                    and first_type not in ('char*', 'List*', 'Bitmapset*'))):
+            # A different node tag here describes the child, not this node.
+            whole_node_check = f"{first_attr}.get('@') == self.__class__.__name__"
+
         if len(real_attrs) > 1:
             output.write(f'''\
         if (({real_attrs[0][0]} is not None
              and {' is '.join(attr for attr, __ in real_attrs[1:])} is None  # noqa: E501
              and isinstance({real_attrs[0][0]}, dict)
-             and '@' in {real_attrs[0][0]})):
+             and {whole_node_check})):
             super().__init__({real_attrs[0][0]})
         else:
 ''')
@@ -773,7 +785,7 @@ class {name}({superclass}):
             output.write(f'''\
         if (({real_attrs[0][0]} is not None
              and isinstance({real_attrs[0][0]}, dict)
-             and '@' in {real_attrs[0][0]})):
+             and {whole_node_check})):
             super().__init__({real_attrs[0][0]})
         else:
 ''')
@@ -827,10 +839,19 @@ INT_CTYPES = {
 
 FLOAT_CTYPES = {'Cardinality', 'Cost'}
 
+# PostgreSQL stores lists behind these Node* fields in raw parse trees.
+LIST_NODE_FIELDS = {
+    ('A_Expr', 'rexpr'),
+    ('AlterTableCmd', 'def_'),
+    ('CreateFunctionStmt', 'sql_body'),
+    ('DefElem', 'arg'),
+    ('SecLabelStmt', 'object'),
+}
+
 
 def stub_read_type_for_attr(cls_name, attr, ctype, enums):
-    if cls_name == 'RawStmt' and attr == 'stmt':
-        return 'Node'
+    if (cls_name, attr) in LIST_NODE_FIELDS:
+        return 'Node | tuple[Any, ...] | None'
     if ctype == 'List*':
         return 'tuple[Any, ...] | None'
     if ctype == 'ParseLoc':
@@ -847,9 +868,8 @@ def stub_read_type_for_attr(cls_name, attr, ctype, enums):
         return 'CreateStmt | None'
     if ctype == 'Bitmapset*':
         return 'set[int] | None'
-    if ctype == 'Expr*':
-        return 'Expr | None'
-    if ctype == 'Node*':
+    # Expr* fields can contain raw parser nodes, which do not inherit from Expr.
+    if ctype in ('Expr*', 'Node*'):
         return 'Node | None'
     if ctype in ('JsonTablePlan', 'ValUnion'):
         return 'Node | None'
@@ -861,8 +881,8 @@ def stub_read_type_for_attr(cls_name, attr, ctype, enums):
 
 
 def stub_input_type_for_attr(cls_name, attr, ctype, enums):
-    if cls_name == 'RawStmt' and attr == 'stmt':
-        return 'Node | _NodePayload'
+    if (cls_name, attr) in LIST_NODE_FIELDS:
+        return 'Node | _NodePayload | _ListInput'
     if ctype == 'List*':
         return '_ListInput'
     if ctype == 'ParseLoc':
@@ -883,9 +903,7 @@ def stub_input_type_for_attr(cls_name, attr, ctype, enums):
         return 'CreateStmt | _NodePayload'
     if ctype == 'Bitmapset*':
         return '_BitmapsetInput'
-    if ctype == 'Expr*':
-        return 'Expr | _NodePayload'
-    if ctype == 'Node*':
+    if ctype in ('Expr*', 'Node*'):
         return 'Node | _NodePayload'
     if ctype in ('JsonTablePlan', 'ValUnion'):
         return 'Node'
@@ -931,8 +949,16 @@ def emit_node_stub_def(name, fields, enums, output):
 
     output.write(f'\n\nclass {name}({superclass}):\n')
     if attrs:
-        for attr, read_type, __ in attrs:
-            output.write(f'    {attr}: {read_type}\n')
+        for attr, read_type, input_type in attrs:
+            write_type = optional_constructor_type(input_type)
+            if read_type == write_type:
+                output.write(f'    {attr}: {read_type}\n')
+            else:
+                # Runtime assignment uses the same adapters as construction.
+                output.write('    @property\n')
+                output.write(f'    def {attr}(self) -> {read_type}: ...\n')
+                output.write(f'    @{attr}.setter\n')
+                output.write(f'    def {attr}(self, value: {write_type}) -> None: ...\n')
         output.write('    @overload\n')
         output.write('    def __init__(self, data: _NodePayload, /) -> None: ...\n')
         output.write('    @overload\n')

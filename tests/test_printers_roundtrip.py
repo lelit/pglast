@@ -123,6 +123,7 @@ def test_stream_call_with_single_node(src, lineno, statement):
         raise RuntimeError("%s:%d:Could not parse “%s”" % (src, lineno, statement))
     for rawstmt in parsed:
         stmt = rawstmt.stmt
+        assert stmt is not None
         try:
             RawStream()(stmt)
         except Exception:
@@ -206,6 +207,7 @@ def test_ast_serialization_roundtrip(src, lineno, statement):
         raise RuntimeError("%s:%d:Could not parse %r" % (src, lineno, statement))
 
     stmt = orig_ast[0].stmt
+    assert stmt is not None
     serialized = stmt()
     clone = stmt.__class__(serialized)
     assert stmt == clone

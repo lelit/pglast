@@ -80,6 +80,7 @@ def test_setattr():
         raw.stmt = {'@': 'SelectStmt', 'limitOption': {'#': 'LimitOption',
                                                        'value': -1}}
     raw.stmt = {'@': 'FunctionParameter'}
+    assert raw.stmt is not None
     raw.stmt.argType = {'@': 'TypeName'}
     raw.stmt = ast.CreateForeignTableStmt()
     raw.stmt.base = {'@': 'CreateStmt'}
@@ -108,6 +109,7 @@ def test_issue_138():
 
 def test_issue_153():
     selstmt = parse_sql('select t.y from f(5) as t')[0].stmt
+    assert selstmt is not None
     serialized = selstmt()
     assert serialized['@'] == 'SelectStmt'
     clone = ast.SelectStmt(serialized)
@@ -146,3 +148,73 @@ def test_issue_153b():
         'ordinality': False}
     rf = ast.RangeFunction(serialized)
     assert isinstance(rf.functions[0][0], ast.FuncCall)
+
+
+@pytest.mark.parametrize('cls, attr, child', (
+    (ast.NullTest, 'arg', ast.ColumnRef(fields=(ast.String(sval='x'),))),
+    (ast.BooleanTest, 'arg', ast.ColumnRef()),
+    (ast.CaseExpr, 'arg', ast.ColumnRef()),
+    (ast.CaseWhen, 'expr', ast.A_Const(val=ast.Integer(ival=1))),
+    (ast.RawStmt, 'stmt', ast.SelectStmt()),
+    (ast.CallStmt, 'funccall', ast.FuncCall()),
+    (ast.CreateForeignTableStmt, 'base', ast.CreateStmt()),
+))
+def test_first_field_child_payload(cls, attr, child):
+    # A serialized child should behave like the equivalent node instance.
+    expected = cls(**{attr: child})
+    assert cls(**{attr: child()}) == expected
+    assert cls(child()) == expected
+    # The established whole-node serialization overload must still work.
+    assert cls(expected()) == expected
+
+
+def test_first_field_payload_validation():
+    with pytest.raises(ValueError):
+        ast.CallStmt(funccall={'@': 'ColumnRef'})
+    with pytest.raises(ValueError):
+        ast.NullTest(arg={'@': 'ColumnRef', 'fields': 123})
+
+
+@pytest.mark.parametrize('cls, attr, child', (
+    (ast.NullTest, 'arg', ast.ColumnRef(fields=(ast.String(sval='x'),))),
+    (ast.CallStmt, 'funccall', ast.FuncCall()),
+    (ast.ReturnStmt, 'returnval', ast.ColumnRef()),
+))
+def test_subclass_payload_roundtrip(cls, attr, child):
+    subclass = type('Custom' + cls.__name__, (cls,), {})
+    original = subclass(**{attr: child})
+    payload = original()
+    assert payload['@'] == subclass.__name__
+    clone = subclass(payload)
+    assert type(clone) is subclass
+    assert clone == original
+    assert getattr(clone, attr) == child
+    # A different tag must still go through the child-field adapter.
+    assert subclass(**{attr: child()}) == original
+
+
+@pytest.mark.parametrize('cls, attr, child', (
+    (ast.JsonKeyValue, 'value', ast.JsonValueExpr(raw_expr=ast.ColumnRef())),
+    (ast.JsonArrayAgg, 'arg', ast.JsonValueExpr(raw_expr=ast.ColumnRef())),
+    (ast.JsonParseExpr, 'expr', ast.JsonValueExpr(raw_expr=ast.ColumnRef())),
+    (ast.ColumnDef, 'collClause', ast.CollateClause(arg=ast.ColumnRef())),
+))
+def test_typed_child_payload_tag_validation(cls, attr, child):
+    expected = cls(**{attr: child})
+    assert cls(**{attr: child()}) == expected
+    assert cls(expected()) == expected
+    assigned = cls()
+    setattr(assigned, attr, child())
+    assert assigned == expected
+
+    wrong_child = ast.ColumnRef()
+    with pytest.raises(ValueError):
+        cls(**{attr: wrong_child})
+    with pytest.raises(ValueError):
+        cls({'@': cls.__name__, attr: wrong_child()})
+    # A wrong tag must not be reinterpreted as the expected child's first field.
+    with pytest.raises(ValueError, match='wrong "@" value'):
+        cls(**{attr: wrong_child()})
+    with pytest.raises(ValueError, match='wrong "@" value'):
+        setattr(assigned, attr, wrong_child())
+    assert assigned == expected
