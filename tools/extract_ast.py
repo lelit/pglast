@@ -846,8 +846,6 @@ LIST_NODE_FIELDS = {
 
 
 def stub_read_type_for_attr(cls_name, attr, ctype, enums):
-    if cls_name == 'RawStmt' and attr == 'stmt':
-        return 'Node'
     if (cls_name, attr) in LIST_NODE_FIELDS:
         return 'Node | tuple[Any, ...] | None'
     if ctype == 'List*':
@@ -879,8 +877,6 @@ def stub_read_type_for_attr(cls_name, attr, ctype, enums):
 
 
 def stub_input_type_for_attr(cls_name, attr, ctype, enums):
-    if cls_name == 'RawStmt' and attr == 'stmt':
-        return 'Node | _NodePayload'
     if (cls_name, attr) in LIST_NODE_FIELDS:
         return 'Node | _NodePayload | _ListInput'
     if ctype == 'List*':
