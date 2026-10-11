@@ -464,7 +464,8 @@ def stub_precedence_types() -> None:
     stream: RawStream = RawStream()
     tree = parse_sql('SELECT 1 + 2 * 3')
     visitors.populate_ancestors(tree)
-    node: ast.Node = tree[0].stmt
+    node: ast.Node | None = tree[0].stmt
+    assert node is not None
 
     prec: ExprPrec = expr_precedence(node, stream)
     op_prec: ExprPrec = operator_precedence([ast.String(sval='+')])
@@ -494,7 +495,8 @@ def stub_stream_expr_context() -> None:
 
     tree = parse_sql('SELECT a + b * c')
     visitors.populate_ancestors(tree)
-    node: ast.Node = tree[0].stmt
+    node: ast.Node | None = tree[0].stmt
+    assert node is not None
 
     for stream in (RawStream(), IndentedStream()):
         ctx: ExprContext = stream.expr_context
