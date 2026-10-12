@@ -82,7 +82,7 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v4.2.1
         env:
-          CIBW_TEST_REQUIRES: "coverage pytest pytest-cov"
+          CIBW_TEST_REQUIRES: "coverage pycparser pytest pytest-cov"
           CIBW_TEST_COMMAND: "py.test {project}/tests"
           CIBW_BUILD: "cp*"
           CIBW_SKIP: "cp39*"
