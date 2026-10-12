@@ -550,7 +550,7 @@ def copy_stmt_def_elem(node, output):
         output.write(' ')
         output.print_symbol(argv)
     elif option == 'freeze':
-        output.write('FREEZE')
+        output.write(option.upper())
         if isinstance(argv, ast.String):
             output.swrite(argv.sval.upper())
         elif isinstance(argv, ast.Integer):
@@ -560,7 +560,7 @@ def copy_stmt_def_elem(node, output):
         output.write(' ')
         output.print_node(argv)
     elif option == 'header':
-        output.write('HEADER')
+        output.write(option.upper())
         if argv is not None:
             output.swrite(argv.sval.upper())
     elif option in {'force_quote', 'force_not_null', 'force_null'}:
@@ -577,8 +577,8 @@ def copy_stmt_def_elem(node, output):
         with output.expression(True):
             output.print_name(argv)
     elif option == 'reject_limit':
-        output.write('REJECT_LIMIT ')
-        output.swrite(str(argv.ival))
+        output.write(option.upper())
+        output.write(str(argv.ival))
     else:
         raise NotImplementedError(option)
 
