@@ -2024,7 +2024,7 @@ def transaction_stmt(node, output):
             output.write(' AND CHAIN')
     elif node.kind == tsk.TRANS_STMT_SAVEPOINT:
         output.write('SAVEPOINT ')
-        output.write(node.savepoint_name)
+        output.print_name(node.savepoint_name)
     elif node.kind == tsk.TRANS_STMT_RELEASE:
         output.write('RELEASE ')
         output.write(node.savepoint_name)

@@ -111,7 +111,10 @@ def alter_database_set_stmt(node, output):
 def alter_extension_stmt(node, output):
     output.write('ALTER EXTENSION ')
     output.print_name(node.extname)
-    output.print_list(node.options, '')
+    if node.options:
+        output.print_list(node.options, '')
+    else:
+        output.write(' UPDATE')
 
 
 @node_printer(ast.AlterExtensionStmt, ast.DefElem)
@@ -126,6 +129,7 @@ def alter_extension_stmt_def_elem(node, output):
 
 @node_printer(ast.AlterExtensionContentsStmt)
 def alter_extension_contents_stmt(node, output):
+    OT = enums.ObjectType
     output.write('ALTER EXTENSION ')
     output.print_name(node.extname)
     if node.action == -1:
@@ -134,7 +138,27 @@ def alter_extension_contents_stmt(node, output):
         output.write(' ADD ')
     output.write(OBJECT_NAMES[node.objtype])
     output.write(' ')
-    output.print_node(node.object)
+    if node.objtype == OT.OBJECT_CAST:
+        names = node.object
+        with output.expression(True):
+            output.print_name(names[0])
+            output.write(' AS ')
+            output.print_name(names[1])
+    elif node.objtype == OT.OBJECT_OPERATOR:
+        _object_with_args(node.object, output, symbol=True)
+    elif node.objtype in (OT.OBJECT_OPCLASS, OT.OBJECT_OPFAMILY):
+        method, *name = node.object
+        output.print_name(name)
+        output.write(' USING ')
+        output.print_symbol(method)
+    elif node.objtype == OT.OBJECT_TRANSFORM:
+        nodes = list(node.object)
+        output.write('FOR ')
+        output.print_name(nodes.pop(0))
+        output.write(' LANGUAGE ')
+        output.print_name(nodes)
+    else:
+        output.print_name(node.object)
 
 
 @node_printer(ast.AlterEnumStmt)
@@ -1536,6 +1560,8 @@ def create_db_stmt_def_elem(node, output):
             output.write(node.arg.sval)
         else:
             output.print_node(node.arg)
+    else:
+        output.write('DEFAULT')
 
 
 @node_printer(ast.CreateCastStmt)
