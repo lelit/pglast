@@ -81,35 +81,6 @@ def read_deparse_tests():
 
 deparse_tests_statements = read_deparse_tests()
 
-# FIXME: Statements of the corpus above that fail one of the checks below, for already existing
-# pglast deficiencies that I will eventually cure.
-#
-# The value lists the failing checks: ``roundtrip`` (the SQL printed by ``RawStream`` or
-# ``IndentedStream`` does not reparse to the same tree) and ``single-node`` (``RawStream``
-# cannot print the node standing alone). They are marked ``xfail(strict=True)``: when one of
-# them starts working pytest reports it as a failure, and the entry must then be dropped.
-#
-# Two unrelated printer defects are involved: ``ALTER EXTENSION … ADD|DROP <object>`` prints
-# the object's *definition* rather than its name, so the result no longer parses, while ``ALTER
-# … DEPENDS ON EXTENSION``, ``ALTER SYSTEM``, ``AT_EnableTrigUser`` and a few one-offs have no
-# printer at all.
-UNRELATED_DEPARSE_TESTS_FAILURES = {
-    # Nodes with no printer at all
-    'ALTER FUNCTION x(y) DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
-    'ALTER FUNCTION x(y) NO DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
-    'ALTER INDEX x DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
-    'ALTER MATERIALIZED VIEW x DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
-    'ALTER PROCEDURE x(y) DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
-    'ALTER ROUTINE x(y) DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
-    'ALTER SYSTEM RESET fsync': ('roundtrip', 'single-node'),
-    'ALTER SYSTEM SET fsync TO OFF': ('roundtrip', 'single-node'),
-    'ALTER TABLE a ENABLE TRIGGER USER': ('roundtrip', 'single-node'),
-    'ALTER TRIGGER x ON y DEPENDS ON EXTENSION a': ('roundtrip', 'single-node'),
-    'COPY t FROM STDIN WITH (convert_selectively, some_str test, some_num 1,'
-    ' some_list (a), some_star *)': ('roundtrip', 'single-node'),
-}
-
-
 def corpus_statements():
     """
     Yield the ``(origin, lineno, statement)`` triples of pglast's corpora and the deparser one.
@@ -121,23 +92,7 @@ def corpus_statements():
         yield deparse_tests_name, lineno, statement
 
 
-def corpus_parameters(*checks):
-    """
-    Build the parameters of a corpus ``checks``, over :func:`corpus_statements`.
-
-    The statements recorded in ``UNRELATED_DEPARSE_TESTS_FAILURES`` as failing one of those
-    checks are marked ``xfail(strict=True)``.
-    """
-    parameters = []
-    for origin, lineno, statement in corpus_statements():
-        failed = sorted(set(checks) & set(UNRELATED_DEPARSE_TESTS_FAILURES.get(statement, ())))
-        marks = ([pytest.mark.xfail(strict=True, reason='known unrelated gap: ' + ', '.join(failed))]
-                 if failed else [])
-        parameters.append(pytest.param(origin, lineno, statement, marks=marks))
-    return parameters
-
-
-@pytest.mark.parametrize('src,lineno,statement', corpus_parameters('roundtrip'), ids=make_id)
+@pytest.mark.parametrize('src,lineno,statement', corpus_statements(), ids=make_id)
 def test_printers_roundtrip(src, lineno, statement):
     try:
         orig_ast = parse_sql(statement)
@@ -206,7 +161,7 @@ def test_remove_pg_catalog_keeps_required_function_schema(statement):
     assert serialized == statement
 
 
-@pytest.mark.parametrize('src,lineno,statement', corpus_parameters('single-node'), ids=make_id)
+@pytest.mark.parametrize('src,lineno,statement', corpus_statements(), ids=make_id)
 def test_stream_call_with_single_node(src, lineno, statement):
     # See https://github.com/lelit/pglast/pull/10 and https://github.com/lelit/pglast/issues/79
     try:
@@ -287,7 +242,7 @@ def test_pg_regress_corpus(filename):
             trimmed_stmt, rel_src, lineno, serialized)
 
 
-@pytest.mark.parametrize('src,lineno,statement', corpus_parameters('serialization'), ids=make_id)
+@pytest.mark.parametrize('src,lineno,statement', corpus_statements(), ids=make_id)
 def test_ast_serialization_roundtrip(src, lineno, statement):
     try:
         orig_ast = parse_sql(statement)
@@ -299,13 +254,3 @@ def test_ast_serialization_roundtrip(src, lineno, statement):
     serialized = stmt()
     clone = stmt.__class__(serialized)
     assert stmt == clone
-
-
-def test_unrelated_failure_table_names_only_corpus_statements():
-    # The table may only name statements of the deparser corpus: pglast's own corpora are held to
-    # the strict standard by the checks above, so listing one of theirs there would silently mask
-    # a regression.
-    if not deparse_tests_statements:
-        pytest.skip('the deparser corpus is not available')
-    assert not set(UNRELATED_DEPARSE_TESTS_FAILURES) - {statement for _lineno, statement
-                                                       in deparse_tests_statements}
