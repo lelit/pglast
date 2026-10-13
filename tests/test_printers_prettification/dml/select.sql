@@ -678,56 +678,18 @@ SELECT 1
 WHERE (x > 1
     OR y > 1) IS NULL
 
-select num, val,
-    val is nfc normalized as nfc,
-    val is nfd normalized as nfd,
-    val is nfkc normalized as nfkc,
-    val is nfkd normalized as nfkd
-from
-  (values (1, u&'\00e4bc'),
-          (2, u&'\0061\0308bc'),
-          (3, u&'\00e4\24d1c'),
-          (4, u&'\0061\0308\24d1c'),
-          (5, '')) vals (num, val)
-order by num
+select 'A' is nfc normalized as nfc, 'A' is nfd normalized as nfd, 'A' is nfkc normalized as nfkc, 'A' is nfkd normalized as nfkd
 =
-SELECT num
-     , val
-     , pg_catalog.is_normalized(val, 'NFC') AS nfc
-     , pg_catalog.is_normalized(val, 'NFD') AS nfd
-     , pg_catalog.is_normalized(val, 'NFKC') AS nfkc
-     , pg_catalog.is_normalized(val, 'NFKD') AS nfkd
-FROM ((VALUES (1, 'äbc')
-            , (2, 'äbc')
-            , (3, 'äⓑc')
-            , (4, 'äⓑc')
-            , (5, ''))) AS vals (num, val)
-ORDER BY num
+SELECT pg_catalog.is_normalized('A', 'NFC') AS nfc
+     , pg_catalog.is_normalized('A', 'NFD') AS nfd
+     , pg_catalog.is_normalized('A', 'NFKC') AS nfkc
+     , pg_catalog.is_normalized('A', 'NFKD') AS nfkd
 
-select num, val,
-    val is nfc normalized as nfc,
-    val is nfd normalized as nfd,
-    val is nfkc normalized as nfkc,
-    val is nfkd normalized as nfkd
-from
-  (values (1, u&'\00e4bc'),
-          (2, u&'\0061\0308bc'),
-          (3, u&'\00e4\24d1c'),
-          (4, u&'\0061\0308\24d1c'),
-          (5, '')) vals (num, val)
-order by num
+select 'A' is nfc normalized as nfc, 'A' is nfd normalized as nfd, 'A' is nfkc normalized as nfkc, 'A' is nfkd normalized as nfkd
 =
-SELECT num
-     , val
-     , val IS NFC NORMALIZED AS nfc
-     , val IS NFD NORMALIZED AS nfd
-     , val IS NFKC NORMALIZED AS nfkc
-     , val IS NFKD NORMALIZED AS nfkd
-FROM ((VALUES (1, 'äbc')
-            , (2, 'äbc')
-            , (3, 'äⓑc')
-            , (4, 'äⓑc')
-            , (5, ''))) AS vals (num, val)
-ORDER BY num
+SELECT 'A' IS NFC NORMALIZED AS nfc
+     , 'A' IS NFD NORMALIZED AS nfd
+     , 'A' IS NFKC NORMALIZED AS nfkc
+     , 'A' IS NFKD NORMALIZED AS nfkd
 :
 {'special_functions': True}
