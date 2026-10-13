@@ -582,7 +582,18 @@ def copy_stmt_def_elem(node, output):
         output.write(option.upper())
         output.write(str(argv.ival))
     else:
-        raise NotImplementedError(option)
+        output.write(option)
+        if argv:
+            output.write(' ')
+            if isinstance(argv, ast.String):
+                output.write(argv.sval.upper())
+            elif isinstance(argv, ast.Integer):
+                output.write(str(argv.ival))
+            elif isinstance(argv, ast.A_Star):
+                output.write('*')
+            elif isinstance(argv, tuple):
+                with output.expression(True):
+                    output.print_list(argv, are_names=True)
 
 
 @node_printer(ast.DeclareCursorStmt)
