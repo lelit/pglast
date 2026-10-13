@@ -73,6 +73,12 @@
 
    Pretty print a `node` of type `AlterFunctionStmt <https://github.com/pganalyze/libpg_query/blob/776c2ac/src/postgres/include/nodes/parsenodes.h#L3564>`__ to the `output` stream.
 
+.. index:: AlterObjectDependsStmt
+
+.. function:: alter_object_depends_stmt(node, output)
+
+   Pretty print a `node` of type `AlterObjectDependsStmt <https://github.com/pganalyze/libpg_query/blob/776c2ac/src/postgres/include/nodes/parsenodes.h#L3647>`__ to the `output` stream.
+
 .. index:: AlterObjectSchemaStmt
 
 .. function:: alter_object_schema_stmt(node, output)
@@ -121,6 +127,12 @@
 .. function:: alter_seq_stmt(node, output)
 
    Pretty print a `node` of type `AlterSeqStmt <https://github.com/pganalyze/libpg_query/blob/776c2ac/src/postgres/include/nodes/parsenodes.h#L3228>`__ to the `output` stream.
+
+.. index:: AlterSystemStmt
+
+.. function:: alter_system_stmt(node, output)
+
+   Pretty print a `node` of type `AlterSystemStmt <https://github.com/pganalyze/libpg_query/blob/776c2ac/src/postgres/include/nodes/parsenodes.h#L3918>`__ to the `output` stream.
 
 .. index:: AlterTableSpaceOptionsStmt
 
