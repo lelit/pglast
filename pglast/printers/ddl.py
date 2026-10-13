@@ -243,6 +243,28 @@ def alter_function_stmt(node, output):
     output.print_list(node.actions, ' ')
 
 
+@node_printer(ast.AlterObjectDependsStmt)
+def alter_object_depends_stmt(node, output):
+    OT = enums.ObjectType
+    objtype = node.objectType
+    output.write('ALTER ')
+    output.writes(OBJECT_NAMES[objtype])
+    if objtype in {OT.OBJECT_FUNCTION,
+                   OT.OBJECT_PROCEDURE,
+                   OT.OBJECT_ROUTINE}:
+        output.print_name(node.object)
+    elif objtype == OT.OBJECT_TRIGGER:
+        output.print_name(node.object)
+        output.write(' ON ')
+        output.print_name(node.relation)
+    else:
+        output.print_name(node.relation)
+    if node.remove:
+        output.write(' NO')
+    output.write(' DEPENDS ON EXTENSION ')
+    output.print_symbol(node.extname)
+
+
 @node_printer(ast.AlterObjectSchemaStmt)
 def alter_object_schema_stmt(node, output):
     OT = enums.ObjectType
@@ -364,6 +386,12 @@ def alter_seq_stmt(node, output):
     output.print_node(node.sequence)
     if node.options:
         output.print_list(node.options, '')
+
+
+@node_printer(ast.AlterSystemStmt)
+def alter_system_stmt(node, output):
+    output.write('ALTER SYSTEM ')
+    output.print_node(node.setstmt)
 
 
 @node_printer(ast.AlterTableSpaceOptionsStmt)
@@ -561,6 +589,9 @@ class AlterTableTypePrinter(IntEnumPrinter):
 
     def AT_EnableTrigAll(self, node, output):
         output.write('ENABLE TRIGGER ALL')
+
+    def AT_EnableTrigUser(self, node, output):
+        output.write('ENABLE TRIGGER USER')
 
     def AT_ForceRowSecurity(self, node, output):
         output.write('FORCE ROW LEVEL SECURITY ')
