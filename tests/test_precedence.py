@@ -187,17 +187,11 @@ def test_expr_precedence_op_any_all(sql, expected):
 
 
 def test_expr_precedence_special_functions_mode():
-    """
-    ``AT TIME ZONE`` and ``IS ... NORMALIZED`` depend on the stream's special_functions option.
-    """
-
+    # ``AT TIME ZONE`` and ``IS ... NORMALIZED`` depend on the stream's special_functions options
     assert expr_precedence(expr("a AT TIME ZONE 'UTC'"), plain) == ExprPrec.ATOM
     assert expr_precedence(expr("a AT TIME ZONE 'UTC'"), special) == ExprPrec.AT
-
-    # pglast does not implement the "IS ... NORMALIZED" special printer yet: even with
-    # special_functions enabled the node is printed as a plain function call, so ATOM
-    assert special.get_printer_for_function('pg_catalog.is_normalized') is None
-    assert expr_precedence(expr("'x' IS NFC NORMALIZED"), special) == ExprPrec.ATOM
+    assert expr_precedence(expr("'x' IS NFC NORMALIZED"), plain) == ExprPrec.ATOM
+    assert expr_precedence(expr("'x' IS NFC NORMALIZED"), special) == ExprPrec.IS
 
 
 @pytest.mark.parametrize('sql, parent_prec, side, expected', (

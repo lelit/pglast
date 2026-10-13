@@ -677,3 +677,57 @@ SELECT 1 WHERE (x > 1 OR y > 1) IS NULL
 SELECT 1
 WHERE (x > 1
     OR y > 1) IS NULL
+
+select num, val,
+    val is nfc normalized as nfc,
+    val is nfd normalized as nfd,
+    val is nfkc normalized as nfkc,
+    val is nfkd normalized as nfkd
+from
+  (values (1, u&'\00e4bc'),
+          (2, u&'\0061\0308bc'),
+          (3, u&'\00e4\24d1c'),
+          (4, u&'\0061\0308\24d1c'),
+          (5, '')) vals (num, val)
+order by num
+=
+SELECT num
+     , val
+     , pg_catalog.is_normalized(val, 'NFC') AS nfc
+     , pg_catalog.is_normalized(val, 'NFD') AS nfd
+     , pg_catalog.is_normalized(val, 'NFKC') AS nfkc
+     , pg_catalog.is_normalized(val, 'NFKD') AS nfkd
+FROM ((VALUES (1, 'äbc')
+            , (2, 'äbc')
+            , (3, 'äⓑc')
+            , (4, 'äⓑc')
+            , (5, ''))) AS vals (num, val)
+ORDER BY num
+
+select num, val,
+    val is nfc normalized as nfc,
+    val is nfd normalized as nfd,
+    val is nfkc normalized as nfkc,
+    val is nfkd normalized as nfkd
+from
+  (values (1, u&'\00e4bc'),
+          (2, u&'\0061\0308bc'),
+          (3, u&'\00e4\24d1c'),
+          (4, u&'\0061\0308\24d1c'),
+          (5, '')) vals (num, val)
+order by num
+=
+SELECT num
+     , val
+     , val IS NFC NORMALIZED AS nfc
+     , val IS NFD NORMALIZED AS nfd
+     , val IS NFKC NORMALIZED AS nfkc
+     , val IS NFKD NORMALIZED AS nfkd
+FROM ((VALUES (1, 'äbc')
+            , (2, 'äbc')
+            , (3, 'äⓑc')
+            , (4, 'äⓑc')
+            , (5, ''))) AS vals (num, val)
+ORDER BY num
+:
+{'special_functions': True}

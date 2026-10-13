@@ -83,6 +83,17 @@ def normalize(node, output):
             output.write(node.args[1].val.sval.upper())
 
 
+@special_function('pg_catalog.is_normalized')
+def is_normalized(node, output):
+    """
+    Emit function ``pg_catalog.is_normalized(v, kind)`` as ``v IS kind NORMALIZED``.
+    """
+    output.print_node(node.args[0])
+    output.write(' IS ')
+    output.write(node.args[1].val.sval)
+    output.write(' NORMALIZED')
+
+
 @special_function('pg_catalog.overlaps')
 def overlaps(node, output):
     "Emit function ``pg_catalog.overlaps(a, b, c, d)`` as ``(a, b) OVERLAPS (c, d)``."
