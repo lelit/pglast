@@ -573,9 +573,11 @@ def copy_stmt_def_elem(node, output):
         else:
             output.write('*')
     elif option == 'convert_selectively':
-        output.write('CONVERT_SELECTIVELY ')
-        with output.expression(True):
-            output.print_name(argv)
+        output.write(option.upper())
+        if argv:
+            output.write(' ')
+            with output.expression(True):
+                output.print_name(argv)
     elif option == 'reject_limit':
         output.write(option.upper())
         output.write(str(argv.ival))
