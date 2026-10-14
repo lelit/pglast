@@ -8,7 +8,7 @@ Changes
 Version 8
 #########
 
-8.6 (unreleased)
+8.6 (2026-10-14)
 ~~~~~~~~~~~~~~~~
 
 - Fix AST typing and serialized child construction (`PR #220`__), thanks to Alexander
