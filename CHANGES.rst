@@ -16,12 +16,9 @@ Version 8
 
   __ https://github.com/lelit/pglast/pull/220
 
-- Fix the parenthesization of expression operands, replacing the previous ad-hoc heuristics with
-  proper precedence and position rules: what ``RawStream`` and ``IndentedStream`` render now
-  always re-parses to the very same tree, losing the spurious parentheses around ``x AT TIME
-  ZONE y`` used as a ``DEFAULT`` expression and gaining the missing ones around the operands of
-  ``POSITION()``, ``XMLEXISTS()``, ``IS DOCUMENT``/``IS JSON`` and ``xmltable`` columns
-  (issue `#211`__)
+- Fix the parenthesization of expression operands, replacing the previous ad-hoc heuristics
+  with proper precedence and position rules (issue `#211`__): note that many printer functions
+  had to be changed to use new methods in ``RawStream``, primarily ``print_operand()``
 
   __ https://github.com/lelit/pglast/issues/211
 
