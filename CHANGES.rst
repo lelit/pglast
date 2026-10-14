@@ -25,6 +25,9 @@ Version 8
 
   __ https://github.com/lelit/pglast/issues/211
 
+- Fix two missing spaces in the single-line form of a list when the ``compact_lists_margin``
+  option is in use
+
 
 8.5 (2026-10-04)
 ~~~~~~~~~~~~~~~~
