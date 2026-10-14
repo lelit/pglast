@@ -532,7 +532,9 @@ class RawStream(OutputStream):
                         if newline:
                             self.newline()
                     if sep:
-                        self.write(sep)
+                        # the item just printed may have ended with a closing parenthesis,
+                        # which consumed the pending separator: ask for the space explicitly
+                        self.swrite(sep)
                         if sep != '.':
                             self.write(' ')
             if item is None:
@@ -758,7 +760,9 @@ class IndentedStream(RawStream):
             if clm is not None and clm > 0:
                 rawlist = self._concat_nodes(nodes, sep, are_names, item_needs_parens)
                 if self.current_column + len(rawlist) < clm:
-                    self.write(rawlist)
+                    # the items were printed on a separate stream, so the pending separator
+                    # that print_node() leaves behind is lost: re-establish it on this one
+                    self.writes(rawlist)
                     return
 
             standalone_items = not all(isinstance(n, (ast.A_Const, ast.ColumnRef,

@@ -24,6 +24,14 @@ WHERE c BETWEEN 1 AND 2
 :
 {'compact_lists_margin': 80}
 
+SELECT * FROM t WHERE aa AND bb OR cc AND dd
+=
+SELECT *
+FROM t
+WHERE (aa AND bb) OR (cc AND dd)
+:
+{'compact_lists_margin': 80}
+
 select * from fmt a, fmt b where a.id <> b.id and (not a.f or b.f)
 =
 SELECT *
