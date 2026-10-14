@@ -46,7 +46,7 @@ pgpp = "pglast.__main__:main"
 
 [project.optional-dependencies]
 dev = [
-    "bump-my-version==1.5.1",
+    "bump-my-version==1.6.0",
     "cython==3.3.0",
     "pycparser==3.0",
     "readme-renderer==46.0",
@@ -56,12 +56,12 @@ dev = [
 ]
 test = [
     "coverage==7.16.2",
-    "mypy==2.3.1",
+    "mypy==2.4.0",
     "pycparser==3.0",
     "pytest-cov==7.1.0",
     "pytest==9.1.1",
     "sphinx==9.0.4",
-    "ty==0.0.84",
+    "ty==0.0.87",
 ]
 
 [build-system]
