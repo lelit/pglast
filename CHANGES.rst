@@ -8,7 +8,7 @@ Changes
 Version 8
 #########
 
-8.7 (unreleased)
+8.7 (2026-10-18)
 ~~~~~~~~~~~~~~~~
 
 - Fix regression in the `CollateClause` printer (issue `#222`__)
