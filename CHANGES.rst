@@ -8,6 +8,12 @@ Changes
 Version 7
 #########
 
+7.22 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix ordering issue in ``ColumnDef`` printer
+
+
 7.21 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
