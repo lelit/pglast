@@ -8,6 +8,14 @@ Changes
 Version 8
 #########
 
+8.7 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix regression in the `CollateClause` printer (issue `#222`__)
+
+  __ https://github.com/lelit/pglast/issue/222
+
+
 8.6 (2026-10-14)
 ~~~~~~~~~~~~~~~~
 
