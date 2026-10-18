@@ -48,12 +48,13 @@ SELECT pg_catalog.extract(CAST('epoch' AS text)
 
 SELECT pg_catalog.extract('epoch'::text, now())
 =
-SELECT EXTRACT(CAST('epoch' AS text) FROM now())
+SELECT pg_catalog.extract(CAST('epoch' AS text)
+                        , now())
 :
 {'special_functions': True}
 
 SELECT pg_catalog.extract('epoch'::text, now())
 =
-SELECT EXTRACT(CAST('epoch' AS text) FROM now())
+SELECT pg_catalog.extract(CAST('epoch' AS text), now())
 :
 {'special_functions': True, 'raw_stream': True}

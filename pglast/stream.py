@@ -15,7 +15,7 @@ from . import ast, enums, parse_plpgsql, parse_sql
 from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
 from .precedence import (ExprContext, is_b_expr_rule, needs_parens_as_c_expr,
                          needs_parens_for_precedence)
-from .printers import get_printer_for_node, get_special_function
+from .printers import get_printer_for_node, get_special_function, sfuncs
 
 
 is_simple_name = compile(r'[a-z_][a-z0-9_]*$').match
@@ -227,18 +227,27 @@ class RawStream(OutputStream):
         """Look for a specific printer for function `name` in :data:`SPECIAL_FUNCTIONS`.
 
         :param str name: the qualified name of the function
+        :param node: optional function call to check for compatibility with special syntax
         :returns: either ``None`` or a callable
 
         When the option `special_functions` is ``True``, return the printer function associated
-        with `name`, if present. For functions whose comma-call form is distinct from their
-        SQL syntax form, also return the printer when the parsed node used SQL syntax.
+        with `name`, if present and compatible with the supplied node. For functions whose
+        comma-call form is distinct from their SQL syntax form, preserve the parsed form.
+        Return ``None`` to use the ordinary function-call printer instead.
         """
 
+        printer = get_special_function(name)
+        if printer is None:
+            return None
+        if node is None:
+            return printer if self.special_functions else None
+        if not sfuncs.can_use_special_syntax(printer, node):
+            return None
         if (self.special_functions
-                or (node is not None
-                    and name in SQL_SYNTAX_SPECIAL_FUNCTIONS
+                or (name in SQL_SYNTAX_SPECIAL_FUNCTIONS
                     and node.funcformat == enums.CoercionForm.COERCE_SQL_SYNTAX)):
-            return get_special_function(name)
+            return printer
+        return None
 
     def indent(self, amount=0, relative=True):
         "Do nothing, shall be overridden by the prettifier subclass."

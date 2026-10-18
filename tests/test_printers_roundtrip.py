@@ -93,13 +93,14 @@ def corpus_statements():
 
 
 @pytest.mark.parametrize('src,lineno,statement', corpus_statements(), ids=make_id)
-def test_printers_roundtrip(src, lineno, statement):
+@pytest.mark.parametrize('special_functions', (False, True))
+def test_printers_roundtrip(src, lineno, statement, special_functions):
     try:
         orig_ast = parse_sql(statement)
     except:  # noqa
         raise RuntimeError("%s:%d:Could not parse “%s”" % (src, lineno, statement))
 
-    serialized = RawStream()(orig_ast)
+    serialized = RawStream(special_functions=special_functions)(orig_ast)
     try:
         serialized_ast = parse_sql(serialized)
     except:  # noqa
@@ -108,7 +109,7 @@ def test_printers_roundtrip(src, lineno, statement):
     assert orig_ast == serialized_ast, ("Statement “%s” from %s at line %d != “%s”"
                                       % (statement, src, lineno, serialized))
 
-    indented = IndentedStream()(orig_ast)
+    indented = IndentedStream(special_functions=special_functions)(orig_ast)
     try:
         indented_ast = parse_sql(indented)
     except:  # noqa
@@ -135,8 +136,9 @@ def test_printers_roundtrip(src, lineno, statement):
     ),
 ))
 @pytest.mark.parametrize('stream_class', (RawStream, IndentedStream))
+@pytest.mark.parametrize('special_functions', (False, True))
 def test_special_function_sql_syntax_roundtrip_preserves_funcformat(
-        stream_class, statement, explicit_statement, bare_comma_call):
+        stream_class, special_functions, statement, explicit_statement, bare_comma_call):
     explicit_call = parse_sql(explicit_statement)
     sql_syntax = parse_sql(statement)
 
@@ -145,10 +147,50 @@ def test_special_function_sql_syntax_roundtrip_preserves_funcformat(
     with pytest.raises(ParseError):
         parse_sql(bare_comma_call)
 
-    serialized = stream_class()(sql_syntax)
-    serialized_syntax = parse_sql(serialized)
+    # AST equality ignores funcformat, so check it explicitly for both forms.
+    for parsed, expected_format in (
+            (explicit_call, enums.CoercionForm.COERCE_EXPLICIT_CALL),
+            (sql_syntax, enums.CoercionForm.COERCE_SQL_SYNTAX)):
+        serialized = stream_class(special_functions=special_functions)(parsed)
+        serialized_syntax = parse_sql(serialized)
+        assert serialized_syntax == parsed, serialized
+        assert serialized_syntax[0].stmt.targetList[0].val.funcformat == expected_format, serialized
 
-    assert serialized_syntax[0].stmt.targetList[0].val.funcformat == enums.CoercionForm.COERCE_SQL_SYNTAX, serialized
+
+@pytest.mark.parametrize('stream_class', (RawStream, IndentedStream))
+@pytest.mark.parametrize('special_functions', (False, True))
+@pytest.mark.parametrize('schema', ('', 'pg_catalog.', 'custom_schema.'))
+@pytest.mark.parametrize('cast_arguments', (False, True))
+@pytest.mark.parametrize('name,arguments', (
+    ('extract', ("'epoch'", 'now()')),
+    ('position', ('needle', 'haystack')),
+    ('substring', ('value', '2', '4')),
+    ('overlay', ('value', "'replacement'", '2', '4')),
+    ('overlay', ('value', "'replacement'", '2')),
+    ('trim', ('value',)),
+    ('normalize', ('value', "'NFC'")),
+    ('is_normalized', ('value', "'NFC'")),
+))
+@pytest.mark.parametrize('call', (
+    '({args})',
+    '(DISTINCT {args})',
+    '({args} ORDER BY sort_key)',
+    '({args}) WITHIN GROUP (ORDER BY sort_key)',
+    '({args}) FILTER (WHERE enabled)',
+    '({args}) FILTER (WHERE enabled) OVER (PARTITION BY group_key ORDER BY sort_key)',
+    '({variadic_args})',
+    '(*)',
+))
+def test_keyword_function_roundtrip(
+        stream_class, special_functions, schema, cast_arguments, name, arguments, call):
+    if cast_arguments:
+        arguments = tuple(f'CAST({argument} AS text)' for argument in arguments)
+    call = call.format(args=', '.join(arguments),
+                       variadic_args=', '.join((*arguments[:-1], 'VARIADIC ' + arguments[-1])))
+    statement = f'SELECT {schema}"{name}"{call} FROM t'
+    parsed = parse_sql(statement)
+    serialized = stream_class(special_functions=special_functions)(parsed)
+    assert parse_sql(serialized) == parsed, serialized
 
 
 @pytest.mark.parametrize('statement', (
@@ -192,7 +234,8 @@ skip_for_good_reasons = {
                          [src.name for src in sorted(pg_regressions_dir.glob('*.sql'))
                           if src.name not in skip_for_good_reasons],
                          ids=make_id)
-def test_pg_regress_corpus(filename):
+@pytest.mark.parametrize('special_functions', (False, True))
+def test_pg_regress_corpus(filename, special_functions):
     # we do this dance to minimize the length of the test name
     src = pg_regressions_dir / filename
     source = src.read_text()
@@ -224,7 +267,7 @@ def test_pg_regress_corpus(filename):
                                % (trimmed_stmt, rel_src, lineno, e))
 
         try:
-            serialized = RawStream()(orig_ast)
+            serialized = RawStream(special_functions=special_functions)(orig_ast)
         except NotImplementedError as e:
             raise NotImplementedError("Statement “%s” from %s at line %d, could not reprint: %s"
                                       % (trimmed_stmt, rel_src, lineno, e))
