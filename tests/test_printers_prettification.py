@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from pglast import _extract_comments
+from pglast import _extract_comments, parse_sql
 from pglast.stream import IndentedStream, RawStream
 import pglast.printers  # noqa
 
@@ -96,3 +96,10 @@ def test_prettification(src, lineno, case):
     raw = options.pop('raw_stream', False)
     prettified = (RawStream if raw else IndentedStream)(**options)(original)
     assert expected == prettified, "%s:%d:%r != %r" % (src, lineno, expected, prettified)
+    parsed = parse_sql(original)
+    assert parse_sql(prettified) == parsed, (src, lineno, prettified)
+
+    # Formatting expectations exercise one mode; check the other mode's SQL as well.
+    options['special_functions'] = not options.get('special_functions', False)
+    alternate = (RawStream if raw else IndentedStream)(**options)(original)
+    assert parse_sql(alternate) == parsed, (src, lineno, alternate)
