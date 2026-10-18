@@ -156,6 +156,33 @@ def test_special_function():
         SPECIAL_FUNCTIONS.pop('foo.test_function')
 
 
+@pytest.mark.parametrize('special_functions', (False, True))
+@pytest.mark.parametrize('name', ('pg_catalog.extract', 'pg_catalog.normalize', 'foo.unknown'))
+def test_special_function_lookup_without_node(special_functions, name):
+    output = RawStream(special_functions=special_functions)
+    expected = SPECIAL_FUNCTIONS.get(name) if special_functions else None
+    assert output.get_printer_for_function(name) is expected
+    assert output.get_printer_for_function(name, None) is expected
+
+
+@pytest.mark.parametrize('name', ('foo.custom', 'pg_catalog.extract', 'pg_catalog.normalize'))
+@pytest.mark.parametrize('call', ('(x)', '(DISTINCT x)', '(x) OVER ()'))
+def test_custom_special_function(name, call):
+    previous = SPECIAL_FUNCTIONS.get(name)
+    try:
+        @special_function(name, override=True)
+        def custom(node, output):
+            output.write('custom_result')
+
+        assert RawStream(special_functions=True)('SELECT ' + name + call) == (
+            'SELECT custom_result')
+    finally:
+        if previous is None:
+            SPECIAL_FUNCTIONS.pop(name)
+        else:
+            SPECIAL_FUNCTIONS[name] = previous
+
+
 def walked(sql):
     "Parse `sql` and populate the *ancestors* of the whole tree, then return the tree."
 

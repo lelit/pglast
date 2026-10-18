@@ -728,7 +728,7 @@ def func_call(node, output):
         special_printer(node, output)
         return
 
-    if output.special_functions and name in COL_NAME_KEYWORDS:
+    if name in COL_NAME_KEYWORDS:
         output.write(f'"{name}"')
     else:
         output.print_name(node.funcname)

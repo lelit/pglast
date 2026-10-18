@@ -5,8 +5,12 @@
 # :Copyright: © 2017-2026 Lele Gaifax
 #
 
+from typing import Any
+
 from .. import ast
 from ..stream import RawStream
+
+def can_use_special_syntax(printer: Any, node: ast.Node) -> Any: ...
 
 def btrim(node: ast.FuncCall, output: RawStream) -> None: ...
 
