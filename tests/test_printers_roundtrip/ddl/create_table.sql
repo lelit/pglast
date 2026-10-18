@@ -268,3 +268,5 @@ create tablespace foo owner current_user location '/bar'
 create tablespace foo owner me location '/bar'
 
 create tablespace foo location '/bar' with (seq_page_cost=1)
+
+create table orders (id text storage external compression lz4, name text)

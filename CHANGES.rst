@@ -102,12 +102,14 @@ anymore.
 Version 7
 #########
 
-7.21 (unreleased)
+7.21 (2026-10-18)
 ~~~~~~~~~~~~~~~~~
 
 - Avoid exception when dealing with empty statements (issue `#212`__)
 
   __ https://github.com/lelit/pglast/issues/212
+
+- Fix ordering issue in ``ColumnDef`` printer
 
 
 7.20 (2026-10-02)
