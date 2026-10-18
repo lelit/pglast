@@ -55,3 +55,13 @@ CREATE FOREIGN TABLE orders (
 ) SERVER mood_server
   OPTIONS (schema_name 'some_schema'
          , table_name 'some_table')
+
+CREATE FOREIGN TABLE orders (id text STORAGE external OPTIONS (column_name 'id') COLLATE "default", name text)
+SERVER mood_server OPTIONS (schema_name 'some_schema', table_name 'some_table')
+=
+CREATE FOREIGN TABLE orders (
+    id text STORAGE external OPTIONS (column_name 'id') COLLATE "default"
+  , name text
+) SERVER mood_server
+  OPTIONS (schema_name 'some_schema'
+         , table_name 'some_table')

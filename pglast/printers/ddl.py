@@ -1228,7 +1228,7 @@ def column_def(node, output):
         output.write(node.storage_name)
         output.write(' ')
     if node.fdwoptions:
-        output.write(' OPTIONS ')
+        output.swrite('OPTIONS ')
         with output.expression(True):
             output.print_list(node.fdwoptions, ',')
     if node.collClause:
