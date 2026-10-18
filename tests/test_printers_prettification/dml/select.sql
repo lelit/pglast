@@ -676,6 +676,12 @@ SELECT (x COLLATE "C")::text
 =
 SELECT CAST(x COLLATE "C" AS text)
 
+SELECT a COLLATE "C" , (a || b) COLLATE "C" FROM t
+=
+SELECT a COLLATE "C"
+     , (a || b) COLLATE "C"
+FROM t
+
 SELECT ((a, b) OVERLAPS (c, d))::text
 =
 SELECT CAST(pg_catalog."overlaps"(a, b, c, d) AS text)

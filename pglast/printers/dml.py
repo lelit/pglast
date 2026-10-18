@@ -373,8 +373,7 @@ def coalesce_expr(node, output):
 def collate_clause(node, output):
     if node.arg:
         output.print_operand(node.arg, ExprPrec.COLLATE, Side.LEFT, ExprContext.A_EXPR)
-        output.write(' ')
-    output.write('COLLATE ')
+    output.swrite('COLLATE ')
     output.print_name(node.collname, '.')
 
 
