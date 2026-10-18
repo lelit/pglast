@@ -1135,16 +1135,15 @@ def column_def(node, output):
         output.space()
     if node.typeName:
         output.print_name(node.typeName)
+        if node.storage_name:
+            output.write(' STORAGE ')
+            output.write(node.storage_name)
         if node.compression:
             output.write(' COMPRESSION ')
             output.print_name(node.compression)
     else:
         if node.constraints:
             output.write('WITH OPTIONS ')
-    if node.storage_name:
-        output.write('STORAGE ')
-        output.write(node.storage_name)
-        output.write(' ')
     if node.fdwoptions:
         output.write(' OPTIONS ')
         with output.expression(True):
