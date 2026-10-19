@@ -940,7 +940,10 @@ def alter_stats_stmt(node, output):
         output.write('IF EXISTS ')
     output.print_name(node.defnames)
     output.write(' SET STATISTICS ')
-    output.print_node(node.stxstattarget)
+    if node.stxstattarget is None:
+        output.write('DEFAULT')
+    else:
+        output.print_node(node.stxstattarget)
 
 
 class AlterSubscriptionTypePrinter(IntEnumPrinter):
