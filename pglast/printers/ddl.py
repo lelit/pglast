@@ -1409,10 +1409,6 @@ class ConstrTypePrinter(IntEnumPrinter):
                 output.swrite('WITH OPERATOR')
                 with output.expression(True):
                     output.print_symbol(clauses)
-        if node.where_clause:
-            output.write(' WHERE ')
-            with output.expression(True):
-                output.print_node(node.where_clause)
 
     def CONSTR_FOREIGN(self, node, output):
         if node.fk_attrs:
@@ -1543,6 +1539,10 @@ def constraint(node, output):
                 output.newline()
             output.write(' USING INDEX TABLESPACE ')
             output.print_name(node.indexspace)
+        if node.where_clause and node.contype == enums.ConstrType.CONSTR_EXCLUSION:
+            output.write(' WHERE ')
+            with output.expression(True):
+                output.print_node(node.where_clause)
         if node.skip_validation:
             output.write(' NOT VALID')
         if (node.contype in (enums.ConstrType.CONSTR_CHECK,
