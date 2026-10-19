@@ -10,8 +10,8 @@
 from cpython.ref cimport Py_INCREF
 from cpython.tuple cimport PyTuple_New, PyTuple_SET_ITEM
 
-from pglast import ast, enums
-from pglast cimport structs
+from . import ast, enums
+from . cimport structs
 
 
 cdef _pg_bitmapset_to_set(const structs.Bitmapset* bms):
