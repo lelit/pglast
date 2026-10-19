@@ -2288,6 +2288,13 @@ def create_stmt(node, output):
                 output.newline()
             output.write(' PARTITION BY ')
             output.print_node(node.partspec)
+        if node.accessMethod:
+            if first:
+                first = False
+            else:
+                output.newline()
+            output.write(' USING ')
+            output.print_name(node.accessMethod)
         if node.options:
             if first:
                 first = False
@@ -2315,9 +2322,6 @@ def create_stmt(node, output):
                 output.newline()
             output.write(' TABLESPACE ')
             output.print_name(node.tablespacename)
-    if node.accessMethod:
-        output.write(' USING ')
-        output.print_name(node.accessMethod)
 
 
 @node_printer(ast.CreateTableAsStmt)
