@@ -1517,10 +1517,6 @@ def constraint(node, output):
         output.write(' INCLUDE ')
         with output.expression(True):
             output.print_list(node.including, ',', are_names=True)
-    if node.deferrable:
-        output.swrite('DEFERRABLE')
-        if node.initdeferred:
-            output.swrite('INITIALLY DEFERRED')
     with output.push_indent():
         first = True
         if node.options and node.contype == enums.ConstrType.CONSTR_UNIQUE:
@@ -1543,6 +1539,10 @@ def constraint(node, output):
                 output.newline()
             output.write(' USING INDEX TABLESPACE ')
             output.print_name(node.indexspace)
+        if node.deferrable:
+            output.swrite('DEFERRABLE')
+            if node.initdeferred:
+                output.swrite('INITIALLY DEFERRED')
         if node.skip_validation:
             output.write(' NOT VALID')
         if (node.contype in (enums.ConstrType.CONSTR_CHECK,
