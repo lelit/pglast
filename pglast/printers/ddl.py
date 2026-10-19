@@ -3241,7 +3241,7 @@ def sec_label_stmt(node, output):
     output.write(' ')
     output.print_name(node.object)
     output.write(' IS ')
-    if node.label:
+    if node.label is not None:
         output.print_node(node.label)
     else:
         output.write('NULL')
