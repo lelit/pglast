@@ -2239,15 +2239,19 @@ def create_trig_stmt(node, output):
                 output.write('INSTEAD OF ')
         else:
             output.write('AFTER ')
-        event_strings = []
+        first = True
         for ev in ('INSERT', 'DELETE', 'UPDATE', 'TRUNCATE'):
             bitmask = getattr(enums, 'TRIGGER_TYPE_%s' % ev)
             if node.events & bitmask:
-                event_strings.append(ev)
-        output.write(' OR '.join(event_strings))
-        if node.columns:
-            output.write(' OF ')
-            output.print_list(node.columns, ',', are_names=True)
+                if first:
+                    first = False
+                else:
+                    output.write(' OR ')
+                output.write(ev)
+                # The column list belongs to the UPDATE event
+                if ev == 'UPDATE' and node.columns:
+                    output.write(' OF ')
+                    output.print_list(node.columns, ',', are_names=True)
 
         output.newline()
         output.write('ON ')
