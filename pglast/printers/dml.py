@@ -729,7 +729,9 @@ def func_call(node, output):
         special_printer(node, output)
         return
 
-    if output.special_functions and name in COL_NAME_KEYWORDS:
+    # A column name keyword is not a valid function name, unless it is one of the few that
+    # the grammar also accepts with a plain argument list
+    if name in COL_NAME_KEYWORDS and name not in ('overlay', 'substring'):
         output.write(f'"{name}"')
     else:
         output.print_name(node.funcname)

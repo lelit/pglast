@@ -531,3 +531,7 @@ select (not false) is true
 select not false is true
 
 select a = (true is false)
+
+SELECT "normalize"('abc', 'def')
+
+SELECT "coalesce"(1, 2), "int"(1), "trim"('a')
