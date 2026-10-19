@@ -2389,6 +2389,10 @@ def create_trig_stmt(node, output):
         output.write('ON ')
         output.print_node(node.relation)
 
+        if node.constrrel:
+            output.swrite('FROM ')
+            output.print_name(node.constrrel)
+
         if node.deferrable:
             output.swrite('DEFERRABLE')
             if node.initdeferred:
@@ -2397,10 +2401,6 @@ def create_trig_stmt(node, output):
         if node.transitionRels:
             output.swrite('REFERENCING ')
             output.print_list(node.transitionRels, ' ')
-
-        if node.constrrel:
-            output.swrite('FROM ')
-            output.print_name(node.constrrel)
 
         output.newline()
         output.write('FOR EACH ')
