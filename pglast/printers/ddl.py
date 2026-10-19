@@ -1396,7 +1396,9 @@ def constraint(node, output):
             output.swrite('INITIALLY DEFERRED')
     with output.push_indent():
         first = True
-        if node.options and node.contype == enums.ConstrType.CONSTR_UNIQUE:
+        if node.options and node.contype in (enums.ConstrType.CONSTR_UNIQUE,
+                                             enums.ConstrType.CONSTR_PRIMARY,
+                                             enums.ConstrType.CONSTR_EXCLUSION):
             output.write(' WITH ')
             with output.expression(True):
                 firstOption = True
@@ -1406,8 +1408,9 @@ def constraint(node, output):
                     else:
                         output.write(', ')
                     output.print_name(option.defname)
-                    output.write(' = ')
-                    output.print_node(option.arg)
+                    if option.arg is not None:
+                        output.write(' = ')
+                        output.print_node(option.arg)
             first = False
         if node.indexspace:
             if first:
