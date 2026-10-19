@@ -11,13 +11,13 @@ recursive-include tests *.sql
 exclude libpg_query/*
 include libpg_query/LICENSE libpg_query/Makefile libpg_query/*.h
 recursive-include libpg_query/src *.c *.h
-recursive-include libpg_query/vendor *.c *.h
+recursive-include libpg_query/vendor *.c *.h *.inc
 include libpg_query/srcdata/*.json
 prune libpg_query/.github
 prune libpg_query/examples
 prune libpg_query/patches
 prune libpg_query/protobuf
-include libpg_query/protobuf/pg_query.proto libpg_query/protobuf/pg_query.pb-c.c libpg_query/protobuf/pg_query.pb-c.h
+include libpg_query/protobuf/pg_query.proto libpg_query/protobuf/pg_query.upb.h libpg_query/protobuf/pg_query.upb_minitable.c libpg_query/protobuf/pg_query.upb_minitable.h
 prune libpg_query/scripts
 prune libpg_query/test
 prune libpg_query/testdata
