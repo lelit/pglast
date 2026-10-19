@@ -8,6 +8,12 @@ Changes
 Version 5
 #########
 
+5.10 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+No changes, just an attempt to rebuild one version's wheels on PyPI.
+
+
 5.9 (2024-01-22)
 ~~~~~~~~~~~~~~~~
 
