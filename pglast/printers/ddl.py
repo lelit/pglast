@@ -3392,27 +3392,24 @@ def table_like_clause(node, output):
     output.write('LIKE ')
     output.print_node(node.relation)
     TLO = enums.TableLikeOption
-    if node.options == TLO.CREATE_TABLE_LIKE_ALL:
+    options = [TLO.CREATE_TABLE_LIKE_COMMENTS, TLO.CREATE_TABLE_LIKE_COMPRESSION,
+               TLO.CREATE_TABLE_LIKE_CONSTRAINTS, TLO.CREATE_TABLE_LIKE_DEFAULTS,
+               TLO.CREATE_TABLE_LIKE_IDENTITY, TLO.CREATE_TABLE_LIKE_GENERATED,
+               TLO.CREATE_TABLE_LIKE_INDEXES, TLO.CREATE_TABLE_LIKE_STATISTICS,
+               TLO.CREATE_TABLE_LIKE_STORAGE]
+    value = int(node.options)
+    known = sum(int(option) for option in options)
+    # Bits outside the known ones come from INCLUDING ALL, possibly followed by some
+    # EXCLUDING: emit it that way, to keep the very same value
+    if value & ~known:
         output.write(' INCLUDING ALL')
+        for option in options:
+            if not value & option:
+                output.write(' EXCLUDING ' + option.name[len('CREATE_TABLE_LIKE_'):])
     else:
-        if node.options & TLO.CREATE_TABLE_LIKE_COMMENTS:
-            output.write(' INCLUDING COMMENTS')
-        if node.options & TLO.CREATE_TABLE_LIKE_COMPRESSION:
-            output.write(' INCLUDING COMPRESSION')
-        if node.options & TLO.CREATE_TABLE_LIKE_CONSTRAINTS:
-            output.write(' INCLUDING CONSTRAINTS')
-        if node.options & TLO.CREATE_TABLE_LIKE_DEFAULTS:
-            output.write(' INCLUDING DEFAULTS')
-        if node.options & TLO.CREATE_TABLE_LIKE_IDENTITY:
-            output.write(' INCLUDING IDENTITY')
-        if node.options & TLO.CREATE_TABLE_LIKE_GENERATED:
-            output.write(' INCLUDING GENERATED')
-        if node.options & TLO.CREATE_TABLE_LIKE_INDEXES:
-            output.write(' INCLUDING INDEXES')
-        if node.options & TLO.CREATE_TABLE_LIKE_STATISTICS:
-            output.write(' INCLUDING STATISTICS')
-        if node.options & TLO.CREATE_TABLE_LIKE_STORAGE:
-            output.write(' INCLUDING STORAGE')
+        for option in options:
+            if value & option:
+                output.write(' INCLUDING ' + option.name[len('CREATE_TABLE_LIKE_'):])
 
 
 @node_printer(ast.TriggerTransition)
