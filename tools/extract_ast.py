@@ -184,7 +184,7 @@ class Node:
             if adaptor is not None:
                 value = adaptor(value)
             elif ctype != 'char*':
-                from pglast import enums
+                from . import enums
 
                 if hasattr(enums, ctype):
                     enum = getattr(enums, ctype)
@@ -309,8 +309,8 @@ AST_PYX_HEADER = f"""\
 from cpython.ref cimport Py_INCREF
 from cpython.tuple cimport PyTuple_New, PyTuple_SET_ITEM
 
-from pglast import ast, enums
-from pglast cimport structs
+from . import ast, enums
+from . cimport structs
 
 
 cdef _pg_bitmapset_to_set(const structs.Bitmapset* bms):
@@ -1244,7 +1244,7 @@ def _fixup_attribute_types_in_slots():
             elif ctype in ('JsonTablePlan', 'ValUnion'):
                 ptype = Node
             else:
-                from pglast import enums
+                from . import enums
 
                 if hasattr(enums, ctype):
                     ptype = (int, str, dict, getattr(enums, ctype))

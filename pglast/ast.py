@@ -164,7 +164,7 @@ class Node:
             if adaptor is not None:
                 value = adaptor(value)
             elif ctype != 'char*':
-                from pglast import enums
+                from . import enums
 
                 if hasattr(enums, ctype):
                     enum = getattr(enums, ctype)
@@ -4867,7 +4867,7 @@ def _fixup_attribute_types_in_slots():
             elif ctype in ('JsonTablePlan', 'ValUnion'):
                 ptype = Node
             else:
-                from pglast import enums
+                from . import enums
 
                 if hasattr(enums, ctype):
                     ptype = (int, str, dict, getattr(enums, ctype))
