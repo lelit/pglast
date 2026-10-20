@@ -53,7 +53,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-13]
+        os: [ubuntu-22.04, macos-14]
         arch: [auto]
         include:
           - os: ubuntu-22.04
