@@ -8,6 +8,19 @@ Changes
 Version 6
 #########
 
+6.17 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+Brown paper bag release: I did a huge mistake, without excuses.
+
+Attempting to gain some free space on PyPI to be able to upload all v8 wheels, having reached
+the 10 GiB limit, I basically wiped *all* the v5 and v6 artifacts... 😞
+
+See issue `#227`__.
+
+__ https://github.com/lelit/pglast/issues/227
+
+
 6.16 (2025-03-17)
 ~~~~~~~~~~~~~~~~~
 
