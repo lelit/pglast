@@ -11,13 +11,20 @@ Version 5
 5.10 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
-No changes, just an attempt to rebuild one version's wheels on PyPI.
+Brown paper bag release: I did a huge mistake, without excuses.
+
+Attempting to gain some free space on PyPI to be able to upload all v8 wheels, having reached
+the 10 GiB limit, I basically wiped *all* the v5 and v6 artifacts... 😞
+
+See issue `#227`__.
+
+__ https://github.com/lelit/pglast/issues/227
 
 
 5.9 (2024-01-22)
 ~~~~~~~~~~~~~~~~
 
-- Fix issue `143`__, affecting ``AlterOwnerStmt`` and ``RenameStmt`` printers
+- Fix issue `#143`__, affecting ``AlterOwnerStmt`` and ``RenameStmt`` printers
 
   __ https://github.com/lelit/pglast/issues/143
 
