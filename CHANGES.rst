@@ -8,7 +8,7 @@ Changes
 Version 6
 #########
 
-6.17 (unreleased)
+6.17 (2026-10-20)
 ~~~~~~~~~~~~~~~~~
 
 Brown paper bag release: I did a huge mistake, without excuses.
