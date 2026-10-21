@@ -154,6 +154,9 @@ def test_special_function_sql_syntax_roundtrip_preserves_funcformat(
 @pytest.mark.parametrize('statement', (
     "SELECT pg_catalog.extract('year', now())",
     "SELECT pg_catalog.position('abc', 'a')",
+    "SELECT pg_catalog.coalesce(1, 2)",
+    "SELECT pg_catalog.normalize('abc', 'NFC')",
+    "SELECT pg_catalog.int(1)",
 ))
 def test_remove_pg_catalog_keeps_required_function_schema(statement):
     serialized = RawStream(remove_pg_catalog_from_functions=True)(parse_sql(statement))
