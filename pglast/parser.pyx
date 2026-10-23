@@ -77,6 +77,10 @@ cdef extern from "pg_query.h" nogil:
         char* stderr_buffer
         PgQueryError* error
 
+    ctypedef struct PgQueryNormalizeResult:
+        char* normalized_query
+        PgQueryError* error
+
     ctypedef struct PgQuerySplitStmt:
         int stmt_location
         int stmt_len
@@ -139,6 +143,10 @@ cdef extern from "pg_query.h" nogil:
 
     PgQueryFingerprintResult pg_query_fingerprint(const char* input)
     void pg_query_free_fingerprint_result(PgQueryFingerprintResult result)
+
+    PgQueryNormalizeResult pg_query_normalize(const char* input)
+    PgQueryNormalizeResult pg_query_normalize_utility(const char* input)
+    void pg_query_free_normalize_result(PgQueryNormalizeResult result)
 
     PgQueryDeparseCommentsResult pg_query_deparse_comments_for_query(const char* query)
     void pg_query_free_deparse_comments_result(PgQueryDeparseCommentsResult result)
@@ -381,6 +389,33 @@ def fingerprint(str query):
     finally:
         with nogil:
             pg_query_free_fingerprint_result(result)
+
+
+def normalize(str query, bint utility_only=False):
+    "Replace the constants in the given ``SQL`` `query` with ``$n`` parameters."
+
+    cdef PgQueryNormalizeResult result
+    cdef const char *cstring
+
+    utf8 = query.encode('utf-8')
+    cstring = utf8
+
+    with nogil:
+        if utility_only:
+            result = pg_query_normalize_utility(cstring)
+        else:
+            result = pg_query_normalize(cstring)
+
+    try:
+        if result.error:
+            message = result.error.message.decode('utf-8')
+            offset_to_index = Displacements(query)
+            raise ParseError(message, offset_to_index(result.error.cursorpos-1))
+
+        return result.normalized_query.decode('utf-8')
+    finally:
+        with nogil:
+            pg_query_free_normalize_result(result)
 
 
 def split(str stmts, bint with_parser=True, bint only_slices=False):

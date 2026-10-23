@@ -18,17 +18,19 @@ __ https://github.com/pganalyze/libpg_query
 2. :func:`pglast.parser.parse_sql_protobuf()`
 3. :func:`pglast.parser.parse_plpgsql_json()`
 4. :func:`pglast.parser.fingerprint()`
-5. :func:`pglast.parser.scan()`
-6. :func:`pglast.parser.split()`
-7. :func:`pglast.parser.deparse_protobuf()`
+5. :func:`pglast.parser.normalize()`
+6. :func:`pglast.parser.scan()`
+7. :func:`pglast.parser.split()`
+8. :func:`pglast.parser.deparse_protobuf()`
 
 The first two take an ``SQL`` statement and return the correspondent *parse tree* respectively
 as a ``JSON`` encoded value and a ``Protobuf`` encoded value; the third function takes a
 ``PLpgSQL`` statement and returns the *parse tree* as ``JSON``, the fourth returns an *hash* of
-the given statement that can be used to compare different ``SQL``\ s, the fifth returns a
-sequence of *tokens* that compose a ``SQL`` statement, the sixth returns a sequence of the
-single statements and the last one accepts a ``Protobuf``\ -serialized statement and reproduce
-the original ``SQL`` statement.
+the given statement that can be used to compare different ``SQL``\ s, the fifth replaces the
+constants in the statement with ``$n`` parameters, the sixth returns a sequence of *tokens* that
+compose a ``SQL`` statement, the seventh returns a sequence of the single statements and the
+last one accepts a ``Protobuf``\ -serialized statement and reproduce the original ``SQL``
+statement.
 
 One more function, :func:`pglast.parser.parse_sql()`, is similar to ``parse_sql_json()`` but
 instead of ``JSON`` returns the syntax tree represented by a hierarchy of instances of the

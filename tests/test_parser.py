@@ -20,6 +20,7 @@ from pglast.parser import comments
 from pglast.parser import deparse_protobuf
 from pglast.parser import fingerprint
 from pglast.parser import get_postgresql_version
+from pglast.parser import normalize
 from pglast.parser import parse_sql_json
 from pglast.parser import parse_sql_protobuf
 from pglast.parser import scan
@@ -91,6 +92,23 @@ def test_fingerprint():
     sql1 = "SELECT * FROM x WHERE y = $1"
     sql2 = "SELECT * FROM x WHERE y IN ( $1::uuid )"
     assert fingerprint(sql1) == fingerprint(sql2)
+
+
+def test_normalize():
+    assert normalize("SELECT * FROM x WHERE y = 'foo' AND z = 42") == (
+        'SELECT * FROM x WHERE y = $1 AND z = $2')
+    assert normalize("SELECT $1, 'a'") == 'SELECT $1, $2'
+    assert normalize("CREATE ROLE foo PASSWORD 'secret'") == 'CREATE ROLE foo PASSWORD $1'
+
+    assert normalize("SELECT 'a'", utility_only=True) == "SELECT 'a'"
+    assert normalize("CREATE ROLE foo PASSWORD 'secret'", utility_only=True) == (
+        'CREATE ROLE foo PASSWORD $1')
+
+    with pytest.raises(ParseError) as exc:
+        normalize('SELECT 1, FROM x')
+    errmsg, index = exc.value.args
+    assert errmsg == 'syntax error at or near "FROM"'
+    assert index == 10
 
 
 def test_errors():
