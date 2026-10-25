@@ -3236,7 +3236,7 @@ def sec_label_stmt(node, output):
     if node.provider:
         output.write('FOR ')
         output.print_name(node.provider)
-    output.write(' ON ')
+    output.swrite('ON ')
     output.write(OBJECT_NAMES[node.objtype])
     output.write(' ')
     output.print_name(node.object)
