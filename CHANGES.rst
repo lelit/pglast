@@ -11,10 +11,15 @@ Version 7
 7.22 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
+- Emit index parameters of PRIMARY KEY and EXCLUDE constraints (backport of `PR #231`__),
+  thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/231
+
 - Fix ``FuncCall`` printer quoting functions named as *column name keywords* (backport of `PR
   #229`__), thanks to SongYoungUk
 
-  https://github.com/lelit/pglast/pull/229
+  __ https://github.com/lelit/pglast/pull/229
 
 
 7.21 (2026-10-18)
