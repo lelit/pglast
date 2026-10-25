@@ -12,7 +12,7 @@ Version 8
 ~~~~~~~~~~~~~~~~
 
 - Fix build from sdist including missing ``upb`` sources from underlying libpg_query (`PR
-  #226`__), thanks to Devrim Gündüz
+  #226`__), thanks to Oba Yang
 
   __ https://github.com/lelit/pglast/pull/226
 
