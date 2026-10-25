@@ -531,3 +531,11 @@ select (not false) is true
 select not false is true
 
 select a = (true is false)
+
+select "normalize"('abc', 'def')
+
+SELECT "coalesce"(1, 2), "int"(1), "trim"('a')
+
+select substring('abc', 1, 2)
+
+select overlay('xyz', '?', 1, 2)

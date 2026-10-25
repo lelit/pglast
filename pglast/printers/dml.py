@@ -681,7 +681,8 @@ def func_call(node, output):
         special_printer(node, output)
         return
 
-    if output.special_functions and name in COL_NAME_KEYWORDS:
+    # FIXME: accordingly to PR #229, 'overlay' and 'substring' are the only exceptions
+    if name in COL_NAME_KEYWORDS and name not in ('overlay', 'substring'):
         output.write(f'"{name}"')
     else:
         output.print_name(node.funcname)
