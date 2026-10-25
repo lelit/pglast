@@ -8,6 +8,15 @@ Changes
 Version 8
 #########
 
+8.8 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Fix special-function deparsing and expand SQL round-trip coverage (`PR #224`__), thanks to
+  Alexander Macdonald
+
+  __ https://github.com/lelit/pglast/pull/224
+
+
 8.7 (2026-10-18)
 ~~~~~~~~~~~~~~~~
 
