@@ -124,6 +124,15 @@ anymore.
 Version 7
 #########
 
+7.22 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``FuncCall`` printer quoting functions named as *column name keywords* (backport of `PR
+  #229`__), thanks to SongYoungUk
+
+  https://github.com/lelit/pglast/pull/229
+
+
 7.21 (2026-10-18)
 ~~~~~~~~~~~~~~~~~
 
