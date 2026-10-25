@@ -1,0 +1,5 @@
+CREATE TABLE t (a int) USING heap WITH (fillfactor = 10)
+
+CREATE TEMP TABLE t (a int) USING heap ON COMMIT DROP
+
+CREATE TABLE t (a int) PARTITION BY RANGE (a) USING heap TABLESPACE ts
