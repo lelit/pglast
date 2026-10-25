@@ -728,7 +728,12 @@ def func_call(node, output):
         special_printer(node, output)
         return
 
-    if output.special_functions and name in COL_NAME_KEYWORDS:
+    # PostgreSQL permits plain comma calls for SUBSTRING and OVERLAY, but those
+    # grammar alternatives do not accept aggregate/window decorations or VARIADIC.
+    if (name in COL_NAME_KEYWORDS
+            and (name not in ('substring', 'overlay')
+                 or node.agg_order or node.agg_filter or node.over or node.agg_within_group
+                 or node.agg_star or node.agg_distinct or node.func_variadic)):
         output.write(f'"{name}"')
     else:
         output.print_name(node.funcname)
