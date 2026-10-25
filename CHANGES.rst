@@ -11,6 +11,11 @@ Version 8
 8.8 (unreleased)
 ~~~~~~~~~~~~~~~~
 
+- Fix build from sdist including missing ``upb`` sources from underlying libpg_query (`PR
+  #226`__), thanks to Devrim Gündüz
+
+  __ https://github.com/lelit/pglast/pull/226
+
 - Fix special-function deparsing and expand SQL round-trip coverage (`PR #224`__), thanks to
   Alexander Macdonald
 
