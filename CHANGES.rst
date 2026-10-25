@@ -127,10 +127,55 @@ Version 7
 7.22 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
+- Do not turn an empty security label into ``NULL`` (backport of `PR #238`__), thanks to
+  SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/238
+
+- Keep the indirection of MERGE ... INSERT target columns (backport of `PR #237`__), thanks to
+  SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/237
+
+- Emit ``FROM`` before ``DEFERRABLE`` in ``CREATE CONSTRAINT TRIGGER`` (backport of `PR
+  #236`__), thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/236
+
+- Emit the ``UPDATE OF`` column list right after the ``UPDATE`` event (backport of `PR
+  #235`__), thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/235
+
+- Emit the table access method before WITH, ON COMMIT and TABLESPACE (backport of `PR
+  #234`__), thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/234
+
+- Emit the ``WHERE`` clause of ``EXCLUDE`` constraints after the index clauses (backport of `PR
+  #233`__), thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/233
+
+- Emit ``DEFERRABLE`` after the index clauses of a constraint (backport of `PR #232`__),
+  thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/232
+
+- Emit index parameters of ``PRIMARY KEY`` and ``EXCLUDE`` constraints (backport of `PR
+  #231`__), thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/231
+
 - Fix ``FuncCall`` printer quoting functions named as *column name keywords* (backport of `PR
   #229`__), thanks to SongYoungUk
 
-  https://github.com/lelit/pglast/pull/229
+  __ https://github.com/lelit/pglast/pull/229
+
+- Fix ``ALTER STATISTICS ... SET STATISTICS DEFAULT`` (backport of `PR #228`__), thanks to
+  SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/228
 
 
 7.21 (2026-10-18)

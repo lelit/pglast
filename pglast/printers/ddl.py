@@ -940,7 +940,10 @@ def alter_stats_stmt(node, output):
         output.write('IF EXISTS ')
     output.print_name(node.defnames)
     output.write(' SET STATISTICS ')
-    output.print_node(node.stxstattarget)
+    if node.stxstattarget is None:
+        output.write('DEFAULT')
+    else:
+        output.print_node(node.stxstattarget)
 
 
 class AlterSubscriptionTypePrinter(IntEnumPrinter):
@@ -1408,10 +1411,6 @@ class ConstrTypePrinter(IntEnumPrinter):
                 output.swrite('WITH OPERATOR')
                 with output.expression(True):
                     output.print_symbol(clauses)
-        if node.where_clause:
-            output.write(' WHERE ')
-            with output.expression(True):
-                output.print_node(node.where_clause)
 
     def CONSTR_FOREIGN(self, node, output):
         if node.fk_attrs:
@@ -1516,13 +1515,11 @@ def constraint(node, output):
         output.write(' INCLUDE ')
         with output.expression(True):
             output.print_list(node.including, ',', are_names=True)
-    if node.deferrable:
-        output.swrite('DEFERRABLE')
-        if node.initdeferred:
-            output.swrite('INITIALLY DEFERRED')
     with output.push_indent():
         first = True
-        if node.options and node.contype == enums.ConstrType.CONSTR_UNIQUE:
+        if node.options and node.contype in (enums.ConstrType.CONSTR_UNIQUE,
+                                             enums.ConstrType.CONSTR_PRIMARY,
+                                             enums.ConstrType.CONSTR_EXCLUSION):
             output.write(' WITH ')
             with output.expression(True):
                 firstOption = True
@@ -1532,8 +1529,9 @@ def constraint(node, output):
                     else:
                         output.write(', ')
                     output.print_name(option.defname)
-                    output.write(' = ')
-                    output.print_node(option.arg)
+                    if option.arg is not None:
+                        output.write(' = ')
+                        output.print_node(option.arg)
             first = False
         if node.indexspace:
             if first:
@@ -1542,6 +1540,14 @@ def constraint(node, output):
                 output.newline()
             output.write(' USING INDEX TABLESPACE ')
             output.print_name(node.indexspace)
+        if node.where_clause and node.contype == enums.ConstrType.CONSTR_EXCLUSION:
+            output.write(' WHERE ')
+            with output.expression(True):
+                output.print_node(node.where_clause)
+        if node.deferrable:
+            output.swrite('DEFERRABLE')
+            if node.initdeferred:
+                output.swrite('INITIALLY DEFERRED')
         if node.skip_validation:
             output.write(' NOT VALID')
         if (node.contype in (enums.ConstrType.CONSTR_CHECK,
@@ -2287,6 +2293,13 @@ def create_stmt(node, output):
                 output.newline()
             output.write(' PARTITION BY ')
             output.print_node(node.partspec)
+        if node.accessMethod:
+            if first:
+                first = False
+            else:
+                output.newline()
+            output.write(' USING ')
+            output.print_name(node.accessMethod)
         if node.options:
             if first:
                 first = False
@@ -2314,9 +2327,6 @@ def create_stmt(node, output):
                 output.newline()
             output.write(' TABLESPACE ')
             output.print_name(node.tablespacename)
-    if node.accessMethod:
-        output.write(' USING ')
-        output.print_name(node.accessMethod)
 
 
 @node_printer(ast.CreateTableAsStmt)
@@ -2374,19 +2384,27 @@ def create_trig_stmt(node, output):
                 output.write('INSTEAD OF ')
         else:
             output.write('AFTER ')
-        event_strings = []
+        first = True
         for ev in ('INSERT', 'DELETE', 'UPDATE', 'TRUNCATE'):
             bitmask = getattr(enums, 'TRIGGER_TYPE_%s' % ev)
             if node.events & bitmask:
-                event_strings.append(ev)
-        output.write(' OR '.join(event_strings))
-        if node.columns:
-            output.write(' OF ')
-            output.print_list(node.columns, ',', are_names=True)
+                if first:
+                    first = False
+                else:
+                    output.write(' OR ')
+                output.write(ev)
+                # The column list belongs to the UPDATE event
+                if ev == 'UPDATE' and node.columns:
+                    output.write(' OF ')
+                    output.print_list(node.columns, ',', are_names=True)
 
         output.newline()
         output.write('ON ')
         output.print_node(node.relation)
+
+        if node.constrrel:
+            output.swrite('FROM ')
+            output.print_name(node.constrrel)
 
         if node.deferrable:
             output.swrite('DEFERRABLE')
@@ -2396,10 +2414,6 @@ def create_trig_stmt(node, output):
         if node.transitionRels:
             output.swrite('REFERENCING ')
             output.print_list(node.transitionRels, ' ')
-
-        if node.constrrel:
-            output.swrite('FROM ')
-            output.print_name(node.constrrel)
 
         output.newline()
         output.write('FOR EACH ')
@@ -3367,12 +3381,12 @@ def sec_label_stmt(node, output):
     if node.provider:
         output.write('FOR ')
         output.print_name(node.provider)
-    output.write(' ON ')
+    output.swrite('ON ')
     output.write(OBJECT_NAMES[node.objtype])
     output.write(' ')
     output.print_name(node.object)
     output.write(' IS ')
-    if node.label:
+    if node.label is not None:
         output.print_node(node.label)
     else:
         output.write('NULL')
