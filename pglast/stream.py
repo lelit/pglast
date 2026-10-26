@@ -12,7 +12,7 @@ from re import compile
 from sys import stderr
 
 from . import ast, enums, parse_plpgsql, parse_sql
-from .keywords import RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
+from .keywords import COL_NAME_KEYWORDS, RESERVED_KEYWORDS, TYPE_FUNC_NAME_KEYWORDS
 from .precedence import (ExprContext, is_b_expr_rule, needs_parens_as_c_expr,
                          needs_parens_for_precedence)
 from .printers import get_printer_for_node, get_special_function, sfuncs
@@ -516,10 +516,11 @@ class RawStream(OutputStream):
             and isinstance(items, (list, tuple))
             and items[0].ancestors.parent.member == 'funcname'
             and items[0].sval == 'pg_catalog'
-            # The list contains all functions that cannot be found without an
-            # explicit pg_catalog schema. ie:
-            # position(a,b) is invalid but pg_catalog.position(a,b) is fine
-            and items[1].sval not in ('extract', 'position', 'xmlexists')
+            # Functions named after a column name keyword cannot be called without an
+            # explicit pg_catalog schema, ie: position(a,b) is invalid but
+            # pg_catalog.position(a,b) is fine, and coalesce(a,b) is a different thing
+            and (items[1].sval not in COL_NAME_KEYWORDS
+                 or items[1].sval in ('overlay', 'substring'))
         )
 
     def _print_items(self, items, sep, newline, are_names=False, is_symbol=False,
