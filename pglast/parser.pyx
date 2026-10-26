@@ -303,10 +303,11 @@ def parse_sql(str query):
             message = parsed.error.message.decode('utf-8')
             raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
     finally:
-        if parsed.error is not NULL:
-            pg_query_free_error(parsed.error)
-        free(parsed.stderr_buffer)
-        pg_query_exit_memory_context(mctx);
+        with nogil:
+            if parsed.error is not NULL:
+                pg_query_free_error(parsed.error)
+            free(parsed.stderr_buffer)
+            pg_query_exit_memory_context(mctx);
 
 
 def parse_sql_json(str query):
