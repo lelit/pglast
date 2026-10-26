@@ -12,7 +12,7 @@ import gc
 
 import pytest
 
-from pglast import parser
+from pglast import get_postgresql_version, parser
 
 
 tracemalloc = pytest.importorskip("tracemalloc")
@@ -94,8 +94,15 @@ def test_no_python_leaks(function, argument):
 
 KNOWN_C_LEAKS = {
     'comments-error': ("libpg_query's pg_query_free_deparse_comments_result() does not free"
-                       " the error, https://github.com/pganalyze/libpg_query/issues/390"),
+                       " the error, see https://github.com/pganalyze/libpg_query/issues/390"),
 }
+
+# The problem is fixed in libpg_query 18.x
+if get_postgresql_version() < (18,):
+    KNOWN_C_LEAKS['parse_plpgsql_json-error'] = (
+        "libpg_query's pg_query_parse_plpgsql() does not free the"
+        " error, see https://github.com/lelit/pglast/pull/241#issuecomment-6414005755"
+    )
 
 
 def c_leaks_cases():
