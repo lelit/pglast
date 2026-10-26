@@ -15,6 +15,7 @@ from cpython.bytes cimport PyBytes_AsStringAndSize, PyBytes_FromStringAndSize
 from cpython.list cimport PyList_New, PyList_SET_ITEM
 from libc cimport limits
 from libc.stdint cimport int32_t, uint64_t, uint8_t
+from libc.stdlib cimport free
 
 from collections import namedtuple
 
@@ -155,6 +156,7 @@ cdef extern from "src/pg_query_internal.h" nogil:
     void pg_query_exit_memory_context(MemoryContext ctx)
 
     PgQueryInternalParsetreeAndError pg_query_raw_parse(const char* input, int parser_options)
+    void pg_query_free_error(PgQueryError* error)
 
 
 cdef extern from "protobuf-c/protobuf-c.h":
@@ -301,6 +303,9 @@ def parse_sql(str query):
             message = parsed.error.message.decode('utf-8')
             raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
     finally:
+        if parsed.error is not NULL:
+            pg_query_free_error(parsed.error)
+        free(parsed.stderr_buffer)
         pg_query_exit_memory_context(mctx);
 
 
