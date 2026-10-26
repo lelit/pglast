@@ -96,8 +96,8 @@ triggered it, and do not let it carry any other modification.
                regeneration commit can be easily resolved by simply re-running the generator on
                the merged tree.
 
-Also, I try to maintain last two versions of pglast: when a *defect* affects also the previous
-version, please target that first.
+Also, I try to maintain the two most recent major versions of pglast: when a *defect* affects
+also the previous version, please target that first.
 
 
 Documentation
