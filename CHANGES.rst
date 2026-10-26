@@ -11,6 +11,15 @@ Version 7
 7.22 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
+- Fix memory leak in ``parse_sql`` (backport of `PR #241`__), thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/241
+
+- Keep pg_catalog on functions named after column name keywords (backport of `PR #230`__),
+  thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/230
+
 - Do not turn an empty security label into ``NULL`` (backport of `PR #238`__), thanks to
   SongYoungUk
 
@@ -31,8 +40,8 @@ Version 7
 
   __ https://github.com/lelit/pglast/pull/235
 
-- Emit the table access method before WITH, ON COMMIT and TABLESPACE (backport of `PR
-  #234`__), thanks to SongYoungUk
+- Emit the table access method before WITH, ON COMMIT and TABLESPACE (backport of `PR #234`__),
+  thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/234
 
@@ -41,8 +50,8 @@ Version 7
 
   __ https://github.com/lelit/pglast/pull/233
 
-- Emit ``DEFERRABLE`` after the index clauses of a constraint (backport of `PR #232`__),
-  thanks to SongYoungUk
+- Emit ``DEFERRABLE`` after the index clauses of a constraint (backport of `PR #232`__), thanks
+  to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/232
 
