@@ -3274,13 +3274,13 @@ def table_like_clause(node, output):
             if node.options & ~known:
                 output.newline()
                 output.write('INCLUDING ALL')
-                for option in TLO:
+                for option in flags:
                     if not node.options & option:
                         output.newline()
                         output.write('EXCLUDING ')
                         output.write(option.name.removeprefix('CREATE_TABLE_LIKE_'))
             else:
-                for option in TLO:
+                for option in flags:
                     if node.options & option:
                         output.newline()
                         output.write('INCLUDING ')
