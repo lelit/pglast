@@ -3265,7 +3265,10 @@ def table_like_clause(node, output):
         if node.options == TLO.CREATE_TABLE_LIKE_ALL:
             output.write(' INCLUDING ALL')
         else:
-            known = sum(option for option in TLO)
+            # This is needed on older than 3.11 snakes: on recent ones the Enum iterator
+            # automatically excludes non-single-bit flags
+            flags = [option for option in TLO if option != TLO.CREATE_TABLE_LIKE_ALL]
+            known = sum(option for option in flags)
             # Bits outside the known ones come from INCLUDING ALL, possibly followed by some
             # EXCLUDING: emit it that way, to keep the very same value
             if node.options & ~known:
