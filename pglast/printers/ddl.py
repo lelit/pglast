@@ -3258,27 +3258,30 @@ def stats_elem(node, output):
 
 @node_printer(ast.TableLikeClause)
 def table_like_clause(node, output):
-    output.write('LIKE ')
-    output.print_node(node.relation)
     TLO = enums.TableLikeOption
-    options = [TLO.CREATE_TABLE_LIKE_COMMENTS, TLO.CREATE_TABLE_LIKE_COMPRESSION,
-               TLO.CREATE_TABLE_LIKE_CONSTRAINTS, TLO.CREATE_TABLE_LIKE_DEFAULTS,
-               TLO.CREATE_TABLE_LIKE_IDENTITY, TLO.CREATE_TABLE_LIKE_GENERATED,
-               TLO.CREATE_TABLE_LIKE_INDEXES, TLO.CREATE_TABLE_LIKE_STATISTICS,
-               TLO.CREATE_TABLE_LIKE_STORAGE]
-    value = int(node.options)
-    known = sum(int(option) for option in options)
-    # Bits outside the known ones come from INCLUDING ALL, possibly followed by some
-    # EXCLUDING: emit it that way, to keep the very same value
-    if value & ~known:
-        output.write(' INCLUDING ALL')
-        for option in options:
-            if not value & option:
-                output.write(' EXCLUDING ' + option.name[len('CREATE_TABLE_LIKE_'):])
-    else:
-        for option in options:
-            if value & option:
-                output.write(' INCLUDING ' + option.name[len('CREATE_TABLE_LIKE_'):])
+    with output.push_indent(2):
+        output.write('LIKE ')
+        output.print_node(node.relation)
+        if node.options == TLO.CREATE_TABLE_LIKE_ALL:
+            output.write(' INCLUDING ALL')
+        else:
+            known = sum(option for option in TLO)
+            # Bits outside the known ones come from INCLUDING ALL, possibly followed by some
+            # EXCLUDING: emit it that way, to keep the very same value
+            if node.options & ~known:
+                output.newline()
+                output.write('INCLUDING ALL')
+                for option in TLO:
+                    if not node.options & option:
+                        output.newline()
+                        output.write('EXCLUDING ')
+                        output.write(option.name.removeprefix('CREATE_TABLE_LIKE_'))
+            else:
+                for option in TLO:
+                    if node.options & option:
+                        output.newline()
+                        output.write('INCLUDING ')
+                        output.write(option.name.removeprefix('CREATE_TABLE_LIKE_'))
 
 
 @node_printer(ast.TriggerTransition)
