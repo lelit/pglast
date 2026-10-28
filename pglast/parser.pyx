@@ -264,6 +264,13 @@ cdef class Displacements:
         return offset
 
 
+cdef _error_index(str s, int cursorpos):
+    # PostgreSQL reports the position of an error as a 1-based index of the character in the
+    # statement, not as an offset in its UTF-8 encoded bytes
+    cdef long index = cursorpos - 1
+    return index if 0 <= index < len(s) else None
+
+
 def get_postgresql_version():
     "Return the ``PostgreSQL`` version as a tuple (`major`, `minor`)."
 
@@ -301,7 +308,7 @@ def parse_sql(str query):
             return ()
         else:
             message = parsed.error.message.decode('utf-8')
-            raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
+            raise ParseError(message, _error_index(query, parsed.error.cursorpos))
     finally:
         with nogil:
             if parsed.error is not NULL:
@@ -325,8 +332,7 @@ def parse_sql_json(str query):
     try:
         if parsed.error:
             message = parsed.error.message.decode('utf-8')
-            offset_to_index = Displacements(query)
-            raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
+            raise ParseError(message, _error_index(query, parsed.error.cursorpos))
 
         return parsed.parse_tree.decode('utf-8')
     finally:
@@ -350,8 +356,7 @@ def parse_sql_protobuf(str query):
         if parsed.error:
             message = parsed.error.message.decode('utf-8')
             cursorpos = parsed.error.cursorpos
-            offset_to_index = Displacements(query)
-            raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
+            raise ParseError(message, _error_index(query, parsed.error.cursorpos))
 
         return PyBytes_FromStringAndSize(parsed.parse_tree.data, parsed.parse_tree.len)
     finally:
@@ -374,8 +379,7 @@ def parse_plpgsql_json(str query):
     try:
         if parsed.error:
             message = parsed.error.message.decode('utf-8')
-            offset_to_index = Displacements(query)
-            raise ParseError(message, offset_to_index(parsed.error.cursorpos-1))
+            raise ParseError(message, _error_index(query, parsed.error.cursorpos))
 
         return parsed.plpgsql_funcs.decode('utf-8')
     finally:
@@ -398,8 +402,7 @@ def fingerprint(str query):
     try:
         if result.error:
             message = result.error.message.decode('utf-8')
-            offset_to_index = Displacements(query)
-            raise ParseError(message, offset_to_index(result.error.cursorpos-1))
+            raise ParseError(message, _error_index(query, result.error.cursorpos))
 
         return result.fingerprint_str.decode('ascii')
     finally:
@@ -442,8 +445,7 @@ def split(str stmts, bint with_parser=True, bint only_slices=False):
     try:
         if splitted.error:
             message = splitted.error.message.decode('utf-8')
-            offset_to_index = Displacements(stmts)
-            raise ParseError(message, offset_to_index(splitted.error.cursorpos-1))
+            raise ParseError(message, _error_index(stmts, splitted.error.cursorpos))
 
         result = []
         if only_slices:
@@ -490,7 +492,7 @@ def comments(str query):
     try:
         if comments.error:
             message = comments.error.message.decode('utf-8')
-            raise ParseError(message, offset_to_index(comments.error.cursorpos-1))
+            raise ParseError(message, _error_index(query, comments.error.cursorpos))
 
         result = []
         while i < comments.comment_count:
@@ -565,7 +567,7 @@ def scan(str query):
     try:
         if scanned.error:
             message = scanned.error.message.decode('utf-8')
-            raise ParseError(message, offset_to_index(scanned.error.cursorpos-1))
+            raise ParseError(message, _error_index(query, scanned.error.cursorpos))
 
         with nogil:
             scan_result = pg_query__scan_result__unpack(NULL, scanned.pbuf.len,
