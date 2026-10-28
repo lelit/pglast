@@ -7,10 +7,10 @@
 
 -r requirements-test.txt
 
-bump-my-version==1.5.1
+bump-my-version==1.6.7
 cython==3.3.0
-pycparser==3.0
+pycparser==3.12
 readme-renderer==46.0
-setuptools==84.0.0
-sphinx==9.0.4
+setuptools==84.2.1
+sphinx==9.2.0
 twine==7.0.0
