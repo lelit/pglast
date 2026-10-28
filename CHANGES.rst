@@ -11,6 +11,11 @@ Version 7
 7.22 (unreleased)
 ~~~~~~~~~~~~~~~~~
 
+- Report the right error position after multibyte characters (`PR #245`__), thanks to
+  SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/245
+
 - Keep ``INCLUDING ALL`` when ``LIKE`` options are followed by ``EXCLUDING`` in
   ``TableLikeClause`` printer (backport of `PR #239`__), thanks to SongYoungUk
 
