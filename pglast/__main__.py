@@ -11,8 +11,8 @@ import json
 import pprint
 import sys
 
-from pglast import Error, parse_plpgsql, parse_sql, prettify
-from pglast.stream import RawStream
+from . import Error, parse_plpgsql, parse_sql, prettify
+from .stream import RawStream
 
 
 def workhorse(args):
