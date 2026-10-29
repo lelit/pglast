@@ -443,6 +443,14 @@ Get an even more compact, normalized representation
    $ pgpp --normalize -S "select a,b,c from st    where a='foo'"
    SELECT a, b, c FROM st WHERE a = 'foo'
 
+Replace the constants with parameters
+=====================================
+
+.. code-block:: shell
+
+   $ pgpp --parametrize -S "select a,b,c from st    where a='foo' and b=42"
+   select a,b,c from st    where a=$1 and b=$2
+
 Obtain the *parse tree* of a ``SQL`` statement
 ==============================================
 

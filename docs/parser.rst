@@ -104,6 +104,17 @@ underlying ``libpg_query`` library it links against.
 
    Return the PostgreSQL version as a tuple (`major`, `minor`, `patch`).
 
+.. function:: normalize(query, utility_only=False)
+
+   :param str query: The SQL statement
+   :param bool utility_only: whether only utility statements should be normalized
+   :returns: str
+
+   Return the given `query` with its constants replaced by ``$n`` parameters, the same
+   way ``pg_stat_statements`` shows queries. When `utility_only` is ``True``, only the
+   values in utility statements (for example a password in ``CREATE ROLE``) are replaced,
+   leaving the other statements untouched.
+
 .. function:: parse_sql(query)
 
    :param str query: The SQL statement

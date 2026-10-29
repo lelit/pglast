@@ -11,7 +11,7 @@ import json
 import pprint
 import sys
 
-from . import Error, parse_plpgsql, parse_sql, prettify
+from . import Error, normalize, parse_plpgsql, parse_sql, prettify
 from .stream import RawStream
 
 
@@ -49,6 +49,20 @@ def workhorse(args):
             semicolon_after_last_statement=args.semicolon_after_last_statement)
         with output:
             output.write(reprinter(statement))
+            output.write('\n')
+    elif args.parametrize:
+        try:
+            parametrized = normalize(statement)
+        except Error as e:
+            print()
+            raise SystemExit(e)
+
+        if args.outfile and args.outfile != '-':
+            output = open(args.outfile, 'w')
+        else:
+            output = sys.stdout
+        with output:
+            output.write(parametrized)
             output.write('\n')
     else:
         try:
@@ -93,6 +107,8 @@ def main(options=None):
     parser.add_argument('-n', '--normalize', action='store_true', default=False,
                         help='show the normalized statement, without prettification'
                         ' (some options below may have no effect)')
+    parser.add_argument('-P', '--parametrize', action='store_true', default=False,
+                        help='show the statement with its constants replaced by $n parameters')
     parser.add_argument('-m', '--compact-lists-margin', type=int, default=0,
                         help='use compact form for lists not exceeding the given margin')
     parser.add_argument('-s', '--split-string-literals', type=int, default=0,

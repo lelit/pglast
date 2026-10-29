@@ -9,6 +9,7 @@ from . import enums as enums
 from .error import Error as Error
 from .parser import fingerprint as fingerprint
 from .parser import get_postgresql_version as get_postgresql_version
+from .parser import normalize as normalize
 from .parser import parse_sql as parse_sql
 from .parser import scan as scan
 from .parser import split as split

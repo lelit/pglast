@@ -77,6 +77,20 @@ WHERE foo <> 0
                 main(['--normalize'])
             assert output.getvalue() == "SELECT a, b, c FROM st WHERE a = 'foo'\n"
 
+    with StringIO("select a,b,c from st    where a='foo' and b=42") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                main(['--parametrize'])
+            assert output.getvalue() == "select a,b,c from st    where a=$1 and b=$2\n"
+
+    with StringIO("Select foo,bar Fron sometable") as input:
+        with UnclosableStream() as output:
+            with redirect_stdin(input), redirect_stdout(output):
+                with pytest.raises(SystemExit) as status:
+                    main(['--parametrize'])
+                assert str(status.value.args[0]) == \
+                    'syntax error at or near "sometable", at index 20'
+
     with StringIO("""\
 CREATE FUNCTION add (a integer, b integer) RETURNS integer AS $$
 BEGIN RETURN a + b; END;
