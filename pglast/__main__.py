@@ -6,12 +6,14 @@
 # :Copyright: © 2017, 2018, 2019, 2021, 2024, 2026 Lele Gaifax
 #
 
-import argparse
-import json
-import pprint
 import sys
+from argparse import ArgumentParser
+from importlib.metadata import metadata
+from json import dump
+from pprint import pprint
 
 from . import Error, normalize, parse_plpgsql, parse_sql, prettify
+from .parser import get_postgresql_version
 from .stream import RawStream
 
 
@@ -34,9 +36,9 @@ def workhorse(args):
         output = args.outfile or sys.stdout
         with output:
             if args.plpgsql:
-                json.dump(tree, output, sort_keys=True, indent=2)
+                dump(tree, output, sort_keys=True, indent=2)
             else:
-                pprint.pprint([stmt(skip_none=True) for stmt in tree], output)
+                pprint([stmt(skip_none=True) for stmt in tree], output)
             output.write('\n')
     elif args.normalize:
         if args.outfile and args.outfile != '-':
@@ -89,10 +91,6 @@ def workhorse(args):
 
 
 def main(options=None):
-    from argparse import ArgumentParser
-    from importlib.metadata import metadata
-    from .parser import get_postgresql_version
-
     version = '%s, with PostgreSQL %s parser' % (
         metadata('pglast')['Version'],
         '.'.join(str(p) for p in get_postgresql_version()))
