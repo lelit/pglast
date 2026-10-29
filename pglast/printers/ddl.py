@@ -2552,7 +2552,7 @@ def define_stmt(node, output):
                 # Special case: if it's an aggregate, and the scalar is equal to
                 # None (not "is", since it's a Scalar), write a star
                 if ((node.kind == enums.ObjectType.OBJECT_AGGREGATE
-                     and args == None)):  # noqa
+                     and args == None)):  # noqa ignore[E711]
                     output.write('*')
                     actual_args = []
                     orderby_args = []
@@ -3403,30 +3403,33 @@ def stats_elem(node, output):
 
 @node_printer(ast.TableLikeClause)
 def table_like_clause(node, output):
-    output.write('LIKE ')
-    output.print_node(node.relation)
     TLO = enums.TableLikeOption
-    if node.options == TLO.CREATE_TABLE_LIKE_ALL:
-        output.write(' INCLUDING ALL')
-    else:
-        if node.options & TLO.CREATE_TABLE_LIKE_COMMENTS:
-            output.write(' INCLUDING COMMENTS')
-        if node.options & TLO.CREATE_TABLE_LIKE_COMPRESSION:
-            output.write(' INCLUDING COMPRESSION')
-        if node.options & TLO.CREATE_TABLE_LIKE_CONSTRAINTS:
-            output.write(' INCLUDING CONSTRAINTS')
-        if node.options & TLO.CREATE_TABLE_LIKE_DEFAULTS:
-            output.write(' INCLUDING DEFAULTS')
-        if node.options & TLO.CREATE_TABLE_LIKE_IDENTITY:
-            output.write(' INCLUDING IDENTITY')
-        if node.options & TLO.CREATE_TABLE_LIKE_GENERATED:
-            output.write(' INCLUDING GENERATED')
-        if node.options & TLO.CREATE_TABLE_LIKE_INDEXES:
-            output.write(' INCLUDING INDEXES')
-        if node.options & TLO.CREATE_TABLE_LIKE_STATISTICS:
-            output.write(' INCLUDING STATISTICS')
-        if node.options & TLO.CREATE_TABLE_LIKE_STORAGE:
-            output.write(' INCLUDING STORAGE')
+    with output.push_indent(2):
+        output.write('LIKE ')
+        output.print_node(node.relation)
+        if node.options == TLO.CREATE_TABLE_LIKE_ALL:
+            output.write(' INCLUDING ALL')
+        else:
+            # This is needed on older than 3.11 snakes: on recent ones the Enum iterator
+            # automatically excludes non-single-bit flags
+            flags = [option for option in TLO if option != TLO.CREATE_TABLE_LIKE_ALL]
+            known = sum(option for option in flags)
+            # Bits outside the known ones come from INCLUDING ALL, possibly followed by some
+            # EXCLUDING: emit it that way, to keep the very same value
+            if node.options & ~known:
+                output.newline()
+                output.write('INCLUDING ALL')
+                for option in flags:
+                    if not node.options & option:
+                        output.newline()
+                        output.write('EXCLUDING ')
+                        output.write(option.name.removeprefix('CREATE_TABLE_LIKE_'))
+            else:
+                for option in flags:
+                    if node.options & option:
+                        output.newline()
+                        output.write('INCLUDING ')
+                        output.write(option.name.removeprefix('CREATE_TABLE_LIKE_'))
 
 
 @node_printer(ast.TriggerTransition)

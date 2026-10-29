@@ -126,6 +126,28 @@ def test_errors():
     assert index == 16
 
 
+def test_error_position_after_multibyte_characters():
+    # PostgreSQL reports the position of an error in characters, not in UTF-8 bytes
+    for sql in ("SELECT 'éé', FROM x", "SELECT '한글', FROM x", "SELECT '😀', FROM x"):
+        with pytest.raises(ParseError) as exc:
+            parse_sql(sql)
+        assert exc.value.args[1] == sql.index('FROM')
+
+    sql = "SELECT '한글' || 'x"
+    for function in (parse_sql, fingerprint, scan, comments):
+        with pytest.raises(ParseError) as exc:
+            function(sql)
+        assert exc.value.args[1] == sql.index("'x")
+
+    with pytest.raises(ParseError) as exc:
+        split("SELECT '한글'; SELECT 1, FROM x")
+    assert exc.value.args[1] == 23
+
+    with pytest.raises(ParseError) as exc:
+        parse_sql("SELECT '한글' ||")
+    assert exc.value.args[1] is None
+
+
 def test_unicode():
     ptree = parse_sql('SELECT 1 AS "Naïve"')
     target = ptree[0].stmt.targetList[0]

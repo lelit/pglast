@@ -124,8 +124,18 @@ anymore.
 Version 7
 #########
 
-7.22 (unreleased)
+7.22 (2026-10-29)
 ~~~~~~~~~~~~~~~~~
+
+- Report the right error position after multibyte characters (`PR #245`__), thanks to
+  SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/245
+
+- Keep ``INCLUDING ALL`` when ``LIKE`` options are followed by ``EXCLUDING`` in
+  ``TableLikeClause`` printer (backport of `PR #239`__), thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/239
 
 - Fix memory leak in ``parse_sql`` (backport of `PR #241`__), thanks to SongYoungUk
 
@@ -136,43 +146,43 @@ Version 7
 
   __ https://github.com/lelit/pglast/pull/230
 
-- Do not turn an empty security label into ``NULL`` (backport of `PR #238`__), thanks to
-  SongYoungUk
+- Do not turn an empty security label into ``NULL`` in ``SecLabelStmt`` printer (backport of
+  `PR #238`__), thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/238
 
-- Keep the indirection of MERGE ... INSERT target columns (backport of `PR #237`__), thanks to
-  SongYoungUk
+- Keep the indirection of ``MERGE ... INSERT`` target columns in ``ResTarget`` printer
+  (backport of `PR #237`__), thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/237
 
-- Emit ``FROM`` before ``DEFERRABLE`` in ``CREATE CONSTRAINT TRIGGER`` (backport of `PR
-  #236`__), thanks to SongYoungUk
+- Emit ``FROM`` before ``DEFERRABLE`` in ``CREATE CONSTRAINT TRIGGER`` in ``CreateTrigStmt``
+  printer (backport of `PR #236`__), thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/236
 
-- Emit the ``UPDATE OF`` column list right after the ``UPDATE`` event (backport of `PR
-  #235`__), thanks to SongYoungUk
+- Emit the ``UPDATE OF`` column list right after the ``UPDATE`` event in ``CreateTrigStmt``
+  printer (backport of `PR #235`__), thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/235
 
-- Emit the table access method before WITH, ON COMMIT and TABLESPACE (backport of `PR #234`__),
-  thanks to SongYoungUk
+- Emit the table access method before ``WITH``, ``ON COMMIT`` and ``TABLESPACE`` in
+  ``CreateStmt`` printer (backport of `PR #234`__), thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/234
 
-- Emit the ``WHERE`` clause of ``EXCLUDE`` constraints after the index clauses (backport of `PR
-  #233`__), thanks to SongYoungUk
+- Emit the ``WHERE`` clause of ``EXCLUDE`` constraints after the index clauses in
+  ``ConstrType`` printer (backport of `PR #233`__), thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/233
 
-- Emit ``DEFERRABLE`` after the index clauses of a constraint (backport of `PR #232`__), thanks
-  to SongYoungUk
+- Emit ``DEFERRABLE`` after the index clauses in ``Constraint`` printer (backport of `PR
+  #232`__), thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/232
 
-- Emit index parameters of ``PRIMARY KEY`` and ``EXCLUDE`` constraints (backport of `PR
-  #231`__), thanks to SongYoungUk
+- Emit index parameters of ``PRIMARY KEY`` and ``EXCLUDE`` in ``Constraint`` printer (backport
+  of `PR #231`__), thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/231
 
@@ -181,7 +191,7 @@ Version 7
 
   __ https://github.com/lelit/pglast/pull/229
 
-- Fix ``ALTER STATISTICS ... SET STATISTICS DEFAULT`` (backport of `PR #228`__), thanks to
+- Fix ``AlterStatsStmt`` printer regarding ``DEFAULT`` (backport of `PR #228`__), thanks to
   SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/228
