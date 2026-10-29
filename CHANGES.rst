@@ -11,6 +11,16 @@ Version 8
 8.8 (unreleased)
 ~~~~~~~~~~~~~~~~
 
+- Expose ``pg_query_normalize()`` (`PR #244`__), thanks to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/244
+
+- Use relative imports so the package `can be built`__ under another name (`PR #240`__), thanks
+  to SongYoungUk
+
+  __ https://github.com/lelit/pglast/pull/240#issuecomment-6486064174
+  __ https://github.com/lelit/pglast/pull/240
+
 - Fix build from sdist including missing ``upb`` sources from underlying libpg_query (`PR
   #226`__), thanks to Oba Yang
 
