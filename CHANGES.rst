@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.22 (unreleased)
+7.22 (2026-10-29)
 ~~~~~~~~~~~~~~~~~
 
 - Report the right error position after multibyte characters (`PR #245`__), thanks to
