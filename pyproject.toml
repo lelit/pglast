@@ -67,7 +67,7 @@ test = [
 [build-system]
 requires = [
     "cython==3.3.0",
-    "setuptools==84.0.0",
+    "setuptools==84.2.1",
 ]
 build-backend = "setuptools.build_meta"
 
