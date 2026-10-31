@@ -413,8 +413,7 @@ def normalize(str query, bint utility_only=False):
     try:
         if result.error:
             message = result.error.message.decode('utf-8')
-            offset_to_index = Displacements(query)
-            raise ParseError(message, offset_to_index(result.error.cursorpos-1))
+            raise ParseError(message, _error_index(query, result.error.cursorpos))
 
         return result.normalized_query.decode('utf-8')
     finally:

@@ -152,7 +152,7 @@ def test_error_position_after_multibyte_characters():
         assert exc.value.args[1] == sql.index('FROM')
 
     sql = "SELECT '한글' || 'x"
-    for function in (parse_sql, fingerprint, scan, comments):
+    for function in (parse_sql, fingerprint, normalize, scan, comments):
         with pytest.raises(ParseError) as exc:
             function(sql)
         assert exc.value.args[1] == sql.index("'x")
