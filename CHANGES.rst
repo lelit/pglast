@@ -11,9 +11,10 @@ Version 8
 8.8 (unreleased)
 ~~~~~~~~~~~~~~~~
 
-- Expose ``pg_query_normalize()`` (`PR #244`__), thanks to SongYoungUk
+- Expose ``pg_query_normalize()`` (`PR #244`__ and `PR #246`__), thanks to SongYoungUk
 
   __ https://github.com/lelit/pglast/pull/244
+  __ https://github.com/lelit/pglast/pull/246
 
 - Use relative imports so the package `can be built`__ under another name (`PR #240`__), thanks
   to SongYoungUk
