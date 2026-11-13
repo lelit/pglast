@@ -3,7 +3,7 @@
 .. :Created:   gio 10 ago 2017 09:56:59 CEST
 .. :Author:    Lele Gaifax <lele@metapensiero.it>
 .. :License:   GNU General Public License version 3 or later
-.. :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024 Lele Gaifax
+.. :Copyright: © 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2026 Lele Gaifax
 ..
 
 ========
@@ -16,10 +16,10 @@ PostgreSQL Languages AST and statements prettifier
 :author: Lele Gaifax
 :contact: lele@metapensiero.it
 :license: `GNU General Public License version 3 or later`__
-:version: `7`__
+:version: `8`__
 
 __ https://www.gnu.org/licenses/gpl.html
-__ https://pglast.readthedocs.io/en/v7/introduction.html
+__ https://pglast.readthedocs.io/en/v8/introduction.html
 
 This is a Python 3 module that exposes the *parse tree* of a PostgreSQL__ statement (extracted
 by the almost standard PG parser repackaged as a standalone static library by `libpg_query`__)
