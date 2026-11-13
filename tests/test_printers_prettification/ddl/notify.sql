@@ -9,3 +9,7 @@ NOTIFY foo, 'bar'
 notify "Notify"
 =
 NOTIFY "Notify"
+
+notify foo, ''
+=
+NOTIFY foo, ''

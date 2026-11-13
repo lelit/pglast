@@ -165,17 +165,17 @@ def alter_extension_contents_stmt(node, output):
 def alter_enum_stmt(node, output):
     output.write('ALTER TYPE ')
     output.print_name(node.typeName)
-    if node.newVal:
-        if node.oldVal:
+    if node.newVal is not None:
+        if node.oldVal is not None:
             output.write('RENAME VALUE ')
             output.write_quoted_string(node.oldVal)
-            output.write('TO ')
+            output.write(' TO ')
         else:
             output.write('ADD VALUE ')
             if node.skipIfNewValExists:
                 output.write('IF NOT EXISTS ')
         output.write_quoted_string(node.newVal)
-    if node.newValNeighbor:
+    if node.newValNeighbor is not None:
         if node.newValIsAfter:
             output.write(' AFTER ')
         else:
@@ -2971,7 +2971,7 @@ def lock_stmt(node, output):
 def notify_stmt(node, output):
     output.write('NOTIFY ')
     output.print_name(node.conditionname)
-    if node.payload:
+    if node.payload is not None:
         output.write(', ')
         output.write_quoted_string(node.payload)
 

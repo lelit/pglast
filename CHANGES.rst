@@ -135,6 +135,15 @@ anymore.
 Version 7
 #########
 
+7.23 (2026-11-13)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``AlterEnumStmt`` printer, handling the case when the value is the empty string and
+  adding a missing space before ``TO``
+
+- Fix ``NotifyStmt`` printer,  handling the case when the payload is the empty string
+
+
 7.22 (2026-10-29)
 ~~~~~~~~~~~~~~~~~
 
