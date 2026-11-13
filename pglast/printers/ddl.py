@@ -2826,7 +2826,7 @@ def lock_stmt(node, output):
 def notify_stmt(node, output):
     output.write('NOTIFY ')
     output.print_name(node.conditionname)
-    if node.payload:
+    if node.payload is not None:
         output.write(', ')
         output.write_quoted_string(node.payload)
 
