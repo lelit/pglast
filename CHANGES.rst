@@ -8,7 +8,7 @@ Changes
 Version 8
 #########
 
-8.8 (unreleased)
+8.8 (2026-11-13)
 ~~~~~~~~~~~~~~~~
 
 - Expose ``pg_query_normalize()`` (`PR #244`__ and `PR #246`__), thanks to SongYoungUk
