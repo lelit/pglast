@@ -8,6 +8,13 @@ Changes
 Version 7
 #########
 
+7.23 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``AlterEnumStmt`` printer, handling the case when the value is the empty string and
+  adding a missing space before ``TO``
+
+
 7.22 (2026-10-29)
 ~~~~~~~~~~~~~~~~~
 
