@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.23 (unreleased)
+7.23 (2026-11-13)
 ~~~~~~~~~~~~~~~~~
 
 - Fix ``AlterEnumStmt`` printer, handling the case when the value is the empty string and
