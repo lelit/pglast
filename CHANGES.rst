@@ -14,6 +14,8 @@ Version 7
 - Fix ``AlterEnumStmt`` printer, handling the case when the value is the empty string and
   adding a missing space before ``TO``
 
+- Fix ``NotifyStmt`` printer,  handling the case when the payload is the empty string
+
 
 7.22 (2026-10-29)
 ~~~~~~~~~~~~~~~~~
