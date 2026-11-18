@@ -8,6 +8,12 @@ Changes
 Version 7
 #########
 
+7.24 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``IndexStmt`` printer, considering clause ``whereClause`` last
+
+
 7.23 (2026-11-13)
 ~~~~~~~~~~~~~~~~~
 
