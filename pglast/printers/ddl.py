@@ -2927,13 +2927,13 @@ def index_stmt(node, output):
             output.newline()
             output.write('TABLESPACE ')
             output.print_name(node.tableSpace)
+        if node.nulls_not_distinct:
+            output.newline()
+            output.write('NULLS NOT DISTINCT')
         if node.whereClause:
             output.newline()
             output.write('WHERE ')
             output.print_node(node.whereClause)
-        if node.nulls_not_distinct:
-            output.newline()
-            output.write('NULLS NOT DISTINCT')
 
 
 @node_printer(ast.LoadStmt)

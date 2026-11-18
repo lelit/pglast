@@ -11,7 +11,13 @@ create index aidx on atbl (value1 asc nulls first, value2 desc nulls last)
 create index concurrently aidx on atbl using gin (value)
 with (fastupdate = ON, gin_pending_list_limit = 100)
 
+create index concurrently aidx on atbl using gin (value)
+with (fastupdate = ON, gin_pending_list_limit = 100)
+where a > 0
+
 create index aidx on atbl (value) tablespace foo
+
+create index aidx on atbl (value) tablespace foo where a > 0
 
 create index aidx on atbl (value collate "it_IT")
 
@@ -20,3 +26,5 @@ CREATE INDEX test_index ON test_table (col varchar_pattern_ops)
 CREATE INDEX aidx ON atbl USING gin(value public.trgm_pattern_ops)
 
 CREATE INDEX aidx ON atbl (id) INCLUDE (col, col2)
+
+create unique index i on t (a) nulls not distinct where a > 0
