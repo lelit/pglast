@@ -7,8 +7,8 @@
 
 -r requirements-test.txt
 
-bump-my-version==1.6.7
-cython==3.3.0
+bump-my-version==1.8.1
+cython==3.3.1
 pycparser==3.12
 readme-renderer==46.0
 setuptools==84.2.1
