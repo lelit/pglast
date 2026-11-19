@@ -13,6 +13,10 @@ Version 7
 
 - Fix ``IndexStmt`` printer, considering clause ``whereClause`` last
 
+- Use `Cython 3.3.1`__
+
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#331-2026-11-01
+
 
 7.23 (2026-11-13)
 ~~~~~~~~~~~~~~~~~
