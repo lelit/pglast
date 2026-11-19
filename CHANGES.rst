@@ -135,10 +135,14 @@ anymore.
 Version 7
 #########
 
-7.24 (unreleased)
+7.24 (2026-11-19)
 ~~~~~~~~~~~~~~~~~
 
 - Fix ``IndexStmt`` printer, considering clause ``whereClause`` last
+
+- Use `Cython 3.3.1`__
+
+  __ https://github.com/cython/cython/blob/master/CHANGES.rst#331-2026-11-01
 
 
 7.23 (2026-11-13)
