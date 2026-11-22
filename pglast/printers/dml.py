@@ -560,7 +560,9 @@ def copy_stmt_def_elem(node, output):
         output.print_node(argv)
     elif option == 'header':
         output.write(option.upper())
-        if argv is not None:
+        if isinstance(argv, ast.Integer):
+            output.swrite(str(argv.ival))
+        elif argv is not None:
             output.swrite(argv.sval.upper())
     elif option in {'force_quote', 'force_not_null', 'force_null'}:
         output.write(option.upper())
@@ -579,7 +581,8 @@ def copy_stmt_def_elem(node, output):
                 output.print_name(argv)
     elif option == 'reject_limit':
         output.write(option.upper())
-        output.write(str(argv.ival))
+        output.write(' ')
+        output.print_node(argv)
     else:
         output.write(option)
         if argv:
