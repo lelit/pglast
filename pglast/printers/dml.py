@@ -529,7 +529,10 @@ def copy_stmt_def_elem(node, output):
     elif option == 'header':
         output.write('HEADER')
         if argv is not None:
-            output.swrite(argv.sval.upper())
+            if isinstance(argv, ast.Integer):
+                output.swrite(str(argv.ival))
+            else:
+                output.swrite(argv.sval.upper())
     elif option in {'force_quote', 'force_not_null', 'force_null'}:
         output.write(option.upper())
         output.write(' ')
