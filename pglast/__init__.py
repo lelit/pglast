@@ -19,7 +19,7 @@ except ModuleNotFoundError:  # pragma: no cover
 
 
 # This is injected automatically at release time
-__version__ = 'v7.24'
+__version__ = 'v7.25'
 "Package's version."
 
 __author__ = 'Lele Gaifax <lele@metapensiero.it>'

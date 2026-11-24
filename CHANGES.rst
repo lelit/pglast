@@ -8,7 +8,7 @@ Changes
 Version 7
 #########
 
-7.25 (unreleased)
+7.25 (2026-11-24)
 ~~~~~~~~~~~~~~~~~
 
 - Fix ``COPY`` with integer ``header`` option (adapted from `PR #247`__), thanks to Oba Yang
