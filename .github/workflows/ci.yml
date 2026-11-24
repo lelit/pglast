@@ -102,6 +102,10 @@ jobs:
     # upload to PyPI on every tag starting with 'v'
     if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
 
+    # enable trusted publishing
+    permissions:
+      id-token: write
+
     steps:
       - uses: actions/download-artifact@v8
         with:
