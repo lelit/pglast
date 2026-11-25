@@ -1873,7 +1873,9 @@ def select_stmt(node, output):
                 output.write('LIMIT ')
             elif node.limitOption == enums.LimitOption.LIMIT_OPTION_WITH_TIES:
                 output.write('FETCH FIRST ')
-            if isinstance(node.limitCount, ast.A_Const) and node.limitCount.isnull:
+            if (node.limitOption == enums.LimitOption.LIMIT_OPTION_COUNT
+                and isinstance(node.limitCount, ast.A_Const)
+                and node.limitCount.isnull):
                 output.write('ALL')
             else:
                 with output.expression(isinstance(node.limitCount, ast.A_Expr)
