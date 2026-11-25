@@ -8,6 +8,14 @@ Changes
 Version 8
 #########
 
+8.10 (unreleased)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``COPY`` with ``reject_limit`` option (`PR #247`__), thanks to Oba Yang
+
+  __ https://github.com/lelit/pglast/pull/247
+
+
 8.9 (2026-11-19)
 ~~~~~~~~~~~~~~~~
 
