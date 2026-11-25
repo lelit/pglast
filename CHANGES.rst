@@ -143,6 +143,14 @@ anymore.
 Version 7
 #########
 
+7.25 (2026-11-24)
+~~~~~~~~~~~~~~~~~
+
+- Fix ``COPY`` with integer ``header`` option (adapted from `PR #247`__), thanks to Oba Yang
+
+  __ https://github.com/lelit/pglast/pull/247
+
+
 7.24 (2026-11-19)
 ~~~~~~~~~~~~~~~~~
 
