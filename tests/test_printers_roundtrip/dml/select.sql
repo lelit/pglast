@@ -476,6 +476,12 @@ select n from d1 intersect select n from d2 limit 3
 
 (select n from d1 fetch first 3 rows only) intersect select n from d2 limit 3
 
+select n from d1 order by n fetch first 3 rows with ties
+
+select n from d1 order by n fetch first null rows with ties
+
+select n from d1 order by n offset 1 fetch first null rows with ties
+
 (select x from d1 order by y) intersect select n from d2
 
 (select x from d1 order by y) intersect select n from d2 limit 3
