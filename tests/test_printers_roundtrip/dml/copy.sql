@@ -13,3 +13,7 @@ copy manual_export (a, b) to '/tmp/me.txt' with (header true)
 copy manual_export from stdin with (format csv, header 1)
 
 copy manual_export to stdout with (format csv, header 0)
+
+copy manual_export from stdin with (on_error ignore, reject_limit 5)
+
+copy manual_export from stdin with (on_error ignore, reject_limit 10000000000)

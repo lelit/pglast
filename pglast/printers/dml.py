@@ -582,7 +582,8 @@ def copy_stmt_def_elem(node, output):
                 output.print_name(argv)
     elif option == 'reject_limit':
         output.write(option.upper())
-        output.write(str(argv.ival))
+        output.write(' ')
+        output.print_node(argv)
     else:
         output.write(option)
         if argv:
